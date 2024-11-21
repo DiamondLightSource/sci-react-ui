@@ -7,12 +7,12 @@ const BaseThemeOptions = {
   colorSchemes: {
     light: {
       palette: {
-        background: { default: "#f5f5f5" },
+        background: { default: "#fafafa" },
       },
     },
     dark: {
       palette: {
-        background: { default: "#222" },
+        background: { default: "#050505" },
       },
     },
   },

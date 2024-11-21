@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     '@storybook/addon-links',
     '@storybook/addon-toolbars',
-
+    'storybook-dark-mode'
   ],
   framework: {
     name: "@storybook/react-webpack5",
