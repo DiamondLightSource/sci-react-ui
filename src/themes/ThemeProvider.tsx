@@ -1,23 +1,26 @@
 import * as React from "react";
 
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-
+import { ThemeProvider as Mui_ThemeProvider } from "@mui/material/styles";
+import {CssBaseline} from "@mui/material";
 import { BaseTheme } from "./BaseTheme";
+import {ThemeProviderProps as Mui_ThemeProviderProps} from "@mui/material/styles/ThemeProvider";
 
-export interface ThemeProviderProps {
-  children: React.ReactNode;
-  theme?: any;
+interface ThemeProviderProps extends Partial<Mui_ThemeProviderProps> {
+  baseline?: boolean
 }
 
 const ThemeProvider = function ({
-  children,
-  theme,
-  ...props
-}: ThemeProviderProps) {
+    children,
+    theme = BaseTheme,
+    baseline = true,
+    defaultMode = "system",
+    ...props
+  }: ThemeProviderProps) {
   return (
-    <MuiThemeProvider theme={theme || BaseTheme} {...props}>
-      {children}
-    </MuiThemeProvider>
+      <Mui_ThemeProvider theme={theme} defaultMode={defaultMode} {...props}>
+        {baseline && <CssBaseline />}
+        {children}
+      </Mui_ThemeProvider>
   );
 };
 
