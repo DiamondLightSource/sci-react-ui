@@ -1,25 +1,26 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
-import { Avatar, Box, Link, Stack, Typography, useTheme } from "@mui/material";
+import {Avatar, Button, Box, Link, Stack, Typography, useTheme, Paper} from "@mui/material";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Button } from "../styles/components";
-import { useState } from "react";
+import {ReactNode, useState} from "react";
 
 import { MdLogin } from "react-icons/md";
 
 export interface AuthState {
   fedid: string;
-  name: string;
+  name?: string;
 }
 
 export interface UserProps {
   user: AuthState | null;
   onLogin?: () => void;
   onLogout?: () => void;
+  avatar?: ReactNode,
+  color?: string
 }
 
-export const User = ({ user, onLogin, onLogout }: UserProps) => {
+export const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -27,11 +28,12 @@ export const User = ({ user, onLogin, onLogout }: UserProps) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    
     setAnchorEl(null);
   };
 
   const theme = useTheme();
-
+  
   return (
     <>
       <Box flexGrow={1} />
@@ -40,7 +42,6 @@ export const User = ({ user, onLogin, onLogout }: UserProps) => {
           <Button
             aria-label="User Avatar"
             onClick={handleClick}
-            customVariant="link"
             sx={{
               border: "none",
               cursor: "pointer",
@@ -51,24 +52,34 @@ export const User = ({ user, onLogin, onLogout }: UserProps) => {
             }}
           >
             <Stack direction="row" alignItems="center">
+              {avatar ||
+                  <Avatar
+                      alt={user.name + " avatar"}
+                      variant="rounded"
+                      sx={{
+                        backgroundColor: theme.palette.primary.light,
+                        color: color || "textPrimary",
+                        height: 35,
+                        width: 35
+                      }}
+                  />
+              }
               <div style={{ padding: 10 }}>
                 <Typography
-                  color={theme.palette.primary.contrastText}
-                  display="inline-block"
-                  textTransform="none"
-                >
-                  {user.name}
-                </Typography>
-                <Typography
-                  textAlign="left"
-                  color={theme.palette.primary.contrastText}
-                  fontSize="0.75rem"
-                  textTransform="none"
-                >
-                  {user.fedid}
-                </Typography>
+                    fontSize="0.75rem"
+                    textTransform="none"
+                    textAlign="left"
+                    pl={"1px"}
+                    color={color || "textPrimary" }
+                >{user.name ? user.name : user.fedid}</Typography>
+                {user.name && <Typography
+                    fontSize="0.75rem"
+                    textTransform="none"
+                    textAlign="left"
+                    pl={"1px"}
+                    color={color || "textPrimary"}
+                >{user.fedid}</Typography>}
               </div>
-              <Avatar sx={{ height: 24, width: 24 }} />
             </Stack>
           </Button>
           <Menu
@@ -86,7 +97,9 @@ export const User = ({ user, onLogin, onLogout }: UserProps) => {
         <Button
           onClick={onLogin}
           startIcon={<MdLogin />}
-          customVariant="onBlue"
+          sx={{
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.primary.contrastText}}
         >
           Login
         </Button>

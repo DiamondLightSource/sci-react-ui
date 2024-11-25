@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 
 import { User } from "./User";
+import {Avatar} from "@mui/material";
 
 const meta: Meta<typeof User> = {
   title: "SciReactUI/Control/User",
@@ -16,5 +17,27 @@ export const LoggedOut: Story = {
 };
 
 export const LoggedIn: Story = {
-  args: { user: { name: "Name", fedid: "FedID" } },
+  args: { user: { name: "Name Surname", fedid: "FedID" } },
+};
+
+export const LoggedInNoName: Story = {
+  args: { user: { fedid: "FedID" } },
+};
+
+export const LoggedInLongName: Story = {
+  args: { user: { name: "Jonathan Edwards Longname", fedid: "abc12345" } },
+};
+
+export const LoggedInChangeColor: Story = {
+  args: {
+    color: "red",
+    user: { name: "Name Surname", fedid: "abc12345" }
+  },
+};
+
+export const LoggedInReplaceAvatar: Story = {
+  args: {
+    user: { name: "Name Surname", fedid: "abc12345" },
+    avatar: <Avatar sx={{ bgcolor: "red" }}>JL</Avatar>
+  },
 };
