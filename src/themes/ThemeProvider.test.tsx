@@ -1,4 +1,4 @@
-import {render, waitFor} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import {ThemeProvider} from "./ThemeProvider";
@@ -52,7 +52,7 @@ describe("ThemeProvider CssBaseline Component", () => {
   it("should render with button but without CssBaseline", async () => {
     const buttonText = "A button"
     const {findByText} = render(<ThemeProvider baseline={false}>
-      <button>{buttonText}</button>
+      <Button>{buttonText}</Button>
     </ThemeProvider>);
     
     expect(await findByText(buttonText))
