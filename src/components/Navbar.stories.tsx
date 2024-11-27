@@ -30,6 +30,7 @@ export const WithUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
+        color={"white"}
       />
     ),
   },
@@ -66,6 +67,7 @@ export const LinksAndUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
+        color={"white"}
       />,
     ],
   },
