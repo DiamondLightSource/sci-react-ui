@@ -40,7 +40,7 @@ There are currently two themes, `BaseTheme` or `DiamondTheme`, but you can adapt
 There are various components, here's an example of how to use the NavBar:
 
 ```js
-import {Box, Typography} from "@mui/material";
+import {Container, Typography} from "@mui/material";
 import {
   Navbar,
   NavLink,
@@ -54,12 +54,10 @@ function App() {
         <NavLink href="#" key="first">A link</NavLink>
       </NavLinks>
     </Navbar>
-    <Box sx={{display:"flex",  justifyContent: "center"}}>
-      <Box sx={{padding:4}}>
+    <Container>
         <Typography variant="h2">Scientific UI Collection</Typography>
         <Typography>A collection of science based React components.</Typography>
-      </Box>
-    </Box>
+    </Container>
   </>
 }
 export default App;
