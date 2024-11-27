@@ -67,14 +67,15 @@ export default App;
 
 ### Documentation
 
-Documentation is created with Storybook, read it at [Documentation](https://github.com/DiamondLightSource/sci-react-ui)
+Documentation is created with Storybook.
+Read and play with it at [diamondlightsource.github.io/sci-react-ui](https://diamondlightsource.github.io/sci-react-ui/)
 
 Developing
 ----------
 
-Code can be found at [DiamondLightSource/sci-react-ui](https://github.com/DiamondLightSource/sci-react-ui).
+Code can be found at [github.com/DiamondLightSource/sci-react-ui](https://github.com/DiamondLightSource/sci-react-ui).
 
-You'll need `pnpm` installed.
+You'll need `pnpm` installed to build it.
 
 ### Build
 
@@ -90,6 +91,15 @@ Build with rollup
 pnpm run rollup
 ```
 
+### Storybook 
+
+To view the components in Storybook use:
+
+```sh
+pnpm run storybook
+```
+
+
 ### Unit Test
 
 Test with Jest
@@ -102,17 +112,17 @@ pnpm run test
 
 Create an app.
 
-To test it outside of publish, you may be able include the package directly from source:
+To test this, you may be able include the package directly from source:
 ```sh
 pnpm link <path-to-this-app-folder>
 ```
-If that doesn't work, you can pack, then install:
+If that doesn't work, you can try pack, then install:
 
-In this folder:
+In the package repo:
 ```sh
 pnpm pack
 ```
-In the other app:
+In the test app repo:
 ```sh
 pnpm install <path-to-this-app-folder>/diamondlightsource-sci-react-ui-0.0.1.tgz
 ```

@@ -12,13 +12,56 @@ import { Meta } from "@storybook/blocks";
         website.
     </div>
 </div>
-
 <div className="sb-container">
     <div className='sb-section-title'>
-        # Explore the list
+        # Usage
 
-        Check out the list of available components and themes to the left.
+        ## Add Theme
 
-        There are several themes available. Try the Base theme, or the Diamond theme.
+        First select the theme, BaseTheme, or DiamondTheme:
+
+```js
+import {
+    ThemeProvider,
+	DiamondTheme
+} from "@diamondlightsource/sci-react-ui";
+
+root.render(
+  <ThemeProvider theme={DiamondTheme}>
+    <App />
+  </ThemeProvider>
+)
+```
+
+## Create App
+
+Then create something, e.g.
+
+```js
+import {Box, Typography} from "@mui/material";
+import {
+  Navbar,
+  NavLink,
+  NavLinks
+} from "@diamondlightsource/sci-react-ui";
+
+function App() {
+  return <>
+    <Navbar>
+      <NavLinks key="links">
+        <NavLink href="#" key="first">A link</NavLink>
+      </NavLinks>
+    </Navbar>
+    <Box sx={{display:"flex",  justifyContent: "center"}}>
+      <Box sx={{padding:4}}>
+        <Typography variant="h2">Scientific UI Collection</Typography>
+        <Typography>A collection of science based React components.</Typography>
+      </Box>
+    </Box>
+</>
+}
+export default App;
+```
+
     </div>
 </div>
