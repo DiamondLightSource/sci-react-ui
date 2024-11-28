@@ -15,6 +15,9 @@ A list of the main tools used in this project.
 - Jest
   - Testing system
   - https://jestjs.io
-- Storyboard
+- Storybook
   - Visual tester and documenter
   - https://storybook.js.org
+- gh-pages
+  - Publish to Github Pages (Storybook)
+  - https://www.npmjs.com/package/gh-pages

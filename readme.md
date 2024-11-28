@@ -3,10 +3,6 @@ Scientific React UI
 
 Scientific React UI components, based on MUI.
 
-Initial code. No components yet.
-
-See tools.md for list of tools used in this library
-
 Using
 -----
 
@@ -73,7 +69,7 @@ Developing
 
 Code can be found at [github.com/DiamondLightSource/sci-react-ui](https://github.com/DiamondLightSource/sci-react-ui).
 
-You'll need `pnpm` installed to build it.
+You'll need `pnpm` installed to build it. See [tools.md](./tools.md) for list of other tools used in this library
 
 ### Build
 
@@ -108,13 +104,13 @@ pnpm run test
 
 ### App test
 
-Create an app.
+Create a test app.
 
-To test this, you may be able include the package directly from source:
+To test the package, you may be able to `link` the package directly from source:
 ```sh
 pnpm link <path-to-this-app-folder>
 ```
-If that doesn't work, you can try pack, then install:
+But if that doesn't work, you can try `pack`, then `install`:
 
 In the package repo:
 ```sh
