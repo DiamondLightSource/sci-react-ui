@@ -16,6 +16,7 @@ export interface FooterProps {
 const FooterLinks = ({ children }: FooterLinksProps) => {
   return (
     <div
+      data-testid="footer-links-container"
       style={{
         float: "left",
         alignItems: "center",
@@ -33,6 +34,7 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
 
   return (
     <Link
+      data-testid="link-container"
       sx={{
         "&:hover": {
           color: theme.palette.secondary.main,
@@ -64,6 +66,7 @@ const Footer = ({
 
   return (
     <Paper
+      data-testid="footer-container"
       sx={{
         position: "sticky",
         bottom: 0,
@@ -74,6 +77,7 @@ const Footer = ({
     >
       <Grid container>
         <Grid
+          data-testid="footer-link-container"
           size={{ xs: 6, md: 8 }}
           style={{
             alignContent: "center",
@@ -81,7 +85,7 @@ const Footer = ({
         >
           {children}
         </Grid>
-        <Grid size={{ xs: 6, md: 4 }}>
+        <Grid data-testid="footer-logo-container" size={{ xs: 6, md: 4 }}>
           <div
             style={{
               float: "right",
