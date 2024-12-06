@@ -17,6 +17,7 @@ const FooterLinks = ({ children }: FooterLinksProps) => {
   return (
     <div
       style={{
+        float: "left",
         alignItems: "center",
         borderTop: "4px solid transparent",
         borderBottom: "4px solid transparent",
@@ -27,7 +28,7 @@ const FooterLinks = ({ children }: FooterLinksProps) => {
   );
 };
 
-const FooterLink = ({ children }: LinkProps) => {
+const FooterLink = ({ children, ...props }: LinkProps) => {
   const theme = useTheme();
 
   return (
@@ -42,6 +43,7 @@ const FooterLink = ({ children }: LinkProps) => {
         marginLeft: "1.5rem",
         cursor: "pointer",
       }}
+      {...props}
     >
       {children}
     </Link>
@@ -56,17 +58,19 @@ const Footer = ({
   logo = dlsLogo as string,
   copyright,
   children,
+  ...props
 }: FooterProps) => {
   const theme = useTheme();
 
   return (
     <Paper
       sx={{
-        display: "absolute",
+        position: "sticky",
         bottom: 0,
         backgroundColor: theme.palette.primary.light,
         minHeight: 50,
       }}
+      {...props}
     >
       <Grid container>
         <Grid
@@ -104,4 +108,4 @@ const Footer = ({
   );
 };
 
-export { Footer, FooterLink, FooterLinks };
+export { Footer, FooterLinks, FooterLink };

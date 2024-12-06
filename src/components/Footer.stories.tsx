@@ -7,7 +7,7 @@ const meta: Meta<typeof Footer> = {
   decorators: [
     (Story) => (
       <div style={{ position: "relative" }}>
-        <div style={{ position: "relative", paddingBottom: "5rem" }}>
+        <div style={{ position: "relative" }}>
           <Story />
         </div>
       </div>
