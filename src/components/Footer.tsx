@@ -2,11 +2,11 @@ import { Link, LinkProps, Paper, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import dlsLogo from "../public/dls.svg";
 
-export interface FooterLinksProps {
+interface FooterLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-export interface FooterProps {
+interface FooterProps {
   /** Location/content of the logo */
   logo?: string | null;
   copyright?: string | null;
@@ -113,3 +113,4 @@ const Footer = ({
 };
 
 export { Footer, FooterLinks, FooterLink };
+export type { FooterLinksProps, FooterProps };
