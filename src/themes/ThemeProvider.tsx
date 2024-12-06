@@ -25,3 +25,4 @@ const ThemeProvider = function ({
 };
 
 export { ThemeProvider };
+export type { ThemeProviderProps };
