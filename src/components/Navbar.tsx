@@ -14,11 +14,11 @@ import { MdMenu, MdClose } from "react-icons/md";
 import logoImage from "../public/logo-dark.svg"
 import React, { useState } from "react";
 
-export interface NavLinksProps {
+interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-export interface NavbarProps extends BoxProps {
+interface NavbarProps extends BoxProps {
   /** Location/content of the logo */
   logo?: string | null;
   children?: React.ReactElement | React.ReactElement[];
@@ -158,3 +158,4 @@ const Navbar = ({
 };
 
 export { Navbar, NavLinks, NavLink };
+export type {NavLinksProps, NavbarProps };

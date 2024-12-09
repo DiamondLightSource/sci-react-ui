@@ -89,6 +89,5 @@ const VisitInput: React.FC<VisitInputProps> = ({
   );
 };
 
-export default VisitInput;
-export { VisitInputText };
+export { VisitInput, VisitInputText };
 export type { Visit, VisitInputTextProps, VisitInputProps };

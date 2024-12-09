@@ -1,5 +1,5 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
-import {Avatar, Button, Box, Link, Stack, Typography, useTheme, Paper} from "@mui/material";
+import {Avatar, Button, Box, Link, Stack, Typography, useTheme } from "@mui/material";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,12 +7,12 @@ import {ReactNode, useState} from "react";
 
 import { MdLogin } from "react-icons/md";
 
-export interface AuthState {
+interface AuthState {
   fedid: string;
   name?: string;
 }
 
-export interface UserProps {
+interface UserProps {
   user: AuthState | null;
   onLogin?: () => void;
   onLogout?: () => void;
@@ -20,7 +20,7 @@ export interface UserProps {
   color?: string
 }
 
-export const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
+const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -107,3 +107,6 @@ export const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
     </>
   );
 };
+
+export { User }
+export type { AuthState, UserProps }
