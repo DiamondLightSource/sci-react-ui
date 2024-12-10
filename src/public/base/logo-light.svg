@@ -7,7 +7,7 @@
    width="1143.0133"
    height="321.95999"
    viewBox="0 0 1143.0133 321.95999"
-   sodipodi:docname="logo-light-mode.svg"
+   sodipodi:docname="logo-light.svg"
    inkscape:version="1.4 (e7c3feb100, 2024-10-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -66,14 +66,14 @@
      inkscape:groupmode="layer"
      inkscape:label="1">
     <rect
-       style="fill:#191919;fill-opacity:1"
+       style="fill:#e6e6e6;fill-opacity:1"
        id="rect1"
        width="284.0686"
        height="284.0686"
        x="19.698189"
        y="20.734936" />
     <circle
-       style="fill:#e6e6e6;fill-opacity:1"
+       style="fill:#0054ff;fill-opacity:1"
        id="path2"
        cx="156.92015"
        cy="166.39786"
@@ -81,10 +81,10 @@
     <text
        xml:space="preserve"
        id="text2"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:220px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect2);display:inline;fill:#191919;fill-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:220px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect2);display:inline;fill:#e6e6e6;fill-opacity:1"
        transform="matrix(1.3522171,0,0,1.3312719,-130.31748,-49.536531)"><tspan
          x="350.41992"
          y="234.11044"
-         id="tspan1">LOGO</tspan></text>
+         id="tspan2">LOGO</tspan></text>
   </g>
 </svg>

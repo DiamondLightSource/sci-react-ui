@@ -11,8 +11,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
-import logoImage from "../public/logo-dark.svg";
 import React, { useState } from "react";
+
+import {Logo, LogoType} from "./Logo";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -20,7 +21,7 @@ interface NavLinksProps {
 
 interface NavbarProps extends BoxProps {
   /** Location/content of the logo */
-  logo?: string | null;
+  logo?: LogoType | null;
   children?: React.ReactElement | React.ReactElement[];
 }
 
@@ -112,7 +113,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
  */
 const Navbar = ({
   children,
-  logo = logoImage as string,
+  logo,
   ...props
 }: NavbarProps) => {
   const theme = useTheme();
@@ -141,15 +142,9 @@ const Navbar = ({
               <Box
                 maxWidth="5rem"
                 sx={{
-                  "&:hover": { filter: "brightness(80%);" },
-                }}
-              >
-                <img
-                  alt="Home"
-                  src={logo}
-                  width={"100px"}
-                  //style={{border:"red 1px solid"}}
-                />
+                "&:hover": {  filter: "brightness(80%);" }
+              }}>
+                <Logo logo={logo}/>
               </Box>
             </Link>
           ) : null}

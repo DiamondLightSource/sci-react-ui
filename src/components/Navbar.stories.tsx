@@ -3,6 +3,9 @@ import { Meta, StoryObj } from "@storybook/react";
 import { User } from "./User";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
+import logoImageDark from "../public/base/logo-dark.svg"
+import logoImageLight from "../public/base/logo-light.svg"
+
 const meta: Meta<typeof Navbar> = {
   title: "SciReactUI/Navigation/Navbar",
   component: Navbar,
@@ -22,7 +25,7 @@ export const WithLogin: Story = {
   },
 };
 
-export const WithUser: Story = {
+export const WithLoggedInUser: Story = {
   args: {
     children: (
       <User
@@ -51,7 +54,7 @@ export const Links: Story = {
   },
 };
 
-export const LinksAndUser: Story = {
+export const LinksAndLoggedInUser: Story = {
   args: {
     children: [
       <NavLinks key="links">
@@ -73,7 +76,7 @@ export const LinksAndUser: Story = {
   },
 };
 
-export const NoLogo: Story = {
+export const WithLogo: Story = {
   args: {
     children: (
       <NavLinks key="links">
@@ -85,12 +88,37 @@ export const NoLogo: Story = {
         </NavLink>
       </NavLinks>
     ),
-    logo: null,
+    logo: {
+        src: logoImageLight,
+        alt: "Home",
+        width: "100px"
+    }
+  },
+};
+
+export const WithLogoColourModeAware: Story = {
+  args: {
+    children: (
+        <NavLinks key="links">
+          <NavLink href="#" key="first">
+            First
+          </NavLink>
+          <NavLink href="#" key="second">
+            Second
+          </NavLink>
+        </NavLinks>
+    ),
+    logo: {
+        src: logoImageLight,
+        srcDark: logoImageDark,
+        alt: "Home",
+        width: "100px"
+    }
   },
 };
 
 export const CustomChildElement: Story = {
   args: {
-    children: <Chip label="Hello, World" sx={{ bgcolor: "#ffffff" }} />,
+    children: <Chip label="Hello, World" sx={{ backgroundColor: "#aaaaaa" }} />,
   },
 };
