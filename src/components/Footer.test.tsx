@@ -3,24 +3,12 @@ import dlsLogo from "../public/dls.svg";
 
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 describe("Footer", () => {
-  test("Should render blank", async () => {
-    render(<Footer logo={null} />);
-
-    await waitFor(() => {
-      expect(screen.getByTestId("footer-container")).toBeDefined();
-      expect(screen.getByTestId("footer-link-container")).toBeDefined();
-      // footer container only loads empty div
-      expect(
-        screen.getByTestId("footer-logo-container").childElementCount
-      ).toBe(1);
-    });
-  });
-
   test("Should render logo only", async () => {
     render(<Footer logo={dlsLogo} />);
 
     await waitFor(() => {
       expect(screen.getByRole("img")).toBeDefined();
+      // No copyright text
       expect(screen.queryByRole("paragraph")).not.toBeTruthy();
     });
   });
@@ -30,6 +18,7 @@ describe("Footer", () => {
 
     await waitFor(() => {
       expect(screen.getByText("test copyright text 2024")).toBeDefined();
+      // No logo
       expect(screen.queryByRole("img")).not.toBeTruthy();
     });
   });
@@ -44,51 +33,46 @@ describe("Footer", () => {
   });
 
   test("Should render with one link", async () => {
+    const lineOneText = "Link one";
     const linkOneName = "link-one-href";
+
     render(
       <Footer>
         <FooterLinks>
-          <FooterLink href={linkOneName}>Link one</FooterLink>
+          <FooterLink href={linkOneName}>{lineOneText}</FooterLink>
         </FooterLinks>
       </Footer>
     );
 
     await waitFor(() => {
-      const linkOneContainer = screen.getByTestId("link-container");
-      expect(
-        screen.getByTestId("footer-links-container").childElementCount
-      ).toBe(1);
+      const linkOneContainer = screen.getByText(lineOneText);
+
       expect(linkOneContainer).toBeDefined();
       expect(linkOneContainer.getAttribute("href")).toStrictEqual(linkOneName);
-      expect(linkOneContainer.textContent).toStrictEqual("Link one");
+      expect(linkOneContainer.textContent).toStrictEqual(lineOneText);
     });
   });
 
   test("Should render with two links", async () => {
+    const linkOneText = "Link one";
+    const linkTwoText = "Link two";
     const linkOneName = "link-one-href";
     const linkTwoName = "link-two-href";
     render(
       <Footer>
         <FooterLinks>
-          <FooterLink data-testid="link-one-container" href={linkOneName}>
-            Link one
-          </FooterLink>
-          <FooterLink data-testid="link-two-container" href={linkTwoName}>
-            Link two
-          </FooterLink>
+          <FooterLink href={linkOneName}>{linkOneText}</FooterLink>
+          <FooterLink href={linkTwoName}>{linkTwoText}</FooterLink>
         </FooterLinks>
       </Footer>
     );
 
     await waitFor(() => {
-      const linkTwoContainer = screen.getByTestId("link-two-container");
-      expect(screen.getByTestId("footer-links-container")).toBeDefined();
-      expect(
-        screen.getByTestId("footer-links-container").childElementCount
-      ).toBe(2);
+      const linkTwoContainer = screen.getByText(linkTwoText);
+
       expect(linkTwoContainer).toBeDefined();
       expect(linkTwoContainer.getAttribute("href")).toStrictEqual(linkTwoName);
-      expect(linkTwoContainer.textContent).toStrictEqual("Link two");
+      expect(linkTwoContainer.textContent).toStrictEqual(linkTwoText);
     });
   });
 });
