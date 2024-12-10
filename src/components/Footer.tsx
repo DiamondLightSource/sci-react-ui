@@ -65,9 +65,9 @@ const Footer = ({
   const theme = useTheme();
 
   return (
-    <Paper
+    <footer
       data-testid="footer-container"
-      sx={{
+      style={{
         position: "sticky",
         bottom: 0,
         backgroundColor: theme.palette.primary.light,
@@ -102,13 +102,13 @@ const Footer = ({
                   color: theme.palette.primary.contrastText,
                 }}
               >
-                {copyright}
+                {copyright} {new Date().getFullYear()}
               </Typography>
             ) : null}
           </div>
         </Grid>
       </Grid>
-    </Paper>
+    </footer>
   );
 };
 

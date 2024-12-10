@@ -62,22 +62,3 @@ export const WithTwoLinks: Story = {
     ],
   },
 };
-
-export const WithThreeLinks: Story = {
-  args: {
-    copyright: "Copyright © text",
-    children: [
-      <FooterLinks key="footer-links">
-        <FooterLink href="#" key="first-footer-link">
-          Link one
-        </FooterLink>
-        <FooterLink href="#" key="second-footer-link">
-          Link two
-        </FooterLink>
-        <FooterLink href="#" key="third-footer-link">
-          Link three
-        </FooterLink>
-      </FooterLinks>,
-    ],
-  },
-};

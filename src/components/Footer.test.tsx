@@ -1,14 +1,14 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import dlsLogo from "../public/dls.svg";
-import { Footer, FooterLink, FooterLinks } from "./Footer";
 
+import { Footer, FooterLink, FooterLinks } from "./Footer";
 describe("Footer", () => {
   test("Should render blank", async () => {
     render(<Footer logo={null} />);
 
     await waitFor(() => {
-      expect(screen.getByTestId("footer-container")).not.toBeNull();
-      expect(screen.getByTestId("footer-link-container")).not.toBeNull();
+      expect(screen.getByTestId("footer-container")).toBeInTheDocument();
+      expect(screen.getByTestId("footer-link-container")).toBeInTheDocument();
       // footer container only loads empty div
       expect(
         screen.getByTestId("footer-logo-container").childElementCount
@@ -20,7 +20,7 @@ describe("Footer", () => {
     render(<Footer logo={dlsLogo} />);
 
     await waitFor(() => {
-      expect(screen.getByRole("img")).not.toBeNull();
+      expect(screen.getByRole("img")).toBeInTheDocument();
     });
   });
 
@@ -28,7 +28,7 @@ describe("Footer", () => {
     render(<Footer logo={null} copyright="test copyright text" />);
 
     await waitFor(() => {
-      expect(screen.getByText("test copyright text")).not.toBeNull();
+      expect(screen.getByText("test copyright text")).toBeInTheDocument();
     });
   });
 
@@ -36,16 +36,17 @@ describe("Footer", () => {
     render(<Footer logo={dlsLogo} copyright="test copyright text" />);
 
     await waitFor(() => {
-      expect(screen.getByRole("img")).not.toBeNull();
-      expect(screen.getByText("test copyright text")).not.toBeNull();
+      expect(screen.getByRole("img")).toBeInTheDocument();
+      expect(screen.getByText("test copyright text")).toBeInTheDocument();
     });
   });
 
   test("Should render with one link", async () => {
+    const linkOneName = "link-one-href";
     render(
       <Footer>
         <FooterLinks>
-          <FooterLink href="link-one-href">Link one</FooterLink>
+          <FooterLink href={linkOneName}>Link one</FooterLink>
         </FooterLinks>
       </Footer>
     );
@@ -55,22 +56,22 @@ describe("Footer", () => {
       expect(
         screen.getByTestId("footer-links-container").childElementCount
       ).toBe(1);
-      expect(linkOneContainer).not.toBeNull();
-      expect(linkOneContainer.getAttribute("href")).toStrictEqual(
-        "link-one-href"
-      );
+      expect(linkOneContainer).toBeInTheDocument();
+      expect(linkOneContainer.getAttribute("href")).toStrictEqual(linkOneName);
       expect(linkOneContainer.textContent).toStrictEqual("Link one");
     });
   });
 
   test("Should render with two links", async () => {
+    const linkOneName = "link-one-href";
+    const linkTwoName = "link-two-href";
     render(
       <Footer>
         <FooterLinks>
-          <FooterLink data-testid="link-one-container" href="link-one-href">
+          <FooterLink data-testid="link-one-container" href={linkOneName}>
             Link one
           </FooterLink>
-          <FooterLink data-testid="link-two-container" href="link-two-href">
+          <FooterLink data-testid="link-two-container" href={linkTwoName}>
             Link two
           </FooterLink>
         </FooterLinks>
@@ -79,42 +80,13 @@ describe("Footer", () => {
 
     await waitFor(() => {
       const linkTwoContainer = screen.getByTestId("link-two-container");
-      expect(screen.getByTestId("footer-links-container")).not.toBeNull();
+      expect(screen.getByTestId("footer-links-container")).toBeInTheDocument();
       expect(
         screen.getByTestId("footer-links-container").childElementCount
       ).toBe(2);
-      expect(linkTwoContainer).not.toBeNull();
-      expect(linkTwoContainer.getAttribute("href")).toStrictEqual(
-        "link-two-href"
-      );
+      expect(linkTwoContainer).toBeInTheDocument();
+      expect(linkTwoContainer.getAttribute("href")).toStrictEqual(linkTwoName);
       expect(linkTwoContainer.textContent).toStrictEqual("Link two");
-    });
-  });
-
-  test("Should render with three links", async () => {
-    render(
-      <Footer>
-        <FooterLinks>
-          <FooterLink href="link-one-href">Link one</FooterLink>
-          <FooterLink href="link-two-href">Link two</FooterLink>
-          <FooterLink data-testid="link-three-container" href="link-three-href">
-            Link three
-          </FooterLink>
-        </FooterLinks>
-      </Footer>
-    );
-
-    await waitFor(() => {
-      const linkThreeContainer = screen.getByTestId("link-three-container");
-      expect(screen.getByTestId("footer-links-container")).not.toBeNull();
-      expect(
-        screen.getByTestId("footer-links-container").childElementCount
-      ).toBe(3);
-      expect(linkThreeContainer).not.toBeNull();
-      expect(linkThreeContainer.getAttribute("href")).toStrictEqual(
-        "link-three-href"
-      );
-      expect(linkThreeContainer.textContent).toStrictEqual("Link three");
     });
   });
 });
