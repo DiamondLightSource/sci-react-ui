@@ -7,8 +7,8 @@ describe("Footer", () => {
     render(<Footer logo={null} />);
 
     await waitFor(() => {
-      expect(screen.getByTestId("footer-container")).toBeInTheDocument();
-      expect(screen.getByTestId("footer-link-container")).toBeInTheDocument();
+      expect(screen.getByTestId("footer-container")).toBeDefined();
+      expect(screen.getByTestId("footer-link-container")).toBeDefined();
       // footer container only loads empty div
       expect(
         screen.getByTestId("footer-logo-container").childElementCount
@@ -20,7 +20,7 @@ describe("Footer", () => {
     render(<Footer logo={dlsLogo} />);
 
     await waitFor(() => {
-      expect(screen.getByRole("img")).toBeInTheDocument();
+      expect(screen.getByRole("img")).toBeDefined();
     });
   });
 
@@ -28,7 +28,7 @@ describe("Footer", () => {
     render(<Footer logo={null} copyright="test copyright text" />);
 
     await waitFor(() => {
-      expect(screen.getByText("test copyright text")).toBeInTheDocument();
+      expect(screen.getByText("test copyright text 2024")).toBeDefined();
     });
   });
 
@@ -36,8 +36,8 @@ describe("Footer", () => {
     render(<Footer logo={dlsLogo} copyright="test copyright text" />);
 
     await waitFor(() => {
-      expect(screen.getByRole("img")).toBeInTheDocument();
-      expect(screen.getByText("test copyright text")).toBeInTheDocument();
+      expect(screen.getByRole("img")).toBeDefined();
+      expect(screen.getByText("test copyright text 2024")).toBeDefined();
     });
   });
 
@@ -56,7 +56,7 @@ describe("Footer", () => {
       expect(
         screen.getByTestId("footer-links-container").childElementCount
       ).toBe(1);
-      expect(linkOneContainer).toBeInTheDocument();
+      expect(linkOneContainer).toBeDefined();
       expect(linkOneContainer.getAttribute("href")).toStrictEqual(linkOneName);
       expect(linkOneContainer.textContent).toStrictEqual("Link one");
     });
@@ -80,11 +80,11 @@ describe("Footer", () => {
 
     await waitFor(() => {
       const linkTwoContainer = screen.getByTestId("link-two-container");
-      expect(screen.getByTestId("footer-links-container")).toBeInTheDocument();
+      expect(screen.getByTestId("footer-links-container")).toBeDefined();
       expect(
         screen.getByTestId("footer-links-container").childElementCount
       ).toBe(2);
-      expect(linkTwoContainer).toBeInTheDocument();
+      expect(linkTwoContainer).toBeDefined();
       expect(linkTwoContainer.getAttribute("href")).toStrictEqual(linkTwoName);
       expect(linkTwoContainer.textContent).toStrictEqual("Link two");
     });

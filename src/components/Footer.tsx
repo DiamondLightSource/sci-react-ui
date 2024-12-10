@@ -1,4 +1,4 @@
-import { Link, LinkProps, Paper, Typography, useTheme } from "@mui/material";
+import { Link, LinkProps, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import dlsLogo from "../public/dls.svg";
 
