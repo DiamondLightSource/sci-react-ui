@@ -21,6 +21,7 @@ describe("Footer", () => {
 
     await waitFor(() => {
       expect(screen.getByRole("img")).toBeDefined();
+      expect(screen.queryByRole("paragraph")).not.toBeTruthy();
     });
   });
 
@@ -29,6 +30,7 @@ describe("Footer", () => {
 
     await waitFor(() => {
       expect(screen.getByText("test copyright text 2024")).toBeDefined();
+      expect(screen.queryByRole("img")).not.toBeTruthy();
     });
   });
 
