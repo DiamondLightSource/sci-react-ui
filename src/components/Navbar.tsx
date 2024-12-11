@@ -128,6 +128,7 @@ const Navbar = ({
           width: "100%",
           alignItems: "center",
           justifyContent: "space-between",
+          borderRadius:0
         }}
       >
         <Stack

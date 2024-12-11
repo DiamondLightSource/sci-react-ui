@@ -12,11 +12,11 @@ export const TextDark = 'Mode: Dark'
 
 const ThemeSwapper = ( {context, children}: ThemeSwapperProps ) => {
   const { mode, setMode } = useColorScheme();
-  if( !mode ) return
+  //if( !mode ) return
   
   useEffect(() => {
-    const selectedThemeMode = context.globals.themeMode || TextLight;
-    setMode( (selectedThemeMode == TextLight) ? "light" : "dark" )
+      const selectedThemeMode = context.globals.themeMode || TextLight;
+      setMode((selectedThemeMode == TextLight) ? "light" : "dark")
   },[context.globals.themeMode]);
   
   return <div style={{backgroundColor: mode === "light" ? "#fafafa" : "#050505"}}>
