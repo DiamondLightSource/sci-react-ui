@@ -21,6 +21,8 @@ const FooterLinks = ({ children }: FooterLinksProps) => {
         alignItems: "center",
         borderTop: "4px solid transparent",
         borderBottom: "4px solid transparent",
+        display: "flex",
+        flexWrap: "wrap",
       }}
     >
       {children}
