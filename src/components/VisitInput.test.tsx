@@ -1,6 +1,6 @@
 // Adapted from https://github.com/DiamondLightSource/workflows/blob/main/frontend/workflows-lib/tests/components/SubmissionForm.test.tsx
 import { fireEvent, render, within } from "@testing-library/react";
-import VisitInput from "./VisitInput";
+import { VisitInput } from "./VisitInput";
 import "@testing-library/jest-dom";
 
 it("should render visit field", () => {
