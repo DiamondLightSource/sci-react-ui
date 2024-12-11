@@ -11,7 +11,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
-import logoImage from "../public/logo-dark.svg"
+import logoImage from "../public/logo-dark.svg";
 import React, { useState } from "react";
 
 interface NavLinksProps {
@@ -83,12 +83,12 @@ const NavLinks = ({ children }: NavLinksProps) => {
         {children}
       </Stack>
       <Drawer
-          open={isOpen}
-          onClose={onClose}
-          anchor="left"
-          PaperProps={{
-            sx:{backgroundColor:theme.palette.primary.main}
-          }}
+        open={isOpen}
+        onClose={onClose}
+        anchor="left"
+        PaperProps={{
+          sx: { backgroundColor: theme.palette.primary.main },
+        }}
       >
         <Box
           sx={{
@@ -116,13 +116,13 @@ const Navbar = ({
   ...props
 }: NavbarProps) => {
   const theme = useTheme();
-  
+
   return (
-    <Box position="sticky" top="0" zIndex={1} width="100%" {...props}>
+    <Box top="0" zIndex={1} width="100%" {...props}>
       <Paper
         sx={{
           display: "flex",
-          backgroundColor:theme.palette.primary.main,
+          backgroundColor: theme.palette.primary.main,
           px: { xs: "1rem", md: "7.5vw" },
           height: 50,
           width: "100%",
@@ -137,11 +137,13 @@ const Navbar = ({
         >
           {logo ? (
             <Link href="/" key="logo">
-              <Box maxWidth="5rem"
+              <Box
+                maxWidth="5rem"
                 sx={{
-                "&:hover": {  filter: "brightness(80%);" }
-              }}>
-              <img
+                  "&:hover": { filter: "brightness(80%);" },
+                }}
+              >
+                <img
                   alt="Home"
                   src={logo}
                   width={"100px"}
@@ -158,4 +160,4 @@ const Navbar = ({
 };
 
 export { Navbar, NavLinks, NavLink };
-export type {NavLinksProps, NavbarProps };
+export type { NavLinksProps, NavbarProps };

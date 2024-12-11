@@ -4,15 +4,7 @@ import { Footer, FooterLink, FooterLinks } from "./Footer";
 const meta: Meta<typeof Footer> = {
   title: "SciReactUI/Navigation/Footer",
   component: Footer,
-  decorators: [
-    (Story) => (
-      <div style={{ position: "relative" }}>
-        <div style={{ position: "relative" }}>
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
+  decorators: [(Story) => <Story />],
   tags: ["autodocs"],
 };
 

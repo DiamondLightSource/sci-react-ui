@@ -65,10 +65,10 @@ const Footer = ({
   return (
     <footer
       style={{
-        position: "sticky",
         bottom: 0,
-        backgroundColor: theme.palette.primary.light,
+        marginTop: "auto",
         minHeight: 50,
+        backgroundColor: theme.palette.primary.light,
       }}
       {...props}
     >
