@@ -15,7 +15,6 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 interface BreadcrumbsProps {
 	path: string | string[];
-	
 	rootProps?: PaperProps,
 	muiBreadcrumbsProps?: Mui_BreadcrumbsProps,
 }
@@ -27,7 +26,7 @@ type CrumbData = {
 
 /**
  * Create CrumbData from crumb parts with links
- * @param path An single string path, or an array of string parts
+ * @param path A single string path, or an array of string parts
  */
 export function getCrumbs(path : string | string[] ) : CrumbData[] {
 	
