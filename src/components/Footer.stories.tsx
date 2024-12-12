@@ -18,17 +18,17 @@ export const LogoOnly: Story = {
 export const CopyrightOnly: Story = {
   args: {
     logo: "",
-    copyright: "Copyright © text",
+    copyright: "add text here",
   },
 };
 
 export const CopyrightAndLogo: Story = {
-  args: { copyright: "Copyright © text" },
+  args: { copyright: "add text here" },
 };
 
 export const WithOneLink: Story = {
   args: {
-    copyright: "Copyright © text",
+    copyright: "add text here",
     children: [
       <FooterLinks key="footer-links">
         <FooterLink href="#" key="first-footer-link">
@@ -41,7 +41,7 @@ export const WithOneLink: Story = {
 
 export const WithTwoLinks: Story = {
   args: {
-    copyright: "Copyright © text",
+    copyright: "add text here",
     children: [
       <FooterLinks key="footer-links">
         <FooterLink href="#" key="first-footer-link">

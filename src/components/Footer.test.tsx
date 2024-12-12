@@ -16,21 +16,29 @@ describe("Footer", () => {
   });
 
   test("Should render copyright only", async () => {
-    render(<Footer logo={null} copyright="test copyright text" />);
+    const copyrightText = "add text here";
+    render(<Footer logo={null} copyright={copyrightText} />);
 
     await waitFor(() => {
-      expect(screen.getByText("test copyright text 2024")).toBeInTheDocument();
+      expect(screen.queryByRole("paragraph")).toBeInTheDocument();
+      expect(screen.queryByRole("paragraph")?.textContent).toStrictEqual(
+        `Copyright © 2024 ${copyrightText}`
+      );
       // No logo
       expect(screen.queryByRole("img")).not.toBeTruthy();
     });
   });
 
   test("Should render logo and copyright", async () => {
-    render(<Footer logo={dlsLogo} copyright="test copyright text" />);
+    const copyrightText = "add text here";
+    render(<Footer logo={dlsLogo} copyright={copyrightText} />);
 
     await waitFor(() => {
       expect(screen.getByRole("img")).toBeInTheDocument();
-      expect(screen.getByText("test copyright text 2024")).toBeInTheDocument();
+      expect(screen.queryByRole("paragraph")).toBeInTheDocument();
+      expect(screen.queryByRole("paragraph")?.textContent).toStrictEqual(
+        `Copyright © 2024 ${copyrightText}`
+      );
     });
   });
 

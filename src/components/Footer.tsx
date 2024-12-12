@@ -100,7 +100,7 @@ const Footer = ({
                   color: theme.palette.primary.contrastText,
                 }}
               >
-                {copyright} {new Date().getFullYear()}
+                {`Copyright © ${new Date().getFullYear()} ${copyright}`}
               </Typography>
             ) : null}
           </div>
