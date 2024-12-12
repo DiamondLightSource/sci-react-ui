@@ -1,6 +1,6 @@
 import { Link, LinkProps, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import dlsLogo from "../public/dls.svg";
+import dlsLogo from "../public/logo-short.svg";
 
 interface FooterLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];

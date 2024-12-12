@@ -1,4 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
+
 import dlsLogo from "../public/dls.svg";
 
 import { Footer, FooterLink, FooterLinks } from "./Footer";
@@ -7,7 +9,7 @@ describe("Footer", () => {
     render(<Footer logo={dlsLogo} />);
 
     await waitFor(() => {
-      expect(screen.getByRole("img")).toBeDefined();
+      expect(screen.getByRole("img")).toBeInTheDocument();
       // No copyright text
       expect(screen.queryByRole("paragraph")).not.toBeTruthy();
     });
@@ -17,7 +19,7 @@ describe("Footer", () => {
     render(<Footer logo={null} copyright="test copyright text" />);
 
     await waitFor(() => {
-      expect(screen.getByText("test copyright text 2024")).toBeDefined();
+      expect(screen.getByText("test copyright text 2024")).toBeInTheDocument();
       // No logo
       expect(screen.queryByRole("img")).not.toBeTruthy();
     });
@@ -27,8 +29,8 @@ describe("Footer", () => {
     render(<Footer logo={dlsLogo} copyright="test copyright text" />);
 
     await waitFor(() => {
-      expect(screen.getByRole("img")).toBeDefined();
-      expect(screen.getByText("test copyright text 2024")).toBeDefined();
+      expect(screen.getByRole("img")).toBeInTheDocument();
+      expect(screen.getByText("test copyright text 2024")).toBeInTheDocument();
     });
   });
 
@@ -47,7 +49,7 @@ describe("Footer", () => {
     await waitFor(() => {
       const linkOneContainer = screen.getByText(lineOneText);
 
-      expect(linkOneContainer).toBeDefined();
+      expect(linkOneContainer).toBeInTheDocument();
       expect(linkOneContainer.getAttribute("href")).toStrictEqual(linkOneName);
       expect(linkOneContainer.textContent).toStrictEqual(lineOneText);
     });
@@ -70,7 +72,7 @@ describe("Footer", () => {
     await waitFor(() => {
       const linkTwoContainer = screen.getByText(linkTwoText);
 
-      expect(linkTwoContainer).toBeDefined();
+      expect(linkTwoContainer).toBeInTheDocument();
       expect(linkTwoContainer.getAttribute("href")).toStrictEqual(linkTwoName);
       expect(linkTwoContainer.textContent).toStrictEqual(linkTwoText);
     });
