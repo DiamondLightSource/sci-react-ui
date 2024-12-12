@@ -22,16 +22,23 @@ interface UserProps {
 
 const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
   const open = Boolean(anchorEl);
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    
     setAnchorEl(null);
   };
-
+  
+  const handleLogin = () => {
+    if(onLogin) onLogin()
+  }
+  const handleLogout = () => {
+    handleClose()
+    if(onLogout) onLogout()
+  }
+  
   const theme = useTheme();
   
   return (
@@ -82,20 +89,21 @@ const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
               </div>
             </Stack>
           </Button>
-          <Menu
+          {onLogout && <Menu
             id="menu-list"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={onLogout} aria-label="Logout">
+            <MenuItem onClick={handleLogout} aria-label="Logout">
               <Link sx={{ textDecoration: "none" }}>Logout</Link>
             </MenuItem>
           </Menu>
+          }
         </>
       ) : (
         <Button
-          onClick={onLogin}
+          onClick={handleLogin}
           startIcon={<MdLogin />}
           sx={{
             backgroundColor: theme.palette.primary.light,
