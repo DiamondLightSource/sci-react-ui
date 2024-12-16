@@ -13,7 +13,7 @@ import {
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { useState } from "react";
 
-import {Logo, LogoType} from "./Logo";
+import {ImageThemeMode, ImageThemeModeType} from "./ImageThemeMode";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -21,13 +21,13 @@ interface NavLinksProps {
 
 interface NavbarProps extends BoxProps {
   /** Location/content of the logo */
-  logo?: LogoType | null;
+  logo?: ImageThemeModeType | null;
   children?: React.ReactElement | React.ReactElement[];
 }
 
 const NavLink = ({ children, ...props }: LinkProps) => {
   const theme = useTheme();
-
+  
   return (
     <Link
       sx={{
@@ -117,7 +117,11 @@ const Navbar = ({
   ...props
 }: NavbarProps) => {
   const theme = useTheme();
-
+  
+  if( logo === null ) {
+     logo = theme.logos?.normal
+  }
+  
   return (
     <Box top="0" zIndex={1} width="100%" {...props}>
       <Paper
@@ -142,9 +146,10 @@ const Navbar = ({
               <Box
                 maxWidth="5rem"
                 sx={{
+                   height: "100%", alignItems: "center", width: "100%",
                 "&:hover": {  filter: "brightness(80%);" }
               }}>
-                <Logo logo={logo}/>
+                <ImageThemeMode image={logo}/>
               </Box>
             </Link>
           ) : null}

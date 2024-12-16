@@ -2,7 +2,7 @@ import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import {ThemeProvider} from "./ThemeProvider";
-import {BaseTheme} from "./BaseTheme";
+import {GenericTheme} from "./GenericTheme";
 import {DiamondTheme} from "./DiamondTheme";
 import Button from "@mui/material/Button";
 
@@ -24,13 +24,13 @@ describe("ThemeProvider Component", () => {
     expect(await findByText(buttonText))
   });
   
-  it("should render with base theme", () => {
-    render(<ThemeProvider theme={BaseTheme}>
+  it("should render with generic theme", () => {
+    render(<ThemeProvider theme={GenericTheme}>
       <div></div>
     </ThemeProvider>);
   });
   
-  it("should render with base theme", () => {
+  it("should render with diamond theme", () => {
     render(<ThemeProvider theme={DiamondTheme}>
       <div></div>
     </ThemeProvider>);

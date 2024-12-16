@@ -20,41 +20,41 @@ First use the ThemeProvider and supply a theme.
 
 ```js
 import {
-    ThemeProvider,
+	ThemeProvider,
 	DiamondTheme
 } from "@diamondlightsource/sci-react-ui";
 
 root.render(
-  <ThemeProvider theme={DiamondTheme}>
-    <App />
-  </ThemeProvider>
+	<ThemeProvider theme={DiamondTheme}>
+		<App />
+	</ThemeProvider>
 )
 ```
 
-There are currently two themes, `BaseTheme` or `DiamondTheme`, but you can adapt your own.
+There are currently two themes, `GenericTheme` or `DiamondTheme`, but you can - and should - adapt your own.
 
 There are various components, here's an example of how to use the NavBar:
 
 ```js
 import {Container, Typography} from "@mui/material";
 import {
-  Navbar,
-  NavLink,
-  NavLinks
+	Navbar,
+	NavLink,
+	NavLinks
 } from "@diamondlightsource/sci-react-ui";
 
 function App() {
-  return <>
-    <Navbar>
-      <NavLinks key="links">
-        <NavLink href="#" key="first">A link</NavLink>
-      </NavLinks>
-    </Navbar>
-    <Container>
-        <Typography variant="h2">Scientific UI Collection</Typography>
-        <Typography>A collection of science based React components.</Typography>
-    </Container>
-  </>
+	return <>
+		<Navbar>
+			<NavLinks key="links">
+				<NavLink href="#" key="first">A link</NavLink>
+			</NavLinks>
+		</Navbar>
+		<Container>
+			<Typography variant="h2">Scientific UI Collection</Typography>
+			<Typography>A collection of science based React components.</Typography>
+		</Container>
+	</>
 }
 export default App;
 ```

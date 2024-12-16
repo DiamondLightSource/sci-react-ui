@@ -8,7 +8,6 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
     '@storybook/addon-links',
-    '@storybook/addon-toolbars',
     'storybook-dark-mode'
   ],
   framework: {

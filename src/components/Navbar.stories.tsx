@@ -3,8 +3,8 @@ import { Meta, StoryObj } from "@storybook/react";
 import { User } from "./User";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
-import logoImageDark from "../public/base/logo-dark.svg"
-import logoImageLight from "../public/base/logo-light.svg"
+import logoImageDark from "../public/generic/logo-dark.svg"
+import logoImageLight from "../public/generic/logo-light.svg"
 
 const meta: Meta<typeof Navbar> = {
   title: "SciReactUI/Navigation/Navbar",
@@ -76,7 +76,7 @@ export const LinksAndLoggedInUser: Story = {
   },
 };
 
-export const WithLogo: Story = {
+export const WithThemeLogo: Story = {
   args: {
     children: (
       <NavLinks key="links">
@@ -88,15 +88,12 @@ export const WithLogo: Story = {
         </NavLink>
       </NavLinks>
     ),
-    logo: {
-        src: logoImageLight,
-        alt: "Home",
-        width: "100px"
-    }
+    logo: null
   },
 };
 
-export const WithLogoColourModeAware: Story = {
+export const WithOverriddenLogo: Story = {
+  
   args: {
     children: (
         <NavLinks key="links">
