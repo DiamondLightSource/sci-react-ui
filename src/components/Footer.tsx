@@ -1,12 +1,13 @@
 import { Link, LinkProps, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import dlsLogo from "../public/logo-short.svg";
+import React from "react";
 
 interface FooterLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-interface FooterProps {
+interface FooterProps extends React.HTMLProps<HTMLDivElement> {
   /** Location/content of the logo */
   logo?: string | null;
   copyright?: string | null;
