@@ -15,7 +15,7 @@
     "jest": "jest --config jest.config.js",
     "jest:coverage": "jest --coverage",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build -o storybook-static",
+    "storybook:build": "storybook build -o storybook-static --disable-telemetry",
     "storybook:publish": "gh-pages -b storybook/publish -d storybook-static"
   },
   "main": "dist/index.cjs.js",

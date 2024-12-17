@@ -13,7 +13,7 @@ import {
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { useState } from "react";
 
-import {ImageThemeMode, ImageThemeModeType} from "./ImageThemeMode";
+import {ImageColorSchemeSwitch, ImageColorSchemeSwitchType} from "./ImageColorSchemeSwitch";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -21,7 +21,7 @@ interface NavLinksProps {
 
 interface NavbarProps extends BoxProps {
   /** Location/content of the logo */
-  logo?: ImageThemeModeType | null;
+  logo?: ImageColorSchemeSwitchType | null;
   children?: React.ReactElement | React.ReactElement[];
 }
 
@@ -149,7 +149,7 @@ const Navbar = ({
                    height: "100%", alignItems: "center", width: "100%",
                 "&:hover": {  filter: "brightness(80%);" }
               }}>
-                <ImageThemeMode image={logo}/>
+                <ImageColorSchemeSwitch image={logo}/>
               </Box>
             </Link>
           ) : null}

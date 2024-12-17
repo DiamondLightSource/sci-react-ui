@@ -31,11 +31,11 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.75399576"
-     inkscape:cx="393.23829"
-     inkscape:cy="429.04751"
-     inkscape:window-width="2400"
-     inkscape:window-height="1260"
+     inkscape:zoom="0.18849894"
+     inkscape:cx="-363.39727"
+     inkscape:cy="13.262674"
+     inkscape:window-width="2560"
+     inkscape:window-height="990"
      inkscape:window-x="1920"
      inkscape:window-y="55"
      inkscape:window-maximized="1"
@@ -76,7 +76,7 @@
        transform="matrix(0.77076395,0,0,0.64964794,297.83508,105.43504)"><tspan
          x="350.41992"
          y="234.11044"
-         id="tspan1">LOGO</tspan></text>
+         id="tspan3">LOGO</tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke-width:1.035;stroke-dasharray:none"
        id="rect6"
@@ -84,5 +84,15 @@
        height="100"
        x="42.440556"
        y="160.47836" />
+    <text
+       xml:space="preserve"
+       style="font-size:86.6667px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke-width:1.035"
+       x="750.14203"
+       y="98.796326"
+       id="text3"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="750.14203"
+         y="98.796326">dark</tspan></text>
   </g>
 </svg>

@@ -1,18 +1,18 @@
 // import {ThemeOptions} from "@mui/material/styles";
-import {ImageThemeModeType} from "../components/ImageThemeMode";
+import {ImageColorSchemeSwitchType} from "../components/ImageColorSchemeSwitch";
 
 // Make additions to theme, so that anything can be available throughout the app
 declare module '@mui/material/styles' {
   interface Theme {
     logos?: {
-      normal: ImageThemeModeType;
-      short?: ImageThemeModeType;
+      normal: ImageColorSchemeSwitchType;
+      short?: ImageColorSchemeSwitchType;
     };
   }
   interface ThemeOptions {
     logos?: {
-      normal: ImageThemeModeType;
-      short?: ImageThemeModeType;
+      normal: ImageColorSchemeSwitchType;
+      short?: ImageColorSchemeSwitchType;
     };
   }
 }
