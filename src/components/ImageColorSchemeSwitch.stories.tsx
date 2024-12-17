@@ -29,6 +29,13 @@ export const SwitchingImage: Story = {
 			width: "100"
 		}
 	},
+	parameters: {
+		docs: {
+			description: {
+				story: 'This image changes depending on the color scheme mode selected.'
+			},
+		},
+	},
 };
 
 
@@ -44,11 +51,18 @@ export const LargeSwitchingImage: Story = {
 };
 
 export const NonSwitchingImage: Story = {
-  args: {
+	args: {
 	  image: {
 		  src: imageLight,
 		  alt: "Testing Non-Switching Image",
 		  width: "300"
-	 }
-  },
+	  }
+	},
+	parameters: {
+		docs: {
+			description: {
+				story: 'This image only has a single src so will NOT switch when the color scheme mode switches.'
+			},
+		},
+	},
 };

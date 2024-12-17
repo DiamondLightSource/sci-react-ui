@@ -21,7 +21,7 @@ interface NavLinksProps {
 
 interface NavbarProps extends BoxProps {
   /** Location/content of the logo */
-  logo?: ImageColorSchemeSwitchType | null;
+  logo?: ImageColorSchemeSwitchType | "theme" | null;
   children?: React.ReactElement | React.ReactElement[];
 }
 
@@ -118,7 +118,7 @@ const Navbar = ({
 }: NavbarProps) => {
   const theme = useTheme();
   
-  if( logo === null ) {
+  if( logo === "theme" ) {
      logo = theme.logos?.normal
   }
   
@@ -146,9 +146,9 @@ const Navbar = ({
               <Box
                 maxWidth="5rem"
                 sx={{
-                   height: "100%", alignItems: "center", width: "100%",
-                "&:hover": {  filter: "brightness(80%);" }
-              }}>
+                  "&:hover": { filter: "brightness(80%);" },
+                }}
+              >
                 <ImageColorSchemeSwitch image={logo}/>
               </Box>
             </Link>

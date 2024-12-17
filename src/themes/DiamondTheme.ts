@@ -14,7 +14,8 @@ const DiamondTheme: Theme = createTheme({
     normal: {
       src: logoImageLight,
       srcDark: logoImageDark,
-      alt: "Diamond Source Logo"
+      alt: "Diamond Source Logo",
+      width: "100"
     },
   },
   colorSchemes: {

@@ -25,7 +25,7 @@ export const WithLogin: Story = {
   },
 };
 
-export const WithLoggedInUser: Story = {
+export const WithUser: Story = {
   args: {
     children: (
       <User
@@ -54,7 +54,7 @@ export const Links: Story = {
   },
 };
 
-export const LinksAndLoggedInUser: Story = {
+export const LinksAndUser: Story = {
   args: {
     children: [
       <NavLinks key="links">
@@ -88,11 +88,18 @@ export const WithThemeLogo: Story = {
         </NavLink>
       </NavLinks>
     ),
-    logo: null
+    logo: "theme"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'The logo is pulled in from the theme when `logo` set to "theme".'
+      },
+    },
   },
 };
 
-export const WithOverriddenLogo: Story = {
+export const WithNonThemeLogo: Story = {
   
   args: {
     children: (
@@ -109,8 +116,15 @@ export const WithOverriddenLogo: Story = {
         src: logoImageLight,
         srcDark: logoImageDark,
         alt: "Home",
-        width: "100px"
+        width: "100"
     }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'A separate image can also be referenced.'
+      },
+    },
   },
 };
 

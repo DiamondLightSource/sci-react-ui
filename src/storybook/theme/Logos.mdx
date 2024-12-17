@@ -1,0 +1,67 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
+import {ImageColorSchemeSwitch} from "../../components/ImageColorSchemeSwitch";
+
+<Meta title="Theme/Logos" />
+
+<div className="sb-container">
+	<div className='sb-section-title'>
+		# Logos
+
+		Logos can be added to new themes by adding to the `createTheme` call:
+
+		```js
+        {
+        ...
+            logos: {
+                normal: {
+                    src: logo,
+                    alt: "My Logo",
+                    width: "100",
+                    height: "50"
+                },
+            },
+        ...
+        }
+		```
+
+        <ImageColorSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo"}}/>
+
+        ## Sizes
+		There are two image sizes. I regular `normal` and a smaller version `short`, these are used in the Navbar and
+		the Footer, respectively.
+
+        ## Switch with Color Scheme
+		You can also switch them based on the current ColorScheme by adding an additional `srcDark` option.
+
+		```js
+		import logo from "my-images/logo.svg"
+		import logoDark from "my-images/logo-dark.svg"
+
+		logos: {
+			normal: {
+				src: logo,
+				srcDark: logoDark,
+				alt: "My Logo"
+			},
+		},
+			```
+
+        ## Theme
+		To create a new theme with your logos:
+		```js
+        import { createTheme } from "@mui/material/styles";
+        import { BaseThemeOptions } from "./BaseTheme";
+        import logo "my-images/logo.svg"
+
+		const MyTheme = createTheme({
+			...BaseThemeOptions,
+			logos: {
+				normal: {
+					src: logo,
+					alt: "My Logo"
+				}
+			},
+		},
+		```
+	</div>
+</div>

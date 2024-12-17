@@ -33,9 +33,7 @@ const BaseThemeOptions /* : ThemeOptions */ = {
       },
     },
   },
-  components: {
-  
-  },
+  components: {},
   breakpoints: {
     values: {
       xs: 0,
