@@ -3,6 +3,9 @@ import { Meta, StoryObj } from "@storybook/react";
 import { User } from "./User";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
+import logoImageDark from "../public/generic/logo-dark.svg"
+import logoImageLight from "../public/generic/logo-light.svg"
+
 const meta: Meta<typeof Navbar> = {
   title: "SciReactUI/Navigation/Navbar",
   component: Navbar,
@@ -73,7 +76,7 @@ export const LinksAndUser: Story = {
   },
 };
 
-export const NoLogo: Story = {
+export const WithThemeLogo: Story = {
   args: {
     children: (
       <NavLinks key="links">
@@ -85,12 +88,48 @@ export const NoLogo: Story = {
         </NavLink>
       </NavLinks>
     ),
-    logo: null,
+    logo: "theme"
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'The logo is pulled in from the theme when `logo` set to "theme".'
+      },
+    },
+  },
+};
+
+export const WithNonThemeLogo: Story = {
+  
+  args: {
+    children: (
+        <NavLinks key="links">
+          <NavLink href="#" key="first">
+            First
+          </NavLink>
+          <NavLink href="#" key="second">
+            Second
+          </NavLink>
+        </NavLinks>
+    ),
+    logo: {
+        src: logoImageLight,
+        srcDark: logoImageDark,
+        alt: "Home",
+        width: "100"
+    }
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'A separate image can also be referenced.'
+      },
+    },
   },
 };
 
 export const CustomChildElement: Story = {
   args: {
-    children: <Chip label="Hello, World" sx={{ bgcolor: "#ffffff" }} />,
+    children: <Chip label="Hello, World" sx={{ backgroundColor: "#aaaaaa" }} />,
   },
 };

@@ -6,3 +6,4 @@
 
 # pnpm pack outputs
 /diamondlightsource-sci-react-ui-*.tgz
+/storybook-static/

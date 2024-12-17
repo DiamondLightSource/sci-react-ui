@@ -1,7 +1,8 @@
 import { Meta, ColorPalette, ColorItem } from '@storybook/blocks';
 
-import {BaseTheme} from "../../themes/BaseTheme";
-import {DiamondTheme} from "../../themes/DiamondTheme";
+import {GenericTheme} from "../../../src";
+import {DiamondTheme} from "../../../src";
+
 
 export function ThemeColorItem({title, theme, colourSet, mode}) {
     return <ColorItem
@@ -24,26 +25,26 @@ export function ThemeColorItem({title, theme, colourSet, mode}) {
 
         Theme colours available:
 
-        * [Base Theme](#base)
+        * [Generic Theme](#generic)
         * [Diamond Theme](#diamond)
     </div>
 </div>
 
 <div className="sb-container">
-    <div id="base" className='sb-section'>
-        ## Base Theme
+    <div id="generic" className='sb-section'>
+        ## Generic Theme
 
         <div className='sb-section-item'>
             ### Light Mode
             <ColorPalette>
-                <ThemeColorItem title="Primary" theme={BaseTheme} colourSet="primary" mode="light" />
-                <ThemeColorItem title="Secondary" theme={BaseTheme} colourSet="secondary" mode="light" />
+                <ThemeColorItem title="Primary" theme={GenericTheme} colourSet="primary" mode="light" />
+                <ThemeColorItem title="Secondary" theme={GenericTheme} colourSet="secondary" mode="light" />
             </ColorPalette>
 
             ### Dark Mode
             <ColorPalette>
-                <ThemeColorItem title="Primary" theme={BaseTheme} colourSet="primary" mode={"dark"} />
-                <ThemeColorItem title="Secondary" theme={BaseTheme} colourSet="secondary" mode={"dark"} />
+                <ThemeColorItem title="Primary" theme={GenericTheme} colourSet="primary" mode="dark" />
+                <ThemeColorItem title="Secondary" theme={GenericTheme} colourSet="secondary" mode="dark" />
             </ColorPalette>
         </div>
     </div>

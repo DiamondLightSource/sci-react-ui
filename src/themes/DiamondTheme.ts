@@ -2,11 +2,22 @@ import { createTheme, Theme } from "@mui/material/styles";
 
 import { BaseThemeOptions } from "./BaseTheme";
 
+import logoImageDark from "../public/diamond/logo-dark.svg"
+import logoImageLight from "../public/diamond/logo-light.svg"
+
 const dlsLogoBlue = "#202740";
 const dlsLogoYellow = "#facf07";
 
 const DiamondTheme: Theme = createTheme({
   ...BaseThemeOptions,
+  logos: {
+    normal: {
+      src: logoImageLight,
+      srcDark: logoImageDark,
+      alt: "Diamond Source Logo",
+      width: "100"
+    },
+  },
   colorSchemes: {
     // https://zenoo.github.io/mui-theme-creator/
     light: {
@@ -70,15 +81,6 @@ const DiamondTheme: Theme = createTheme({
           },
         }),
       },
-    },
-  },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 480,
-      md: 768,
-      lg: 992,
-      xl: 1280,
     },
   },
 });

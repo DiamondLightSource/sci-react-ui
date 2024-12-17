@@ -3,11 +3,11 @@ import {CssBaseline} from "@mui/material";
 import type { Preview } from "@storybook/react";
 
 import {ThemeProvider} from '../src'
-import {BaseTheme, DiamondTheme} from '../src'
+import {GenericTheme, DiamondTheme} from '../src'
 
 import {ThemeSwapper, TextLight, TextDark} from "./ThemeSwapper";
 
-const TextThemeBase = 'Theme: Base'
+const TextThemeBase = 'Theme: Generic'
 const TextThemeDiamond = 'Theme: Diamond'
 
 export const decorators = [
@@ -26,7 +26,7 @@ export const decorators = [
     const selectedThemeMode = context.globals.themeMode || TextLight;
 
     return <ThemeProvider
-        theme={(selectedTheme == TextThemeBase) ? BaseTheme : DiamondTheme}
+        theme={(selectedTheme == TextThemeBase) ? GenericTheme : DiamondTheme}
         defaultMode={(selectedThemeMode == TextLight) ? "light" : "dark"}
     >
       <CssBaseline/>

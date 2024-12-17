@@ -1,39 +1,66 @@
-import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
+import {render} from "@testing-library/react";
+
+import {createTheme, Theme} from "@mui/material/styles";
 
 import {ThemeProvider} from "./ThemeProvider";
-import {BaseTheme} from "./BaseTheme";
+import {BaseThemeOptions} from "./BaseTheme";
+import {GenericTheme} from "./GenericTheme";
 import {DiamondTheme} from "./DiamondTheme";
-import Button from "@mui/material/Button";
+
 
 jest.mock("@mui/material/CssBaseline", () => () => {
   return <div data-testid="Mock_CssBaseline"/>;
 });
 
+const buttonText = "a test button",
+   testApp = <div>
+      <h1>H1</h1>
+      <p>Paragraph</p>
+      <button>{buttonText}</button>
+      <footer>Footer</footer>
+    </div>
+
 describe("ThemeProvider Component", () => {
+  
   it("should render", () => {
-    render(<ThemeProvider/>);
+    render(<ThemeProvider></ThemeProvider>);
   });
   
-  it("should render with button", async () => {
-    const buttonText = "A button"
-    const {findByText} = render(<ThemeProvider>
-      <button>{buttonText}</button>
+  it("should render with button", () => {
+    const {getByText} = render(<ThemeProvider>
+      {testApp}
     </ThemeProvider>);
     
-    expect(await findByText(buttonText))
+    expect(getByText(buttonText)).toBeInTheDocument()
   });
   
-  it("should render with base theme", () => {
-    render(<ThemeProvider theme={BaseTheme}>
-      <div></div>
+  it("should render with generic theme", () => {
+    const {getByText} = render(<ThemeProvider theme={GenericTheme}>
+      {testApp}
     </ThemeProvider>);
+    
+    expect(getByText(buttonText)).toBeInTheDocument()
   });
   
-  it("should render with base theme", () => {
-    render(<ThemeProvider theme={DiamondTheme}>
-      <div></div>
+  it("should render with diamond theme", () => {
+    const {getByText} = render(<ThemeProvider theme={DiamondTheme}>
+      {testApp}
     </ThemeProvider>);
+    
+    expect(getByText(buttonText)).toBeInTheDocument()
+  });
+  
+  
+  it("should render with a new theme", () => {
+    const NewTheme: Theme = createTheme({
+      ...BaseThemeOptions,
+    })
+    const {getByText} = render(<ThemeProvider theme={NewTheme}>
+      {testApp}
+    </ThemeProvider>);
+    
+    expect(getByText(buttonText)).toBeInTheDocument()
   });
 })
 
@@ -49,12 +76,11 @@ describe("ThemeProvider CssBaseline Component", () => {
     expect(queryByTestId("Mock_CssBaseline")).not.toBeInTheDocument()
   })
   
-  it("should render with button but without CssBaseline", async () => {
-    const buttonText = "A button"
-    const {findByText} = render(<ThemeProvider baseline={false}>
-      <Button>{buttonText}</Button>
+  it("should render with app but without CssBaseline", () => {
+    const {getByText} = render(<ThemeProvider baseline={false}>
+      {testApp}
     </ThemeProvider>);
     
-    expect(await findByText(buttonText))
+    expect(getByText(buttonText)).toBeInTheDocument()
   });
 })

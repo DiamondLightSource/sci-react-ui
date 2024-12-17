@@ -11,8 +11,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
-import logoImage from "../public/logo-dark.svg";
 import React, { useState } from "react";
+
+import {ImageColorSchemeSwitch, ImageColorSchemeSwitchType} from "./ImageColorSchemeSwitch";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -20,13 +21,13 @@ interface NavLinksProps {
 
 interface NavbarProps extends BoxProps {
   /** Location/content of the logo */
-  logo?: string | null;
+  logo?: ImageColorSchemeSwitchType | "theme" | null;
   children?: React.ReactElement | React.ReactElement[];
 }
 
 const NavLink = ({ children, ...props }: LinkProps) => {
   const theme = useTheme();
-
+  
   return (
     <Link
       sx={{
@@ -112,11 +113,15 @@ const NavLinks = ({ children }: NavLinksProps) => {
  */
 const Navbar = ({
   children,
-  logo = logoImage as string,
+  logo,
   ...props
 }: NavbarProps) => {
   const theme = useTheme();
-
+  
+  if( logo === "theme" ) {
+     logo = theme.logos?.normal
+  }
+  
   return (
     <Box top="0" zIndex={1} width="100%" {...props}>
       <Paper
@@ -144,12 +149,7 @@ const Navbar = ({
                   "&:hover": { filter: "brightness(80%);" },
                 }}
               >
-                <img
-                  alt="Home"
-                  src={logo}
-                  width={"100px"}
-                  //style={{border:"red 1px solid"}}
-                />
+                <ImageColorSchemeSwitch image={logo}/>
               </Box>
             </Link>
           ) : null}
