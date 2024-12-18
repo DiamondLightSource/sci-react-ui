@@ -1,7 +1,8 @@
 // components
 export * from "./components/Breadcrumbs";
-export * from "./components/Navbar";
+export * from "./components/ColourSchemeButton";
 export * from "./components/Footer";
+export * from "./components/Navbar";
 export * from "./components/User";
 export * from "./components/VisitInput";
 export * from "./components/ImageColorSchemeSwitch";
