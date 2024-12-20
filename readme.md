@@ -2,6 +2,9 @@ Scientific React UI
 ===================
 
 Scientific React UI components, based on MUI.
+_Early development release._
+
+A theme and component library to make websites at scientific installations simple to create.
 
 Using
 -----

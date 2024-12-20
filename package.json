@@ -1,9 +1,9 @@
 {
   "name": "@diamondlightsource/sci-react-ui",
   "version": "0.0.1",
-  "description": "A collection of react components based on MUI.",
   "type": "module",
-  "author": "DLS",
+  "description": "A theme and component library to make websites at scientific installations simple to create.",
+  "author": "Diamond Light Source",
   "license": "ISC",
   "repository": {
     "type": "git",
