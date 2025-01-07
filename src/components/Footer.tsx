@@ -2,7 +2,10 @@ import { Link, LinkProps, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
 import React from "react";
-import {ImageColorSchemeSwitch, ImageColorSchemeSwitchType} from "./ImageColorSchemeSwitch";
+import {
+  ImageColorSchemeSwitch,
+  ImageColorSchemeSwitchType,
+} from "./ImageColorSchemeSwitch";
 
 interface FooterLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -58,18 +61,13 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
-const Footer = ({
-  logo,
-  copyright,
-  children,
-  ...props
-}: FooterProps) => {
+const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
   const theme = useTheme();
 
-  if(logo === "theme") {
-    logo = theme.logos?.short
+  if (logo === "theme") {
+    logo = theme.logos?.short;
   }
-  
+
   return (
     <footer
       style={{

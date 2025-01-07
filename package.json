@@ -12,6 +12,7 @@
   "scripts": {
     "build": "tsc -b && rollup --config rollup.config.mjs",
     "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "lint:tsc": "pnpm tsc --noEmit",
     "rollup": "rollup --config rollup.config.mjs",
     "jest": "jest --config jest.config.js",

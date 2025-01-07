@@ -11,7 +11,6 @@ const meta: Meta<typeof Footer> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-
 export const All: Story = {
   args: {
     logo: "theme",
@@ -37,7 +36,7 @@ export const All: Story = {
 
 export const LogoOnly: Story = {
   args: {
-    logo: "theme"
+    logo: "theme",
   },
 };
 
@@ -51,7 +50,7 @@ export const CopyrightOnly: Story = {
 export const CopyrightAndLogo: Story = {
   args: {
     logo: "theme",
-    copyright: "Company"
+    copyright: "Company",
   },
 };
 

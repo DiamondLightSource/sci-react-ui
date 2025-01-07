@@ -33,14 +33,14 @@ export const All: Story = {
         </NavLink>
       </NavLinks>,
       <User
-          key="user"
-          onLogin={() => {}}
-          onLogout={() => {}}
-          user={{ name: "Name", fedid: "FedID" }}
-          color={"white"}
+        key="user"
+        onLogin={() => {}}
+        onLogout={() => {}}
+        user={{ name: "Name", fedid: "FedID" }}
+        color={"white"}
       />,
     ],
-    logo: "theme"
+    logo: "theme",
   },
 };
 

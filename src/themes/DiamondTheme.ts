@@ -21,7 +21,7 @@ const DiamondTheme: Theme = createTheme({
     short: {
       src: logoShort,
       alt: "Diamond Source Logo",
-      width: "65"
+      width: "65",
     },
   },
   colorSchemes: {

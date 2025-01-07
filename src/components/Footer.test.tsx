@@ -3,18 +3,16 @@ import "@testing-library/jest-dom";
 
 import dlsLogo from "../public/generic/logo-short.svg";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
-import {ImageColorSchemeSwitch} from './ImageColorSchemeSwitch';
+import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
 
-
-jest.mock('./ImageColorSchemeSwitch');
-// @ts-ignore: doesn't find mockImplementation
-ImageColorSchemeSwitch.mockImplementation(() => <img src="src" alt="alt"/>)
-
+jest.mock("./ImageColorSchemeSwitch");
+// @ts-expect-error: doesn't find mockImplementation outside of testing.
+ImageColorSchemeSwitch.mockImplementation(() => <img src="src" alt="alt" />);
 
 describe("Footer", () => {
   test("Should render logo only", () => {
-    render(<Footer logo={{src:dlsLogo, alt:"t"}} />);
-    
+    render(<Footer logo={{ src: dlsLogo, alt: "t" }} />);
+
     expect(screen.getByRole("img")).toBeInTheDocument();
     // No copyright text
     expect(screen.queryByRole("paragraph")).not.toBeInTheDocument();
@@ -38,14 +36,16 @@ describe("Footer", () => {
   test("Should render logo and copyright", async () => {
     const copyrightText = "add text here";
     const currentYear = new Date().getFullYear();
-    render(<Footer logo={{"src":dlsLogo,"alt":""}} copyright={copyrightText} />);
+    render(
+      <Footer logo={{ src: dlsLogo, alt: "" }} copyright={copyrightText} />,
+    );
 
     await waitFor(() => {
       expect(screen.getByRole("img")).toBeInTheDocument();
-      const paragraph = screen.getByRole("paragraph")
+      const paragraph = screen.getByRole("paragraph");
       expect(paragraph).toBeInTheDocument();
       expect(paragraph.textContent).toStrictEqual(
-        `Copyright © ${currentYear} ${copyrightText}`
+        `Copyright © ${currentYear} ${copyrightText}`,
       );
     });
   });
