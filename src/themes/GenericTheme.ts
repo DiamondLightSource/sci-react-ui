@@ -14,6 +14,11 @@ const GenericTheme: Theme = createTheme({
       alt: "Diamond Source Logo",
       width: "100",
     },
+    short: {
+      src: logoImageDark,
+      alt: "Diamond Source Logo",
+      width: "60"
+    },
   },
 });
 

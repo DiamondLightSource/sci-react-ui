@@ -15,8 +15,33 @@ const meta: Meta<typeof Navbar> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Empty: Story = {
-  args: {},
+export const All: Story = {
+  args: {
+    children: [
+      <NavLinks key="links">
+        <NavLink href="#Mercury" key="mercury">
+          Mercury
+        </NavLink>
+        <NavLink href="#Venus" key="venus">
+          Venus
+        </NavLink>
+        <NavLink href="#Earth" key="earth">
+          Earth
+        </NavLink>
+        <NavLink href="#Mars" key="mars">
+          Mars
+        </NavLink>
+      </NavLinks>,
+      <User
+          key="user"
+          onLogin={() => {}}
+          onLogout={() => {}}
+          user={{ name: "Name", fedid: "FedID" }}
+          color={"white"}
+      />,
+    ],
+    logo: "theme"
+  },
 };
 
 export const WithLogin: Story = {
@@ -132,4 +157,8 @@ export const CustomChildElement: Story = {
   args: {
     children: <Chip label="Hello, World" sx={{ backgroundColor: "#aaaaaa" }} />,
   },
+};
+
+export const Empty: Story = {
+  args: {},
 };

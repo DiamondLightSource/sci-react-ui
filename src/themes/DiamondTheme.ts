@@ -4,6 +4,7 @@ import { BaseThemeOptions } from "./BaseTheme";
 
 import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoImageLight from "../public/diamond/logo-light.svg";
+import logoShort from "../public/diamond/logo-short.svg";
 
 const dlsLogoBlue = "#202740";
 const dlsLogoYellow = "#facf07";
@@ -16,6 +17,11 @@ const DiamondTheme: Theme = createTheme({
       srcDark: logoImageDark,
       alt: "Diamond Source Logo",
       width: "100",
+    },
+    short: {
+      src: logoShort,
+      alt: "Diamond Source Logo",
+      width: "65"
     },
   },
   colorSchemes: {

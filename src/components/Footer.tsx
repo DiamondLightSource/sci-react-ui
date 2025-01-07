@@ -1,7 +1,8 @@
 import { Link, LinkProps, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import dlsLogo from "../public/logo-short.svg";
+
 import React from "react";
+import {ImageColorSchemeSwitch, ImageColorSchemeSwitchType} from "./ImageColorSchemeSwitch";
 
 interface FooterLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -9,7 +10,7 @@ interface FooterLinksProps {
 
 interface FooterProps extends React.HTMLProps<HTMLDivElement> {
   /** Location/content of the logo */
-  logo?: string | null;
+  logo?: ImageColorSchemeSwitchType | "theme" | null;
   copyright?: string | null;
   children?: React.ReactElement | React.ReactElement[];
 }
@@ -58,13 +59,17 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
 const Footer = ({
-  logo = dlsLogo as string,
+  logo,
   copyright,
   children,
   ...props
 }: FooterProps) => {
   const theme = useTheme();
 
+  if(logo === "theme") {
+    logo = theme.logos?.short
+  }
+  
   return (
     <footer
       style={{
@@ -93,7 +98,7 @@ const Footer = ({
               textAlign: "right",
             }}
           >
-            {logo ? <img alt="footer-logo" src={logo} /> : null}
+            {logo && <ImageColorSchemeSwitch image={logo} />}
             {copyright ? (
               <Typography
                 style={{

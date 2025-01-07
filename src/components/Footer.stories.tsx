@@ -11,19 +11,48 @@ const meta: Meta<typeof Footer> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+
+export const All: Story = {
+  args: {
+    logo: "theme",
+    copyright: "Company",
+    children: [
+      <FooterLinks key="footer-links">
+        <FooterLink href="#TheMoon" key="the-moon">
+          The Moon
+        </FooterLink>
+        <FooterLink href="#Phobos" key="phobos">
+          Phobos
+        </FooterLink>
+        <FooterLink href="#Ganymede" key="ganymede">
+          Ganymede
+        </FooterLink>
+        <FooterLink href="#Titan" key="titan">
+          Titan
+        </FooterLink>
+      </FooterLinks>,
+    ],
+  },
+};
+
 export const LogoOnly: Story = {
-  args: {},
+  args: {
+    logo: "theme"
+  },
 };
 
 export const CopyrightOnly: Story = {
   args: {
-    logo: "",
+    logo: null,
     copyright: "Company",
   },
 };
 
 export const CopyrightAndLogo: Story = {
-  args: { copyright: "Company" },
+  args: {
+    logo: "theme",
+    copyright: "Company"
+  },
 };
 
 export const WithOneLink: Story = {
