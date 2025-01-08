@@ -2,7 +2,7 @@
   "name": "@diamondlightsource/sci-react-ui",
   "version": "0.0.1",
   "type": "module",
-  "description": "A theme and component library to make websites at scientific installations simple to create.",
+  "description": "A theme and component library to make websites at scientific institutions simple to create.",
   "author": "Diamond Light Source",
   "license": "ISC",
   "repository": {
