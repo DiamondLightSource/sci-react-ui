@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import dlsLogo from "../public/generic/logo-short.svg";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
-import {ThemeProvider} from "../themes/ThemeProvider";
+import { ThemeProvider } from "../themes/ThemeProvider";
 
 jest.mock("./ImageColorSchemeSwitch");
 // @ts-expect-error: doesn't find mockImplementation outside of testing.
@@ -18,10 +18,14 @@ describe("Footer", () => {
     // No copyright text
     expect(screen.queryByRole("paragraph")).not.toBeInTheDocument();
   });
-  
+
   test("Should render logo via theme", () => {
-    render(<ThemeProvider><Footer logo="theme" /></ThemeProvider>);
-    
+    render(
+      <ThemeProvider>
+        <Footer logo="theme" />
+      </ThemeProvider>,
+    );
+
     expect(screen.getByRole("img")).toBeInTheDocument();
   });
 
