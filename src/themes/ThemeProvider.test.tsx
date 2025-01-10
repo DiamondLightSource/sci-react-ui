@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 
-import { createTheme, Theme } from "@mui/material/styles";
+import { createTheme, Theme } from "@mui/material";
 
 import { ThemeProvider } from "./ThemeProvider";
 import { BaseThemeOptions } from "./BaseTheme";

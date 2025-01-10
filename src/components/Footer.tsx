@@ -1,5 +1,4 @@
-import { Link, LinkProps, Typography, useTheme } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Grid2 as Grid, Link, LinkProps, Typography, useTheme } from "@mui/material";
 
 import React from "react";
 import {
