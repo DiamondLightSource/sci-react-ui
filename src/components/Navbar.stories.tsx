@@ -1,7 +1,7 @@
-import Chip from "@mui/material/Chip";
+import { Chip } from "@mui/material";
 import { Meta, StoryObj } from "@storybook/react";
-import { User } from "./User";
-import { NavLink, NavLinks, Navbar } from "./Navbar";
+import { User } from "./User.tsx";
+import { NavLink, NavLinks, Navbar } from "./Navbar.tsx";
 
 import logoImageDark from "../public/generic/logo-dark.svg";
 import logoImageLight from "../public/generic/logo-light.svg";

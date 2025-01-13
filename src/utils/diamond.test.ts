@@ -1,4 +1,4 @@
-import { visitRegex, Visit, visitToText, regexToVisit } from "./diamond";
+import { visitRegex, Visit, visitToText, regexToVisit } from "./diamond.ts";
 describe("visitRegex", () => {
   const validStrings = ["ab123456-78", "xy1-99", "cd123-456", "fg456789-2"];
   validStrings.forEach((str) => {

@@ -10,8 +10,10 @@ import {
   useTheme,
 } from "@mui/material";
 
-import HomeIcon from "@mui/icons-material/Home";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import {
+  Home as HomeIcon,
+  NavigateNext as NavigateNextIcon,
+} from "@mui/icons-material";
 
 interface BreadcrumbsProps {
   path: string | string[];

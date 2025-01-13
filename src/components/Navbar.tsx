@@ -16,7 +16,7 @@ import React, { useState } from "react";
 import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
-} from "./ImageColorSchemeSwitch";
+} from "./ImageColorSchemeSwitch.tsx";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -148,7 +148,9 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
                   "&:hover": { filter: "brightness(80%);" },
                 }}
               >
-                <ImageColorSchemeSwitch image={logo} />
+                <ImageColorSchemeSwitch
+                  image={logo as ImageColorSchemeSwitchType}
+                />
               </Box>
             </Link>
           ) : null}

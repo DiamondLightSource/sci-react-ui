@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ColourSchemeButton } from "./ColourSchemeButton";
+import { ColourSchemeButton } from "./ColourSchemeButton.tsx";
 
 const meta: Meta<typeof ColourSchemeButton> = {
   title: "SciReactUI/Control/ColorSchemeButton",

@@ -1,7 +1,7 @@
 import { ThemeProvider as Mui_ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { GenericTheme } from "./GenericTheme";
-import { ThemeProviderProps as Mui_ThemeProviderProps } from "@mui/material/styles/ThemeProvider";
+import { GenericTheme } from "./GenericTheme.ts";
+import { ThemeProviderProps as Mui_ThemeProviderProps } from "@mui/material/styles/ThemeProvider.ts";
 
 interface ThemeProviderProps extends Partial<Mui_ThemeProviderProps> {
   baseline?: boolean;

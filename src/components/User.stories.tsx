@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { User } from "./User";
+import { User } from "./User.tsx";
 import { Avatar } from "@mui/material";
 
 const meta: Meta<typeof User> = {

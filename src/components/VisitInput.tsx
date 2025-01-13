@@ -1,6 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
 import { Button, Stack, TextField } from "@mui/material";
-import { regexToVisit, Visit, visitRegex, visitToText } from "../utils/diamond";
+import {
+  regexToVisit,
+  Visit,
+  visitRegex,
+  visitToText,
+} from "../utils/diamond.ts";
 
 interface VisitInputTextProps {
   visitText: string;

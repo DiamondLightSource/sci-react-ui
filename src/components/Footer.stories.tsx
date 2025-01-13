@@ -1,5 +1,5 @@
-import { Meta, StoryObj } from "@storybook/react/*";
-import { Footer, FooterLink, FooterLinks } from "./Footer";
+import { Meta, StoryObj } from "@storybook/react";
+import { Footer, FooterLink, FooterLinks } from "./Footer.tsx";
 
 const meta: Meta<typeof Footer> = {
   title: "SciReactUI/Navigation/Footer",

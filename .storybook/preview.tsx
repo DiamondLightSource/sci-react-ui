@@ -5,7 +5,7 @@ import type { Preview } from "@storybook/react";
 import { ThemeProvider } from "../src";
 import { GenericTheme, DiamondTheme } from "../src";
 
-import { Context, ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper";
+import { Context, ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper.tsx";
 
 const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";

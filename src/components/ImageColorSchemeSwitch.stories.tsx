@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
+import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch.tsx";
 
 import imageDark from "../public/generic/logo-dark.svg";
 import imageLight from "../public/generic/logo-light.svg";

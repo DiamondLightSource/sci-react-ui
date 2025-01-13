@@ -1,7 +1,10 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 
-import { ImageColorSchemeSwitch, getLogoSrc } from "./ImageColorSchemeSwitch";
+import {
+  ImageColorSchemeSwitch,
+  getLogoSrc,
+} from "./ImageColorSchemeSwitch.tsx";
 
 jest.mock("@mui/material", () => {
   return {

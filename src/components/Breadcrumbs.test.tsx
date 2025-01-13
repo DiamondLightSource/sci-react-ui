@@ -1,5 +1,5 @@
 import { render, RenderResult } from "@testing-library/react";
-import { Breadcrumbs, getCrumbs } from "./Breadcrumbs";
+import { Breadcrumbs, getCrumbs } from "./Breadcrumbs.tsx";
 import "@testing-library/jest-dom";
 
 describe("Breadcrumbs", () => {

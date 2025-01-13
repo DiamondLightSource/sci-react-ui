@@ -3,11 +3,11 @@ import { render } from "@testing-library/react";
 
 import { createTheme, Theme } from "@mui/material/styles";
 
-import { ThemeProvider } from "./ThemeProvider";
-import { BaseThemeOptions } from "./BaseTheme";
-import { GenericTheme } from "./GenericTheme";
-import { DiamondTheme } from "./DiamondTheme";
-import Button from "@mui/material/Button";
+import { ThemeProvider } from "./ThemeProvider.tsx";
+import { BaseThemeOptions } from "./BaseTheme.ts";
+import { GenericTheme } from "./GenericTheme.ts";
+import { DiamondTheme } from "./DiamondTheme.ts";
+import { Button } from "@mui/material";
 
 jest.mock("@mui/material/CssBaseline", () => {
   const MockCssBaseline = () => {

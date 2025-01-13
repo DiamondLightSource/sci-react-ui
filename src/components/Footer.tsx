@@ -1,11 +1,16 @@
-import { Link, LinkProps, Typography, useTheme } from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import {
+  Grid2 as Grid,
+  Link,
+  LinkProps,
+  Typography,
+  useTheme,
+} from "@mui/material";
 
 import React from "react";
 import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
-} from "./ImageColorSchemeSwitch";
+} from "./ImageColorSchemeSwitch.tsx";
 
 interface FooterLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -96,7 +101,11 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
               textAlign: "right",
             }}
           >
-            {logo && <ImageColorSchemeSwitch image={logo} />}
+            {logo && (
+              <ImageColorSchemeSwitch
+                image={logo as ImageColorSchemeSwitchType}
+              />
+            )}
             {copyright ? (
               <Typography
                 style={{

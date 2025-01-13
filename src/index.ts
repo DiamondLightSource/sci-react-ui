@@ -1,14 +1,14 @@
 // components
-export * from "./components/Breadcrumbs";
-export * from "./components/ColourSchemeButton";
-export * from "./components/Footer";
-export * from "./components/Navbar";
-export * from "./components/User";
-export * from "./components/VisitInput";
-export * from "./components/ImageColorSchemeSwitch";
+export * from "./components/Breadcrumbs.tsx";
+export * from "./components/ColourSchemeButton.tsx";
+export * from "./components/Footer.tsx";
+export * from "./components/Navbar.tsx";
+export * from "./components/User.tsx";
+export * from "./components/VisitInput.tsx";
+export * from "./components/ImageColorSchemeSwitch.tsx";
 
 // themes
-export * from "./themes/BaseTheme";
-export * from "./themes/GenericTheme";
-export * from "./themes/DiamondTheme";
-export * from "./themes/ThemeProvider";
+export * from "./themes/BaseTheme.ts";
+export * from "./themes/GenericTheme.ts";
+export * from "./themes/DiamondTheme.ts";
+export * from "./themes/ThemeProvider.tsx";

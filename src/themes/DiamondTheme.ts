@@ -1,6 +1,6 @@
 import { createTheme, Theme } from "@mui/material/styles";
 
-import { BaseThemeOptions } from "./BaseTheme";
+import { BaseThemeOptions } from "./BaseTheme.ts";
 
 import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoImageLight from "../public/diamond/logo-light.svg";

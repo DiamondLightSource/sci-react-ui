@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
 
-import { ColourSchemeButton } from "./ColourSchemeButton";
-import { ColourSchemes } from "../utils/globals";
+import { ColourSchemeButton } from "./ColourSchemeButton.tsx";
+import { ColourSchemes } from "../utils/globals.ts";
 
 const mockSetColorScheme = jest.fn();
 jest.mock("@mui/material", () => {

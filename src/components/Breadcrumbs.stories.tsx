@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Breadcrumbs } from "./Breadcrumbs";
+import { Breadcrumbs } from "./Breadcrumbs.tsx";
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: "SciReactUI/Navigation/Breadcrumbs",

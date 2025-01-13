@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { VisitInput } from "./VisitInput";
+import { VisitInput } from "./VisitInput.tsx";
 
 const meta: Meta<typeof VisitInput> = {
   title: "SciReactUI/Control/VisitInput",

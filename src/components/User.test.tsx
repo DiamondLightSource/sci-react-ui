@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 
 import { fireEvent, render } from "@testing-library/react";
 import { Avatar } from "@mui/material";
-import { User } from "./User";
+import { User } from "./User.tsx";
 
 describe("User", () => {
   it("should render", () => {

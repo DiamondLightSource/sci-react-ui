@@ -2,9 +2,9 @@ import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import dlsLogo from "../public/generic/logo-short.svg";
-import { Footer, FooterLink, FooterLinks } from "./Footer";
-import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
-import { ThemeProvider } from "../themes/ThemeProvider";
+import { Footer, FooterLink, FooterLinks } from "./Footer.tsx";
+import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch.tsx";
+import { ThemeProvider } from "../themes/ThemeProvider.tsx";
 
 jest.mock("./ImageColorSchemeSwitch");
 // @ts-expect-error: doesn't find mockImplementation outside of testing.
