@@ -4,13 +4,13 @@ import {
   Button,
   Box,
   Link,
+  Menu,
+  MenuItem,
   Stack,
   Typography,
   useTheme,
 } from "@mui/material";
 
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import { ReactNode, useState } from "react";
 
 import { MdLogin } from "react-icons/md";
