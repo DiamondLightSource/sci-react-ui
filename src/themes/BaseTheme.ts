@@ -1,4 +1,4 @@
-// import {ThemeOptions} from "@mui/material/styles";
+// import {ThemeOptions} from "@mui/material";
 import { ImageColorSchemeSwitchType } from "../components/ImageColorSchemeSwitch.tsx";
 
 // Make additions to theme, so that anything can be available throughout the app

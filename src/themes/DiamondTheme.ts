@@ -1,4 +1,4 @@
-import { createTheme, Theme } from "@mui/material/styles";
+import { createTheme, Theme } from "@mui/material";
 
 import { BaseThemeOptions } from "./BaseTheme.ts";
 
