@@ -23,9 +23,6 @@ importers:
       '@mui/material':
         specifier: ^6.1.7
         version: 6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^8.19.1
-        version: 8.19.1(@typescript-eslint/parser@8.19.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)
       '@typescript-eslint/parser':
         specifier: ^8.19.1
         version: 8.19.1(eslint@9.18.0)(typescript@5.7.3)
@@ -141,6 +138,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.5
         version: 18.3.5(@types/react@18.3.18)
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.19.1
+        version: 8.19.1(@typescript-eslint/parser@8.19.1(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.26.0)
