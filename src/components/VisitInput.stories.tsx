@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-
+import { Visit } from "../utils/diamond";
 import { VisitInput } from "./VisitInput";
 
 const meta: Meta<typeof VisitInput> = {
@@ -11,6 +11,10 @@ const meta: Meta<typeof VisitInput> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const handleSubmit = (visit: Visit, parameters?: object) => {
+  alert(JSON.stringify({ visit, parameters }));
+};
+
 export const Input: Story = {};
 
 export const InitialVisit: Story = {
@@ -19,13 +23,29 @@ export const InitialVisit: Story = {
   },
 };
 
-export const InputWithSubmit: Story = {
-  args: { onSubmit: () => {} },
+export const InputWithSubmitButton: Story = {
+  args: { onSubmit: handleSubmit },
 };
 
-export const InitialVisitWithSubmit: Story = {
+export const InitialVisitWithSubmitButton: Story = {
   args: {
-    onSubmit: () => {},
+    onSubmit: handleSubmit,
     visit: { proposalCode: "xx", proposalNumber: 99999, number: 7 },
+  },
+};
+
+export const InitialVisitWithoutReturnKeySubmission: Story = {
+  args: {
+    onSubmit: handleSubmit,
+    visit: { proposalCode: "xx", proposalNumber: 99999, number: 7 },
+    submitOnReturn: false,
+  },
+};
+
+export const InitialVisitWithoutSubmitButton: Story = {
+  args: {
+    onSubmit: handleSubmit,
+    visit: { proposalCode: "xx", proposalNumber: 99999, number: 7 },
+    submitButton: false,
   },
 };

@@ -7,6 +7,8 @@ interface VisitInputTextProps {
   setVisitText: (v: string) => void;
   isValid: boolean;
   setIsValid: (v: boolean) => void;
+  handleSubmit?: () => void;
+  submitOnReturn?: boolean;
 }
 
 const VisitInputText: React.FC<VisitInputTextProps> = ({
@@ -14,6 +16,8 @@ const VisitInputText: React.FC<VisitInputTextProps> = ({
   setVisitText,
   isValid,
   setIsValid,
+  handleSubmit,
+  submitOnReturn,
 }) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -21,11 +25,18 @@ const VisitInputText: React.FC<VisitInputTextProps> = ({
     setIsValid(visitRegex.test(value));
   };
 
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === "Enter" && submitOnReturn && handleSubmit) {
+      handleSubmit();
+    }
+  };
+
   return (
     <TextField
       label="Visit"
       value={visitText}
       onChange={handleInputChange}
+      onKeyDown={handleKeyDown}
       error={!isValid}
       helperText={!isValid ? "Invalid visit" : ""}
       variant="outlined"
@@ -38,12 +49,16 @@ interface VisitInputProps {
   onSubmit?: (visit: Visit, parameters?: object) => void;
   visit?: Visit;
   parameters?: object;
+  submitButton?: boolean;
+  submitOnReturn?: boolean;
 }
 
 const VisitInput: React.FC<VisitInputProps> = ({
   onSubmit,
   visit,
   parameters,
+  submitButton = true,
+  submitOnReturn = true,
 }) => {
   const [visitText, setVisitText] = useState(visitToText(visit));
   const [isValid, setIsValid] = useState(true);
@@ -59,13 +74,15 @@ const VisitInput: React.FC<VisitInputProps> = ({
 
   return (
     <>
-      {onSubmit ? (
+      {onSubmit && submitButton ? (
         <Stack direction="row" alignContent="end" spacing={1} alignSelf="end">
           <VisitInputText
             visitText={visitText}
             setVisitText={setVisitText}
             isValid={isValid}
             setIsValid={setIsValid}
+            handleSubmit={handleSubmit}
+            submitOnReturn={submitOnReturn}
           />
           <Button
             variant="contained"
@@ -83,6 +100,8 @@ const VisitInput: React.FC<VisitInputProps> = ({
           setVisitText={setVisitText}
           isValid={isValid}
           setIsValid={setIsValid}
+          handleSubmit={handleSubmit}
+          submitOnReturn={submitOnReturn}
         />
       )}
     </>
