@@ -1,14 +1,15 @@
 node_modules/
-storybook-static/
-.storybook/
 temp/
 coverage/
 
+storybook-static/
+.storybook/
 src/storybook/
 
 .idea/
 .vscode/
 
+.github/
 .gitignore
 
 rollup.config.mjs
