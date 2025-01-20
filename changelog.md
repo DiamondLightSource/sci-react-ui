@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.2] - 2024-01-20
+
+### Fixed
+- Not importing correctly in some external projects.
+
+
 ## [0.0.1] - 2024-12-19
 
 ### Added
@@ -19,9 +25,3 @@
 - Themes added:
   - Diamond
   - Generic
-
-### Fixed
-- 
-
-### Changed
-- 
