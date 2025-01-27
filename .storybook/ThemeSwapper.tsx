@@ -35,4 +35,5 @@ const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
   );
 };
 
-export { ThemeSwapper, Context };
+export { ThemeSwapper };
+export type { Context };
