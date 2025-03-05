@@ -1,13 +1,8 @@
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
 
-import { ImageColorSchemeSwitch, getLogoSrc } from "./ImageColorSchemeSwitch";
-
-jest.mock("@mui/material", () => {
-  return {
-    useColorScheme: jest.fn().mockReturnValue({ mode: "dark" }),
-  };
-});
+import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
+import { renderWithProviders } from "../__test-utils__/helpers";
+import { screen } from "@testing-library/react";
 
 describe("ImageColorSchemeSwitch", () => {
   const testVals = {
@@ -22,17 +17,17 @@ describe("ImageColorSchemeSwitch", () => {
     width?: string;
     height?: string;
   }) {
-    const { getByAltText } = render(
+    const { getByTestId } = renderWithProviders(
       <ImageColorSchemeSwitch image={{ ...testVals, ...image }} />,
     );
 
-    const img = getByAltText(testVals.alt);
+    const img = getByTestId("image-light");
     expect(img).toBeInTheDocument();
     return img;
   }
 
   it("should render without errors", () => {
-    render(<ImageColorSchemeSwitch image={{ ...testVals }} />);
+    renderWithProviders(<ImageColorSchemeSwitch image={{ ...testVals }} />);
   });
 
   it("should have src and alt by default", () => {
@@ -66,46 +61,10 @@ describe("ImageColorSchemeSwitch", () => {
   it("should have alternate src", () => {
     const srcDark = "src/dark";
 
-    const img = getRenderImg({
-      srcDark,
-    });
+    renderWithProviders(<ImageColorSchemeSwitch image={{...testVals, srcDark}}/>, {defaultMode: "dark"})
+    const img = screen.getByTestId("image-dark");
 
     expect(img).toHaveAttribute("src", srcDark);
   });
 });
 
-describe("getLogoSrc", () => {
-  const srcLight = "src/light",
-    srcDark = "src/dark";
-
-  it("should be null if no image", () => {
-    // @ts-expect-error: invalid input
-    expect(getLogoSrc(null, "")).toStrictEqual(undefined);
-    // @ts-expect-error: invalid input, calm down ts
-    expect(getLogoSrc()).toStrictEqual(undefined);
-  });
-
-  it("should be srcLight if no srcDark", () => {
-    expect(getLogoSrc({ src: srcLight, alt: "" }, "light")).toStrictEqual(
-      srcLight,
-    );
-  });
-
-  it("should be srcLight if mode is dark but no srcDark", () => {
-    expect(getLogoSrc({ src: srcLight, alt: "" }, "dark")).toStrictEqual(
-      srcLight,
-    );
-  });
-
-  it("should be srcLight if srcDark but mode light", () => {
-    expect(
-      getLogoSrc({ src: srcLight, srcDark: srcDark, alt: "" }, "light"),
-    ).toStrictEqual(srcLight);
-  });
-
-  it("should be srcDark if mode dark", () => {
-    expect(
-      getLogoSrc({ src: "src/light", srcDark: srcDark, alt: "" }, "dark"),
-    ).toStrictEqual(srcDark);
-  });
-});

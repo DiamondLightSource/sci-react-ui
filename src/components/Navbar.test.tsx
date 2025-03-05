@@ -1,11 +1,12 @@
-import { fireEvent, screen, render } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { Navbar, NavLinks, NavLink } from "./Navbar";
 import "@testing-library/jest-dom";
+import { renderWithProviders } from "../__test-utils__/helpers";
 
 describe("Navbar", () => {
   it("should not display logo if null", () => {
     global.innerWidth = 600;
-    render(<Navbar logo={null} />);
+    renderWithProviders(<Navbar logo={null} />);
     expect(screen.queryByAltText("Home")).not.toBeInTheDocument();
   });
 });
@@ -13,7 +14,7 @@ describe("Navbar", () => {
 describe("Navbar Links", () => {
   it("should display hamburger menu on narrow displays", () => {
     global.innerWidth = 600;
-    render(
+    renderWithProviders(
       <NavLinks>
         <NavLink>Proposals</NavLink>
       </NavLinks>,
@@ -25,7 +26,7 @@ describe("Navbar Links", () => {
 
   it("should display menu items when hamburger menu is clicked", () => {
     global.innerWidth = 600;
-    render(
+    renderWithProviders(
       <NavLinks>
         <NavLink>Proposals</NavLink>
       </NavLinks>,
@@ -38,7 +39,7 @@ describe("Navbar Links", () => {
 
   it("should render links properly", () => {
     global.innerWidth = 600;
-    render(
+    renderWithProviders(
       <NavLinks>
         <NavLink>Proposals</NavLink>
       </NavLinks>,

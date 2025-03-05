@@ -91,7 +91,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
         onClose={onClose}
         anchor="left"
         PaperProps={{
-          sx: { backgroundColor: theme.palette.primary.main },
+          sx: { backgroundColor: theme.vars.palette.primary.main },
         }}
       >
         <Box
@@ -101,7 +101,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.vars.palette.primary.main,
           }}
         >
           {children}
@@ -126,7 +126,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
       <Paper
         sx={{
           display: "flex",
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme.vars.palette.primary.main,
           px: { xs: "1rem", md: "7.5vw" },
           height: 50,
           width: "100%",

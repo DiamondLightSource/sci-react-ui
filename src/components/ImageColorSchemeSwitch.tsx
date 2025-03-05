@@ -1,4 +1,4 @@
-import { useColorScheme } from "@mui/material";
+import { styled } from "@mui/material";
 
 type ImageColorSchemeSwitchType = {
   src: string;
@@ -12,28 +12,28 @@ interface ImageColorSchemeSwitchProps {
   image: ImageColorSchemeSwitchType;
 }
 
-export function getLogoSrc(image: ImageColorSchemeSwitchType, mode: string) {
-  if (!image) {
-    return undefined;
-  }
+/** Styled component which is only displayed in dark mode */
+const ImageDark = styled("img")(({ theme }) => [
+  { display: "none" },
+  theme.applyStyles("dark", {
+    display: "block",
+  }),
+]);
 
-  if (image.srcDark === undefined) {
-    return image.src;
-  }
+/** Styled component which is only displayed in light mode */
+const ImageLight = styled("img")(({ theme }) => [
+  { display: "block" },
+  theme.applyStyles("dark", {
+    display: "none",
+  }),
+]);
 
-  return mode === "dark" ? image.srcDark : image.src;
-}
-
-const ImageColorSchemeSwitch = ({ image }: ImageColorSchemeSwitchProps) => {
-  const { mode } = useColorScheme();
-  if (!mode) return <></>;
-
-  const src: string | undefined = getLogoSrc(image, mode);
-
-  return (
-    <img src={src} alt={image.alt} width={image.width} height={image.height} />
-  );
-};
+const ImageColorSchemeSwitch = ({ image }: ImageColorSchemeSwitchProps) => (
+  <>
+    <ImageLight data-testid="image-light" src={image.src} alt={image.alt} width={image.width} height={image.height} />
+    <ImageDark data-testid="image-dark" src={image.srcDark} alt={image.alt} width={image.width} height={image.height} />
+  </>
+);
 
 export { ImageColorSchemeSwitch };
 export type { ImageColorSchemeSwitchProps, ImageColorSchemeSwitchType };
