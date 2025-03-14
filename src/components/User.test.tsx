@@ -7,7 +7,9 @@ import { renderWithProviders } from "../__test-utils__/helpers";
 
 describe("User", () => {
   it("should render", () => {
-    renderWithProviders(<User onLogin={() => {}} onLogout={() => {}} user={null} />);
+    renderWithProviders(
+      <User onLogin={() => {}} onLogout={() => {}} user={null} />,
+    );
     renderWithProviders(<User onLogout={() => {}} user={null} />);
     renderWithProviders(<User onLogin={() => {}} user={null} />);
     renderWithProviders(<User user={null} />);
@@ -40,7 +42,9 @@ describe("User", () => {
 
   it("should fire login callback when button is clicked", () => {
     const loginCallback = jest.fn();
-    const { getByText } = renderWithProviders(<User onLogin={loginCallback} user={null} />);
+    const { getByText } = renderWithProviders(
+      <User onLogin={loginCallback} user={null} />,
+    );
 
     const loginButton = getByText("Login");
     fireEvent.click(loginButton);
@@ -68,7 +72,9 @@ describe("User", () => {
   it("should display name and FedID", () => {
     const name = "A Name",
       fedId = "FED14000";
-    const { getByText } = renderWithProviders(<User user={{ name: name, fedid: fedId }} />);
+    const { getByText } = renderWithProviders(
+      <User user={{ name: name, fedid: fedId }} />,
+    );
 
     expect(getByText(name)).toBeInTheDocument();
     expect(getByText(fedId)).toBeInTheDocument();

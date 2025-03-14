@@ -8,7 +8,7 @@ import { renderWithProviders } from "../__test-utils__/helpers";
 
 jest.mock("./ImageColorSchemeSwitch");
 // @ts-expect-error: doesn't find mockImplementation outside of testing.
-ImageColorSchemeSwitch.mockImplementation(() => <img src='src' alt='alt' />);
+ImageColorSchemeSwitch.mockImplementation(() => <img src="src" alt="alt" />);
 
 describe("Footer", () => {
   test("Should render logo only", () => {
@@ -20,7 +20,7 @@ describe("Footer", () => {
   });
 
   test("Should render logo via theme", () => {
-    renderWithProviders(<Footer logo='theme' />);
+    renderWithProviders(<Footer logo="theme" />);
 
     expect(screen.getByRole("img")).toBeInTheDocument();
   });
@@ -33,7 +33,7 @@ describe("Footer", () => {
     await waitFor(() => {
       expect(screen.queryByRole("paragraph")).toBeInTheDocument();
       expect(screen.queryByRole("paragraph")?.textContent).toStrictEqual(
-        `Copyright © ${currentYear} ${copyrightText}`
+        `Copyright © ${currentYear} ${copyrightText}`,
       );
       // No logo
       expect(screen.queryByRole("img")).not.toBeTruthy();
@@ -43,13 +43,17 @@ describe("Footer", () => {
   test("Should render logo and copyright", async () => {
     const copyrightText = "add text here";
     const currentYear = new Date().getFullYear();
-    renderWithProviders(<Footer logo={{ src: dlsLogo, alt: "" }} copyright={copyrightText} />);
+    renderWithProviders(
+      <Footer logo={{ src: dlsLogo, alt: "" }} copyright={copyrightText} />,
+    );
 
     await waitFor(() => {
       expect(screen.getByRole("img")).toBeInTheDocument();
       const paragraph = screen.getByRole("paragraph");
       expect(paragraph).toBeInTheDocument();
-      expect(paragraph.textContent).toStrictEqual(`Copyright © ${currentYear} ${copyrightText}`);
+      expect(paragraph.textContent).toStrictEqual(
+        `Copyright © ${currentYear} ${copyrightText}`,
+      );
     });
   });
 
@@ -62,7 +66,7 @@ describe("Footer", () => {
         <FooterLinks>
           <FooterLink href={linkOneName}>{lineOneText}</FooterLink>
         </FooterLinks>
-      </Footer>
+      </Footer>,
     );
 
     await waitFor(() => {
@@ -85,7 +89,7 @@ describe("Footer", () => {
           <FooterLink href={linkOneName}>{linkOneText}</FooterLink>
           <FooterLink href={linkTwoName}>{linkTwoText}</FooterLink>
         </FooterLinks>
-      </Footer>
+      </Footer>,
     );
 
     await waitFor(() => {

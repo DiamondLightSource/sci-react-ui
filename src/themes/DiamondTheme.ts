@@ -1,5 +1,5 @@
 import { createTheme, Theme } from "@mui/material/styles";
-import type {} from '@mui/material/themeCssVarsAugmentation';
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 import { BaseThemeOptions } from "./BaseTheme";
 
@@ -12,9 +12,6 @@ const dlsLogoYellow = "#facf07";
 
 const DiamondTheme: Theme = createTheme({
   ...BaseThemeOptions,
-  cssVariables: {
-    colorSchemeSelector: "class"
-  },
   logos: {
     normal: {
       src: logoImageLight,

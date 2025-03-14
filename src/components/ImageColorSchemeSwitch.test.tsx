@@ -61,10 +61,12 @@ describe("ImageColorSchemeSwitch", () => {
   it("should have alternate src", () => {
     const srcDark = "src/dark";
 
-    renderWithProviders(<ImageColorSchemeSwitch image={{...testVals, srcDark}}/>, {defaultMode: "dark"})
+    renderWithProviders(
+      <ImageColorSchemeSwitch image={{ ...testVals, srcDark }} />,
+      { defaultMode: "dark" },
+    );
     const img = screen.getByTestId("image-dark");
 
     expect(img).toHaveAttribute("src", srcDark);
   });
 });
-

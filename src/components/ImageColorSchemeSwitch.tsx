@@ -30,8 +30,20 @@ const ImageLight = styled("img")(({ theme }) => [
 
 const ImageColorSchemeSwitch = ({ image }: ImageColorSchemeSwitchProps) => (
   <>
-    <ImageLight data-testid="image-light" src={image.src} alt={image.alt} width={image.width} height={image.height} />
-    <ImageDark data-testid="image-dark" src={image.srcDark} alt={image.alt} width={image.width} height={image.height} />
+    <ImageLight
+      data-testid="image-light"
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+    />
+    <ImageDark
+      data-testid="image-dark"
+      src={image.srcDark}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+    />
   </>
 );
 
