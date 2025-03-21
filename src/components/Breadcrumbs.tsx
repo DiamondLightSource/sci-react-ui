@@ -29,7 +29,7 @@ interface BreadcrumbsProps {
  * @param pathData An array object that take in crumb names and hrefs
  */
 export function getCrumbs(pathData: Array<CrumbData>): CrumbData[] {
-  return pathData.map((obj, i) => {
+  return pathData.map((obj) => {
     return {
       name: obj.name.charAt(0).toUpperCase() + obj.name.slice(1),
       href: obj.href,
