@@ -13,32 +13,26 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-interface BreadcrumbsProps {
-  path: string | string[];
-  rootProps?: PaperProps;
-  muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
-}
-
 type CrumbData = {
   name: string;
   href: string;
 };
 
+interface BreadcrumbsProps {
+  path: Array<CrumbData>;
+  rootProps?: PaperProps;
+  muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
+}
+
 /**
  * Create CrumbData from crumb parts with links
- * @param path A single string path, or an array of string parts
+ * @param pathData An array object that take in crumb names and hrefs
  */
-export function getCrumbs(path: string | string[]): CrumbData[] {
-  if (typeof path === "string") {
-    path = path.split("/");
-  }
-
-  const crumbs = path.filter((item) => item.trim() !== "");
-
-  return crumbs.map((crumb, i) => {
+export function getCrumbs(pathData: Array<CrumbData>): CrumbData[] {
+  return pathData.map((obj, i) => {
     return {
-      name: crumb.charAt(0).toUpperCase() + crumb.slice(1),
-      href: "/" + crumbs.slice(0, i + 1).join("/"),
+      name: obj.name.charAt(0).toUpperCase() + obj.name.slice(1),
+      href: obj.href,
     };
   });
 }
