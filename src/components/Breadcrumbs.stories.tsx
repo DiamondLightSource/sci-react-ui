@@ -12,30 +12,28 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    path: [
-      { name: "first", href: "first" },
-      { name: "second", href: "second/could/be/here" },
-      { name: "third", href: "third" },
-      { name: "last", href: "/" },
-    ],
+    path: "first/second/third/last",
   },
 };
 
 export const ShortPath: Story = {
   args: {
-    path: [{ name: "just one", href: "/" }],
+    path: "just one",
   },
 };
 
 export const LongPath: Story = {
   args: {
+    path: "/first/the second/third/fourth/almost last/last one/",
+  },
+};
+
+export const DifferentLinkToPathName: Story = {
+  args: {
     path: [
-      { name: "first", href: "first" },
-      { name: "the second", href: "the/second" },
-      { name: "third", href: "third" },
-      { name: "fourth", href: "fourth/could/be/here" },
-      { name: "almost last", href: "almost last" },
-      { name: "last one", href: "/" },
+      { name: "first", href: "link" },
+      { name: "second", href: "other link" },
+      { name: "last", href: "/" },
     ],
   },
 };

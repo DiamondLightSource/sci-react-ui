@@ -13,27 +13,40 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
+interface BreadcrumbsProps {
+  path: string | string[] | object[];
+  rootProps?: PaperProps;
+  muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
+}
+
 type CrumbData = {
   name: string;
   href: string;
 };
 
-interface BreadcrumbsProps {
-  path: Array<CrumbData>;
-  rootProps?: PaperProps;
-  muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
-}
-
 /**
  * Create CrumbData from crumb parts with links
- * @param pathData An array object that take in crumb names and hrefs
+ * @param path A single string path, an array of string parts or and array of object parts
  */
-export function getCrumbs(pathData: Array<CrumbData>): CrumbData[] {
-  return pathData.map((obj) => {
-    return {
-      name: obj.name.charAt(0).toUpperCase() + obj.name.slice(1),
-      href: obj.href,
-    };
+export function getCrumbs(path: string | string[] | object[]): CrumbData[] {
+  if (typeof path === "string") {
+    path = path.split("/");
+  }
+
+  const crumbs = path.filter((item) => item !== "");
+
+  return crumbs.map((crumb: any, i) => {
+    if (typeof crumb === "string") {
+      return {
+        name: crumb.charAt(0).toUpperCase() + crumb.slice(1),
+        href: "/" + crumbs.slice(0, i + 1).join("/"),
+      };
+    } else {
+      return {
+        name: crumb["name"].charAt(0).toUpperCase() + crumb["name"].slice(1),
+        href: crumb["href"],
+      };
+    }
   });
 }
 
