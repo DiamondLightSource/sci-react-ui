@@ -1,19 +1,22 @@
 import "@testing-library/jest-dom";
 
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { Avatar } from "@mui/material";
 import { User } from "./User";
+import { renderWithProviders } from "../__test-utils__/helpers";
 
 describe("User", () => {
   it("should render", () => {
-    render(<User onLogin={() => {}} onLogout={() => {}} user={null} />);
-    render(<User onLogout={() => {}} user={null} />);
-    render(<User onLogin={() => {}} user={null} />);
-    render(<User user={null} />);
+    renderWithProviders(
+      <User onLogin={() => {}} onLogout={() => {}} user={null} />,
+    );
+    renderWithProviders(<User onLogout={() => {}} user={null} />);
+    renderWithProviders(<User onLogin={() => {}} user={null} />);
+    renderWithProviders(<User user={null} />);
   });
 
   it("should display login button when not authenticated", () => {
-    const { getByText } = render(
+    const { getByText } = renderWithProviders(
       <User onLogin={() => {}} onLogout={() => {}} user={null} />,
     );
     const loginButton = getByText("Login");
@@ -22,7 +25,7 @@ describe("User", () => {
   });
 
   it("should display logout menuitem when authenticated", () => {
-    const { getByRole, getByText } = render(
+    const { getByRole, getByText } = renderWithProviders(
       <User
         onLogin={() => {}}
         onLogout={() => {}}
@@ -39,7 +42,9 @@ describe("User", () => {
 
   it("should fire login callback when button is clicked", () => {
     const loginCallback = jest.fn();
-    const { getByText } = render(<User onLogin={loginCallback} user={null} />);
+    const { getByText } = renderWithProviders(
+      <User onLogin={loginCallback} user={null} />,
+    );
 
     const loginButton = getByText("Login");
     fireEvent.click(loginButton);
@@ -49,7 +54,7 @@ describe("User", () => {
 
   it("should fire logout callback when button is clicked", () => {
     const logoutCallback = jest.fn();
-    const { getByRole, getByText } = render(
+    const { getByRole, getByText } = renderWithProviders(
       <User
         onLogout={logoutCallback}
         user={{ name: "Name", fedid: "FedID" }}
@@ -67,14 +72,16 @@ describe("User", () => {
   it("should display name and FedID", () => {
     const name = "A Name",
       fedId = "FED14000";
-    const { getByText } = render(<User user={{ name: name, fedid: fedId }} />);
+    const { getByText } = renderWithProviders(
+      <User user={{ name: name, fedid: fedId }} />,
+    );
 
     expect(getByText(name)).toBeInTheDocument();
     expect(getByText(fedId)).toBeInTheDocument();
   });
 
   it("should not have logout when no onLogout", () => {
-    const { getByRole, queryByText } = render(
+    const { getByRole, queryByText } = renderWithProviders(
       <User user={{ name: "Name", fedid: "FedID" }} />,
     );
     const userMenu = getByRole("button");
@@ -86,7 +93,7 @@ describe("User", () => {
 
   it("should render a new avatar", () => {
     const avatarInitials = "MW";
-    const { queryByText } = render(
+    const { queryByText } = renderWithProviders(
       <User
         user={{ name: "Name", fedid: "FedID" }}
         avatar={<Avatar>{avatarInitials}</Avatar>}

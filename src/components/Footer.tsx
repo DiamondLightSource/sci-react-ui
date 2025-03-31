@@ -42,7 +42,7 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
     <Link
       sx={{
         "&:hover": {
-          color: theme.palette.secondary.main,
+          color: theme.vars.palette.secondary.main,
           borderBottom: "solid 4px",
         },
         textDecoration: "none",
@@ -74,7 +74,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
         bottom: 0,
         marginTop: "auto",
         minHeight: 50,
-        backgroundColor: theme.palette.primary.light,
+        backgroundColor: theme.vars.palette.primary.light,
       }}
       {...props}
     >

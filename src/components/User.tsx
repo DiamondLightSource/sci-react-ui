@@ -72,7 +72,7 @@ const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
                   alt={user.name + " avatar"}
                   variant="rounded"
                   sx={{
-                    backgroundColor: theme.palette.primary.light,
+                    backgroundColor: theme.vars.palette.primary.light,
                     color: color || "textPrimary",
                     height: 35,
                     width: 35,

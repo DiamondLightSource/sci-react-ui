@@ -1,10 +1,10 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import dlsLogo from "../public/generic/logo-short.svg";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
-import { ThemeProvider } from "../themes/ThemeProvider";
+import { renderWithProviders } from "../__test-utils__/helpers";
 
 jest.mock("./ImageColorSchemeSwitch");
 // @ts-expect-error: doesn't find mockImplementation outside of testing.
@@ -12,7 +12,7 @@ ImageColorSchemeSwitch.mockImplementation(() => <img src="src" alt="alt" />);
 
 describe("Footer", () => {
   test("Should render logo only", () => {
-    render(<Footer logo={{ src: dlsLogo, alt: "t" }} />);
+    renderWithProviders(<Footer logo={{ src: dlsLogo, alt: "t" }} />);
 
     expect(screen.getByRole("img")).toBeInTheDocument();
     // No copyright text
@@ -20,11 +20,7 @@ describe("Footer", () => {
   });
 
   test("Should render logo via theme", () => {
-    render(
-      <ThemeProvider>
-        <Footer logo="theme" />
-      </ThemeProvider>,
-    );
+    renderWithProviders(<Footer logo="theme" />);
 
     expect(screen.getByRole("img")).toBeInTheDocument();
   });
@@ -32,7 +28,7 @@ describe("Footer", () => {
   test("Should render copyright only", async () => {
     const copyrightText = "add text here";
     const currentYear = new Date().getFullYear();
-    render(<Footer logo={null} copyright={copyrightText} />);
+    renderWithProviders(<Footer logo={null} copyright={copyrightText} />);
 
     await waitFor(() => {
       expect(screen.queryByRole("paragraph")).toBeInTheDocument();
@@ -47,7 +43,7 @@ describe("Footer", () => {
   test("Should render logo and copyright", async () => {
     const copyrightText = "add text here";
     const currentYear = new Date().getFullYear();
-    render(
+    renderWithProviders(
       <Footer logo={{ src: dlsLogo, alt: "" }} copyright={copyrightText} />,
     );
 
@@ -65,7 +61,7 @@ describe("Footer", () => {
     const lineOneText = "Link one";
     const linkOneName = "link-one-href";
 
-    render(
+    renderWithProviders(
       <Footer>
         <FooterLinks>
           <FooterLink href={linkOneName}>{lineOneText}</FooterLink>
@@ -87,7 +83,7 @@ describe("Footer", () => {
     const linkTwoText = "Link two";
     const linkOneName = "link-one-href";
     const linkTwoName = "link-two-href";
-    render(
+    renderWithProviders(
       <Footer>
         <FooterLinks>
           <FooterLink href={linkOneName}>{linkOneText}</FooterLink>

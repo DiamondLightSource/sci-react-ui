@@ -1,4 +1,5 @@
 import { createTheme, Theme } from "@mui/material/styles";
+import type {} from "@mui/material/themeCssVarsAugmentation";
 
 import { BaseThemeOptions } from "./BaseTheme";
 
