@@ -40,7 +40,7 @@ describe("Breadcrumbs", () => {
     expect(crumb).toHaveAttribute("href", `/${crumbFirst}/${crumbSecond}`);
 
     expect(
-      queryByRole("link", { name: crumbLastTitle }),
+      queryByRole("link", { name: crumbLastTitle })
     ).not.toBeInTheDocument();
     expect(getByText(crumbLastTitle)).toBeInTheDocument();
   }
@@ -65,7 +65,7 @@ describe("Breadcrumbs", () => {
 
   it("should use path as object array", () => {
     const { getByRole, queryByRole, getByText } = render(
-      <Breadcrumbs path={defaultArrayObject} />,
+      <Breadcrumbs path={defaultArrayObject} />
     );
     let crumb = getByRole("link", { name: crumbFirstTitle });
     expect(crumb).toBeInTheDocument();
@@ -76,7 +76,7 @@ describe("Breadcrumbs", () => {
     expect(crumb).toHaveAttribute("href", `/${crumbSecond}`);
 
     expect(
-      queryByRole("link", { name: crumbLastTitle }),
+      queryByRole("link", { name: crumbLastTitle })
     ).not.toBeInTheDocument();
     expect(getByText(crumbLastTitle)).toBeInTheDocument();
   });
@@ -106,25 +106,25 @@ describe("getCrumbs", () => {
 
   it("should match if path string", () => {
     expect(getCrumbs("/first/second/last one")).toStrictEqual(
-      stringAndStringArrayCrumbs,
+      stringAndStringArrayCrumbs
     );
   });
 
   it("should match if last slash included", () => {
     expect(getCrumbs("/first/second/last one/")).toStrictEqual(
-      stringAndStringArrayCrumbs,
+      stringAndStringArrayCrumbs
     );
   });
 
   it("should match if first slash excluded and last slash included", () => {
     expect(getCrumbs("first/second/last one")).toStrictEqual(
-      stringAndStringArrayCrumbs,
+      stringAndStringArrayCrumbs
     );
   });
 
   it("should match path string with multi separators", () => {
     expect(getCrumbs("///first//second/last one")).toStrictEqual(
-      stringAndStringArrayCrumbs,
+      stringAndStringArrayCrumbs
     );
   });
 
@@ -138,19 +138,19 @@ describe("getCrumbs", () => {
 
   it("should match if path array", () => {
     expect(getCrumbs(["first", "second", "last one"])).toStrictEqual(
-      stringAndStringArrayCrumbs,
+      stringAndStringArrayCrumbs
     );
   });
 
   it("should match if path array with empty", () => {
     expect(getCrumbs(["first", "second", "last one", ""])).toStrictEqual(
-      stringAndStringArrayCrumbs,
+      stringAndStringArrayCrumbs
     );
   });
 
   it("should match by removing spaces only", () => {
     expect(getCrumbs(["first", "second", "last one", "   "])).toStrictEqual(
-      stringAndStringArrayCrumbs,
+      stringAndStringArrayCrumbs
     );
   });
 
@@ -164,11 +164,7 @@ describe("getCrumbs", () => {
         { name: "First", href: "first" },
         { name: "Second", href: "this is the second link" },
         { name: "Last", href: "/" },
-      ]),
+      ])
     ).toStrictEqual(objectArrayCrumbs);
-  });
-
-  it("should return an empty array if empty object array passed", () => {
-    expect(getCrumbs([{}])).toStrictEqual([]);
   });
 });

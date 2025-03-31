@@ -13,22 +13,22 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-interface BreadcrumbsProps {
-  path: string | string[] | object[];
-  rootProps?: PaperProps;
-  muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
-}
-
 type CrumbData = {
   name: string;
   href: string;
 };
+interface BreadcrumbsProps {
+  path: string | string[] | CrumbData[];
+  rootProps?: PaperProps;
+  muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
+}
 
 /**
  * Create CrumbData from crumb parts with links
- * @param path A single string path, an array of string parts or and array of object parts
+ * @param path A single string path, an array of string parts or and array of CrumbData parts
  */
-export function getCrumbs(path: string | string[] | object[]): CrumbData[] {
+export function getCrumbs(path: string | string[] | CrumbData[]): CrumbData[] {
+  console.log(typeof path);
   if (typeof path === "string") {
     path = path.split("/");
   }
@@ -41,12 +41,11 @@ export function getCrumbs(path: string | string[] | object[]): CrumbData[] {
     }
   });
 
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  return crumbs.map((crumb: any, i: number): CrumbData => {
+  return crumbs.map((crumb: string | CrumbData, index: number) => {
     if (typeof crumb === "string") {
       return {
         name: crumb.charAt(0).toUpperCase() + crumb.slice(1),
-        href: "/" + crumbs.slice(0, i + 1).join("/"),
+        href: "/" + crumbs.slice(0, index + 1).join("/"),
       };
     } else {
       return {
