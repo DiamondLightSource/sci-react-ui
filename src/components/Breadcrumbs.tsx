@@ -33,9 +33,16 @@ export function getCrumbs(path: string | string[] | object[]): CrumbData[] {
     path = path.split("/");
   }
 
-  const crumbs = path.filter((item) => item !== "");
+  const crumbs = path.filter((item) => {
+    if (typeof item === "object") {
+      return Object.entries(item).length > 0 ? item : undefined;
+    } else {
+      return item.trim() !== "";
+    }
+  });
 
-  return crumbs.map((crumb: any, i) => {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  return crumbs.map((crumb: any, i: number): CrumbData => {
     if (typeof crumb === "string") {
       return {
         name: crumb.charAt(0).toUpperCase() + crumb.slice(1),
@@ -43,8 +50,9 @@ export function getCrumbs(path: string | string[] | object[]): CrumbData[] {
       };
     } else {
       return {
-        name: crumb["name"].charAt(0).toUpperCase() + crumb["name"].slice(1),
-        href: crumb["href"],
+        name:
+          crumb["name"].trim().charAt(0).toUpperCase() + crumb["name"].slice(1),
+        href: crumb["href"].trim(),
       };
     }
   });
