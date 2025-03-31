@@ -28,7 +28,6 @@ interface BreadcrumbsProps {
  * @param path A single string path, an array of string parts or and array of CrumbData parts
  */
 export function getCrumbs(path: string | string[] | CrumbData[]): CrumbData[] {
-  console.log(typeof path);
   if (typeof path === "string") {
     path = path.split("/");
   }
