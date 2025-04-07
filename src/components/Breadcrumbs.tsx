@@ -26,7 +26,7 @@ interface BreadcrumbsProps {
  * @param path A single string path, an array of string parts or and array of CustomLink parts
  */
 export function getCrumbs(
-  path: string | string[] | CustomLink[]
+  path: string | string[] | CustomLink[],
 ): CustomLink[] {
   if (typeof path === "string") {
     path = path.split("/");
