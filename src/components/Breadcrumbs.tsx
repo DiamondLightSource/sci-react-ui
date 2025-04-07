@@ -13,21 +13,21 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
-type CrumbData = {
-  name: string;
-  href: string;
-};
+import { CustomLink } from "types/links";
+
 interface BreadcrumbsProps {
-  path: string | string[] | CrumbData[];
+  path: string | string[] | CustomLink[];
   rootProps?: PaperProps;
   muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
 }
 
 /**
  * Create CrumbData from crumb parts with links
- * @param path A single string path, an array of string parts or and array of CrumbData parts
+ * @param path A single string path, an array of string parts or and array of CustomLink parts
  */
-export function getCrumbs(path: string | string[] | CrumbData[]): CrumbData[] {
+export function getCrumbs(
+  path: string | string[] | CustomLink[]
+): CustomLink[] {
   if (typeof path === "string") {
     path = path.split("/");
   }
@@ -40,7 +40,7 @@ export function getCrumbs(path: string | string[] | CrumbData[]): CrumbData[] {
     }
   });
 
-  return crumbs.map((crumb: string | CrumbData, index: number) => {
+  return crumbs.map((crumb: string | CustomLink, index: number) => {
     if (typeof crumb === "string") {
       return {
         name: crumb.charAt(0).toUpperCase() + crumb.slice(1),
@@ -62,7 +62,7 @@ const Breadcrumbs = ({
   muiBreadcrumbsProps,
 }: BreadcrumbsProps) => {
   const theme = useTheme();
-  const crumbs: CrumbData[] = getCrumbs(path);
+  const crumbs: CustomLink[] = getCrumbs(path);
 
   return (
     <Paper
