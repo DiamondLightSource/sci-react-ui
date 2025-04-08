@@ -12,7 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    path: "first/second/third/last",
+    path: "/first/second/third/last/",
   },
 };
 
@@ -46,12 +46,7 @@ export const Empty: Story = {
 
 export const ColorChange: Story = {
   args: {
-    path: [
-      { name: "first", href: "first" },
-      { name: "second", href: "second/could/be/here" },
-      { name: "third", href: "third" },
-      { name: "last", href: "/" },
-    ],
+    path: ["first", "second", "third", "last"],
     rootProps: {
       sx: { backgroundColor: "blue" },
     },

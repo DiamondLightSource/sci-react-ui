@@ -50,6 +50,12 @@ describe("Breadcrumbs", () => {
   });
 
   it("should show just home when an empty string", () => {
+    const renderResult = render(<Breadcrumbs path={""} />);
+    testHomeExists(renderResult);
+    expect(renderResult.getAllByRole("link")).toHaveLength(1);
+  });
+
+  it("should show just home when an empty array", () => {
     const renderResult = render(<Breadcrumbs path={[]} />);
     testHomeExists(renderResult);
     expect(renderResult.getAllByRole("link")).toHaveLength(1);
