@@ -1,6 +1,7 @@
 import { render, RenderResult } from "@testing-library/react";
 import { Breadcrumbs, getCrumbs } from "./Breadcrumbs";
 import "@testing-library/jest-dom";
+import { CustomLink } from "types/links";
 
 const crumbFirst = "first",
   crumbFirstTitle = "First",
@@ -10,7 +11,7 @@ const crumbFirst = "first",
   crumbLastTitle = "Last one",
   defaultStringPath = `/${crumbFirst}/${crumbSecond}/${crumbLast}`,
   defaultArrayPath = [crumbFirst, crumbSecond, crumbLast],
-  defaultArrayObject = [
+  defaultArrayObject: CustomLink[] = [
     { name: `${crumbFirstTitle}`, href: `/${crumbFirst}` },
     { name: `${crumbSecondTitle}`, href: `/${crumbSecond}` },
     { name: `${crumbLastTitle}`, href: "/" },
