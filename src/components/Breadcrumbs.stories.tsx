@@ -28,9 +28,19 @@ export const LongPath: Story = {
   },
 };
 
+export const DifferentLinkToPathName: Story = {
+  args: {
+    path: [
+      { name: "first", href: "link" },
+      { name: "second", href: "other link" },
+      { name: "last", href: "/" },
+    ],
+  },
+};
+
 export const Empty: Story = {
   args: {
-    path: "",
+    path: [],
   },
 };
 
