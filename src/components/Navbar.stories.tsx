@@ -5,6 +5,7 @@ import { NavLink, NavLinks, Navbar } from "./Navbar";
 
 import logoImageDark from "../public/generic/logo-dark.svg";
 import logoImageLight from "../public/generic/logo-light.svg";
+import { ColourSchemeButton } from "./ColourSchemeButton";
 
 const meta: Meta<typeof Navbar> = {
   title: "SciReactUI/Navigation/Navbar",
@@ -39,6 +40,7 @@ export const All: Story = {
         user={{ name: "Name", fedid: "FedID" }}
         color={"white"}
       />,
+      <ColourSchemeButton key="colourScheme" />,
     ],
     logo: "theme",
   },

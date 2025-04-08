@@ -61,6 +61,7 @@ const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
               border: "none",
               cursor: "pointer",
               minWidth: 0,
+              marginLeft: "10px !important",
               "&:hover": {
                 opacity: 0.8,
               },

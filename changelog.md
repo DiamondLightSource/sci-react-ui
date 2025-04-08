@@ -4,10 +4,14 @@ SciReactUI Changelog
 [vNext] - date
 --------------------
 
+### Added
+- Breadcrumbs takes object for total control over names and links 
+
 ### Fixed
-- Stopped flicker between themes when starting an app in dark mode.
+- Stopped flicker between colour modes when starting an app in dark mode.
 - Footer links stopped from moving on hover when only showing links.
-- Footer links now correctly center horizontally.
+- Footer links now correctly center horizontally, if needed.
+- NavBar positions items correctly in multiple screen widths.
 
 ### Changed
 - Footer links now align with copyright when there is no logo.
