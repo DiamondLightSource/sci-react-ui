@@ -7,7 +7,7 @@ import {
   ImageColorSchemeSwitchType,
 } from "./ImageColorSchemeSwitch";
 
-interface FooterLinksProps {
+interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
@@ -18,7 +18,7 @@ interface FooterProps extends React.HTMLProps<HTMLDivElement> {
   children?: React.ReactElement | React.ReactElement[];
 }
 
-const FooterLinks = ({ children }: FooterLinksProps) => {
+const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
   return (
     <div
       style={{
@@ -29,6 +29,7 @@ const FooterLinks = ({ children }: FooterLinksProps) => {
         display: "flex",
         flexWrap: "wrap",
       }}
+      {...props}
     >
       {children}
     </div>
@@ -48,7 +49,11 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
         textDecoration: "none",
         color: theme.palette.primary.contrastText,
         marginLeft: "1.5rem",
+        marginBottom: "4px",
+        paddingBottom: "4px",
+        lineHeight: 1,
         cursor: "pointer",
+        borderBottom: "solid transparent 4px",
       }}
       {...props}
     >
@@ -80,35 +85,45 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
     >
       <Grid container>
         <Grid
-          size={{ xs: 6, md: 8 }}
+          size={logo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }}
           style={{
             alignContent: "center",
           }}
         >
-          {children}
-        </Grid>
-        <Grid size={{ xs: 6, md: 4 }}>
           <div
             style={{
-              float: "right",
               paddingTop: "10px",
-              paddingRight: "15px",
-              textAlign: "right",
+              paddingLeft: "15px",
             }}
           >
-            {logo && <ImageColorSchemeSwitch image={logo} />}
-            {copyright ? (
-              <Typography
-                style={{
-                  margin: 0,
-                  color: theme.palette.primary.contrastText,
-                }}
-              >
-                {`Copyright © ${new Date().getFullYear()} ${copyright}`}
-              </Typography>
-            ) : null}
+            {children}
           </div>
         </Grid>
+
+        {(logo || copyright) && (
+          <Grid size={{ xs: 6, md: 4 }}>
+            <div
+              style={{
+                float: "right",
+                paddingTop: "10px",
+                paddingRight: "15px",
+                textAlign: "right",
+              }}
+            >
+              {logo && <ImageColorSchemeSwitch image={logo} />}
+              {copyright && (
+                <Typography
+                  style={{
+                    margin: "0 0 10px 0",
+                    color: theme.palette.primary.contrastText,
+                  }}
+                >
+                  {`Copyright © ${new Date().getFullYear()} ${copyright}`}
+                </Typography>
+              )}
+            </div>
+          </Grid>
+        )}
       </Grid>
     </footer>
   );

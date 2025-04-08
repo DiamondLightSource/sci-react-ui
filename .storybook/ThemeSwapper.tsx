@@ -29,7 +29,7 @@ const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
   }, [context.globals.themeMode]);
 
   return (
-    <div style={{ backgroundColor: mode === "light" ? "#fafafa" : "#050505" }}>
+    <div style={{ backgroundColor: mode === "light" ? "#fafafaaa" : "#000a" }}>
       {children}
     </div>
   );

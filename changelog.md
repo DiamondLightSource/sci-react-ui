@@ -1,7 +1,19 @@
-Changelog
-=========
+SciReactUI Changelog
+====================
 
-[0.0.3] - 2024-01-27
+[vNext] - date
+--------------------
+
+### Fixed
+- Stopped flicker between themes when starting an app in dark mode.
+- Footer links stopped from moving on hover when only showing links.
+- Footer links now correctly center horizontally.
+
+### Changed
+- Footer links now align with copyright when there is no logo.
+
+
+[v0.0.3] - 2024-01-27
 --------------------
 
 ### Fixed
@@ -11,14 +23,14 @@ Changelog
 - Return key now submits VisitInput (but that can be turned off).
 
 
-[0.0.2] - 2024-01-20
+[v0.0.2] - 2024-01-20
 --------------------
 
 ### Fixed
 - Not importing correctly in some external projects.
 
 
-[0.0.1] - 2024-12-19
+[v0.0.1] - 2024-12-19
 --------------------
 ### Added
 - Components added:
