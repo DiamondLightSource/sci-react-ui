@@ -123,3 +123,18 @@ In the test app repo:
 ```sh
 pnpm install <path-to-this-app-folder>/diamondlightsource-sci-react-ui-0.0.1.tgz
 ```
+
+Publishing
+----------
+
+Steps needed when publishing a new version.
+- Create a new branch
+- Update the version in [./package.json](package.json)
+- Update the changelog in [./changelog.md](changelog.md) with added/changed/fixed
+- Check this readme still makes sense with the new changes you are about to publish
+- Check the introduction file [src/storybook/Introduction.mdx](src/storybook/Introduction.mdx) in Storybook still makes sense
+- Now create a new git tag with a version number greater than the last.
+- Push the branch, get it reviewed and merge. It is now published!
+
+Once publish, it's a good idea to increase the package version and add alpha, e.g "1.2.3a".
+And make a space at the top of the changelog to add future changes in, e.g. empty added/changed/fixed spaces.
