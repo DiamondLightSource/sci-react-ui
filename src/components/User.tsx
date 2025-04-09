@@ -80,7 +80,12 @@ const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
                   }}
                 />
               )}
-              <div style={{ padding: 10 }}>
+              <Box
+                sx={{
+                  padding: "5px",
+                  display: { xs: "none", sm: "block" },
+                }}
+              >
                 <Typography
                   fontSize="0.75rem"
                   textTransform="none"
@@ -101,7 +106,7 @@ const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
                     {user.fedid}
                   </Typography>
                 )}
-              </div>
+              </Box>
             </Stack>
           </Button>
           {onLogout && (

@@ -80,6 +80,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
         sx={{
           height: "100%",
           display: { xs: "none", md: "flex" },
+          marginLeft: "0 !important",
         }}
         component="nav"
         spacing={4}
@@ -148,6 +149,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
                 maxWidth="5rem"
                 sx={{
                   "&:hover": { filter: "brightness(80%);" },
+                  marginRight: { xs: "0", md: "50px" },
                 }}
               >
                 <ImageColorSchemeSwitch image={logo} />
