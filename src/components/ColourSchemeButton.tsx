@@ -18,6 +18,7 @@ const ColourSchemeButton = (props: IconButtonProps) => {
       sx={{
         height: 35,
         width: 35,
+        marginLeft: "10px !important",
         borderRadius: "5px",
         backgroundColor: theme.palette.primary.light,
         color: theme.palette.primary.contrastText,

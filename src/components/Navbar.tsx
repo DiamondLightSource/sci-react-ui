@@ -2,11 +2,11 @@
 import {
   Box,
   BoxProps,
+  Container,
   Drawer,
   LinkProps,
   Link,
   IconButton,
-  Paper,
   Stack,
   useTheme,
 } from "@mui/material";
@@ -39,12 +39,11 @@ const NavLink = ({ children, ...props }: LinkProps) => {
           borderBottom: "solid 4px",
         },
         textDecoration: "none",
-        px: 2,
-        bgcolor: { md: "none" },
         alignItems: "center",
         display: "flex",
-        borderTop: "4px solid transparent",
+        padding: "13px 3px 0",
         borderBottom: "4px solid transparent",
+        backgroundColor: { md: "none" },
         color: theme.palette.primary.contrastText,
       }}
       {...props}
@@ -67,6 +66,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
           color: theme.palette.primary.contrastText,
           display: { md: "none" },
           order: -1,
+          marginLeft: "0 !important",
           "&:hover": { filter: "brightness(90%);" },
         }}
         size={"small"}
@@ -80,6 +80,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
         sx={{
           height: "100%",
           display: { xs: "none", md: "flex" },
+          marginLeft: "0 !important",
         }}
         component="nav"
         spacing={4}
@@ -122,19 +123,21 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
   }
 
   return (
-    <Box top="0" zIndex={1} width="100%" {...props}>
-      <Paper
-        sx={{
-          display: "flex",
-          backgroundColor: theme.vars.palette.primary.main,
-          px: { xs: "1rem", md: "7.5vw" },
-          height: 50,
-          width: "100%",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderRadius: 0,
-        }}
-      >
+    <Box
+      top="0"
+      zIndex={1}
+      width="100%"
+      height="50px"
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        borderRadius: 0,
+        backgroundColor: theme.vars.palette.primary.main,
+      }}
+      {...props}
+    >
+      <Container maxWidth="lg" sx={{ height: "100%" }}>
         <Stack
           direction="row"
           spacing={8}
@@ -146,6 +149,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
                 maxWidth="5rem"
                 sx={{
                   "&:hover": { filter: "brightness(80%);" },
+                  marginRight: { xs: "0", md: "50px" },
                 }}
               >
                 <ImageColorSchemeSwitch image={logo} />
@@ -154,7 +158,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
           ) : null}
           {children}
         </Stack>
-      </Paper>
+      </Container>
     </Box>
   );
 };
