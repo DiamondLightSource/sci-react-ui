@@ -4,10 +4,11 @@ import {
   BoxProps,
   Container,
   Drawer,
-  LinkProps,
   Link,
+  LinkProps,
   IconButton,
   Stack,
+  styled,
   useTheme,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
@@ -112,6 +113,20 @@ const NavLinks = ({ children }: NavLinksProps) => {
   );
 };
 
+const BoxStyled = styled(Box)<BoxProps>(
+    ({ theme }) => ({
+      top:0,
+      zIndex:1,
+      width:"100%",
+      height:"50px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      borderRadius: 0,
+      backgroundColor: theme.vars.palette.primary.main,
+    })
+);
+
 /**
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
  */
@@ -123,18 +138,8 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
   }
 
   return (
-    <Box
-      top="0"
-      zIndex={1}
-      width="100%"
-      height="50px"
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        borderRadius: 0,
-        backgroundColor: theme.vars.palette.primary.main,
-      }}
+    <BoxStyled
+      role="banner"
       {...props}
     >
       <Container maxWidth="lg" sx={{ height: "100%" }}>
@@ -159,7 +164,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
           {children}
         </Stack>
       </Container>
-    </Box>
+    </BoxStyled>
   );
 };
 

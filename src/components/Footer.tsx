@@ -1,8 +1,11 @@
 import {
+  Box,
+  BoxProps,
+  Grid2 as Grid,
   Link,
   LinkProps,
+  styled,
   Typography,
-  Grid2 as Grid,
   useTheme,
 } from "@mui/material";
 
@@ -67,6 +70,15 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
   );
 };
 
+const BoxStyled = styled(Box)<BoxProps>(
+    ({ theme }) => ({
+      bottom: 0,
+      marginTop: "auto",
+      minHeight: 50,
+      backgroundColor: theme.vars.palette.primary.light
+    })
+);
+
 /*
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
@@ -79,13 +91,8 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
   }
 
   return (
-    <footer
-      style={{
-        bottom: 0,
-        marginTop: "auto",
-        minHeight: 50,
-        backgroundColor: theme.vars.palette.primary.light,
-      }}
+    <BoxStyled
+      role="contentinfo"
       {...props}
     >
       <Grid container>
@@ -130,7 +137,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
           </Grid>
         )}
       </Grid>
-    </footer>
+    </BoxStyled>
   );
 };
 

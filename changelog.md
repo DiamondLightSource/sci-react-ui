@@ -1,6 +1,19 @@
 SciReactUI Changelog
 ====================
 
+
+[v0.1.1] - 2025-?-?
+--------------------
+
+### Added
+- 
+
+### Fixed
+- Styles added to Navbar and Footer incorrectly remove built in styles.
+
+### Changed
+-
+
 [v0.1.0] - 2025-04-10
 ---------------------
 
@@ -56,7 +69,7 @@ SciReactUI Changelog
   - Generic
 
 
-[0.0.0] - 2024-06-04
+[v0.0.0] - 2024-06-04
 --------------------
 
 ### Added
