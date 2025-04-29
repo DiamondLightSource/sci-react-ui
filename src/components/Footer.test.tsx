@@ -10,29 +10,26 @@ jest.mock("./ImageColorSchemeSwitch");
 // @ts-expect-error: doesn't find mockImplementation outside of testing.
 ImageColorSchemeSwitch.mockImplementation(() => <img src="src" alt="alt" />);
 
-
 describe("Footer logo and copyright", () => {
   test("Should render", async () => {
-    renderWithProviders(<Footer/>);
+    renderWithProviders(<Footer />);
     expect(await screen.findByRole("contentinfo")).toBeInTheDocument();
   });
-  
+
   test("Should renders correctly with styles", async () => {
-    const borderStyle = "1px solid orange"
-    renderWithProviders(<Footer style={{border:borderStyle}}/>);
-    
+    const borderStyle = "1px solid orange";
+    renderWithProviders(<Footer style={{ border: borderStyle }} />);
+
     const footerComputedStyle = window.getComputedStyle(
-        await screen.findByRole("contentinfo")
-    )
-    
+      await screen.findByRole("contentinfo"),
+    );
+
     // check new style is set
-    expect(footerComputedStyle.border).toBe(borderStyle)
-    
+    expect(footerComputedStyle.border).toBe(borderStyle);
+
     // Check default values are still set
-    expect(footerComputedStyle.minHeight).toBe('50px')
+    expect(footerComputedStyle.minHeight).toBe("50px");
   });
-  
-  
 });
 
 describe("Footer logo and copyright", () => {
@@ -84,7 +81,6 @@ describe("Footer logo and copyright", () => {
 });
 
 describe("Footer Links", () => {
-  
   test("Should render with one link", async () => {
     const lineOneText = "Link one";
     const linkOneName = "link-one-href";

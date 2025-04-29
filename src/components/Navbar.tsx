@@ -113,19 +113,17 @@ const NavLinks = ({ children }: NavLinksProps) => {
   );
 };
 
-const BoxStyled = styled(Box)<BoxProps>(
-    ({ theme }) => ({
-      top:0,
-      zIndex:1,
-      width:"100%",
-      height:"50px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      borderRadius: 0,
-      backgroundColor: theme.vars.palette.primary.main,
-    })
-);
+const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+  top: 0,
+  zIndex: 1,
+  width: "100%",
+  height: "50px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  borderRadius: 0,
+  backgroundColor: theme.vars.palette.primary.main,
+}));
 
 /**
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
@@ -138,10 +136,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
   }
 
   return (
-    <BoxStyled
-      role="banner"
-      {...props}
-    >
+    <BoxStyled role="banner" {...props}>
       <Container maxWidth="lg" sx={{ height: "100%" }}>
         <Stack
           direction="row"

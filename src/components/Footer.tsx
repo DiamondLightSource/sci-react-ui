@@ -70,14 +70,12 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
   );
 };
 
-const BoxStyled = styled(Box)<BoxProps>(
-    ({ theme }) => ({
-      bottom: 0,
-      marginTop: "auto",
-      minHeight: 50,
-      backgroundColor: theme.vars.palette.primary.light
-    })
-);
+const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+  bottom: 0,
+  marginTop: "auto",
+  minHeight: 50,
+  backgroundColor: theme.vars.palette.primary.light,
+}));
 
 /*
  * Basic footer bar.
@@ -91,10 +89,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
   }
 
   return (
-    <BoxStyled
-      role="contentinfo"
-      {...props}
-    >
+    <BoxStyled role="contentinfo" {...props}>
       <Grid container>
         <Grid
           size={logo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }}
