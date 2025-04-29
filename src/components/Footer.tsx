@@ -19,11 +19,9 @@ interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-interface FooterProps extends React.HTMLProps<HTMLDivElement> {
-  /** Location/content of the logo */
+interface FooterProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
   copyright?: string | null;
-  children?: React.ReactElement | React.ReactElement[];
 }
 
 const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
@@ -73,7 +71,7 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
 const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
   bottom: 0,
   marginTop: "auto",
-  minHeight: 50,
+  minHeight: "50px",
   backgroundColor: theme.vars.palette.primary.light,
 }));
 

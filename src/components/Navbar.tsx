@@ -23,10 +23,8 @@ interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-interface NavbarProps extends BoxProps {
-  /** Location/content of the logo */
+interface NavbarProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
-  children?: React.ReactElement | React.ReactElement[];
 }
 
 const NavLink = ({ children, ...props }: LinkProps) => {
