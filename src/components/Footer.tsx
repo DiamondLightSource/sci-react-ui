@@ -1,8 +1,11 @@
 import {
+  Box,
+  BoxProps,
+  Grid2 as Grid,
   Link,
   LinkProps,
+  styled,
   Typography,
-  Grid2 as Grid,
   useTheme,
 } from "@mui/material";
 
@@ -16,11 +19,9 @@ interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-interface FooterProps extends React.HTMLProps<HTMLDivElement> {
-  /** Location/content of the logo */
+interface FooterProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
   copyright?: string | null;
-  children?: React.ReactElement | React.ReactElement[];
 }
 
 const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
@@ -67,6 +68,13 @@ const FooterLink = ({ children, ...props }: LinkProps) => {
   );
 };
 
+const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+  bottom: 0,
+  marginTop: "auto",
+  minHeight: "50px",
+  backgroundColor: theme.vars.palette.primary.light,
+}));
+
 /*
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
@@ -79,15 +87,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
   }
 
   return (
-    <footer
-      style={{
-        bottom: 0,
-        marginTop: "auto",
-        minHeight: 50,
-        backgroundColor: theme.vars.palette.primary.light,
-      }}
-      {...props}
-    >
+    <BoxStyled role="contentinfo" {...props}>
       <Grid container>
         <Grid
           size={logo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }}
@@ -130,7 +130,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
           </Grid>
         )}
       </Grid>
-    </footer>
+    </BoxStyled>
   );
 };
 
