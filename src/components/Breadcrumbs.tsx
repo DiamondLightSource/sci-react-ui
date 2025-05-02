@@ -3,16 +3,15 @@ import {
   Breadcrumbs as Mui_Breadcrumbs,
   BreadcrumbsProps as Mui_BreadcrumbsProps,
   Container,
-  Link,
+  Link as MuiLink,
   Paper,
   PaperProps,
   Typography,
   useTheme,
 } from "@mui/material";
-
+import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-
 import { CustomLink } from "types/links";
 
 interface BreadcrumbsProps {
@@ -23,7 +22,7 @@ interface BreadcrumbsProps {
 
 /**
  * Create CrumbData from crumb parts with links
- * @param path A single string path, an array of string parts or and array of CustomLink parts
+ * @param path A single string path, an array of string parts or an array of CustomLink parts
  */
 export function getCrumbs(
   path: string | string[] | CustomLink[],
@@ -79,22 +78,29 @@ const Breadcrumbs = ({
           sx={{ color: theme.palette.primary.contrastText }}
           {...muiBreadcrumbsProps}
         >
-          <Link key={"crumb-0"} underline="hover" color="inherit" href="/">
+          <MuiLink
+            key={"crumb-0"}
+            underline="hover"
+            color="inherit"
+            component={Link}
+            to="/"
+          >
             <HomeIcon sx={{ pt: 0.5, fontSize: "1.7em" }} />
-          </Link>
+          </MuiLink>
 
           {crumbs.map((crumb, i, all) => {
             if (i < all.length - 1)
               return (
-                <Link
+                <MuiLink
                   key={`crumb-${i + 1}`}
                   sx={{ fontSize: "smaller" }}
                   underline="hover"
                   color="inherit"
-                  href={crumb.href}
+                  component={Link}
+                  to={crumb.href}
                 >
                   {crumb.name}
-                </Link>
+                </MuiLink>
               );
             else {
               return (

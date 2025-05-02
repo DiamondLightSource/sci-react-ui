@@ -1,6 +1,7 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
+import { withRouter } from "storybook-addon-remix-react-router";
 
 import { ThemeProvider } from "../src";
 import { GenericTheme, DiamondTheme } from "../src";
@@ -11,6 +12,7 @@ const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
 
 export const decorators = [
+  withRouter,
   (StoriesWithPadding: React.FC) => {
     return (
       <div style={{ padding: "2em" }}>
