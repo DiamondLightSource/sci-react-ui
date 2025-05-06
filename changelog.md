@@ -6,13 +6,13 @@ SciReactUI Changelog
 --------------------
 
 ### Added
-- 
+- SciReactUIProvider to use ThemeProvider and BrowserRouter.
 
 ### Fixed
 - Styles added to Navbar and Footer incorrectly remove built in styles.
 
 ### Changed
--
+- Breadcrumbs component uses react-router-dom for page routing.
 
 [v0.1.0] - 2025-04-10
 ---------------------
