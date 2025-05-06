@@ -3,7 +3,7 @@ import {
   Breadcrumbs as Mui_Breadcrumbs,
   BreadcrumbsProps as Mui_BreadcrumbsProps,
   Container,
-  Link as MuiLink,
+  Link as Mui_Link,
   Paper,
   PaperProps,
   Typography,
@@ -78,7 +78,7 @@ const Breadcrumbs = ({
           sx={{ color: theme.palette.primary.contrastText }}
           {...muiBreadcrumbsProps}
         >
-          <MuiLink
+          <Mui_Link
             key={"crumb-0"}
             underline="hover"
             color="inherit"
@@ -86,12 +86,12 @@ const Breadcrumbs = ({
             to="/"
           >
             <HomeIcon sx={{ pt: 0.5, fontSize: "1.7em" }} />
-          </MuiLink>
+          </Mui_Link>
 
           {crumbs.map((crumb, i, all) => {
             if (i < all.length - 1)
               return (
-                <MuiLink
+                <Mui_Link
                   key={`crumb-${i + 1}`}
                   sx={{ fontSize: "smaller" }}
                   underline="hover"
@@ -100,7 +100,7 @@ const Breadcrumbs = ({
                   to={crumb.href}
                 >
                   {crumb.name}
-                </MuiLink>
+                </Mui_Link>
               );
             else {
               return (
