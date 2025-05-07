@@ -19,18 +19,18 @@ npm i @diamondlightsource/sci-react-ui
 
 ### Usage
 
-First use the ThemeProvider and supply a theme.
+First use SciReactUIProvider and supply a theme to use the ThemeProvider and BrowserRouter.
 
 ```js
 import {
-	ThemeProvider,
+	SciReactUIProvider,
 	DiamondTheme
 } from "@diamondlightsource/sci-react-ui";
 
 root.render(
-	<ThemeProvider theme={DiamondTheme}>
+	<SciReactUIProvider theme={DiamondTheme}>
 		<App />
-	</ThemeProvider>
+	</SciReactUIProvider>
 )
 ```
 

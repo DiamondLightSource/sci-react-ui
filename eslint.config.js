@@ -20,6 +20,7 @@ export default [
     "babel.config.js",
     "eslint.config.js",
     "jest.config.js",
+    "jest.setup.js",
     "rollup.config.mjs",
   ]},
   js.configs.recommended,
