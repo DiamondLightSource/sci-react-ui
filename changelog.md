@@ -2,7 +2,7 @@ SciReactUI Changelog
 ====================
 
 
-[v0.1.1] - 2025-?-?
+[v0.2.0] - 2025-?-?
 --------------------
 
 ### Added
@@ -12,7 +12,7 @@ SciReactUI Changelog
 - Styles added to Navbar and Footer incorrectly remove built in styles.
 
 ### Changed
-- Breadcrumbs component uses react-router-dom for page routing.
+- Breadcrumbs component uses react-router-dom for page routing. Breaking change requires use of BrowserRouter or SciReactUIProvider.
 
 [v0.1.0] - 2025-04-10
 ---------------------

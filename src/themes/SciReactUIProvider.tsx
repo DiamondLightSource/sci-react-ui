@@ -1,15 +1,20 @@
 import * as React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, BrowserRouterProps } from "react-router-dom";
 import { ThemeProvider, ThemeProviderProps } from "./ThemeProvider";
 
-type SciReactUIProviderProps = React.PropsWithChildren<ThemeProviderProps>;
+interface SciReactUIProviderProps
+  extends React.PropsWithChildren<ThemeProviderProps> {
+  router?: BrowserRouterProps;
+}
 
-export const SciReactUIProvider: React.FC<SciReactUIProviderProps> = (
-  props,
-) => {
+export const SciReactUIProvider: React.FC<SciReactUIProviderProps> = ({
+  children,
+  router,
+  ...themeProps
+}) => {
   return (
-    <ThemeProvider {...props}>
-      <BrowserRouter> {props.children} </BrowserRouter>
+    <ThemeProvider {...themeProps}>
+      <BrowserRouter {...router}>{children} </BrowserRouter>
     </ThemeProvider>
   );
 };

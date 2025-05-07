@@ -12,3 +12,4 @@ export * from "./themes/BaseTheme";
 export * from "./themes/GenericTheme";
 export * from "./themes/DiamondTheme";
 export * from "./themes/ThemeProvider";
+export * from "./themes/SciReactUIProvider";
