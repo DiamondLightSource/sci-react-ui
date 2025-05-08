@@ -119,7 +119,7 @@ In the package repo:
 ```sh
 pnpm pack
 ```
-In the test app repo:
+In the test app the repo with (change the name-version to the one you've built) :
 ```sh
 pnpm install <path-to-this-app-folder>/diamondlightsource-sci-react-ui-0.0.1.tgz
 ```
@@ -136,5 +136,5 @@ Steps needed when publishing a new version.
 - Now create a new git tag with a version number greater than the last.
 - Push the branch, get it reviewed and merge. It is now published!
 
-Once publish, it's a good idea to increase the package version and add alpha, e.g "1.2.3a".
-And make a space at the top of the changelog to add future changes in, e.g. empty added/changed/fixed spaces.
+Once publish, it's a good idea to increase the package version and add alpha, e.g "1.2.3alpha".
+And make a space at the top of the [./changelog.md](changelog.md) to add future changes in, e.g. empty added/changed/fixed spaces.
