@@ -1,7 +1,7 @@
 import { createTheme, Theme } from "@mui/material/styles";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 
-import { BaseThemeOptions } from "./BaseTheme";
+import { mergeThemeWithBase } from "./BaseTheme";
 
 import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoImageLight from "../public/diamond/logo-light.svg";
@@ -10,8 +10,7 @@ import logoShort from "../public/diamond/logo-short.svg";
 const dlsLogoBlue = "#202740";
 const dlsLogoYellow = "#facf07";
 
-const DiamondTheme: Theme = createTheme({
-  ...BaseThemeOptions,
+const diamondMerged = mergeThemeWithBase( {
   logos: {
     normal: {
       src: logoImageLight,
@@ -41,6 +40,9 @@ const DiamondTheme: Theme = createTheme({
           dark: "#AF9004", // dark yellow
           contrastText: "#000000", // black
         },
+        text: {
+          secondary: "#161B2C"
+        },
       },
     },
     dark: {
@@ -57,13 +59,16 @@ const DiamondTheme: Theme = createTheme({
           dark: "#AF9004", // dark yellow
           contrastText: "#000000", // black
         },
+        text: {
+          secondary: "#8090CA"
+        },
       },
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
-        root: ({ theme }) => ({
+        root: ({ theme }: any ) => ({
           textTransform: "none",
           "&.MuiButton-contained": {},
           "&.default": {
@@ -90,6 +95,8 @@ const DiamondTheme: Theme = createTheme({
       },
     },
   },
-});
+})
+
+const DiamondTheme: Theme = createTheme( diamondMerged );
 
 export { DiamondTheme };
