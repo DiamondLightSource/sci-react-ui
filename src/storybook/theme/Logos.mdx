@@ -1,5 +1,5 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
-import { ImageColourSchemeSwitch } from "../../components/controls/ImageColourSchemeSwitch";
+import { Meta } from '@storybook/blocks';
+import {ImageColourSchemeSwitch} from "../../components/controls/ImageColorSchemeSwitch";
 
 <Meta title="Theme/Logos" />
 
@@ -24,7 +24,10 @@ import { ImageColourSchemeSwitch } from "../../components/controls/ImageColourSc
         }
     	```
 
-        <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo"}}/>
+        <div style={{width:"200px", margin:"0 auto"}} >
+            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo",width:200}}/>
+            <p>Example logo</p>
+        </div>
 
         ## Sizes
     	There are two image sizes. I regular `normal` and a smaller version `short`, these are used in the Navbar and
