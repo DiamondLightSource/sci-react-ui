@@ -1,11 +1,11 @@
 import { createTheme, Theme } from "@mui/material/styles";
 
-import { BaseThemeOptions } from "./BaseTheme";
+import {BaseThemeOptions, mergeThemeWithBase} from "./BaseTheme";
 
 import logoImageDark from "../public/generic/logo-dark.svg";
 import logoImageLight from "../public/generic/logo-light.svg";
 
-const GenericTheme: Theme = createTheme({
+const genericTheme = mergeThemeWithBase({
   ...BaseThemeOptions,
   logos: {
     normal: {
@@ -22,4 +22,5 @@ const GenericTheme: Theme = createTheme({
   },
 });
 
+const GenericTheme: Theme = createTheme(genericTheme)
 export { GenericTheme };

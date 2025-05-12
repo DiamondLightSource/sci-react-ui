@@ -29,10 +29,16 @@ const BaseThemeOptions /* : ThemeOptions */ = {
       palette: {
         background: { default: "#fafafa" },
       },
+      text: {
+        primary: "#050505"
+      },
     },
     dark: {
       palette: {
         background: { default: "#050505" },
+      },
+      text: {
+        primary: "#fafafa"
       },
     },
   },
@@ -48,4 +54,31 @@ const BaseThemeOptions /* : ThemeOptions */ = {
   },
 };
 
-export { BaseThemeOptions };
+function isObject(item: any): boolean {
+  return item !== null && typeof item === 'object' && !Array.isArray(item);
+}
+
+// Merge based on https://www.geeksforgeeks.org/how-to-deep-merge-two-objects-in-typescript/
+function mergeThemeWithBase(mainTheme: any, baseTheme: any=BaseThemeOptions, visited = new Map<any, any>()) {
+  if (isObject(mainTheme) && isObject(baseTheme)) {
+    for (const key in baseTheme) {
+      if (isObject(baseTheme[key])) {
+        if (!mainTheme[key]) {
+          mainTheme[key] = {};
+        }
+        // Check if the baseTheme object has already been visited
+        if (!visited.has(baseTheme[key])) {
+          visited.set(baseTheme[key], {});
+          mergeThemeWithBase(mainTheme[key], baseTheme[key], visited);
+        } else {
+          mainTheme[key] = visited.get(baseTheme[key]);
+        }
+      } else {
+        mainTheme[key] = baseTheme[key];
+      }
+    }
+  }
+  return mainTheme;
+}
+
+export { BaseThemeOptions, mergeThemeWithBase };
