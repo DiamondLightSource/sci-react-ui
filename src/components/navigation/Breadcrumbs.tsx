@@ -9,13 +9,13 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { CustomLink } from "types/links";
 
 interface BreadcrumbsProps {
   path: string | string[] | CustomLink[];
+  linkComponent: React.ElementType;
   rootProps?: PaperProps;
   muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
 }
@@ -57,6 +57,7 @@ export function getCrumbs(
 
 const Breadcrumbs = ({
   path,
+  linkComponent,
   rootProps,
   muiBreadcrumbsProps,
 }: BreadcrumbsProps) => {
@@ -82,7 +83,7 @@ const Breadcrumbs = ({
             key={"crumb-0"}
             underline="hover"
             color="inherit"
-            component={Link}
+            component={linkComponent}
             to="/"
           >
             <HomeIcon sx={{ pt: 0.5, fontSize: "1.7em" }} />
@@ -96,7 +97,7 @@ const Breadcrumbs = ({
                   sx={{ fontSize: "smaller" }}
                   underline="hover"
                   color="inherit"
-                  component={Link}
+                  component={linkComponent}
                   to={crumb.href}
                 >
                   {crumb.name}

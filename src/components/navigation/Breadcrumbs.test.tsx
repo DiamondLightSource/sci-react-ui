@@ -4,7 +4,7 @@ import {
   RenderResult,
   screen,
 } from "@testing-library/react";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter, Route, Routes, Link } from "react-router-dom";
 import { Breadcrumbs, getCrumbs } from "./Breadcrumbs";
 import "@testing-library/jest-dom";
 import { CustomLink } from "types/links";
@@ -56,7 +56,7 @@ describe("Breadcrumbs", () => {
   it("should render without errors", () => {
     render(
       <MemoryRouter initialEntries={["/"]}>
-        <Breadcrumbs path={defaultArrayObject} />
+        <Breadcrumbs path={defaultArrayObject} linkComponent={Link} />
       </MemoryRouter>,
     );
   });
@@ -64,7 +64,7 @@ describe("Breadcrumbs", () => {
   it("should show just home when an empty string", () => {
     const renderResult = render(
       <MemoryRouter initialEntries={["/"]}>
-        <Breadcrumbs path={""} />
+        <Breadcrumbs path={""} linkComponent={Link} />
       </MemoryRouter>,
     );
     testHomeExists(renderResult);
@@ -74,7 +74,7 @@ describe("Breadcrumbs", () => {
   it("should show just home when an empty array", () => {
     const renderResult = render(
       <MemoryRouter initialEntries={["/"]}>
-        <Breadcrumbs path={[]} />
+        <Breadcrumbs path={[]} linkComponent={Link} />
       </MemoryRouter>,
     );
     testHomeExists(renderResult);
@@ -85,7 +85,7 @@ describe("Breadcrumbs", () => {
     testCrumbsExist(
       render(
         <MemoryRouter initialEntries={[defaultStringPath]}>
-          <Breadcrumbs path={defaultStringPath} />
+          <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
         </MemoryRouter>,
       ),
     );
@@ -95,7 +95,7 @@ describe("Breadcrumbs", () => {
     testCrumbsExist(
       render(
         <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
-          <Breadcrumbs path={defaultArrayPath} />
+          <Breadcrumbs path={defaultArrayPath} linkComponent={Link} />
         </MemoryRouter>,
       ),
     );
@@ -104,7 +104,7 @@ describe("Breadcrumbs", () => {
   it("should use path as object array", () => {
     const { getByRole, queryByRole, getByText } = render(
       <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
-        <Breadcrumbs path={defaultArrayObject} />
+        <Breadcrumbs path={defaultArrayObject} linkComponent={Link} />
       </MemoryRouter>,
     );
     let crumb = getByRole("link", { name: crumbFirstTitle });
@@ -133,7 +133,9 @@ describe("Breadcrumbs", () => {
           />
           <Route
             path={defaultStringPath}
-            element={<Breadcrumbs path={defaultStringPath} />}
+            element={
+              <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
+            }
           />
         </Routes>
       </MemoryRouter>,
@@ -145,7 +147,7 @@ describe("Breadcrumbs", () => {
   it("should render correctly with different routes", () => {
     const { rerender } = render(
       <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
-        <Breadcrumbs path="/first/second" />
+        <Breadcrumbs path="/first/second" linkComponent={Link} />
       </MemoryRouter>,
     );
 
@@ -153,7 +155,7 @@ describe("Breadcrumbs", () => {
     expect(screen.getByText("Second")).toBeInTheDocument();
     rerender(
       <MemoryRouter initialEntries={[defaultStringPath]}>
-        <Breadcrumbs path={defaultStringPath} />
+        <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
       </MemoryRouter>,
     );
 

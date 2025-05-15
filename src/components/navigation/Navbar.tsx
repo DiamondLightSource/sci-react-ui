@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
-} from "./ImageColorSchemeSwitch";
+} from "../controls/ImageColorSchemeSwitch";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -128,9 +128,11 @@ const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
  */
 const Navbar = ({ children, logo, ...props }: NavbarProps) => {
   const theme = useTheme();
-
+  let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
   if (logo === "theme") {
-    logo = theme.logos?.normal;
+    resolvedLogo = theme.logos?.normal;
+  } else if (logo && typeof logo === "object") {
+    resolvedLogo = logo;
   }
 
   return (
@@ -141,7 +143,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
           spacing={8}
           sx={{ height: "100%", alignItems: "center", width: "100%" }}
         >
-          {logo ? (
+          {resolvedLogo ? (
             <Link href="/" key="logo">
               <Box
                 maxWidth="5rem"
@@ -150,7 +152,7 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
                   marginRight: { xs: "0", md: "50px" },
                 }}
               >
-                <ImageColorSchemeSwitch image={logo} />
+                <ImageColorSchemeSwitch image={resolvedLogo} />
               </Box>
             </Link>
           ) : null}

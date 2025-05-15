@@ -13,7 +13,7 @@ import React from "react";
 import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
-} from "./ImageColorSchemeSwitch";
+} from "../controls/ImageColorSchemeSwitch";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -81,16 +81,21 @@ const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
  */
 const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
   const theme = useTheme();
+  let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
 
   if (logo === "theme") {
-    logo = theme.logos?.short;
+    resolvedLogo = theme.logos?.short;
+  } else if (logo && typeof logo === "object") {
+    resolvedLogo = logo;
   }
 
   return (
     <BoxStyled role="contentinfo" {...props}>
       <Grid container>
         <Grid
-          size={logo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }}
+          size={
+            resolvedLogo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }
+          }
           style={{
             alignContent: "center",
           }}
@@ -105,7 +110,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
           </div>
         </Grid>
 
-        {(logo || copyright) && (
+        {(resolvedLogo || copyright) && (
           <Grid size={{ xs: 6, md: 4 }}>
             <div
               style={{
@@ -115,7 +120,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
                 textAlign: "right",
               }}
             >
-              {logo && <ImageColorSchemeSwitch image={logo} />}
+              {resolvedLogo && <ImageColorSchemeSwitch image={resolvedLogo} />}
               {copyright && (
                 <Typography
                   style={{

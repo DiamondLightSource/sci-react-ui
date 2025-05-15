@@ -19,45 +19,78 @@ npm i @diamondlightsource/sci-react-ui
 
 ### Usage
 
-First use SciReactUIProvider and supply a theme to use the ThemeProvider and BrowserRouter.
+First use the ThemeProvider and supply a theme.
 
 ```js
-import {
-	SciReactUIProvider,
-	DiamondTheme
-} from "@diamondlightsource/sci-react-ui";
+import { ThemeProvider, DiamondTheme } from "@diamondlightsource/sci-react-ui";
 
 root.render(
-	<SciReactUIProvider theme={DiamondTheme}>
-		<App />
-	</SciReactUIProvider>
-)
+  <ThemeProvider theme={DiamondTheme}>
+    <App />
+  </ThemeProvider>,
+);
 ```
 
 There are currently two themes, `GenericTheme` or `DiamondTheme`, but you can - and should - adapt your own.
 
-There are various components, here's an example of how to use the NavBar:
+To use the Breadcrumbs component, use a route provider from your preferred library. For example, to use react-router's BrowserRouter, install react-router-dom:
+
+```sh
+npm i react-router-dom
+```
+
+Next, use the BrowserRouter which can be used at the top level:
 
 ```js
-import {Container, Typography} from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
 import {
-	Navbar,
-	NavLink,
-	NavLinks
+	ThemeProvider,
+	DiamondTheme
 } from "@diamondlightsource/sci-react-ui";
 
+root.render(
+	<ThemeProvider theme={DiamondTheme}>
+		<BrowserRouter>
+			<App />
+		<BrowserRouter>
+	</ThemeProvider>
+)
+```
+
+Then pass your library's corresponding Link component to Breadcrumbs, for example:
+
+```js
+import { Link } from "react-router-dom";
+import { Breadcrumbs } from "@diamondlightsource/sci-react-ui";
+
 function App() {
-	return <>
-		<Navbar>
-			<NavLinks key="links">
-				<NavLink href="#" key="first">A link</NavLink>
-			</NavLinks>
-		</Navbar>
-		<Container>
-			<Typography variant="h2">Scientific UI Collection</Typography>
-			<Typography>A collection of science based React components.</Typography>
-		</Container>
-	</>
+  return <Breadcrumbs path={window.location.pathname} linkComponent={Link} />;
+}
+export default App;
+```
+
+There are various other components, here's an example of how to use the NavBar:
+
+```js
+import { Container, Typography } from "@mui/material";
+import { Navbar, NavLink, NavLinks } from "@diamondlightsource/sci-react-ui";
+
+function App() {
+  return (
+    <>
+      <Navbar>
+        <NavLinks key="links">
+          <NavLink href="#" key="first">
+            A link
+          </NavLink>
+        </NavLinks>
+      </Navbar>
+      <Container>
+        <Typography variant="h2">Scientific UI Collection</Typography>
+        <Typography>A collection of science based React components.</Typography>
+      </Container>
+    </>
+  );
 }
 export default App;
 ```
