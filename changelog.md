@@ -2,17 +2,17 @@ SciReactUI Changelog
 ====================
 
 
-[v0.1.1] - 2025-?-?
+[v0.2.0] - 2025-?-?
 --------------------
 
 ### Added
-- 
+-
 
 ### Fixed
 - Styles added to Navbar and Footer incorrectly remove built in styles.
 
 ### Changed
--
+- Breaking change Breadcrumbs component requires linkComponent prop for page routing. 
 
 [v0.1.0] - 2025-04-10
 ---------------------

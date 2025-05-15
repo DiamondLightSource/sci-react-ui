@@ -1,4 +1,10 @@
-import { render, RenderResult } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from "@testing-library/react";
+import { MemoryRouter, Route, Routes, Link } from "react-router-dom";
 import { Breadcrumbs, getCrumbs } from "./Breadcrumbs";
 import "@testing-library/jest-dom";
 import { CustomLink } from "types/links";
@@ -16,6 +22,7 @@ const crumbFirst = "first",
     { name: `${crumbSecondTitle}`, href: `/${crumbSecond}` },
     { name: `${crumbLastTitle}`, href: "/" },
   ];
+
 describe("Breadcrumbs", () => {
   function testHomeExists(renderResult: RenderResult) {
     const { getByTestId } = renderResult;
@@ -47,32 +54,58 @@ describe("Breadcrumbs", () => {
   }
 
   it("should render without errors", () => {
-    render(<Breadcrumbs path={defaultArrayObject} />);
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <Breadcrumbs path={defaultArrayObject} linkComponent={Link} />
+      </MemoryRouter>,
+    );
   });
 
   it("should show just home when an empty string", () => {
-    const renderResult = render(<Breadcrumbs path={""} />);
+    const renderResult = render(
+      <MemoryRouter initialEntries={["/"]}>
+        <Breadcrumbs path={""} linkComponent={Link} />
+      </MemoryRouter>,
+    );
     testHomeExists(renderResult);
     expect(renderResult.getAllByRole("link")).toHaveLength(1);
   });
 
   it("should show just home when an empty array", () => {
-    const renderResult = render(<Breadcrumbs path={[]} />);
+    const renderResult = render(
+      <MemoryRouter initialEntries={["/"]}>
+        <Breadcrumbs path={[]} linkComponent={Link} />
+      </MemoryRouter>,
+    );
     testHomeExists(renderResult);
     expect(renderResult.getAllByRole("link")).toHaveLength(1);
   });
 
   it("should use path as string", () => {
-    testCrumbsExist(render(<Breadcrumbs path={defaultStringPath} />));
+    testCrumbsExist(
+      render(
+        <MemoryRouter initialEntries={[defaultStringPath]}>
+          <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
+        </MemoryRouter>,
+      ),
+    );
   });
 
   it("should use path as string array", () => {
-    testCrumbsExist(render(<Breadcrumbs path={defaultArrayPath} />));
+    testCrumbsExist(
+      render(
+        <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
+          <Breadcrumbs path={defaultArrayPath} linkComponent={Link} />
+        </MemoryRouter>,
+      ),
+    );
   });
 
   it("should use path as object array", () => {
     const { getByRole, queryByRole, getByText } = render(
-      <Breadcrumbs path={defaultArrayObject} />,
+      <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
+        <Breadcrumbs path={defaultArrayObject} linkComponent={Link} />
+      </MemoryRouter>,
     );
     let crumb = getByRole("link", { name: crumbFirstTitle });
     expect(crumb).toBeInTheDocument();
@@ -86,6 +119,49 @@ describe("Breadcrumbs", () => {
       queryByRole("link", { name: crumbLastTitle }),
     ).not.toBeInTheDocument();
     expect(getByText(crumbLastTitle)).toBeInTheDocument();
+  });
+
+  it("should navigate to the correct route when a breadcrumb link is clicked", () => {
+    render(
+      <MemoryRouter initialEntries={[defaultStringPath]}>
+        <Routes>
+          <Route path="/" element={<div>Home Page</div>} />
+          <Route path="/first" element={<div>First Page</div>} />
+          <Route
+            path={`/${crumbFirst}/${crumbSecond}`}
+            element={<div>Second Page</div>}
+          />
+          <Route
+            path={defaultStringPath}
+            element={
+              <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
+            }
+          />
+        </Routes>
+      </MemoryRouter>,
+    );
+    fireEvent.click(screen.getByRole("link", { name: "Second" }));
+    expect(screen.getByText("Second Page")).toBeInTheDocument();
+  });
+
+  it("should render correctly with different routes", () => {
+    const { rerender } = render(
+      <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
+        <Breadcrumbs path="/first/second" linkComponent={Link} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("link", { name: "First" })).toBeInTheDocument();
+    expect(screen.getByText("Second")).toBeInTheDocument();
+    rerender(
+      <MemoryRouter initialEntries={[defaultStringPath]}>
+        <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByRole("link", { name: "First" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Second" })).toBeInTheDocument();
+    expect(screen.getByText("Last one")).toBeInTheDocument();
   });
 });
 

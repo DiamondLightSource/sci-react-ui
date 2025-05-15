@@ -20,6 +20,7 @@ export default [
     "babel.config.js",
     "eslint.config.js",
     "jest.config.js",
+    "jest.setup.js",
     "rollup.config.mjs",
   ]},
   js.configs.recommended,
@@ -40,6 +41,7 @@ export default [
     },
     rules: {
       "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
       "no-console": "off",
       "prettier/prettier": "error",
       "@typescript-eslint/no-unused-vars": [

@@ -76,6 +76,11 @@ const preview: Preview = {
     backgrounds: { disable: true },
     layout: "fullscreen",
   },
+  argTypes: {
+    linkComponent: {
+      control: false,
+    },
+  },
 };
 
 export default preview;

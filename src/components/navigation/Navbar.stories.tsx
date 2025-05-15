@@ -1,11 +1,11 @@
 import Chip from "@mui/material/Chip";
 import { Meta, StoryObj } from "@storybook/react";
-import { User } from "./User";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
-import logoImageDark from "../public/generic/logo-dark.svg";
-import logoImageLight from "../public/generic/logo-light.svg";
-import { ColourSchemeButton } from "./ColourSchemeButton";
+import logoImageDark from "../../public/generic/logo-dark.svg";
+import logoImageLight from "../../public/generic/logo-light.svg";
+import { ColourSchemeButton } from "../controls/ColourSchemeButton";
+import { User } from "../controls/User";
 
 const meta: Meta<typeof Navbar> = {
   title: "SciReactUI/Navigation/Navbar",

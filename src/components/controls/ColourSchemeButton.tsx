@@ -2,7 +2,7 @@ import { useColorScheme, useTheme } from "@mui/material";
 import { IconButton, IconButtonProps } from "@mui/material";
 import { LightMode, Bedtime } from "@mui/icons-material";
 
-import { ColourSchemes } from "../utils/globals";
+import { ColourSchemes } from "../../utils/globals";
 
 const ColourSchemeButton = (props: IconButtonProps) => {
   const theme = useTheme();

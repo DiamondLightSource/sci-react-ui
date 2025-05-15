@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { fireEvent } from "@testing-library/react";
 import { Avatar } from "@mui/material";
 import { User } from "./User";
-import { renderWithProviders } from "../__test-utils__/helpers";
+import { renderWithProviders } from "../../__test-utils__/helpers";
 
 describe("User", () => {
   it("should render", () => {

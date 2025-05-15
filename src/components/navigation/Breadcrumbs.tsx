@@ -3,27 +3,26 @@ import {
   Breadcrumbs as Mui_Breadcrumbs,
   BreadcrumbsProps as Mui_BreadcrumbsProps,
   Container,
-  Link,
+  Link as Mui_Link,
   Paper,
   PaperProps,
   Typography,
   useTheme,
 } from "@mui/material";
-
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-
 import { CustomLink } from "types/links";
 
 interface BreadcrumbsProps {
   path: string | string[] | CustomLink[];
+  linkComponent: React.ElementType;
   rootProps?: PaperProps;
   muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
 }
 
 /**
  * Create CrumbData from crumb parts with links
- * @param path A single string path, an array of string parts or and array of CustomLink parts
+ * @param path A single string path, an array of string parts or an array of CustomLink parts
  */
 export function getCrumbs(
   path: string | string[] | CustomLink[],
@@ -58,6 +57,7 @@ export function getCrumbs(
 
 const Breadcrumbs = ({
   path,
+  linkComponent,
   rootProps,
   muiBreadcrumbsProps,
 }: BreadcrumbsProps) => {
@@ -79,22 +79,29 @@ const Breadcrumbs = ({
           sx={{ color: theme.palette.primary.contrastText }}
           {...muiBreadcrumbsProps}
         >
-          <Link key={"crumb-0"} underline="hover" color="inherit" href="/">
+          <Mui_Link
+            key={"crumb-0"}
+            underline="hover"
+            color="inherit"
+            component={linkComponent}
+            to="/"
+          >
             <HomeIcon sx={{ pt: 0.5, fontSize: "1.7em" }} />
-          </Link>
+          </Mui_Link>
 
           {crumbs.map((crumb, i, all) => {
             if (i < all.length - 1)
               return (
-                <Link
+                <Mui_Link
                   key={`crumb-${i + 1}`}
                   sx={{ fontSize: "smaller" }}
                   underline="hover"
                   color="inherit"
-                  href={crumb.href}
+                  component={linkComponent}
+                  to={crumb.href}
                 >
                   {crumb.name}
-                </Link>
+                </Mui_Link>
               );
             else {
               return (
