@@ -1,7 +1,7 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { Navbar, NavLinks, NavLink } from "./Navbar";
 import "@testing-library/jest-dom";
-import { renderWithProviders } from "../__test-utils__/helpers";
+import { renderWithProviders } from "../../__test-utils__/helpers";
 
 describe("Navbar", () => {
   it("should render", async () => {

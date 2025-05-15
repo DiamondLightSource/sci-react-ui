@@ -2,14 +2,14 @@ import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
 
 import { ColourSchemeButton } from "./ColourSchemeButton";
-import { ColourSchemes } from "../utils/globals";
+import { ColourSchemes } from "../../utils/globals";
 
 const mockSetColorScheme = jest.fn();
 jest.mock("@mui/material", () => {
   return {
     ...jest.requireActual("@mui/material"),
     useColorScheme: jest.fn().mockReturnValue({
-      colorScheme: jest.requireActual("../utils/globals").ColourSchemes.Dark,
+      colorScheme: jest.requireActual("../../utils/globals").ColourSchemes.Dark,
       setColorScheme: (scheme: ColourSchemes) => mockSetColorScheme(scheme),
     }),
   };

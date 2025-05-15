@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Visit } from "../utils/diamond";
+import { Visit } from "../../utils/diamond";
 import { VisitInput } from "./VisitInput";
 
 const meta: Meta<typeof VisitInput> = {
