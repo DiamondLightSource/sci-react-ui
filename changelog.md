@@ -12,7 +12,7 @@ SciReactUI Changelog
 - Styles added to Navbar and Footer incorrectly remove built in styles.
 
 ### Changed
-- Breaking change Breadcrumbs component requires linkComponent prop for page routing. 
+- Breadcrumbs component takes optional linkComponent prop for page routing. 
 
 [v0.1.0] - 2025-04-10
 ---------------------

@@ -251,3 +251,27 @@ describe("getCrumbs", () => {
     ).toStrictEqual(objectArrayCrumbs);
   });
 });
+
+it("should render Link with href when linkComponent is not provided", () => {
+  const { getByRole, getByText } = render(
+    <Breadcrumbs path={defaultArrayObject} />,
+  );
+
+  expect(getByRole("link", { name: crumbFirstTitle })).toHaveAttribute(
+    "href",
+    `/${crumbFirst}`,
+  );
+  expect(getByRole("link", { name: crumbSecondTitle })).toHaveAttribute(
+    "href",
+    `/${crumbSecond}`,
+  );
+  expect(getByText(crumbLastTitle)).toBeInTheDocument();
+});
+
+it("should render home link with href when linkComponent is not provided", () => {
+  const { getByTestId } = render(<Breadcrumbs path={defaultArrayObject} />);
+  const homeIcon = getByTestId("HomeIcon");
+
+  expect(homeIcon).toBeInTheDocument();
+  expect(homeIcon.parentElement).toHaveAttribute("href", "/");
+});
