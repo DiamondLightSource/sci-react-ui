@@ -15,7 +15,7 @@ import { CustomLink } from "types/links";
 
 interface BreadcrumbsProps {
   path: string | string[] | CustomLink[];
-  linkComponent: React.ElementType;
+  linkComponent?: React.ElementType;
   rootProps?: PaperProps;
   muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
 }
@@ -83,10 +83,19 @@ const Breadcrumbs = ({
             key={"crumb-0"}
             underline="hover"
             color="inherit"
-            component={linkComponent}
-            to="/"
+            {...(linkComponent
+              ? {
+                  component: linkComponent,
+                  to: "/",
+                }
+              : {
+                  href: "/",
+                })}
           >
-            <HomeIcon sx={{ pt: 0.5, fontSize: "1.7em" }} />
+            <HomeIcon
+              data-testid="HomeIcon"
+              sx={{ pt: 0.5, fontSize: "1.7em" }}
+            />
           </Mui_Link>
 
           {crumbs.map((crumb, i, all) => {
@@ -97,8 +106,9 @@ const Breadcrumbs = ({
                   sx={{ fontSize: "smaller" }}
                   underline="hover"
                   color="inherit"
-                  component={linkComponent}
-                  to={crumb.href}
+                  {...(linkComponent
+                    ? { component: linkComponent, to: crumb.href }
+                    : { href: crumb.href })}
                 >
                   {crumb.name}
                 </Mui_Link>

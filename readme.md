@@ -8,7 +8,6 @@ A theme and component library to make websites at scientific installations simpl
 
 Using
 -----
-
 ### Installing
 
 Install as usual:
@@ -33,7 +32,19 @@ root.render(
 
 There are currently two themes, `GenericTheme` or `DiamondTheme`, but you can - and should - adapt your own.
 
-To use the Breadcrumbs component, use a route provider from your preferred library. For example, to use react-router's BrowserRouter, install react-router-dom:
+The Breadcrumbs supports either static links or the use of a routing library.
+To use static links, omit the linkComponent prop and Breadcrumbs will use a Link component with standard href attributes.
+
+```js
+import { Breadcrumbs } from "@diamondlightsource/sci-react-ui";
+
+function App() {
+  return <Breadcrumbs path={window.location.pathname} />;
+}
+export default App;
+```
+
+To use the Breadcrumbs component with your routing library, use a route provider from your preferred library. For example, to use react-router's BrowserRouter, install react-router-dom:
 
 ```sh
 npm i react-router-dom
@@ -57,7 +68,7 @@ root.render(
 )
 ```
 
-Then pass your library's corresponding Link component to Breadcrumbs, for example:
+Then pass your library's corresponding Link component to Breadcrumbs in the linkComponent prop, for example:
 
 ```js
 import { Link } from "react-router-dom";

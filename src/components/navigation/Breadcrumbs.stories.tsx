@@ -75,6 +75,22 @@ export const Empty: Story = {
   },
 };
 
+export const NoLinkComponent: Story = {
+  args: {
+    path: "/first/second/third/last/",
+  },
+};
+
+export const NoLinkComponentWithCustomPath: Story = {
+  args: {
+    path: [
+      { name: "first", href: "link" },
+      { name: "second", href: "other link" },
+      { name: "last", href: "/" },
+    ],
+  },
+};
+
 export const ColorChange: Story = {
   args: {
     path: ["first", "second", "third", "last"],
