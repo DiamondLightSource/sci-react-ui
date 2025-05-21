@@ -16,6 +16,7 @@ import "@testing-library/jest-dom";
 import dlsLogo from "../public/generic/logo-short.svg";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { renderWithProviders } from "../../__test-utils__/helpers";
+import { MemoryRouter, Link } from "react-router-dom";
 
 describe("Footer logo and copyright", () => {
   test("Should render", async () => {
@@ -98,4 +99,89 @@ describe("Footer Links", () => {
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute("href", "link-two-href");
   });
+});
+
+test("Should render FooterLink with linkComponent and 'to' prop", async () => {
+  renderWithProviders(
+    <MemoryRouter initialEntries={["/"]}>
+      <Footer>
+        <FooterLinks>
+          <FooterLink linkComponent={Link} to="/about">
+            About
+          </FooterLink>
+        </FooterLinks>
+      </Footer>
+    </MemoryRouter>,
+  );
+
+  const link = await screen.findByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).toHaveAttribute("href", "/about");
+});
+
+test("Should not render a valid link when only 'to' is provided without linkComponent", () => {
+  renderWithProviders(
+    <Footer>
+      <FooterLinks>
+        <FooterLink to="/about">About</FooterLink>
+      </FooterLinks>
+    </Footer>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).not.toHaveAttribute("href", "/about");
+});
+
+test("Should fall back to href when linkComponent is provided without 'to'", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Footer>
+        <FooterLinks>
+          <FooterLink linkComponent={Link} href="/about">
+            About
+          </FooterLink>
+        </FooterLinks>
+      </Footer>
+    </MemoryRouter>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link.tagName).toBe("A");
+  expect(link).toHaveAttribute("href", "/about");
+});
+
+test("Should use href when both 'href' and 'to' are provided without linkComponent", () => {
+  renderWithProviders(
+    <Footer>
+      <FooterLinks>
+        <FooterLink href="/about" to="/somewhereElse">
+          About
+        </FooterLink>
+      </FooterLinks>
+    </Footer>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).toHaveAttribute("href", "/about");
+});
+
+test("Should use 'to' when both 'href' and 'to' are provided with linkComponent", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Footer>
+        <FooterLinks>
+          <FooterLink linkComponent={Link} href="/somewhereElse" to="/about">
+            About
+          </FooterLink>
+        </FooterLinks>
+      </Footer>
+    </MemoryRouter>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).toHaveAttribute("href", "/about");
 });

@@ -42,15 +42,36 @@ const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
   );
 };
 
-const FooterLink = ({ children, ...props }: LinkProps) => {
+interface FooterLinkProps extends LinkProps {
+  children: React.ReactNode;
+  linkComponent?: React.ElementType;
+  to?: string;
+  href?: string;
+}
+
+const FooterLink = ({
+  children,
+  linkComponent,
+  to,
+  href,
+  ...props
+}: FooterLinkProps) => {
   const theme = useTheme();
+
+  const shouldUseLinkComponent = linkComponent && to;
+
+  const linkProps = shouldUseLinkComponent
+    ? { component: linkComponent, to }
+    : { href };
 
   return (
     <Link
+      {...linkProps}
       sx={{
         "&:hover": {
           color: theme.vars.palette.secondary.main,
           borderBottom: "solid 4px",
+          textDecoration: "none",
         },
         textDecoration: "none",
         color: theme.palette.primary.contrastText,
