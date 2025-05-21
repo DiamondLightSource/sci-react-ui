@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react/*";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
+import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof Footer> = {
   title: "SciReactUI/Navigation/Footer",
@@ -11,7 +12,24 @@ const meta: Meta<typeof Footer> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const footerLinks = [
+const routerFooterLinks = [
+  <FooterLinks key="footer-links">
+    <FooterLink to="home/TheMoon" key="the-moon" linkComponent={MockLink}>
+      The Moon
+    </FooterLink>
+    <FooterLink to="home/Phobos" key="phobos" linkComponent={MockLink}>
+      Phobos
+    </FooterLink>
+    <FooterLink to="home/Ganymede" key="ganymede" linkComponent={MockLink}>
+      Ganymede
+    </FooterLink>
+    <FooterLink to="home/Titan" key="titan" linkComponent={MockLink}>
+      Titan
+    </FooterLink>
+  </FooterLinks>,
+];
+
+const staticFooterLinks = [
   <FooterLinks key="footer-links">
     <FooterLink href="#TheMoon" key="the-moon">
       The Moon
@@ -32,7 +50,15 @@ export const All: Story = {
   args: {
     logo: "theme",
     copyright: "Company",
-    children: footerLinks,
+    children: staticFooterLinks,
+  },
+};
+
+export const RouterLinks: Story = {
+  args: {
+    logo: "theme",
+    copyright: "Company",
+    children: routerFooterLinks,
   },
 };
 
@@ -59,13 +85,13 @@ export const CopyrightAndLogo: Story = {
 export const LinksAndCopyright: Story = {
   args: {
     copyright: "Company",
-    children: footerLinks,
+    children: staticFooterLinks,
   },
 };
 
 export const LinksOnly: Story = {
   args: {
-    children: footerLinks,
+    children: staticFooterLinks,
   },
 };
 

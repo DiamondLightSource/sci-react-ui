@@ -2,6 +2,7 @@ import { fireEvent, screen } from "@testing-library/react";
 import { Navbar, NavLinks, NavLink } from "./Navbar";
 import "@testing-library/jest-dom";
 import { renderWithProviders } from "../../__test-utils__/helpers";
+import { MemoryRouter, Link } from "react-router-dom";
 
 describe("Navbar", () => {
   it("should render", async () => {
@@ -68,4 +69,208 @@ describe("Navbar Links", () => {
     );
     expect(screen.getByText("Proposals")).toBeInTheDocument();
   });
+});
+
+it("should render multiple links properly", () => {
+  renderWithProviders(
+    <NavLinks>
+      <NavLink href="/first">First</NavLink>
+      <NavLink href="/second">Second</NavLink>
+    </NavLinks>,
+  );
+
+  expect(screen.getByText("First")).toBeInTheDocument();
+  expect(screen.getByText("Second")).toBeInTheDocument();
+});
+
+it("should have correct aria-label on hamburger menu", () => {
+  renderWithProviders(
+    <NavLinks>
+      <NavLink>Proposals</NavLink>
+    </NavLinks>,
+  );
+
+  const button = screen.getByRole("button", { name: /open menu/i });
+  expect(button).toHaveAttribute("aria-label", "Open Menu");
+});
+
+test("should render Navbar with linkComponent and 'to' prop", async () => {
+  renderWithProviders(
+    <MemoryRouter initialEntries={["/"]}>
+      <Navbar>
+        <NavLinks>
+          <NavLink linkComponent={Link} to="/about">
+            About
+          </NavLink>
+        </NavLinks>
+      </Navbar>
+    </MemoryRouter>,
+  );
+
+  const link = await screen.findByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).toHaveAttribute("href", "/about");
+});
+
+it("should render logo with linkComponent and 'to' prop", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Navbar logo={{ src: "/logo.svg", alt: "Home" }} linkComponent={Link} />
+    </MemoryRouter>,
+  );
+  const logoLink = screen.getByRole("link");
+  expect(logoLink).toHaveAttribute("href", "/");
+});
+
+it("should render logo with correct alt text", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Navbar logo={{ src: "/logo.svg", alt: "Home" }} linkComponent={Link} />
+    </MemoryRouter>,
+  );
+
+  const lightLogo = screen.getByTestId("image-light");
+  const darkLogo = screen.getByTestId("image-dark");
+
+  expect(lightLogo).toHaveAttribute("alt", "Home");
+  expect(darkLogo).toHaveAttribute("alt", "Home");
+});
+
+it("should render NavLink without crashing when no 'to' or 'href' is provided", () => {
+  renderWithProviders(
+    <NavLinks>
+      <NavLink>Proposal</NavLink>
+    </NavLinks>,
+  );
+
+  expect(screen.getByText("Proposal")).toBeInTheDocument();
+});
+
+it("should render NavLink with href when linkComponent is not provided", () => {
+  renderWithProviders(
+    <Navbar>
+      <NavLinks>
+        <NavLink href="/docs">Docs</NavLink>
+      </NavLinks>
+    </Navbar>,
+  );
+
+  const link = screen.getByText("Docs");
+  expect(link).toBeInTheDocument();
+  expect(link.tagName).toBe("A");
+  expect(link).toHaveAttribute("href", "/docs");
+});
+
+it("should render NavLink with linkComponent and 'to' prop", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Navbar>
+        <NavLinks>
+          <NavLink linkComponent={Link} to="/about">
+            About
+          </NavLink>
+        </NavLinks>
+      </Navbar>
+    </MemoryRouter>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link.tagName).toBe("A");
+  expect(link).toHaveAttribute("href", "/about");
+});
+
+it("should render logo with href when linkComponent is not provided", () => {
+  renderWithProviders(<Navbar logo={{ src: "/logo.svg", alt: "Home" }} />);
+
+  const lightLogo = screen.getByTestId("image-light");
+  const darkLogo = screen.getByTestId("image-dark");
+  const logoLink = screen.getByRole("link");
+
+  expect(lightLogo).toHaveAttribute("alt", "Home");
+  expect(darkLogo).toHaveAttribute("alt", "Home");
+  expect(logoLink).toHaveAttribute("href", "/");
+});
+
+it("should render logo with linkComponent without 'to' prop", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Navbar logo={{ src: "/logo.svg", alt: "Home" }} linkComponent={Link} />
+    </MemoryRouter>,
+  );
+
+  const logoLink = screen.getByRole("link");
+  const lightLogo = screen.getByTestId("image-light");
+  const darkLogo = screen.getByTestId("image-dark");
+
+  expect(lightLogo).toHaveAttribute("alt", "Home");
+  expect(darkLogo).toHaveAttribute("alt", "Home");
+  expect(logoLink).toHaveAttribute("href", "/");
+});
+
+it("should not render a valid link when only 'to' is provided without linkComponent", () => {
+  renderWithProviders(
+    <Navbar>
+      <NavLinks>
+        <NavLink to="/about">About</NavLink>
+      </NavLinks>
+    </Navbar>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).not.toHaveAttribute("href", "/about");
+});
+
+it("should not use linkComponent without 'to'", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Navbar>
+        <NavLinks>
+          <NavLink linkComponent={Link} href="/about">
+            About
+          </NavLink>
+        </NavLinks>
+      </Navbar>
+    </MemoryRouter>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link.tagName).toBe("A");
+  expect(link).toHaveAttribute("href", "/about");
+});
+
+it("should use 'href' when both 'href' and 'to' are provided without linkComponent", () => {
+  renderWithProviders(
+    <Navbar>
+      <NavLinks>
+        <NavLink href="/about" to="/somewhereElse">
+          About
+        </NavLink>
+      </NavLinks>
+    </Navbar>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).toHaveAttribute("href", "/about");
+});
+
+it("should use 'to' when both 'href' and 'to' are provided with linkComponent", () => {
+  renderWithProviders(
+    <MemoryRouter>
+      <Navbar>
+        <NavLinks>
+          <NavLink linkComponent={Link} href="/somewhereElse" to="/about">
+            About
+          </NavLink>
+        </NavLinks>
+      </Navbar>
+    </MemoryRouter>,
+  );
+
+  const link = screen.getByText("About");
+  expect(link).toBeInTheDocument();
+  expect(link).toHaveAttribute("href", "/about");
 });
