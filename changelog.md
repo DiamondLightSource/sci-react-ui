@@ -13,6 +13,7 @@ SciReactUI Changelog
 
 ### Changed
 - Breadcrumbs component takes optional linkComponent prop for page routing. 
+- Navbar, NavLink and FooterLink will use routing library for links if provided with linkComponent and to props.
 
 [v0.1.0] - 2025-04-10
 ---------------------

@@ -6,6 +6,7 @@ import logoImageDark from "../../public/generic/logo-dark.svg";
 import logoImageLight from "../../public/generic/logo-light.svg";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { User } from "../controls/User";
+import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof Navbar> = {
   title: "SciReactUI/Navigation/Navbar",
@@ -74,6 +75,21 @@ export const Links: Story = {
           First
         </NavLink>
         <NavLink href="#" key="second">
+          Second
+        </NavLink>
+      </NavLinks>
+    ),
+  },
+};
+
+export const RouterLinks: Story = {
+  args: {
+    children: (
+      <NavLinks key="links">
+        <NavLink to="/home/first" key="first" linkComponent={MockLink}>
+          First
+        </NavLink>
+        <NavLink to="/home/second" key="second" linkComponent={MockLink}>
           Second
         </NavLink>
       </NavLinks>
