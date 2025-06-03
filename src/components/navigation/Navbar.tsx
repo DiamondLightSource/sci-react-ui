@@ -37,6 +37,9 @@ const NavLink = ({ children, ...props }: LinkProps) => {
           color: theme.palette.secondary.main,
           borderBottom: "solid 4px",
         },
+        "&.active": {
+          color: theme.palette.secondary.main,
+        },
         textDecoration: "none",
         alignItems: "center",
         display: "flex",
