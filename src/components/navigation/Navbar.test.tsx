@@ -274,3 +274,89 @@ it("should use 'to' when both 'href' and 'to' are provided with linkComponent", 
   expect(link).toBeInTheDocument();
   expect(link).toHaveAttribute("href", "/about");
 });
+
+describe("Navbar Slots", () => {
+  it("renders logoLeftSlot", () => {
+    renderWithProviders(
+      <Navbar
+        logoLeftSlot={<div data-testid="logo-left-slot">Left Slot</div>}
+      />,
+    );
+    expect(screen.getByTestId("logo-left-slot")).toBeInTheDocument();
+  });
+
+  it("renders logoRightSlot", () => {
+    renderWithProviders(
+      <Navbar
+        logoRightSlot={<div data-testid="logo-right-slot">Right Slot</div>}
+      />,
+    );
+    expect(screen.getByTestId("logo-right-slot")).toBeInTheDocument();
+  });
+
+  it("renders centreSlot", () => {
+    renderWithProviders(
+      <Navbar centreSlot={<div data-testid="centre-slot">Centre Slot</div>} />,
+    );
+    expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
+  });
+
+  it("renders rightSlot", () => {
+    renderWithProviders(
+      <Navbar rightSlot={<div data-testid="right-slot">Right Slot</div>} />,
+    );
+    expect(screen.getByTestId("right-slot")).toBeInTheDocument();
+  });
+
+  it("renders all slots together", () => {
+    renderWithProviders(
+      <Navbar
+        logoLeftSlot={<div data-testid="logo-left-slot">Left</div>}
+        logoRightSlot={<div data-testid="logo-right-slot">Right</div>}
+        centreSlot={<div data-testid="centre-slot">Centre</div>}
+        rightSlot={<div data-testid="right-slot">Right Slot</div>}
+      />,
+    );
+    expect(screen.getByTestId("logo-left-slot")).toBeInTheDocument();
+    expect(screen.getByTestId("logo-right-slot")).toBeInTheDocument();
+    expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
+    expect(screen.getByTestId("right-slot")).toBeInTheDocument();
+  });
+});
+
+describe("Navbar Slot Positioning", () => {
+  it("centreSlot should be centred", () => {
+    renderWithProviders(
+      <Navbar centreSlot={<div data-testid="centre-slot">Centre</div>} />,
+    );
+    const centreSlot = screen.getByTestId("centre-slot");
+    const parent = centreSlot.parentElement;
+    expect(parent).toHaveStyle({
+      position: "absolute",
+      left: "50%",
+      transform: "translateX(-50%)",
+    });
+  });
+
+  it("rightSlot should be aligned to the end of the row", () => {
+    renderWithProviders(
+      <Navbar rightSlot={<div data-testid="right-slot">Right</div>} />,
+    );
+    const rightSlot = screen.getByTestId("right-slot");
+    const stack = rightSlot.closest(".MuiStack-root");
+    expect(stack).toHaveStyle("justify-content: space-between");
+  });
+
+  it("logo should be vertically centred", () => {
+    renderWithProviders(
+      <Navbar
+        logo={{ src: "/logo.svg", alt: "Home" }}
+        logoLeftSlot={<div data-testid="logo-left-slot">Left</div>}
+      />,
+    );
+    const logo = screen.getByRole("link");
+    const logoBox = logo.parentElement;
+    expect(logoBox).toHaveStyle("display: flex");
+    expect(logoBox).toHaveStyle("align-items: center");
+  });
+});
