@@ -32,8 +32,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: pnpm
 
-    - name: Run Typescript tests and lint client code
+    - name: Audit packages, run Typescript tests and lint client code
       run: |
+        pnpm audit --prod --audit-level high
         pnpm lint
         pnpm jest
         pnpm build
