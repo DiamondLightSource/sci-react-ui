@@ -105,9 +105,13 @@ function App() {
 }
 export default App;
 ```
+The Navbar component supports multiple slot props for flexible layout customization: leftSlot, centreSlot, rightSlot.
+If a logo is defined (either via the logo prop or from the theme), the layout will arrange elements in the following order from left to right: logo, leftSlot, rightSlot.
+The centreSlot is absolutely positioned at 50% horizontally, which means it stays centered regardless of the content on the left or right. However, if the content in the left or right slots is too wide, it may overlap with the centre slot.
 
-There are various other components, here's an example of how to use the NavBar:
+Any children passed to the Navbar (NavLinks in the following example) will be placed in a horizontal Stack after the leftSlot.
 
+To control the width of the Navbar contents, containerWidth can be passed which sets the maxWidth property of a Container. This can be set to false to not constrain the contents or to a Breakpoint e.g. 'sm' where 'lg' is the default.
 ```js
 import { Container, Typography } from "@mui/material";
 import { Navbar, NavLink, NavLinks } from "@diamondlightsource/sci-react-ui";
@@ -115,17 +119,18 @@ import { Navbar, NavLink, NavLinks } from "@diamondlightsource/sci-react-ui";
 function App() {
   return (
     <>
-      <Navbar>
+      <Navbar
+        leftSlot={<Typography>left</Typography>}
+        centreSlot={<Typography>centre</Typography>}
+        rightSlot={<Typography>right</Typography>}
+        containerWidth={false}
+      >
         <NavLinks key="links">
           <NavLink href="#" key="first">
             A link
           </NavLink>
         </NavLinks>
       </Navbar>
-      <Container>
-        <Typography variant="h2">Scientific UI Collection</Typography>
-        <Typography>A collection of science based React components.</Typography>
-      </Container>
     </>
   );
 }

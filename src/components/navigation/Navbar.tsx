@@ -10,6 +10,7 @@ import {
   Stack,
   styled,
   useTheme,
+  Breakpoint,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { useState } from "react";
@@ -25,6 +26,10 @@ interface NavLinksProps {
 interface NavbarProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
   linkComponent?: React.ElementType;
+  centreSlot?: React.ReactElement<LinkProps>;
+  rightSlot?: React.ReactElement<LinkProps>;
+  leftSlot?: React.ReactElement<LinkProps>;
+  containerWidth?: false | Breakpoint;
 }
 
 interface NavLinkProps extends LinkProps {
@@ -150,7 +155,16 @@ const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
 /**
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
  */
-const Navbar = ({ children, logo, linkComponent, ...props }: NavbarProps) => {
+const Navbar = ({
+  children,
+  logo,
+  linkComponent,
+  leftSlot,
+  rightSlot,
+  centreSlot,
+  containerWidth,
+  ...props
+}: NavbarProps) => {
   const theme = useTheme();
   let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
   if (logo === "theme") {
@@ -161,33 +175,53 @@ const Navbar = ({ children, logo, linkComponent, ...props }: NavbarProps) => {
 
   return (
     <BoxStyled role="banner" {...props}>
-      <Container maxWidth="lg" sx={{ height: "100%" }}>
+      <Container
+        maxWidth={containerWidth}
+        sx={{
+          height: "100%",
+        }}
+      >
         <Stack
           direction="row"
-          spacing={8}
-          sx={{ height: "100%", alignItems: "center", width: "100%" }}
+          justifyContent="space-between"
+          alignItems="center"
+          height="100%"
+          width="100%"
         >
-          {resolvedLogo && (
-            <Link
-              key="logo"
-              {...(linkComponent
-                ? { component: linkComponent, to: "/" }
-                : { href: "/" })}
-            >
-              <Box
-                maxWidth="5rem"
-                sx={{
-                  "&:hover": { filter: "brightness(80%);" },
-                  marginRight: { xs: "0", md: "50px" },
-                }}
+          <Stack direction="row" alignItems="center" spacing={2}>
+            {resolvedLogo && (
+              <Link
+                key="logo"
+                {...(linkComponent
+                  ? { component: linkComponent, to: "/" }
+                  : { href: "/" })}
               >
-                <ImageColorSchemeSwitch image={resolvedLogo} />
-              </Box>
-            </Link>
-          )}
-          {children}
+                <Box
+                  maxWidth="5rem"
+                  sx={{
+                    "&:hover": { filter: "brightness(80%);" },
+                    marginRight: { xs: "0", md: "50px" },
+                  }}
+                >
+                  <ImageColorSchemeSwitch image={resolvedLogo} />
+                </Box>
+              </Link>
+            )}
+            {leftSlot}
+            {children}
+          </Stack>
+          {rightSlot}
         </Stack>
       </Container>
+      <Box
+        sx={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        {centreSlot}
+      </Box>
     </BoxStyled>
   );
 };

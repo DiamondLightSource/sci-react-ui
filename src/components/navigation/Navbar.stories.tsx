@@ -19,43 +19,43 @@ type Story = StoryObj<typeof meta>;
 
 export const All: Story = {
   args: {
-    children: [
-      <NavLinks key="links">
-        <NavLink href="#Mercury" key="mercury">
-          Mercury
-        </NavLink>
-        <NavLink href="#Venus" key="venus">
-          Venus
-        </NavLink>
-        <NavLink href="#Earth" key="earth">
-          Earth
-        </NavLink>
-        <NavLink href="#Mars" key="mars">
-          Mars
-        </NavLink>
-      </NavLinks>,
-      <User
-        key="user"
-        onLogin={() => {}}
-        onLogout={() => {}}
-        user={{ name: "Name", fedid: "FedID" }}
-        color={"white"}
-      />,
-      <ColourSchemeButton key="colourScheme" />,
-    ],
+    rightSlot: (
+      <>
+        <User
+          key="user"
+          onLogin={() => {}}
+          onLogout={() => {}}
+          user={{ name: "Name", fedid: "FedID" }}
+          color={"white"}
+        />
+        <ColourSchemeButton key="colourScheme" />,
+      </>
+    ),
+    children: (
+      <>
+        <NavLinks key="links">
+          <NavLink href="#Mercury" key="mercury">
+            Mercury
+          </NavLink>
+          <NavLink href="#Venus" key="venus">
+            Venus
+          </NavLink>
+          <NavLink href="#Earth" key="earth">
+            Earth
+          </NavLink>
+          <NavLink href="#Mars" key="mars">
+            Mars
+          </NavLink>
+        </NavLinks>
+      </>
+    ),
     logo: "theme",
-  },
-};
-
-export const WithLogin: Story = {
-  args: {
-    children: <User onLogin={() => {}} onLogout={() => {}} user={null} />,
   },
 };
 
 export const WithUser: Story = {
   args: {
-    children: (
+    rightSlot: (
       <User
         key="user"
         onLogin={() => {}}
@@ -99,23 +99,27 @@ export const RouterLinks: Story = {
 
 export const LinksAndUser: Story = {
   args: {
-    children: [
-      <NavLinks key="links">
-        <NavLink href="#" key="first">
-          First
-        </NavLink>
-        <NavLink href="#" key="second">
-          Second
-        </NavLink>
-      </NavLinks>,
+    rightSlot: (
       <User
         key="user"
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
         color={"white"}
-      />,
-    ],
+      />
+    ),
+    children: (
+      <>
+        <NavLinks key="links">
+          <NavLink href="#" key="first">
+            First
+          </NavLink>
+          <NavLink href="#" key="second">
+            Second
+          </NavLink>
+        </NavLinks>
+      </>
+    ),
   },
 };
 
@@ -174,6 +178,73 @@ export const WithNonThemeLogo: Story = {
 export const CustomChildElement: Story = {
   args: {
     children: <Chip label="Hello, World" sx={{ backgroundColor: "#aaaaaa" }} />,
+  },
+};
+
+export const LinksInSlot: Story = {
+  args: {
+    rightSlot: (
+      <>
+        <User
+          key="user"
+          onLogin={() => {}}
+          onLogout={() => {}}
+          user={{ name: "Name", fedid: "FedID" }}
+          color={"white"}
+        />
+        <ColourSchemeButton key="colourScheme" />,
+      </>
+    ),
+    leftSlot: (
+      <>
+        <NavLinks key="links">
+          <NavLink href="#Mercury" key="mercury">
+            Mercury
+          </NavLink>
+          <NavLink href="#Venus" key="venus">
+            Venus
+          </NavLink>
+          <NavLink href="#Earth" key="earth">
+            Earth
+          </NavLink>
+          <NavLink href="#Mars" key="mars">
+            Mars
+          </NavLink>
+        </NavLinks>
+      </>
+    ),
+    logo: "theme",
+  },
+};
+
+export const AllSlots: Story = {
+  args: {
+    leftSlot: (
+      <NavLink to="left" linkComponent={MockLink}>
+        Left
+      </NavLink>
+    ),
+    centreSlot: (
+      <NavLink to="centre" linkComponent={MockLink}>
+        Centre
+      </NavLink>
+    ),
+    rightSlot: (
+      <NavLink to="right" linkComponent={MockLink}>
+        Right
+      </NavLink>
+    ),
+    children: (
+      <NavLink to="children" linkComponent={MockLink}>
+        Children
+      </NavLink>
+    ),
+    logo: "theme",
+  },
+};
+export const WithLogin: Story = {
+  args: {
+    children: <User onLogin={() => {}} onLogout={() => {}} user={null} />,
   },
 };
 
