@@ -80,6 +80,7 @@ const Breadcrumbs = ({
           {...muiBreadcrumbsProps}
         >
           <Mui_Link
+            aria-label="Go to home page"
             key={"crumb-0"}
             underline="hover"
             color="inherit"
@@ -94,6 +95,7 @@ const Breadcrumbs = ({
           >
             <HomeIcon
               data-testid="HomeIcon"
+              aria-hidden="true"
               sx={{ pt: 0.5, fontSize: "1.7em" }}
             />
           </Mui_Link>
