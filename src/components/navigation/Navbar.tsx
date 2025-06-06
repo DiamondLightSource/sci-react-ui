@@ -2,7 +2,6 @@
 import {
   Box,
   BoxProps,
-  Container,
   Drawer,
   Link,
   LinkProps,
@@ -13,7 +12,6 @@ import {
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { useState } from "react";
-
 import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
@@ -25,17 +23,47 @@ interface NavLinksProps {
 
 interface NavbarProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
+  linkComponent?: React.ElementType;
+  centreSlot?: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
+  rightSlot?: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
+  logoLeftSlot?:
+    | React.ReactElement<LinkProps>
+    | React.ReactElement<LinkProps>[];
+  logoRightSlot?:
+    | React.ReactElement<LinkProps>
+    | React.ReactElement<LinkProps>[];
 }
 
-const NavLink = ({ children, ...props }: LinkProps) => {
+interface NavLinkProps extends LinkProps {
+  children: React.ReactNode;
+  linkComponent?: React.ElementType;
+  to?: string;
+  href?: string;
+}
+
+const NavLink = ({
+  children,
+  linkComponent,
+  to,
+  href,
+  ...props
+}: NavLinkProps) => {
   const theme = useTheme();
+
+  const shouldUseLinkComponent = linkComponent && to;
+
+  const linkProps = shouldUseLinkComponent
+    ? { component: linkComponent, to }
+    : { href };
 
   return (
     <Link
+      {...linkProps}
       sx={{
         "&:hover": {
           color: theme.palette.secondary.main,
           borderBottom: "solid 4px",
+          textDecoration: "none",
         },
         "&.active": {
           color: theme.palette.secondary.main,
@@ -129,7 +157,16 @@ const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
 /**
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
  */
-const Navbar = ({ children, logo, ...props }: NavbarProps) => {
+const Navbar = ({
+  children,
+  logo,
+  linkComponent,
+  logoLeftSlot,
+  logoRightSlot,
+  rightSlot,
+  centreSlot,
+  ...props
+}: NavbarProps) => {
   const theme = useTheme();
   let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
   if (logo === "theme") {
@@ -140,14 +177,26 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
 
   return (
     <BoxStyled role="banner" {...props}>
-      <Container maxWidth="lg" sx={{ height: "100%" }}>
-        <Stack
-          direction="row"
-          spacing={8}
-          sx={{ height: "100%", alignItems: "center", width: "100%" }}
-        >
-          {resolvedLogo ? (
-            <Link href="/" key="logo">
+      <Stack
+        justifyContent="space-between"
+        direction="row"
+        spacing={8}
+        margin={2}
+        sx={{
+          height: "100%",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <Stack direction="row" alignItems="center" spacing={2}>
+          {logoLeftSlot}
+          {resolvedLogo && (
+            <Link
+              key="logo"
+              {...(linkComponent
+                ? { component: linkComponent, to: "/" }
+                : { href: "/" })}
+            >
               <Box
                 maxWidth="5rem"
                 sx={{
@@ -158,10 +207,22 @@ const Navbar = ({ children, logo, ...props }: NavbarProps) => {
                 <ImageColorSchemeSwitch image={resolvedLogo} />
               </Box>
             </Link>
-          ) : null}
+          )}
+          {logoRightSlot}
           {children}
         </Stack>
-      </Container>
+
+        {rightSlot}
+      </Stack>
+      <Box
+        sx={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        {centreSlot}
+      </Box>
     </BoxStyled>
   );
 };

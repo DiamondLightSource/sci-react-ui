@@ -32,8 +32,34 @@ root.render(
 
 There are currently two themes, `GenericTheme` or `DiamondTheme`, but you can - and should - adapt your own.
 
-The Breadcrumbs supports either static links or the use of a routing library.
-To use static links, omit the linkComponent prop and Breadcrumbs will use a Link component with standard href attributes.
+Navigation components support either static links (with href) or the use of a routing library (with linkComponent and to).
+For NavLink and FooterLink, if both linkComponent and to are provided, it will use linkComponent. If not, it falls back to using href.
+
+An example with static links
+
+```js
+<Navbar>
+  <NavLinks>
+    <NavLink href="/about">About</NavLink>
+  </NavLinks>
+</Navbar>
+```
+
+An example using react-router:
+
+```js
+import { NavLink } from "react-router-dom";
+
+<Navbar linkComponent={NavLink}>
+  <NavLinks>
+    <NavLink linkComponent={NavLink} to="/about">
+      About
+    </NavLink>
+  </NavLinks>
+</Navbar>
+```
+
+For Breadcrumbs, to use static links, omit the linkComponent prop and Breadcrumbs will use a Link component with standard href attributes.
 
 ```js
 import { Breadcrumbs } from "@diamondlightsource/sci-react-ui";
@@ -71,16 +97,19 @@ root.render(
 Then pass your library's corresponding Link component to Breadcrumbs in the linkComponent prop, for example:
 
 ```js
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Breadcrumbs } from "@diamondlightsource/sci-react-ui";
 
 function App() {
-  return <Breadcrumbs path={window.location.pathname} linkComponent={Link} />;
+  return <Breadcrumbs path={window.location.pathname} linkComponent={NavLink} />;
 }
 export default App;
 ```
+The Navbar component supports multiple slot props for flexible layout customization: logoLeftSlot, logoRightSlot, centreSlot, rightSlot.
+If a logo is defined (either via the logo prop or from the theme), the layout will arrange elements in the following order from left to right: logoLeftSlot, logo, logoRightSlot, rightSlot.
+The centreSlot is absolutely positioned at 50% horizontally, which means it stays centered regardless of the content on the left or right. However, if the content in the left or right slots is too wide, it may overlap with the centre slot.
 
-There are various other components, here's an example of how to use the NavBar:
+Any children passed to the Navbar (NavLinks in the following example) will be placed in a horizontal Stack after the logoRightSlot.
 
 ```js
 import { Container, Typography } from "@mui/material";
@@ -89,17 +118,18 @@ import { Navbar, NavLink, NavLinks } from "@diamondlightsource/sci-react-ui";
 function App() {
   return (
     <>
-      <Navbar>
+      <Navbar
+        logoLeftSlot={<Typography>logo left</Typography>}
+        logoRightSlot={<Typography>logo left</Typography>}
+        centreSlot={<Typography>centre</Typography>}
+        rightSlot={<Typography>right</Typography>}
+      >
         <NavLinks key="links">
           <NavLink href="#" key="first">
             A link
           </NavLink>
         </NavLinks>
       </Navbar>
-      <Container>
-        <Typography variant="h2">Scientific UI Collection</Typography>
-        <Typography>A collection of science based React components.</Typography>
-      </Container>
     </>
   );
 }

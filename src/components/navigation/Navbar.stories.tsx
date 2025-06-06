@@ -6,6 +6,8 @@ import logoImageDark from "../../public/generic/logo-dark.svg";
 import logoImageLight from "../../public/generic/logo-light.svg";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { User } from "../controls/User";
+import { MockLink } from "../../utils/MockLink";
+import { Typography } from "@mui/material";
 
 const meta: Meta<typeof Navbar> = {
   title: "SciReactUI/Navigation/Navbar",
@@ -18,6 +20,16 @@ type Story = StoryObj<typeof meta>;
 
 export const All: Story = {
   args: {
+    rightSlot: [
+      <User
+        key="user"
+        onLogin={() => {}}
+        onLogout={() => {}}
+        user={{ name: "Name", fedid: "FedID" }}
+        color={"white"}
+      />,
+      <ColourSchemeButton key="colourScheme" />,
+    ],
     children: [
       <NavLinks key="links">
         <NavLink href="#Mercury" key="mercury">
@@ -33,28 +45,14 @@ export const All: Story = {
           Mars
         </NavLink>
       </NavLinks>,
-      <User
-        key="user"
-        onLogin={() => {}}
-        onLogout={() => {}}
-        user={{ name: "Name", fedid: "FedID" }}
-        color={"white"}
-      />,
-      <ColourSchemeButton key="colourScheme" />,
     ],
     logo: "theme",
   },
 };
 
-export const WithLogin: Story = {
-  args: {
-    children: <User onLogin={() => {}} onLogout={() => {}} user={null} />,
-  },
-};
-
 export const WithUser: Story = {
   args: {
-    children: (
+    rightSlot: (
       <User
         key="user"
         onLogin={() => {}}
@@ -81,8 +79,32 @@ export const Links: Story = {
   },
 };
 
+export const RouterLinks: Story = {
+  args: {
+    children: (
+      <NavLinks key="links">
+        <NavLink to="/home/first" key="first" linkComponent={MockLink}>
+          First
+        </NavLink>
+        <NavLink to="/home/second" key="second" linkComponent={MockLink}>
+          Second
+        </NavLink>
+      </NavLinks>
+    ),
+  },
+};
+
 export const LinksAndUser: Story = {
   args: {
+    rightSlot: (
+      <User
+        key="user"
+        onLogin={() => {}}
+        onLogout={() => {}}
+        user={{ name: "Name", fedid: "FedID" }}
+        color={"white"}
+      />
+    ),
     children: [
       <NavLinks key="links">
         <NavLink href="#" key="first">
@@ -92,13 +114,6 @@ export const LinksAndUser: Story = {
           Second
         </NavLink>
       </NavLinks>,
-      <User
-        key="user"
-        onLogin={() => {}}
-        onLogout={() => {}}
-        user={{ name: "Name", fedid: "FedID" }}
-        color={"white"}
-      />,
     ],
   },
 };
@@ -158,6 +173,54 @@ export const WithNonThemeLogo: Story = {
 export const CustomChildElement: Story = {
   args: {
     children: <Chip label="Hello, World" sx={{ backgroundColor: "#aaaaaa" }} />,
+  },
+};
+
+export const LinksInSlot: Story = {
+  args: {
+    rightSlot: [
+      <User
+        key="user"
+        onLogin={() => {}}
+        onLogout={() => {}}
+        user={{ name: "Name", fedid: "FedID" }}
+        color={"white"}
+      />,
+      <ColourSchemeButton key="colourScheme" />,
+    ],
+    logoRightSlot: [
+      <NavLinks key="links">
+        <NavLink href="#Mercury" key="mercury">
+          Mercury
+        </NavLink>
+        <NavLink href="#Venus" key="venus">
+          Venus
+        </NavLink>
+        <NavLink href="#Earth" key="earth">
+          Earth
+        </NavLink>
+        <NavLink href="#Mars" key="mars">
+          Mars
+        </NavLink>
+      </NavLinks>,
+    ],
+    logo: "theme",
+  },
+};
+
+export const AllSlots: Story = {
+  args: {
+    logoLeftSlot: <Typography sx={{ color: "white" }}>logo left</Typography>,
+    logoRightSlot: <Typography sx={{ color: "white" }}>logo right</Typography>,
+    centreSlot: <Typography sx={{ color: "white" }}>centre</Typography>,
+    rightSlot: <Typography sx={{ color: "white" }}>right</Typography>,
+    children: <Typography sx={{ color: "white" }}>children</Typography>,
+    logo: "theme",
+  },
+};
+export const WithLogin: Story = {
+  args: {
+    children: <User onLogin={() => {}} onLogout={() => {}} user={null} />,
   },
 };
 
