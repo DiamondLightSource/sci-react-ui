@@ -1,3 +1,5 @@
+// noinspection JSConstantReassignment
+
 import { fireEvent, screen } from "@testing-library/react";
 import { Navbar, NavLinks, NavLink } from "./Navbar";
 import "@testing-library/jest-dom";
@@ -27,9 +29,9 @@ describe("Navbar", () => {
 });
 
 describe("Navbar Logo", () => {
-  it("should not display logo if null", () => {
+  it("should not display logo if undefined", () => {
     global.innerWidth = 600;
-    renderWithProviders(<Navbar logo={null} />);
+    renderWithProviders(<Navbar />);
     expect(screen.queryByAltText("Home")).not.toBeInTheDocument();
   });
 });
@@ -129,11 +131,8 @@ it("should render logo with correct alt text", () => {
     </MemoryRouter>,
   );
 
-  const lightLogo = screen.getByTestId("image-light");
-  const darkLogo = screen.getByTestId("image-dark");
-
-  expect(lightLogo).toHaveAttribute("alt", "Home");
-  expect(darkLogo).toHaveAttribute("alt", "Home");
+  const logo = screen.getByRole("img");
+  expect(logo).toHaveAttribute("alt", "Home");
 });
 
 it("should render NavLink without crashing when no 'to' or 'href' is provided", () => {
@@ -183,12 +182,10 @@ it("should render NavLink with linkComponent and 'to' prop", () => {
 it("should render logo with href when linkComponent is not provided", () => {
   renderWithProviders(<Navbar logo={{ src: "/logo.svg", alt: "Home" }} />);
 
-  const lightLogo = screen.getByTestId("image-light");
-  const darkLogo = screen.getByTestId("image-dark");
+  const logo = screen.getByRole("img");
   const logoLink = screen.getByRole("link");
 
-  expect(lightLogo).toHaveAttribute("alt", "Home");
-  expect(darkLogo).toHaveAttribute("alt", "Home");
+  expect(logo).toHaveAttribute("alt", "Home");
   expect(logoLink).toHaveAttribute("href", "/");
 });
 
@@ -200,12 +197,11 @@ it("should render logo with linkComponent without 'to' prop", () => {
   );
 
   const logoLink = screen.getByRole("link");
-  const lightLogo = screen.getByTestId("image-light");
-  const darkLogo = screen.getByTestId("image-dark");
+  const logo = screen.getByRole("img");
 
-  expect(lightLogo).toHaveAttribute("alt", "Home");
-  expect(darkLogo).toHaveAttribute("alt", "Home");
+  expect(logo).toHaveAttribute("alt", "Home");
   expect(logoLink).toHaveAttribute("href", "/");
+  expect(logoLink).not.toHaveAttribute("to");
 });
 
 it("should not render a valid link when only 'to' is provided without linkComponent", () => {
