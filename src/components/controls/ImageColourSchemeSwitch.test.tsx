@@ -7,6 +7,7 @@ import { screen } from "@testing-library/react";
 describe("ImageColourSchemeSwitch", () => {
   const testVals = {
     src: "src/light",
+    srcDark: "src/dark",
     alt: "test-alt",
   };
 
@@ -59,14 +60,23 @@ describe("ImageColourSchemeSwitch", () => {
   });
 
   it("should have alternate src", () => {
-    const srcDark = "src/dark";
 
     renderWithProviders(
-      <ImageColourSchemeSwitch image={{ ...testVals, srcDark }} />,
+      <ImageColourSchemeSwitch image={{ ...testVals }} />,
       { defaultMode: "dark" },
     );
     const img = screen.getByTestId("image-dark");
-
-    expect(img).toHaveAttribute("src", srcDark);
+    expect(img).toHaveAttribute("src", testVals.srcDark);
   });
+  
+  it("should have src when no srcDark set but dark mode selected", () => {
+    
+    renderWithProviders(
+      <ImageColorSchemeSwitch image={{ ...testVals }} />,
+      { defaultMode: "dark" },
+    );
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", testVals.src);
+  });
+  
 });

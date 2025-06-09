@@ -19,6 +19,7 @@ SciReactUI Changelog
 
 ### Fixed
 - Styles added to Navbar and Footer incorrectly remove built in styles.
+- Logo not appearing when no dark src set in dark mode.
 
 ### Changed
 - Breadcrumbs component takes optional linkComponent prop for page routing. 

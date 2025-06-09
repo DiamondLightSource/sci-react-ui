@@ -1,4 +1,5 @@
 import { styled } from "@mui/material";
+import React from "react";
 
 type ImageColourSchemeSwitchType = {
   src: string;
@@ -8,8 +9,9 @@ type ImageColourSchemeSwitchType = {
   height?: string;
 };
 
-interface ImageColourSchemeSwitchProps {
+interface ImageColourSchemeSwitchProps  {
   image: ImageColourSchemeSwitchType;
+  style?: React.CSSProperties;
 }
 
 /** Styled component which is only displayed in dark mode */
@@ -28,23 +30,35 @@ const ImageLight = styled("img")(({ theme }) => [
   }),
 ]);
 
-const ImageColourSchemeSwitch = ({ image }: ImageColourSchemeSwitchProps) => (
-  <>
-    <ImageLight
-      data-testid="image-light"
+const ImageColourSchemeSwitch = ({ image, style }: ImageColourSchemeSwitchProps) => (
+  image.srcDark ? (
+    <>
+      <ImageLight
+        data-testid="image-light"
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        style={style}
+      />
+      <ImageDark
+        data-testid="image-dark"
+        src={image.srcDark}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        style={style}
+      />
+    </>
+  ) : (
+    <img
       src={image.src}
       alt={image.alt}
       width={image.width}
       height={image.height}
+      style={style}
     />
-    <ImageDark
-      data-testid="image-dark"
-      src={image.srcDark}
-      alt={image.alt}
-      width={image.width}
-      height={image.height}
-    />
-  </>
+  )
 );
 
 export { ImageColourSchemeSwitch };

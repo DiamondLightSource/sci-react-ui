@@ -15,13 +15,14 @@ import {
   ImageColourSchemeSwitch,
   ImageColourSchemeSwitchType,
 } from "../controls/ImageColourSchemeSwitch";
+import {Logo} from "../controls/Logo";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
 interface FooterProps extends BoxProps, React.PropsWithChildren {
-  logo?: ImageColourSchemeSwitchType | "theme" | null;
+  logo?: ImageColourSchemeSwitchType | "theme";
   copyright?: string | null;
   centreSlot?: React.ReactElement<LinkProps>;
   rightSlot?: React.ReactElement<LinkProps>;
@@ -116,13 +117,6 @@ const Footer = ({
   ...props
 }: FooterProps) => {
   const theme = useTheme();
-  let resolvedLogo: ImageColourSchemeSwitchType | null | undefined = null;
-
-  if (logo === "theme") {
-    resolvedLogo = theme.logos?.short;
-  } else if (logo && typeof logo === "object") {
-    resolvedLogo = logo;
-  }
 
   return (
     <BoxStyled role="contentinfo" {...props}>
@@ -132,7 +126,7 @@ const Footer = ({
       >
         <Grid
           size={
-            resolvedLogo || copyright ? { xs: 6, md: 9 } : { xs: 12, md: 12 }
+            logo || copyright ? { xs: 6, md: 9 } : { xs: 12, md: 12 }
           }
           style={{
             alignContent: "center",
@@ -145,7 +139,7 @@ const Footer = ({
             height="100%"
             width="100%"
             sx={{
-              pr: resolvedLogo || copyright ? 0 : 2,
+              pr: logo || copyright ? 0 : 2,
             }}
           >
             <Stack direction="row" alignItems="center" spacing={1}>
@@ -167,7 +161,7 @@ const Footer = ({
           </Stack>
         </Grid>
 
-        {(resolvedLogo || copyright) && (
+        {(logo || copyright) && (
           <Grid size={{ xs: 6, md: 3 }}>
             <div
               style={{
@@ -177,7 +171,7 @@ const Footer = ({
                 textAlign: "right",
               }}
             >
-              {resolvedLogo && <ImageColourSchemeSwitch image={resolvedLogo} />}
+              {logo && (logo=="theme" ? <Logo short={true} /> : <ImageColourSchemeSwitch image={logo} />)}
               {copyright && (
                 <Typography
                   style={{
