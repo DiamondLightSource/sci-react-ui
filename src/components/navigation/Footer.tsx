@@ -14,8 +14,8 @@ import React from "react";
 import {
   ImageColourSchemeSwitch,
   ImageColourSchemeSwitchType,
-} from "../controls/ImageColourSchemeSwitch";
-import {Logo} from "../controls/Logo";
+} from "../controls/ImageColorSchemeSwitch";
+import { Logo } from "../controls/Logo";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -171,7 +171,12 @@ const Footer = ({
                 textAlign: "right",
               }}
             >
-              {logo && (logo=="theme" ? <Logo short={true} /> : <ImageColourSchemeSwitch image={logo} />)}
+              {logo &&
+                (logo == "theme" ? (
+                  <Logo short={true} />
+                ) : (
+                  <ImageColourSchemeSwitch image={logo} />
+                ))}
               {copyright && (
                 <Typography
                   style={{

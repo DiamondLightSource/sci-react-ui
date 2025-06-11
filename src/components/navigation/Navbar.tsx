@@ -17,8 +17,8 @@ import React, { useState } from "react";
 import {
   ImageColourSchemeSwitch,
   ImageColourSchemeSwitchType,
-} from "../controls/ImageColourSchemeSwitch";
-import {Logo} from "../controls/Logo";
+} from "../controls/ImageColorSchemeSwitch";
+import { Logo } from "../controls/Logo";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -166,7 +166,6 @@ const Navbar = ({
   containerWidth,
   ...props
 }: NavbarProps) => {
-  const theme = useTheme();
 
   return (
     <BoxStyled role="banner" {...props}>
@@ -198,7 +197,11 @@ const Navbar = ({
                     marginRight: { xs: "0", md: "50px" },
                   }}
                 >
-	                {logo == "theme" ? <Logo /> : <ImageColourSchemeSwitch image={logo} />}
+                  {logo == "theme" ? (
+                    <Logo />
+                  ) : (
+                    <ImageColourSchemeSwitch image={logo} />
+                  )}
                 </Box>
               </Link>
             )}
