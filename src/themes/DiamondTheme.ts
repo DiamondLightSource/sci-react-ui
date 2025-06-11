@@ -1,7 +1,7 @@
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { createTheme, Theme } from "@mui/material/styles";
 
-import {mergeThemeOptions} from "./ThemeManager";
+import { mergeThemeOptions } from "./ThemeManager";
 
 import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoImageLight from "../public/diamond/logo-light.svg";
@@ -41,7 +41,7 @@ const DiamondThemeOptions = mergeThemeOptions({
           contrastText: "#000000", // black
         },
         text: {
-          secondary: "#161B2C"
+          secondary: "#161B2C",
         },
       },
     },
@@ -60,7 +60,7 @@ const DiamondThemeOptions = mergeThemeOptions({
           contrastText: "#000000", // black
         },
         text: {
-          secondary: "#8090CA"
+          secondary: "#8090CA",
         },
       },
     },
@@ -68,7 +68,7 @@ const DiamondThemeOptions = mergeThemeOptions({
   components: {
     MuiButton: {
       styleOverrides: {
-        root: ({ theme }: any ) => ({
+        root: ({ theme }:{ theme:Theme}) => ({
           textTransform: "none",
           "&.MuiButton-contained": {},
           "&.default": {
@@ -97,6 +97,6 @@ const DiamondThemeOptions = mergeThemeOptions({
   },
 });
 
-const DiamondTheme: Theme = createTheme( DiamondThemeOptions );
+const DiamondTheme: Theme = createTheme(DiamondThemeOptions);
 
 export { DiamondTheme, DiamondThemeOptions };

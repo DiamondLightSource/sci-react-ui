@@ -30,7 +30,7 @@ const BaseThemeOptions /* : ThemeOptions */ = {
         background: { default: "#fafafa" },
       },
       text: {
-        primary: "#050505"
+        primary: "#050505",
       },
     },
     dark: {
@@ -38,7 +38,7 @@ const BaseThemeOptions /* : ThemeOptions */ = {
         background: { default: "#050505" },
       },
       text: {
-        primary: "#fafafa"
+        primary: "#fafafa",
       },
     },
   },
