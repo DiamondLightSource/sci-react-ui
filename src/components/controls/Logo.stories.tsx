@@ -8,8 +8,7 @@ const meta: Meta<typeof Logo> = {
   parameters: {
     docs: {
       description: {
-        component:
-          "Show the logo associated with the theme",
+        component: "Show the logo associated with the theme",
       },
     },
   },
@@ -23,8 +22,7 @@ export const TheLogo: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "The normally sized logo",
+        story: "The normally sized logo",
       },
     },
   },
@@ -35,8 +33,7 @@ export const TheShortLogo: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "The shorter image.",
+        story: "The shorter image.",
       },
     },
   },
