@@ -4,16 +4,12 @@ import { render, RenderResult } from "@testing-library/react";
 import { ThemeProviderProps } from "@mui/material/styles/ThemeProvider";
 
 export const renderWithProviders = (
-  ui: React.ReactNode,
-  themeOptions?: Omit<ThemeProviderProps, "theme">,
+  children: React.ReactNode,
+  themeOptions?: ThemeProviderProps,
 ): RenderResult => {
-  const Wrapper = ({ children }: { children: React.ReactNode }) => {
-    return (
-      <ThemeProvider {...themeOptions} theme={DiamondTheme}>
-        {children}
-      </ThemeProvider>
-    );
-  };
-
-  return render(ui, { wrapper: Wrapper });
+  return render(
+    <ThemeProvider theme={DiamondTheme} {...themeOptions}>
+      {children}
+    </ThemeProvider>
+  );
 };

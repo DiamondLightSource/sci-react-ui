@@ -18,13 +18,14 @@ import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
 } from "../controls/ImageColorSchemeSwitch";
+import { Logo } from "../controls/Logo";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
 interface NavbarProps extends BoxProps, React.PropsWithChildren {
-  logo?: ImageColorSchemeSwitchType | "theme" | null;
+  logo?: ImageColorSchemeSwitchType | "theme";
   linkComponent?: React.ElementType;
   centreSlot?: React.ReactElement<LinkProps>;
   rightSlot?: React.ReactElement<LinkProps>;
@@ -165,13 +166,6 @@ const Navbar = ({
   containerWidth,
   ...props
 }: NavbarProps) => {
-  const theme = useTheme();
-  let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
-  if (logo === "theme") {
-    resolvedLogo = theme.logos?.normal;
-  } else if (logo && typeof logo === "object") {
-    resolvedLogo = logo;
-  }
 
   return (
     <BoxStyled role="banner" {...props}>
@@ -189,7 +183,7 @@ const Navbar = ({
           width="100%"
         >
           <Stack direction="row" alignItems="center" spacing={2}>
-            {resolvedLogo && (
+            {logo && (
               <Link
                 key="logo"
                 {...(linkComponent
@@ -203,7 +197,11 @@ const Navbar = ({
                     marginRight: { xs: "0", md: "50px" },
                   }}
                 >
-                  <ImageColorSchemeSwitch image={resolvedLogo} />
+                  {logo == "theme" ? (
+                    <Logo />
+                  ) : (
+                    <ImageColorSchemeSwitch image={logo} />
+                  )}
                 </Box>
               </Link>
             )}
