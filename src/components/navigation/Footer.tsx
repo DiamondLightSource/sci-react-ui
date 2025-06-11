@@ -14,7 +14,7 @@ import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
 } from "../controls/ImageColorSchemeSwitch";
-import {Logo} from "../controls/Logo";
+import { Logo } from "../controls/Logo";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -108,9 +108,7 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
     <BoxStyled role="contentinfo" {...props}>
       <Grid container>
         <Grid
-          size={
-            logo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }
-          }
+          size={logo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }}
           style={{
             alignContent: "center",
           }}
@@ -135,7 +133,12 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
                 textAlign: "right",
               }}
             >
-              {logo && (logo=="theme" ? <Logo short={true} /> : <ImageColorSchemeSwitch image={logo} />)}
+              {logo &&
+                (logo == "theme" ? (
+                  <Logo short={true} />
+                ) : (
+                  <ImageColorSchemeSwitch image={logo} />
+                ))}
               {copyright && (
                 <Typography
                   style={{

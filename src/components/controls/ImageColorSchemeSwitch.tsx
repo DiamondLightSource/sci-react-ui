@@ -9,7 +9,7 @@ type ImageColorSchemeSwitchType = {
   height?: string;
 };
 
-interface ImageColorSchemeSwitchProps  {
+interface ImageColorSchemeSwitchProps {
   image: ImageColorSchemeSwitchType;
   style?: React.CSSProperties;
 }
@@ -30,7 +30,10 @@ const ImageLight = styled("img")(({ theme }) => [
   }),
 ]);
 
-const ImageColorSchemeSwitch = ({ image, style }: ImageColorSchemeSwitchProps) => (
+const ImageColorSchemeSwitch = ({
+  image,
+  style,
+}: ImageColorSchemeSwitchProps) =>
   image.srcDark ? (
     <>
       <ImageLight
@@ -58,8 +61,7 @@ const ImageColorSchemeSwitch = ({ image, style }: ImageColorSchemeSwitchProps) =
       height={image.height}
       style={style}
     />
-  )
-);
+  );
 
 export { ImageColorSchemeSwitch };
 export type { ImageColorSchemeSwitchProps, ImageColorSchemeSwitchType };
