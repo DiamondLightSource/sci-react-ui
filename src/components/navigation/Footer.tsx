@@ -147,7 +147,9 @@ const Footer = ({
               {leftSlot}
               {children}
             </Stack>
-            {rightSlot}
+            <Stack direction="row" alignItems="center" spacing={2}>
+              {rightSlot}
+            </Stack>
           </Stack>
         </Grid>
         <Box
