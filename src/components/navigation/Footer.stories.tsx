@@ -34,12 +34,18 @@ const staticFooterLinks = [
     <FooterLink href="#TheMoon" key="the-moon">
       The Moon
     </FooterLink>
+  </FooterLinks>,
+  <FooterLinks key="footer-links">
     <FooterLink href="#Phobos" key="phobos">
       Phobos
     </FooterLink>
+  </FooterLinks>,
+  <FooterLinks key="footer-links">
     <FooterLink href="#Ganymede" key="ganymede">
       Ganymede
     </FooterLink>
+  </FooterLinks>,
+  <FooterLinks key="footer-links">
     <FooterLink href="#Titan" key="titan">
       Titan
     </FooterLink>
@@ -53,6 +59,51 @@ export const All: Story = {
     children: staticFooterLinks,
   },
 };
+
+export const AllSlots: Story = {
+  args: {
+    logo: "theme",
+    copyright: "Company",
+    leftSlot: (
+      <FooterLinks key="footer-links">
+        <FooterLink href="#Left" key="left">
+          Left
+        </FooterLink>
+      </FooterLinks>
+    ),
+    children: (
+      <FooterLinks key="footer-links">
+        <FooterLink href="#Children" key="children">
+          Children
+        </FooterLink>
+      </FooterLinks>
+    ),
+    rightSlot: (
+      <FooterLinks key="footer-links">
+        <FooterLink href="#Right" key="right">
+          Right
+        </FooterLink>
+      </FooterLinks>
+    ),
+    centreSlot: (
+      <FooterLinks key="footer-links">
+        <FooterLink href="#Centre" key="centre">
+          Centre
+        </FooterLink>
+      </FooterLinks>
+    ),
+  },
+};
+
+
+export const AllRightSlot: Story = {
+  args: {
+    logo: "theme",
+    copyright: "Company",
+    rightSlot: staticFooterLinks,
+  },
+};
+
 
 export const RouterLinks: Story = {
   args: {
@@ -95,9 +146,17 @@ export const LinksOnly: Story = {
   },
 };
 
+export const LinksOnlySlots: Story = {
+  args: {
+    leftSlot: staticFooterLinks[0],
+    centreSlot: staticFooterLinks[1],
+    rightSlot: staticFooterLinks[2],
+  },
+};
+
 export const LinksOnlyCentred: Story = {
   args: {
-    children: [
+    centreSlot: [
       <FooterLinks
         key="footer-links"
         style={{ float: "unset", textAlign: "center" }}
