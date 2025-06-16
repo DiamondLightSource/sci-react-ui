@@ -4,6 +4,7 @@ import {
   Grid2 as Grid,
   Link,
   LinkProps,
+  Stack,
   styled,
   Typography,
   useTheme,
@@ -22,6 +23,9 @@ interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
 interface FooterProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
   copyright?: string | null;
+  centreSlot?: React.ReactElement<LinkProps>;
+  rightSlot?: React.ReactElement<LinkProps>;
+  leftSlot?: React.ReactElement<LinkProps>;
 }
 
 const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
@@ -100,7 +104,15 @@ const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
-const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
+const Footer = ({
+  logo,
+  copyright,
+  children,
+  leftSlot,
+  rightSlot,
+  centreSlot,
+  ...props
+}: FooterProps) => {
   const theme = useTheme();
   let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
 
@@ -121,16 +133,33 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
             alignContent: "center",
           }}
         >
-          <div
-            style={{
-              paddingTop: "10px",
-              paddingLeft: "15px",
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            height="100%"
+            width="100%"
+            sx={{
+              pr: resolvedLogo || copyright ? 0 : 2,
             }}
           >
-            {children}
-          </div>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              {leftSlot}
+              {children}
+            </Stack>
+            {rightSlot}
+          </Stack>
         </Grid>
-
+        <Box
+          sx={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          {centreSlot}
+        </Box>
         {(resolvedLogo || copyright) && (
           <Grid size={{ xs: 6, md: 4 }}>
             <div
