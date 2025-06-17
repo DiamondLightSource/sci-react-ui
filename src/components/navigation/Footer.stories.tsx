@@ -99,7 +99,7 @@ export const RightSlot: Story = {
   args: {
     logo: "theme",
     copyright: "Company",
-    rightSlot: <>{[
+    rightSlot: [
       <FooterLinks key="footer-links">
         <FooterLink href="#TheMoon" key="the-moon">
           The Sun
@@ -110,7 +110,7 @@ export const RightSlot: Story = {
           Phobos
         </FooterLink>
       </FooterLinks>,
-    ]}</>,
+    ],
   },
 };
 
@@ -166,7 +166,7 @@ LinksOnlySlots.storyName = "Links Only, Slots";
 
 export const LinksOnlyCentred: Story = {
   args: {
-    centreSlot: <>{staticFooterLinks}</>,
+    centreSlot: staticFooterLinks,
   },
 };
 LinksOnlyCentred.storyName = "Links Only, Centred";
