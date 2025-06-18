@@ -32,7 +32,7 @@ const routerFooterLinks = [
 const staticFooterLinks = [
   <FooterLinks key="footer-links">
     <FooterLink href="#TheMoon" key="the-moon">
-      The Sun
+      The Moon
     </FooterLink>
   </FooterLinks>,
   <FooterLinks key="footer-links">
@@ -102,7 +102,7 @@ export const RightSlot: Story = {
     rightSlot: [
       <FooterLinks key="footer-links">
         <FooterLink href="#TheMoon" key="the-moon">
-          The Sun
+          The Moon
         </FooterLink>
       </FooterLinks>,
       <FooterLinks key="footer-links">

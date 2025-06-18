@@ -94,10 +94,12 @@ const FooterLink = ({
 };
 
 const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+  position: "relative",
   bottom: 0,
   marginTop: "auto",
   minHeight: "50px",
   backgroundColor: theme.vars.palette.primary.light,
+  alignItems: "center",
 }));
 
 /*
@@ -124,7 +126,10 @@ const Footer = ({
 
   return (
     <BoxStyled role="contentinfo" {...props}>
-      <Grid container>
+      <Grid
+        container
+        sx={{ position: "relative", height: "100%", minHeight: 50 }}
+      >
         <Grid
           size={
             resolvedLogo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }
@@ -143,25 +148,25 @@ const Footer = ({
               pr: resolvedLogo || copyright ? 0 : 2,
             }}
           >
-            <Stack direction="row" alignItems="center" spacing={2}>
+            <Stack direction="row" alignItems="center" spacing={1}>
               {leftSlot}
               {children}
             </Stack>
-            <Stack direction="row" alignItems="center" spacing={2}>
+            <Stack direction="row" alignItems="center" spacing={1}>
               {rightSlot}
             </Stack>
+            <Box
+              sx={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+            >
+              {centreSlot}
+            </Box>
           </Stack>
         </Grid>
-        <Box
-          sx={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          {centreSlot}
-        </Box>
+
         {(resolvedLogo || copyright) && (
           <Grid size={{ xs: 6, md: 4 }}>
             <div
