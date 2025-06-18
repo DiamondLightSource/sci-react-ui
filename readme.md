@@ -137,6 +137,13 @@ function App() {
 export default App;
 ```
 
+The Footer component supports multiple slot props, the same as Navbar (leftSlot, centreSlot, rightSlot).
+
+If a logo is defined (either via the logo prop or from the theme), the layout will arrange elements in the following order from left to right: leftSlot, rightSlot, logo.
+The centreSlot is absolutely positioned at 50% horizontally, which means it stays centered regardless of the content on the left or right. However, if the content in the left or right slots is too wide, it may overlap with the centre slot.
+
+Any children passed to the Footer will be placed in a horizontal Stack after the leftSlot.
+
 ### Documentation
 
 Documentation is created with Storybook.
