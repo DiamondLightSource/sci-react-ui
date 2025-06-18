@@ -132,7 +132,7 @@ const Footer = ({
       >
         <Grid
           size={
-            resolvedLogo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }
+            resolvedLogo || copyright ? { xs: 6, md: 9 } : { xs: 12, md: 12 }
           }
           style={{
             alignContent: "center",
@@ -168,7 +168,7 @@ const Footer = ({
         </Grid>
 
         {(resolvedLogo || copyright) && (
-          <Grid size={{ xs: 6, md: 4 }}>
+          <Grid size={{ xs: 6, md: 3 }}>
             <div
               style={{
                 float: "right",
