@@ -99,18 +99,16 @@ export const RightSlot: Story = {
   args: {
     logo: "theme",
     copyright: "Company",
-    rightSlot: [
+    rightSlot: (
       <FooterLinks key="footer-links">
         <FooterLink href="#TheMoon" key="the-moon">
           The Moon
         </FooterLink>
-      </FooterLinks>,
-      <FooterLinks key="footer-links">
         <FooterLink href="#Phobos" key="phobos">
           Phobos
         </FooterLink>
-      </FooterLinks>,
-    ],
+      </FooterLinks>
+    ),
   },
 };
 
