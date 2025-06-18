@@ -30,22 +30,22 @@ const routerFooterLinks = [
 ];
 
 const staticFooterLinks = [
-  <FooterLinks key="footer-links">
+  <FooterLinks key="footer-links-moon">
     <FooterLink href="#TheMoon" key="the-moon">
       The Moon
     </FooterLink>
   </FooterLinks>,
-  <FooterLinks key="footer-links">
+  <FooterLinks key="footer-links-phobos">
     <FooterLink href="#Phobos" key="phobos">
       Phobos
     </FooterLink>
   </FooterLinks>,
-  <FooterLinks key="footer-links">
+  <FooterLinks key="footer-links-ganymede">
     <FooterLink href="#Ganymede" key="ganymede">
       Ganymede
     </FooterLink>
   </FooterLinks>,
-  <FooterLinks key="footer-links">
+  <FooterLinks key="footer-links-titan">
     <FooterLink href="#Titan" key="titan">
       Titan
     </FooterLink>
@@ -65,28 +65,28 @@ export const AllSlots: Story = {
     logo: "theme",
     copyright: "Company",
     leftSlot: (
-      <FooterLinks key="footer-links">
+      <FooterLinks key="footer-links-left">
         <FooterLink href="#Left" key="left">
           Left
         </FooterLink>
       </FooterLinks>
     ),
     children: (
-      <FooterLinks key="footer-links">
+      <FooterLinks key="footer-links-children">
         <FooterLink href="#Children" key="children">
           Children
         </FooterLink>
       </FooterLinks>
     ),
     rightSlot: (
-      <FooterLinks key="footer-links">
+      <FooterLinks key="footer-links-right">
         <FooterLink href="#Right" key="right">
           Right
         </FooterLink>
       </FooterLinks>
     ),
     centreSlot: (
-      <FooterLinks key="footer-links">
+      <FooterLinks key="footer-links-centre">
         <FooterLink href="#Centre" key="centre">
           Centre
         </FooterLink>
