@@ -26,7 +26,7 @@ interface UserProps {
   onLogout?: () => void;
   avatar?: ReactNode;
   color?: string;
-  menuItems: ReactElement<typeof MenuItem> | ReactElement<typeof MenuItem>[];
+  menuItems?: ReactElement<typeof MenuItem> | ReactElement<typeof MenuItem>[];
 }
 
 const User = ({
@@ -117,7 +117,7 @@ const User = ({
               </Box>
             </Stack>
           </Button>
-          {onLogout && (
+          {(onLogout || menuItems) && (
             <Menu
               id="menu-list"
               anchorEl={anchorEl}
