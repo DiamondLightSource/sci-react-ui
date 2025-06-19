@@ -188,7 +188,7 @@ test("Should use 'to' when both 'href' and 'to' are provided with linkComponent"
 
 test("renders leftSlot", () => {
   renderWithProviders(
-    <Footer leftSlot={<div data-testid="left-slot">Right Slot</div>} />,
+    <Footer leftSlot={<div data-testid="left-slot">Left Slot</div>} />,
   );
   expect(screen.getByTestId("left-slot")).toBeInTheDocument();
 });
