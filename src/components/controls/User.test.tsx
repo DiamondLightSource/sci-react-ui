@@ -1,9 +1,10 @@
 import "@testing-library/jest-dom";
 
 import { fireEvent } from "@testing-library/react";
-import { Avatar } from "@mui/material";
+import { Avatar, MenuItem } from "@mui/material";
 import { User } from "./User";
 import { renderWithProviders } from "../../__test-utils__/helpers";
+import { screen } from "@testing-library/react";
 
 describe("User", () => {
   it("should render", () => {
@@ -102,5 +103,30 @@ describe("User", () => {
 
     const avatar = queryByText(avatarInitials);
     expect(avatar).toBeInTheDocument();
+  });
+
+  it("should display additional menu items when provided", () => {
+    const { getByRole } = renderWithProviders(
+      <User
+        onLogin={() => {}}
+        onLogout={() => {}}
+        user={{ name: "Name", fedid: "FedID" }}
+        menuItems={[
+          <MenuItem key="profile" aria-label="Profile">
+            Profile
+          </MenuItem>,
+          <MenuItem key="settings" aria-label="Settings">
+            Settings
+          </MenuItem>,
+        ]}
+      />,
+    );
+
+    const userMenu = getByRole("button");
+    fireEvent.click(userMenu);
+
+    expect(screen.getByText("Profile")).toBeInTheDocument();
+    expect(screen.getByText("Settings")).toBeInTheDocument();
+    expect(screen.getByText("Logout")).toBeInTheDocument();
   });
 });
