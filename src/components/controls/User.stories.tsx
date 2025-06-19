@@ -34,7 +34,8 @@ export const LoggedInLongName: Story = {
 export const LoggedInChangeColor: Story = {
   args: {
     color: "red",
-    user: { name: "Name Surname", fedid: "abc12345", onLogout: () => {} },
+    user: { name: "Name Surname", fedid: "abc12345" },
+    onLogout: () => {},
   },
 };
 
