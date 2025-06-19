@@ -45,5 +45,21 @@ export const LoggedInReplaceAvatar: Story = {
     onLogout: () => {},
   },
 };
+
+export const AdditionalMenuItems: Story = {
+  args: {
+    user: {
+      name: "Name Surname",
+      fedid: "FedID",
+    },
+    menuItems: [
+      <MenuItem key="profile" aria-label="Profile">
+        <Link sx={{ textDecoration: "none" }}>Profile</Link>
+      </MenuItem>,
+      <MenuItem key="settings" aria-label="Settings">
+        <Link sx={{ textDecoration: "none" }}>Settings</Link>
+      </MenuItem>,
+    ],
+    onLogout: () => {},
   },
 };
