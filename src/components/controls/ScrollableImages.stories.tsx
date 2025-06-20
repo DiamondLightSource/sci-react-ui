@@ -23,10 +23,14 @@ const imagesList: ImageInfo[] = [
   { src: shanghai, alt: "Shanghai" },
 ];
 
-export const ScrollableImage: Story = {
+export const All: Story = {
   args: { images: imagesList, width: 300, height: 300 },
 };
 
 export const NoButtons: Story = {
-  args: { images: imagesList, width: 300, height: 300, buttons: false },
+  args: { images: imagesList, buttons: false },
+};
+
+export const OneImage: Story = {
+  args: { images: imagesList[0] },
 };
