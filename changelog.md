@@ -2,11 +2,8 @@ SciReactUI Changelog
 ====================
 
 
-[v0.2.0] - 2025-?-?
---------------------
-
-### Added
--
+[v0.2.0] - 2025-06-11
+---------------------
 
 ### Fixed
 - Styles added to Navbar and Footer incorrectly remove built in styles.
@@ -15,7 +12,9 @@ SciReactUI Changelog
 - Breadcrumbs component takes optional linkComponent prop for page routing. 
 - Navbar, NavLink and FooterLink will use routing library for links if provided with linkComponent and to props.
 - Navbar uses slots for positioning elements. Breaking change: elements must now use rightSlot for positioning to the far right.
+- User can take additional menu items through the menuItems prop.
 - Footer uses slots for positioning elements. Breaking change: elements must now use rightSlot for positioning to the far right.
+
 
 [v0.1.0] - 2025-04-10
 ---------------------
