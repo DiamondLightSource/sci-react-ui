@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 
 import { User } from "./User";
-import { Avatar } from "@mui/material";
+import { Avatar, Link, MenuItem } from "@mui/material";
 
 const meta: Meta<typeof User> = {
   title: "SciReactUI/Control/User",
@@ -17,21 +17,25 @@ export const LoggedOut: Story = {
 };
 
 export const LoggedIn: Story = {
-  args: { user: { name: "Name Surname", fedid: "FedID" } },
+  args: { user: { name: "Name Surname", fedid: "FedID" }, onLogout: () => {} },
 };
 
 export const LoggedInNoName: Story = {
-  args: { user: { fedid: "FedID" } },
+  args: { user: { fedid: "FedID" }, onLogout: () => {} },
 };
 
 export const LoggedInLongName: Story = {
-  args: { user: { name: "Jonathan Edwards Longname", fedid: "abc12345" } },
+  args: {
+    user: { name: "Jonathan Edwards Longname", fedid: "abc12345" },
+    onLogout: () => {},
+  },
 };
 
 export const LoggedInChangeColor: Story = {
   args: {
     color: "red",
     user: { name: "Name Surname", fedid: "abc12345" },
+    onLogout: () => {},
   },
 };
 
@@ -39,5 +43,24 @@ export const LoggedInReplaceAvatar: Story = {
   args: {
     user: { name: "Name Surname", fedid: "abc12345" },
     avatar: <Avatar sx={{ bgcolor: "red" }}>JL</Avatar>,
+    onLogout: () => {},
+  },
+};
+
+export const AdditionalMenuItems: Story = {
+  args: {
+    user: {
+      name: "Name Surname",
+      fedid: "FedID",
+    },
+    menuItems: [
+      <MenuItem key="profile" aria-label="Profile">
+        <Link sx={{ textDecoration: "none" }}>Profile</Link>
+      </MenuItem>,
+      <MenuItem key="settings" aria-label="Settings">
+        <Link sx={{ textDecoration: "none" }}>Settings</Link>
+      </MenuItem>,
+    ],
+    onLogout: () => {},
   },
 };

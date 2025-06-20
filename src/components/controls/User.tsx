@@ -11,7 +11,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-import { ReactNode, useState } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 
 import { MdLogin } from "react-icons/md";
 
@@ -26,9 +26,17 @@ interface UserProps {
   onLogout?: () => void;
   avatar?: ReactNode;
   color?: string;
+  menuItems?: ReactElement<typeof MenuItem> | ReactElement<typeof MenuItem>[];
 }
 
-const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
+const User = ({
+  user,
+  onLogin,
+  onLogout,
+  avatar,
+  color,
+  menuItems,
+}: UserProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -109,13 +117,14 @@ const User = ({ user, onLogin, onLogout, avatar, color }: UserProps) => {
               </Box>
             </Stack>
           </Button>
-          {onLogout && (
+          {(onLogout || menuItems) && (
             <Menu
               id="menu-list"
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
             >
+              {menuItems}
               <MenuItem onClick={handleLogout} aria-label="Logout">
                 <Link sx={{ textDecoration: "none" }}>Logout</Link>
               </MenuItem>
