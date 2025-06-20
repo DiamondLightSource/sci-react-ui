@@ -1,6 +1,11 @@
 import { Meta, StoryObj } from "@storybook/react";
 
-import { ScrollableImages } from "./ScrollableImages";
+import { ImageInfo, ScrollableImages } from "./ScrollableImages";
+
+import diamond from "../../public/images/diamond.jpg";
+import soleil from "../../public/images/soleil.jpg";
+import bessy from "../../public/images/bessy.jpg";
+import shanghai from "../../public/images/shanghai.jpg";
 
 const meta: Meta<typeof ScrollableImages> = {
   title: "SciReactUI/Control/ScrollableImages",
@@ -11,13 +16,17 @@ const meta: Meta<typeof ScrollableImages> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const imagesList: string[] = [
-  "../storybook/images/bessy.jpg",
-  "../storybook/images/bessy.jpg",
-  "../storybook/images/bessy.jpg",
-  "../storybook/images/bessy.jpg",
+const imagesList: ImageInfo[] = [
+  { src: diamond, alt: "Diamond" },
+  { src: soleil, alt: "Soleil" },
+  { src: bessy, alt: "Bessy" },
+  { src: shanghai, alt: "Shanghai" },
 ];
 
 export const ScrollableImage: Story = {
-  args: { images: imagesList },
+  args: { images: imagesList, width: 300, height: 300 },
+};
+
+export const NoButtons: Story = {
+  args: { images: imagesList, width: 300, height: 300, buttons: false },
 };
