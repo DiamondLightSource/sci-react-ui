@@ -185,3 +185,64 @@ test("Should use 'to' when both 'href' and 'to' are provided with linkComponent"
   expect(link).toBeInTheDocument();
   expect(link).toHaveAttribute("href", "/about");
 });
+
+test("renders leftSlot", () => {
+  renderWithProviders(
+    <Footer leftSlot={<div data-testid="left-slot">Left Slot</div>} />,
+  );
+  expect(screen.getByTestId("left-slot")).toBeInTheDocument();
+});
+
+test("renders centreSlot", () => {
+  renderWithProviders(
+    <Footer centreSlot={<div data-testid="centre-slot">Centre Slot</div>} />,
+  );
+  expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
+});
+
+test("renders rightSlot", () => {
+  renderWithProviders(
+    <Footer rightSlot={<div data-testid="right-slot">Right Slot</div>} />,
+  );
+  expect(screen.getByTestId("right-slot")).toBeInTheDocument();
+});
+
+test("renders all slots together", () => {
+  renderWithProviders(
+    <Footer
+      leftSlot={<div data-testid="left-slot">Right</div>}
+      centreSlot={<div data-testid="centre-slot">Centre</div>}
+      rightSlot={<div data-testid="right-slot">Right Slot</div>}
+    />,
+  );
+  expect(screen.getByTestId("left-slot")).toBeInTheDocument();
+  expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
+  expect(screen.getByTestId("right-slot")).toBeInTheDocument();
+});
+
+describe("Footer Slot Positioning", () => {
+  test("centreSlot should be centred", () => {
+    renderWithProviders(
+      <Footer centreSlot={<div data-testid="centre-slot">Centre</div>} />,
+    );
+    const centreSlot = screen.getByTestId("centre-slot");
+    const parent = centreSlot.parentElement;
+    expect(parent).toHaveStyle({
+      position: "absolute",
+      left: "50%",
+      transform: "translateX(-50%)",
+    });
+  });
+
+  test("leftSlot should be aligned to the left end of the row", () => {
+    renderWithProviders(
+      <Footer leftSlot={<div data-testid="left-slot">Left</div>} />,
+    );
+    const leftSlot = screen.getByTestId("left-slot");
+    const parent = leftSlot.parentElement;
+    const grandparent = parent?.parentElement;
+    expect(grandparent).toHaveStyle("justify-content: space-between");
+    expect(parent?.firstChild).toBe(leftSlot);
+    expect(grandparent?.firstChild).toBe(parent);
+  });
+});

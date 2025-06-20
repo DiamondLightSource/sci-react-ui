@@ -4,6 +4,7 @@ import {
   Grid2 as Grid,
   Link,
   LinkProps,
+  Stack,
   styled,
   Typography,
   useTheme,
@@ -22,6 +23,9 @@ interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
 interface FooterProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
   copyright?: string | null;
+  centreSlot?: React.ReactElement<LinkProps>;
+  rightSlot?: React.ReactElement<LinkProps>;
+  leftSlot?: React.ReactElement<LinkProps>;
 }
 
 const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
@@ -90,17 +94,27 @@ const FooterLink = ({
 };
 
 const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+  position: "relative",
   bottom: 0,
   marginTop: "auto",
   minHeight: "50px",
   backgroundColor: theme.vars.palette.primary.light,
+  alignItems: "center",
 }));
 
 /*
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
-const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
+const Footer = ({
+  logo,
+  copyright,
+  children,
+  leftSlot,
+  rightSlot,
+  centreSlot,
+  ...props
+}: FooterProps) => {
   const theme = useTheme();
   let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
 
@@ -112,27 +126,49 @@ const Footer = ({ logo, copyright, children, ...props }: FooterProps) => {
 
   return (
     <BoxStyled role="contentinfo" {...props}>
-      <Grid container>
+      <Grid
+        container
+        sx={{ position: "relative", height: "100%", minHeight: 50 }}
+      >
         <Grid
           size={
-            resolvedLogo || copyright ? { xs: 6, md: 8 } : { xs: 12, md: 12 }
+            resolvedLogo || copyright ? { xs: 6, md: 9 } : { xs: 12, md: 12 }
           }
           style={{
             alignContent: "center",
           }}
         >
-          <div
-            style={{
-              paddingTop: "10px",
-              paddingLeft: "15px",
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            height="100%"
+            width="100%"
+            sx={{
+              pr: resolvedLogo || copyright ? 0 : 2,
             }}
           >
-            {children}
-          </div>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              {leftSlot}
+              {children}
+            </Stack>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              {rightSlot}
+            </Stack>
+            <Box
+              sx={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+            >
+              {centreSlot}
+            </Box>
+          </Stack>
         </Grid>
 
         {(resolvedLogo || copyright) && (
-          <Grid size={{ xs: 6, md: 4 }}>
+          <Grid size={{ xs: 6, md: 3 }}>
             <div
               style={{
                 float: "right",

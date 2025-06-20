@@ -29,7 +29,7 @@ const routerFooterLinks = [
   </FooterLinks>,
 ];
 
-const staticFooterLinks = [
+const staticFooterLinks = (
   <FooterLinks key="footer-links">
     <FooterLink href="#TheMoon" key="the-moon">
       The Moon
@@ -43,14 +43,66 @@ const staticFooterLinks = [
     <FooterLink href="#Titan" key="titan">
       Titan
     </FooterLink>
-  </FooterLinks>,
-];
+  </FooterLinks>
+);
 
 export const All: Story = {
   args: {
     logo: "theme",
     copyright: "Company",
     children: staticFooterLinks,
+  },
+};
+
+export const AllSlots: Story = {
+  args: {
+    logo: "theme",
+    copyright: "Company",
+    leftSlot: (
+      <FooterLinks key="footer-links-left">
+        <FooterLink href="#Left" key="left">
+          Left
+        </FooterLink>
+      </FooterLinks>
+    ),
+    children: (
+      <FooterLinks key="footer-links-children">
+        <FooterLink href="#Children" key="children">
+          Children
+        </FooterLink>
+      </FooterLinks>
+    ),
+    rightSlot: (
+      <FooterLinks key="footer-links-right">
+        <FooterLink href="#Right" key="right">
+          Right
+        </FooterLink>
+      </FooterLinks>
+    ),
+    centreSlot: (
+      <FooterLinks key="footer-links-centre">
+        <FooterLink href="#Centre" key="centre">
+          Centre
+        </FooterLink>
+      </FooterLinks>
+    ),
+  },
+};
+
+export const RightSlot: Story = {
+  args: {
+    logo: "theme",
+    copyright: "Company",
+    rightSlot: (
+      <FooterLinks key="footer-links">
+        <FooterLink href="#TheMoon" key="the-moon">
+          The Moon
+        </FooterLink>
+        <FooterLink href="#Phobos" key="phobos">
+          Phobos
+        </FooterLink>
+      </FooterLinks>
+    ),
   },
 };
 
@@ -95,27 +147,36 @@ export const LinksOnly: Story = {
   },
 };
 
-export const LinksOnlyCentred: Story = {
+export const LinksOnlySlots: Story = {
   args: {
-    children: [
-      <FooterLinks
-        key="footer-links"
-        style={{ float: "unset", textAlign: "center" }}
-      >
+    leftSlot: (
+      <FooterLinks key="footer-links-moon">
         <FooterLink href="#TheMoon" key="the-moon">
           The Moon
         </FooterLink>
+      </FooterLinks>
+    ),
+    centreSlot: (
+      <FooterLinks key="footer-links-phobos">
         <FooterLink href="#Phobos" key="phobos">
           Phobos
         </FooterLink>
-        <FooterLink href="#Ganymede" key="ganymede">
-          Ganymede
-        </FooterLink>
+      </FooterLinks>
+    ),
+    rightSlot: (
+      <FooterLinks key="footer-links-titan">
         <FooterLink href="#Titan" key="titan">
           Titan
         </FooterLink>
-      </FooterLinks>,
-    ],
+      </FooterLinks>
+    ),
+  },
+};
+LinksOnlySlots.storyName = "Links Only, Slots";
+
+export const LinksOnlyCentred: Story = {
+  args: {
+    centreSlot: staticFooterLinks,
   },
 };
 LinksOnlyCentred.storyName = "Links Only, Centred";
