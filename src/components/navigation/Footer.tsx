@@ -10,7 +10,7 @@ import {
   useTheme,
 } from "@mui/material";
 
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   ImageColorSchemeSwitch,
   ImageColorSchemeSwitchType,
@@ -23,9 +23,9 @@ interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
 interface FooterProps extends BoxProps, React.PropsWithChildren {
   logo?: ImageColorSchemeSwitchType | "theme" | null;
   copyright?: string | null;
-  centreSlot?: ReactNode;
-  rightSlot?: ReactNode;
-  leftSlot?: ReactNode;
+  centreSlot?: React.ReactElement<LinkProps>;
+  rightSlot?: React.ReactElement<LinkProps>;
+  leftSlot?: React.ReactElement<LinkProps>;
 }
 
 const FooterLinks = ({ children, ...props }: FooterLinksProps) => {

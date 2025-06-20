@@ -30,22 +30,16 @@ const routerFooterLinks = [
 ];
 
 const staticFooterLinks = [
-  <FooterLinks key="footer-links-moon">
+  <FooterLinks key="footer-links">
     <FooterLink href="#TheMoon" key="the-moon">
       The Moon
     </FooterLink>
-  </FooterLinks>,
-  <FooterLinks key="footer-links-phobos">
     <FooterLink href="#Phobos" key="phobos">
       Phobos
     </FooterLink>
-  </FooterLinks>,
-  <FooterLinks key="footer-links-ganymede">
     <FooterLink href="#Ganymede" key="ganymede">
       Ganymede
     </FooterLink>
-  </FooterLinks>,
-  <FooterLinks key="footer-links-titan">
     <FooterLink href="#Titan" key="titan">
       Titan
     </FooterLink>
@@ -155,9 +149,27 @@ export const LinksOnly: Story = {
 
 export const LinksOnlySlots: Story = {
   args: {
-    leftSlot: staticFooterLinks[0],
-    centreSlot: staticFooterLinks[1],
-    rightSlot: staticFooterLinks[2],
+    leftSlot: (
+      <FooterLinks key="footer-links-moon">
+        <FooterLink href="#TheMoon" key="the-moon">
+          The Moon
+        </FooterLink>
+      </FooterLinks>
+    ),
+    centreSlot: (
+      <FooterLinks key="footer-links-phobos">
+        <FooterLink href="#Phobos" key="phobos">
+          Phobos
+        </FooterLink>
+      </FooterLinks>
+    ),
+    rightSlot: (
+      <FooterLinks key="footer-links-titan">
+        <FooterLink href="#Titan" key="titan">
+          Titan
+        </FooterLink>
+      </FooterLinks>
+    ),
   },
 };
 LinksOnlySlots.storyName = "Links Only, Slots";
