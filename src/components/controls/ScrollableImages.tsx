@@ -8,6 +8,7 @@ interface ScrollableImagesProps {
   width?: number;
   height?: number;
   buttons?: boolean;
+  wrapAround?: boolean;
 }
 
 interface ImageInfo {
@@ -20,6 +21,7 @@ const ScrollableImages = ({
   width = 300,
   height = 300,
   buttons = true,
+  wrapAround = true,
 }: ScrollableImagesProps) => {
   const imageList = (Array.isArray(images) ? images : [images]).map(
     (img, i) => (
@@ -43,13 +45,19 @@ const ScrollableImages = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handlePrev = () => {
-    setCurrentIndex(
-      (prev: number) => (prev - 1 + imageList.length) % imageList.length,
+    setCurrentIndex((prev: number) =>
+      wrapAround
+        ? (prev - 1 + imageList.length) % imageList.length
+        : Math.max(0, prev - 1),
     );
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev: number) => (prev + 1) % imageList.length);
+    setCurrentIndex((prev: number) =>
+      wrapAround
+        ? (prev + 1) % imageList.length
+        : Math.min(prev + 1, imageList.length - 1),
+    );
   };
 
   useEffect(() => {
@@ -60,7 +68,7 @@ const ScrollableImages = ({
       event.preventDefault();
       if (event.deltaY < 0) {
         handlePrev();
-      } else {
+      } else if (event.deltaY > 0) {
         handleNext();
       }
     };

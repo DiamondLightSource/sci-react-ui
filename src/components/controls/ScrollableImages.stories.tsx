@@ -31,6 +31,10 @@ export const NoButtons: Story = {
   args: { images: imagesList, buttons: false },
 };
 
+export const NoWrap: Story = {
+  args: { images: imagesList, wrapAround: false },
+};
+
 export const OneImage: Story = {
   args: { images: imagesList[0] },
 };
