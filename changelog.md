@@ -7,6 +7,7 @@ SciReactUI Changelog
 
 ### Fixed
 - Styles added to Navbar and Footer incorrectly remove built in styles.
+- Themes were not inheriting all details from their parent.
 
 ### Changed
 - Breadcrumbs component takes optional linkComponent prop for page routing. 
