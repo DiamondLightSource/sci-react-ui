@@ -29,7 +29,7 @@ const routerFooterLinks = [
   </FooterLinks>,
 ];
 
-const staticFooterLinks = [
+const staticFooterLinks = (
   <FooterLinks key="footer-links">
     <FooterLink href="#TheMoon" key="the-moon">
       The Moon
@@ -43,8 +43,8 @@ const staticFooterLinks = [
     <FooterLink href="#Titan" key="titan">
       Titan
     </FooterLink>
-  </FooterLinks>,
-];
+  </FooterLinks>
+);
 
 export const All: Story = {
   args: {
