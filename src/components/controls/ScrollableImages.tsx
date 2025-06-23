@@ -9,6 +9,7 @@ interface ScrollableImagesProps {
   height?: number;
   buttons?: boolean;
   wrapAround?: boolean;
+  slider?: boolean;
 }
 
 interface ImageInfo {
@@ -22,6 +23,7 @@ const ScrollableImages = ({
   height = 300,
   buttons = true,
   wrapAround = true,
+  slider = true,
 }: ScrollableImagesProps) => {
   const imageList = (Array.isArray(images) ? images : [images]).map(
     (img, i) => (
@@ -40,6 +42,7 @@ const ScrollableImages = ({
   );
 
   const renderButtons = buttons && imageList.length > 1;
+  const renderSlider = slider && imageList.length > 1;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -81,51 +84,87 @@ const ScrollableImages = ({
   }, [handlePrev, handleNext]);
 
   return (
-    <Stack direction="column" alignItems="center" style={{ width }}>
-      <div
-        ref={containerRef}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {renderButtons && (
-          <Button
-            onClick={handlePrev}
-            size="small"
-            sx={{ minWidth: 36, width: 36, height: 36 }}
-          >
-            <ArrowBackIcon fontSize="small" />
-          </Button>
-        )}
+    <>
+      <style>
+        {`
+          .slider-wrapper {
+            display: none;
+          }
+          .image-container:hover .slider-wrapper {
+            display: flex;
+          }
+        `}
+      </style>
+
+      <Stack direction="column" alignItems="center" style={{ width }}>
         <div
+          ref={containerRef}
           style={{
-            width,
-            height,
-            border: "1px solid #ccc",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#eee",
           }}
         >
-          {imageList[currentIndex]}
-        </div>
-        {renderButtons && (
-          <Button
-            onClick={handleNext}
-            size="small"
-            sx={{ minWidth: 36, width: 36, height: 36 }}
+          {renderButtons && (
+            <Button
+              onClick={handlePrev}
+              size="small"
+              sx={{ minWidth: 36, width: 36, height: 36 }}
+            >
+              <ArrowBackIcon fontSize="small" />
+            </Button>
+          )}
+          <div
+            className="image-container"
+            style={{
+              position: "relative",
+              width,
+              height,
+              border: "1px solid #ccc",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#eee",
+            }}
           >
-            <ArrowForwardIcon fontSize="small" />
-          </Button>
-        )}
-      </div>
-      <div>
-        {currentIndex + 1}/{imageList.length}
-      </div>
-    </Stack>
+            {imageList[currentIndex]}
+            {renderSlider && <div
+              className="slider-wrapper"
+              style={{
+                position: "absolute",
+                width: width,
+                bottom: 0,
+                paddingBottom: "8px",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type="range"
+                min={0}
+                max={imageList.length - 1}
+                value={currentIndex}
+                onChange={(e) => setCurrentIndex(Number(e.target.value))}
+                style={{ width: "80%" }}
+              />
+            </div>}
+          </div>
+
+          {renderButtons && (
+            <Button
+              onClick={handleNext}
+              size="small"
+              sx={{ minWidth: 36, width: 36, height: 36 }}
+            >
+              <ArrowForwardIcon fontSize="small" />
+            </Button>
+          )}
+        </div>
+        <div>
+          {currentIndex + 1}/{imageList.length}
+        </div>
+      </Stack>
+    </>
   );
 };
 
