@@ -128,26 +128,28 @@ const ScrollableImages = ({
             }}
           >
             {imageList[currentIndex]}
-            {renderSlider && <div
-              className="slider-wrapper"
-              style={{
-                position: "absolute",
-                width: width,
-                bottom: 0,
-                paddingBottom: "8px",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <input
-                type="range"
-                min={0}
-                max={imageList.length - 1}
-                value={currentIndex}
-                onChange={(e) => setCurrentIndex(Number(e.target.value))}
-                style={{ width: "80%" }}
-              />
-            </div>}
+            {renderSlider && (
+              <div
+                className="slider-wrapper"
+                style={{
+                  position: "absolute",
+                  width: width,
+                  bottom: 0,
+                  paddingBottom: "8px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  type="range"
+                  min={0}
+                  max={imageList.length - 1}
+                  value={currentIndex}
+                  onChange={(e) => setCurrentIndex(Number(e.target.value))}
+                  style={{ width: "80%" }}
+                />
+              </div>
+            )}
           </div>
 
           {renderButtons && (
