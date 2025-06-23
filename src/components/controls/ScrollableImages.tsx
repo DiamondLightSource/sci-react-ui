@@ -10,6 +10,7 @@ interface ScrollableImagesProps {
   buttons?: boolean;
   wrapAround?: boolean;
   slider?: boolean;
+  numeration?: boolean;
 }
 
 interface ImageInfo {
@@ -24,6 +25,7 @@ const ScrollableImages = ({
   buttons = true,
   wrapAround = true,
   slider = true,
+  numeration = true,
 }: ScrollableImagesProps) => {
   const imageList = (Array.isArray(images) ? images : [images]).map(
     (img, i) => (
@@ -43,6 +45,7 @@ const ScrollableImages = ({
 
   const renderButtons = buttons && imageList.length > 1;
   const renderSlider = slider && imageList.length > 1;
+  const renderNumbers = numeration && imageList.length > 1;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -162,9 +165,11 @@ const ScrollableImages = ({
             </Button>
           )}
         </div>
-        <div>
-          {currentIndex + 1}/{imageList.length}
-        </div>
+        {renderNumbers && (
+          <div>
+            {currentIndex + 1}/{imageList.length}
+          </div>
+        )}
       </Stack>
     </>
   );

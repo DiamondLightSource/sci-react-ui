@@ -39,6 +39,10 @@ export const NoSlider: Story = {
   args: { images: imagesList, slider: false },
 };
 
+export const NoNumbers: Story = {
+  args: { images: imagesList, numeration: false },
+};
+
 export const OneImage: Story = {
   args: { images: imagesList[0] },
 };
