@@ -113,6 +113,7 @@ const ScrollableImages = ({
               onClick={handlePrev}
               size="small"
               sx={{ minWidth: 36, width: 36, height: 36 }}
+              data-testid="prev-button"
             >
               <ArrowBackIcon fontSize="small" />
             </Button>
@@ -150,6 +151,7 @@ const ScrollableImages = ({
                   value={currentIndex}
                   onChange={(e) => setCurrentIndex(Number(e.target.value))}
                   style={{ width: "80%" }}
+                  data-testid="slider"
                 />
               </div>
             )}
@@ -160,13 +162,14 @@ const ScrollableImages = ({
               onClick={handleNext}
               size="small"
               sx={{ minWidth: 36, width: 36, height: 36 }}
+              data-testid="next-button"
             >
               <ArrowForwardIcon fontSize="small" />
             </Button>
           )}
         </div>
         {renderNumbers && (
-          <div>
+          <div data-testid="numeration">
             {currentIndex + 1}/{imageList.length}
           </div>
         )}
