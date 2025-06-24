@@ -7,6 +7,7 @@ export * from "./components/navigation/Navbar";
 // components/controls
 export * from "./components/controls/ColourSchemeButton";
 export * from "./components/controls/User";
+export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
 export * from "./components/controls/ImageColorSchemeSwitch";
 
