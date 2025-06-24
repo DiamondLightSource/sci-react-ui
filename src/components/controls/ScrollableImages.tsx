@@ -100,8 +100,12 @@ const ScrollableImages = ({
           }
         `}
       </style>
-
-      <Stack direction="column" alignItems="center" style={{ width }}>
+      <Stack
+        direction="column"
+        alignItems="center"
+        style={{ width }}
+        data-testid="scrollable-images"
+      >
         <div
           ref={containerRef}
           style={{
@@ -122,6 +126,7 @@ const ScrollableImages = ({
           )}
           <div
             className="image-container"
+            data-index={currentIndex}
             style={{
               position: "relative",
               width,
@@ -132,6 +137,7 @@ const ScrollableImages = ({
               alignItems: "center",
               backgroundColor: backgroundColor,
             }}
+            data-testid="image-container"
           >
             {imageList[currentIndex]}
             {renderSlider && (
