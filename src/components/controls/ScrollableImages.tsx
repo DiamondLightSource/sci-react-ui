@@ -45,9 +45,10 @@ const ScrollableImages = ({
     ),
   );
 
-  const renderButtons = buttons && imageList.length > 1;
-  const renderSlider = slider && imageList.length > 1;
-  const renderNumbers = numeration && imageList.length > 1;
+  const imageListLength = imageList.length
+  const renderButtons = buttons && imageListLength > 1;
+  const renderSlider = slider && imageListLength > 1;
+  const renderNumbers = numeration && imageListLength > 1;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -55,7 +56,7 @@ const ScrollableImages = ({
   const handlePrev = () => {
     setCurrentIndex((prev: number) =>
       wrapAround
-        ? (prev - 1 + imageList.length) % imageList.length
+        ? (prev - 1 + imageListLength) % imageListLength
         : Math.max(0, prev - 1),
     );
   };
@@ -63,8 +64,8 @@ const ScrollableImages = ({
   const handleNext = () => {
     setCurrentIndex((prev: number) =>
       wrapAround
-        ? (prev + 1) % imageList.length
-        : Math.min(prev + 1, imageList.length - 1),
+        ? (prev + 1) % imageListLength
+        : Math.min(prev + 1, imageListLength - 1),
     );
   };
 
@@ -155,7 +156,7 @@ const ScrollableImages = ({
                 <input
                   type="range"
                   min={0}
-                  max={imageList.length - 1}
+                  max={imageListLength - 1}
                   value={currentIndex}
                   onChange={(e) => {
                     setCurrentIndex(Number(e.target.value));
@@ -180,7 +181,7 @@ const ScrollableImages = ({
         </div>
         {renderNumbers && (
           <div data-testid="numeration">
-            {currentIndex + 1}/{imageList.length}
+            {currentIndex + 1}/{imageListLength}
           </div>
         )}
       </Stack>
