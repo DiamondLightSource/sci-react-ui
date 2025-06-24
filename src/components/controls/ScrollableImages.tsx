@@ -11,6 +11,7 @@ interface ScrollableImagesProps {
   wrapAround?: boolean;
   slider?: boolean;
   numeration?: boolean;
+  backgroundColor?: string;
 }
 
 interface ImageInfo {
@@ -26,6 +27,7 @@ const ScrollableImages = ({
   wrapAround = true,
   slider = true,
   numeration = true,
+  backgroundColor = "#eee",
 }: ScrollableImagesProps) => {
   const imageList = (Array.isArray(images) ? images : [images]).map(
     (img, i) => (
@@ -128,7 +130,7 @@ const ScrollableImages = ({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: "#eee",
+              backgroundColor: backgroundColor,
             }}
           >
             {imageList[currentIndex]}
@@ -149,7 +151,9 @@ const ScrollableImages = ({
                   min={0}
                   max={imageList.length - 1}
                   value={currentIndex}
-                  onChange={(e) => setCurrentIndex(Number(e.target.value))}
+                  onChange={(e) => {
+                    setCurrentIndex(Number(e.target.value));
+                  }}
                   style={{ width: "80%" }}
                   data-testid="slider"
                 />
