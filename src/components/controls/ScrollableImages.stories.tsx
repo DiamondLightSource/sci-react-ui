@@ -44,7 +44,7 @@ export const NoNumbers: Story = {
 };
 
 export const DifferentBackgroundColour: Story = {
-  args: { images: imagesList, numeration: false, backgroundColor: "#145" },
+  args: { images: imagesList, backgroundColor: "#166" },
 };
 
 export const OneImage: Story = {
