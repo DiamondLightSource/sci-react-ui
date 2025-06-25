@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React, { useEffect, useRef, useState } from "react";
@@ -34,7 +34,7 @@ const ScrollableImages = ({
       <img
         key={i}
         src={img.src}
-        alt={img.alt ?? "Image"}
+        alt={img.alt ?? `Image ${i + 1}`}
         style={{
           width: "100%",
           height: "100%",
@@ -45,7 +45,7 @@ const ScrollableImages = ({
     ),
   );
 
-  const imageListLength = imageList.length
+  const imageListLength = imageList.length;
   const renderButtons = buttons && imageListLength > 1;
   const renderSlider = slider && imageListLength > 1;
   const renderNumbers = numeration && imageListLength > 1;
@@ -91,25 +91,15 @@ const ScrollableImages = ({
 
   return (
     <>
-      <style>
-        {`
-          .slider-wrapper {
-            display: none;
-          }
-          .image-container:hover .slider-wrapper {
-            display: flex;
-          }
-        `}
-      </style>
       <Stack
         direction="column"
         alignItems="center"
         style={{ width }}
         data-testid="scrollable-images"
       >
-        <div
+        <Box
           ref={containerRef}
-          style={{
+          sx={{
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -125,10 +115,9 @@ const ScrollableImages = ({
               <ArrowBackIcon fontSize="small" />
             </Button>
           )}
-          <div
-            className="image-container"
+          <Box
             data-index={currentIndex}
-            style={{
+            sx={{
               position: "relative",
               width,
               height,
@@ -137,14 +126,16 @@ const ScrollableImages = ({
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: backgroundColor,
+              "& .slider-wrapper": { display: "none" },
+              "&:hover .slider-wrapper": { display: "flex" },
             }}
             data-testid="image-container"
           >
             {imageList[currentIndex]}
             {renderSlider && (
-              <div
+              <Box
                 className="slider-wrapper"
-                style={{
+                sx={{
                   position: "absolute",
                   width: width,
                   bottom: 0,
@@ -164,9 +155,9 @@ const ScrollableImages = ({
                   style={{ width: "80%" }}
                   data-testid="slider"
                 />
-              </div>
+              </Box>
             )}
-          </div>
+          </Box>
 
           {renderButtons && (
             <Button
@@ -178,7 +169,7 @@ const ScrollableImages = ({
               <ArrowForwardIcon fontSize="small" />
             </Button>
           )}
-        </div>
+        </Box>
         {renderNumbers && (
           <div data-testid="numeration">
             {currentIndex + 1}/{imageListLength}
