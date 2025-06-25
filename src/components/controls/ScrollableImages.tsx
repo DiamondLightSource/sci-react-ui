@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from "@mui/material";
+import { Box, Button, Slider, Stack } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React, { useEffect, useRef, useState } from "react";
@@ -67,6 +67,10 @@ const ScrollableImages = ({
         ? (prev + 1) % imageListLength
         : Math.min(prev + 1, imageListLength - 1),
     );
+  };
+
+  const handleSliderChange = (event: Event, newValue: number | number[]) => {
+    setCurrentIndex(Number(newValue));
   };
 
   useEffect(() => {
@@ -144,15 +148,12 @@ const ScrollableImages = ({
                   alignItems: "center",
                 }}
               >
-                <input
-                  type="range"
+                <Slider
                   min={0}
                   max={imageListLength - 1}
                   value={currentIndex}
-                  onChange={(e) => {
-                    setCurrentIndex(Number(e.target.value));
-                  }}
-                  style={{ width: "80%" }}
+                  onChange={handleSliderChange}
+                  sx={{ width: "75%" }}
                   data-testid="slider"
                 />
               </Box>
