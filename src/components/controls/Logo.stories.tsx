@@ -38,3 +38,17 @@ export const TheShortLogo: Story = {
     },
   },
 };
+
+export const LightLogoForDarkTheme: Story = {
+  args: {
+    interchange: true,
+    style: { "padding" : "10px", "background": "grey"}
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "You can switch-over the light and dark logo. Useful depending on what background it is displayed on.",
+      },
+    },
+  },
+};
