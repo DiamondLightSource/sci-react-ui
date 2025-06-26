@@ -44,8 +44,7 @@ export const LargeSwitchingImage: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "You can set a specific size for the image.",
+        story: "You can set a specific size for the image.",
       },
     },
   },
@@ -59,13 +58,12 @@ export const AddAdditionalStyles: Story = {
       alt: "Testing Switching Image",
       width: "100",
     },
-    style: { "border" : "3px dotted red"}
+    style: { border: "3px dotted red" },
   },
   parameters: {
     docs: {
       description: {
-        story:
-          "You also add additional styles to the underlying img tag.",
+        story: "You also add additional styles to the underlying img tag.",
       },
     },
   },
@@ -79,7 +77,7 @@ export const LightImageForDarkTheme: Story = {
       width: "120",
     },
     interchange: true,
-    style: { "padding" : "10px", "background": "grey"}
+    style: { padding: "10px", background: "grey" },
   },
   parameters: {
     docs: {
@@ -98,12 +96,13 @@ export const NonSwitchingImage: Story = {
       alt: "Testing Non-Switching Image",
       width: "100",
     },
-    style: { "border" : "1px solid black" }
+    style: { border: "1px solid black" },
   },
   parameters: {
     docs: {
       description: {
-        story: "This image only has a single src so will NOT switch when the colour scheme mode switches.",
+        story:
+          "This image only has a single src so will NOT switch when the colour scheme mode switches.",
       },
     },
   },

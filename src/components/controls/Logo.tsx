@@ -1,7 +1,5 @@
 import { BoxProps, useTheme } from "@mui/material";
-import {
-  ImageColorSchemeSwitch
-} from "./ImageColorSchemeSwitch";
+import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
 import React from "react";
 
 interface LogoProps extends BoxProps {
@@ -15,7 +13,15 @@ const Logo = ({ short = false, interchange = false, style }: LogoProps) => {
   const logo =
     short !== undefined && short ? theme.logos?.short : theme.logos?.normal;
 
-  return logo && <ImageColorSchemeSwitch image={logo} interchange={interchange} style={style} />;
+  return (
+    logo && (
+      <ImageColorSchemeSwitch
+        image={logo}
+        interchange={interchange}
+        style={style}
+      />
+    )
+  );
 };
 
 export { Logo };

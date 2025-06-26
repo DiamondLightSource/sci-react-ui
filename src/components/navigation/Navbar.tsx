@@ -166,7 +166,6 @@ const Navbar = ({
   containerWidth,
   ...props
 }: NavbarProps) => {
-
   return (
     <BoxStyled role="banner" {...props}>
       <Container
@@ -198,7 +197,7 @@ const Navbar = ({
                   }}
                 >
                   {logo == "theme" ? (
-                    <Logo interchange={true}/>
+                    <Logo interchange={true} />
                   ) : (
                     <ImageColourSchemeSwitch image={logo} />
                   )}
