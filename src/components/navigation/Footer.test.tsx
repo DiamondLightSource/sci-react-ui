@@ -52,7 +52,7 @@ describe("Footer logo and copyright", () => {
   test("Should render copyright only", async () => {
     const copyrightText = "add text here";
     const currentYear = new Date().getFullYear();
-    renderWithProviders(<Footer logo={null} copyright={copyrightText} />);
+    renderWithProviders(<Footer logo={undefined} copyright={copyrightText} />);
     expect(
       await screen.findByText(`Copyright © ${currentYear} ${copyrightText}`),
     ).toBeInTheDocument();
