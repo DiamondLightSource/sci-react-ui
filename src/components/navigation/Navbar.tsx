@@ -198,7 +198,7 @@ const Navbar = ({
                   }}
                 >
                   {logo == "theme" ? (
-                    <Logo />
+                    <Logo interchange={true}/>
                   ) : (
                     <ImageColorSchemeSwitch image={logo} />
                   )}
