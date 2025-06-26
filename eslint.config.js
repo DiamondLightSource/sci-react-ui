@@ -10,6 +10,7 @@ const compat = new FlatCompat();
 export default [
   {ignores: [
     "**/storybook-static/**",
+    "docs/**",
     "**/*.css",
     "**/*.json",
     "**/*.d.ts",

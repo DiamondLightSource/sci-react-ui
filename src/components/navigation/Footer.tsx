@@ -125,9 +125,7 @@ const Footer = ({
         sx={{ position: "relative", height: "100%", minHeight: 50 }}
       >
         <Grid
-          size={
-            logo || copyright ? { xs: 6, md: 9 } : { xs: 12, md: 12 }
-          }
+          size={logo || copyright ? { xs: 6, md: 9 } : { xs: 12, md: 12 }}
           style={{
             alignContent: "center",
           }}

@@ -1,7 +1,6 @@
 import { styled } from "@mui/material";
 import React from "react";
 
-
 type ImageColorSchemeSwitchType = {
   /** The src for the light version. */
   src: string;
@@ -19,7 +18,7 @@ interface ImageColorSchemeSwitchProps {
   /** The definition for the two images. */
   image: ImageColorSchemeSwitchType;
   /** When true, the light image will appear in dark mode and vice-versa. */
-  interchange?: boolean
+  interchange?: boolean;
   /** Additional styles to pass to the underlying img tag. */
   style?: React.CSSProperties;
 }
@@ -46,7 +45,7 @@ const ImageLight = styled("img")(({ theme }) => [
 const ImageColorSchemeSwitch = ({
   image,
   interchange,
-  style
+  style,
 }: ImageColorSchemeSwitchProps) =>
   image.srcDark ? (
     <>
