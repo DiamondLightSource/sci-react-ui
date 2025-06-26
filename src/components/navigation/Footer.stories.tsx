@@ -122,7 +122,6 @@ export const LogoOnly: Story = {
 
 export const CopyrightOnly: Story = {
   args: {
-    logo: null,
     copyright: "Company",
   },
 };
