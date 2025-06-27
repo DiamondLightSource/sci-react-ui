@@ -95,17 +95,19 @@ const ScrollableImages = ({
     }
   };
 
+  const handleArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "ArrowLeft") handlePrev();
+    else if (event.key === "ArrowRight") handleNext();
+  };
+
   useEffect(() => {
     const element = containerRef.current;
     if (!element) return;
 
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault();
-      if (event.deltaY < 0) {
-        handlePrev();
-      } else if (event.deltaY > 0) {
-        handleNext();
-      }
+      if (event.deltaY < 0) handlePrev();
+      else if (event.deltaY > 0) handleNext();
     };
 
     element.addEventListener("wheel", handleWheel, { passive: false });
@@ -131,6 +133,8 @@ const ScrollableImages = ({
       >
         <Box
           ref={containerRef}
+          tabIndex={0}
+          onKeyDown={handleArrowKeys}
           sx={{
             display: "flex",
             justifyContent: "center",
