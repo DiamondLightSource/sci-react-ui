@@ -25,7 +25,7 @@ interface UserProps {
   onLogin?: () => void;
   onLogout?: () => void;
   avatar?: ReactNode;
-  color?: string;
+  colour?: string;
   menuItems?: ReactElement<typeof MenuItem> | ReactElement<typeof MenuItem>[];
 }
 
@@ -34,7 +34,7 @@ const User = ({
   onLogin,
   onLogout,
   avatar,
-  color,
+  colour,
   menuItems,
 }: UserProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -82,7 +82,7 @@ const User = ({
                   variant="rounded"
                   sx={{
                     backgroundColor: theme.vars.palette.primary.light,
-                    color: color || "textPrimary",
+                    color: colour || "textPrimary",
                     height: 35,
                     width: 35,
                   }}
@@ -99,7 +99,7 @@ const User = ({
                   textTransform="none"
                   textAlign="left"
                   pl={"1px"}
-                  color={color || "textPrimary"}
+                  color={colour || "textPrimary"}
                 >
                   {user.name ? user.name : user.fedid}
                 </Typography>
@@ -109,7 +109,7 @@ const User = ({
                     textTransform="none"
                     textAlign="left"
                     pl={"1px"}
-                    color={color || "textPrimary"}
+                    color={colour || "textPrimary"}
                   >
                     {user.fedid}
                   </Typography>

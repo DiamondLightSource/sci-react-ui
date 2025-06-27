@@ -15,16 +15,16 @@ import {
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { useState } from "react";
 import {
-  ImageColorSchemeSwitch,
-  ImageColorSchemeSwitchType,
-} from "../controls/ImageColorSchemeSwitch";
+  ImageColourSchemeSwitch,
+  ImageColourSchemeSwitchType,
+} from "../controls/ImageColourSchemeSwitch";
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
 interface NavbarProps extends BoxProps, React.PropsWithChildren {
-  logo?: ImageColorSchemeSwitchType | "theme" | null;
+  logo?: ImageColourSchemeSwitchType | "theme" | null;
   linkComponent?: React.ElementType;
   centreSlot?: React.ReactElement<LinkProps>;
   rightSlot?: React.ReactElement<LinkProps>;
@@ -166,7 +166,7 @@ const Navbar = ({
   ...props
 }: NavbarProps) => {
   const theme = useTheme();
-  let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
+  let resolvedLogo: ImageColourSchemeSwitchType | null | undefined = null;
   if (logo === "theme") {
     resolvedLogo = theme.logos?.normal;
   } else if (logo && typeof logo === "object") {
@@ -203,7 +203,7 @@ const Navbar = ({
                     marginRight: { xs: "0", md: "50px" },
                   }}
                 >
-                  <ImageColorSchemeSwitch image={resolvedLogo} />
+                  <ImageColourSchemeSwitch image={resolvedLogo} />
                 </Box>
               </Link>
             )}

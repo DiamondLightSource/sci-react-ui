@@ -1,10 +1,10 @@
 import "@testing-library/jest-dom";
 
-import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
+import { ImageColourSchemeSwitch } from "./ImageColourSchemeSwitch";
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { screen } from "@testing-library/react";
 
-describe("ImageColorSchemeSwitch", () => {
+describe("ImageColourSchemeSwitch", () => {
   const testVals = {
     src: "src/light",
     alt: "test-alt",
@@ -18,7 +18,7 @@ describe("ImageColorSchemeSwitch", () => {
     height?: string;
   }) {
     const { getByTestId } = renderWithProviders(
-      <ImageColorSchemeSwitch image={{ ...testVals, ...image }} />,
+      <ImageColourSchemeSwitch image={{ ...testVals, ...image }} />,
     );
 
     const img = getByTestId("image-light");
@@ -27,7 +27,7 @@ describe("ImageColorSchemeSwitch", () => {
   }
 
   it("should render without errors", () => {
-    renderWithProviders(<ImageColorSchemeSwitch image={{ ...testVals }} />);
+    renderWithProviders(<ImageColourSchemeSwitch image={{ ...testVals }} />);
   });
 
   it("should have src and alt by default", () => {
@@ -62,7 +62,7 @@ describe("ImageColorSchemeSwitch", () => {
     const srcDark = "src/dark";
 
     renderWithProviders(
-      <ImageColorSchemeSwitch image={{ ...testVals, srcDark }} />,
+      <ImageColourSchemeSwitch image={{ ...testVals, srcDark }} />,
       { defaultMode: "dark" },
     );
     const img = screen.getByTestId("image-dark");

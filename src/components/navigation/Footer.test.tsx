@@ -1,10 +1,10 @@
-import type { ImageColorSchemeSwitchType } from "../controls/ImageColorSchemeSwitch";
-jest.mock("../controls/ImageColorSchemeSwitch", () => ({
+import type { ImageColourSchemeSwitchType } from "../controls/ImageColourSchemeSwitch";
+jest.mock("../controls/ImageColourSchemeSwitch", () => ({
   __esModule: true,
-  ImageColorSchemeSwitch: ({
+  ImageColourSchemeSwitch: ({
     image,
   }: {
-    image: ImageColorSchemeSwitchType;
+    image: ImageColourSchemeSwitchType;
   }) => (
     <img src={image.src} alt={image.alt} role="img" data-testid="mock-logo" />
   ),

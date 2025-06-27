@@ -2,6 +2,18 @@ SciReactUI Changelog
 ====================
 
 
+[v0.2.1alpha] - 2025-??-??
+--------------------
+
+### Added
+-
+
+### Fixed
+- 
+
+### Changed
+- Breaking changes: ImageColorSchemeSwitch, ImageColorSchemeSwitchType and ImageColorSchemeSwitchProps renamed to ImageColourSchemeSwitch, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps. User component color prop renamed to colour.
+
 [v0.2.0] - 2025-06-11
 ---------------------
 

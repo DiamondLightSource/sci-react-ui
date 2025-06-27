@@ -8,7 +8,7 @@ export * from "./components/navigation/Navbar";
 export * from "./components/controls/ColourSchemeButton";
 export * from "./components/controls/User";
 export * from "./components/controls/VisitInput";
-export * from "./components/controls/ImageColorSchemeSwitch";
+export * from "./components/controls/ImageColourSchemeSwitch";
 
 // themes
 export * from "./themes/BaseTheme";

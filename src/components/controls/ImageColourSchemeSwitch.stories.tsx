@@ -1,18 +1,18 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ImageColorSchemeSwitch } from "./ImageColorSchemeSwitch";
+import { ImageColourSchemeSwitch } from "./ImageColourSchemeSwitch";
 
 import imageDark from "../../public/generic/logo-dark.svg";
 import imageLight from "../../public/generic/logo-light.svg";
 
-const meta: Meta<typeof ImageColorSchemeSwitch> = {
-  title: "SciReactUI/Control/ImageColorSchemeSwitch",
-  component: ImageColorSchemeSwitch,
+const meta: Meta<typeof ImageColourSchemeSwitch> = {
+  title: "SciReactUI/Control/ImageColourSchemeSwitch",
+  component: ImageColourSchemeSwitch,
   tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
         component:
-          "Switch between an image depending on the color scheme mode, light or dark versions",
+          "Switch between an image depending on the colour scheme mode, light or dark versions",
       },
     },
   },
@@ -34,7 +34,7 @@ export const SwitchingImage: Story = {
     docs: {
       description: {
         story:
-          "This image changes depending on the color scheme mode selected.",
+          "This image changes depending on the colour scheme mode selected.",
       },
     },
   },
@@ -63,7 +63,7 @@ export const NonSwitchingImage: Story = {
     docs: {
       description: {
         story:
-          "This image only has a single src so will NOT switch when the color scheme mode switches.",
+          "This image only has a single src so will NOT switch when the colour scheme mode switches.",
       },
     },
   },

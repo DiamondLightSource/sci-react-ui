@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 
-type ImageColorSchemeSwitchType = {
+type ImageColourSchemeSwitchType = {
   src: string;
   srcDark?: string;
   alt: string;
@@ -8,8 +8,8 @@ type ImageColorSchemeSwitchType = {
   height?: string;
 };
 
-interface ImageColorSchemeSwitchProps {
-  image: ImageColorSchemeSwitchType;
+interface ImageColourSchemeSwitchProps {
+  image: ImageColourSchemeSwitchType;
 }
 
 /** Styled component which is only displayed in dark mode */
@@ -28,7 +28,7 @@ const ImageLight = styled("img")(({ theme }) => [
   }),
 ]);
 
-const ImageColorSchemeSwitch = ({ image }: ImageColorSchemeSwitchProps) => (
+const ImageColourSchemeSwitch = ({ image }: ImageColourSchemeSwitchProps) => (
   <>
     <ImageLight
       data-testid="image-light"
@@ -47,5 +47,5 @@ const ImageColorSchemeSwitch = ({ image }: ImageColorSchemeSwitchProps) => (
   </>
 );
 
-export { ImageColorSchemeSwitch };
-export type { ImageColorSchemeSwitchProps, ImageColorSchemeSwitchType };
+export { ImageColourSchemeSwitch };
+export type { ImageColourSchemeSwitchProps, ImageColourSchemeSwitchType };
