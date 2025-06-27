@@ -12,16 +12,16 @@ import {
 
 import React from "react";
 import {
-  ImageColorSchemeSwitch,
-  ImageColorSchemeSwitchType,
-} from "../controls/ImageColorSchemeSwitch";
+  ImageColourSchemeSwitch,
+  ImageColourSchemeSwitchType,
+} from "../controls/ImageColourSchemeSwitch";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
 interface FooterProps extends BoxProps, React.PropsWithChildren {
-  logo?: ImageColorSchemeSwitchType | "theme" | null;
+  logo?: ImageColourSchemeSwitchType | "theme" | null;
   copyright?: string | null;
   centreSlot?: React.ReactElement<LinkProps>;
   rightSlot?: React.ReactElement<LinkProps>;
@@ -116,7 +116,7 @@ const Footer = ({
   ...props
 }: FooterProps) => {
   const theme = useTheme();
-  let resolvedLogo: ImageColorSchemeSwitchType | null | undefined = null;
+  let resolvedLogo: ImageColourSchemeSwitchType | null | undefined = null;
 
   if (logo === "theme") {
     resolvedLogo = theme.logos?.short;
@@ -177,7 +177,7 @@ const Footer = ({
                 textAlign: "right",
               }}
             >
-              {resolvedLogo && <ImageColorSchemeSwitch image={resolvedLogo} />}
+              {resolvedLogo && <ImageColourSchemeSwitch image={resolvedLogo} />}
               {copyright && (
                 <Typography
                   style={{

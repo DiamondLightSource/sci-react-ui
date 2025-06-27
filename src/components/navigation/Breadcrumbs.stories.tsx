@@ -66,7 +66,7 @@ export const NoLinkComponentWithCustomPath: Story = {
   },
 };
 
-export const ColorChange: Story = {
+export const ColourChange: Story = {
   args: {
     path: ["first", "second", "third", "last"],
     linkComponent: MockLink,

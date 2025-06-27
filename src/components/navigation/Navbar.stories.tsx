@@ -26,7 +26,7 @@ export const All: Story = {
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
-          color={"white"}
+          colour={"white"}
         />
         <ColourSchemeButton key="colourScheme" />,
       </>
@@ -61,7 +61,7 @@ export const WithUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
-        color={"white"}
+        colour={"white"}
       />
     ),
   },
@@ -105,7 +105,7 @@ export const LinksAndUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
-        color={"white"}
+        colour={"white"}
       />
     ),
     children: (
@@ -190,7 +190,7 @@ export const LinksInSlot: Story = {
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
-          color={"white"}
+          colour={"white"}
         />
         <ColourSchemeButton key="colourScheme" />,
       </>
