@@ -93,6 +93,12 @@ const ScrollableImages = ({
     };
   }, [handlePrev, handleNext]);
 
+  useEffect(() => {
+    if (currentIndex >= imageListLength && imageListLength) {
+      setCurrentIndex(imageListLength - 1);
+    }
+  }, [imageListLength, currentIndex]);
+
   return (
     <>
       <Stack
