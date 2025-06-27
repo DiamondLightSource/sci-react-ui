@@ -51,26 +51,48 @@ const ScrollableImages = ({
   const renderNumbers = numeration && imageListLength > 1;
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [numberValue, setNumberValue] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const setCurrentIndexWrapper = (index: number) => {
+    setCurrentIndex(index);
+    setNumberValue(index + 1);
+  };
+
   const handlePrev = () => {
-    setCurrentIndex((prev: number) =>
-      wrapAround
-        ? (prev - 1 + imageListLength) % imageListLength
-        : Math.max(0, prev - 1),
-    );
+    const newIndex = wrapAround
+      ? (currentIndex - 1 + imageListLength) % imageListLength
+      : Math.max(0, currentIndex - 1);
+    setCurrentIndexWrapper(newIndex);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev: number) =>
-      wrapAround
-        ? (prev + 1) % imageListLength
-        : Math.min(prev + 1, imageListLength - 1),
-    );
+    const newIndex = wrapAround
+      ? (currentIndex + 1) % imageListLength
+      : Math.min(currentIndex + 1, imageListLength - 1);
+    setCurrentIndexWrapper(newIndex);
   };
 
-  const handleSliderChange = (event: Event, newValue: number | number[]) => {
-    setCurrentIndex(Number(newValue));
+  const handleSliderChange = (event: Event, newIndex: number | number[]) => {
+    setCurrentIndexWrapper(Number(newIndex));
+  };
+
+  const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNumberValue(Number(event.target.value));
+  };
+
+  const handleNumberEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      let newIndex: number;
+      if (numberValue > imageListLength) {
+        newIndex = imageListLength - 1;
+      } else if (numberValue < 1) {
+        newIndex = 0;
+      } else {
+        newIndex = numberValue - 1;
+      }
+      setCurrentIndexWrapper(newIndex);
+    }
   };
 
   useEffect(() => {
@@ -95,7 +117,7 @@ const ScrollableImages = ({
 
   useEffect(() => {
     if (currentIndex >= imageListLength && imageListLength) {
-      setCurrentIndex(imageListLength - 1);
+      setCurrentIndexWrapper(imageListLength - 1);
     }
   }, [imageListLength, currentIndex]);
 
@@ -178,9 +200,42 @@ const ScrollableImages = ({
           )}
         </Box>
         {renderNumbers && (
-          <div data-testid="numeration">
-            {currentIndex + 1}/{imageListLength}
-          </div>
+          <Box sx={{ display: "flex" }}>
+            <Box
+              data-testid="numeration"
+              component="input"
+              type="number"
+              value={numberValue}
+              onChange={handleNumberChange}
+              onKeyDown={handleNumberEnter}
+              sx={{
+                width: "49%",
+                fontSize: "1rem",
+                outline: "none",
+                border: "none",
+                backgroundColor: "transparent",
+                color: "inherit",
+                textAlign: "right",
+                fontFamily: "inherit",
+                "&::-webkit-outer-spin-button": {
+                  WebkitAppearance: "none",
+                  margin: 0,
+                },
+                "&::-webkit-inner-spin-button": {
+                  WebkitAppearance: "none",
+                  margin: 0,
+                },
+                "&[type=number]": {
+                  MozAppearance: "textfield",
+                },
+              }}
+            ></Box>
+            <Box
+              sx={{ fontFamily: "inherit", fontSize: "1rem", color: "inherit" }}
+            >
+              {`/${imageListLength}`}
+            </Box>
+          </Box>
         )}
       </Stack>
     </>
