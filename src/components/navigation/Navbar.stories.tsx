@@ -28,7 +28,7 @@ export const All: Story = {
           user={{ name: "Name", fedid: "FedID" }}
           color={"white"}
         />
-        <ColourSchemeButton key="colourScheme" />,
+        <ColourSchemeButton key="colourScheme" />
       </>
     ),
     children: (
@@ -192,7 +192,7 @@ export const LinksInSlot: Story = {
           user={{ name: "Name", fedid: "FedID" }}
           color={"white"}
         />
-        <ColourSchemeButton key="colourScheme" />,
+        <ColourSchemeButton key="colourScheme" />
       </>
     ),
     leftSlot: (
