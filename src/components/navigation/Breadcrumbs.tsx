@@ -96,7 +96,7 @@ const Breadcrumbs = ({
             <HomeIcon
               data-testid="HomeIcon"
               aria-hidden="true"
-              sx={{ pt: 0.5, fontSize: "1.7em" }}
+              sx={{ pt: 0.4, fontSize: "1.5em", mt: 0.3 }}
             />
           </Mui_Link>
 
@@ -105,7 +105,7 @@ const Breadcrumbs = ({
               return (
                 <Mui_Link
                   key={`crumb-${i + 1}`}
-                  sx={{ fontSize: "smaller" }}
+                  sx={{ fontSize: "smaller", mt: 0.1 }}
                   underline="hover"
                   color="inherit"
                   {...(linkComponent
@@ -117,7 +117,10 @@ const Breadcrumbs = ({
               );
             else {
               return (
-                <Typography key={`crumb-${i + 1}`} sx={{ fontWeight: "bold" }}>
+                <Typography
+                  key={`crumb-${i + 1}`}
+                  sx={{ fontWeight: "bold", mt: 0.2 }}
+                >
                   {crumb.name}
                 </Typography>
               );
