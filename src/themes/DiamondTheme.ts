@@ -14,15 +14,15 @@ const DiamondTheme: Theme = createTheme({
   ...BaseThemeOptions,
   logos: {
     normal: {
-      src: logoImageLight,
-      srcDark: logoImageDark,
+      src: logoImageDark, // Use the dark image for light backgrounds
+      srcDark: logoImageLight, // Use the light image for dark backgrounds
       alt: "Diamond Source Logo",
       width: "100",
     },
     short: {
       src: logoShort,
       alt: "Diamond Source Logo",
-      width: "65",
+      width: "35",
     },
   },
   colorSchemes: {

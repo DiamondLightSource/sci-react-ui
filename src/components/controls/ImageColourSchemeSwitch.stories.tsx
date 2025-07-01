@@ -8,14 +8,6 @@ const meta: Meta<typeof ImageColourSchemeSwitch> = {
   title: "SciReactUI/Control/ImageColourSchemeSwitch",
   component: ImageColourSchemeSwitch,
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component:
-          "Switch between an image depending on the colour scheme mode, light or dark versions",
-      },
-    },
-  },
 };
 
 export default meta;
@@ -49,6 +41,52 @@ export const LargeSwitchingImage: Story = {
       width: "300",
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "You can set a specific size for the image.",
+      },
+    },
+  },
+};
+
+export const AddAdditionalStyles: Story = {
+  args: {
+    image: {
+      src: imageDark,
+      srcDark: imageLight,
+      alt: "Testing Switching Image",
+      width: "100",
+    },
+    style: { border: "3px dotted red" },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "You also add additional styles to the underlying img tag.",
+      },
+    },
+  },
+};
+export const LightImageForDarkTheme: Story = {
+  args: {
+    image: {
+      src: imageDark,
+      srcDark: imageLight,
+      alt: "Testing Switching Image",
+      width: "120",
+    },
+    interchange: true,
+    style: { padding: "10px", background: "grey" },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "You can choose to flip which image shows in which mode. This may be useful with certain background colours.",
+      },
+    },
+  },
 };
 
 export const NonSwitchingImage: Story = {
@@ -56,8 +94,9 @@ export const NonSwitchingImage: Story = {
     image: {
       src: imageLight,
       alt: "Testing Non-Switching Image",
-      width: "300",
+      width: "100",
     },
+    style: { border: "1px solid black" },
   },
   parameters: {
     docs: {
