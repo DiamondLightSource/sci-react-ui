@@ -9,7 +9,7 @@ SciReactUI Changelog
 - Logo component, to easily add the theme logo to anywhere
 
 ### Fixed
-- 
+- Fixed alt text on Diamond logo.
 
 ### Changed
 - Breaking change: ImageColorSchemeSwitch, ImageColorSchemeSwitchType and ImageColorSchemeSwitchProps renamed to ImageColourSchemeSwitch, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps. 
