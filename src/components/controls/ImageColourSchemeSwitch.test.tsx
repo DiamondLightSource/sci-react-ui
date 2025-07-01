@@ -68,13 +68,12 @@ describe("ImageColourSchemeSwitch", () => {
   });
 
   it("should have src when no srcDark set but dark mode selected", () => {
-    const testValsNoSrcDark = {
-      src: "src/light",
-      alt: "test-alt",
-    };
-    renderWithProviders(<ImageColorSchemeSwitch image={{ ...testVals, srcDark:undefined  }} />, {
-      defaultMode: "dark",
-    });
+    renderWithProviders(
+      <ImageColourSchemeSwitch image={{ ...testVals, srcDark: undefined }} />,
+      {
+        defaultMode: "dark",
+      },
+    );
     const img = screen.getByRole("img");
     expect(img).toHaveAttribute("src", testVals.src);
   });

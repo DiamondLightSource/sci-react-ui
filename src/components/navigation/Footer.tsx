@@ -14,7 +14,7 @@ import React from "react";
 import {
   ImageColourSchemeSwitch,
   ImageColourSchemeSwitchType,
-} from "../controls/ImageColorSchemeSwitch";
+} from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {

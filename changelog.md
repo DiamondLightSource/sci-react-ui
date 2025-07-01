@@ -12,8 +12,11 @@ SciReactUI Changelog
 - 
 
 ### Changed
-- Breaking change: ImageColorSchemeSwitch, ImageColorSchemeSwitchType and ImageColorSchemeSwitchProps renamed to ImageColourSchemeSwitch, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps. User component color prop renamed to colour.
+- Breaking change: ImageColorSchemeSwitch, ImageColorSchemeSwitchType and ImageColorSchemeSwitchProps renamed to ImageColourSchemeSwitch, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps. 
+- Breaking change: User component color prop renamed to colour.
 - ImageColourSchemeSwitch takes a parameter to interchange images on colour scheme switch.
+
+
 [v0.2.0] - 2025-06-11
 ---------------------
 
