@@ -108,4 +108,29 @@ describe("ScrollableImages", () => {
     expect(queryByTestId("prev-button")).not.toBeInTheDocument();
     expect(queryByTestId("next-button")).not.toBeInTheDocument();
   });
+
+  it("should be able to scroll with arrow keys", () => {
+    render(<ScrollableImages images={imagesList} />);
+    const imageContainer = screen.getByTestId("image-container");
+
+    fireEvent.keyDown(imageContainer, {
+      key: "ArrowRight",
+      code: "ArrowRight",
+    });
+    expect(imageContainer).toHaveAttribute("data-index", "1");
+
+    fireEvent.keyDown(imageContainer, { key: "ArrowLeft", code: "ArrowLeft" });
+    expect(imageContainer).toHaveAttribute("data-index", "0");
+  });
+
+  it("should not scroll with arrow keys if the component is not targeted", () => {
+    render(<ScrollableImages images={imagesList} />);
+    const imageContainer = screen.getByTestId("image-container");
+
+    expect(imageContainer).toHaveAttribute("data-index", "0");
+    fireEvent.keyDown(window, { key: "ArrowRight", code: "ArrowRight" });
+    expect(imageContainer).toHaveAttribute("data-index", "0");
+    fireEvent.keyDown(window, { key: "ArrowLeft", code: "ArrowLeft" });
+    expect(imageContainer).toHaveAttribute("data-index", "0");
+  });
 });
