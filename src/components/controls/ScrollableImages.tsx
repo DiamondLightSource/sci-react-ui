@@ -225,16 +225,13 @@ const ScrollableImages = ({
                 color: "inherit",
                 textAlign: "right",
                 fontFamily: "inherit",
-                "&::-webkit-outer-spin-button": {
+                appearance: "none",
+                WebkitAppearance: "none",
+                MozAppearance: "textfield",
+
+                "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
                   WebkitAppearance: "none",
                   margin: 0,
-                },
-                "&::-webkit-inner-spin-button": {
-                  WebkitAppearance: "none",
-                  margin: 0,
-                },
-                "&[type=number]": {
-                  MozAppearance: "textfield",
                 },
               }}
             ></Box>
