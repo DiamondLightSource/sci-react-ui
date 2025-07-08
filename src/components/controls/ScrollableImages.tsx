@@ -51,12 +51,12 @@ const ScrollableImages = ({
   const renderNumbers = numeration && imageListLength > 1;
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [numberValue, setNumberValue] = useState(1);
+  const [numberValue, setNumberValue] = useState("1");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const setCurrentIndexWrapper = (index: number) => {
     setCurrentIndex(index);
-    setNumberValue(index + 1);
+    setNumberValue((index + 1).toString());
   };
 
   const handlePrev = () => {
@@ -78,18 +78,21 @@ const ScrollableImages = ({
   };
 
   const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumberValue(Number(event.target.value));
+    setNumberValue(event.target.value);
   };
 
   const handleNumberEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
+      const n = parseInt(numberValue);
       let newIndex: number;
-      if (numberValue > imageListLength) {
+      if (isNaN(n)) {
+        newIndex = currentIndex;
+      } else if (n > imageListLength) {
         newIndex = imageListLength - 1;
-      } else if (numberValue < 1) {
+      } else if (n < 1) {
         newIndex = 0;
       } else {
-        newIndex = numberValue - 1;
+        newIndex = n - 1;
       }
       setCurrentIndexWrapper(newIndex);
     }
@@ -210,6 +213,7 @@ const ScrollableImages = ({
               component="input"
               type="number"
               value={numberValue}
+              defaultValue={""}
               onChange={handleNumberChange}
               onKeyDown={handleNumberEnter}
               sx={{
