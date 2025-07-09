@@ -31,6 +31,9 @@ SciReactUI Changelog
 - User can take additional menu items through the menuItems prop.
 - Footer uses slots for positioning elements. Breaking change: elements must now use rightSlot for positioning to the far right.
 
+### Added
+- ScrollableImages component to scroll through multiple images.
+
 
 [v0.1.0] - 2025-04-10
 ---------------------
