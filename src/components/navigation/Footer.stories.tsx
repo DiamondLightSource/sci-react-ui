@@ -93,7 +93,7 @@ export const RightSlot: Story = {
   args: {
     logo: "theme",
     copyright: "Company",
-    rightSlot: (
+    rightSlot: (<>
       <FooterLinks key="footer-links">
         <FooterLink href="#TheMoon" key="the-moon">
           The Moon
@@ -102,7 +102,8 @@ export const RightSlot: Story = {
           Phobos
         </FooterLink>
       </FooterLinks>
-    ),
+      <p>arenst raisent iarsent</p>
+    </>),
   },
 };
 

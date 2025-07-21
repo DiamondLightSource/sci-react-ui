@@ -141,8 +141,7 @@ export const WithThemeLogo: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          'The logo is pulled in from the theme when `logo` set to "theme".',
+        story: 'The logo is pulled in from the theme when `logo` set to "theme".',
       },
     },
   },

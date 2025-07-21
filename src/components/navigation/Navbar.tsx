@@ -1,37 +1,23 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
 import {
   Box,
-  BoxProps,
-  Container,
   Drawer,
   Link,
   LinkProps,
   IconButton,
   Stack,
-  styled,
-  useTheme,
-  Breakpoint,
+  useTheme, styled,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { useState } from "react";
+
 import {
   ImageColourSchemeSwitch,
   ImageColourSchemeSwitchType,
 } from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
+import { Bar, BarProps} from "../controls/Bar";
 
-interface NavLinksProps {
-  children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
-}
-
-interface NavbarProps extends BoxProps, React.PropsWithChildren {
-  logo?: ImageColourSchemeSwitchType | "theme";
-  linkComponent?: React.ElementType;
-  centreSlot?: React.ReactElement<LinkProps>;
-  rightSlot?: React.ReactElement<LinkProps>;
-  leftSlot?: React.ReactElement<LinkProps>;
-  containerWidth?: false | Breakpoint;
-}
 
 interface NavLinkProps extends LinkProps {
   children: React.ReactNode;
@@ -81,6 +67,10 @@ const NavLink = ({
     </Link>
   );
 };
+
+interface NavLinksProps {
+  children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
+}
 
 const NavLinks = ({ children }: NavLinksProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -141,86 +131,60 @@ const NavLinks = ({ children }: NavLinksProps) => {
   );
 };
 
-const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
   top: 0,
   zIndex: 1,
-  width: "100%",
-  height: "50px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  borderRadius: 0,
-  backgroundColor: theme.vars.palette.primary.main,
 }));
 
+interface NavbarProps extends BarProps {
+  logo?: ImageColourSchemeSwitchType | "theme";
+  linkComponent?: React.ElementType;
+}
 /**
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
  */
 const Navbar = ({
-  children,
   logo,
   linkComponent,
   leftSlot,
-  rightSlot,
-  centreSlot,
-  containerWidth,
+  children,
   ...props
 }: NavbarProps) => {
   return (
-    <BoxStyled role="banner" {...props}>
-      <Container
-        maxWidth={containerWidth}
-        sx={{
-          height: "100%",
-        }}
-      >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          height="100%"
-          width="100%"
-        >
-          <Stack direction="row" alignItems="center" spacing={2}>
-            {logo && (
-              <Link
-                key="logo"
-                {...(linkComponent
-                  ? { component: linkComponent, to: "/" }
-                  : { href: "/" })}
+    <BarStyled 
+      role="banner"
+      {...props}
+      
+      leftSlot={
+        <Stack direction="row" alignItems="center" spacing={2}>
+          {logo && (
+            <Link
+              key="logo"
+              {...(linkComponent
+                ? { component: linkComponent, to: "/" }
+                : { href: "/" })}
+            >
+              <Box
+                maxWidth="5rem"
+                sx={{
+                  "&:hover": { filter: "brightness(80%);" },
+                  marginRight: { xs: "0", md: "50px" },
+                }}
               >
-                <Box
-                  maxWidth="5rem"
-                  sx={{
-                    "&:hover": { filter: "brightness(80%);" },
-                    marginRight: { xs: "0", md: "50px" },
-                  }}
-                >
-                  {logo == "theme" ? (
-                    <Logo interchange={true} />
-                  ) : (
-                    <ImageColourSchemeSwitch image={logo} />
-                  )}
-                </Box>
-              </Link>
-            )}
-            {leftSlot}
-            {children}
-          </Stack>
-          {rightSlot}
-        </Stack>
-      </Container>
-      <Box
-        sx={{
-          position: "absolute",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        {centreSlot}
-      </Box>
-    </BoxStyled>
-  );
+                {logo == "theme" ? (
+                  <Logo interchange={true} />
+                ) : (
+                  <ImageColourSchemeSwitch image={logo} />
+                )}
+              </Box>
+            </Link>
+          )}
+          {leftSlot}
+          {children}
+        </Stack> 
+      }
+    />
+  )
 };
 
 export { Navbar, NavLinks, NavLink };
