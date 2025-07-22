@@ -1,22 +1,23 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
 import {
+  Box, BoxProps,
   Breadcrumbs as Mui_Breadcrumbs,
   BreadcrumbsProps as Mui_BreadcrumbsProps,
   Container,
   Link as Mui_Link,
   Paper,
-  PaperProps,
+  PaperProps, styled,
   Typography,
   useTheme,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { CustomLink } from "types/links";
+import {Bar, BarProps} from "../controls/Bar";
 
-interface BreadcrumbsProps {
+interface BreadcrumbsProps extends BarProps {
   path: string | string[] | CustomLink[];
   linkComponent?: React.ElementType;
-  rootProps?: PaperProps;
   muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
 }
 
@@ -55,22 +56,22 @@ export function getCrumbs(
   });
 }
 
+const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
+  backgroundColor: theme.vars.palette.primary.light
+}));
+
 const Breadcrumbs = ({
   path,
   linkComponent,
-  rootProps,
   muiBreadcrumbsProps,
+  ...props
 }: BreadcrumbsProps) => {
   const theme = useTheme();
   const crumbs: CustomLink[] = getCrumbs(path);
 
   return (
-    <Paper
-      sx={{
-        backgroundColor: theme.palette.primary.light,
-        borderRadius: 0,
-      }}
-      {...rootProps}
+    <BarStyled
+      {...props}
     >
       <Container>
         <Mui_Breadcrumbs
@@ -128,7 +129,7 @@ const Breadcrumbs = ({
           })}
         </Mui_Breadcrumbs>
       </Container>
-    </Paper>
+    </BarStyled>
   );
 };
 

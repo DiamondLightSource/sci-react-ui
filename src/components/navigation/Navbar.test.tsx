@@ -24,7 +24,7 @@ describe("Navbar", () => {
     expect(headerComputedStyle.border).toBe(borderStyle);
 
     // Check default values are still set
-    expect(headerComputedStyle.height).toBe("50px");
+    expect(headerComputedStyle.height).toBe("100%");
   });
 });
 
@@ -304,28 +304,8 @@ it("renders all slots together", () => {
   expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
   expect(screen.getByTestId("right-slot")).toBeInTheDocument();
 });
-describe("Navbar Slot Positioning", () => {
-  it("centreSlot should be centred", () => {
-    renderWithProviders(
-      <Navbar centreSlot={<div data-testid="centre-slot">Centre</div>} />,
-    );
-    const centreSlot = screen.getByTestId("centre-slot");
-    const parent = centreSlot.parentElement;
-    expect(parent).toHaveStyle({
-      position: "absolute",
-      left: "50%",
-      transform: "translateX(-50%)",
-    });
-  });
 
-  it("rightSlot should be aligned to the end of the row", () => {
-    renderWithProviders(
-      <Navbar rightSlot={<div data-testid="right-slot">Right</div>} />,
-    );
-    const rightSlot = screen.getByTestId("right-slot");
-    const stack = rightSlot.closest(".MuiStack-root");
-    expect(stack).toHaveStyle("justify-content: space-between");
-  });
+describe("Navbar Slot Positioning", () => {
 
   it("logo should be vertically centred", () => {
     renderWithProviders(

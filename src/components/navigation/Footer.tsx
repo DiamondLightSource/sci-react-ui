@@ -13,7 +13,7 @@ import {
   ImageColourSchemeSwitchType,
 } from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
-import { Bar, BarProps} from "../controls/Bar";
+import { Bar, BarSlotsProps} from "../controls/Bar";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -85,14 +85,14 @@ const FooterLink = ({
 };
 
 
-const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
+const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
   position: "relative",
   bottom: 0,
   marginTop: "auto",
   backgroundColor: theme.vars.palette.primary.light,
 }));
 
-interface FooterProps extends BarProps {
+interface FooterProps extends BarSlotsProps {
   logo?: ImageColourSchemeSwitchType | "theme";
   copyright?: string | null;
 }
@@ -121,9 +121,7 @@ const Footer = ({
           <Stack
             direction="column" 
               style={{
-                float: "right",
                 paddingTop: "10px",
-                paddingRight: "15px",
                 textAlign: "right",
               }}
             >

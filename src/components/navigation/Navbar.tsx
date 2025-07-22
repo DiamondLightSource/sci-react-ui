@@ -16,7 +16,7 @@ import {
   ImageColourSchemeSwitchType,
 } from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
-import { Bar, BarProps} from "../controls/Bar";
+import { Bar, BarSlotsProps} from "../controls/Bar";
 
 
 interface NavLinkProps extends LinkProps {
@@ -131,12 +131,12 @@ const NavLinks = ({ children }: NavLinksProps) => {
   );
 };
 
-const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
+const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
   top: 0,
   zIndex: 1,
 }));
 
-interface NavbarProps extends BarProps {
+interface NavbarProps extends BarSlotsProps {
   logo?: ImageColourSchemeSwitchType | "theme";
   linkComponent?: React.ElementType;
 }
@@ -156,7 +156,7 @@ const Navbar = ({
       {...props}
       
       leftSlot={
-        <Stack direction="row" alignItems="center" spacing={2}>
+        <>
           {logo && (
             <Link
               key="logo"
@@ -181,7 +181,7 @@ const Navbar = ({
           )}
           {leftSlot}
           {children}
-        </Stack> 
+        </>
       }
     />
   )
