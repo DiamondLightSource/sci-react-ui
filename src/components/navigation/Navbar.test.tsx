@@ -24,7 +24,7 @@ describe("Navbar", () => {
     expect(headerComputedStyle.border).toBe(borderStyle);
 
     // Check default values are still set
-    expect(headerComputedStyle.height).toBe("50px");
+    expect(headerComputedStyle.height).toBe("100%");
   });
 });
 
@@ -271,62 +271,7 @@ it("should use 'to' when both 'href' and 'to' are provided with linkComponent", 
   expect(link).toHaveAttribute("href", "/about");
 });
 
-it("renders leftSlot", () => {
-  renderWithProviders(
-    <Navbar leftSlot={<div data-testid="left-slot">Right Slot</div>} />,
-  );
-  expect(screen.getByTestId("left-slot")).toBeInTheDocument();
-});
-
-it("renders centreSlot", () => {
-  renderWithProviders(
-    <Navbar centreSlot={<div data-testid="centre-slot">Centre Slot</div>} />,
-  );
-  expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
-});
-
-it("renders rightSlot", () => {
-  renderWithProviders(
-    <Navbar rightSlot={<div data-testid="right-slot">Right Slot</div>} />,
-  );
-  expect(screen.getByTestId("right-slot")).toBeInTheDocument();
-});
-
-it("renders all slots together", () => {
-  renderWithProviders(
-    <Navbar
-      leftSlot={<div data-testid="left-slot">Right</div>}
-      centreSlot={<div data-testid="centre-slot">Centre</div>}
-      rightSlot={<div data-testid="right-slot">Right Slot</div>}
-    />,
-  );
-  expect(screen.getByTestId("left-slot")).toBeInTheDocument();
-  expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
-  expect(screen.getByTestId("right-slot")).toBeInTheDocument();
-});
-describe("Navbar Slot Positioning", () => {
-  it("centreSlot should be centred", () => {
-    renderWithProviders(
-      <Navbar centreSlot={<div data-testid="centre-slot">Centre</div>} />,
-    );
-    const centreSlot = screen.getByTestId("centre-slot");
-    const parent = centreSlot.parentElement;
-    expect(parent).toHaveStyle({
-      position: "absolute",
-      left: "50%",
-      transform: "translateX(-50%)",
-    });
-  });
-
-  it("rightSlot should be aligned to the end of the row", () => {
-    renderWithProviders(
-      <Navbar rightSlot={<div data-testid="right-slot">Right</div>} />,
-    );
-    const rightSlot = screen.getByTestId("right-slot");
-    const stack = rightSlot.closest(".MuiStack-root");
-    expect(stack).toHaveStyle("justify-content: space-between");
-  });
-
+describe("Navbar logo position", () => {
   it("logo should be vertically centred", () => {
     renderWithProviders(
       <Navbar

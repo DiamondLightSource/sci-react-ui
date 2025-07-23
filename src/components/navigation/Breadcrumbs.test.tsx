@@ -1,13 +1,12 @@
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-} from "@testing-library/react";
+import { fireEvent, RenderResult, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes, Link } from "react-router-dom";
 import { Breadcrumbs, getCrumbs } from "./Breadcrumbs";
 import "@testing-library/jest-dom";
 import { CustomLink } from "types/links";
+import {
+  addProviders,
+  renderWithProviders,
+} from "../../__test-utils__/helpers";
 
 const crumbFirst = "first",
   crumbFirstTitle = "First",
@@ -54,7 +53,7 @@ describe("Breadcrumbs", () => {
   }
 
   it("should render without errors", () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={["/"]}>
         <Breadcrumbs path={defaultArrayObject} linkComponent={Link} />
       </MemoryRouter>,
@@ -62,7 +61,7 @@ describe("Breadcrumbs", () => {
   });
 
   it("should show just home when an empty string", () => {
-    const renderResult = render(
+    const renderResult = renderWithProviders(
       <MemoryRouter initialEntries={["/"]}>
         <Breadcrumbs path={""} linkComponent={Link} />
       </MemoryRouter>,
@@ -72,7 +71,7 @@ describe("Breadcrumbs", () => {
   });
 
   it("should show just home when an empty array", () => {
-    const renderResult = render(
+    const renderResult = renderWithProviders(
       <MemoryRouter initialEntries={["/"]}>
         <Breadcrumbs path={[]} linkComponent={Link} />
       </MemoryRouter>,
@@ -83,7 +82,7 @@ describe("Breadcrumbs", () => {
 
   it("should use path as string", () => {
     testCrumbsExist(
-      render(
+      renderWithProviders(
         <MemoryRouter initialEntries={[defaultStringPath]}>
           <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
         </MemoryRouter>,
@@ -93,7 +92,7 @@ describe("Breadcrumbs", () => {
 
   it("should use path as string array", () => {
     testCrumbsExist(
-      render(
+      renderWithProviders(
         <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
           <Breadcrumbs path={defaultArrayPath} linkComponent={Link} />
         </MemoryRouter>,
@@ -102,7 +101,7 @@ describe("Breadcrumbs", () => {
   });
 
   it("should use path as object array", () => {
-    const { getByRole, queryByRole, getByText } = render(
+    const { getByRole, queryByRole, getByText } = renderWithProviders(
       <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
         <Breadcrumbs path={defaultArrayObject} linkComponent={Link} />
       </MemoryRouter>,
@@ -122,7 +121,7 @@ describe("Breadcrumbs", () => {
   });
 
   it("should navigate to the correct route when a breadcrumb link is clicked", () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={[defaultStringPath]}>
         <Routes>
           <Route path="/" element={<div>Home Page</div>} />
@@ -145,7 +144,7 @@ describe("Breadcrumbs", () => {
   });
 
   it("should render correctly with different routes", () => {
-    const { rerender } = render(
+    const { rerender } = renderWithProviders(
       <MemoryRouter initialEntries={[`/${crumbFirst}/${crumbSecond}`]}>
         <Breadcrumbs path="/first/second" linkComponent={Link} />
       </MemoryRouter>,
@@ -154,9 +153,11 @@ describe("Breadcrumbs", () => {
     expect(screen.getByRole("link", { name: "First" })).toBeInTheDocument();
     expect(screen.getByText("Second")).toBeInTheDocument();
     rerender(
-      <MemoryRouter initialEntries={[defaultStringPath]}>
-        <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
-      </MemoryRouter>,
+      addProviders(
+        <MemoryRouter initialEntries={[defaultStringPath]}>
+          <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
+        </MemoryRouter>,
+      ),
     );
 
     expect(screen.getByRole("link", { name: "First" })).toBeInTheDocument();
@@ -253,7 +254,7 @@ describe("getCrumbs", () => {
 });
 
 it("should render Link with href when linkComponent is not provided", () => {
-  const { getByRole, getByText } = render(
+  const { getByRole, getByText } = renderWithProviders(
     <Breadcrumbs path={defaultArrayObject} />,
   );
 
@@ -269,7 +270,9 @@ it("should render Link with href when linkComponent is not provided", () => {
 });
 
 it("should render home link with href when linkComponent is not provided", () => {
-  const { getByTestId } = render(<Breadcrumbs path={defaultArrayObject} />);
+  const { getByTestId } = renderWithProviders(
+    <Breadcrumbs path={defaultArrayObject} />,
+  );
   const homeIcon = getByTestId("HomeIcon");
 
   expect(homeIcon).toBeInTheDocument();
