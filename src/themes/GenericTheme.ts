@@ -11,12 +11,12 @@ const GenericThemeOptions = mergeThemeOptions({
     normal: {
       src: logoImageLight,
       srcDark: logoImageDark,
-      alt: "Diamond Source Logo",
+      alt: "Generic Logo",
       width: "100",
     },
     short: {
       src: logoImageDark,
-      alt: "Diamond Source Logo",
+      alt: "Generic Logo",
       width: "60",
     },
   },

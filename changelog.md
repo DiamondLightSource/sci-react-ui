@@ -9,7 +9,8 @@ SciReactUI Changelog
 - Logo component, to easily add the theme logo to anywhere
 
 ### Fixed
-- Themes were not inheriting all details from their parent.
+- Themes were not inheriting all details from their parents.
+- Fixed alt text on logos.
 
 ### Changed
 - Breaking change: ImageColorSchemeSwitch, ImageColorSchemeSwitchType and ImageColorSchemeSwitchProps renamed to ImageColourSchemeSwitch, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps. 
