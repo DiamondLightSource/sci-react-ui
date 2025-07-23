@@ -81,8 +81,10 @@ describe("Bar Slot Positioning", () => {
       <Bar centreSlot={<div data-testid="centre-slot">Centre</div>} />,
     );
     const centreSlot = screen.getByTestId("centre-slot");
-    const parent = centreSlot.parentElement.parentElement;
-    expect(parent).toHaveStyle({
+    expect(centreSlot.parentElement).toBeInTheDocument();
+
+    // @ts-expect-error centreSlot.parentElement exists.
+    expect(centreSlot.parentElement.parentElement).toHaveStyle({
       position: "absolute",
       left: "50%",
       transform: "translateX(-50%)",
