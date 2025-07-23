@@ -9,7 +9,8 @@ SciReactUI Changelog
 - Logo component, to easily add the theme logo to anywhere
 
 ### Fixed
-- Fixed alt text on Diamond logo.
+- Themes were not inheriting all details from their parents.
+- Fixed alt text on logos.
 
 ### Changed
 - Breaking change: ImageColorSchemeSwitch, ImageColorSchemeSwitchType and ImageColorSchemeSwitchProps renamed to ImageColourSchemeSwitch, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps. 
@@ -30,6 +31,9 @@ SciReactUI Changelog
 - Navbar uses slots for positioning elements. Breaking change: elements must now use rightSlot for positioning to the far right.
 - User can take additional menu items through the menuItems prop.
 - Footer uses slots for positioning elements. Breaking change: elements must now use rightSlot for positioning to the far right.
+
+### Added
+- ScrollableImages component to scroll through multiple images.
 
 
 [v0.1.0] - 2025-04-10

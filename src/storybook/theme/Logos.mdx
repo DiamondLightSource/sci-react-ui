@@ -1,12 +1,16 @@
-import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
-import { ImageColourSchemeSwitch } from "../../components/controls/ImageColourSchemeSwitch";
+import { Meta } from '@storybook/blocks';
+import {ImageColourSchemeSwitch} from "../../components/controls/ImageColourSchemeSwitch";
 
 <Meta title="Theme/Logos" />
 
 <div className="sb-container">
 	<div className='sb-section-title'>
-		# Logos
-
+		# Theme Logos
+        <div style={{width:"660px", margin:"0 auto"}} >
+            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
+            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-dark.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
+            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/diamond/logo-dark.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
+        </div>
     	Logos can be added to new themes by adding to the `createTheme` call:
 
     	```js
@@ -24,11 +28,14 @@ import { ImageColourSchemeSwitch } from "../../components/controls/ImageColourSc
         }
     	```
 
-        <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo"}}/>
+        <div style={{width:"200px", margin:"0 auto"}} >
+            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo",width:200}}/>
+            <p>Example logo</p>
+        </div>
 
         ## Sizes
-    	There are two image sizes. I regular `normal` and a smaller version `short`, these are used in the Navbar and
-    	the Footer, respectively.
+    	There are two image sizes. A regular `normal` and a smaller version `short`, these are currently used in the Navbar and
+    	the Footer, respectively via the `Logo` component.
 
         ## Switch with Colour Scheme
     	You can also switch them based on the current colour scheme by adding an additional `srcDark` option.
