@@ -13,6 +13,9 @@ of the colour scheme switch - for use with alternative background colours.
 ### Fixed
 - Themes were not inheriting all details from their parents.
 - Fixed alt text on logos.
+- Fixed Footer was not adhering to Container width. (Can be turned off with containerWidth setting)
+- Fixed bug in Footer Links where alignment was out on first link.
+
 
 ### Changed
 - Breaking change: The use of *color* has been replaced with *colour* throughout. 

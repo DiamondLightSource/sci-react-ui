@@ -2,7 +2,6 @@
 import {
   Breadcrumbs as Mui_Breadcrumbs,
   BreadcrumbsProps as Mui_BreadcrumbsProps,
-  Container,
   Link as Mui_Link,
   styled,
   Typography,

@@ -155,34 +155,33 @@ const Navbar = ({
       role="banner"
       {...props}
       
-      leftSlot={
-        <>
-          {logo && (
-            <Link
-              key="logo"
-              {...(linkComponent
-                ? { component: linkComponent, to: "/" }
-                : { href: "/" })}
+      leftSlot={<>
+        {logo && (
+          <Link
+            key="logo"
+            {...(linkComponent
+              ? { component: linkComponent, to: "/" }
+              : { href: "/" })}
+          >
+            <Box
+              maxWidth="5rem"
+              sx={{
+                "&:hover": { filter: "brightness(80%);" },
+                marginRight: { xs: "0", md: "50px" },
+              }}
             >
-              <Box
-                maxWidth="5rem"
-                sx={{
-                  "&:hover": { filter: "brightness(80%);" },
-                  marginRight: { xs: "0", md: "50px" },
-                }}
-              >
-                {logo == "theme" ? (
-                  <Logo interchange={true} />
-                ) : (
-                  <ImageColourSchemeSwitch image={logo} />
-                )}
-              </Box>
-            </Link>
-          )}
-          {leftSlot}
-          {children}
-        </>
-      }
+              {logo == "theme" ? (
+                <Logo interchange={true} />
+              ) : (
+                <ImageColourSchemeSwitch image={logo} />
+              )}
+            </Box>
+          </Link>
+        )}
+        {leftSlot}
+        {children}
+      
+      </>}
     />
   )
 };

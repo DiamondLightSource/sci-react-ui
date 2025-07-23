@@ -59,16 +59,32 @@ export const AllSlots: Story = {
     logo: "theme",
     copyright: "Company",
     leftSlot: (
-      <p>leftSlot</p>
+      <FooterLinks key="footer-links-left">
+        <FooterLink href="#Left" key="left">
+          Left
+        </FooterLink>
+      </FooterLinks>
     ),
     children: (
-      <p>children</p>
+      <FooterLinks key="footer-links-children">
+        <FooterLink href="#Children" key="children">
+          Children
+        </FooterLink>
+      </FooterLinks>
     ),
     rightSlot: (
-      <p>rightSlot</p>
+      <FooterLinks key="footer-links-right">
+        <FooterLink href="#Right" key="right">
+          Right
+        </FooterLink>
+      </FooterLinks>
     ),
     centreSlot: (
-      <p>centreSlot</p>
+      <FooterLinks key="footer-links-centre">
+        <FooterLink href="#Centre" key="centre">
+          Centre
+        </FooterLink>
+      </FooterLinks>
     ),
   },
 };
@@ -77,7 +93,7 @@ export const RightSlot: Story = {
   args: {
     logo: "theme",
     copyright: "Company",
-    rightSlot: (<>
+    rightSlot: (
       <FooterLinks key="footer-links">
         <FooterLink href="#TheMoon" key="the-moon">
           The Moon
@@ -86,8 +102,7 @@ export const RightSlot: Story = {
           Phobos
         </FooterLink>
       </FooterLinks>
-      <p>arenst raisent iarsent</p>
-    </>),
+    ),
   },
 };
 
