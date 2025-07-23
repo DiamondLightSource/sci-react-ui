@@ -27,7 +27,7 @@ const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   borderRadius: 0,
-  backgroundColor: theme.vars.palette.primary.main,
+  backgroundColor: theme.vars.palette.primary.main
 }));
 
 interface BarProps extends BoxProps, React.PropsWithChildren {
@@ -72,21 +72,24 @@ const Bar = ({
           {leftSlot}
           {children}
         </Slot>
+        
+        <Box style={{
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)"
+        }}>
+          <Slot title="centre-slot">
+            {centreSlot}
+          </Slot>
+        </Box>
+        
         <Slot title="right-slot">
           {rightSlot}
         </Slot>
       </Stack>
     </Container>
     
-    <Box style={{
-      position: "absolute",
-      left: "50%",
-      transform: "translateX(-50%)"
-    }}>
-      <Slot title="centre-slot">
-        {centreSlot}
-      </Slot>
-    </Box>
+
     
   </BoxStyled>
 )

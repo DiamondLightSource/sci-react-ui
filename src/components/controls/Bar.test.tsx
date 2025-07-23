@@ -28,27 +28,21 @@ describe("Bar", () => {
 	
 	it("should render with styles", async () => {
 		const borderStyle = "1px solid orange";
-		renderWithProviders(<Bar style={{ border: borderStyle }} />);
+		renderWithProviders(<Bar data-testid="test-bar" style={{ border: borderStyle }} />);
 		
-		const centreSlot = await screen.findByTitle("centre-slot");
-		expect(centreSlot).toBeInTheDocument();
+		const bar = await screen.findByTestId("test-bar");
+		expect(bar).toBeInTheDocument();
 		
-		if( centreSlot && centreSlot.parentElement ) {
-			const parent = centreSlot.parentElement.parentElement;
-			const headerComputedStyle = window.getComputedStyle(parent);
-			
-			// check new style is set
-			expect(headerComputedStyle.border).toBe(borderStyle);
-			
-			// Check default values are still set
-			expect(headerComputedStyle.height).toBe("100%");
-		}
+		const headerComputedStyle = window.getComputedStyle(bar);
+		// check new style is set
+		expect(headerComputedStyle.border).toBe(borderStyle);
+		// Check default values are still set
+		expect(headerComputedStyle.height).toBe("100%");
 	});
 	
 })
 
 describe("Bar slots", () => {
-	
 	test("renders each slot", () => {
 		renderWithProviders(
 			<Bar
@@ -60,6 +54,21 @@ describe("Bar slots", () => {
 		expect(screen.getByTestId("left-slot")).toBeInTheDocument();
 		expect(screen.getByTestId("centre-slot")).toBeInTheDocument();
 		expect(screen.getByTestId("right-slot")).toBeInTheDocument();
+	});
+})
+
+describe("Bar slots ordering", () => {
+	const one="one", two="two", three="three";
+	test("Order is left, centre, right", async () => {
+		renderWithProviders(
+			<Bar data-testid="test-bar"
+			  leftSlot={<div data-testid="left-slot">{one}</div>}
+				centreSlot={<div data-testid="centre-slot">{two}</div>}
+				rightSlot={<div data-testid="right-slot">{three}</div>}
+			/>,
+		);
+		const bar = await screen.findByTestId("test-bar");
+		expect(bar).toHaveTextContent(one+two+three)
 	});
 })
 

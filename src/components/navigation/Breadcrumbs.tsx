@@ -1,12 +1,10 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
 import {
-  Box, BoxProps,
   Breadcrumbs as Mui_Breadcrumbs,
   BreadcrumbsProps as Mui_BreadcrumbsProps,
   Container,
   Link as Mui_Link,
-  Paper,
-  PaperProps, styled,
+  styled,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -56,9 +54,18 @@ export function getCrumbs(
   });
 }
 
-const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
-  backgroundColor: theme.vars.palette.primary.light
-}));
+const BarStyled = styled(Bar)<BarProps>(
+  ({ theme }) => ({
+    backgroundColor: theme.vars.palette.primary.light
+  })
+);
+
+const Mui_BreadcrumbsStyled = styled(Mui_Breadcrumbs)<Mui_BreadcrumbsProps>(
+  ({theme}) => ({
+    color: theme.vars.palette.primary.contrastText,
+    padding: 0
+  })
+)
 
 const Breadcrumbs = ({
   path,
@@ -73,62 +80,59 @@ const Breadcrumbs = ({
     <BarStyled
       {...props}
     >
-      <Container>
-        <Mui_Breadcrumbs
-          aria-label="breadcrumb"
-          separator={<NavigateNextIcon fontSize="small" />}
-          sx={{ color: theme.palette.primary.contrastText }}
-          {...muiBreadcrumbsProps}
+      <Mui_BreadcrumbsStyled
+        aria-label="breadcrumb"
+        separator={<NavigateNextIcon fontSize="small" />}
+        {...muiBreadcrumbsProps}
+      >
+        <Mui_Link
+          aria-label="Go to home page"
+          key={"crumb-0"}
+          underline="hover"
+          color="inherit"
+          {...(linkComponent
+            ? {
+                component: linkComponent,
+                to: "/",
+              }
+            : {
+                href: "/",
+              })}
         >
-          <Mui_Link
-            aria-label="Go to home page"
-            key={"crumb-0"}
-            underline="hover"
-            color="inherit"
-            {...(linkComponent
-              ? {
-                  component: linkComponent,
-                  to: "/",
-                }
-              : {
-                  href: "/",
-                })}
-          >
-            <HomeIcon
-              data-testid="HomeIcon"
-              aria-hidden="true"
-              sx={{ pt: 0.4, fontSize: "1.5em", mt: 0.3 }}
-            />
-          </Mui_Link>
+          <HomeIcon
+            data-testid="HomeIcon"
+            aria-hidden="true"
+            sx={{ pt: 0.4, fontSize: "1.5em", mt: 0.3 }}
+          />
+        </Mui_Link>
 
-          {crumbs.map((crumb, i, all) => {
-            if (i < all.length - 1)
-              return (
-                <Mui_Link
-                  key={`crumb-${i + 1}`}
-                  sx={{ fontSize: "smaller", mt: 0.1 }}
-                  underline="hover"
-                  color="inherit"
-                  {...(linkComponent
-                    ? { component: linkComponent, to: crumb.href }
-                    : { href: crumb.href })}
-                >
-                  {crumb.name}
-                </Mui_Link>
-              );
-            else {
-              return (
-                <Typography
-                  key={`crumb-${i + 1}`}
-                  sx={{ fontWeight: "bold", mt: 0.2 }}
-                >
-                  {crumb.name}
-                </Typography>
-              );
-            }
-          })}
-        </Mui_Breadcrumbs>
-      </Container>
+        {crumbs.map((crumb, i, all) => {
+          if (i < all.length - 1)
+            return (
+              <Mui_Link
+                key={`crumb-${i + 1}`}
+                sx={{ fontSize: "smaller", mt: 0.1 }}
+                underline="hover"
+                color="inherit"
+                {...(linkComponent
+                  ? { component: linkComponent, to: crumb.href }
+                  : { href: crumb.href })}
+              >
+                {crumb.name}
+              </Mui_Link>
+            );
+          else {
+            return (
+              <Typography
+                key={`crumb-${i + 1}`}
+                sx={{ fontWeight: "bold", mt: 0.2 }}
+              >
+                {crumb.name}
+              </Typography>
+            );
+          }
+        })}
+      </Mui_BreadcrumbsStyled>
     </BarStyled>
   );
 };

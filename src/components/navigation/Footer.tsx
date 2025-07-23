@@ -76,6 +76,9 @@ const FooterLink = ({
         lineHeight: 1,
         cursor: "pointer",
         borderBottom: "solid transparent 4px",
+        "&:first-child" : {
+          marginLeft: 0,
+        }
       }}
       {...props}
     >
@@ -112,7 +115,6 @@ const Footer = ({
   return (
     <BarStyled 
       role="contentinfo"
-      containerWidth={false}
       {...props}
     
       rightSlot={<>
