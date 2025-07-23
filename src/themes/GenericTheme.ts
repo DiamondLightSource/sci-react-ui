@@ -23,5 +23,5 @@ const GenericThemeOptions = mergeThemeOptions({
 });
 
 const GenericTheme: Theme = createTheme(GenericThemeOptions);
-console.log(GenericTheme);
+
 export { GenericTheme, GenericThemeOptions };
