@@ -5,12 +5,11 @@ import {
   Link as Mui_Link,
   styled,
   Typography,
-  useTheme,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { CustomLink } from "types/links";
-import {Bar, BarProps} from "../controls/Bar";
+import { Bar, BarProps } from "../controls/Bar";
 
 interface BreadcrumbsProps extends BarProps {
   path: string | string[] | CustomLink[];
@@ -53,18 +52,16 @@ export function getCrumbs(
   });
 }
 
-const BarStyled = styled(Bar)<BarProps>(
-  ({ theme }) => ({
-    backgroundColor: theme.vars.palette.primary.light
-  })
-);
+const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
+  backgroundColor: theme.vars.palette.primary.light,
+}));
 
 const Mui_BreadcrumbsStyled = styled(Mui_Breadcrumbs)<Mui_BreadcrumbsProps>(
-  ({theme}) => ({
+  ({ theme }) => ({
     color: theme.vars.palette.primary.contrastText,
-    padding: 0
-  })
-)
+    padding: 0,
+  }),
+);
 
 const Breadcrumbs = ({
   path,
@@ -72,13 +69,10 @@ const Breadcrumbs = ({
   muiBreadcrumbsProps,
   ...props
 }: BreadcrumbsProps) => {
-  const theme = useTheme();
   const crumbs: CustomLink[] = getCrumbs(path);
 
   return (
-    <BarStyled
-      {...props}
-    >
+    <BarStyled {...props}>
       <Mui_BreadcrumbsStyled
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="small" />}

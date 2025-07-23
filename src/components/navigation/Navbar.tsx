@@ -6,7 +6,8 @@ import {
   LinkProps,
   IconButton,
   Stack,
-  useTheme, styled,
+  useTheme,
+  styled,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { useState } from "react";
@@ -16,8 +17,7 @@ import {
   ImageColourSchemeSwitchType,
 } from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
-import { Bar, BarSlotsProps} from "../controls/Bar";
-
+import { Bar, BarSlotsProps } from "../controls/Bar";
 
 interface NavLinkProps extends LinkProps {
   children: React.ReactNode;
@@ -131,7 +131,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
   );
 };
 
-const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
+const BarStyled = styled(Bar)<BarSlotsProps>(() => ({
   top: 0,
   zIndex: 1,
 }));
@@ -151,39 +151,39 @@ const Navbar = ({
   ...props
 }: NavbarProps) => {
   return (
-    <BarStyled 
+    <BarStyled
       role="banner"
       {...props}
-      
-      leftSlot={<>
-        {logo && (
-          <Link
-            key="logo"
-            {...(linkComponent
-              ? { component: linkComponent, to: "/" }
-              : { href: "/" })}
-          >
-            <Box
-              maxWidth="5rem"
-              sx={{
-                "&:hover": { filter: "brightness(80%);" },
-                marginRight: { xs: "0", md: "50px" },
-              }}
+      leftSlot={
+        <>
+          {logo && (
+            <Link
+              key="logo"
+              {...(linkComponent
+                ? { component: linkComponent, to: "/" }
+                : { href: "/" })}
             >
-              {logo == "theme" ? (
-                <Logo interchange={true} />
-              ) : (
-                <ImageColourSchemeSwitch image={logo} />
-              )}
-            </Box>
-          </Link>
-        )}
-        {leftSlot}
-        {children}
-      
-      </>}
+              <Box
+                maxWidth="5rem"
+                sx={{
+                  "&:hover": { filter: "brightness(80%);" },
+                  marginRight: { xs: "0", md: "50px" },
+                }}
+              >
+                {logo == "theme" ? (
+                  <Logo interchange={true} />
+                ) : (
+                  <ImageColourSchemeSwitch image={logo} />
+                )}
+              </Box>
+            </Link>
+          )}
+          {leftSlot}
+          {children}
+        </>
+      }
     />
-  )
+  );
 };
 
 export { Navbar, NavLinks, NavLink };

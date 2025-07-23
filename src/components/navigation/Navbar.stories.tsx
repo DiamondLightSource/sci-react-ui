@@ -141,7 +141,8 @@ export const WithThemeLogo: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'The logo is pulled in from the theme when `logo` set to "theme".',
+        story:
+          'The logo is pulled in from the theme when `logo` set to "theme".',
       },
     },
   },
@@ -179,7 +180,13 @@ export const WithThemeLogoAsChild: Story = {
   args: {
     children: (
       <>
-        <Logo interchange={true} style={{ marginRight: "100px", transform: "scale(2.2) translateY(-1px)" }} />
+        <Logo
+          interchange={true}
+          style={{
+            marginRight: "100px",
+            transform: "scale(2.2) translateY(-1px)",
+          }}
+        />
         <NavLinks key="links">
           <NavLink href="#" key="first">
             First

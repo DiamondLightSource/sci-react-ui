@@ -23,5 +23,5 @@ export const renderWithProviders = (
   children: React.ReactNode,
   themeOptions?: ThemeProviderPropsWithOptionalTheme,
 ): RenderResult => {
-  return render( addProviders(children, themeOptions ) )
+  return render(addProviders(children, themeOptions));
 };

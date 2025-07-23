@@ -272,7 +272,6 @@ it("should use 'to' when both 'href' and 'to' are provided with linkComponent", 
 });
 
 describe("Navbar logo position", () => {
-
   it("logo should be vertically centred", () => {
     renderWithProviders(
       <Navbar

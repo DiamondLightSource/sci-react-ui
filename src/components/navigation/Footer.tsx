@@ -1,8 +1,8 @@
 import {
-  Box, BoxProps,
-  Grid2 as Grid,
   Link,
-  LinkProps, Stack, styled,
+  LinkProps,
+  Stack,
+  styled,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -13,7 +13,7 @@ import {
   ImageColourSchemeSwitchType,
 } from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
-import { Bar, BarSlotsProps} from "../controls/Bar";
+import { Bar, BarSlotsProps } from "../controls/Bar";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
@@ -76,9 +76,9 @@ const FooterLink = ({
         lineHeight: 1,
         cursor: "pointer",
         borderBottom: "solid transparent 4px",
-        "&:first-child" : {
+        "&:first-child": {
           marginLeft: 0,
-        }
+        },
       }}
       {...props}
     >
@@ -86,7 +86,6 @@ const FooterLink = ({
     </Link>
   );
 };
-
 
 const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
   position: "relative",
@@ -104,24 +103,19 @@ interface FooterProps extends BarSlotsProps {
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
-const Footer = ({
-  logo,
-  copyright,
-  rightSlot,
-  ...props
-}: FooterProps) => {
+const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
   const theme = useTheme();
 
   return (
-    <BarStyled 
+    <BarStyled
       role="contentinfo"
       {...props}
-    
-      rightSlot={<>
-        {rightSlot}
-        {(logo || copyright) && (
-          <Stack
-            direction="column" 
+      rightSlot={
+        <>
+          {rightSlot}
+          {(logo || copyright) && (
+            <Stack
+              direction="column"
               style={{
                 paddingTop: "10px",
                 textAlign: "right",
@@ -132,8 +126,7 @@ const Footer = ({
                   <Logo short={true} />
                 ) : (
                   <ImageColourSchemeSwitch image={logo} />
-                ))
-              }
+                ))}
               {copyright && (
                 <Typography
                   style={{
@@ -144,9 +137,10 @@ const Footer = ({
                   {`Copyright © ${new Date().getFullYear()} ${copyright}`}
                 </Typography>
               )}
-          </Stack>
-        )}
-      </>}
+            </Stack>
+          )}
+        </>
+      }
     />
   );
 };

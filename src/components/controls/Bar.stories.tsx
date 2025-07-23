@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import {Bar, BarProps} from "./Bar";
+import { Bar, BarProps } from "./Bar";
 
 const meta: Meta<typeof Bar> = {
   title: "SciReactUI/Control/Bar",
@@ -10,20 +10,29 @@ const meta: Meta<typeof Bar> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Slot = ({children}: BarProps) => (
-  <div style={{color:"black", background:"white", padding:"5px 8px", borderRadius:"10px"}}>{children}</div>
-)
+const Slot = ({ children }: BarProps) => (
+  <div
+    style={{
+      color: "black",
+      background: "white",
+      padding: "5px 8px",
+      borderRadius: "10px",
+    }}
+  >
+    {children}
+  </div>
+);
 
 export const AllSlots: Story = {
   args: {
     leftSlot: <Slot>Left Slot</Slot>,
     centreSlot: <Slot>Centre Slot</Slot>,
-    rightSlot: <Slot>Right Slot</Slot>
+    rightSlot: <Slot>Right Slot</Slot>,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Three slots are available, left, centre and right.',
+        story: "Three slots are available, left, centre and right.",
       },
     },
   },
@@ -32,12 +41,13 @@ export const AllSlots: Story = {
 export const Children: Story = {
   args: {
     leftSlot: <Slot>Left Slot</Slot>,
-    children: <Slot>Children</Slot>
+    children: <Slot>Children</Slot>,
   },
   parameters: {
     docs: {
       description: {
-        story: 'Children appear on the left, proceeding anything added directly to the "leftSlot".',
+        story:
+          'Children appear on the left, proceeding anything added directly to the "leftSlot".',
       },
     },
   },
@@ -52,8 +62,9 @@ export const Width: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'You can change the width of the content of the bar by setting "containerWidth", ' +
-          'either with a Breakpoint value (xs, sm, md, lg, xl) or false to match the screen width.',
+        story:
+          'You can change the width of the content of the bar by setting "containerWidth", ' +
+          "either with a Breakpoint value (xs, sm, md, lg, xl) or false to match the screen width.",
       },
     },
   },
@@ -64,12 +75,13 @@ export const WidthMax: Story = {
     leftSlot: <Slot>|&lt;</Slot>,
     centreSlot: <Slot>Max width</Slot>,
     rightSlot: <Slot>&gt;|</Slot>,
-    containerWidth: false
+    containerWidth: false,
   },
   parameters: {
     docs: {
       description: {
-        story: 'When "containerWidth" is set to "false", the content of the bar is as wide as the screen.'
+        story:
+          'When "containerWidth" is set to "false", the content of the bar is as wide as the screen.',
       },
     },
   },
@@ -78,15 +90,16 @@ export const WidthMax: Story = {
 export const WidthThin: Story = {
   args: {
     leftSlot: <Slot>|&lt;</Slot>,
-    centreSlot: <Slot>"sm" width</Slot>,
+    centreSlot: <Slot>&quot;sm&quot; width</Slot>,
     rightSlot: <Slot>&gt;|</Slot>,
-    containerWidth: "sm"
+    containerWidth: "sm",
   },
   parameters: {
     docs: {
       description: {
-        story: 'When "containerWidth" is set to one of "xs, sm, md, lg, xl", the content of the bar ' +
-          'uses the corresponding width set in the theme.'
+        story:
+          'When "containerWidth" is set to one of "xs, sm, md, lg, xl", the content of the bar ' +
+          "uses the corresponding width set in the theme.",
       },
     },
   },
@@ -94,15 +107,28 @@ export const WidthThin: Story = {
 
 export const Styles: Story = {
   args: {
-    leftSlot: <p><strong>Colours...</strong></p>,
-    centreSlot: <p><strong>and text-size...</strong></p>,
-    rightSlot: <p><strong>adjusted.</strong></p>,
-    style: {background: "#600", color: "#0df", fontSize:"larger"}
+    leftSlot: (
+      <p>
+        <strong>Colours...</strong>
+      </p>
+    ),
+    centreSlot: (
+      <p>
+        <strong>and text-size...</strong>
+      </p>
+    ),
+    rightSlot: (
+      <p>
+        <strong>adjusted.</strong>
+      </p>
+    ),
+    style: { background: "#600", color: "#0df", fontSize: "larger" },
   },
   parameters: {
     docs: {
       description: {
-        story: 'Styles are passed through to the underlining Container with the "style" parameter.',
+        story:
+          'Styles are passed through to the underlining Container with the "style" parameter.',
       },
     },
   },
@@ -111,9 +137,13 @@ export const Styles: Story = {
 export const Content: Story = {
   args: {
     leftSlot: <h4>My text</h4>,
-    centreSlot: <label>My input: <input placeholder={"text input"}/></label>,
+    centreSlot: (
+      <label>
+        My input: <input placeholder={"text input"} />
+      </label>
+    ),
     rightSlot: <button>My Button</button>,
-    style: {color: "white"}
+    style: { color: "white" },
   },
   parameters: {
     docs: {
@@ -124,10 +154,9 @@ export const Content: Story = {
   },
 };
 
-
 export const Spacing: Story = {
   args: {
-    style: {background: "green", height: "10px"}
+    style: { background: "green", height: "10px" },
   },
   parameters: {
     docs: {

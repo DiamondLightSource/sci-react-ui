@@ -1,14 +1,12 @@
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-} from "@testing-library/react";
+import { fireEvent, RenderResult, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes, Link } from "react-router-dom";
 import { Breadcrumbs, getCrumbs } from "./Breadcrumbs";
 import "@testing-library/jest-dom";
 import { CustomLink } from "types/links";
-import {addProviders, renderWithProviders} from "../../__test-utils__/helpers";
+import {
+  addProviders,
+  renderWithProviders,
+} from "../../__test-utils__/helpers";
 
 const crumbFirst = "first",
   crumbFirstTitle = "First",
@@ -154,11 +152,13 @@ describe("Breadcrumbs", () => {
 
     expect(screen.getByRole("link", { name: "First" })).toBeInTheDocument();
     expect(screen.getByText("Second")).toBeInTheDocument();
-    rerender( addProviders(
-      <MemoryRouter initialEntries={[defaultStringPath]}>
-        <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
-      </MemoryRouter>,
-    ));
+    rerender(
+      addProviders(
+        <MemoryRouter initialEntries={[defaultStringPath]}>
+          <Breadcrumbs path={defaultStringPath} linkComponent={Link} />
+        </MemoryRouter>,
+      ),
+    );
 
     expect(screen.getByRole("link", { name: "First" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Second" })).toBeInTheDocument();
@@ -270,7 +270,9 @@ it("should render Link with href when linkComponent is not provided", () => {
 });
 
 it("should render home link with href when linkComponent is not provided", () => {
-  const { getByTestId } = renderWithProviders(<Breadcrumbs path={defaultArrayObject} />);
+  const { getByTestId } = renderWithProviders(
+    <Breadcrumbs path={defaultArrayObject} />,
+  );
   const homeIcon = getByTestId("HomeIcon");
 
   expect(homeIcon).toBeInTheDocument();
