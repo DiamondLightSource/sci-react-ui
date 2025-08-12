@@ -18,6 +18,7 @@ const config: StorybookConfig = {
       },
     },
   },
+  staticDirs: ["../src/public/"],
   swc: () => ({
     jsc: {
       transform: {
