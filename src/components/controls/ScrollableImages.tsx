@@ -276,7 +276,6 @@ const ScrollableImages = ({
               component="input"
               type="number"
               value={numberValue}
-              defaultValue={""}
               onChange={handleNumberChange}
               onKeyDown={handleNumberEnter}
               sx={{
