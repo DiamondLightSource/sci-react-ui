@@ -28,7 +28,6 @@ const tiffImage: ImageInfo[] = [
   {
     src: "/images/multi-page-tiff.tiff",
     alt: "Tiff",
-    type: "image/tiff",
   },
 ];
 

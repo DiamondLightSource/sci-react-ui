@@ -78,7 +78,7 @@ const ScrollableImages = ({
       let result: ImageInfo[] = [];
       let index = 1;
       for (const image of inputImages) {
-        if (image.type?.endsWith("tiff")) {
+        if (image.type?.includes("tiff") || image.src.endsWith(".tiff")) {
           const frames = await extractFramesFromTiff(
             image.src,
             image.alt ?? `TIFF ${index}`,
