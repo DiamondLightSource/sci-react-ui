@@ -1,7 +1,7 @@
 import { Box, Button, Slider, Stack } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface ScrollableImagesProps {
   images: ImageInfo | ImageInfo[];
@@ -34,7 +34,7 @@ const ScrollableImages = ({
       <img
         key={i}
         src={img.src}
-        alt={img.alt ?? `Image ${i + 1}`}
+        alt={img.alt ?? `Image ${String(i + 1)}`}
         style={{
           width: "100%",
           height: "100%",
@@ -59,21 +59,21 @@ const ScrollableImages = ({
     setNumberValue((index + 1).toString());
   };
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     const newIndex = wrapAround
       ? (currentIndex - 1 + imageListLength) % imageListLength
       : Math.max(0, currentIndex - 1);
     setCurrentIndexWrapper(newIndex);
-  };
+  }, [currentIndex, imageListLength, wrapAround]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     const newIndex = wrapAround
       ? (currentIndex + 1) % imageListLength
       : Math.min(currentIndex + 1, imageListLength - 1);
     setCurrentIndexWrapper(newIndex);
-  };
+  }, [currentIndex, imageListLength, wrapAround]);
 
-  const handleSliderChange = (event: Event, newIndex: number | number[]) => {
+  const handleSliderChange = (_event: Event, newIndex: number | number[]) => {
     setCurrentIndexWrapper(Number(newIndex));
   };
 
@@ -238,7 +238,7 @@ const ScrollableImages = ({
             <Box
               sx={{ fontFamily: "inherit", fontSize: "1rem", color: "inherit" }}
             >
-              {`/${imageListLength}`}
+              {`/${String(imageListLength)}`}
             </Box>
           </Box>
         )}
