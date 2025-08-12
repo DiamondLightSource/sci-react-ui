@@ -32,7 +32,6 @@ async function extractFramesFromTiff(
       canvas.toBlob((b) => resolve(b), "image/png"),
     );
     if (!blob) continue;
-    console.log("we are here");
     const url = URL.createObjectURL(blob);
     images.push({
       src: url,
@@ -94,7 +93,6 @@ const ScrollableImages = ({
     }
     processImages();
   }, [images]);
-  console.log(extractedImages);
 
   const imageList = extractedImages.map((img, i) => (
     <img
@@ -109,7 +107,6 @@ const ScrollableImages = ({
       }}
     />
   ));
-  console.log(imageList);
 
   const imageListLength = imageList.length;
   const renderButtons = buttons && imageListLength > 1;
