@@ -3,7 +3,6 @@
   "version": "0.2.1-alpha",
   "files": [
     "dist/",
-    "src/",
     "index.js"
   ],
   "description": "A theme and component library to make websites at scientific institutions simple to create.",
