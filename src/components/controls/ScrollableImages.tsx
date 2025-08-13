@@ -43,6 +43,14 @@ async function extractFramesFromTiff(
   return images;
 }
 
+const isTiff = (image: ImageInfo): boolean => {
+  return (
+    image.type?.includes("tif") ||
+    image.src.endsWith(".tiff") ||
+    image.src.endsWith(".tif")
+  );
+};
+
 interface ScrollableImagesProps {
   images: ImageInfo | ImageInfo[];
   width?: number;
@@ -78,7 +86,7 @@ const ScrollableImages = ({
       let result: ImageInfo[] = [];
       let index = 1;
       for (const image of inputImages) {
-        if (image.type?.includes("tiff") || image.src.endsWith(".tiff")) {
+        if (isTiff(image)) {
           const frames = await extractFramesFromTiff(
             image.src,
             image.alt ?? `TIFF ${index}`,
