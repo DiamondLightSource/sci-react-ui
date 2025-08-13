@@ -2,6 +2,7 @@ import * as UTIF from "utif";
 import { ImageInfo } from "./ScrollableImages";
 
 export async function extractFramesFromTiff(
+  /** Splits a multi-frame Tiff into a list of png images.*/
   tiffSrc: string,
   alt: string,
 ): Promise<ImageInfo[]> {
