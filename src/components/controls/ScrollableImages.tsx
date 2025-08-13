@@ -2,7 +2,7 @@ import { Box, Button, Slider, Stack } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { extractFramesFromTiff, isTiff } from "./TiffUtils";
+import { extractFramesFromTiff, isTiff } from "../../utils/TiffUtils";
 
 interface ScrollableImagesProps {
   images: ImageInfo | ImageInfo[];

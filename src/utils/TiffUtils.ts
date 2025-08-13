@@ -1,5 +1,5 @@
 import * as UTIF from "utif";
-import { ImageInfo } from "./ScrollableImages";
+import { ImageInfo } from "../components/controls/ScrollableImages";
 
 export async function extractFramesFromTiff(
   /** Splits a multi-frame Tiff into a list of png images.*/
