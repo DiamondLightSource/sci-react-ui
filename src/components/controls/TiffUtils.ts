@@ -3,10 +3,9 @@ import { ImageInfo } from "./ScrollableImages";
 
 export async function extractFramesFromTiff(
   /** Splits a multi-frame Tiff into a list of png images.*/
-  tiffSrc: string,
-  alt: string,
+  tiffImage: ImageInfo,
 ): Promise<ImageInfo[]> {
-  const response = await fetch(tiffSrc);
+  const response = await fetch(tiffImage.src);
   const arrayBuffer = await response.arrayBuffer();
   const frames = UTIF.decode(arrayBuffer);
 
@@ -33,7 +32,7 @@ export async function extractFramesFromTiff(
     const url = URL.createObjectURL(blob);
     images.push({
       src: url,
-      alt: alt ? `${alt} ${index}` : `TIFF Image ${index}`,
+      alt: tiffImage.alt ? `${tiffImage.alt} ${index}` : `TIFF Image ${index}`,
       type: "image/png",
     });
     index++;
