@@ -5,6 +5,7 @@ export * from "./components/navigation/Footer";
 export * from "./components/navigation/Navbar";
 
 // components/controls
+export * from "./components/controls/AppTitlebar";
 export * from "./components/controls/ColourSchemeButton";
 export * from "./components/controls/ImageColourSchemeSwitch";
 export * from "./components/controls/Logo";
