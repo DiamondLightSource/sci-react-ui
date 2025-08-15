@@ -180,6 +180,13 @@ export const WithThemeLogoAsChild: Story = {
   args: {
     children: (
       <>
+        <Logo
+          interchange={true}
+          style={{
+            marginRight: "100px",
+            transform: "scale(2.2) translateY(-1px)",
+          }}
+        />
         <NavLinks key="links">
           <NavLink href="#" key="first">
             First
@@ -188,7 +195,6 @@ export const WithThemeLogoAsChild: Story = {
             Second
           </NavLink>
         </NavLinks>
-        <Logo style={{ marginRight: "100px", transform: "rotateX(180deg)" }} />
       </>
     ),
   },
@@ -196,7 +202,7 @@ export const WithThemeLogoAsChild: Story = {
     docs: {
       description: {
         story:
-          "You can pass the logo in as a child instead of part of the Navbar for full control.",
+          "You can pass the logo in as a child instead of using the Navbar logo setting for advanced control.",
       },
     },
   },

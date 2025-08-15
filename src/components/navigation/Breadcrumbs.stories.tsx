@@ -70,9 +70,7 @@ export const ColourChange: Story = {
   args: {
     path: ["first", "second", "third", "last"],
     linkComponent: MockLink,
-    rootProps: {
-      sx: { backgroundColor: "blue" },
-    },
+    sx: { backgroundColor: "blue" },
     muiBreadcrumbsProps: {
       sx: { color: "yellow" },
     },

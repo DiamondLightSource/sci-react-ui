@@ -1,7 +1,4 @@
 import {
-  Box,
-  BoxProps,
-  Grid2 as Grid,
   Link,
   LinkProps,
   Stack,
@@ -16,17 +13,10 @@ import {
   ImageColourSchemeSwitchType,
 } from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
+import { Bar, BarSlotsProps } from "../controls/Bar";
 
 interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
-}
-
-interface FooterProps extends BoxProps, React.PropsWithChildren {
-  logo?: ImageColourSchemeSwitchType | "theme";
-  copyright?: string | null;
-  centreSlot?: React.ReactElement<LinkProps>;
-  rightSlot?: React.ReactElement<LinkProps>;
-  leftSlot?: React.ReactElement<LinkProps>;
 }
 
 const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
@@ -86,6 +76,9 @@ const FooterLink = ({
         lineHeight: 1,
         cursor: "pointer",
         borderBottom: "solid transparent 4px",
+        "&:first-child": {
+          marginLeft: 0,
+        },
       }}
       {...props}
     >
@@ -94,78 +87,37 @@ const FooterLink = ({
   );
 };
 
-const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
   position: "relative",
   bottom: 0,
   marginTop: "auto",
-  minHeight: "50px",
   backgroundColor: theme.vars.palette.primary.light,
-  alignItems: "center",
 }));
+
+interface FooterProps extends BarSlotsProps {
+  logo?: ImageColourSchemeSwitchType | "theme";
+  copyright?: string | null;
+}
 
 /*
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
-const Footer = ({
-  logo,
-  copyright,
-  children,
-  leftSlot,
-  rightSlot,
-  centreSlot,
-  ...props
-}: FooterProps) => {
+const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
   const theme = useTheme();
 
   return (
-    <BoxStyled role="contentinfo" {...props}>
-      <Grid
-        container
-        sx={{ position: "relative", height: "100%", minHeight: 50 }}
-      >
-        <Grid
-          size={logo || copyright ? { xs: 6, md: 9 } : { xs: 12, md: 12 }}
-          style={{
-            alignContent: "center",
-          }}
-        >
-          <Stack
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            height="100%"
-            width="100%"
-            sx={{
-              pr: logo || copyright ? 0 : 2,
-            }}
-          >
-            <Stack direction="row" alignItems="center" spacing={1}>
-              {leftSlot}
-              {children}
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              {rightSlot}
-            </Stack>
-            <Box
-              sx={{
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
-            >
-              {centreSlot}
-            </Box>
-          </Stack>
-        </Grid>
-
-        {(logo || copyright) && (
-          <Grid size={{ xs: 6, md: 3 }}>
-            <div
+    <BarStyled
+      role="contentinfo"
+      {...props}
+      rightSlot={
+        <>
+          {rightSlot}
+          {(logo || copyright) && (
+            <Stack
+              direction="column"
               style={{
-                float: "right",
                 paddingTop: "10px",
-                paddingRight: "15px",
                 textAlign: "right",
               }}
             >
@@ -185,11 +137,11 @@ const Footer = ({
                   {`Copyright © ${new Date().getFullYear()} ${copyright}`}
                 </Typography>
               )}
-            </div>
-          </Grid>
-        )}
-      </Grid>
-    </BoxStyled>
+            </Stack>
+          )}
+        </>
+      }
+    />
   );
 };
 

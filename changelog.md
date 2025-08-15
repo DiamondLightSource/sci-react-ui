@@ -6,16 +6,24 @@ SciReactUI Changelog
 --------------------
 
 ### Added
-- Logo component, to easily add the theme logo to anywhere
+- *Logo* component, to easily add the theme logo to anywhere
+- *ImageColourSchemeSwitch* takes a parameter *interchange* to swap image based on the opposite 
+of the colour scheme switch - for use with alternative background colours.
 
 ### Fixed
 - Themes were not inheriting all details from their parents.
 - Fixed alt text on logos.
+- Fixed Footer was not adhering to Container width. (Can be turned off with containerWidth setting)
+- Fixed bug in Footer Links where alignment was out on first link.
+
 
 ### Changed
-- Breaking change: ImageColorSchemeSwitch, ImageColorSchemeSwitchType and ImageColorSchemeSwitchProps renamed to ImageColourSchemeSwitch, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps. 
-- Breaking change: User component color prop renamed to colour.
-- ImageColourSchemeSwitch takes a parameter to interchange images on colour scheme switch.
+- Breaking change: The use of *color* has been replaced with *colour* throughout. 
+  - *ImageColorSchemeSwitch*, *ImageColorSchemeSwitchType* and *ImageColorSchemeSwitchProps* 
+  renamed to *ImageColourSchemeSwitch*, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps respectively 
+  - *User* component color prop renamed to colour.
+- RootProps on *Breadcrumbs* has been removed. There props can be passed in directly. 
+e.g. `<B... sx={{color:"red}} />` instead of `<B... rootProps={{sx: { backgroundColor: "blue" } }}/>` 
 
 
 [v0.2.0] - 2025-06-11
