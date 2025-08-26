@@ -1,28 +1,27 @@
 import React from "react";
-import {styled, Typography, TypographyProps, useTheme} from "@mui/material";
+import { styled, Typography, TypographyProps } from "@mui/material";
 
 import { Bar, BarSlotsProps } from "./Bar";
 
-
-interface AppTitleProps extends TypographyProps{
+interface AppTitleProps extends TypographyProps {
   title: string;
 }
 
-const TypographyStyled = styled(Typography)<TypographyProps>(({theme}) => ({
+const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
   color: theme.vars.palette.primary.contrastText,
-  fontSize: "2em"
+  fontSize: "2em",
 }));
 
 /**
  * A simple wrapper for a H1 title
  * @param title The title to display
+ * @param props Additional styles, etc.
  */
-const AppTitle = ({title, ...props} :AppTitleProps) => (
+const AppTitle = ({ title, ...props }: AppTitleProps) => (
   <TypographyStyled {...props} id="app-title" variant="h1">
     {title}
   </TypographyStyled>
-)
-
+);
 
 interface AppTitlebarProps extends BarSlotsProps {
   title?: string;
@@ -31,17 +30,10 @@ interface AppTitlebarProps extends BarSlotsProps {
 /**
 A Title bar for your App.
  */
-const AppTitlebar = ({
-  title,
-  children,
-  ...props
-}: AppTitlebarProps) => {
-  const theme = useTheme();
+const AppTitlebar = ({ title, children, ...props }: AppTitlebarProps) => {
   return (
     <Bar {...props}>
-      {title && (
-        <AppTitle title={title} />
-      )}
+      {title && <AppTitle title={title} />}
       {children}
     </Bar>
   );

@@ -1,7 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { AppTitle, AppTitlebar } from "./AppTitlebar";
 
-
 const meta: Meta<typeof AppTitlebar> = {
   title: "SciReactUI/Control/AppTitlebar",
   component: AppTitlebar,
@@ -20,7 +19,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Simple: Story = {
   args: {
-    title: "Your App Name"
+    title: "Your App Name",
   },
   parameters: {
     docs: {
@@ -33,13 +32,13 @@ export const Simple: Story = {
 
 export const InCentreSlot: Story = {
   args: {
-    centreSlot:
-      <AppTitle title="My Great App (in middle)" />
+    centreSlot: <AppTitle title="My Great App (in middle)" />,
   },
   parameters: {
     docs: {
       description: {
-        story: 'If you would like it to appear in a different position, pass AppTitle in to your preferred slot.',
+        story:
+          "If you would like it to appear in a different position, pass AppTitle in to your preferred slot.",
       },
     },
   },
@@ -48,27 +47,31 @@ export const InCentreSlot: Story = {
 export const DifferentBackground: Story = {
   args: {
     title: "My Great App",
-    sx: {backgroundColor: "red"}
+    sx: { backgroundColor: "red" },
   },
   parameters: {
     docs: {
       description: {
-        story: 'You can pass styles to the bar.',
+        story: "You can pass styles to the bar.",
       },
     },
   },
 };
 
-
 export const DifferentColourAndLarge: Story = {
   args: {
-    children:
-      <AppTitle title="My Great App" sx={{color:"yellow", fontSize:"4em"}} />
+    children: (
+      <AppTitle
+        title="My Great App"
+        sx={{ color: "yellow", fontSize: "4em" }}
+      />
+    ),
   },
   parameters: {
     docs: {
       description: {
-        story: "You can add styles directly to the title when it's a child or in a slot.",
+        story:
+          "You can add styles directly to the title when it's a child or in a slot.",
       },
     },
   },

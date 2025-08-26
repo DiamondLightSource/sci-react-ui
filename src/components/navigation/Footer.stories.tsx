@@ -10,13 +10,13 @@ const meta: Meta<typeof Footer> = {
   parameters: {
     docs: {
       description: {
-        component: "A smart footer. For links, copyright, logo, and what ever you like. \n\n" +
+        component:
+          "A smart footer. For links, copyright, logo, and what ever you like. \n\n" +
           "Note: to locate the footer at the bottom of your screen on short pages, make sure the parent" +
-          " has these values set: {min-height: 100vh; display: flex; flex-direction: column;}"
+          " has these values set: {min-height: 100vh; display: flex; flex-direction: column;}",
       },
     },
   },
-
 };
 
 export default meta;
