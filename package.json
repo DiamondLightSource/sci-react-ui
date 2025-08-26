@@ -30,6 +30,9 @@
   "peerDependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@jsonforms/core": "^3.6.0",
+    "@jsonforms/material-renderers": "^3.6.0",
+    "@jsonforms/react": "^3.6.0",
     "@mui/icons-material": "^6.1.7",
     "@mui/material": "^6.1.7",
     "react": "^18.3.1"
