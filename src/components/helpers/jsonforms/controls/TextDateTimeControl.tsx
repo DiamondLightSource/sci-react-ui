@@ -1,20 +1,30 @@
 import { withJsonFormsControlProps } from "@jsonforms/react";
-import { rankWith, isStringControl, and, schemaMatches, ControlProps } from "@jsonforms/core";
+import {
+  rankWith,
+  isStringControl,
+  and,
+  schemaMatches,
+  ControlProps,
+} from "@jsonforms/core";
 
-import {DataBox} from "../components/DataBox";
+import { DataBox } from "../components/DataBox";
 
 const TextDateTimeControlTester = rankWith(
-  20, and(
+  15,
+  and(
     isStringControl,
-    schemaMatches((schema) => schema.format === "date-time")
-  )
+    schemaMatches((schema) => schema.format === "date-time"),
+  ),
 );
 
 const TextDateTimeControlComponent = ({ data, label }: ControlProps) => (
-  <DataBox label={label} data={(data) ? new Date(data).toLocaleString("en-GB") : undefined} />
+  <DataBox
+    label={label}
+    data={data ? new Date(data).toLocaleString("en-GB") : undefined}
+  />
 );
 
 const TextDateTimeControl = withJsonFormsControlProps(
-  TextDateTimeControlComponent
+  TextDateTimeControlComponent,
 );
 export { TextDateTimeControl, TextDateTimeControlTester };

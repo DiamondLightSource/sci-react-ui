@@ -1,20 +1,27 @@
 import { withJsonFormsCellProps } from "@jsonforms/react";
-import {and, CellProps, isStringControl, rankWith, schemaMatches} from "@jsonforms/core";
+import {
+  and,
+  CellProps,
+  isStringControl,
+  rankWith,
+  schemaMatches,
+} from "@jsonforms/core";
 
-import {DataCell} from "../components/DataCell";
+import { DataCell } from "../components/DataCell";
 
 const CellTextDateTimeControlTester = rankWith(
-	120, and(
-		isStringControl,
-		schemaMatches((schema) => schema.format === "date-time")
-	)
+  15,
+  and(
+    isStringControl,
+    schemaMatches((schema) => schema.format === "date-time"),
+  ),
 );
 
 const CellTextDateTimeControlComponent = ({ data }: CellProps) => (
-  <DataCell data={(data) ? new Date(data).toLocaleString("en-GB") : undefined} />
-)
+  <DataCell data={data ? new Date(data).toLocaleString("en-GB") : undefined} />
+);
 
 const CellTextDateTimeControl = withJsonFormsCellProps(
-	CellTextDateTimeControlComponent
+  CellTextDateTimeControlComponent,
 );
 export { CellTextDateTimeControl, CellTextDateTimeControlTester };

@@ -3,7 +3,7 @@ import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof Footer> = {
-  title: "SciReactUI/Navigation/Footer",
+  title: "Components/Navigation/Footer",
   component: Footer,
   decorators: [(Story) => <Story />],
   tags: ["autodocs"],

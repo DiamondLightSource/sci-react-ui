@@ -4,7 +4,7 @@ import { User } from "./User";
 import { Avatar, Link, MenuItem } from "@mui/material";
 
 const meta: Meta<typeof User> = {
-  title: "SciReactUI/Control/User",
+  title: "Components/Controls/User",
   component: User,
   tags: ["autodocs"],
 };

@@ -1,30 +1,31 @@
-import { describe, expect, test } from "vitest";
+import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 
-import {DataCell} from "./DataCell";
+import { DataCell } from "./DataCell";
 
 const props = {
-	data: "Data 1234",
+  data: "Data 1234",
 };
 
 describe("DataCell", () => {
-	test("Should render data and label", () => {
-		render(<DataCell {...props} />);
-		expect(screen.getByText(props.data)).toBeInTheDocument();
-	});
-	
-	test("Should render '-' with empty data", () => {
-		render(<DataCell {...props} data="" />);
-		expect(screen.getByText("-")).toBeInTheDocument();
-	});
-	
-	test("Should render '-' with null data", () => {
-		render(<DataCell {...props} data={null} />);
-		expect(screen.getByText("-")).toBeInTheDocument();
-	});
-	
-	test("Should render '-' with undefined data", () => {
-		render(<DataCell {...props} />);
-		expect(screen.getByText("-")).toBeInTheDocument();
-	});
+  test("Should render data and label", () => {
+    const { container } = render(<DataCell {...props} />);
+    expect(screen.getByText(props.data)).toBeInTheDocument();
+    expect(container.querySelector("span.empty")).not.toBeInTheDocument();
+  });
+
+  test("Should render '-' with empty data", () => {
+    const { container } = render(<DataCell data="" />);
+    expect(container.querySelector("span.empty")).toBeInTheDocument();
+  });
+
+  test("Should render '-' with null data", () => {
+    const { container } = render(<DataCell data={null} />);
+    expect(container.querySelector("span.empty")).toBeInTheDocument();
+  });
+
+  test("Should render '-' with undefined data", () => {
+    const { container } = render(<DataCell />);
+    expect(container.querySelector("span.empty")).toBeInTheDocument();
+  });
 });

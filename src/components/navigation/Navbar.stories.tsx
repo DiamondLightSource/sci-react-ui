@@ -10,7 +10,7 @@ import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
 
 const meta: Meta<typeof Navbar> = {
-  title: "SciReactUI/Navigation/Navbar",
+  title: "Components/Navigation/Navbar",
   component: Navbar,
   tags: ["autodocs"],
 };

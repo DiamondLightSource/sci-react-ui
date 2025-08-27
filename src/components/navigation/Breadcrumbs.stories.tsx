@@ -3,7 +3,7 @@ import { Breadcrumbs } from "./Breadcrumbs";
 import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof Breadcrumbs> = {
-  title: "SciReactUI/Navigation/Breadcrumbs",
+  title: "Components/Navigation/Breadcrumbs",
   component: Breadcrumbs,
   tags: ["autodocs"],
 };

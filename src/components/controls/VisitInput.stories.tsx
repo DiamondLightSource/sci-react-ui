@@ -3,7 +3,7 @@ import { Visit } from "../../utils/diamond";
 import { VisitInput } from "./VisitInput";
 
 const meta: Meta<typeof VisitInput> = {
-  title: "SciReactUI/Control/VisitInput",
+  title: "Components/Controls/VisitInput",
   component: VisitInput,
   tags: ["autodocs"],
 };

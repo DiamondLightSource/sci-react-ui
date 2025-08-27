@@ -1,4 +1,3 @@
-// components
 // components/navigation
 export * from "./components/navigation/Breadcrumbs";
 export * from "./components/navigation/Footer";
@@ -12,6 +11,9 @@ export * from "./components/controls/Logo";
 export * from "./components/controls/User";
 export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
+
+// components/helpers/jsonForms
+export * from "./components/helpers/jsonforms";
 
 // themes
 export * from "./themes/BaseTheme";

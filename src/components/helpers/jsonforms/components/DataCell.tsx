@@ -1,17 +1,16 @@
-import {Box, Typography} from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { DataOrEmpty } from "./DataBox";
 
-interface DataBoxProps {
-	data: string | null | undefined,
+interface DataCellProps {
+  data?: string | null;
 }
 
-const DataCell = ({data}: DataBoxProps) => {
-	return (
-		<Box>
-			<Typography component="span" sx={{ fontSize: "smaller" }}>
-				{data ? data : "-"}
-			</Typography>
-		</Box>
-	)
-}
+const DataCell = ({ data }: DataCellProps) => (
+  <Box>
+    <Typography component="span" sx={{ fontSize: "smaller" }}>
+      <DataOrEmpty data={data} />
+    </Typography>
+  </Box>
+);
 
 export { DataCell };

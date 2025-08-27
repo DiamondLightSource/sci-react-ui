@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { ColourSchemeButton } from "./ColourSchemeButton";
 
 const meta: Meta<typeof ColourSchemeButton> = {
-  title: "SciReactUI/Control/ColourSchemeButton",
+  title: "Components/Controls/ColourSchemeButton",
   component: ColourSchemeButton,
   tags: ["autodocs"],
   parameters: {
