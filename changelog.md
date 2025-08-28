@@ -9,12 +9,16 @@ SciReactUI Changelog
 - *Logo* component, to easily add the theme logo to anywhere
 - *ImageColourSchemeSwitch* takes a parameter *interchange* to swap image based on the opposite 
 of the colour scheme switch - for use with alternative background colours.
+- *BaseBar* component is the base for all the bars used in SciReactUI. Can also be used itself.
+- *AppBar* is a bar to show the main title of your App.
+- JsonForms renderers have been added for use with readonly mode in JsonForms.
 
 ### Fixed
 - Themes were not inheriting all details from their parents.
 - Fixed alt text on logos.
 - Fixed Footer was not adhering to Container width. (Can be turned off with containerWidth setting)
 - Fixed bug in Footer Links where alignment was out on first link.
+- Ordering of StoryBook now more intuitive.
 
 
 ### Changed
@@ -23,7 +27,7 @@ of the colour scheme switch - for use with alternative background colours.
   renamed to *ImageColourSchemeSwitch*, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps respectively 
   - *User* component color prop renamed to colour.
 - RootProps on *Breadcrumbs* has been removed. There props can be passed in directly. 
-e.g. `<B... sx={{color:"red}} />` instead of `<B... rootProps={{sx: { backgroundColor: "blue" } }}/>` 
+e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{sx: { color: "red" } }}/>` 
 
 
 [v0.2.0] - 2025-06-11
