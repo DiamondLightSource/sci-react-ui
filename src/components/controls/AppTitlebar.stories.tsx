@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { AppTitle, AppTitlebar } from "./AppTitlebar";
 
 const meta: Meta<typeof AppTitlebar> = {
-  title: "SciReactUI/Control/AppTitlebar",
+  title: "Components/Controls/AppTitlebar",
   component: AppTitlebar,
   tags: ["autodocs"],
   parameters: {
