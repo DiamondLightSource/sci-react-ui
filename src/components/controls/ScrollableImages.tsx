@@ -34,7 +34,7 @@ const ScrollableImages = ({
   const [extractedImages, setExtractedImages] = useState<ImageInfo[]>([]);
 
   useEffect(() => {
-    async function processImages() {
+    (async () => {
       const inputImages = Array.isArray(images) ? images : [images];
       let result: ImageInfo[] = [];
       let index = 1;
@@ -51,8 +51,7 @@ const ScrollableImages = ({
         index++;
       }
       setExtractedImages(result);
-    }
-    processImages();
+    })();
   }, [images]);
 
   const imageList = extractedImages.map((img, i) => (
