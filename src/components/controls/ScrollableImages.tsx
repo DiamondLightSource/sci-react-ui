@@ -1,7 +1,8 @@
 import { Box, Button, Slider, Stack } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { extractFramesFromTiff, isTiff } from "../../utils/TiffUtils";
 
 interface ScrollableImagesProps {
   images: ImageInfo | ImageInfo[];
@@ -16,6 +17,7 @@ interface ScrollableImagesProps {
 
 interface ImageInfo {
   src: string;
+  type?: string;
   alt?: string;
 }
 
@@ -29,21 +31,42 @@ const ScrollableImages = ({
   numeration = true,
   backgroundColor = "#eee",
 }: ScrollableImagesProps) => {
-  const imageList = (Array.isArray(images) ? images : [images]).map(
-    (img, i) => (
-      <img
-        key={i}
-        src={img.src}
-        alt={img.alt ?? `Image ${i + 1}`}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "contain",
-          display: "block",
-        }}
-      />
-    ),
-  );
+  const [extractedImages, setExtractedImages] = useState<ImageInfo[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const inputImages = Array.isArray(images) ? images : [images];
+      let result: ImageInfo[] = [];
+      let index = 1;
+      for (const image of inputImages) {
+        if (isTiff(image)) {
+          const frames: ImageInfo[] = await extractFramesFromTiff({
+            src: image.src,
+            alt: image.alt ?? `TIFF ${index}`,
+          });
+          result = result.concat(frames);
+        } else {
+          result.push(image);
+        }
+        index++;
+      }
+      setExtractedImages(result);
+    })();
+  }, [images]);
+
+  const imageList = extractedImages.map((img, i) => (
+    <img
+      key={i}
+      src={img.src}
+      alt={img.alt ?? `Image ${String(i + 1)}`}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "contain",
+        display: "block",
+      }}
+    />
+  ));
 
   const imageListLength = imageList.length;
   const renderButtons = buttons && imageListLength > 1;
@@ -59,21 +82,21 @@ const ScrollableImages = ({
     setNumberValue((index + 1).toString());
   };
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     const newIndex = wrapAround
       ? (currentIndex - 1 + imageListLength) % imageListLength
       : Math.max(0, currentIndex - 1);
     setCurrentIndexWrapper(newIndex);
-  };
+  }, [currentIndex, imageListLength, wrapAround]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     const newIndex = wrapAround
       ? (currentIndex + 1) % imageListLength
       : Math.min(currentIndex + 1, imageListLength - 1);
     setCurrentIndexWrapper(newIndex);
-  };
+  }, [currentIndex, imageListLength, wrapAround]);
 
-  const handleSliderChange = (event: Event, newIndex: number | number[]) => {
+  const handleSliderChange = (_event: Event, newIndex: number | number[]) => {
     setCurrentIndexWrapper(Number(newIndex));
   };
 
@@ -213,7 +236,6 @@ const ScrollableImages = ({
               component="input"
               type="number"
               value={numberValue}
-              defaultValue={""}
               onChange={handleNumberChange}
               onKeyDown={handleNumberEnter}
               sx={{
@@ -238,7 +260,7 @@ const ScrollableImages = ({
             <Box
               sx={{ fontFamily: "inherit", fontSize: "1rem", color: "inherit" }}
             >
-              {`/${imageListLength}`}
+              {`/${String(imageListLength)}`}
             </Box>
           </Box>
         )}
