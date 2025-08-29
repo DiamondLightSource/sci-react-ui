@@ -5,13 +5,14 @@ import { Meta } from "@storybook/blocks";
 
 <div className="sb-container">
     <div className='sb-section-title'>
-        # Scientific React UI v{packageJson.version}
+        # Scientific React UI - v{packageJson.version}
 
         ## Introduction
 
-        SciReactUI is a collection of useful scientific focused components, utilizing Material UI, to make your React based websites look great.
+        SciReactUI is a collection of useful scientific focused components which utilizing Material UI
+        to make your React based websites look great.
 
-        This storybook displays the components in @diamondlightsource/sci-react-ui:<strong>{packageJson.version}</strong>.
+        Check out the list of components on the left. To use them, follow the instructions below.
     </div>
 </div>
 
@@ -19,25 +20,33 @@ import { Meta } from "@storybook/blocks";
     <div className='sb-section-title'>
         ## Usage
 
-        ### Add Theme
+        ### First, Install the Package.
 
-        First select a theme: `GenericTheme` or `DiamondTheme` are available to use
-        (you can also create your own, see following section):
+        In your React App, add the latest SciReactUI version:
+
+        ```shell
+        pnpm add @diamondlightsource/sci-react-ui
+        ```
+
+        ### Next, Add a ThemeProvider
+
+        Select a theme, either `GenericTheme` or `DiamondTheme` (Or you can create your own, see below), and add
+        it to the App via the ThemeProvider:
 
         ```tsx filename="main.tsx"
         import {
             ThemeProvider,
-            DiamondTheme
+            GenericTheme
         } from "@diamondlightsource/sci-react-ui";
 
         root.render(
-          <ThemeProvider theme={DiamondTheme}>
+          <ThemeProvider theme={GenericTheme}>
             <App />
           </ThemeProvider>
         )
         ```
 
-        ### Create an App
+        ### Finally, Add the Components
 
         Then create something, for instance, you may want a Navigation Bar at the top of your website:
 
@@ -65,6 +74,42 @@ import { Meta } from "@storybook/blocks";
         export default App;
         ```
 
+        Typically, a complete app page would combine many components, for example:
+
+        ```tsx filename="App.tsx"
+
+        function App() {
+            return <>
+                <Navbar
+                    logo="theme"
+                    leftSlot={
+                        <NavLinks>
+                            <NavLink href="#link">Link</NavLink>
+                        </NavLinks>
+                    }
+                    rightSlot={<>
+                        <User
+                            onLogin={}
+                            onLogout={}
+                        />
+                        <ColourSchemeButton />
+                    </>}
+                />
+
+                <Container>
+                    <Typography>Main Content here.</Typography>
+                </Container>
+
+                <Footer logo="theme">
+                    <FooterLinks>
+                        <FooterLink href="#link">Link</FooterLink>
+                    </FooterLinks>
+                    <p>From SciReactUI</p>
+                </Footer>
+
+            </>
+        }
+        ```
     </div>
 </div>
 

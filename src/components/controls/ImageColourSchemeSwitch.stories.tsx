@@ -5,7 +5,7 @@ import imageDark from "../../public/generic/logo-dark.svg";
 import imageLight from "../../public/generic/logo-light.svg";
 
 const meta: Meta<typeof ImageColourSchemeSwitch> = {
-  title: "SciReactUI/Control/ImageColourSchemeSwitch",
+  title: "Components/Controls/ImageColourSchemeSwitch",
   component: ImageColourSchemeSwitch,
   tags: ["autodocs"],
 };

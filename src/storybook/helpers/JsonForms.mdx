@@ -1,0 +1,64 @@
+import { Meta } from '@storybook/blocks';
+import {Box, Input, TextField, Typography} from "@mui/material";
+
+<Meta title="Helpers/JsonForms" />
+
+<div className="sb-container">
+	<div className='sb-section-title'>
+		# JsonForms
+
+        JsonForms can be used to automatically generate forms from a JSON file.
+        See <a href="https://jsonforms.io">https://jsonforms.io</a> for more information. If you aren't using JsonForms
+        this section will not be useful.
+
+        These helpers are to be used in "readonly" version of the forms and exist to replace the
+        messy, anti-accessibility problems of the default "disabled" inputs - in particularly, screen readers will
+        skip over disabled inputs. (In JsonForms, "readonly" mode, *disables* all inputs)
+
+        Currently, only the text type inputs are replaced with normal text boxes.
+
+        From this:
+
+        <TextField label="A Label" value="My Value" disabled />
+
+        to this (dependent on your choice of styling):
+
+        <Box style={{width: "100px", border: "1px solid #000000bb", padding: "5px"}}>
+            <Typography component="dt" style={{fontSize:"smaller", fontWeight:"bold"}}>A Label</Typography>
+            <Typography component="dl">My Value</Typography>
+        </Box>
+
+        In react you can use them as follows. Remember to also include the original JsonForm renderers too:
+        ```type=jsx
+        import { materialRenderers, materialCells } from "@jsonforms/material-renderers";
+        import { JsonFormsControls } from "@diamondlightsource/sci-react-ui";
+
+        <JsonForms
+            schema={schema}
+            uischema={uischema}
+            data={data}
+            renderers={[
+                ...materialRenderers,
+                ...JsonFormsControls.rendererControls
+            ]}
+            cells={[
+                ...materialCells,
+                ...JsonFormsControls.cellControls
+            ]}
+            readonly={true}
+        />
+        ```
+
+        You can also add your own renderers, make sure they have a higher rank than SciReactUI ones which are currently
+        set at 10, and 15
+
+        To style them, use these classes:
+        .data-box {}
+        .data-box data-box-title {}
+        .data-box data-box-data {}
+        .data-cell {}
+        .data-cell span {}
+
+    </div>
+
+</div>

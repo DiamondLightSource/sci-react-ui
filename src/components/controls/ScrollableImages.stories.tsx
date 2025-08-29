@@ -9,7 +9,7 @@ import shanghai from "../../public/images/shanghai.jpg";
 import { useEffect, useState } from "react";
 
 const meta: Meta<typeof ScrollableImages> = {
-  title: "SciReactUI/Control/ScrollableImages",
+  title: "Components/Controls/ScrollableImages",
   component: ScrollableImages,
   tags: ["autodocs"],
 };

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import { Logo } from "./Logo";
 
 const meta: Meta<typeof Logo> = {
-  title: "SciReactUI/Control/Logo",
+  title: "Components/Controls/Logo",
   component: Logo,
   tags: ["autodocs"],
   parameters: {
