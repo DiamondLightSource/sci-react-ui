@@ -24,6 +24,13 @@ const imagesList: ImageInfo[] = [
   { src: shanghai, alt: "Shanghai" },
 ];
 
+const tiffImage: ImageInfo[] = [
+  {
+    src: "/images/multi-page-tiff.tiff",
+    alt: "Tiff",
+  },
+];
+
 export const All: Story = {
   args: { images: imagesList, width: 300, height: 300 },
 };
@@ -83,4 +90,8 @@ export const DynamicImages: StoryObj = {
       />
     );
   },
+};
+
+export const TiffImage: Story = {
+  args: { images: tiffImage },
 };
