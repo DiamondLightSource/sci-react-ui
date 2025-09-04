@@ -94,6 +94,41 @@ const DiamondThemeOptions = mergeThemeOptions({
         }),
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        head: ({theme}: { theme: Theme }) => ({
+          fontWeight: "bold",
+          color:theme.vars.palette.primary.contrastText
+        }),
+      }
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root:  ({ theme }: { theme: Theme }) => ({
+          '&:nth-of-type(odd)': {
+            backgroundColor: "#f3f3f3",
+            ...theme.applyStyles('dark', {
+              backgroundColor: '#1c1c1c',
+              color: theme.vars.palette.text.primary,
+            }),
+          },
+          "&:hover": {
+            backgroundColor: theme.vars.palette.secondary.light,
+            cursor: "pointer",
+            ...theme.applyStyles('dark', {
+              backgroundColor: `${theme.vars.palette.secondary.light} !important`,
+            }),
+          },
+          "&:hover td, &:hover th": {
+            color: "black"
+          },
+          "&:last-child td, &:last-child th": {
+            border: 0
+          },
+        })
+      }
+    },
+
   },
 });
 
