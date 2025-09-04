@@ -217,7 +217,7 @@ Steps needed when publishing a new version.
   - Check this readme still makes sense with the new changes you are about to publish.
   - Check the introduction file [./src/storybook/Introduction.mdx](src/storybook/Introduction.mdx) in Storybook still makes sense.
 - Push the branch, get it reviewed and merge.
-- Now create a new tag se a tag in the format "v" followed by the version (e.g. "v1.2.3")
+- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3")
   - Push it.
 - A new npm version should now have been published.
 
