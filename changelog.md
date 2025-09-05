@@ -2,7 +2,7 @@ SciReactUI Changelog
 ====================
 
 
-[v0.2.1alpha] - 2025-??-??
+[v0.3.0] - 2025-09-04
 --------------------
 
 ### Added
@@ -12,6 +12,7 @@ of the colour scheme switch - for use with alternative background colours.
 - *BaseBar* component is the base for all the bars used in SciReactUI. Can also be used itself.
 - *AppBar* is a bar to show the main title of your App.
 - JsonForms renderers have been added for use with readonly mode in JsonForms.
+- Support for TIFFs in ScrollableImages component
 
 ### Fixed
 - Themes were not inheriting all details from their parents.
