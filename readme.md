@@ -155,7 +155,8 @@ Developing
 
 Code can be found at [github.com/DiamondLightSource/sci-react-ui](https://github.com/DiamondLightSource/sci-react-ui).
 
-You'll need `pnpm` installed to build it. See [tools.md](./tools.md) for list of other tools used in this library
+You'll need `pnpm` installed to build it. It is automatically installed as a feature when using the devcontainer.
+See [tools.md](./tools.md) for list of other tools used in this library
 
 ### Build
 

@@ -1,0 +1,25 @@
+{
+  "name": "sci-react-ui-devcontainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2.4.2": {
+      "username": "none",
+      "upgradePackages": false
+    },
+    "ghcr.io/devcontainers-extra/features/pnpm:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "tamasfe.even-better-toml",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "runArgs": ["--security-opt=label=type:container_runtime_t"],
+  "workspaceMount": "source=.,target=/workspace,type=bind",
+  "workspaceFolder": "/workspace"
+}
