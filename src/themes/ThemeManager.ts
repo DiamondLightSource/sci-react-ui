@@ -10,7 +10,7 @@ function mergeThemeOptions(
   newThemeOptions: object,
   parentThemeOptions: object = BaseThemeOptions,
 ) {
-  const parentThemeOptionsCopy = deepCopyObject(parentThemeOptions);
+  const parentThemeOptionsCopy = deepCopyObject(parentThemeOptions);//structuredClone(parentThemeOptions)
   return mergeObjects(parentThemeOptionsCopy, newThemeOptions);
 }
 
