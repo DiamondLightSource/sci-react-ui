@@ -31,7 +31,7 @@ const ProgressDelayed = ( props: ProgressDelayedProps) => {
 					to { opacity: 1.0; }
 				}
 			`}</style>
-			<Box style={{animation: props.fade ?? true ? "progress-delay-fade-in 500ms" : undefined}}>
+			<Box style={{animation: props.fade ?? true ? "progress-delay-fade-in 400ms" : undefined}}>
 				{props.progress ?? <Progress size={props.size} speed={props.speed} />}
 			</Box>
 		</>

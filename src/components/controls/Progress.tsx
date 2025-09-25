@@ -30,6 +30,7 @@ const Progress = (props: ProgressProps) => (
 			size={40}
 			thickness={9}
 			value={100}
+			role={undefined}
 		/>
 		<CircularProgress
 			variant="determinate"
@@ -42,6 +43,7 @@ const Progress = (props: ProgressProps) => (
 			size={36}
 			thickness={4}
 			value={100}
+			role={undefined}
 		/>
 		<CircularProgress
 			variant="indeterminate"
@@ -50,8 +52,8 @@ const Progress = (props: ProgressProps) => (
 				color: theme.vars.palette.secondary.main,
 				animationDuration: speed[props.speed ?? "medium"],
 				position: 'absolute',
-				left: 2.8,
-				top: 2.8,
+				left: 2.4,
+				top: 2.4,
 				[`& .${circularProgressClasses.circle}`]: {
 					strokeLinecap: 'round',
 					strokeDasharray: '10 120'
