@@ -6,10 +6,11 @@ import { Bar } from "./Bar";
 
 describe("Bar", () => {
   it("should render", async () => {
-    renderWithProviders(<Bar />);
-    expect(await screen.findByTitle("left-slot")).toBeInTheDocument();
-    expect(await screen.findByTitle("centre-slot")).toBeInTheDocument();
-    expect(await screen.findByTitle("right-slot")).toBeInTheDocument();
+    const { container } = renderWithProviders(<Bar />);
+
+    expect(container.querySelector(".left-slot")).toBeInTheDocument();
+    expect(container.querySelector(".centre-slot")).toBeInTheDocument();
+    expect(container.querySelector(".right-slot")).toBeInTheDocument();
   });
 
   it("should render with slots filled", async () => {
@@ -92,10 +93,12 @@ describe("Bar Slot Positioning", () => {
   });
 
   it("rightSlot should be aligned to the end of the row", () => {
-    renderWithProviders(<Bar />);
+    renderWithProviders(
+      <Bar rightSlot={<div data-testid="right-slot"></div>} />,
+    );
 
-    const rightSlot = screen.getByTitle("right-slot");
-    const stack = rightSlot.parentElement;
+    const rightSlot = screen.getByTestId("right-slot");
+    const stack = rightSlot.parentElement?.parentElement;
 
     expect(stack).toHaveStyle({
       justifyContent: "space-between",

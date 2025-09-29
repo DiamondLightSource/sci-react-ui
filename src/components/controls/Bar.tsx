@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 
 interface SlotProps extends BoxProps, React.PropsWithChildren {
-  title: string;
+  className: string;
 }
-const Slot = ({ title, style, children }: SlotProps) => (
+const Slot = ({ className, style, children }: SlotProps) => (
   <Stack
-    title={title}
+    className={className}
     direction="row"
     alignItems="center"
     spacing={2}
@@ -72,7 +72,7 @@ const Bar = ({
           width: "100%",
         }}
       >
-        <Slot title="left-slot">
+        <Slot className="left-slot">
           {leftSlot}
           {children}
         </Slot>
@@ -84,10 +84,10 @@ const Bar = ({
             transform: "translateX(-50%)",
           }}
         >
-          <Slot title="centre-slot">{centreSlot}</Slot>
+          <Slot className="centre-slot">{centreSlot}</Slot>
         </Box>
 
-        <Slot title="right-slot">{rightSlot}</Slot>
+        <Slot className="right-slot">{rightSlot}</Slot>
       </Stack>
     </Container>
   </BoxStyled>
