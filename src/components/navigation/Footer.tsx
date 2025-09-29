@@ -70,15 +70,12 @@ const FooterLink = ({
         },
         textDecoration: "none",
         color: theme.palette.primary.contrastText,
-        marginLeft: "1.5rem",
+        marginRight: "1.5rem",
         marginBottom: "4px",
         paddingBottom: "4px",
         lineHeight: 1,
         cursor: "pointer",
         borderBottom: "solid transparent 4px",
-        "&:first-child": {
-          marginLeft: 0,
-        },
       }}
       {...props}
     >

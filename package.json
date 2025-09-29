@@ -23,7 +23,7 @@
     "lint:fix": "eslint --fix .",
     "lint:tsc": "pnpm tsc --noEmit",
     "rollup": "rollup --config rollup.config.mjs",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --disable-telemetry",
     "storybook:build": "storybook build -o storybook-static",
     "storybook:publish": "gh-pages -b storybook/publish -d storybook-static"
   },
