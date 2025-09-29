@@ -1,9 +1,20 @@
 SciReactUI Changelog
 ====================
 
+[v0.3.1alpha] - 2025-?-?
+------------------------
+
+### Added
+- 
+
+### Fixed
+-  
+
+### Changed
+- 
 
 [v0.3.0] - 2025-09-04
---------------------
+---------------------
 
 ### Added
 - *Logo* component, to easily add the theme logo to anywhere
