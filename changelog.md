@@ -5,7 +5,8 @@ SciReactUI Changelog
 ------------------------
 
 ### Added
-- 
+- New Progress component based on Diamond Light added.
+- New ProgressDelayed component so that the progress isn't shown at all when it's a small wait.
 
 ### Fixed
 -  
