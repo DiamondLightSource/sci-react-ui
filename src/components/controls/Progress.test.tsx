@@ -7,7 +7,6 @@ import { renderWithProviders } from "../../__test-utils__/helpers";
 import { Progress } from "./Progress";
 
 describe("Progress", () => {
-
   it("should render without errors", () => {
     renderWithProviders(<Progress />);
   });
@@ -16,24 +15,24 @@ describe("Progress", () => {
     renderWithProviders(<Progress />);
     expect(screen.getByRole("progressbar")).toBeInTheDocument();
   });
-  
+
   it("should have a slow speed", () => {
     renderWithProviders(<Progress speed={"slow"} />);
-    
+
     const progressbar = screen.getByRole("progressbar");
     expect(progressbar).toBeInTheDocument();
-    
+
     const styles = window.getComputedStyle(progressbar);
-    expect(styles.animationDuration).toBe("400ms")
+    expect(styles.animationDuration).toBe("400ms");
   });
 
   it("should have a large zoom", () => {
     renderWithProviders(<Progress size={"large"} />);
-    
+
     const progressbar = screen.getByRole("progressbar");
     expect(progressbar).toBeInTheDocument();
     expect(progressbar).toHaveStyle("position:absolute");
-    
+
     expect(progressbar.parentElement).toBeInTheDocument();
     expect(progressbar.parentElement).toHaveStyle("position:relative");
   });
