@@ -8,7 +8,7 @@ SciReactUI Changelog
 - 
 
 ### Fixed
--  
+- Hovering over a slot caused a popup with the slot title in. This has been removed.
 
 ### Changed
 - 
