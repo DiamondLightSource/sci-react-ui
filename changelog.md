@@ -11,7 +11,7 @@ SciReactUI Changelog
 - Hovering over a slot caused a popup with the slot title in. This has been removed.
 
 ### Changed
-- 
+- Remove first-child css selector as it causes problems with server-side rendering.
 
 [v0.3.0] - 2025-09-04
 ---------------------
