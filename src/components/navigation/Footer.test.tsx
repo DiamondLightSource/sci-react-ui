@@ -1,10 +1,13 @@
+import { vi } from "vitest"
+
 import type { ImageColourSchemeSwitchType } from "../controls/ImageColourSchemeSwitch";
-jest.mock("../controls/ImageColourSchemeSwitch", () => ({
+
+vi.mock("../controls/ImageColourSchemeSwitch", () => ({
   __esModule: true,
   ImageColourSchemeSwitch: ({
     image,
   }: {
-    image: ImageColourSchemeSwitchType;
+    image: ImageColourSchemeSwitchType
   }) => (
     <img src={image.src} alt={image.alt} role="img" data-testid="mock-logo" />
   ),
@@ -13,7 +16,7 @@ jest.mock("../controls/ImageColourSchemeSwitch", () => ({
 import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import dlsLogo from "../public/generic/logo-short.svg";
+import dlsLogo from "../../public/generic/logo-short.svg";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { MemoryRouter, Link } from "react-router-dom";
