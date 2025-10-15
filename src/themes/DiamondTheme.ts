@@ -3,7 +3,6 @@ import { createTheme, Theme } from "@mui/material/styles";
 
 import { mergeThemeOptions } from "./ThemeManager";
 
-import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoImageLight from "../public/diamond/logo-light.svg";
 import logoShort from "../public/diamond/logo-short.svg";
 
@@ -13,7 +12,7 @@ const dlsLogoYellow = "#facf07";
 const DiamondThemeOptions = mergeThemeOptions({
   logos: {
     normal: {
-      src: logoImageDark, // Use the dark image for light backgrounds
+      src: logoImageLight,
       srcDark: logoImageLight, // Use the light image for dark backgrounds
       alt: "Diamond Light Source Logo",
       width: "100",
@@ -48,9 +47,9 @@ const DiamondThemeOptions = mergeThemeOptions({
     dark: {
       palette: {
         primary: {
-          main: "#6175bd", //lightened version of {dlsLogoBlue}
+          main: "#435184", // mid blue
           light: "#8090CA", // lighter blue
-          dark: "#435184", // mid blue
+          dark: "#6175bd",
           contrastText: "#ffffff", // white
         },
         secondary: {

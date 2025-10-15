@@ -88,7 +88,7 @@ const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
   position: "relative",
   bottom: 0,
   marginTop: "auto",
-  backgroundColor: theme.vars.palette.primary.light,
+  backgroundColor: theme.vars.palette.primary.main,
 }));
 
 interface FooterProps extends BarSlotsProps {
