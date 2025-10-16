@@ -47,8 +47,8 @@ const DiamondThemeOptions = mergeThemeOptions({
     dark: {
       palette: {
         primary: {
-          main: "#202740", // dark blue
-          light: "#8090CA", // lighter blue
+          main: dlsLogoBlue,
+          light: "#3b4c8c", // lighter blue
           dark: "#435184", // mid blue
           contrastText: "#ffffff", // white
         },

@@ -53,7 +53,7 @@ export function getCrumbs(
 }
 
 const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
-  backgroundColor: theme.vars.palette.primary.dark,
+  backgroundColor: theme.vars.palette.primary.light,
 }));
 
 const Mui_BreadcrumbsStyled = styled(Mui_Breadcrumbs)<Mui_BreadcrumbsProps>(
