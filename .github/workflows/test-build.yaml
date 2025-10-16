@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: ["22.12.0"]
+        node-version: ["22.20.0"]
 
     steps:
     - uses: actions/checkout@v4
@@ -35,6 +35,6 @@ jobs:
     - name: Audit packages, run Typescript tests and lint client code
       run: |
         pnpm audit --prod --audit-level high
-        pnpm lint
-        pnpm jest
+        pnpm run lint
+        pnpm run test
         pnpm build
