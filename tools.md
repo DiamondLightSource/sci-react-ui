@@ -12,9 +12,9 @@ A list of the main tools used in this project.
 - Rollup
   - Build system for creating node packages
   - https://rollupjs.org
-- Jest
+- Vitest
   - Testing system
-  - https://jestjs.io
+  - https://vitest.dev/
 - Storybook
   - Visual tester and documenter
   - https://storybook.js.org
