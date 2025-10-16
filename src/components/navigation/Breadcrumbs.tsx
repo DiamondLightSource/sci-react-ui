@@ -22,7 +22,7 @@ interface BreadcrumbsProps extends BarProps {
  * @param path A single string path, an array of string parts or an array of CustomLink parts
  */
 export function getCrumbs(
-  path: string | string[] | CustomLink[]
+  path: string | string[] | CustomLink[],
 ): CustomLink[] {
   if (typeof path === "string") {
     path = path.split("/");
@@ -60,7 +60,7 @@ const Mui_BreadcrumbsStyled = styled(Mui_Breadcrumbs)<Mui_BreadcrumbsProps>(
   ({ theme }) => ({
     color: theme.vars.palette.primary.contrastText,
     padding: 0,
-  })
+  }),
 );
 
 const Breadcrumbs = ({
