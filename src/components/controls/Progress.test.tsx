@@ -23,7 +23,7 @@ describe("Progress", () => {
     expect(progressbar).toBeInTheDocument();
 
     const styles = window.getComputedStyle(progressbar);
-    expect(styles.animationDuration).toBe("400ms");
+    expect(styles.animationDuration).toBe("2000ms");
   });
 
   it("should have a large zoom", () => {
