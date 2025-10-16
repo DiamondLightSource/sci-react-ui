@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom";
+import { vi } from "vitest";
 
 import { fireEvent } from "@testing-library/react";
 import { Avatar, MenuItem } from "@mui/material";
@@ -42,7 +43,7 @@ describe("User", () => {
   });
 
   it("should fire login callback when button is clicked", () => {
-    const loginCallback = jest.fn();
+    const loginCallback = vi.fn();
     const { getByText } = renderWithProviders(
       <User onLogin={loginCallback} user={null} />,
     );
@@ -54,7 +55,7 @@ describe("User", () => {
   });
 
   it("should fire logout callback when button is clicked", () => {
-    const logoutCallback = jest.fn();
+    const logoutCallback = vi.fn();
     const { getByRole, getByText } = renderWithProviders(
       <User
         onLogout={logoutCallback}
