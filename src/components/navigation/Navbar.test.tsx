@@ -9,7 +9,7 @@ import { MemoryRouter, Link } from "react-router-dom";
 describe("Navbar", () => {
   it("should render", async () => {
     renderWithProviders(<Navbar />);
-    expect(await screen.findByRole("banner")).toBeInTheDocument();
+    expect(await screen.findByTestId("navbar")).toBeInTheDocument();
   });
 
   it("should render with styles", async () => {
@@ -17,7 +17,7 @@ describe("Navbar", () => {
     renderWithProviders(<Navbar style={{ border: borderStyle }} />);
 
     const headerComputedStyle = window.getComputedStyle(
-      await screen.findByRole("banner"),
+      await screen.findByTestId("navbar")
     );
 
     // check new style is set
@@ -42,10 +42,10 @@ describe("Navbar Links", () => {
     renderWithProviders(
       <NavLinks>
         <NavLink>Proposals</NavLink>
-      </NavLinks>,
+      </NavLinks>
     );
     expect(
-      screen.getByRole("button", { name: /open menu/i }),
+      screen.getByRole("button", { name: /open menu/i })
     ).toBeInTheDocument();
   });
 
@@ -54,7 +54,7 @@ describe("Navbar Links", () => {
     renderWithProviders(
       <NavLinks>
         <NavLink>Proposals</NavLink>
-      </NavLinks>,
+      </NavLinks>
     );
     const menu = screen.getByRole("button", { name: /open menu/i });
     fireEvent.click(menu);
@@ -67,7 +67,7 @@ describe("Navbar Links", () => {
     renderWithProviders(
       <NavLinks>
         <NavLink>Proposals</NavLink>
-      </NavLinks>,
+      </NavLinks>
     );
     expect(screen.getByText("Proposals")).toBeInTheDocument();
   });
@@ -78,7 +78,7 @@ it("should render multiple links properly", () => {
     <NavLinks>
       <NavLink href="/first">First</NavLink>
       <NavLink href="/second">Second</NavLink>
-    </NavLinks>,
+    </NavLinks>
   );
 
   expect(screen.getByText("First")).toBeInTheDocument();
@@ -89,7 +89,7 @@ it("should have correct aria-label on hamburger menu", () => {
   renderWithProviders(
     <NavLinks>
       <NavLink>Proposals</NavLink>
-    </NavLinks>,
+    </NavLinks>
   );
 
   const button = screen.getByRole("button", { name: /open menu/i });
@@ -106,7 +106,7 @@ test("should render Navbar with linkComponent and 'to' prop", async () => {
           </NavLink>
         </NavLinks>
       </Navbar>
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   const link = await screen.findByText("About");
@@ -118,7 +118,7 @@ it("should render logo with linkComponent and 'to' prop", () => {
   renderWithProviders(
     <MemoryRouter>
       <Navbar logo={{ src: "/logo.svg", alt: "Home" }} linkComponent={Link} />
-    </MemoryRouter>,
+    </MemoryRouter>
   );
   const logoLink = screen.getByRole("link");
   expect(logoLink).toHaveAttribute("href", "/");
@@ -128,7 +128,7 @@ it("should render logo with correct alt text", () => {
   renderWithProviders(
     <MemoryRouter>
       <Navbar logo={{ src: "/logo.svg", alt: "Home" }} linkComponent={Link} />
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   const logo = screen.getByRole("img");
@@ -139,7 +139,7 @@ it("should render NavLink without crashing when no 'to' or 'href' is provided", 
   renderWithProviders(
     <NavLinks>
       <NavLink>Proposal</NavLink>
-    </NavLinks>,
+    </NavLinks>
   );
 
   expect(screen.getByText("Proposal")).toBeInTheDocument();
@@ -151,7 +151,7 @@ it("should render NavLink with href when linkComponent is not provided", () => {
       <NavLinks>
         <NavLink href="/docs">Docs</NavLink>
       </NavLinks>
-    </Navbar>,
+    </Navbar>
   );
 
   const link = screen.getByText("Docs");
@@ -170,7 +170,7 @@ it("should render NavLink with linkComponent and 'to' prop", () => {
           </NavLink>
         </NavLinks>
       </Navbar>
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   const link = screen.getByText("About");
@@ -193,7 +193,7 @@ it("should render logo with linkComponent without 'to' prop", () => {
   renderWithProviders(
     <MemoryRouter>
       <Navbar logo={{ src: "/logo.svg", alt: "Home" }} linkComponent={Link} />
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   const logoLink = screen.getByRole("link");
@@ -210,7 +210,7 @@ it("should not render a valid link when only 'to' is provided without linkCompon
       <NavLinks>
         <NavLink to="/about">About</NavLink>
       </NavLinks>
-    </Navbar>,
+    </Navbar>
   );
 
   const link = screen.getByText("About");
@@ -228,7 +228,7 @@ it("should not use linkComponent without 'to'", () => {
           </NavLink>
         </NavLinks>
       </Navbar>
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   const link = screen.getByText("About");
@@ -245,7 +245,7 @@ it("should use 'href' when both 'href' and 'to' are provided without linkCompone
           About
         </NavLink>
       </NavLinks>
-    </Navbar>,
+    </Navbar>
   );
 
   const link = screen.getByText("About");
@@ -263,7 +263,7 @@ it("should use 'to' when both 'href' and 'to' are provided with linkComponent", 
           </NavLink>
         </NavLinks>
       </Navbar>
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   const link = screen.getByText("About");
@@ -277,7 +277,7 @@ describe("Navbar logo position", () => {
       <Navbar
         logo={{ src: "/logo.svg", alt: "Home" }}
         leftSlot={<div data-testid="left-slot">Left</div>}
-      />,
+      />
     );
     const logo = screen.getByRole("link");
     const logoBox = logo.parentElement;

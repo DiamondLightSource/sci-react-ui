@@ -152,6 +152,7 @@ const Navbar = ({
 }: NavbarProps) => {
   return (
     <BarStyled
+      data-testid="navbar"
       {...props}
       leftSlot={
         <>
