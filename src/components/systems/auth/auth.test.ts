@@ -49,7 +49,7 @@ describe("Auth", () => {
         name: "shouldBeName",
         given_name: "shouldBeGivenName",
         family_name: "shouldBeFamilyName",
-        fedId: "shouldBeFedId",
+        fedid: "shouldBeFedId",
         email: "shouldBeEmail",
       },
     } as unknown as Keycloak);
@@ -79,7 +79,7 @@ describe("Auth", () => {
         name: "shouldBeName",
         given_name: "shouldBeGivenName",
         family_name: "shouldBeFamilyName",
-        fedId: "shouldBeFedId",
+        fedid: "shouldBeFedId",
       },
     } as unknown as Keycloak);
 

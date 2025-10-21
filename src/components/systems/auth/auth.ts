@@ -177,7 +177,7 @@ export function updateAuth(keycloak: Keycloak | null): Auth {
           name: keycloak.idTokenParsed.name || undefined,
           givenName: keycloak.idTokenParsed.given_name || undefined,
           familyName: keycloak.idTokenParsed.family_name || undefined,
-          fedId: keycloak.idTokenParsed.fedId || undefined,
+          fedId: keycloak.idTokenParsed.fedid || undefined,
           email: keycloak.idTokenParsed.email || undefined,
         };
       }
