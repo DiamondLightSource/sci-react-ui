@@ -27,10 +27,14 @@ export interface AuthProviderProps extends AuthProviderSettings, PropsWithChildr
 
 export const AuthProvider = ({children, keycloakConfig, keycloakInitOptions, ...settings}: AuthProviderProps) => {
   const [auth, setAuth] = useState<Auth>(updateAuth(null));
+  const [token, setAuthToken] = useState<string|null>(null);
+  
   const keycloak = new Keycloak({ ...keycloakConfig });
   
   const tokenChanged = (): void => {
-    if(settings.onTokenChange) settings.onTokenChange((keycloak.authenticated && keycloak.token) ? keycloak.token : "")
+    const token = (keycloak.authenticated && keycloak.token) ? keycloak.token : "";
+    setAuthToken(token)
+    if(settings.onTokenChange) settings.onTokenChange(token)
   }
   
   keycloak.onAuthRefreshSuccess = () => {
@@ -55,6 +59,7 @@ export const AuthProvider = ({children, keycloakConfig, keycloakInitOptions, ...
     if( !keycloak.didInitialize ) {
       init(keycloak, keycloakInitOptions).then((auth) => {
         if (auth) setAuth(auth)
+        tokenChanged()
       });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
