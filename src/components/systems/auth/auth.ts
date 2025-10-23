@@ -2,7 +2,8 @@ import Keycloak, {KeycloakError, KeycloakInitOptions, KeycloakLoginOptions, Keyc
 import {createContext, useContext } from "react";
 import {AuthProviderSettings} from "./AuthProvider";
 
-const DEFAULT_SECONDS_MINIMUM_LEFT_IN_TOKEN = 10
+export const DEFAULT_MINIMUM_SECONDS_LEFT_IN_TOKEN = 10
+export const LIMIT_OF_TOKEN_RENEW_FREQUENCY_SECONDS = 5
 
 export type AuthUser = {
   name: string
@@ -26,13 +27,16 @@ export interface Auth {
   /* logout out of keycloak */
   logout: (options?:KeycloakLogoutOptions) => void,
   
-  /* Refresh Token if auto renew isn't working */
-  refreshToken: (minValidity?: number) => void,
-  /* Get the current token */
-  getToken: () => string
+  /* Return the current token */
+  getToken: () => string,
+  /* Return the profile page on Keycloak */
+  getProfileUrl: () => string,
   
   /* Any errors caused by auth */
-  errors?: string[]
+  errors?: string[],
+  
+  /* A back door into the Keycloak object, just in case, but in most cases, won't be needed */
+  _keycloak: Keycloak | null
 }
 
 const errors : string[] = [];
@@ -45,21 +49,40 @@ export function addError( error : string ) : boolean {
   return added
 }
 
-export const AuthContext = createContext(updateAuth(null))
+export const AuthContext = createContext<Auth>(updateAuth(null))
 export function useAuth() {
   return useContext(AuthContext);
 }
+
+export const AuthTokenContext = createContext<string|null>(null)
+export function useToken() {
+  return useContext(AuthTokenContext);
+}
+
 
 export async function init( keycloak: Keycloak, initOptions: KeycloakInitOptions={}) {
   try {
      await keycloak.init({
       onLoad: 'check-sso',
-      silentCheckSsoRedirectUri: `${location.origin}/keycloak.js/silent-check-sso.html`,
+      silentCheckSsoRedirectUri: undefined,
        ...initOptions,
     });
+    
   } catch(error) {
-    const errorMessage = (error as KeycloakError).error ?? JSON.stringify(error);
-    addError("Failed to authorise. " + errorMessage + ". (Are you able to connect to Keycloak?)")
+    let errorMessage = "";
+    if( "error" in (error as KeycloakError) ) {
+      errorMessage = (error as KeycloakError).error
+      if( "error_description" in (error as KeycloakError) ) {
+        errorMessage += (error as KeycloakError).error_description
+      }
+    }
+    else {
+      if( error ) {
+        errorMessage = JSON.stringify(error)
+      }
+    }
+    
+    addError("Failed to authorise, are you able to connect to Keycloak? " + errorMessage )
   }
 
   return updateAuth(keycloak)
@@ -106,18 +129,28 @@ export function tokenRefreshTimer(keycloak: Keycloak | null, settings: AuthProvi
   }
   
   /* Find the token expire time and create a timer to renew before it expires */
-  const minimumSecondsLeftInToken = settings.minimumSecondsLeftInToken ?? DEFAULT_SECONDS_MINIMUM_LEFT_IN_TOKEN,
-        secondsToExpire = keycloak.idTokenParsed.exp - keycloak.idTokenParsed.iat,
-        timeoutMilliseconds = (secondsToExpire - minimumSecondsLeftInToken) * 1000;
+  const minimumSecondsLeftInToken = settings.minimumSecondsLeftInToken ?? DEFAULT_MINIMUM_SECONDS_LEFT_IN_TOKEN,
+        secondsToExpire = keycloak.idTokenParsed.exp - keycloak.idTokenParsed.iat
   
-  if( timeoutMilliseconds >= 3000 ) {
-    tokenRefreshTimeout = setTimeout(() => {
-      keycloak.updateToken(-1)
-        .catch((error: KeycloakError) => {
-          addError('Failed to refresh the token:' + error);
-        })
-    }, timeoutMilliseconds);
+  let timeoutSeconds;
+  if( minimumSecondsLeftInToken >= secondsToExpire ) {
+    // Renew happens as token expires.
+    timeoutSeconds = secondsToExpire
   }
+  else {
+    timeoutSeconds = secondsToExpire - minimumSecondsLeftInToken;
+  }
+  
+  if( timeoutSeconds < LIMIT_OF_TOKEN_RENEW_FREQUENCY_SECONDS ) {
+     timeoutSeconds = LIMIT_OF_TOKEN_RENEW_FREQUENCY_SECONDS
+  }
+  
+  tokenRefreshTimeout = setTimeout(() => {
+    keycloak.updateToken(-1)
+      .catch((error: KeycloakError) => {
+        addError('Failed to refresh the token:' + error);
+      })
+  }, timeoutSeconds * 1000);
 }
 
 
@@ -126,11 +159,13 @@ export function updateAuth(keycloak: Keycloak | null) : Auth {
     initialised: false,
     authenticated: false,
     
-    login: (options) => keycloak && keycloak.login(options),
-    logout: (options) => keycloak && keycloak.logout(options),
+    login: (options) => keycloak?.login(options),
+    logout: (options) => keycloak?.logout(options),
     
-    refreshToken: (minValidity) => keycloak && keycloak.updateToken(minValidity),
+    getProfileUrl: () => keycloak?.createAccountUrl() ?? "",
     getToken: () => keycloak?.token ?? "",
+    
+    _keycloak: keycloak
   }
   
   if( errors.length > 0 ) {
