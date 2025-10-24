@@ -1,6 +1,4 @@
 // Adapted from https://github.com/DiamondLightSource/workflows/blob/main/frontend/workflows-lib/tests/components/SubmissionForm.test.tsx
-import { vi } from "vitest";
-import "@testing-library/jest-dom";
 import { fireEvent, render, within } from "@testing-library/react";
 
 import { VisitInput } from "./VisitInput";

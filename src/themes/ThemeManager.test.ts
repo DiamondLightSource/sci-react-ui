@@ -1,5 +1,3 @@
-import "@testing-library/jest-dom";
-
 import { BaseThemeOptions } from "./BaseTheme";
 import { mergeThemeOptions } from "./ThemeManager";
 

@@ -1,5 +1,3 @@
-import "@testing-library/jest-dom";
-
 import { ImageColourSchemeSwitch } from "./ImageColourSchemeSwitch";
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { screen } from "@testing-library/react";

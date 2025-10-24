@@ -1,6 +1,5 @@
 import { ImageInfo, ScrollableImages } from "./ScrollableImages";
 import { screen, fireEvent, render } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 const imagesList: ImageInfo[] = [
   { src: "one", alt: "one" },

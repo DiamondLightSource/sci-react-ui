@@ -1,5 +1,4 @@
 import { screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { AppTitlebar, AppTitle } from "./AppTitlebar";
@@ -12,7 +11,7 @@ describe("AppTitlebar", () => {
   it("should render with title", async () => {
     const testTitle = "My Test Title";
     renderWithProviders(<AppTitlebar title={testTitle} />);
-    expect(await screen.findByText(testTitle)).toBeInTheDocument();
+    expect(await screen.findByText(testTitle)).toBeInTheDocument()
   });
 });
 

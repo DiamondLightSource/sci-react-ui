@@ -1,14 +1,11 @@
-import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import { vi } from "vitest";
-
 import { createTheme, Theme } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 
 import { ThemeProvider } from "./ThemeProvider";
 import { BaseThemeOptions } from "./BaseTheme";
 import { GenericTheme } from "./GenericTheme";
 import { DiamondTheme } from "./DiamondTheme";
-import Button from "@mui/material/Button";
 
 vi.mock("@mui/material", async () => {
   const MockCssBaseline = () => <div data-testid="Mock_CssBaseline" />;

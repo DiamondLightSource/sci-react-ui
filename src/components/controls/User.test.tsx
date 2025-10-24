@@ -1,11 +1,7 @@
-import "@testing-library/jest-dom";
-import { vi } from "vitest";
-
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { Avatar, MenuItem } from "@mui/material";
 import { User } from "./User";
 import { renderWithProviders } from "../../__test-utils__/helpers";
-import { screen } from "@testing-library/react";
 
 describe("User", () => {
   it("should render", () => {

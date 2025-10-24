@@ -1,6 +1,4 @@
-import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
-import { vi } from "vitest";
 
 import { ColourSchemeButton } from "./ColourSchemeButton";
 import { ColourSchemes } from "../../utils/globals";

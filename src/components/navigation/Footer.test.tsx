@@ -1,5 +1,3 @@
-import { vi } from "vitest";
-
 import type { ImageColourSchemeSwitchType } from "../controls/ImageColourSchemeSwitch";
 
 vi.mock("../controls/ImageColourSchemeSwitch", () => ({
@@ -14,7 +12,6 @@ vi.mock("../controls/ImageColourSchemeSwitch", () => ({
 }));
 
 import { screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 import dlsLogo from "../../public/generic/logo-short.svg";
 import { Footer, FooterLink, FooterLinks } from "./Footer";

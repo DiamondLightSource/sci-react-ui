@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+
 
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { Bar } from "./Bar";
