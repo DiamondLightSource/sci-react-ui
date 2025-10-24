@@ -3,7 +3,7 @@ kind: Component
 metadata:
   name: sci-react-ui
   title: Scientific React UI
-  description: Scientific React UI components, based on MUI. Early development release. A theme and component library to make websites at scientific institutions simple to create.
+  description: Scientific React UI components, based on MUI. A theme and component library to make websites at scientific institutions simple to create.
   tags:
     - react
     - react-18-3
