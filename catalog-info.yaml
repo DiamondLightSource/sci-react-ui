@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sci-react-ui
+  title: Scientific React UI
+  description: Scientific React UI components, based on MUI. Early development release. A theme and component library to make websites at scientific institutions simple to create.
+  tags:
+    - react
+    - react-18-3
+    - typescript
+    - mui
+    - npm
+  links:
+    - url: https://diamondlightsource.github.io/sci-react-ui
+      title: Storybook & Documentation
+    - url: https://npmjs.com/package/@diamondlightsource/sci-react-ui
+      title: npm
+spec:
+  type: library
+  lifecycle: production
+  owner: group:sscc
