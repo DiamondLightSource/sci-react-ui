@@ -11,7 +11,7 @@ describe("AppTitlebar", () => {
   it("should render with title", async () => {
     const testTitle = "My Test Title";
     renderWithProviders(<AppTitlebar title={testTitle} />);
-    expect(await screen.findByText(testTitle)).toBeInTheDocument()
+    expect(await screen.findByText(testTitle)).toBeInTheDocument();
   });
 });
 

@@ -1,6 +1,5 @@
 import { screen } from "@testing-library/react";
 
-
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { Bar } from "./Bar";
 
