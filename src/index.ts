@@ -13,6 +13,9 @@ export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
 
 // components/helpers/jsonForms
+export * from "./components/systems/auth";
+
+// components/helpers/jsonForms
 export * from "./components/helpers/jsonforms";
 
 // themes

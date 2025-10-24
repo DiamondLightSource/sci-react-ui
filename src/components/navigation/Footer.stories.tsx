@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react/*";
+import { Meta, StoryObj } from "@storybook/react";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { MockLink } from "../../utils/MockLink";
 
