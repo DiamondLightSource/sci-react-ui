@@ -9,7 +9,7 @@ import { MemoryRouter, Link } from "react-router-dom";
 describe("Navbar", () => {
   it("should render", async () => {
     renderWithProviders(<Navbar />);
-    expect(await screen.findByRole("banner")).toBeInTheDocument();
+    expect(await screen.findByTestId("navbar")).toBeInTheDocument();
   });
 
   it("should render with styles", async () => {
@@ -17,7 +17,7 @@ describe("Navbar", () => {
     renderWithProviders(<Navbar style={{ border: borderStyle }} />);
 
     const headerComputedStyle = window.getComputedStyle(
-      await screen.findByRole("banner"),
+      await screen.findByTestId("navbar"),
     );
 
     // check new style is set

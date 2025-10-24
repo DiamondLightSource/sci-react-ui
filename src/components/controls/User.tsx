@@ -136,7 +136,7 @@ const User = ({
           onClick={handleLogin}
           startIcon={<MdLogin />}
           sx={{
-            backgroundColor: theme.palette.primary.light,
+            backgroundColor: theme.palette.primary.main,
             color: theme.palette.primary.contrastText,
           }}
         >
