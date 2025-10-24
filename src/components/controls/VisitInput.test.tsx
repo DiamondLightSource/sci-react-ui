@@ -1,7 +1,7 @@
 // Adapted from https://github.com/DiamondLightSource/workflows/blob/main/frontend/workflows-lib/tests/components/SubmissionForm.test.tsx
 import { fireEvent, render, within } from "@testing-library/react";
+
 import { VisitInput } from "./VisitInput";
-import "@testing-library/jest-dom";
 
 it("should render visit field", () => {
   const { getByTestId } = render(<VisitInput onSubmit={() => {}} />);
@@ -38,7 +38,7 @@ it("should not render submit button", () => {
 });
 
 it("should produce visit and parameters on submit button click", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(
     <VisitInput onSubmit={onSubmit} parameters={{ fedid: "abc98765" }} />,
   );
@@ -59,7 +59,7 @@ it("should produce visit and parameters on submit button click", () => {
 });
 
 it("should produce visit on submit button click", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(<VisitInput onSubmit={onSubmit} />);
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
   fireEvent.change(visitField, { target: { value: "zz12345-7" } });
@@ -76,7 +76,7 @@ it("should produce visit on submit button click", () => {
 });
 
 it("should not produce parsed visit", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(
     <VisitInput onSubmit={onSubmit} submitOnReturn={true} />,
   );
@@ -92,7 +92,7 @@ it("should not produce parsed visit", () => {
 });
 
 it("should produce visit on enter key down by default", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(<VisitInput onSubmit={onSubmit} />);
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
   fireEvent.change(visitField, { target: { value: "zz12345-7" } });
@@ -113,7 +113,7 @@ it("should produce visit on enter key down by default", () => {
 });
 
 it("should produce visit on enter key down without submit button", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(
     <VisitInput onSubmit={onSubmit} submitButton={false} />,
   );
@@ -136,7 +136,7 @@ it("should produce visit on enter key down without submit button", () => {
 });
 
 it("should not produce visit on enter key down", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(
     <VisitInput onSubmit={onSubmit} submitOnReturn={false} />,
   );
@@ -159,7 +159,7 @@ it("should not produce visit on enter key down", () => {
 });
 
 it("should not produce visit on enter key down", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(
     <VisitInput onSubmit={onSubmit} submitOnReturn={false} />,
   );
@@ -182,7 +182,7 @@ it("should not produce visit on enter key down", () => {
 });
 
 it("should not produce visit on enter key down with no onSubmit", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(<VisitInput />);
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
   fireEvent.change(visitField, { target: { value: "zz12345-7" } });
@@ -203,7 +203,7 @@ it("should not produce visit on enter key down with no onSubmit", () => {
 });
 
 it("should update visit on submit", () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const { getByTestId } = render(
     <VisitInput
       onSubmit={onSubmit}

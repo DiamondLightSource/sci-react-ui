@@ -1,20 +1,18 @@
-import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
-
+import { render, screen } from "@testing-library/react";
 import { createTheme, Theme } from "@mui/material/styles";
+import Button from "@mui/material/Button";
 
 import { ThemeProvider } from "./ThemeProvider";
 import { BaseThemeOptions } from "./BaseTheme";
 import { GenericTheme } from "./GenericTheme";
 import { DiamondTheme } from "./DiamondTheme";
-import Button from "@mui/material/Button";
 
-jest.mock("@mui/material/CssBaseline", () => {
-  const MockCssBaseline = () => {
-    return <div data-testid="Mock_CssBaseline" />;
+vi.mock("@mui/material", async () => {
+  const MockCssBaseline = () => <div data-testid="Mock_CssBaseline" />;
+  return {
+    ...(await vi.importActual("@mui/material")),
+    CssBaseline: MockCssBaseline,
   };
-  MockCssBaseline.displayName = "MockCssBaseline";
-  return MockCssBaseline;
 });
 
 const buttonText = "a test button",
@@ -34,7 +32,6 @@ describe("ThemeProvider Component", () => {
 
   it("should render with button", () => {
     const { getByText } = render(<ThemeProvider>{testApp}</ThemeProvider>);
-
     expect(getByText(buttonText)).toBeInTheDocument();
   });
 
@@ -67,8 +64,8 @@ describe("ThemeProvider Component", () => {
 
 describe("ThemeProvider CssBaseline Component", () => {
   it("should render with CssBaseline", () => {
-    const { queryByTestId } = render(<ThemeProvider />);
-    expect(queryByTestId("Mock_CssBaseline")).toBeInTheDocument();
+    render(<ThemeProvider></ThemeProvider>);
+    expect(screen.queryByTestId("Mock_CssBaseline")).toBeInTheDocument();
   });
 
   it("should render without CssBaseline", () => {

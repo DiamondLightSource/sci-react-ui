@@ -1,10 +1,7 @@
-import "@testing-library/jest-dom";
-
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { Avatar, MenuItem } from "@mui/material";
 import { User } from "./User";
 import { renderWithProviders } from "../../__test-utils__/helpers";
-import { screen } from "@testing-library/react";
 
 describe("User", () => {
   it("should render", () => {
@@ -42,7 +39,7 @@ describe("User", () => {
   });
 
   it("should fire login callback when button is clicked", () => {
-    const loginCallback = jest.fn();
+    const loginCallback = vi.fn();
     const { getByText } = renderWithProviders(
       <User onLogin={loginCallback} user={null} />,
     );
@@ -54,7 +51,7 @@ describe("User", () => {
   });
 
   it("should fire logout callback when button is clicked", () => {
-    const logoutCallback = jest.fn();
+    const logoutCallback = vi.fn();
     const { getByRole, getByText } = renderWithProviders(
       <User
         onLogout={logoutCallback}

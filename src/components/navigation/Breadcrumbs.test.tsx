@@ -1,7 +1,6 @@
 import { fireEvent, RenderResult, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes, Link } from "react-router-dom";
 import { Breadcrumbs, getCrumbs } from "./Breadcrumbs";
-import "@testing-library/jest-dom";
 import { CustomLink } from "types/links";
 import {
   addProviders,

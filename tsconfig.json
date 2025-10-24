@@ -21,7 +21,11 @@
     "declarationDir": "dist",
     "emitDeclarationOnly": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "types": [
+      "vitest/globals",
+      "@testing-library/jest-dom"
+    ]
   },
   "include": [
     "src",

@@ -2,7 +2,7 @@
 
 import { fireEvent, screen } from "@testing-library/react";
 import { Navbar, NavLinks, NavLink } from "./Navbar";
-import "@testing-library/jest-dom";
+
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { MemoryRouter, Link } from "react-router-dom";
 
