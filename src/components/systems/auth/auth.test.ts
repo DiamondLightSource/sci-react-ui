@@ -1,6 +1,4 @@
-import "@testing-library/jest-dom";
 import Keycloak from "keycloak-js";
-import { vi } from "vitest";
 
 import {
   addError,
@@ -199,7 +197,7 @@ describe("tokenRefreshTimer", ()=>{
       // Half timeout
       tokenAliveSeconds/2
     );
-    expect(mockUpdateToken).toHaveBeenCalledWith(-1)
+    expect(mockUpdateToken).not.toHaveBeenCalledWith(-1)
     
     advanceBySeconds(tokenAliveSeconds/2);
     expect(mockUpdateToken).toHaveBeenCalledWith(-1)

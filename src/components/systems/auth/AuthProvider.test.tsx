@@ -1,10 +1,9 @@
-import "@testing-library/jest-dom";
+import {screen} from "@testing-library/react";
 
 import {renderWithProviders} from "../../../__test-utils__/helpers";
-import {AuthProvider} from "./AuthProvider";
 
+import {AuthProvider} from "./AuthProvider";
 import {useAuth, useToken} from "./auth";
-import {screen} from "@testing-library/react";
 
 
 describe("AuthProvider useAuth", () => {
