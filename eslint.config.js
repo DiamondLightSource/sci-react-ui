@@ -20,6 +20,7 @@ export default [
     "**/*.md",
     "*.config.js",
     "rollup.config.mjs",
+    "vitest.setup.ts"
   ]},
   js.configs.recommended,
   ...compat.extends("plugin:@typescript-eslint/recommended"),
