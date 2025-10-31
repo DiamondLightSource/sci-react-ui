@@ -154,7 +154,8 @@ Developing
 
 Code can be found at [github.com/DiamondLightSource/sci-react-ui](https://github.com/DiamondLightSource/sci-react-ui).
 
-You'll need `pnpm` installed to build it. See [tools.md](./tools.md) for list of other tools used in this library
+You'll need `pnpm` installed to build it. (note: it is automatically installed as a feature if you are using devcontainers)
+See [tools.md](./tools.md) for list of other tools used in this library
 
 ### Build
 
@@ -170,7 +171,7 @@ Build with rollup
 pnpm run rollup
 ```
 
-### Storybook 
+### Storybook
 
 To view the components in Storybook use:
 
@@ -223,7 +224,7 @@ Steps needed when publishing a new version.
 ### GitHub release
 - GitHub releases and create a new draft release https://github.com/DiamondLightSource/sci-react-ui/releases
   - Select the new tag in the "Choose a tag" drop down.
-  - Copy in the npm url "See https://www.npmjs.com/package/@diamondlightsource/sci-react-ui" 
+  - Copy in the npm url "See https://www.npmjs.com/package/@diamondlightsource/sci-react-ui"
   - Copy in the top section of the changelog.
   - Press "Publish Release"
 - It is now published!
@@ -237,10 +238,10 @@ and create a new section in  [./changelog.md](changelog.md) so subsequent change
 ---------------------
 
 ### Added
-- 
+-
 
 ### Fixed
-- 
+-
 
 ### Changed
 -
