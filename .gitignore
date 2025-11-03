@@ -8,5 +8,6 @@
 /diamondlightsource-sci-react-ui-*.tgz
 /storybook-static/
 /docs
+.pnpm-store/
 
 tsconfig.tsbuildinfo
