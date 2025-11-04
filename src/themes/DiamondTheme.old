@@ -1,4 +1,3 @@
-import type {} from "@mui/material/themeCssVarsAugmentation";
 import { createTheme, Theme } from "@mui/material/styles";
 
 import { mergeThemeOptions } from "./ThemeManager";
