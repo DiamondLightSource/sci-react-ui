@@ -1,0 +1,214 @@
+import { Meta } from '@storybook/blocks';
+import {useAuth} from "../../components/systems/auth";
+
+
+<Meta title="Helpers/Auth" />
+
+<div className="sb-container">
+    <div className='sb-section-title'>
+
+        # Using auth with Keycloak
+
+        This component is based on the official Keycloak.js adapter.
+        More info can be found here: <a href="https://www.keycloak.org/securing-apps/javascript-adapter">www.keycloak.org/securing-apps/javascript-adapter</a>
+
+        ## Basic setup
+
+        First place the provider around your app:
+
+        ```tsx
+        import { AuthProvider } from "@diamondlightsource/sci-react-ui";
+
+        <AuthProvider
+            keycloakConfig={{
+                url: "https://keycloak.example.com/",
+                realm: "my-realm",
+                clientId: "my-client"
+            }}
+        >
+            <App/>
+        </AuthProvider>
+        ```
+
+        Now you can retrieve the auth data with useAuth. You app should handle the four states listed
+        at the end of this page. Here is an example of how to do that:
+
+        ```tsx
+        import {Alert, Progress} from "@mui/material";
+        import { useAuth, User } from "@diamondlightsource/sci-react-ui";
+
+        const App = () => {
+            const auth = useAuth()
+
+            if( auth.errors ) {
+                return <Alert severity="error">{auth.errors.join(", ")}</Alert>
+            }
+
+            if( !auth.initialised ) {
+                return <Progress />
+            }
+
+            if( !auth.authenticated ) {
+                return <User onLogin={auth.login}/>
+            }
+
+            return (<>
+                <User onLogout={auth.logout}
+                    user={{
+                        name: auth.user.name,
+                        fedid: auth.user.fedId
+                    }}
+                />
+                <Box>I'm authenticating</Box>
+            </>)
+        }
+        ```
+
+        It is recommended to next implement "Silent log in". See the section below for how to do this.
+
+    </div>
+</div>
+
+<div className="sb-container">
+    <div className='sb-section-title'>
+        ## Tokens
+
+        The token is automatically renewed before it expires.
+
+        There are three ways to retrieve the token. Each has different uses.
+
+        ### useAuth.getToken
+
+        The easiest way is to use useAuth.getToken(). It will return the current valid token at time of request.
+
+        ```tsx
+        import { useAuth, User } from "@diamondlightsource/sci-react-ui";
+
+        const App = () => {
+            const auth = useAuth();
+
+            const onEvent = () => {
+                fetch("url", {auth_header: auth.getToken()});
+            }
+        }
+        ```
+
+        ### onTokenChange
+        You can use onTokenChange. Which will be called everytime the token changes. You can store the
+        value somewhere you can retrieve it from.
+
+        ```tsx
+        import { AuthProvider } from "@diamondlightsource/sci-react-ui";
+
+        <AuthProvider
+            keycloakConfig={{...}}
+            onTokenChange={(token) => {
+                // Store the token. e.g. sessionStorage.setItem( "my-app-token", token )
+            }}
+        >
+            <App/>
+        </AuthProvider>
+        ```
+
+
+        ### useAuthToken
+
+        Or, you can use `useAuthToken` . This only returns the token, no other auth information. Unlike useAuth,
+        useAuthToken will force the component to update every time the *token* changes.
+
+        If you have a long running external connection, you may need to react to renewed tokens. (But you could
+        instead utilise storage retrieval, via onTokenChange)
+
+        ```tsx
+        import { useAuth, User } from "@diamondlightsource/sci-react-ui";
+
+        const App = () => {
+            const token = useAuthToken();
+
+            // use token
+        }
+        ```
+
+        ## Auto renew
+        Tokens will be auto renewed before they expire. This is, by default done 10 seconds before they expire.
+
+        You can adjust this number, if you wish, by changing `minimumSecondsLeftInToken` via a parameter on the
+        AuthProvider.
+    </div>
+</div>
+
+
+<div className="sb-container">
+    <div className='sb-section-title'>
+        ## Silent log in
+
+        To make silent login work - that is to log in without visibly round-tripping to Keycloak
+        (more info <a href="">here</a>) -
+        you'll have to do two things:
+
+        First create a html file in your app, which you can reference directly (for most apps, this would
+        means add it to your public folder).
+
+        Copy and paste this into the file:
+
+        ```html
+        <!doctype html>
+        <html lang><body><script>parent.postMessage(location.href, location.origin);</script></body></html>
+        ```
+
+        Secondly, tell Keycloak to use the file, by adapting the AuthProvider.
+        ```tsx
+        <AuthProvider
+            ...
+            keycloakInitOptions={{
+                silentCheckSsoRedirectUri: `${location.origin}/silent-check-sso.html`
+            }}
+        >
+        ```
+
+    </div>
+</div>
+
+
+<div className="sb-container">
+    <div className='sb-section-title'>
+        ## Four states
+
+        Your app should should handle each of the four states below.
+
+        ### Uninitialized state
+
+        Not initialised, no checks have taken place yet
+
+        ```js
+        auth.initialised = false
+        ```
+
+        ### Unauthenticated state
+
+        Initialised, some checks made, but does not yet have authorisation. Will direct to login page if needed.
+
+        ```js
+        auth.initialised = true
+        auth.authenticated = false
+        ```
+
+        ### Normal state
+
+        Initialised, and authenticated. You are good to use `auth.getToken()`
+
+        ```js
+        auth.initialised = true
+        auth.authenticated = true
+        ```
+
+        ### Error state
+
+        Some error occurred attempting to initialise or authenticate to Keycloak. (i.e Errors is not empty)
+
+        ```js
+        auth.errors != []
+        ```
+
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/blocks';
-import {Box, Input, TextField, Typography} from "@mui/material";
+import {Box, TextField, Typography} from "@mui/material";
 
 <Meta title="Helpers/JsonForms" />
 
@@ -21,7 +21,7 @@ import {Box, Input, TextField, Typography} from "@mui/material";
 
         <TextField label="A Label" value="My Value" disabled />
 
-        to this (dependent on your choice of styling):
+        to an accessible friendly this (dependent on your own styles):
 
         <Box style={{width: "100px", border: "1px solid #000000bb", padding: "5px"}}>
             <Typography component="dt" style={{fontSize:"smaller", fontWeight:"bold"}}>A Label</Typography>
@@ -29,7 +29,7 @@ import {Box, Input, TextField, Typography} from "@mui/material";
         </Box>
 
         In react you can use them as follows. Remember to also include the original JsonForm renderers too:
-        ```type=jsx
+        ```jsx
         import { materialRenderers, materialCells } from "@jsonforms/material-renderers";
         import { JsonFormsControls } from "@diamondlightsource/sci-react-ui";
 
@@ -53,11 +53,13 @@ import {Box, Input, TextField, Typography} from "@mui/material";
         set at 10, and 15
 
         To style them, use these classes:
+        ```css
         .data-box {}
         .data-box data-box-title {}
         .data-box data-box-data {}
         .data-cell {}
         .data-cell span {}
+        ```
 
     </div>
 
