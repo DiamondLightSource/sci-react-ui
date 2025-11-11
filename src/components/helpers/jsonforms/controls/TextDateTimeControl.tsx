@@ -12,8 +12,8 @@ const TextDateTimeControlTester = rankWith(
   15,
   and(
     isStringControl,
-    schemaMatches((schema) => schema.format === "date-time")
-  )
+    schemaMatches((schema) => schema.format === "date-time"),
+  ),
 );
 
 const TextDateTimeControlComponent = ({ data, label }: ControlProps) => (
@@ -28,6 +28,6 @@ const TextDateTimeControlComponent = ({ data, label }: ControlProps) => (
 );
 
 const TextDateTimeControl = withJsonFormsControlProps(
-  TextDateTimeControlComponent
+  TextDateTimeControlComponent,
 );
 export { TextDateTimeControl, TextDateTimeControlTester };

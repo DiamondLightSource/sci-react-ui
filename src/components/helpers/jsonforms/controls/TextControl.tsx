@@ -14,8 +14,8 @@ const TextControlTester = rankWith(
   10,
   and(
     uiTypeIs("Control"),
-    or(schemaTypeIs("integer"), schemaTypeIs("number"), schemaTypeIs("string"))
-  )
+    or(schemaTypeIs("integer"), schemaTypeIs("number"), schemaTypeIs("string")),
+  ),
 );
 
 const TextControlComponent = ({ data, label }: ControlProps) => (
