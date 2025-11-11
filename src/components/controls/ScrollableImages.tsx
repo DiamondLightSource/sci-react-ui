@@ -169,6 +169,7 @@ const ScrollableImages = ({
         >
           {renderButtons && (
             <Button
+              aria-label="Previous Image"
               onClick={handlePrev}
               size="small"
               sx={{ minWidth: 36, width: 36, height: 36 }}
@@ -220,6 +221,7 @@ const ScrollableImages = ({
 
           {renderButtons && (
             <Button
+              aria-label="Next Image"
               onClick={handleNext}
               size="small"
               sx={{ minWidth: 36, width: 36, height: 36 }}
@@ -232,6 +234,7 @@ const ScrollableImages = ({
         {renderNumbers && (
           <Box sx={{ display: "flex" }}>
             <Box
+              aria-label="Total Images Numeration"
               data-testid="numeration"
               component="input"
               type="number"

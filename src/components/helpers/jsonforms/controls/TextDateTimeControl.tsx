@@ -6,7 +6,6 @@ import {
   schemaMatches,
   ControlProps,
 } from "@jsonforms/core";
-
 import { DataBox } from "../components/DataBox";
 
 const TextDateTimeControlTester = rankWith(
