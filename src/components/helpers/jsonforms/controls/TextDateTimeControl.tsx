@@ -6,7 +6,7 @@ import {
   schemaMatches,
   ControlProps,
 } from "@jsonforms/core";
-import { DataBoxList } from "../components/DataBoxList";
+import { DataBox } from "../components/DataBox";
 
 const TextDateTimeControlTester = rankWith(
   15,
@@ -17,13 +17,9 @@ const TextDateTimeControlTester = rankWith(
 );
 
 const TextDateTimeControlComponent = ({ data, label }: ControlProps) => (
-  <DataBoxList
-    items={[
-      {
-        label,
-        data: data ? new Date(data).toLocaleString("en-GB") : undefined,
-      },
-    ]}
+  <DataBox
+    label={label}
+    data={data ? new Date(data).toLocaleString("en-GB") : undefined}
   />
 );
 

@@ -8,7 +8,7 @@ import {
   schemaTypeIs,
   uiTypeIs,
 } from "@jsonforms/core";
-import { DataBoxList } from "../components/DataBoxList";
+import { DataBox } from "../components/DataBox";
 
 const TextControlTester = rankWith(
   10,
@@ -19,7 +19,7 @@ const TextControlTester = rankWith(
 );
 
 const TextControlComponent = ({ data, label }: ControlProps) => (
-  <DataBoxList items={[label, data]} />
+  <DataBox label={label} data={data} />
 );
 
 const TextControl = withJsonFormsControlProps(TextControlComponent);
