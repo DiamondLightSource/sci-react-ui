@@ -10,6 +10,7 @@ SciReactUI Changelog
 
 ### Fixed
 - Hovering over a slot caused a popup with the slot title in. This has been removed.
+- Stopped Bar-based components (e.g. Navbar, Footer) from expanding when a parent component has a set height
 
 ### Changed
 - Remove first-child css selector as it causes problems with server-side rendering.

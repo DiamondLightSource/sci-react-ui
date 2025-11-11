@@ -26,7 +26,7 @@ const Slot = ({ className, style, children }: SlotProps) => (
 
 const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
   width: "100%",
-  height: "100%",
+  height: "auto",
   minHeight: "50px",
   display: "flex",
   alignItems: "center",
