@@ -6,25 +6,28 @@ import {
   schemaMatches,
   ControlProps,
 } from "@jsonforms/core";
-
-import { DataBox } from "../components/DataBox";
+import { DataBoxList } from "../components/DataBoxList";
 
 const TextDateTimeControlTester = rankWith(
   15,
   and(
     isStringControl,
-    schemaMatches((schema) => schema.format === "date-time"),
-  ),
+    schemaMatches((schema) => schema.format === "date-time")
+  )
 );
 
 const TextDateTimeControlComponent = ({ data, label }: ControlProps) => (
-  <DataBox
-    label={label}
-    data={data ? new Date(data).toLocaleString("en-GB") : undefined}
+  <DataBoxList
+    items={[
+      {
+        label,
+        data: data ? new Date(data).toLocaleString("en-GB") : undefined,
+      },
+    ]}
   />
 );
 
 const TextDateTimeControl = withJsonFormsControlProps(
-  TextDateTimeControlComponent,
+  TextDateTimeControlComponent
 );
 export { TextDateTimeControl, TextDateTimeControlTester };

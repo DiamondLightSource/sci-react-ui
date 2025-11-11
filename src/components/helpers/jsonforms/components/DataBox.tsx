@@ -17,32 +17,27 @@ export const DataOrEmpty = ({ data }: { data?: string | null }) =>
   );
 
 const DataBox = ({ label, data }: DataBoxProps) => (
-  <Box className="data-box">
-    <Stack direction="column">
-      {/* tag needed for JSON Forms accessibility check */}
-      <dl>
-        <Box className="data-box-label">
-          <Typography
-            component="dt"
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              textTransform: "capitalize",
-              fontSize: "smaller",
-            }}
-          >
-            {label}
-          </Typography>
-        </Box>
+  <>
+    <Box className="data-box-label">
+      <Typography
+        component="dt"
+        variant="h6"
+        sx={{
+          fontWeight: "bold",
+          textTransform: "capitalize",
+          fontSize: "smaller",
+        }}
+      >
+        {label}
+      </Typography>
+    </Box>
 
-        <Box className="data-box-data">
-          <Typography component="dd">
-            <DataOrEmpty data={data} />
-          </Typography>
-        </Box>
-      </dl>
-    </Stack>
-  </Box>
+    <Box className="data-box-data">
+      <Typography component="dd">
+        <DataOrEmpty data={data} />
+      </Typography>
+    </Box>
+  </>
 );
 
 export { DataBox };
