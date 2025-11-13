@@ -187,4 +187,4 @@ const Navbar = ({
 };
 
 export { Navbar, NavLinks, NavLink };
-export type { NavLinksProps, NavbarProps };
+export type { NavLinkProps, NavLinksProps, NavbarProps };
