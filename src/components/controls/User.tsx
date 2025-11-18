@@ -10,23 +10,24 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import {ReactElement, ReactNode, useState} from "react";
+import {MdLogin} from "react-icons/md";
 
-import { ReactElement, ReactNode, useState } from "react";
-
-import { MdLogin } from "react-icons/md";
+import {Auth} from "../systems/auth"
 
 interface AuthState {
-  fedid: string;
+  fedid?: string;
   name?: string;
 }
 
 interface UserProps {
-  user: AuthState | null;
+  user?: AuthState | null;
   onLogin?: () => void;
   onLogout?: () => void;
   avatar?: ReactNode;
   colour?: string;
   menuItems?: ReactElement<typeof MenuItem> | ReactElement<typeof MenuItem>[];
+  auth?: Auth;
 }
 
 const User = ({
@@ -36,6 +37,7 @@ const User = ({
   avatar,
   colour,
   menuItems,
+  auth
 }: UserProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -48,15 +50,21 @@ const User = ({
   };
 
   const handleLogin = () => {
-    if (onLogin) onLogin();
+    if(auth) auth.login()
+    if(onLogin) onLogin();
   };
   const handleLogout = () => {
     handleClose();
-    if (onLogout) onLogout();
+    if(auth) auth.logout()
+    if(onLogout) onLogout();
   };
 
   const theme = useTheme();
 
+  if( !user && auth && auth.user ) {
+    user = { name: auth.user.name }
+  }
+  
   return (
     <>
       <Box flexGrow={1} />
@@ -117,7 +125,8 @@ const User = ({
               </Box>
             </Stack>
           </Button>
-          {(onLogout || menuItems) && (
+          
+          {(onLogout || menuItems || auth) && (
             <Menu
               id="menu-list"
               anchorEl={anchorEl}
@@ -125,6 +134,11 @@ const User = ({
               onClose={handleClose}
             >
               {menuItems}
+              {auth && (
+				        <MenuItem>
+					        <Link href={auth.getProfileUrl()} sx={{ textDecoration: "none" }}>Profile</Link>
+				        </MenuItem>
+              )}
               <MenuItem onClick={handleLogout} aria-label="Logout">
                 <Link sx={{ textDecoration: "none" }}>Logout</Link>
               </MenuItem>

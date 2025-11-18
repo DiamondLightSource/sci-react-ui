@@ -1,16 +1,21 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { Avatar, MenuItem } from "@mui/material";
-import { User } from "./User";
 import { renderWithProviders } from "../../__test-utils__/helpers";
+import {Auth} from "../systems/auth";
+
+import { User } from "./User";
+import {KeycloakLoginOptions, KeycloakLogoutOptions} from "keycloak-js";
 
 describe("User", () => {
+  
   it("should render", () => {
     renderWithProviders(
-      <User onLogin={() => {}} onLogout={() => {}} user={null} />,
+      <User onLogin={()=>0} onLogout={()=>0} user={null} />,
     );
-    renderWithProviders(<User onLogout={() => {}} user={null} />);
-    renderWithProviders(<User onLogin={() => {}} user={null} />);
+    renderWithProviders(<User onLogout={()=>0} user={null} />);
+    renderWithProviders(<User onLogin={()=>0} user={null} />);
     renderWithProviders(<User user={null} />);
+    renderWithProviders(<User />);
   });
 
   it("should display login button when not authenticated", () => {
@@ -103,11 +108,13 @@ describe("User", () => {
   });
 
   it("should display additional menu items when provided", () => {
-    const { getByRole } = renderWithProviders(
+    const {getByRole} = renderWithProviders(
       <User
-        onLogin={() => {}}
-        onLogout={() => {}}
-        user={{ name: "Name", fedid: "FedID" }}
+        onLogin={() => {
+        }}
+        onLogout={() => {
+        }}
+        user={{name: "Name", fedid: "FedID"}}
         menuItems={[
           <MenuItem key="profile" aria-label="Profile">
             Profile
@@ -126,4 +133,77 @@ describe("User", () => {
     expect(screen.getByText("Settings")).toBeInTheDocument();
     expect(screen.getByText("Logout")).toBeInTheDocument();
   });
+
 });
+
+describe("User with Auth", () => {
+  
+  const authDummy: Auth = {
+    authenticated: false,
+    initialised: false,
+    getProfileUrl:() => "",
+    getToken: () => "",
+    login() {},
+    logout() {},
+    _keycloak: null,
+  }
+  const authDummyUser = {
+    name: "",
+    givenName: "",
+    familyName: "",
+    fedId: "",
+    email: ""
+  }
+
+  it("should render", () => {
+    renderWithProviders(<User auth={authDummy}/>);
+  });
+  
+  it("should use auth name when passed in", () => {
+    const auth: Auth = {
+      ...authDummy,
+      user: {
+        ...authDummyUser,
+        name: "test name",
+      }
+    }
+    const { queryByText } = renderWithProviders(<User auth={auth}/>);
+    // @ts-ignore 
+    expect( queryByText(auth.user.name)).toBeInTheDocument()
+  });
+  
+  it("should fire auth login callback when button is clicked", () => {
+    const loginCallback = vi.fn();
+    const auth = {
+      ...authDummy,
+      login: loginCallback
+    }
+    const { getByText } = renderWithProviders(
+      <User auth={auth} />,
+    );
+
+    const loginButton = getByText("Login");
+    fireEvent.click(loginButton);
+
+    expect(loginCallback).toHaveBeenCalledTimes(1);
+  });
+  
+  it("should display additional menu item when auth", () => {
+    const auth: Auth = {
+      ...authDummy,
+      user: {
+        ...authDummyUser,
+        name: "test name",
+      }
+    }
+    const { getByRole } = renderWithProviders(
+      <User auth={auth} />,
+    );
+
+    const userMenu = getByRole("button");
+    fireEvent.click(userMenu);
+
+    expect(screen.getByText("Profile")).toBeInTheDocument();
+  });
+  
+})
