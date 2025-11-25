@@ -122,7 +122,6 @@ export const AdditionalMenuItems: Story = {
   },
 };
 
-
 export const UsingAuth: Story = {
   args: {
     auth: {
@@ -145,7 +144,11 @@ export const UsingAuth: Story = {
   parameters: {
     docs: {
       description: {
-        story: "If you are using SciReactUI's auth mechanism, you can simply pass the useAuth counterpart in.",
+        story: "If you are using SciReactUI's auth mechanism, you can simply pass the useAuth counterpart in." +
+          "<br/><br/>" +
+          "<pre>const auth = useAuth();</pre>" +
+          "<br/>" +
+          "<pre>&lt;User auth={auth}/&gt;</pre>",
       },
     },
   },
