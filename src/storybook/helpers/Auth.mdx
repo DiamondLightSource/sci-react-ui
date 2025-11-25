@@ -52,13 +52,9 @@ import {useAuth} from "../../components/systems/auth";
                 return <User onLogin={auth.login}/>
             }
 
+            // Return page content for authenticated users
             return (<>
-                <User onLogout={auth.logout}
-                    user={{
-                        name: auth.user.name,
-                        fedid: auth.user.fedId
-                    }}
-                />
+                <User auth={auth}/>
                 <Box>I'm authenticating</Box>
             </>)
         }
