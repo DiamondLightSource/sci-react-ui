@@ -2,7 +2,6 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import { User } from "./User";
 import { Avatar, Link, MenuItem } from "@mui/material";
-import {Auth} from "../systems/auth";
 
 const meta: Meta<typeof User> = {
   title: "Components/Controls/User",
@@ -28,7 +27,7 @@ export const LoggedOut: Story = {
         story: "Default display when not yet logged in.",
       },
     },
-  }
+  },
 };
 
 export const LoggedIn: Story = {
@@ -127,7 +126,7 @@ export const UsingAuth: Story = {
     auth: {
       authenticated: false,
       initialised: false,
-      getProfileUrl:() => "",
+      getProfileUrl: () => "",
       getToken: () => "",
       login() {},
       logout() {},
@@ -137,14 +136,15 @@ export const UsingAuth: Story = {
         givenName: "",
         familyName: "",
         fedId: "",
-        email: ""
-      }
-    }
+        email: "",
+      },
+    },
   },
   parameters: {
     docs: {
       description: {
-        story: "If you are using SciReactUI's auth mechanism, you can simply pass the useAuth counterpart in." +
+        story:
+          "If you are using SciReactUI's auth mechanism, you can simply pass the useAuth counterpart in." +
           "<br/><br/>" +
           "<pre>const auth = useAuth();</pre>" +
           "<br/>" +
