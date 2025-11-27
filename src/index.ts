@@ -2,6 +2,7 @@
 export * from "./components/navigation/Breadcrumbs";
 export * from "./components/navigation/Footer";
 export * from "./components/navigation/Navbar";
+export * from "./components/navigation/NavMenu";
 
 // components/controls
 export * from "./components/controls/AppTitlebar";
@@ -11,7 +12,6 @@ export * from "./components/controls/Logo";
 export * from "./components/controls/User";
 export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
-export * from "./components/controls/NavMenu";
 
 // components/helpers/jsonForms
 export * from "./components/systems/auth";

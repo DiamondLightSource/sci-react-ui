@@ -8,7 +8,7 @@ import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
-import { NavMenu, NavMenuLink } from "../controls/NavMenu";
+import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
