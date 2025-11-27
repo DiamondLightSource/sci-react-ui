@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { NavMenu, NavMenuLink } from "./NavMenu";
 import { Button, Divider, Typography } from "@mui/material";
 import { Autorenew } from "@mui/icons-material";
+import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof NavMenu> = {
   title: "Components/Controls/NavMenu",
@@ -41,6 +42,29 @@ export const BasicMenu: Story = {
   },
 };
 
+export const RouterMenu: Story = {
+  args: {
+    label: "NavMenu",
+    children: (
+      <>
+        <NavMenuLink to="/home/first" linkComponent={MockLink}>
+          First Route
+        </NavMenuLink>
+        <NavMenuLink to="/home/second" linkComponent={MockLink}>
+          Second Route
+        </NavMenuLink>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Like `NavLink`s, `NavMenuLink`s can use routing links too.",
+      },
+    },
+  },
+};
+
 export const CustomChildren: Story = {
   args: {
     label: "NavMenu",
@@ -65,7 +89,7 @@ export const CustomChildren: Story = {
     docs: {
       description: {
         story:
-          "A NavMenu may contain components other than NavMenuLinks. This one has a section header (made using a `Typography` and a `Divider`) and a button.",
+          "A NavMenu may contain components other than `NavMenuLink`s. This one has a section header (made using a `Typography` and a `Divider`) and a button.",
       },
     },
   },

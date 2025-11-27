@@ -6,13 +6,12 @@ import {
   type MenuListProps,
   MenuItem,
   type MenuItemProps,
-  Link,
-  LinkProps,
 } from "@mui/material";
 import React, { useState, forwardRef } from "react";
 import { ExpandMore } from "@mui/icons-material";
+import { NavLink, NavLinkProps } from "./Navbar";
 
-type NavMenuLinkProps = MenuItemProps & LinkProps;
+type NavMenuLinkProps = MenuItemProps & NavLinkProps;
 
 const NavMenuLink = forwardRef<HTMLElement, NavMenuLinkProps>(
   function NavMenuLink({ children, ...props }: NavMenuLinkProps, ref) {
@@ -21,12 +20,13 @@ const NavMenuLink = forwardRef<HTMLElement, NavMenuLinkProps>(
     return (
       <MenuItem
         ref={ref}
-        component={Link}
+        component={NavLink}
         {...props}
         sx={{
           "&:hover": {
             color: theme.palette.secondary.main,
             borderLeft: "solid 4px",
+            borderBottom: "none",
           },
           "&:focus": {
             color: theme.palette.secondary.main,
@@ -112,11 +112,7 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         onClose={closeMenu}
         anchorEl={anchorElement}
         disableAutoFocusItem
-        MenuListProps={{
-          sx: {
-            minWidth: menuWidth,
-          },
-        }}
+        MenuListProps={{ sx: { minWidth: menuWidth } }}
         slotProps={{
           paper: { style: { backgroundColor: theme.palette.primary.light } },
         }}
@@ -127,4 +123,4 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
   );
 };
 
-export { NavMenu, NavMenuLink };
+export { NavMenu, NavMenuLink, type NavMenuLinkProps, type NavMenuProps };
