@@ -10,7 +10,7 @@ import {
   styled,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 
 import {
   ImageColourSchemeSwitch,
@@ -26,13 +26,10 @@ interface NavLinkProps extends LinkProps {
   href?: string;
 }
 
-const NavLink = ({
-  children,
-  linkComponent,
-  to,
-  href,
-  ...props
-}: NavLinkProps) => {
+const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
+  { children, linkComponent, to, href, ...props }: NavLinkProps,
+  ref,
+) {
   const theme = useTheme();
 
   const shouldUseLinkComponent = linkComponent && to;
@@ -44,6 +41,7 @@ const NavLink = ({
   return (
     <Link
       {...linkProps}
+      ref={ref}
       sx={{
         "&:hover": {
           color: theme.palette.secondary.main,
@@ -66,7 +64,7 @@ const NavLink = ({
       {children}
     </Link>
   );
-};
+});
 
 interface NavLinksProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
