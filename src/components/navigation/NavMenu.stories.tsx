@@ -5,7 +5,7 @@ import { Autorenew } from "@mui/icons-material";
 import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof NavMenu> = {
-  title: "Components/Controls/NavMenu",
+  title: "Components/Navigation/NavMenu",
   component: NavMenu,
   tags: ["autodocs"],
   parameters: {
@@ -36,7 +36,7 @@ export const BasicMenu: Story = {
     docs: {
       description: {
         story:
-          'A NavMenu populated with `NavMenuLink`s. The menu text is set using `label: "NavMenu"`.',
+          'A `NavMenu` populated with `NavMenuLink`s. The menu text is set using `label: "NavMenu"`.',
       },
     },
   },
@@ -89,7 +89,7 @@ export const CustomChildren: Story = {
     docs: {
       description: {
         story:
-          "A NavMenu may contain components other than `NavMenuLink`s. This one has a section header (made using a `Typography` and a `Divider`) and a button.",
+          "A `NavMenu` may contain components other than `NavMenuLink`s. This one has a section header (made using a `Typography` and a `Divider`) and a button.",
       },
     },
   },
