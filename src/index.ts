@@ -5,6 +5,7 @@ export * from "./components/navigation/Navbar";
 
 // components/controls
 export * from "./components/controls/AppTitlebar";
+export * from "./components/controls/Bar";
 export * from "./components/controls/ColourSchemeButton";
 export * from "./components/controls/ImageColourSchemeSwitch";
 export * from "./components/controls/Logo";
@@ -12,10 +13,10 @@ export * from "./components/controls/User";
 export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
 
-// components/helpers/jsonForms
+// components/systems
 export * from "./components/systems/auth";
 
-// components/helpers/jsonForms
+// components/helpers
 export * from "./components/helpers/jsonforms";
 
 // themes
