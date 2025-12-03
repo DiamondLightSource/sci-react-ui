@@ -5,15 +5,17 @@ SciReactUI Changelog
 ------------------------
 
 ### Added
-- New Progress component based on Diamond Light added.
-- New ProgressDelayed component so that the progress isn't shown at all when it's a small wait.
+- New *Progress* component based on Diamond Light added.
+- New *ProgressDelayed* component so that the progress isn't shown at all when it's a small wait.
 
 ### Fixed
 - Hovering over a slot caused a popup with the slot title in. This has been removed.
 - Stopped Bar-based components (e.g. Navbar, Footer) from expanding when a parent component has a set height
+- The base *Bar* component was not being exported.
 
 ### Changed
 - Remove first-child css selector as it causes problems with server-side rendering.
+
 
 [v0.3.0] - 2025-09-04
 ---------------------
@@ -33,7 +35,6 @@ of the colour scheme switch - for use with alternative background colours.
 - Fixed Footer was not adhering to Container width. (Can be turned off with containerWidth setting)
 - Fixed bug in Footer Links where alignment was out on first link.
 - Ordering of StoryBook now more intuitive.
-
 
 ### Changed
 - Breaking change: The use of *color* has been replaced with *colour* throughout. 
