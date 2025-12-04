@@ -18,11 +18,13 @@ describe("NavMenu", () => {
         <NavMenuLink href="#test2">Link 2</NavMenuLink>
       </NavMenu>,
     );
-
+    const menuButton = screen.getByRole("button");
     expect(screen.queryByText("Link 1")).not.toBeInTheDocument();
-    await user.click(screen.getByRole("button"));
+    expect(menuButton).toHaveAttribute("aria-expanded", "false");
+    await user.click(menuButton);
     expect(screen.getByText("Link 1")).toBeVisible();
     expect(screen.getByText("Link 2")).toBeVisible();
+    expect(menuButton).toHaveAttribute("aria-expanded", "true");
   });
 
   it("should open when selected using keyboard", async () => {
@@ -51,6 +53,17 @@ describe("NavMenu", () => {
     await user.keyboard("[ArrowDown]");
     const link2 = screen.getByRole("menuitem", { name: "Link 2" });
     expect(document.activeElement).toBe(link2);
+  });
+
+  it("should render with accessibility props", async () => {
+    renderWithProviders(<NavMenu label="Navmenu" />);
+
+    const menuButton = screen.getByRole("button");
+    const buttonControlsId = menuButton.getAttribute("aria-controls");
+    expect(menuButton).toHaveAttribute("aria-haspopup", "menu");
+    await user.click(menuButton);
+    const menuId = screen.getByRole("presentation").getAttribute("id");
+    expect(buttonControlsId).toEqual(menuId);
   });
 });
 
