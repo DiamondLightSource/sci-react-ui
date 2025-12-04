@@ -6,8 +6,8 @@
 
 - New _Progress_ component based on Diamond Light added.
 - New _ProgressDelayed_ component so that the progress isn't shown at all when it's a small wait.
-- NavMenu component added for creating dropdown menus in the NavBar
-  - NavMenuLink component extends NavLink to work in the NavMenu
+- _NavMenu_ component added for creating dropdown menus in the Navbar
+  - _NavMenuLink_ component extends NavLink to work in the NavMenu
 
 ### Fixed
 

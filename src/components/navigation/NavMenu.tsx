@@ -7,7 +7,7 @@ import {
   MenuItem,
   type MenuItemProps,
 } from "@mui/material";
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useId } from "react";
 import { ExpandMore } from "@mui/icons-material";
 import { NavLink, NavLinkProps } from "./Navbar";
 
@@ -54,6 +54,7 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElement);
   const [menuWidth, setMenuWidth] = useState(0);
+  const menuId = useId();
 
   const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!open) {
@@ -71,6 +72,9 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
   return (
     <>
       <Button
+        aria-controls={menuId}
+        aria-expanded={open}
+        aria-haspopup="menu"
         onClick={(e) => openMenu(e)}
         disableFocusRipple
         sx={{
@@ -108,6 +112,7 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         />
       </Button>
       <Menu
+        id={menuId}
         open={open}
         onClose={closeMenu}
         anchorEl={anchorElement}
