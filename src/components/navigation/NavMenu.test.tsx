@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { NavMenu, NavMenuLink } from "./NavMenu";
@@ -121,7 +121,7 @@ describe("NavMenuLink", () => {
       </MemoryRouter>,
     );
     const link = screen.getByRole("menuitem");
-    link.focus();
+    act(() => link.focus());
     await user.keyboard("[enter]");
     expect(screen.getByText("Second page")).toBeInTheDocument();
   });
