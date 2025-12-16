@@ -11,28 +11,24 @@ const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
 
 export const decorators = [
-  (StoriesWithPadding: React.FC) => {
-    return (
-      <div style={{ padding: "2em" }}>
-        <StoriesWithPadding />
-      </div>
-    );
-  },
-  (StoriesWithThemeSwapping: React.FC, context: Context) => {
-    return (
-      <ThemeSwapper context={context}>
-        <StoriesWithThemeSwapping />
-      </ThemeSwapper>
-    );
-  },
+  (StoriesWithPadding: React.FC) => (
+    <div style={{ padding: "2em" }}>
+      <StoriesWithPadding />
+    </div>
+  ),
+  (StoriesWithThemeSwapping: React.FC, context: Context) => (
+    <ThemeSwapper context={context}>
+      <StoriesWithThemeSwapping />
+    </ThemeSwapper>
+  ),
   (StoriesWithThemeProvider: React.FC, context: Context) => {
     const selectedTheme = context.globals.theme || TextThemeBase;
     const selectedThemeMode = context.globals.themeMode || TextLight;
 
     return (
       <ThemeProvider
-        theme={selectedTheme == TextThemeBase ? GenericTheme : DiamondTheme}
-        defaultMode={selectedThemeMode == TextLight ? "light" : "dark"}
+        theme={selectedTheme === TextThemeBase ? GenericTheme : DiamondTheme}
+        defaultMode={selectedThemeMode === TextLight ? "light" : "dark"}
       >
         <CssBaseline />
         <StoriesWithThemeProvider />
@@ -68,6 +64,7 @@ const preview: Preview = {
   },
   parameters: {
     controls: {
+      expanded: true,
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
@@ -89,9 +86,7 @@ const preview: Preview = {
     },
   },
   argTypes: {
-    linkComponent: {
-      control: false,
-    },
+    linkComponent: { control: false },
   },
 };
 
