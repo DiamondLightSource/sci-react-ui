@@ -27,16 +27,16 @@ colorSchemes: {
     light: {
       palette: {
         primary: {
-          main: "var(--ds-indigo-9)",
-          light: "var(--ds-indigo-8)",
-          dark: "var(--ds-indigo-10)",
-          contrastText: "var(--ds-gray-1)",
+          main: "var(--ds-indigo-10)",
+          light: "var(--ds-indigo-09)",
+          dark: "var(--ds-indigo-11)",
+          contrastText: "var(--ds-white)",
         },
         secondary: {
-          main: "var(--ds-violet-9)",
-          light: "var(--ds-violet-8)",
-          dark: "var(--ds-violet-10)",
-          contrastText: "var(--ds-gray-1)",
+          main: "var(--ds-navy-10)",
+          light: "var(--ds-navy-09)",
+          dark: "var(--ds-navy-11)",
+          contrastText: "var(--ds-white)",
         },
         text: {
           primary: "var(--ds-gray-12)",
@@ -52,24 +52,24 @@ colorSchemes: {
     dark: {
       palette: {
         primary: {
-          main: "var(--ds-indigo-9)",
-          light: "var(--ds-indigo-8)",
-          dark: "var(--ds-indigo-10)",
-          contrastText: "var(--ds-gray-1)",
+          main: "var(--ds-indigo-10)",
+          light: "var(--ds-indigo-09)",
+          dark: "var(--ds-indigo-11)",
+          contrastText: "var(--ds-white)",
         },
         secondary: {
-          main: "var(--ds-indigo-9)",
-          light: "var(--ds-indigo-8)",
-          dark: "var(--ds-indigo-10)",
-          contrastText: "var(--ds-gray-1)",
+          main: "var(--ds-navy-10",
+          light: "var(--ds-navy-09)",
+          dark: "var(--ds-navy-11)",
+          contrastText: "var(--ds-white)",
         },
         text: {
-          primary: "var(--ds-gray-1)",
-          secondary: "var(--ds-gray-4)",
+          primary: "var(--ds-gray-12)",
+          secondary: "var(--ds-gray-11)",
         },
         background: {
-          default: "var(--ds-gray-12)",
-          paper: "var(--ds-gray-11)",
+          default: "var(--ds-gray-1)",
+          paper: "var(--ds-gray-2)",
         },
         divider: "var(--ds-gray-6)",
       },
