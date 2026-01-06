@@ -3,12 +3,25 @@ import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
 
 import { ThemeProvider } from "../src";
-import { GenericTheme, DiamondTheme } from "../src";
+import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
 
 import { Context, ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper";
 
 const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
+const TextThemeDiamondDS = "Theme: DiamondDS";
+
+function resolveTheme(selectedTheme: string) {
+  switch (selectedTheme) {
+    case TextThemeBase:
+      return GenericTheme;
+    case TextThemeDiamondDS:
+      return DiamondDSTheme;
+    case TextThemeDiamond:
+    default:
+      return DiamondTheme;
+  }
+}
 
 export const decorators = [
   (StoriesWithPadding: React.FC) => (
@@ -27,7 +40,7 @@ export const decorators = [
 
     return (
       <ThemeProvider
-        theme={selectedTheme === TextThemeBase ? GenericTheme : DiamondTheme}
+        theme={resolveTheme(selectedTheme)}
         defaultMode={selectedThemeMode === TextLight ? "light" : "dark"}
       >
         <CssBaseline />
@@ -44,7 +57,7 @@ const preview: Preview = {
       toolbar: {
         title: "Theme",
         icon: "cog",
-        items: [TextThemeBase, TextThemeDiamond],
+        items: [TextThemeBase, TextThemeDiamond, TextThemeDiamondDS],
         dynamicTitle: true,
       },
     },
@@ -59,8 +72,8 @@ const preview: Preview = {
     },
   },
   initialGlobals: {
-    theme: "Theme: Diamond",
-    themeMode: "Mode: Light",
+    theme: TextThemeDiamondDS, // set default to DiamondDS (change if you want)
+    themeMode: TextLight,
   },
   parameters: {
     controls: {
