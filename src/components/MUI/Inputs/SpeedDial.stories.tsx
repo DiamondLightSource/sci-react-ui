@@ -32,6 +32,7 @@ export const Basic: Story = {
         {...args}
         icon={<SpeedDialIcon />}
         sx={{ position: "absolute", bottom: 16, right: 16 }}
+        ariaLabel=""
       >
         <SpeedDialAction icon={<FileCopyIcon />} tooltipTitle="Copy" />
         <SpeedDialAction icon={<SaveIcon />} tooltipTitle="Save" />

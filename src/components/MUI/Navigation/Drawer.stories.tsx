@@ -3,8 +3,8 @@ import * as React from "react";
 import { Drawer } from "./Drawer";
 import { Button } from "../Inputs/Button";
 import { List } from "../DataDisplay/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import { ListItem } from "../DataDisplay/ListItem";
+import { ListItemText } from "../DataDisplay/ListItemText";
 
 const meta: Meta<typeof Drawer> = {
   title: "MUI/Navigation/Drawer",

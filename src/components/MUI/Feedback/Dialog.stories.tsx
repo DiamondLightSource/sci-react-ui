@@ -1,11 +1,11 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Dialog } from "./Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import React from "react";
+import { Typography } from "../DataDisplay/Typography";
+import { Button } from "../Inputs/Button";
 
 const meta: Meta<typeof Dialog> = {
   title: "MUI/Feedback/Dialog",

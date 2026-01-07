@@ -34,13 +34,13 @@ const Item = ({ children }: { children: React.ReactNode }) => (
 export const Basic: Story = {
   render: (args) => (
     <GridV2 container spacing={args.spacing} columns={args.columns}>
-      <GridV2 xs={4}>
+      <GridV2 size={{ xs: 4 }}>
         <Item>xs=4</Item>
       </GridV2>
-      <GridV2 xs={4}>
+      <GridV2 size={{ xs: 4 }}>
         <Item>xs=4</Item>
       </GridV2>
-      <GridV2 xs={4}>
+      <GridV2 size={{ xs: 4 }}>
         <Item>xs=4</Item>
       </GridV2>
     </GridV2>
@@ -50,13 +50,13 @@ export const Basic: Story = {
 export const Responsive: Story = {
   render: (args) => (
     <GridV2 container spacing={args.spacing} columns={12}>
-      <GridV2 xs={12} sm={6} md={4}>
+      <GridV2 size={{ xs: 12, sm: 12, md: 4 }}>
         <Item>xs=12 sm=6 md=4</Item>
       </GridV2>
-      <GridV2 xs={12} sm={6} md={4}>
+      <GridV2 size={{ xs: 12, sm: 12, md: 4 }}>
         <Item>xs=12 sm=6 md=4</Item>
       </GridV2>
-      <GridV2 xs={12} sm={12} md={4}>
+      <GridV2 size={{ xs: 12, sm: 12, md: 4 }}>
         <Item>xs=12 sm=12 md=4</Item>
       </GridV2>
     </GridV2>

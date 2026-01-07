@@ -1,4 +1,3 @@
-// src/components/Badge/Badge.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
 import { Badge } from "./Badge";
 import MailIcon from "@mui/icons-material/Mail";

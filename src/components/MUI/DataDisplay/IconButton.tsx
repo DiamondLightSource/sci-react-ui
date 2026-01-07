@@ -1,4 +1,3 @@
-// src/components/IconButton/IconButton.tsx
 import * as React from "react";
 import MuiIconButton, {
   IconButtonProps as MuiIconButtonProps,

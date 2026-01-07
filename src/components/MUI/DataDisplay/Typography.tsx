@@ -5,7 +5,7 @@ import MuiTypography, {
 
 export type TypographyProps = MuiTypographyProps;
 
-export const Typography = React.forwardRef<unknown, TypographyProps>(
+export const Typography = React.forwardRef<HTMLSpanElement, TypographyProps>(
   (props, ref) => <MuiTypography ref={ref} {...props} />,
 );
 

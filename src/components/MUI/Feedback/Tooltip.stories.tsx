@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Tooltip } from "./Tooltip";
-import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
+import { IconButton } from "../DataDisplay/IconButton";
 
 const meta: Meta<typeof Tooltip> = {
   title: "MUI/Feedback/Tooltip",
@@ -42,7 +42,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   render: (args) => (
-    <Tooltip {...args}>
+    <Tooltip {...args} title={args.title!}>
       <IconButton aria-label="info">
         <InfoIcon />
       </IconButton>
@@ -59,32 +59,32 @@ export const Placements: Story = {
         gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
       }}
     >
-      <Tooltip {...args} placement="top">
+      <Tooltip {...args} title={args.title!} placement="top">
         <IconButton>
           <InfoIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip {...args} placement="right">
+      <Tooltip {...args} title={args.title!} placement="right">
         <IconButton>
           <InfoIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip {...args} placement="bottom">
+      <Tooltip {...args} title={args.title!} placement="bottom">
         <IconButton>
           <InfoIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip {...args} placement="left">
+      <Tooltip {...args} title={args.title!} placement="left">
         <IconButton>
           <InfoIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip {...args} placement="top-start">
+      <Tooltip {...args} title={args.title!} placement="top-start">
         <IconButton>
           <InfoIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip {...args} placement="top-end">
+      <Tooltip {...args} title={args.title!} placement="top-end">
         <IconButton>
           <InfoIcon />
         </IconButton>

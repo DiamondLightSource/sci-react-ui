@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Select } from "./Select";
-import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
+import { FormControl, InputLabel, MenuItem } from "@mui/material";
 
 const cityOptions = ["London", "Paris", "Berlin", "Rome", "Madrid"];
 

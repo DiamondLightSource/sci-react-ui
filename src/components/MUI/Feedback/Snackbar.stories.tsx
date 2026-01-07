@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Button from "@mui/material/Button";
 import React from "react";
 import { Snackbar } from "./Snackbar";
+import { Button } from "../Inputs/Button";
 
 const anchorMap = {
   "top-left": { vertical: "top", horizontal: "left" },
@@ -31,7 +31,7 @@ const meta: Meta<typeof Snackbar> = {
   args: {
     message: "Saved",
     autoHideDuration: 3000,
-    anchorOrigin: "bottom-left",
+    anchorOrigin: { vertical: "bottom", horizontal: "left" },
   },
 };
 export default meta;

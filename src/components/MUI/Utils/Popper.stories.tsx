@@ -1,11 +1,17 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Popper } from "./Popper";
+import { Popper, PopperProps } from "./Popper";
 import { Button } from "../Inputs/Button";
 import { Fade } from "./Transitions";
 import { Box } from "../Layout/Box";
 
-type Args = React.ComponentProps<typeof Popper> & { content?: string };
+type Args = {
+  placement?: PopperProps["placement"];
+  disablePortal?: boolean;
+  keepMounted?: boolean;
+  transition?: boolean;
+  content?: string;
+};
 
 const meta: Meta<Args> = {
   title: "MUI/Utils/Popper",
@@ -33,10 +39,6 @@ const meta: Meta<Args> = {
     disablePortal: { control: "boolean" },
     keepMounted: { control: "boolean" },
     transition: { control: "boolean" },
-    modifiers: { control: false },
-    container: { control: false },
-    anchorEl: { control: false },
-    children: { control: false },
     content: { control: "text" },
   },
   args: {

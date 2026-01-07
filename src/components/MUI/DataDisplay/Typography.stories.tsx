@@ -1,7 +1,6 @@
-// src/components/Typography/Typography.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
 import { Typography } from "./Typography";
-import Stack from "@mui/material/Stack";
+import { Stack } from "../Layout/Stack";
 
 const meta: Meta<typeof Typography> = {
   title: "MUI/Data Display/Typography",
@@ -154,4 +153,3 @@ export const Colors: Story = {
     </Stack>
   ),
 };
-``;

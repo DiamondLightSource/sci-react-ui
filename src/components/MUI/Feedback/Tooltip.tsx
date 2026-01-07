@@ -5,8 +5,8 @@ import MuiTooltip, {
 
 export type TooltipProps = MuiTooltipProps;
 
-export const Tooltip = React.forwardRef<unknown, TooltipProps>((props, ref) => (
-  <MuiTooltip ref={ref as any} {...props} />
-));
+export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
+  (props, ref) => <MuiTooltip ref={ref as any} {...props} />,
+);
 
 Tooltip.displayName = "Tooltip";

@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Avatar } from "./Avatar";
-import Stack from "@mui/material/Stack";
-import Diamond from "../../../public/images/diamond.jpg";
+import FolderIcon from "@mui/icons-material/Folder";
+import PageviewIcon from "@mui/icons-material/Pageview";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+
+import { Stack } from "../Layout/Stack";
+import { AvatarGroup } from "./AvatarGroup";
 
 const meta: Meta<typeof Avatar> = {
   title: "MUI/Data Display/Avatar",
@@ -20,56 +24,92 @@ const meta: Meta<typeof Avatar> = {
     alt: { control: "text" },
     src: { control: "text" },
     imgProps: { control: false },
-    sx: { control: false },
-    width: { control: { type: "number", min: 24, max: 160, step: 4 } },
-    height: { control: { type: "number", min: 24, max: 160, step: 4 } },
+    sx: { control: "object" },
   },
   args: {
     variant: "circular",
     children: "AB",
     alt: "User avatar",
     src: "",
-    width: 56,
-    height: 56,
+    sx: { width: 56, height: 56, bgcolor: "primary" },
   },
 };
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
-const withSize = (args: any) => {
-  const { width, height, ...rest } = args;
-  return { ...rest, sx: { width, height } };
-};
-
 export const Basic: Story = {
-  render: (args) => <Avatar {...withSize(args)}>{args.children}</Avatar>,
+  render: (args) => <Avatar {...args}>{args.children}</Avatar>,
 };
 
 export const Variants: Story = {
   render: (args) => (
     <Stack direction="row" spacing={2}>
-      <Avatar {...withSize({ ...args, variant: "circular" })}>AB</Avatar>
-      <Avatar {...withSize({ ...args, variant: "rounded" })}>CD</Avatar>
-      <Avatar {...withSize({ ...args, variant: "square" })}>EF</Avatar>
+      <Avatar
+        {...args}
+        variant="circular"
+        sx={{ bgcolor: "red", height: 56, width: 56 }}
+      >
+        AB
+      </Avatar>
+      <Avatar
+        {...args}
+        variant="rounded"
+        sx={{ bgcolor: "orange", height: 56, width: 56 }}
+      >
+        CD
+      </Avatar>
+      <Avatar
+        {...args}
+        variant="square"
+        sx={{ bgcolor: "green", height: 56, width: 56 }}
+      >
+        EF
+      </Avatar>
     </Stack>
   ),
 };
 
-export const WithImage: Story = {
-  args: {
-    src: Diamond,
-    alt: "Random",
-    children: "",
-  },
-  render: (args) => <Avatar {...withSize(args)} />,
+export const WithIcon: Story = {
+  render: (args) => (
+    <Stack direction="row" spacing={2}>
+      <Avatar {...args}>
+        <FolderIcon />
+      </Avatar>
+      <Avatar sx={{ bgcolor: "pink", width: 56, height: 56 }}>
+        <PageviewIcon />
+      </Avatar>
+      <Avatar sx={{ bgcolor: "green", width: 56, height: 56 }}>
+        <AssignmentIcon />
+      </Avatar>
+    </Stack>
+  ),
+};
+
+export const Grouped: Story = {
+  render: (args) => (
+    <AvatarGroup max={4}>
+      <Avatar sx={{ bgcolor: "red" }}>AB</Avatar>
+      <Avatar sx={{ bgcolor: "orange" }}>CD</Avatar>
+      <Avatar sx={{ bgcolor: "green" }}>EF</Avatar>
+      <Avatar>IJ</Avatar>
+      <Avatar>KL</Avatar>
+    </AvatarGroup>
+  ),
 };
 
 export const Sizes: Story = {
   render: (args) => (
     <Stack direction="row" spacing={2} alignItems="center">
-      <Avatar {...withSize({ ...args, width: 40, height: 40 })}>SM</Avatar>
-      <Avatar {...withSize({ ...args, width: 56, height: 56 })}>MD</Avatar>
-      <Avatar {...withSize({ ...args, width: 80, height: 80 })}>LG</Avatar>
+      <Avatar {...args} sx={{ ...args.sx, width: 40, height: 40 }}>
+        SM
+      </Avatar>
+      <Avatar {...args} sx={{ ...args.sx, width: 56, height: 56 }}>
+        MD
+      </Avatar>
+      <Avatar {...args} sx={{ ...args.sx, width: 80, height: 80 }}>
+        LG
+      </Avatar>
     </Stack>
   ),
 };
