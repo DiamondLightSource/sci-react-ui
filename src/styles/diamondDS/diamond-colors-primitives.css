@@ -30,6 +30,18 @@
 }
 
 :root, .light, :root[data-mode="light"] { /*LIGHT MODE */
+  /* Semantic on-colour tokens */
+  --ds-on-accent: var(--ds-white); /* e.g. on primary/secondary */
+  --ds-on-surface: var(--ds-olive-12);    /* normal text */
+  --ds-on-inverse: var(--ds-white);/* text on inverse surface */
+
+  --ds-overlay-hover: rgba(0, 0, 0, 0.06);
+  --ds-overlay-selected: rgba(0, 0, 0, 0.10);
+  --ds-overlay-focus: rgba(0, 0, 0, 0.12);
+  --ds-overlay-disabled: rgba(0, 0, 0, 0.26);
+  --ds-overlay-disabled-bg: rgba(0, 0, 0, 0.06);
+
+  /* Radix based colours */
   --ds-gray-1:#fcfcfc;
   --ds-gray-2:#f9f9f9;
   --ds-gray-3:#f0f0f0;
@@ -428,6 +440,18 @@
   --ds-navy-12Channel: 12 14 28;
 }
 .dark, :root[data-mode="dark"]  { /* Dark Mode */ 
+  /* Semantic on-colour tokens */
+  --ds-on-accent: var(--ds-white); /* e.g. on primary/secondary */
+  --ds-on-surface: var(--ds-olive-12);    /* normal text */
+  --ds-on-inverse: var(--ds-black);/* text on inverse surface */
+
+  --ds-overlay-hover: rgba(255, 255, 255, 0.06);
+  --ds-overlay-selected: rgba(255, 255, 255, 0.10);
+  --ds-overlay-focus: rgba(255, 255, 255, 0.12);
+  --ds-overlay-disabled: rgba(255, 255, 255, 0.30);
+  --ds-overlay-disabled-bg: rgba(255, 255, 255, 0.08);
+
+  /* Radix based colours */
   --ds-gray-1:#111;
   --ds-gray-2:#191919;
   --ds-gray-3:#222;
@@ -797,7 +821,7 @@
   --ds-navy-7:  #202945; /* brand sits here in dark ramp */
   --ds-navy-8:  #273352;
   --ds-navy-9:  #324064;
-  --ds-navy-10: #3c4b76;
+  --ds-navy-10: #586084;
   --ds-navy-11: #9ca9ce;
   --ds-navy-12: #d5ddf0;
   --ds-navy-a1:  #32406405;

@@ -1,32 +1,42 @@
-import { useEffect } from "react";
-import { ThemeProvider as Mui_ThemeProvider } from "@mui/material/styles";
+import React, { useLayoutEffect, useMemo } from "react";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { GenericTheme } from "./GenericTheme";
-import { ThemeProviderProps as Mui_ThemeProviderProps } from "@mui/material/styles/ThemeProvider";
+import type { ThemeProviderProps as MuiThemeProviderProps } from "@mui/material/styles/ThemeProvider";
 
-interface ThemeProviderProps extends Partial<Mui_ThemeProviderProps> {
+import { createMuiTheme } from "./DiamondDSTheme";
+import type { DSMode } from "./DiamondDSTheme";
+
+interface ThemeProviderProps extends Partial<MuiThemeProviderProps> {
   baseline?: boolean;
-  defaultMode?: "light" | "dark"; // keep it simple
+  mode: DSMode; // controlled (source of truth)
 }
 
-const ThemeProvider = function ({
+export function ThemeProvider({
   children,
-  theme = GenericTheme,
   baseline = true,
-  defaultMode = "light",
+  mode,
   ...props
 }: ThemeProviderProps) {
-  useEffect(() => {
-    document.documentElement.setAttribute("data-mode", defaultMode);
-  }, [defaultMode]);
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+
+    // single source of truth for variables
+    root.setAttribute("data-mode", mode);
+
+    // optional: keep classes for convenience, but NOT for variables
+    root.classList.toggle("dark", mode === "dark");
+    root.classList.toggle("light", mode === "light");
+
+    // help UA styles / scrollbars
+    root.style.colorScheme = mode;
+  }, [mode]);
+
+  const theme = useMemo(() => createMuiTheme(mode), [mode]);
 
   return (
-    <Mui_ThemeProvider theme={theme} {...props}>
+    <MuiThemeProvider theme={theme} {...props}>
       {baseline && <CssBaseline />}
       {children}
-    </Mui_ThemeProvider>
+    </MuiThemeProvider>
   );
-};
-
-export { ThemeProvider };
-export type { ThemeProviderProps };
+}

@@ -14,3 +14,4 @@ tsconfig.tsbuildinfo
 src/.DS_Store
 src/styles/.DS_Store
 src/themes/.DS_Store
+.DS_Store
