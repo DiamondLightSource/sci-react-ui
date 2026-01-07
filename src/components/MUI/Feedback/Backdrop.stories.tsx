@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { Backdrop } from "./Backdrop";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
+import { CircularProgress } from "./CircularProgress";
+import { Button } from "../Inputs/Button";
 
 const meta: Meta<typeof Backdrop> = {
   title: "MUI/Feedback/Backdrop",

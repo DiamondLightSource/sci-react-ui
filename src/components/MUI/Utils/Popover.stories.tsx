@@ -30,7 +30,11 @@ const meta: Meta<typeof Popover> = {
     },
     disablePortal: { control: "boolean" },
   },
-  args: { anchorOrigin: "bl", transformOrigin: "tl", disablePortal: false },
+  args: {
+    anchorOrigin: { vertical: "bottom", horizontal: "left" },
+    transformOrigin: { vertical: "top", horizontal: "left" },
+    disablePortal: false,
+  },
 };
 export default meta;
 type Story = StoryObj<typeof meta>;

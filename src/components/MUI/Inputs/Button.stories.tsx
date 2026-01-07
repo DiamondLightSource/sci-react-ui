@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
-
 import SaveIcon from "@mui/icons-material/Save";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import Stack from "@mui/material/Stack";
 import { Box } from "../Layout/Box";
+import { Stack } from "../Layout/Stack";
 
 const iconMap = {
   none: undefined,
@@ -34,6 +33,7 @@ const meta: Meta<typeof Button> = {
     controls: { expanded: true },
     layout: "padded",
   },
+
   argTypes: {
     variant: {
       control: { type: "select" },
@@ -55,11 +55,7 @@ const meta: Meta<typeof Button> = {
       control: { type: "select" },
       options: ["small", "medium", "large"],
     },
-    disabled: { control: "boolean" },
-    disableElevation: { control: "boolean" },
-    disableFocusRipple: { control: "boolean" },
-    disableRipple: { control: "boolean" },
-    fullWidth: { control: "boolean" },
+
     startIconName: {
       name: "startIcon",
       control: { type: "select" },
@@ -78,7 +74,7 @@ const meta: Meta<typeof Button> = {
 
     component: { control: false },
     children: { name: "label", control: "text" },
-  },
+  } as any,
   args: {
     children: "Button",
     variant: "contained",
@@ -89,12 +85,10 @@ const meta: Meta<typeof Button> = {
     disableFocusRipple: false,
     disableRipple: false,
     fullWidth: false,
-    startIconName: "none" as IconKey,
-    endIconName: "none" as IconKey,
+    startIcon: "none" as IconKey,
+    endIcon: "none" as IconKey,
     href: "",
-    target: "",
     rel: "",
-    ariaLabel: "",
   },
 };
 

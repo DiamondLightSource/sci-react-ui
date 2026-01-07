@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Card } from "./Card";
-
+import Diamond from "../../../public/images/diamond.jpg";
+import { Typography } from "../DataDisplay/Typography";
+import { Button } from "../Inputs/Button";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Diamond from "../../../public/images/diamond.jpg";
 
 const meta: Meta<typeof Card> = {
   title: "MUI/Surfaces/Card",

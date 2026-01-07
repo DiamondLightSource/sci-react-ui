@@ -1,4 +1,3 @@
-// src/components/Progress/CircularProgress.tsx
 import * as React from "react";
 import MuiCircularProgress, {
   CircularProgressProps as MuiCircularProgressProps,

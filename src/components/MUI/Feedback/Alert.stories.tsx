@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Alert } from "./Alert";
-import Button from "@mui/material/Button";
+import { Button } from "../Inputs/Button";
 
 const meta: Meta<typeof Alert> = {
   title: "MUI/Feedback/Alert",

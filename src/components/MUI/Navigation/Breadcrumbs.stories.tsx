@@ -85,10 +85,10 @@ export const Collapsed: Story = {
   },
   render: (args) => (
     <Breadcrumbs {...args}>
-      <Link>#Home</Link>
-      <Link>#Section</Link>
-      <Link>#Category</Link>
-      <Link>#Subcategory</Link>
+      <Link>Home</Link>
+      <Link>Section</Link>
+      <Link>Category</Link>
+      <Link>Subcategory</Link>
       <Typography color="text.primary">Item</Typography>
     </Breadcrumbs>
   ),

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import * as React from "react";
 import { ToggleButtonGroup } from "./ToggleButtonGroup";
-import { ToggleButton } from "@mui/material";
+import ToggleButton from "@mui/material/ToggleButton";
 
 type TBGArgs = React.ComponentProps<typeof ToggleButtonGroup>;
 

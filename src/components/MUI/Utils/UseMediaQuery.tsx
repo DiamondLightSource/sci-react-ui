@@ -1,4 +1,3 @@
-import * as React from "react";
 import useMediaQueryHook from "@mui/material/useMediaQuery";
 
 export type UseMediaQueryProps = { query: string };

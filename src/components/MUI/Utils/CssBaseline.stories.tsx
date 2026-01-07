@@ -1,9 +1,8 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-
-import { CssBaseline } from "./CssBaseline";
 import { Typography } from "../DataDisplay/Typography";
 import { Box } from "../Layout/Box";
+import { CssBaseline } from "./CssBaseline";
 
 type Args = React.ComponentProps<typeof CssBaseline>;
 

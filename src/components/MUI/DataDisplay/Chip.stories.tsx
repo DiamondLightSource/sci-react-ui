@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Chip } from "./Chip";
-
-import Stack from "@mui/material/Stack";
 import SaveIcon from "@mui/icons-material/Save";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import { Stack } from "../Layout/Stack";
 
 const iconMap = {
   none: undefined,
@@ -42,7 +41,6 @@ const meta: Meta<typeof Chip> = {
     clickable: { control: "boolean" },
     disabled: { control: "boolean" },
 
-    // Real props with mapping
     icon: {
       control: { type: "select" },
       options: Object.keys(iconMap),
@@ -53,21 +51,33 @@ const meta: Meta<typeof Chip> = {
       options: Object.keys(iconMap),
       mapping: iconMap,
     },
-    onDelete: { control: false },
-    sx: { control: false },
+
+    onDelete: {
+      control: { type: "select" },
+      options: ["undefined", "deletable"],
+      mapping: {
+        undefined: undefined,
+        deletable: () => console.log("delete clicked"),
+      },
+    },
+
+    sx: { control: "object" },
   },
   args: {
     label: "Chip",
     variant: "filled",
-    color: "default",
+    color: "primary",
     size: "medium",
     clickable: false,
     disabled: false,
-    icon: "none",
-    deleteIcon: "none",
+    icon: undefined,
+    deleteIcon: undefined,
+    sx: { width: 80 },
+    onDelete: undefined,
   },
 };
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
@@ -102,10 +112,10 @@ export const WithIcons: Story = {
   args: { color: "primary" },
   render: (args) => (
     <Stack direction="row" spacing={1}>
-      <Chip {...args} icon={"save"} label="Save" />
-      <Chip {...args} icon={"add"} label="Add" color="success" />
-      <Chip {...args} icon={"send"} label="Send" color="info" />
-      <Chip {...args} icon={"delete"} label="Delete" color="error" />
+      <Chip {...args} icon={iconMap.save} label="Save" />
+      <Chip {...args} icon={iconMap.add} label="Add" color="success" />
+      <Chip {...args} icon={iconMap.send} label="Send" color="info" />
+      <Chip {...args} icon={iconMap.delete} label="Delete" color="error" />
     </Stack>
   ),
 };
@@ -116,16 +126,15 @@ export const Deletable: Story = {
       <Chip
         {...args}
         label="Deletable"
-        deleteIcon={"delete"}
+        deleteIcon={iconMap.delete}
         onDelete={() => console.log("delete clicked")}
       />
       <Chip
         {...args}
         label="With custom delete icon"
-        deleteIcon={"send"}
+        deleteIcon={iconMap.send}
         onDelete={() => console.log("delete clicked")}
       />
     </Stack>
   ),
 };
-``;

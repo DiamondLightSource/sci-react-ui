@@ -30,6 +30,9 @@ const meta: Meta<typeof Icon> = {
         "info",
         "success",
         "warning",
+        "red",
+        "blue",
+        "green",
       ],
     },
     fontSize: {
@@ -45,7 +48,7 @@ const meta: Meta<typeof Icon> = {
     baseClassName: { control: false },
   },
   args: {
-    color: "inherit",
+    color: "primary",
     fontSize: "medium",
     children: "home",
   },
@@ -66,16 +69,6 @@ export const Colors: Story = {
       <Icon {...args} color="warning" />
       <Icon {...args} color="action" />
       <Icon {...args} color="disabled" />
-    </>
-  ),
-};
-
-export const Sizes: Story = {
-  render: (args) => (
-    <>
-      <Icon {...args} fontSize="small" />
-      <Icon {...args} fontSize="medium" />
-      <Icon {...args} fontSize="large" />
     </>
   ),
 };
