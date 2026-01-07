@@ -91,14 +91,14 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         main: "var(--ds-red-10)",
         light: "var(--ds-red-09)",
         dark: "var(--ds-red-11)",
-        contrastText: "var(--ds-on-accent)",
+        contrastText: "var(--ds-on-inverse)",
       },
 
       warning: {
         main: "var(--ds-orange-10)",
         light: "var(--ds-orange-09)",
         dark: "var(--ds-orange-11)",
-        contrastText: "var(--ds-on-accent)",
+        contrastText: "var(--ds-on-inverse)",
       },
 
       info: {
@@ -112,7 +112,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         main: "var(--ds-green-10)",
         light: "var(--ds-green-09)",
         dark: "var(--ds-green-11)",
-        contrastText: "var(--ds-on-accent)",
+        contrastText: "var(--ds-on-inverse)",
       },
 
       grey: {
