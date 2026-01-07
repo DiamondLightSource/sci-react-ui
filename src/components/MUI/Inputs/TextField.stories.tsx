@@ -27,8 +27,6 @@ const meta: Meta<TFArgs> = {
       control: { type: "select" },
       options: ["none", "dense", "normal"],
     },
-
-    // Content & behavior
     type: { control: "text" },
     label: { control: "text" },
     placeholder: { control: "text" },
@@ -37,16 +35,10 @@ const meta: Meta<TFArgs> = {
     required: { control: "boolean" },
     disabled: { control: "boolean" },
     fullWidth: { control: "boolean" },
-
-    // Multiline
     multiline: { control: "boolean" },
     rows: { control: { type: "number", min: 1, max: 12, step: 1 } },
-
-    // Keep value/onChange uncontrolled in Basic so demos are interactive
     value: { control: false },
     onChange: { control: false },
-
-    // Advanced props out of Controls for clarity
     InputProps: { control: false },
     InputLabelProps: { control: false },
     FormHelperTextProps: { control: false },
@@ -73,16 +65,10 @@ const meta: Meta<TFArgs> = {
 export default meta;
 type Story = StoryObj<TFArgs>;
 
-/**
- * Basic interactive field driven by Controls.
- */
 export const Basic: Story = {
   render: (args) => <TextField {...args} />,
 };
 
-/**
- * Showcase the three variants.
- */
 export const Variants: Story = {
   render: (args) => (
     <div style={{ display: "grid", gap: 12 }}>
@@ -94,9 +80,6 @@ export const Variants: Story = {
   args: { color: "primary", helperText: "" },
 };
 
-/**
- * Sizes and colors examples.
- */
 export const SizesAndColors: Story = {
   render: (args) => (
     <div style={{ display: "grid", gap: 12 }}>
@@ -133,9 +116,6 @@ export const SizesAndColors: Story = {
   args: { variant: "outlined", helperText: "" },
 };
 
-/**
- * Common states: required, error, disabled, fullWidth.
- */
 export const States: Story = {
   render: (args) => (
     <div style={{ display: "grid", gap: 12 }}>
@@ -155,9 +135,6 @@ export const States: Story = {
   args: { variant: "outlined", color: "primary" },
 };
 
-/**
- * Multiline example.
- */
 export const Multiline: Story = {
   args: {
     multiline: true,
@@ -168,9 +145,6 @@ export const Multiline: Story = {
   render: (args) => <TextField {...args} />,
 };
 
-/**
- * Types: password, number, email, search.
- */
 export const InputTypes: Story = {
   render: (args) => (
     <div style={{ display: "grid", gap: 12 }}>

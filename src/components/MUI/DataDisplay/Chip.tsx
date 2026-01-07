@@ -1,4 +1,3 @@
-// src/components/Chip/Chip.tsx
 import * as React from "react";
 import MuiChip, { ChipProps as MuiChipProps } from "@mui/material/Chip";
 

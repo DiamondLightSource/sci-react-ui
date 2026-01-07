@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Typography from "@mui/material/Typography";
 import { Accordion } from "./Accordion";
+import { Typography } from "../DataDisplay/Typography";
 
 const meta: Meta<typeof Accordion> = {
   title: "MUI/Surfaces/Accordion",

@@ -1,7 +1,6 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { UseMediaQuery } from "./UseMediaQuery";
-
 import { useTheme } from "@mui/material/styles";
 import { Box } from "../Layout/Box";
 

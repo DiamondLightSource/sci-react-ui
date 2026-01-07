@@ -1,4 +1,3 @@
-// src/components/IconButton/IconButton.tsx
 import * as React from "react";
 import MuiIconButton, {
   IconButtonProps as MuiIconButtonProps,
@@ -6,7 +5,7 @@ import MuiIconButton, {
 
 export type IconButtonProps = MuiIconButtonProps;
 
-export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+export const IconButton = React.forwardRef<SVGSVGElement, IconButtonProps>(
   (props, ref) => <MuiIconButton ref={ref} {...props} />,
 );
 

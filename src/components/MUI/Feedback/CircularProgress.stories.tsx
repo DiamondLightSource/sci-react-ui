@@ -1,4 +1,3 @@
-// src/components/Progress/CircularProgress.stories.tsx
 import type { Meta, StoryObj } from "@storybook/react";
 import { CircularProgress } from "./CircularProgress";
 

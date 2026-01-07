@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Tooltip } from "./Tooltip";
-import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
+import { IconButton } from "../DataDisplay/IconButton";
 
 const meta: Meta<typeof Tooltip> = {
   title: "MUI/Feedback/Tooltip",
