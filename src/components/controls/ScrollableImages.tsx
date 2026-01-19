@@ -1,13 +1,17 @@
-import { Box, Button, Slider, Stack } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Box, Button, IconButton, Slider, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { extractFramesFromTiff, isTiff } from "../../utils/TiffUtils";
 
 interface ScrollableImagesProps {
   images: ImageInfo | ImageInfo[];
   width?: number;
   height?: number;
+  scrollStep?: number;
+  mode?: "viewer" | "scroll";
   buttons?: boolean;
   wrapAround?: boolean;
   slider?: boolean;
@@ -15,23 +19,30 @@ interface ScrollableImagesProps {
   backgroundColor?: string;
 }
 
-interface ImageInfo {
+export interface ImageInfo {
   src: string;
   type?: string;
   alt?: string;
 }
 
-const ScrollableImages = ({
+export function ScrollableImages({
   images,
   width = 300,
   height = 300,
+  mode = "viewer",
   buttons = true,
   wrapAround = true,
   slider = true,
   numeration = true,
   backgroundColor = "#eee",
-}: ScrollableImagesProps) => {
-  const [extractedImages, setExtractedImages] = useState<ImageInfo[]>([]);
+  scrollStep = 320,
+}: ScrollableImagesProps) {
+  const [imageList, setImageList] = useState<ImageInfo[]>([]);
+
+  const handleArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "ArrowLeft") handlePrev();
+    else if (event.key === "ArrowRight") handleNext();
+  };
 
   useEffect(() => {
     (async () => {
@@ -50,227 +61,199 @@ const ScrollableImages = ({
         }
         index++;
       }
-      setExtractedImages(result);
+
+      setImageList(result);
     })();
   }, [images]);
 
-  const imageList = extractedImages.map((img, i) => (
-    <img
-      key={i}
-      src={img.src}
-      alt={img.alt ?? `Image ${String(i + 1)}`}
-      style={{
-        width: "100%",
-        height: "100%",
-        objectFit: "contain",
-        display: "block",
-      }}
-    />
-  ));
-
-  const imageListLength = imageList.length;
-  const renderButtons = buttons && imageListLength > 1;
-  const renderSlider = slider && imageListLength > 1;
-  const renderNumbers = numeration && imageListLength > 1;
-
+  //  CS - Standard mode
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [numberValue, setNumberValue] = useState("1");
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const setCurrentIndexWrapper = (index: number) => {
+  const imageCount = imageList.length;
+
+  const setIndex = (index: number) => {
     setCurrentIndex(index);
-    setNumberValue((index + 1).toString());
   };
 
   const handlePrev = useCallback(() => {
     const newIndex = wrapAround
-      ? (currentIndex - 1 + imageListLength) % imageListLength
+      ? (currentIndex - 1 + imageCount) % imageCount
       : Math.max(0, currentIndex - 1);
-    setCurrentIndexWrapper(newIndex);
-  }, [currentIndex, imageListLength, wrapAround]);
+    setIndex(newIndex);
+  }, [currentIndex, imageCount, wrapAround]);
 
   const handleNext = useCallback(() => {
     const newIndex = wrapAround
-      ? (currentIndex + 1) % imageListLength
-      : Math.min(currentIndex + 1, imageListLength - 1);
-    setCurrentIndexWrapper(newIndex);
-  }, [currentIndex, imageListLength, wrapAround]);
+      ? (currentIndex + 1) % imageCount
+      : Math.min(imageCount - 1, currentIndex + 1);
+    setIndex(newIndex);
+  }, [currentIndex, imageCount, wrapAround]);
+  //  CE - Standard mode
 
-  const handleSliderChange = (_event: Event, newIndex: number | number[]) => {
-    setCurrentIndexWrapper(Number(newIndex));
-  };
+  // CS - Scroll mode
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumberValue(event.target.value);
-  };
+  const scrollLeft = () =>
+    scrollRef.current?.scrollBy({ left: -scrollStep, behavior: "smooth" });
 
-  const handleNumberEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      const n = parseInt(numberValue);
-      let newIndex: number;
-      if (isNaN(n)) {
-        newIndex = currentIndex;
-      } else if (n > imageListLength) {
-        newIndex = imageListLength - 1;
-      } else if (n < 1) {
-        newIndex = 0;
-      } else {
-        newIndex = n - 1;
-      }
-      setCurrentIndexWrapper(newIndex);
-    }
-  };
+  const scrollRight = () =>
+    scrollRef.current?.scrollBy({ left: scrollStep, behavior: "smooth" });
+  // CE - Scroll mode
 
-  const handleArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "ArrowLeft") handlePrev();
-    else if (event.key === "ArrowRight") handleNext();
-  };
+  if (!imageCount) return null;
 
-  useEffect(() => {
-    const element = containerRef.current;
-    if (!element) return;
+  if (mode === "scroll") {
+    return (
+      <Box
+        data-testid="image-scroll-container"
+        sx={{ position: "relative", width: "100%" }}
+      >
+        <IconButton
+          onClick={scrollLeft}
+          sx={{
+            position: "absolute",
+            left: 0,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 2,
+            backgroundColor: "#4C5266",
+            color: "white",
+          }}
+        >
+          <ArrowBackIosNewIcon data-testid="scroll-left-button" />
+        </IconButton>
 
-    const handleWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      if (event.deltaY < 0) handlePrev();
-      else if (event.deltaY > 0) handleNext();
-    };
+        <Box
+          ref={scrollRef}
+          sx={{
+            display: "flex",
+            overflowX: "auto",
+            gap: "1rem",
+            padding: "1rem 3rem",
+            scrollSnapType: "x mandatory",
+          }}
+        >
+          {imageList.map((img, i) => (
+            <Box
+              key={i}
+              sx={{
+                width,
+                height,
+                flexShrink: 0,
+                scrollSnapAlign: "start",
+                backgroundColor,
+                border: "1px solid #ccc",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                data-testid={`scroll-image-${i + 1}`}
+                src={img.src}
+                alt={img.alt ?? `Image ${i + 1}`}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </Box>
+          ))}
+        </Box>
 
-    element.addEventListener("wheel", handleWheel, { passive: false });
-
-    return () => {
-      element.removeEventListener("wheel", handleWheel);
-    };
-  }, [handlePrev, handleNext]);
-
-  useEffect(() => {
-    if (currentIndex >= imageListLength && imageListLength) {
-      setCurrentIndexWrapper(imageListLength - 1);
-    }
-  }, [imageListLength, currentIndex]);
+        <IconButton
+          onClick={scrollRight}
+          sx={{
+            position: "absolute",
+            right: 0,
+            top: "50%",
+            transform: "translateY(-50%)",
+            zIndex: 2,
+            backgroundColor: "#4C5266",
+            color: "white",
+          }}
+        >
+          <ArrowForwardIosIcon data-testid="scroll-right-button" />
+        </IconButton>
+      </Box>
+    );
+  }
 
   return (
-    <>
-      <Stack
-        direction="column"
-        alignItems="center"
-        style={{ width }}
-        data-testid="scrollable-images"
-      >
+    <Stack data-testid="scrollable-images" alignItems="center" sx={{ width }}>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        {buttons && imageCount > 1 && (
+          <Button
+            aria-label="Previous Image"
+            onClick={handlePrev}
+            size="small"
+            sx={{ minWidth: 36, width: 36, height: 36 }}
+          >
+            <ArrowBackIcon data-testid="prev-button" />
+          </Button>
+        )}
+
         <Box
-          ref={containerRef}
+          data-testid="image-container"
+          data-index={currentIndex}
           tabIndex={0}
           onKeyDown={handleArrowKeys}
           sx={{
+            width,
+            height,
+            backgroundColor,
+            border: "1px solid #ccc",
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
           }}
         >
-          {renderButtons && (
-            <Button
-              aria-label="Previous Image"
-              onClick={handlePrev}
-              size="small"
-              sx={{ minWidth: 36, width: 36, height: 36 }}
-              data-testid="prev-button"
-            >
-              <ArrowBackIcon fontSize="small" />
-            </Button>
-          )}
-          <Box
-            data-index={currentIndex}
-            sx={{
-              position: "relative",
-              width,
-              height,
-              border: "1px solid #ccc",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: backgroundColor,
-              "& .slider-wrapper": { display: "none" },
-              "&:hover .slider-wrapper": { display: "flex" },
+          <img
+            src={imageList[currentIndex].src}
+            alt={imageList[currentIndex].alt ?? ""}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              objectFit: "contain",
             }}
-            data-testid="image-container"
-          >
-            {imageList[currentIndex]}
-            {renderSlider && (
-              <Box
-                className="slider-wrapper"
-                sx={{
-                  position: "absolute",
-                  width: width,
-                  bottom: 0,
-                  paddingBottom: "8px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Slider
-                  min={0}
-                  max={imageListLength - 1}
-                  value={currentIndex}
-                  onChange={handleSliderChange}
-                  sx={{ width: "75%" }}
-                  data-testid="slider"
-                />
-              </Box>
-            )}
-          </Box>
+          />
 
-          {renderButtons && (
-            <Button
-              aria-label="Next Image"
-              onClick={handleNext}
-              size="small"
-              sx={{ minWidth: 36, width: 36, height: 36 }}
-              data-testid="next-button"
-            >
-              <ArrowForwardIcon fontSize="small" />
-            </Button>
+          {slider && imageCount > 1 && (
+            <Box sx={{ position: "absolute", bottom: 8, width: "75%" }}>
+              <Slider
+                data-testid="slider"
+                min={0}
+                max={imageCount - 1}
+                value={currentIndex}
+                onChange={(_, v) => setIndex(Number(v))}
+              />
+            </Box>
           )}
         </Box>
-        {renderNumbers && (
-          <Box sx={{ display: "flex" }}>
-            <Box
-              aria-label="Total Images Numeration"
-              data-testid="numeration"
-              component="input"
-              type="number"
-              value={numberValue}
-              onChange={handleNumberChange}
-              onKeyDown={handleNumberEnter}
-              sx={{
-                width: "49%",
-                fontSize: "1rem",
-                outline: "none",
-                border: "none",
-                backgroundColor: "transparent",
-                color: "inherit",
-                textAlign: "right",
-                fontFamily: "inherit",
-                appearance: "none",
-                WebkitAppearance: "none",
-                MozAppearance: "textfield",
 
-                "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
-                  WebkitAppearance: "none",
-                  margin: 0,
-                },
-              }}
-            ></Box>
-            <Box
-              sx={{ fontFamily: "inherit", fontSize: "1rem", color: "inherit" }}
-            >
-              {`/${String(imageListLength)}`}
-            </Box>
-          </Box>
+        {buttons && imageCount > 1 && (
+          <Button
+            aria-label="Next Image"
+            onClick={handleNext}
+            size="small"
+            sx={{ minWidth: 36, width: 36, height: 36 }}
+          >
+            <ArrowForwardIcon data-testid="next-button" />
+          </Button>
         )}
-      </Stack>
-    </>
-  );
-};
+      </Box>
 
-export { ScrollableImages };
-export type { ScrollableImagesProps, ImageInfo };
+      {numeration && imageCount > 1 && (
+        <Box
+          aria-label="Total Images Numeration"
+          data-testid="numeration"
+          sx={{ mt: 1 }}
+        >
+          {currentIndex + 1}/{imageCount}
+        </Box>
+      )}
+    </Stack>
+  );
+}
