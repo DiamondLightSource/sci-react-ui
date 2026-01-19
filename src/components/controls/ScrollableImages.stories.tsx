@@ -14,7 +14,6 @@ const meta: Meta<typeof ScrollableImages> = {
   tags: ["autodocs"],
   argTypes: {
     mode: {
-      control: "radio",
       options: ["viewer", "scroll"],
     },
   },
