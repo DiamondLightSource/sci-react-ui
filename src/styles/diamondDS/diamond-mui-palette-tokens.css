@@ -1,0 +1,243 @@
+/* ============================================================
+   NEW DIAMOND THEME  (Diamond + Radix) - NOT USED CURRENTLY 
+   ============================================================ */
+   :root {
+
+    /* COMMON */
+    --mui-palette-common-black: var(--ds-black);
+    --mui-palette-common-white: var(--ds-white);
+  
+    --mui-palette-common-blackChannel: var(--ds-blackChannel);
+    --mui-palette-common-whiteChannel: var(--ds-Channel);
+  
+    --mui-palette-common-background: var(--ds-olive-1);
+    --mui-palette-common-onBackground: var(--ds-navy-11);
+  
+    --mui-palette-common-backgroundChannel: var(--ds-olive-1Channel);
+    --mui-palette-common-onBackgroundChannel: var(--ds-navy-11Channel);
+  
+    /* PRIMARY = Indigo */
+    --mui-palette-primary-lighter: var(--ds-indigo-3);
+    --mui-palette-primary-light:   var(--ds-indigo-6);
+    --mui-palette-primary-main:    var(--ds-indigo-9);
+    --mui-palette-primary-dark:    var(--ds-indigo-10);
+    --mui-palette-primary-darker:  var(--ds-indigo-12);
+    --mui-palette-primary-contrastText: var(--ds-mui-palette-common-white);
+  
+    --mui-palette-primary-lighterChannel: var(--ds-indigo-3Channel);
+    --mui-palette-primary-lightChannel:   var(--ds-indigo-6Channel);
+    --mui-palette-primary-mainChannel:    var(--ds-indigo-9Channel);
+    --mui-palette-primary-darkChannel:    var(--ds-indigo-10Channel);
+    --mui-palette-primary-darkerChannel:  var(--ds-indigo-12Channel);
+    --mui-palette-primary-contrastTextChannel: var(--ds-mui-palette-common-whiteChannel);
+  
+    /* SECONDARY = Gray */
+    --mui-palette-secondary-lighter: var(--ds-navy-3);
+    --mui-palette-secondary-light:   var(--ds-navy-6);
+    --mui-palette-secondary-main:    var(--ds-navy-9);
+    --mui-palette-secondary-dark:    var(--ds-navy-11);
+    --mui-palette-secondary-darker:  var(--ds-navy-12);
+    --mui-palette-secondary-contrastText: var(--ds-mui-palette-common-white);
+  
+    --mui-palette-secondary-lighterChannel: var(--ds-navy-3Channel);
+    --mui-palette-secondary-lightChannel:   var(--ds-navy-6Channel);
+    --mui-palette-secondary-mainChannel:    var(--ds-navy-9Channel);
+    --mui-palette-secondary-darkChannel:    var(--ds-navy-11Channel);
+    --mui-palette-secondary-darkerChannel:  var(--ds-navy-12Channel);
+    --mui-palette-secondary-contrastTextChannel: var(--ds-mui-palette-common-whiteChannel);
+  
+    /* ERROR = Red */
+    --mui-palette-error-lighter: var(--ds-red-3);
+    --mui-palette-error-light:   var(--ds-red-6);
+    --mui-palette-error-main:    var(--ds-red-9);
+    --mui-palette-error-dark:    var(--ds-red-11);
+    --mui-palette-error-darker:  var(--ds-red-12);
+    --mui-palette-error-contrastText: var(--ds-mui-palette-common-white);
+  
+    --mui-palette-error-lighterChannel: var(--ds-red-3Channel);
+    --mui-palette-error-lightChannel:   var(--ds-red-6Channel);
+    --mui-palette-error-mainChannel:    var(--ds-red-9Channel);
+    --mui-palette-error-darkChannel:    var(--ds-red-11Channel);
+    --mui-palette-error-darkerChannel:  var(--ds-red-12Channel);
+    --mui-palette-error-contrastTextChannel: var(--ds-mui-palette-common-whiteChannel);
+  
+    /* WARNING = Yellow */
+    --mui-palette-warning-lighter: var(--ds-yellow-2);
+    --mui-palette-warning-light:   var(--ds-yellow-6);
+    --mui-palette-warning-main:    var(--ds-yellow-9);
+    --mui-palette-warning-dark:    var(--ds-yellow-11);
+    --mui-palette-warning-darker:  var(--ds-yellow-12);
+    --mui-palette-warning-contrastText: var(--ds-mui-palette-common-black);
+  
+    --mui-palette-warning-lighterChannel: var(--ds-yellow-2Channel);
+    --mui-palette-warning-lightChannel:   var(--ds-yellow-6Channel);
+    --mui-palette-warning-mainChannel:    var(--ds-yellow-9Channel);
+    --mui-palette-warning-darkChannel:    var(--ds-yellow-11Channel);
+    --mui-palette-warning-darkerChannel:  var(--ds-yellow-12Channel);
+    --mui-palette-warning-contrastTextChannel: var(--ds-mui-palette-common-blackChannel);
+  
+    /* INFO = Cyan */
+    --mui-palette-info-lighter: var(--ds-cyan-2);
+    --mui-palette-info-light:   var(--ds-cyan-6);
+    --mui-palette-info-main:    var(--ds-cyan-9);
+    --mui-palette-info-dark:    var(--ds-cyan-11);
+    --mui-palette-info-darker:  var(--ds-cyan-12);
+    --mui-palette-info-contrastText: var(--ds-mui-palette-common-black);
+  
+    --mui-palette-info-lighterChannel: var(--ds-cyan-2Channel);
+    --mui-palette-info-lightChannel:   var(--ds-cyan-6Channel);
+    --mui-palette-info-mainChannel:    var(--ds-cyan-9Channel);
+    --mui-palette-info-darkChannel:    var(--ds-cyan-11Channel);
+    --mui-palette-info-darkerChannel:  var(--ds-cyan-12Channel);
+    --mui-palette-info-contrastTextChannel: var(--ds-mui-palette-common-blackChannel);
+  
+    /* SUCCESS = Green */
+    --mui-palette-success-lighter: var(--ds-green-2);
+    --mui-palette-success-light:   var(--ds-green-6);
+    --mui-palette-success-main:    var(--ds-green-9);
+    --mui-palette-success-dark:    var(--ds-green-11);
+    --mui-palette-success-darker:  var(--ds-green-12);
+    --mui-palette-success-contrastText: var(--ds-mui-palette-common-black);
+  
+    --mui-palette-success-lighterChannel: var(--ds-green-2Channel);
+    --mui-palette-success-lightChannel:   var(--ds-green-6Channel);
+    --mui-palette-success-mainChannel:    var(--ds-green-9Channel);
+    --mui-palette-success-darkChannel:    var(--ds-green-11Channel);
+    --mui-palette-success-darkerChannel:  var(--ds-green-12Channel);
+    --mui-palette-success-contrastTextChannel: var(--ds-mui-palette-common-blackChannel);
+  
+    /* TEXT */
+    --mui-palette-text-primary:   var(--ds-navy-10);
+    --mui-palette-text-secondary: var(--ds-olive-9);
+    --mui-palette-text-disabled:  var(--ds-olive-7);
+  
+    --mui-palette-text-primaryChannel:   var(--ds-navy-11Channel);
+    --mui-palette-text-secondaryChannel: var(--ds-olive-9Channel);
+  
+    /* ACTIONS */
+    --mui-palette-action-disabled: var(--ds-olive-6);
+    --mui-palette-action-active:   rgba(var(--ds-mui-palette-text-primaryChannel) / 0.54);
+    --mui-palette-action-hover:    rgba(var(--ds-mui-palette-text-primaryChannel) / 0.04);
+    --mui-palette-action-selected: rgba(var(--ds-mui-palette-text-primaryChannel) / 0.08);
+    --mui-palette-action-disabledBackground: rgba(var(--ds-mui-palette-text-primaryChannel) / 0.12);
+    --mui-palette-action-focus:    rgba(var(--ds-mui-palette-text-primaryChannel) / 0.12);
+  
+    --mui-palette-action-activeChannel:   var(--ds-mui-palette-text-primaryChannel);
+    --mui-palette-action-selectedChannel: var(--ds-mui-palette-text-primaryChannel);
+  
+    /* BACKGROUNDS */
+    --mui-palette-divider: var(--ds-olive-3);
+    --mui-palette-dividerChannel: var(--ds-olive-3Channel);
+  
+    --mui-palette-background-paper: var(--ds-mui-palette-common-white);
+    --mui-palette-background-default: var(--ds-olive-2);
+  
+    --mui-palette-background-defaultChannel: var(--ds-olive-2Channel);
+    --mui-palette-background-paperChannel: var(--ds-mui-palette-common-whiteChannel);
+  
+    /* ALERTS */
+    --mui-palette-Alert-errorColor:   var(--ds-mui-palette-error-dark);
+    --mui-palette-Alert-infoColor:    var(--ds-mui-palette-info-dark);
+    --mui-palette-Alert-successColor: var(--ds-mui-palette-success-dark);
+    --mui-palette-Alert-warningColor: var(--ds-mui-palette-warning-dark);
+  
+    --mui-palette-Alert-errorFilledBg:   var(--ds-mui-palette-error-main);
+    --mui-palette-Alert-infoFilledBg:    var(--ds-mui-palette-info-main);
+    --mui-palette-Alert-successFilledBg: var(--ds-mui-palette-success-main);
+    --mui-palette-Alert-warningFilledBg: var(--ds-mui-palette-warning-main);
+  
+    --mui-palette-Alert-errorFilledColor:   var(--ds-mui-palette-common-white);
+    --mui-palette-Alert-infoFilledColor:    rgba(var(--ds-mui-palette-common-blackChannel) / 0.87);
+    --mui-palette-Alert-successFilledColor: rgba(var(--ds-mui-palette-common-blackChannel) / 0.87);
+    --mui-palette-Alert-warningFilledColor: rgba(var(--ds-mui-palette-common-blackChannel) / 0.87);
+  
+    --mui-palette-Alert-errorStandardBg:   var(--ds-mui-palette-error-lighter);
+    --mui-palette-Alert-infoStandardBg:    var(--ds-mui-palette-info-lighter);
+    --mui-palette-Alert-successStandardBg: var(--ds-mui-palette-success-lighter);
+    --mui-palette-Alert-warningStandardBg: var(--ds-mui-palette-warning-lighter);
+  
+    --mui-palette-Alert-errorIconColor:   var(--ds-mui-palette-error-main);
+    --mui-palette-Alert-infoIconColor:    var(--ds-mui-palette-info-main);
+    --mui-palette-Alert-successIconColor: var(--ds-mui-palette-success-main);
+    --mui-palette-Alert-warningIconColor: var(--ds-mui-palette-warning-main);
+  
+    /* COMPONENTS */
+    --mui-palette-AppBar-defaultBg: var(--ds-navy-10);
+  
+    --mui-palette-Avatar-defaultBg: var(--ds-olive-5);
+  
+    --mui-palette-Button-inheritContainedBg: var(--ds-olive-4);
+    --mui-palette-Button-inheritContainedHoverBg: var(--ds-olive-2);
+  
+    --mui-palette-Chip-defaultBorder:      var(--ds-olive-5);
+    --mui-palette-Chip-defaultAvatarColor: var(--ds-olive-11);
+    --mui-palette-Chip-defaultIconColor:   var(--ds-olive-11);
+  
+    --mui-palette-FilledInput-bg:         rgba(var(--ds-mui-palette-text-primaryChannel) / 0.06);
+    --mui-palette-FilledInput-hoverBg:    rgba(var(--ds-mui-palette-text-primaryChannel) / 0.09);
+    --mui-palette-FilledInput-disabledBg: rgba(var(--ds-mui-palette-text-primaryChannel) / 0.12);
+  
+    --mui-palette-LinearProgress-primaryBg:   var(--ds-mui-palette-primary-lighter);
+    --mui-palette-LinearProgress-secondaryBg: var(--ds-mui-palette-secondary-lighter);
+    --mui-palette-LinearProgress-errorBg:     var(--ds-mui-palette-error-lighter);
+    --mui-palette-LinearProgress-infoBg:      var(--ds-mui-palette-info-lighter);
+    --mui-palette-LinearProgress-successBg:   var(--ds-mui-palette-success-lighter);
+    --mui-palette-LinearProgress-warningBg:   var(--ds-mui-palette-warning-lighter);
+  
+    --mui-palette-Skeleton-bg: rgba(var(--ds-mui-palette-text-primaryChannel) / 0.11);
+  
+    --mui-palette-Slider-primaryTrack:   var(--ds-mui-palette-primary-lighter);
+    --mui-palette-Slider-secondaryTrack: var(--ds-mui-palette-secondary-lighter);
+    --mui-palette-Slider-errorTrack:     var(--ds-mui-palette-error-lighter);
+    --mui-palette-Slider-infoTrack:      var(--ds-mui-palette-info-lighter);
+    --mui-palette-Slider-successTrack:   var(--ds-mui-palette-success-lighter);
+    --mui-palette-Slider-warningTrack:   var(--ds-mui-palette-warning-lighter);
+  
+    --mui-palette-SnackbarContent-bg: var(--ds-navy-11);
+    --mui-palette-SnackbarContent-color: var(--ds-mui-palette-common-white);
+  
+    --mui-palette-SpeedDialAction-fabHoverBg: var(--ds-olive-4);
+  
+    --mui-palette-StepConnector-border: var(--ds-olive-5);
+    --mui-palette-StepContent-border:   var(--ds-olive-5);
+  
+    --mui-palette-Switch-defaultColor:           var(--ds-mui-palette-common-white);
+    --mui-palette-Switch-defaultDisabledColor:   var(--ds-olive-2);
+    --mui-palette-Switch-primaryDisabledColor:   var(--ds-mui-palette-primary-lighter);
+    --mui-palette-Switch-secondaryDisabledColor: var(--ds-mui-palette-secondary-lighter);
+    --mui-palette-Switch-errorDisabledColor:     var(--ds-mui-palette-error-lighter);
+    --mui-palette-Switch-infoDisabledColor:      var(--ds-mui-palette-info-lighter);
+    --mui-palette-Switch-successDisabledColor:   var(--ds-mui-palette-success-lighter);
+    --mui-palette-Switch-warningDisabledColor:   var(--ds-mui-palette-warning-lighter);
+  
+    --mui-palette-TableCell-border: var(--ds-olive-1);
+  
+    --mui-palette-Tooltip-bg: rgba(var(--ds-mui-palette-text-primaryChannel) / 0.92);
+  
+    /* SHADOWS */
+    --customShadows-button: 0 2px #0000000b;
+    --customShadows-text:   0 -1px 0 rgba(var(--ds-mui-palette-common-blackChannel) / 0.12);
+    --customShadows-z1:     0px 1px 4px rgba(var(--ds-mui-palette-common-blackChannel) / 0.08);
+  
+    --customShadows-primary:   0 0 0 2px rgba(var(--ds-mui-palette-primary-mainChannel) / 0.2);
+    --customShadows-secondary: 0 0 0 2px rgba(var(--ds-mui-palette-secondary-mainChannel) / 0.2);
+    --customShadows-error:     0 0 0 2px rgba(var(--ds-mui-palette-error-mainChannel) / 0.2);
+    --customShadows-warning:   0 0 0 2px rgba(var(--ds-mui-palette-warning-mainChannel) / 0.2);
+    --customShadows-info:      0 0 0 2px rgba(var(--ds-mui-palette-info-mainChannel) / 0.2);
+    --customShadows-success:   0 0 0 2px rgba(var(--ds-mui-palette-success-mainChannel) / 0.2);
+    --customShadows-grey:      0 0 0 2px rgba(var(--ds-mui-palette-secondary-mainChannel) / 0.2);
+  
+    --customShadows-primaryButton:   0 14px 12px rgba(var(--ds-mui-palette-primary-mainChannel) / 0.2);
+    --customShadows-secondaryButton: 0 14px 12px rgba(var(--ds-mui-palette-secondary-mainChannel) / 0.2);
+    --customShadows-errorButton:     0 14px 12px rgba(var(--ds-mui-palette-error-mainChannel) / 0.2);
+    --customShadows-warningButton:   0 14px 12px rgba(var(--ds-mui-palette-warning-mainChannel) / 0.2);
+    --customShadows-infoButton:      0 14px 12px rgba(var(--ds-mui-palette-info-mainChannel) / 0.2);
+    --customShadows-successButton:   0 14px 12px rgba(var(--ds-mui-palette-success-mainChannel) / 0.2);
+    --customShadows-greyButton:      0 14px 12px rgba(var(--ds-mui-palette-secondary-mainChannel) / 0.2);
+  
+    /* OPACITY */
+    --opacity-inputPlaceholder: 0.42;
+    --opacity-inputUnderline:   0.42;
+    --opacity-switchTrackDisabled: 0.12;
+    --opacity-switchTrack:        0.38;
+  }

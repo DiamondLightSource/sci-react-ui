@@ -1,0 +1,99 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Overview" />
+
+<div>
+  <h1>Accessibility</h1>
+
+{" "}
+<p>
+  Accessibility in the Diamond design system is not a checklist or a separate
+  mode. It’s a baseline for quality, clarity, and usability in complex
+  scientific tools.
+</p>
+
+{" "}
+<p>
+  Our goal is to make interfaces that are understandable, predictable, and
+  usable across a wide range of abilities, environments, and levels of fatigue.
+</p>
+
+{" "}
+<h2>Core principles</h2>
+<ul>
+  <li>
+    <strong>Clarity over cleverness</strong>: interfaces should explain
+    themselves.
+  </li>
+  <li>
+    <strong>Predictable behaviour</strong>: similar things behave in similar
+    ways.
+  </li>
+  <li>
+    <strong>Multiple ways to perceive information</strong>: never rely on one
+    signal alone.
+  </li>
+  <li>
+    <strong>Low cognitive effort by default</strong>: minimise mental overhead.
+  </li>
+</ul>
+
+{" "}
+<h2>Do</h2>
+
+{" "}
+<h3>Interactive elements</h3>
+<ul>
+  <li>Ensure every interactive control has an accessible name.</li>
+  <li>Provide this via a visible label, `aria-label`, or `aria-labelledby`.</li>
+  <li>Make keyboard focus clearly visible at all times.</li>
+  <li>
+    Ensure disabled states are clearly distinguishable from enabled and default.
+  </li>
+</ul>
+
+{" "}
+<h3>Forms and inputs</h3>
+<ul>
+  <li>Always associate inputs with labels (even if visually hidden).</li>
+  <li>Make error messages clear, specific, and actionable.</li>
+  <li>Associate errors programmatically with the relevant field.</li>
+</ul>
+
+{" "}
+<h3>Content and layout</h3>
+<ul>
+  <li>Do not rely on colour alone to convey meaning.</li>
+  <li>Support icons with text or accessible names.</li>
+  <li>Use a logical, predictable reading order.</li>
+</ul>
+
+{" "}
+<h2>Don’t</h2>
+<ul>
+  <li>Don’t use placeholder text as a replacement for labels.</li>
+  <li>Don’t hide important information in faint or decorative text.</li>
+  <li>Don’t introduce unexpected interaction patterns.</li>
+  <li>Don’t create dense, unbroken blocks of content.</li>
+</ul>
+
+{" "}
+<h2>Storybook guidance</h2>
+<ul>
+  <li>
+    Simple component stories may be visually minimal, but they must still expose
+    an accessible name, or be explicitly documented as intentionally incomplete.
+  </li>
+  <li>
+    Accessibility warnings in Storybook are signals, not noise. Either resolve
+    them or document why they exist.
+  </li>
+</ul>
+
+  <h2>Quick sense check</h2>
+  <ul>
+    <li>Can this be used with a keyboard only?</li>
+    <li>Is its purpose clear without colour?</li>
+    <li>Would it still make sense when someone is tired or distracted?</li>
+  </ul>
+</div>
