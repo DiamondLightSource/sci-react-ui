@@ -1,0 +1,510 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundation/Colour" />
+
+<style>{`
+  .ds-note {
+    margin: 12px 0 20px;
+    padding: 12px 14px;
+    border: 1px solid var(--ds-gray-6);
+    background: var(--ds-gray-2);
+    border-radius: 12px;
+  }
+  .ds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 14px 0 24px;
+  }
+  .ds-swatch {
+    border: 1px solid var(--ds-gray-6);
+    border-radius: 14px;
+    background: var(--ds-gray-2);
+    overflow: hidden;
+  }
+  .ds-swatch__chip {
+    height: 56px;
+    background: var(--swatch);
+    border-bottom: 1px solid var(--ds-gray-6);
+  }
+  .ds-swatch__body {
+    padding: 12px 12px 10px;
+  }
+  .ds-swatch__name {
+    font-weight: 600;
+    margin: 0 0 6px;
+    color: var(--ds-gray-12);
+  }
+  .ds-swatch__meta {
+    margin: 0;
+    padding-left: 16px;
+    color: var(--ds-gray-11);
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .ds-swatch__meta li {
+    margin: 2px 0;
+  }
+  .ds-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0 0;
+  }
+  .ds-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--ds-gray-6);
+    background: var(--ds-gray-1);
+    color: var(--ds-gray-12);
+    font-size: 13px;
+    line-height: 18px;
+  }
+  .ds-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--dot);
+    border: 1px solid rgba(0,0,0,0.12);
+  }
+  .ds-surface-demo {
+    border: 1px solid var(--ds-gray-6);
+    border-radius: 14px;
+    background: var(--ds-gray-1);
+    padding: 14px;
+    margin: 14px 0 24px;
+  }
+  .ds-surface-card {
+    border: 1px solid var(--ds-gray-6);
+    background: var(--ds-gray-2);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .ds-divider {
+    height: 1px;
+    background: var(--ds-gray-6);
+    margin: 12px 0;
+  }
+  .ds-text-demo p {
+    margin: 8px 0;
+  }
+  .ds-overlay-demo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .ds-overlay-tile {
+    border: 1px solid var(--ds-gray-6);
+    border-radius: 12px;
+    background: var(--ds-gray-2);
+    overflow: hidden;
+  }
+  .ds-overlay-tile__top {
+    height: 56px;
+    background: var(--ds-gray-2);
+    position: relative;
+  }
+  .ds-overlay-tile__overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--overlay);
+  }
+  .ds-overlay-tile__body {
+    padding: 10px 12px;
+    color: var(--ds-gray-12);
+    font-size: 13px;
+  }
+`}</style>
+
+<div>
+  <h1>Colour</h1>
+
+{" "}
+
+<p>
+  Our colour system is role-based and implemented through MUI theme tokens.
+  Values are provided as CSS variables (primitives + semantic “on-colour” +
+  overlays) so light/dark mode and future refinement remain consistent. The
+  current primitives and semantic variables live in
+  `diamond-colors-primitives.css`.
+</p>
+
+<div className="ds-note">
+  <strong>How to use colour roles</strong>
+  <ul style={{ margin: "8px 0 0 16px" }}>
+    <li>
+      <strong>light / main</strong> — solid backgrounds and emphasis
+      <small>Buttons, active states, strong accents</small>
+    </li>
+    <li>
+      <strong>bgCanvas / bgSurface*</strong> — light backgrounds and layout
+      <small>Pages, panels, cards, grouped content</small>
+    </li>
+    <li>
+      <strong>dark / darker</strong> — text, icons, and borders on light
+      surfaces
+      <small>High-contrast foreground usage</small>
+    </li>
+  </ul>
+  <p style={{ marginTop: 8 }}>
+    If something looks like a background, use <code>bg*</code>. If it looks like
+    a button, use <code>main</code>. If it’s text, use <code>dark</code>.
+  </p>
+</div>
+
+{" "}
+
+<div className="ds-note">
+  <strong>What changed:</strong> the palette now exposes more layers per intent
+  colour: ` light → main → dark → darker`, plus `*Channel` tokens for
+  alpha-based overlays. Also added `brand` colour scheme.
+</div>
+
+{" "}
+
+<h2>MUI palette mapping (current)</h2>
+<p>
+  These are the current top-level palette decisions used in our MUI theme. We
+  also define explicit `action.*` overlays to avoid Material’s default overlay
+  behaviour and keep interaction states consistent with our primitives.
+</p>
+
+  <div className="ds-grid">
+    {/* Primary */}
+    <div className="ds-swatch" style={{ ['--swatch']: 'var(--ds-indigo-9)' }}>
+      <div className="ds-swatch__chip" />
+      <div className="ds-swatch__body">
+        <p className="ds-swatch__name">Primary</p>
+        <ul className="ds-swatch__meta">
+          <li><strong>light</strong>: `--ds-indigo-8`</li>
+          <li><strong>main</strong>: `--ds-indigo-9`</li>
+          <li><strong>dark</strong>: `--ds-indigo-10`</li>
+          <li><strong>darker</strong>: `--ds-indigo-11`</li>
+          <li><strong>contrast text</strong>: `--ds-fg-fixed-white`</li>
+          <li><strong>mainChannel</strong>: `--ds-indigo-9Channel`</li>
+          <li><strong>lightChannel</strong>: `--ds-indigo-8Channel`</li>
+          <li><strong>darkChannel</strong>: `--ds-indigo-10Channel`</li>
+          <li><strong>bgCanvas</strong>: <code>--ds-indigo-1</code></li>
+          <li><strong>bgSurface1</strong>: <code>--ds-indigo-2</code></li>
+          <li><strong>bgSurface2</strong>: <code>--ds-indigo-3</code></li> 
+        </ul>
+        <div className="ds-row">
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-indigo-8)' }} /> light</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-indigo-9)' }} /> main</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-indigo-10)' }} /> dark</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-indigo-11)' }} /> darker</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-indigo-1)' }} > canvas</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-indigo-2)' }} > surface1</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-indigo-3)' }} > surface2</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Secondary */}
+    <div className="ds-swatch" style={{ ['--swatch']: 'var(--ds-navy-9)' }}>
+      <div className="ds-swatch__chip" />
+      <div className="ds-swatch__body">
+        <p className="ds-swatch__name">Secondary</p>
+        <ul className="ds-swatch__meta">
+          <li><strong>light</strong>: `--ds-navy-8`</li>
+          <li><strong>main</strong>: `--ds-navy-9`</li>
+          <li><strong>dark</strong>: `--ds-navy-10`</li>
+          <li><strong>darker</strong>: `--ds-navy-11`</li>
+          <li><strong>contrast text</strong>: `--ds-fg-fixed-white`</li>
+          <li><strong>mainChannel</strong>: `--ds-navy-9Channel`</li>
+          <li><strong>lightChannel</strong>: `--ds-navy-8Channel`</li>
+          <li><strong>darkChannel</strong>: `--ds-navy-10Channel`</li>
+          <li><strong>bgCanvas</strong>: <code>--ds-navy-1</code></li>
+          <li><strong>bgSurface1</strong>: <code>--ds-navy-2</code></li>
+          <li><strong>bgSurface2</strong>: <code>--ds-navy-3</code></li>
+        </ul>
+        <div className="ds-row">
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-8)' }} /> light</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-9)' }} /> main</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-10)' }} /> dark</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-11)' }} /> darker</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-navy-1)' }} > canvas</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-navy-2)' }} > surface1</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-navy-3)' }} > surface2</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Brand */}
+    <div className="ds-swatch" style={{ ['--swatch']: 'var(--ds-navy-10)' }}>
+      <div className="ds-swatch__chip" />
+      <div className="ds-swatch__body">
+        <p className="ds-swatch__name">Brand</p>
+        <ul className="ds-swatch__meta">
+          <li><strong>light</strong>: `--ds-navy-9`</li>
+          <li><strong>main</strong>: `--ds-navy-10`</li>
+          <li><strong>dark</strong>: `--ds-navy-11`</li>
+          <li><strong>darker</strong>: `--ds-navy-12`</li>
+          <li><strong>contrast text</strong>: `--ds-fg-fixed-white`</li>
+          <li><strong>mainChannel</strong>: `--ds-navy-10Channel`</li>
+          <li><strong>lightChannel</strong>: `--ds-navy-9Channel`</li>
+          <li><strong>darkChannel</strong>: `--ds-navy-11Channel`</li>
+        </ul>
+        <div className="ds-row">
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-9)' }} /> light</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-10)' }} /> main</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-11)' }} /> dark</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-navy-12)' }} /> darker</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Success */}
+    <div className="ds-swatch" style={{ ['--swatch']: 'var(--ds-green-9)' }}>
+      <div className="ds-swatch__chip" />
+      <div className="ds-swatch__body">
+        <p className="ds-swatch__name">Success</p>
+        <ul className="ds-swatch__meta">
+          <li><strong>light</strong>: `--ds-green-8`</li>
+          <li><strong>main</strong>: `--ds-green-9`</li>
+          <li><strong>dark</strong>: `--ds-green-10`</li>
+          <li><strong>darker</strong>: `--ds-green-11`</li>
+          <li><strong>contrast text</strong>: `--ds-fg-fixed-white`</li>
+          <li><strong>mainChannel</strong>: `--ds-green-9Channel`</li>
+          <li><strong>bgCanvas</strong>: <code>--ds-green-1</code></li>
+          <li><strong>bgSurface1</strong>: <code>--ds-green-2</code></li>
+          <li><strong>bgSurface2</strong>: <code>--ds-green-3</code></li>
+        </ul>
+        <div className="ds-row">
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-green-8)' }} /> light</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-green-9)' }} /> main</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-green-10)' }} /> dark</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-green-11)' }} /> darker</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-green-1)' }} > canvas</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-green-2)' }} > surface1</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-green-3)' }} > surface2</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Warning */}
+    <div className="ds-swatch" style={{ ['--swatch']: 'var(--ds-orange-9)' }}>
+      <div className="ds-swatch__chip" />
+      <div className="ds-swatch__body">
+        <p className="ds-swatch__name">Warning</p>
+        <ul className="ds-swatch__meta">
+          <li><strong>light</strong>: `--ds-orange-8`</li>
+          <li><strong>main</strong>: `--ds-orange-9`</li>
+          <li><strong>dark</strong>: `--ds-orange-10`</li>
+          <li><strong>darker</strong>: `--ds-orange-11`</li>
+          <li><strong>contrast text</strong>: `--ds-fg-fixed-white`</li>
+          <li><strong>mainChannel</strong>: `--ds-orange-9Channel`</li>
+          <li><strong>bgCanvas</strong>: <code>--ds-orange-1</code></li>
+          <li><strong>bgSurface1</strong>: <code>--ds-orange-2</code></li>
+          <li><strong>bgSurface2</strong>: <code>--ds-orange-3</code></li>
+        </ul>
+        <div className="ds-row">
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-orange-8)' }} /> light</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-orange-9)' }} /> main</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-orange-10)' }} /> dark</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-orange-11)' }} /> darker</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-orange-1)' }} > canvas</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-orange-2)' }} > surface1</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-orange-3)' }} > surface2</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Error */}
+    <div className="ds-swatch" style={{ ['--swatch']: 'var(--ds-red-9)' }}>
+      <div className="ds-swatch__chip" />
+      <div className="ds-swatch__body">
+        <p className="ds-swatch__name">Error</p>
+        <ul className="ds-swatch__meta">
+          <li><strong>light</strong>: `--ds-red-8`</li>
+          <li><strong>main</strong>: `--ds-red-9`</li>
+          <li><strong>dark</strong>: `--ds-red-10`</li>
+          <li><strong>darker</strong>: `--ds-red-11`</li>
+          <li><strong>contrast text</strong>: `--ds-fg-fixed-white`</li>
+          <li><strong>mainChannel</strong>: `--ds-red-9Channel`</li>
+          <li><strong>bgCanvas</strong>: <code>--ds-red-1</code></li>
+          <li><strong>bgSurface1</strong>: <code>--ds-red-2</code></li>
+          <li><strong>bgSurface2</strong>: <code>--ds-red-3</code></li>
+        </ul>
+        <div className="ds-row">
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-red-8)' }} /> light</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-red-9)' }} /> main</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-red-10)' }} /> dark</span>
+          <span className="ds-pill"><span className="ds-dot" style={{ ['--dot']: 'var(--ds-red-11)' }} /> darker</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-red-1)' }} > canvas</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-red-2)' }} > surface1</span>
+          <span className="ds-pill" style={{ ['background']: 'var(--ds-red-3)' }} > surface2</span>
+        </div>
+      </div>
+    </div>
+
+{/* Background surfaces */}
+
+<div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-bg-paper)" }}>
+  <div className="ds-swatch__chip" />
+  <div className="ds-swatch__body">
+    <p className="ds-swatch__name">Background surfaces</p>
+    <ul className="ds-swatch__meta">
+      <li>
+        <strong>default</strong>: <code>--ds-bg-canvas</code>
+      </li>
+      <li>
+        <strong>paper</strong>: <code>--ds-bg-paper</code>
+      </li>
+      <li>
+        <strong>surface1</strong>: <code>--ds-bg-surface-1</code>
+      </li>
+      <li>
+        <strong>surface2</strong>: <code>--ds-bg-surface-2</code>
+      </li>
+      <li>
+        <strong>outlinedBg</strong>: <code>--ds-bg-surface-2</code>
+      </li>
+    </ul>
+    <div className="ds-row">
+      <span
+        className="ds-pill"
+        style={{ ["background"]: "var(--ds-bg-canvas)" }}
+      >
+        {" "}
+        canvas
+      </span>
+      <span
+        className="ds-pill"
+        style={{ ["background"]: "var(--ds-bg-paper)" }}
+      >
+        {" "}
+        paper
+      </span>
+      <span
+        className="ds-pill"
+        style={{ ["background"]: "var(--ds-bg-surface-1)" }}
+      >
+        {" "}
+        surface1
+      </span>
+      <span
+        className="ds-pill"
+        style={{ ["background"]: "var(--ds-bg-surface-2)" }}
+      >
+        {" "}
+        surface2
+      </span>
+    </div>
+  </div>
+</div>
+
+    {/* Divider */}
+    <div className="ds-swatch" style={{ ['--swatch']: 'var(--ds-gray-6)' }}>
+      <div className="ds-swatch__chip" />
+      <div className="ds-swatch__body">
+        <p className="ds-swatch__name">Divider</p>
+        <ul className="ds-swatch__meta">
+          <li><strong>divider</strong>: `--ds-gray-6`</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+<h2>Surfaces, text, and dividers (quick visual check)</h2>
+<div className="ds-surface-demo">
+  <div className="ds-surface-card">
+    <div className="ds-text-demo">
+      <p style={{ color: "var(--ds-gray-12)" }}>
+        <strong>Text primary</strong> → `--ds-gray-12`
+      </p>
+      <p style={{ color: "var(--ds-gray-11)" }}>
+        Text secondary → `--ds-gray-11`
+      </p>
+      <p style={{ color: "var(--ds-gray-8)" }}>Text disabled → `--ds-gray-8`</p>
+    </div>
+    <div className="ds-divider" />
+    <p style={{ margin: 0, color: "var(--ds-gray-11)" }}>
+      Canvas uses `--ds-gray-1` and surfaces use `--ds-gray-2`. Divider uses
+      `--ds-gray-6`.
+    </p>
+  </div>
+</div>
+
+{" "}
+
+<h2>Interaction overlays (MUI action tokens)</h2>
+<p>
+  We define `action.hover`, `action.selected`, `action.focus`,
+  `action.disabled`, and `action.disabledBackground` as explicit overlays
+  (`--ds-overlay-*`) so interaction states remain consistent across themes.
+</p>
+
+  <div className="ds-overlay-demo">
+    <div className="ds-overlay-tile">
+      <div className="ds-overlay-tile__top">
+        <div className="ds-overlay-tile__overlay" style={{ ['--overlay']: 'var(--ds-overlay-hover)' }} />
+      </div>
+      <div className="ds-overlay-tile__body">
+        <ul className="ds-swatch__meta">
+          <li><strong>hover</strong>: `--ds-overlay-hover`</li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="ds-overlay-tile">
+      <div className="ds-overlay-tile__top">
+        <div className="ds-overlay-tile__overlay" style={{ ['--overlay']: 'var(--ds-overlay-selected)' }} />
+      </div>
+      <div className="ds-overlay-tile__body">
+        <ul className="ds-swatch__meta">
+          <li><strong>selected</strong>: `--ds-overlay-selected`</li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="ds-overlay-tile">
+      <div className="ds-overlay-tile__top">
+        <div className="ds-overlay-tile__overlay" style={{ ['--overlay']: 'var(--ds-overlay-focus)' }} />
+      </div>
+      <div className="ds-overlay-tile__body">
+        <ul className="ds-swatch__meta">
+          <li><strong>focus</strong>: `--ds-overlay-focus`</li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="ds-overlay-tile">
+      <div className="ds-overlay-tile__top">
+        <div className="ds-overlay-tile__overlay" style={{ ['--overlay']: 'var(--ds-overlay-disabled)' }} />
+      </div>
+      <div className="ds-overlay-tile__body">
+        <ul className="ds-swatch__meta">
+          <li><strong>disabled</strong>: `--ds-overlay-disabled`</li>
+        </ul>
+      </div>
+    </div>
+
+    <div className="ds-overlay-tile">
+      <div className="ds-overlay-tile__top">
+        <div className="ds-overlay-tile__overlay" style={{ ['--overlay']: 'var(--ds-overlay-disabled-bg)' }} />
+      </div>
+      <div className="ds-overlay-tile__body">
+        <ul className="ds-swatch__meta">
+          <li><strong>disabled background</strong>: `--ds-overlay-disabled-bg`</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+<h2>Component style example</h2>
+<p>
+  Components can override specific behaviour where needed. For example, we set
+  `MuiButton` to use sentence case (no automatic uppercase).
+</p>
+
+  <div className="ds-note">
+    <strong>MUI Button:</strong> `textTransform: none`
+  </div>
+</div>
