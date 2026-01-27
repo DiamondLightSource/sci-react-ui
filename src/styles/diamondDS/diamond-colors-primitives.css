@@ -29,9 +29,15 @@
     --ds-whiteChannel: 255 255 255;
   
   /* Disabled tokens (semantic) */
-  --ds-fg-disabled: var(--ds-gray-8);
-  --ds-border-disabled: var(--ds-gray-6);
-  --ds-bg-disabled: var(--ds-gray-2);
+  --ds-fg-disabled: var(--ds-olive-8);
+  --ds-border-disabled: var(--ds-olive-6);
+  --ds-bg-disabled: var(--ds-olive-a3);
+
+    /* Borders */
+    --ds-border-subtle:   var(--ds-olive-6); /* Structural, non-interactive */
+    --ds-border-strong:   var(--ds-olive-7); /* Interactive baseline */
+    --ds-border-stronger: var(--ds-olive-8); /* Hover emphasis */
+
   }
   
   :root, .light, :root[data-mode="light"] { /*LIGHT MODE */
@@ -58,10 +64,6 @@
     /* Layering surfaces */
     --ds-bg-surface-1: var(--ds-olive-2);
     --ds-bg-surface-2: var(--ds-olive-3);
-  
-    /* Borders */
-    --ds-border-subtle: var(--ds-olive-6);
-    --ds-border-strong: var(--ds-olive-7);
   
     /* Radix based colours */
     --ds-gray-1:#fcfcfc;
@@ -359,6 +361,7 @@
     --ds-red-5: #ffcdc2;
     --ds-red-6: #fdbdaf;
     --ds-red-7: #f5a898;
+    --ds-red-8: #ec8e7b;   
     --ds-red-9: #e54d2e;
     --ds-red-10: #E10600;  /* brand */
     --ds-red-11: #d13415;
@@ -485,10 +488,6 @@
     /* Layering surfaces */
     --ds-bg-surface-1: var(--ds-olive-3);
     --ds-bg-surface-2: var(--ds-olive-4);
-  
-    /* Borders */
-    --ds-border-subtle: var(--ds-olive-6);
-    --ds-border-strong: var(--ds-olive-7);
   
     /* Radix based colours */
     --ds-gray-1:#111;
