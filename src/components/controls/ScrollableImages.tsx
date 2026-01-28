@@ -19,13 +19,13 @@ interface ScrollableImagesProps {
   backgroundColor?: string;
 }
 
-export interface ImageInfo {
+interface ImageInfo {
   src: string;
   type?: string;
   alt?: string;
 }
 
-export function ScrollableImages({
+const ScrollableImages = ({
   images,
   width = 300,
   height = 300,
@@ -36,7 +36,7 @@ export function ScrollableImages({
   numeration = true,
   backgroundColor = "#eee",
   scrollStep = 320,
-}: ScrollableImagesProps) {
+}: ScrollableImagesProps) => {
   const [imageList, setImageList] = useState<ImageInfo[]>([]);
 
   const handleArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -256,4 +256,7 @@ export function ScrollableImages({
       )}
     </Stack>
   );
-}
+};
+
+export { ScrollableImages };
+export type { ImageInfo };
