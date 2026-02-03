@@ -36,7 +36,7 @@
     /* Borders */
     --ds-border-subtle:   var(--ds-olive-6); /* Structural, non-interactive */
     --ds-border-strong:   var(--ds-olive-7); /* Interactive baseline */
-    --ds-border-stronger: var(--ds-olive-8); /* Hover emphasis */
+    --ds-border-emphasis: var(--ds-olive-8); /* Interactive emphasis */
 
   }
   
