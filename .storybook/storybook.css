@@ -42,7 +42,6 @@
   .token {
     font-family: var(--ds-font-mono);
     font-size: 1em;
-    f
   }
   
   /* Neutralise Storybook Docs inline preview background wrapper */

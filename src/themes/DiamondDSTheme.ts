@@ -50,7 +50,7 @@ declare module "@mui/material/styles" {
     borders: {
       subtle: string;
       strong: string;
-      stronger: string;
+      emphasis: string;
     };
   }
 
@@ -60,7 +60,7 @@ declare module "@mui/material/styles" {
     borders?: {
       subtle?: string;
       strong?: string;
-      stronger?: string;
+      emphasis?: string;
     };    
   }
 
@@ -161,13 +161,13 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         surface2: "var(--ds-bg-surface-2)", // e.g. inputs, outlined containers
       },
 
-      divider: "var(--ds-border-subtle)", // Structural, non-interactive 
+      divider: "var(--ds-border-subtle)", // Framework-level structural separator
       dividerInverse: "var(--ds-white-a4)",
 
       borders: {
-        subtle: "var(--ds-border-subtle)", // Structural, non-interactive
+        subtle: "var(--ds-border-subtle)", // Structural, non-interactive boundaries
         strong: "var(--ds-border-strong)", // Interactive baseline 
-        stronger: "var(--ds-border-stronger)", // hover emphasis
+        emphasis: "var(--ds-border-emphasis)", // Interactive emphasis
       },
 
       primary: {
@@ -525,7 +525,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
               // HOVER (neutral hover emphasis)
               "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
-                borderBottomColor: theme.palette.borders.stronger,
+                borderBottomColor: theme.palette.borders.emphasis,
               },
 
               // FOCUS (semantic colour + weight)
@@ -620,7 +620,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             // HOVER (neutral hover emphasis)
             "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
-              borderBottomColor: theme.palette.borders.stronger,
+              borderBottomColor: theme.palette.borders.emphasis,
             },
 
             // FOCUS (semantic colour + weight)
@@ -683,7 +683,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
               // HOVER (neutral affordance) — ONLY when not focused + not error + not disabled
               "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.borders.stronger,
+                borderColor: theme.palette.borders.emphasis,
               },
 
               // FOCUS (semantic, and you want LIGHT)
