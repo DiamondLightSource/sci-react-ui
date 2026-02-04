@@ -19,7 +19,7 @@ declare module "@mui/material/styles" {
 
 const BaseThemeOptions /* : ThemeOptions */ = {
   cssVariables: {
-    colorSchemeSelector: "class",
+    colorSchemeSelector: "data-mode",
   },
   typography: {
     fontSize: 14,
