@@ -8,6 +8,7 @@ import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
+import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
@@ -121,6 +122,25 @@ export const LinksAndUser: Story = {
         </NavLinks>
       </>
     ),
+  },
+};
+
+export const WithLinksInMenu: Story = {
+  args: {
+    leftSlot: (
+      <NavMenu label="Menu">
+        <NavMenuLink href="#Link1">First Link</NavMenuLink>
+        <NavMenuLink href="#Link2">Second Link</NavMenuLink>
+        <NavMenuLink href="#Link3">Third Link</NavMenuLink>
+      </NavMenu>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "The `NavMenu` component is used to contain multiple links.",
+      },
+    },
   },
 };
 

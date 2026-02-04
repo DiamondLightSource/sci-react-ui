@@ -7,6 +7,8 @@ SciReactUI Changelog
 ### Added
 - New *Progress* component based on Diamond Light added.
 - New *ProgressDelayed* component so that the progress isn't shown at all when it's a small wait.
+- *NavMenu* component added for creating dropdown menus in the NavBar
+  - *NavMenuLink* component extends NavLink to work in the NavMenu
 
 ### Fixed
 - Hovering over a slot caused a popup with the slot title in. This has been removed.
