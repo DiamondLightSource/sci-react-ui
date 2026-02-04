@@ -7,26 +7,37 @@ import type { DSMode } from "./DiamondDSTheme";
 
 interface ThemeProviderProps extends Partial<MuiThemeProviderProps> {
   baseline?: boolean;
-  mode?: DSMode; // 'light' | 'dark' (adding 'system' for future use)
+  mode?: DSMode | "system";
+}
+
+function resolveMode(mode: DSMode | "system"): DSMode {
+  if (mode !== "system") return mode;
+  return window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
 }
 
 export function ThemeProvider({
   children,
   baseline = true,
   defaultMode = "system",
-  mode = "light", // default to light mode (for now)
+  mode = "light",
   ...props
 }: ThemeProviderProps) {
+  const resolvedMode = useMemo(() => resolveMode(mode), [mode]);
+
   useLayoutEffect(() => {
     const root = document.documentElement;
 
-    root.setAttribute("data-mode", mode);
-    root.classList.toggle("dark", mode === "dark");
-    root.classList.toggle("light", mode === "light");
-    root.style.colorScheme = mode;
-  }, [mode]);
+    root.setAttribute("data-mode", resolvedMode);
 
-  const theme = useMemo(() => createMuiTheme(mode), [mode]);
+    // compatibility classes
+    root.classList.toggle("dark", resolvedMode === "dark");
+    root.classList.toggle("light", resolvedMode === "light");
+
+    // browser-native UI (scrollbars, form controls)
+    root.style.colorScheme = resolvedMode;
+  }, [resolvedMode]);
+
+  const theme = useMemo(() => createMuiTheme(resolvedMode), [resolvedMode]);
 
   return (
     <MuiThemeProvider theme={theme} defaultMode={defaultMode} {...props}>

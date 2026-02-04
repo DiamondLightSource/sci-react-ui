@@ -27,44 +27,9 @@
     --ds-white-a11: #ffffffe6;
     --ds-white-a12: #fffffff2;
     --ds-whiteChannel: 255 255 255;
-  
-  /* Disabled tokens (semantic) */
-  --ds-fg-disabled: var(--ds-olive-8);
-  --ds-border-disabled: var(--ds-olive-6);
-  --ds-bg-disabled: var(--ds-olive-a3);
-
-    /* Borders */
-    --ds-border-subtle:   var(--ds-olive-6); /* Structural, non-interactive */
-    --ds-border-strong:   var(--ds-olive-7); /* Interactive baseline */
-    --ds-border-emphasis: var(--ds-olive-8); /* Interactive emphasis */
-
   }
   
   :root, .light, :root[data-mode="light"] { /*LIGHT MODE */
-    /* Semantic on-colour tokens */
-    --ds-fg-fixed-white: var(--ds-white);   /* Always white */
-    --ds-fg-fixed-black: var(--ds-black);   /* Always black */
-    --ds-fg-inverse: var(--ds-white);   /* White (light) → Black (dark) */
-    --ds-fg-default: var(--ds-black);   /* Black (light) → White (dark) */
-  
-    --ds-overlay-hover: rgba(0, 0, 0, 0.06);
-    --ds-overlay-selected: rgba(0, 0, 0, 0.10);
-    --ds-overlay-focus: rgba(0, 0, 0, 0.12);
-    --ds-overlay-disabled: rgba(0, 0, 0, 0.26);
-    --ds-overlay-disabled-bg: rgba(0, 0, 0, 0.06);
-  
-    --ds-bg-brand: var(--ds-navy-10); /* Diamond Brand Blue */
-  
-    /* Canvas (app shell) */
-    --ds-bg-canvas: var(--ds-olive-1);
-  
-    /* Paper (main surface) */
-    --ds-bg-paper: var(--ds-white);
-  
-    /* Layering surfaces */
-    --ds-bg-surface-1: var(--ds-olive-2);
-    --ds-bg-surface-2: var(--ds-olive-3);
-  
     /* Radix based colours */
     --ds-gray-1:#fcfcfc;
     --ds-gray-2:#f9f9f9;
@@ -465,30 +430,6 @@
     --ds-navy-12Channel: 12 14 28;
   }
   .dark, :root[data-mode="dark"]  { /* Dark Mode */ 
-    /* Semantic on-colour tokens */
-    --ds-fg-fixed-white: var(--ds-white);   /* Always white */
-    --ds-fg-fixed-black: var(--ds-black);   /* Always black */
-    --ds-fg-inverse: var(--ds-black);   /* White (light) → Black (dark) */
-    --ds-fg-default: var(--ds-white);   /* Black (light) → White (dark) */
-  
-    --ds-bg-brand: var(--ds-navy-7); /* Diamond Brand Blue */
-  
-    --ds-overlay-hover: rgba(255, 255, 255, 0.06);
-    --ds-overlay-selected: rgba(255, 255, 255, 0.10);
-    --ds-overlay-focus: rgba(255, 255, 255, 0.12);
-    --ds-overlay-disabled: rgba(255, 255, 255, 0.30);
-    --ds-overlay-disabled-bg: rgba(255, 255, 255, 0.08);
-  
-    /* Canvas (app shell) */
-    --ds-bg-canvas: var(--ds-olive-1);
-  
-    /* Paper (main surface) */
-    --ds-bg-paper: var(--ds-olive-2);
-  
-    /* Layering surfaces */
-    --ds-bg-surface-1: var(--ds-olive-3);
-    --ds-bg-surface-2: var(--ds-olive-4);
-  
     /* Radix based colours */
     --ds-gray-1:#111;
     --ds-gray-2:#191919;

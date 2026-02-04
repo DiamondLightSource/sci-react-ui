@@ -1,4 +1,6 @@
+// src/themes/DiamondDSTheme.ts
 import "../styles/diamondDS/diamond-colors-primitives.css";
+import "../styles/diamondDS/diamond-tokens-semantic.css";
 
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { createTheme } from "@mui/material/styles";
@@ -9,18 +11,8 @@ import type { ButtonProps } from "@mui/material/Button";
 import type { ChipProps } from "@mui/material/Chip";
 import type { CheckboxProps } from "@mui/material/Checkbox";
 import type { InputProps } from "@mui/material/Input";
-import type { InputBaseProps } from "@mui/material/InputBase";
 import type { FilledInputProps } from "@mui/material/FilledInput";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
-import type { InputLabelProps } from "@mui/material/InputLabel";
-
-import { dark } from "@mui/material/styles/createPalette";
-
-type OverrideArgs<OwnerState = unknown> = {
-  ownerState: OwnerState;
-  theme: Theme;
-};
-type ThemeOnlyArgs = { theme: Theme };
 
 import { mergeThemeOptions } from "./ThemeManager";
 
@@ -35,6 +27,12 @@ import {
   DsCheckboxIndeterminateIcon,
 } from "./icons";
 
+type OverrideArgs<OwnerState = unknown> = {
+  ownerState: OwnerState;
+  theme: Theme;
+};
+type ThemeOnlyArgs = { theme: Theme };
+
 /** MUI module augmentation for custom properties */
 declare module "@mui/material/styles" {
   interface TypeBackground {
@@ -46,8 +44,8 @@ declare module "@mui/material/styles" {
 
   interface Palette {
     brand?: PaletteColor;
-    
-    borders: {
+
+    border: {
       subtle: string;
       strong: string;
       emphasis: string;
@@ -57,11 +55,11 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     brand?: SimplePaletteColorOptions;
 
-    borders?: {
+    border?: {
       subtle?: string;
       strong?: string;
       emphasis?: string;
-    };    
+    };
   }
 
   interface PaletteColor {
@@ -97,6 +95,16 @@ declare module "@mui/material/styles" {
 }
 
 export type DSMode = "light" | "dark";
+
+/**
+ * Prefer vars-backed palette (CSS variables) when present, otherwise fall back to palette.
+ * This prevents “default MUI hex” leaking into overrides when vars are available.
+ */
+type MuiIntent = "primary" | "secondary" | "error" | "warning" | "info" | "success";
+function resolveIntentPalette(theme: Theme, colour: MuiIntent) {
+  const t = theme as any;
+  return t.vars?.palette?.[colour] ?? (theme.palette as any)[colour];
+}
 
 export const createMuiTheme = (mode: DSMode): Theme => {
   const DiamondDSThemeOptions = mergeThemeOptions({
@@ -150,13 +158,13 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         secondary: "var(--ds-olive-11)", // secondary text, helper text, labels
         disabled: "var(--ds-olive-9)", // disabled text
 
-        placeholder: "var(--ds-olive-10)",        // default hint text (if not secondary)
-        placeholderFocus: "var(--ds-olive-9)",   // optional, calmer on focus
+        placeholder: "var(--ds-olive-10)", // default hint text (if not secondary)
+        placeholderFocus: "var(--ds-olive-9)", // optional, calmer on focus
       },
 
       background: {
         default: "var(--ds-bg-canvas)", // page background
-        paper: "var(--ds-bg-paper)", //  cards, sheets, menus, etc. 
+        paper: "var(--ds-bg-paper)", // cards, sheets, menus, etc.
         surface1: "var(--ds-bg-surface-1)", // e.g. cards
         surface2: "var(--ds-bg-surface-2)", // e.g. inputs, outlined containers
       },
@@ -164,14 +172,14 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       divider: "var(--ds-border-subtle)", // Framework-level structural separator
       dividerInverse: "var(--ds-white-a4)",
 
-      borders: {
+      border: {
         subtle: "var(--ds-border-subtle)", // Structural, non-interactive boundaries
-        strong: "var(--ds-border-strong)", // Interactive baseline 
+        strong: "var(--ds-border-strong)", // Interactive baseline
         emphasis: "var(--ds-border-emphasis)", // Interactive emphasis
       },
 
       primary: {
-        lighter: "var(--ds-indigo-7)",        
+        lighter: "var(--ds-indigo-7)",
         light: "var(--ds-indigo-8)",
         main: "var(--ds-indigo-9)",
         dark: "var(--ds-indigo-10)",
@@ -189,7 +197,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       secondary: {
-        lighter: "var(--ds-navy-7)",        
+        lighter: "var(--ds-navy-7)",
         light: "var(--ds-navy-8)",
         main: "var(--ds-navy-9)",
         dark: "var(--ds-navy-10)",
@@ -206,7 +214,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         bgSurface2: "var(--ds-navy-3)",
       },
 
-      brand: { // Brand colore (same as ds-navy-10) for background use
+      brand: {
+        // Brand colour (same as ds-navy-10) for background use
         main: "var(--ds-bg-brand)", // Stays the same on light/dark modes
         contrastText: "var(--ds-fg-fixed-white)",
       },
@@ -309,13 +318,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const rawColour = ownerState.color ?? "primary";
             if (rawColour === "inherit") return base;
 
-            const colour = rawColour as
-              | "primary"
-              | "secondary"
-              | "error"
-              | "warning"
-              | "info"
-              | "success";
+            const colour = rawColour as MuiIntent;
 
             const varsPalette = (theme as any).vars?.palette?.[colour];
             const fallbackPalette = (theme.palette as any)[colour];
@@ -386,30 +389,54 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             return base;
           },
 
-          outlinedPrimary: ({ theme }: { theme: Theme }): CSSObject => ({
-            color: theme.palette.primary.darker ?? theme.palette.primary.dark,
-            borderColor: `rgba(${theme.palette.primary.darkChannel ?? theme.palette.primary.mainChannel} / 0.7)`,
-          }),
-          outlinedSecondary: ({ theme }: { theme: Theme }): CSSObject => ({
-            color: theme.palette.secondary.dark,
-            borderColor: `rgba(${theme.palette.secondary.darkChannel ?? theme.palette.secondary.mainChannel} / 0.7)`,
-          }),
-          outlinedError: ({ theme }: { theme: Theme }): CSSObject => ({
-            color: theme.palette.error.darker ?? theme.palette.error.dark,
-            borderColor: `rgba(${theme.palette.error.darkChannel ?? theme.palette.error.mainChannel} / 0.7)`,
-          }),
-          outlinedWarning: ({ theme }: { theme: Theme }): CSSObject => ({
-            color: theme.palette.warning.darker ?? theme.palette.warning.dark,
-            borderColor: `rgba(${theme.palette.warning.darkChannel ?? theme.palette.warning.mainChannel} / 0.7)`,
-          }),
-          outlinedInfo: ({ theme }: { theme: Theme }): CSSObject => ({
-            color: theme.palette.info.darker ?? theme.palette.info.dark,
-            borderColor: `rgba(${theme.palette.info.darkChannel ?? theme.palette.info.mainChannel} / 0.7)`,
-          }),
-          outlinedSuccess: ({ theme }: { theme: Theme }): CSSObject => ({
-            color: theme.palette.success.darker ?? theme.palette.success.dark,
-            borderColor: `rgba(${theme.palette.success.darkChannel ?? theme.palette.success.mainChannel} / 0.7)`,
-          }),
+          outlinedPrimary: ({ theme }: { theme: Theme }): CSSObject => {
+            const p = resolveIntentPalette(theme, "primary");
+            return {
+              color: p.darker ?? p.dark,
+              borderColor: `rgba(${p.darkChannel ?? p.mainChannel} / 0.7)`,
+            };
+          },
+
+          outlinedSecondary: ({ theme }: { theme: Theme }): CSSObject => {
+            const p = resolveIntentPalette(theme, "secondary");
+            return {
+              color: p.darker ?? p.dark,
+              borderColor: `rgba(${p.darkChannel ?? p.mainChannel} / 0.7)`,
+            };
+          },
+
+          outlinedError: ({ theme }: { theme: Theme }): CSSObject => {
+            const p = resolveIntentPalette(theme, "error");
+            return {
+              color: p.darker ?? p.dark,
+              borderColor: `rgba(${p.darkChannel ?? p.mainChannel} / 0.7)`,
+            };
+          },
+
+          outlinedWarning: ({ theme }: { theme: Theme }): CSSObject => {
+            const p = resolveIntentPalette(theme, "warning");
+            return {
+              color: p.darker ?? p.dark,
+              borderColor: `rgba(${p.darkChannel ?? p.mainChannel} / 0.7)`,
+            };
+          },
+
+          outlinedInfo: ({ theme }: { theme: Theme }): CSSObject => {
+            const p = resolveIntentPalette(theme, "info");
+            return {
+              color: p.darker ?? p.dark,
+              borderColor: `rgba(${p.darkChannel ?? p.mainChannel} / 0.7)`,
+            };
+          },
+
+          outlinedSuccess: ({ theme }: { theme: Theme }): CSSObject => {
+            const p = resolveIntentPalette(theme, "success");
+            return {
+              color: p.darker ?? p.dark,
+              borderColor: `rgba(${p.darkChannel ?? p.mainChannel} / 0.7)`,
+            };
+          },
+
         },
       },
 
@@ -442,12 +469,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             const raw = (ownerState.color ?? "default") as
               | "default"
-              | "primary"
-              | "secondary"
-              | "error"
-              | "warning"
-              | "info"
-              | "success";
+              | MuiIntent;
 
             const isDefault = raw === "default";
             const colour = raw as Exclude<typeof raw, "default">;
@@ -501,36 +523,27 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // MUI Input focus color overrides 
-
+      // MUI Input focus colour overrides
       MuiInput: {
         styleOverrides: {
           root: ({ ownerState, theme }: OverrideArgs<InputProps>) => {
-            const raw = ownerState.color ?? "primary";
-            const colour = (ownerState.color ?? "primary") as
-              | "primary"
-              | "secondary"
-              | "error"
-              | "warning"
-              | "info"
-              | "success";
-
-            const p = theme.palette[colour];
+            const colour = (ownerState.color ?? "primary") as MuiIntent;
+            const p = resolveIntentPalette(theme, colour);
 
             return {
               // REST (interactive baseline)
               "&:before": {
-                borderBottomColor: theme.palette.borders.strong,
+                borderBottomColor: theme.palette.border.strong,
               },
 
               // HOVER (neutral hover emphasis)
               "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
-                borderBottomColor: theme.palette.borders.emphasis,
+                borderBottomColor: theme.palette.border.emphasis,
               },
 
               // FOCUS (semantic colour + weight)
               "&.Mui-focused:not(.Mui-error):after": {
-                borderBottomColor: p.light,
+                borderBottomColor: "var(--ds-border-focus-primary)",
                 borderBottomWidth: 2,
               },
 
@@ -565,8 +578,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-
-
       MuiInputBase: {
         styleOverrides: {
           input: ({ theme }: ThemeOnlyArgs) => ({
@@ -593,107 +604,85 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       MuiFilledInput: {
-      styleOverrides: {
-        root: ({ ownerState, theme }: OverrideArgs<FilledInputProps>) => {
-          const raw = ownerState.color ?? "primary";
-          const colour = (ownerState.color ?? "primary") as
-            | "primary"
-            | "secondary"
-            | "error"
-            | "warning"
-            | "info"
-            | "success";
+        styleOverrides: {
+          root: ({ ownerState, theme }: OverrideArgs<FilledInputProps>) => {
+            const colour = (ownerState.color ?? "primary") as MuiIntent;
+            const p = resolveIntentPalette(theme, colour);
 
-          const p = theme.palette[colour];
+            return {
+              backgroundColor: theme.palette.background.surface2,
 
-          return {
-            backgroundColor: theme.palette.background.surface2,
+              "&:hover:not(.Mui-disabled)": {
+                backgroundColor: "var(--ds-overlay-hover)",
+              },
 
-            "&:hover:not(.Mui-disabled)": {
-              backgroundColor: "var(--ds-overlay-hover)",
-            },
+              // REST (interactive baseline)
+              "&:before": {
+                borderBottomColor: theme.palette.border.strong,
+              },
 
-            // REST (interactive baseline)
-            "&:before": {
-              borderBottomColor: theme.palette.borders.strong,
-            },
+              // HOVER (neutral hover emphasis)
+              "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
+                borderBottomColor: theme.palette.border.emphasis,
+              },
 
-            // HOVER (neutral hover emphasis)
-            "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
-              borderBottomColor: theme.palette.borders.emphasis,
-            },
+              // FOCUS (semantic colour + weight)
+              "&.Mui-focused:not(.Mui-error):after": {
+                borderBottomColor: "var(--ds-border-focus-primary)",
+                borderBottomWidth: 2,
+              },
 
-            // FOCUS (semantic colour + weight)
-            "&.Mui-focused:not(.Mui-error):after": {
-              borderBottomColor: p.light,
-              borderBottomWidth: 2,
-            },
+              // ERROR (rest)
+              "&.Mui-error:before": {
+                borderColor: theme.palette.error.lighter ?? theme.palette.error.light,
+              },
 
-            // ERROR (rest)
-            "&.Mui-error:before": {
-               borderColor: theme.palette.error.lighter ?? theme.palette.error.light,
-            },
+              // ERROR hover
+              "&.Mui-error:hover:not(.Mui-disabled):before": {
+                borderBottomColor: theme.palette.error.light,
+              },
 
-            // ERROR hover
-            "&.Mui-error:hover:not(.Mui-disabled):before": {
-              borderBottomColor: theme.palette.error.light,
-            },
+              // ERROR + FOCUS
+              "&.Mui-error.Mui-focused:after": {
+                borderBottomColor: theme.palette.error.light,
+                borderBottomWidth: 2,
+              },
 
-            // ERROR + FOCUS
-            "&.Mui-error.Mui-focused:after": {
-              borderBottomColor: theme.palette.error.light,
-              borderBottomWidth: 2,
-            },
+              // DISABLED wins
+              "&.Mui-disabled": {
+                backgroundColor: "var(--ds-bg-disabled)",
+                color: "var(--ds-fg-disabled)",
+                borderColor: "var(--ds-border-disabled)",
+              },
+            };
+          },
 
-            // DISABLED wins
-            "&.Mui-disabled": {
-              backgroundColor: "var(--ds-bg-disabled)",
-              color: "var(--ds-fg-disabled)",
-              borderColor: "var(--ds-border-disabled)",
-            },
-          };
+          input: ({ theme }: ThemeOnlyArgs) => ({
+            "&::placeholder": { color: theme.palette.text.placeholder, opacity: 1 },
+            "&:focus::placeholder": { color: theme.palette.text.placeholderFocus },
+          }),
         },
-
-        input: ({ theme }: ThemeOnlyArgs) => ({
-          "&::placeholder": { color: theme.palette.text.placeholder, opacity: 1 },
-          "&:focus::placeholder": { color: theme.palette.text.placeholderFocus },
-        }),
       },
-    },
 
       MuiOutlinedInput: {
         styleOverrides: {
           root: ({ ownerState, theme }: OverrideArgs<OutlinedInputProps>) => {
-            const raw = ownerState.color ?? "primary";
-            const colour = (ownerState.color ?? "primary") as
-            | "primary"
-            | "secondary"
-            | "error"
-            | "warning"
-            | "info"
-            | "success";
-
-            const p = theme.palette[colour];
+            const colour = (ownerState.color ?? "primary") as MuiIntent;
+            const p = resolveIntentPalette(theme, colour);
 
             return {
               // REST (interactive baseline)
               "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.borders.strong,
+                borderColor: theme.palette.border.strong,
               },
 
               // HOVER (neutral affordance) — ONLY when not focused + not error + not disabled
               "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.borders.emphasis,
+                borderColor: theme.palette.border.emphasis,
               },
 
-              // FOCUS (semantic, and you want LIGHT)
+              // FOCUS (semantic colour + weight)
               "&.Mui-focused:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline": {
-                borderColor: p.light,
-                borderWidth: 2,
-              },
-
-              // Make sure FOCUSED + HOVER still uses semantic colour (belt & braces)
-              "&.Mui-focused:hover:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline": {
                 borderColor: p.light,
                 borderWidth: 2,
               },
@@ -708,7 +697,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 borderColor: theme.palette.error.light,
               },
 
-              // ERROR focus 
+              // ERROR focus
               "&.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline": {
                 borderColor: theme.palette.error.light,
                 borderWidth: 2,
@@ -766,7 +755,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
           }),
         },
       },
-      
     },
   });
 
