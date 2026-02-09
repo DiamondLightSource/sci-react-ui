@@ -62,6 +62,10 @@ const ScrollableImages = ({
         index++;
       }
 
+      if (currentIndex >= result.length) {
+        setCurrentIndex(Math.max(0, result.length - 1));
+      }
+
       setImageList(result);
     })();
   }, [images]);

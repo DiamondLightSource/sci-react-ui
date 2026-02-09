@@ -137,7 +137,7 @@ export const DynamicImages: StoryObj = {
 
         if (nImages === imagesList.length) {
           increment = -1;
-        } else if (nImages === 1) {
+        } else if (nImages === 0) {
           increment = 1;
         }
       }, 2000);
