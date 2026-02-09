@@ -146,7 +146,8 @@ Any children passed to the Footer will be placed in a horizontal Stack after the
 
 ### Documentation
 
-Documentation is created with Storybook.
+Documentation is created with Storybook. Additional information about auth, colours and theming can be found there.
+
 Read and play with it at [diamondlightsource.github.io/sci-react-ui](https://diamondlightsource.github.io/sci-react-ui/)
 
 Developing
@@ -217,9 +218,10 @@ Steps needed when publishing a new version.
   - Check this readme still makes sense with the new changes you are about to publish.
   - Check the introduction file [./src/storybook/Introduction.mdx](src/storybook/Introduction.mdx) in Storybook still makes sense.
 - Push the branch, get it reviewed and merge.
-- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3")
+- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3", or "v1.2.3-alpha.1") 
   - Push it.
-- A new npm version should now have been published.
+- A new npm version should now have been published:
+  - https://www.npmjs.com/package/@diamondlightsource/sci-react-ui?activeTab=versions
 
 ### GitHub release
 - GitHub releases and create a new draft release https://github.com/DiamondLightSource/sci-react-ui/releases
