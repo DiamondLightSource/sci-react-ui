@@ -8,6 +8,7 @@ import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
+import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
@@ -121,6 +122,25 @@ export const LinksAndUser: Story = {
         </NavLinks>
       </>
     ),
+  },
+};
+
+export const WithLinksInMenu: Story = {
+  args: {
+    leftSlot: (
+      <NavMenu label="Menu">
+        <NavMenuLink href="#Link1">First Link</NavMenuLink>
+        <NavMenuLink href="#Link2">Second Link</NavMenuLink>
+        <NavMenuLink href="#Link3">Third Link</NavMenuLink>
+      </NavMenu>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "The `NavMenu` component is used to contain multiple links.",
+      },
+    },
   },
 };
 
@@ -244,6 +264,45 @@ export const LinksInSlot: Story = {
             Mars
           </NavLink>
         </NavLinks>
+      </>
+    ),
+    logo: "theme",
+  },
+};
+
+export const MenuLinkInSlot: Story = {
+  args: {
+    leftSlot: (
+      <>
+        <NavMenu key="links" label={"Planets"}>
+          <NavMenuLink href="#Mercury" key="mercury">
+            Mercury
+          </NavMenuLink>
+          <NavMenuLink href="#Venus" key="venus">
+            Venus
+          </NavMenuLink>
+          <NavMenuLink href="#Earth" key="earth">
+            Earth
+          </NavMenuLink>
+          <NavMenuLink href="#Mars" key="mars">
+            Mars
+          </NavMenuLink>
+        </NavMenu>
+
+        <NavMenu key="links" label={"Stars"}>
+          <NavMenuLink href="#Sun" key="sun">
+            Sun
+          </NavMenuLink>
+          <NavMenuLink href="#AlphaCentauri" key="star">
+            Alpha Centauri
+          </NavMenuLink>
+          <NavMenuLink href="#DA40DiamondStar" key="plane">
+            DA40 Diamond
+          </NavMenuLink>
+          <NavMenuLink href="#BillMurray" key="film">
+            Bill Murray
+          </NavMenuLink>
+        </NavMenu>
       </>
     ),
     logo: "theme",
