@@ -270,6 +270,45 @@ export const LinksInSlot: Story = {
   },
 };
 
+export const MenuLinkInSlot: Story = {
+  args: {
+    leftSlot: (
+      <>
+        <NavMenu key="links" label={"Planets"}>
+          <NavMenuLink href="#Mercury" key="mercury">
+            Mercury
+          </NavMenuLink>
+          <NavMenuLink href="#Venus" key="venus">
+            Venus
+          </NavMenuLink>
+          <NavMenuLink href="#Earth" key="earth">
+            Earth
+          </NavMenuLink>
+          <NavMenuLink href="#Mars" key="mars">
+            Mars
+          </NavMenuLink>
+        </NavMenu>
+
+        <NavMenu key="links" label={"Stars"}>
+          <NavMenuLink href="#Sun" key="sun">
+            Sun
+          </NavMenuLink>
+          <NavMenuLink href="#AlphaCentauri" key="star">
+            Alpha Centauri
+          </NavMenuLink>
+          <NavMenuLink href="#DA40DiamondStar" key="plane">
+            DA40 Diamond
+          </NavMenuLink>
+          <NavMenuLink href="#BillMurray" key="film">
+            Bill Murray
+          </NavMenuLink>
+        </NavMenu>
+      </>
+    ),
+    logo: "theme",
+  },
+};
+
 export const AllSlots: Story = {
   args: {
     leftSlot: (
