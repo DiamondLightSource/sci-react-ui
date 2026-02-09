@@ -10,6 +10,20 @@ const dlsLogoBlue = "#202740";
 const dlsLogoYellow = "#facf07";
 
 const DiamondThemeOptions = mergeThemeOptions({
+  typography: {
+    fontFamily: [
+      "Inter Variable",
+      "Inter",
+      "system-ui",
+      "-apple-system",
+      '"Segoe UI"',
+      "Roboto",
+      "Helvetica",
+      "Arial",
+      "sans-serif",
+    ].join(","),
+  },
+
   logos: {
     normal: {
       src: logoImageLight,

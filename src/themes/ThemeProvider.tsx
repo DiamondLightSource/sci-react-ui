@@ -1,26 +1,48 @@
-import { ThemeProvider as Mui_ThemeProvider } from "@mui/material/styles";
+import React, { useLayoutEffect, useMemo } from "react";
 import { CssBaseline } from "@mui/material";
-import { GenericTheme } from "./GenericTheme";
-import { ThemeProviderProps as Mui_ThemeProviderProps } from "@mui/material/styles/ThemeProvider";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import type { ThemeProviderProps as MuiThemeProviderProps } from "@mui/material/styles/ThemeProvider";
+import { createMuiTheme } from "./DiamondDSTheme";
+import type { DSMode } from "./DiamondDSTheme";
 
-interface ThemeProviderProps extends Partial<Mui_ThemeProviderProps> {
+interface ThemeProviderProps extends Partial<MuiThemeProviderProps> {
   baseline?: boolean;
+  mode?: DSMode | "system";
 }
 
-const ThemeProvider = function ({
+function resolveMode(mode: DSMode | "system"): DSMode {
+  if (mode !== "system") return mode;
+  return window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
+}
+
+export function ThemeProvider({
   children,
-  theme = GenericTheme,
   baseline = true,
   defaultMode = "system",
+  mode = "light",
   ...props
 }: ThemeProviderProps) {
+  const resolvedMode = useMemo(() => resolveMode(mode), [mode]);
+
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+
+    root.setAttribute("data-mode", resolvedMode);
+
+    // compatibility classes
+    root.classList.toggle("dark", resolvedMode === "dark");
+    root.classList.toggle("light", resolvedMode === "light");
+
+    // browser-native UI (scrollbars, form controls)
+    root.style.colorScheme = resolvedMode;
+  }, [resolvedMode]);
+
+  const theme = useMemo(() => createMuiTheme(resolvedMode), [resolvedMode]);
+
   return (
-    <Mui_ThemeProvider theme={theme} defaultMode={defaultMode} {...props}>
+    <MuiThemeProvider theme={theme} defaultMode={defaultMode} {...props}>
       {baseline && <CssBaseline />}
       {children}
-    </Mui_ThemeProvider>
+    </MuiThemeProvider>
   );
-};
-
-export { ThemeProvider };
-export type { ThemeProviderProps };
+}

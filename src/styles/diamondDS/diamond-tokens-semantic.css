@@ -1,0 +1,68 @@
+:root { /* Semantic tokens that can be defined once */
+    /* Borders */
+    --ds-border-subtle:   var(--ds-olive-6); /* Structural, non-interactive */
+    --ds-border-strong:   var(--ds-olive-7); /* Interactive baseline */
+    --ds-border-emphasis: var(--ds-olive-8); /* Interactive emphasis */
+    /* Borders for focus states */
+    --ds-border-focus-primary: var(--ds-indigo-8);
+    --ds-border-focus-secondary: var(--ds-navy-8);
+    --ds-border-focus-success: var(--ds-green-8);
+    --ds-border-focus-warning: var(--ds-orange-8);
+    --ds-border-focus-error: var(--ds-red-8);
+    --ds-border-focus-info: var(--ds-indigo-8);
+
+    /* Background tokens */
+    --ds-bg-canvas: var(--ds-olive-1);
+    --ds-bg-paper: var(--ds-white);
+    --ds-bg-surface-1: var(--ds-olive-2);
+    --ds-bg-surface-2: var(--ds-olive-3);
+
+    --ds-bg-interactive-rest: var(--ds-olive-3);
+    --ds-bg-interactive-hover: var(--ds-olive-4);
+    
+    /* Text hierarchy tokens */
+    --ds-fg-primary: var(--ds-olive-12);
+    --ds-fg-secondary: var(--ds-olive-11);
+    --ds-fg-tertiary: var(--ds-olive-10);
+
+    /* Disabled tokens */
+    --ds-fg-disabled: var(--ds-olive-8);
+    --ds-border-disabled: var(--ds-olive-6);
+    --ds-bg-disabled: var(--ds-olive-a3);
+}
+
+:root, .light, :root[data-mode="light"] { /* Light mode */
+    /* On-colour tokens */
+    --ds-fg-fixed-white: var(--ds-white);   /* Always white */
+    --ds-fg-fixed-black: var(--ds-black);   /* Always black */
+    --ds-fg-inverse: var(--ds-white);   /* White (light) → Black (dark) */
+    --ds-fg-default: var(--ds-black);   /* Black (light) → White (dark) */
+
+    --ds-overlay-hover: rgba(0, 0, 0, 0.06);
+    --ds-overlay-selected: rgba(0, 0, 0, 0.10);
+    --ds-overlay-focus: rgba(0, 0, 0, 0.12);
+    --ds-overlay-disabled: rgba(0, 0, 0, 0.26);
+    --ds-overlay-disabled-bg: rgba(0, 0, 0, 0.06);
+
+    --ds-bg-brand: var(--ds-navy-10); /* Diamond Brand Blue */
+}
+
+.dark, :root[data-mode="dark"]  { /* dark mode semantic overrides */
+    /* On-colour tokens */
+    --ds-fg-fixed-white: var(--ds-white);   /* Always white */
+    --ds-fg-fixed-black: var(--ds-black);   /* Always black */
+    --ds-fg-inverse: var(--ds-black);   /* White (light) → Black (dark) */
+    --ds-fg-default: var(--ds-white);   /* Black (light) → White (dark) */
+
+    --ds-bg-brand: var(--ds-navy-7); /* Diamond Brand Blue */
+
+    --ds-overlay-hover: rgba(255, 255, 255, 0.06);
+    --ds-overlay-selected: rgba(255, 255, 255, 0.10);
+    --ds-overlay-focus: rgba(255, 255, 255, 0.12);
+    --ds-overlay-disabled: rgba(255, 255, 255, 0.30);
+    --ds-overlay-disabled-bg: rgba(255, 255, 255, 0.08);
+
+    /* Paper (main surface override) */
+    --ds-bg-paper: var(--ds-olive-2);
+
+}

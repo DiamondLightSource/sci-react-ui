@@ -22,6 +22,7 @@ export * from "./components/helpers/jsonforms";
 // themes
 export * from "./themes/BaseTheme";
 export * from "./themes/DiamondTheme";
+export * from "./themes/DiamondDSTheme";
 export * from "./themes/GenericTheme";
 export * from "./themes/ThemeProvider";
 export * from "./themes/ThemeManager";
