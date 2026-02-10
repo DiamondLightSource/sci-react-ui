@@ -1,8 +1,8 @@
 SciReactUI Changelog
 ====================
 
-[v0.3.1alpha] - 2026-?-?
-------------------------
+[v0.4.0] - 2026-02-10
+---------------------
 
 ### Added
 - New *Progress* component based on Diamond Light added.
@@ -10,7 +10,7 @@ SciReactUI Changelog
 - *NavMenu* component added for creating dropdown menus in the Navbar
   - *NavMenuLink* component extends NavLink to work in the NavMenu
 - *AuthProvider* added for authentication to Keycloak.
-- An *auth* parameter was added to *User* to simplify when *AuthProvider* is used. 
+  - An *auth* parameter was added to *User* to simplify when *AuthProvider* is used. 
 - *ScrollableImages* can now display in a wide view, with multiple images.
 
 ### Fixed
@@ -126,7 +126,7 @@ e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{s
   - Generic
 
 
-[v0.0.0] - 2024-06-04
+[v0.0.0-alpha.1] - 2026-??-??
 --------------------
 
 ### Added
