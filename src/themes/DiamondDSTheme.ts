@@ -1,4 +1,3 @@
-// src/themes/DiamondDSTheme.ts
 import "../styles/diamondDS/diamond-colors-primitives.css";
 import "../styles/diamondDS/diamond-tokens-semantic.css";
 
@@ -26,6 +25,7 @@ import {
   DsCheckboxCheckedIcon,
   DsCheckboxIndeterminateIcon,
 } from "./icons";
+import { light } from "@mui/material/styles/createPalette";
 
 type OverrideArgs<OwnerState = unknown> = {
   ownerState: OwnerState;
@@ -47,8 +47,8 @@ declare module "@mui/material/styles" {
 
     border: {
       subtle: string;
-      strong: string;
       emphasis: string;
+      strong: string;
     };
   }
 
@@ -57,8 +57,8 @@ declare module "@mui/material/styles" {
 
     border?: {
       subtle?: string;
-      strong?: string;
       emphasis?: string;
+      strong?: string;
     };
   }
 
@@ -147,6 +147,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         disabled: "var(--ds-overlay-disabled)",
         disabledBackground: "var(--ds-overlay-disabled-bg)",
 
+        selectedChannel: undefined,
+
         hoverOpacity: 0.12,
         selectedOpacity: 0.16,
         disabledOpacity: 0.38,
@@ -158,6 +160,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         secondary: "var(--ds-olive-11)", // secondary text, helper text, labels
         disabled: "var(--ds-olive-9)", // disabled text
 
+        primaryChannel: "var(--ds-olive-12Channel)",
+        secondaryChannel: "var(--ds-olive-11Channel)",
+        
         placeholder: "var(--ds-olive-10)", // default hint text (if not secondary)
         placeholderFocus: "var(--ds-olive-9)", // optional, calmer on focus
       },
@@ -167,15 +172,21 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         paper: "var(--ds-bg-paper)", // cards, sheets, menus, etc.
         surface1: "var(--ds-bg-surface-1)", // e.g. cards
         surface2: "var(--ds-bg-surface-2)", // e.g. inputs, outlined containers
+
+        defaultChannel: "var(--ds-olive-1Channel)", // for calculating hover/active states in components like Button
+        paperChannel: "var(--ds-whiteChannel)", // for overlays on paper (e.g. popover backdrop)
       },
+
+      primaryChannel: "var(--ds-indigo-9Channel)", // for calculating hover/active states in components like Button
 
       divider: "var(--ds-border-subtle)", // Framework-level structural separator
       dividerInverse: "var(--ds-white-a4)",
+      dividerChannel: "var(--ds-olive-6Channel)",
 
       border: {
         subtle: "var(--ds-border-subtle)", // Structural, non-interactive boundaries
-        strong: "var(--ds-border-strong)", // Interactive baseline
-        emphasis: "var(--ds-border-emphasis)", // Interactive emphasis
+        emphasis: "var(--ds-border-emphasis)", // Interactive baseline
+        strong: "var(--ds-border-strong)", // Interactive hover
       },
 
       primary: {
@@ -215,8 +226,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       brand: {
-        // Brand colour (same as ds-navy-10) for background use
-        main: "var(--ds-bg-brand)", // Stays the same on light/dark modes
+        main: "var(--ds-bg-brand)", // navy-10 Stays the same on light/dark modes
+        light: "var(--ds-navy-9)", 
         contrastText: "var(--ds-fg-fixed-white)",
       },
 
@@ -292,16 +303,16 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       grey: {
-        50: "var(--ds-olive-1)",
-        100: "var(--ds-olive-2)",
-        200: "var(--ds-olive-3)",
-        300: "var(--ds-olive-4)",
-        400: "var(--ds-olive-5)",
-        500: "var(--ds-olive-6)",
-        600: "var(--ds-olive-7)",
-        700: "var(--ds-olive-8)",
-        800: "var(--ds-olive-9)",
-        900: "var(--ds-olive-10)",
+        50: "var(--ds-olive-2)",
+        100: "var(--ds-olive-3)",
+        200: "var(--ds-olive-4)",
+        300: "var(--ds-olive-5)",
+        400: "var(--ds-olive-7)",
+        500: "var(--ds-olive-8)",
+        600: "var(--ds-olive-9)",
+        700: "var(--ds-olive-11)",
+        800: "var(--ds-olive-10)",
+        900: "var(--ds-olive-12)",
       },
     },
 
@@ -373,7 +384,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               return {
                 ...base,
                 color: "var(--ds-olive-12)",
-                borderColor: "var(--ds-border-strong)",
+                borderColor: "var(--ds-border-emphasis)",
                 backgroundColor: isOutlined ? "transparent" : "var(--ds-olive-4)",
 
                 ...(isInteractive && {
@@ -533,12 +544,12 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             return {
               // REST (interactive baseline)
               "&:before": {
-                borderBottomColor: theme.palette.border.strong,
+                borderBottomColor: theme.palette.border.emphasis,
               },
 
-              // HOVER (neutral hover emphasis)
+              // HOVER (neutral hover strong)
               "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
-                borderBottomColor: theme.palette.border.emphasis,
+                borderBottomColor: theme.palette.border.strong,
               },
 
               // FOCUS (semantic colour + weight)
@@ -618,12 +629,12 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
               // REST (interactive baseline)
               "&:before": {
-                borderBottomColor: theme.palette.border.strong,
+                borderBottomColor: theme.palette.border.emphasis,
               },
 
-              // HOVER (neutral hover emphasis)
+              // HOVER (neutral hover strong)
               "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
-                borderBottomColor: theme.palette.border.emphasis,
+                borderBottomColor: theme.palette.border.strong,
               },
 
               // FOCUS (semantic colour + weight)
@@ -673,12 +684,12 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             return {
               // REST (interactive baseline)
               "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.border.strong,
+                borderColor: theme.palette.border.emphasis,
               },
 
               // HOVER (neutral affordance) — ONLY when not focused + not error + not disabled
               "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.border.emphasis,
+                borderColor: theme.palette.border.strong,
               },
 
               // FOCUS (semantic colour + weight)

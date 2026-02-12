@@ -402,8 +402,8 @@
     --ds-navy-8:  #777C98;
     --ds-navy-9:  #586084;
     --ds-navy-10: #202945;  /* brand */
-    --ds-navy-11: #1D263F;
-    --ds-navy-12: #0C0E1C;
+    --ds-navy-11: #586084;
+    --ds-navy-12: #202945;  /* brand */
     --ds-navy-a1:  #58608405;
     --ds-navy-a2:  #5860840A;
     --ds-navy-a3:  #58608410;
@@ -414,8 +414,8 @@
     --ds-navy-a8:  #58608447;
     --ds-navy-a9:  #58608463;
     --ds-navy-a10: #5860847D;
-    --ds-navy-a11: #586084A2;
-    --ds-navy-a12: #586084DE;
+    --ds-navy-a11: #58608463;
+    --ds-navy-a12: #5860847D;
     --ds-navy-1Channel: 249 250 253;
     --ds-navy-2Channel: 239 241 247;
     --ds-navy-3Channel: 224 226 237;
@@ -426,8 +426,8 @@
     --ds-navy-8Channel: 119 124 152;
     --ds-navy-9Channel: 88 96 132;
     --ds-navy-10Channel: 32 41 69;
-    --ds-navy-11Channel: 29 38 63;
-    --ds-navy-12Channel: 12 14 28;
+    --ds-navy-11Channel: 88 96 132;
+    --ds-navy-12Channel: 32 41 69;
   }
   .dark, :root[data-mode="dark"]  { /* Dark Mode */ 
     /* Radix based colours */

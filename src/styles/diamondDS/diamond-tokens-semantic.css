@@ -1,15 +1,21 @@
 :root { /* Semantic tokens that can be defined once */
     /* Borders */
     --ds-border-subtle:   var(--ds-olive-6); /* Structural, non-interactive */
-    --ds-border-strong:   var(--ds-olive-7); /* Interactive baseline */
-    --ds-border-emphasis: var(--ds-olive-8); /* Interactive emphasis */
-    /* Borders for focus states */
-    --ds-border-focus-primary: var(--ds-indigo-8);
-    --ds-border-focus-secondary: var(--ds-navy-8);
-    --ds-border-focus-success: var(--ds-green-8);
-    --ds-border-focus-warning: var(--ds-orange-8);
-    --ds-border-focus-error: var(--ds-red-8);
-    --ds-border-focus-info: var(--ds-indigo-8);
+    --ds-border-emphasis:   var(--ds-olive-7); /* Interactive baseline */
+    --ds-border-strong: var(--ds-olive-8); /* Interactive emphasis */
+    /* Borders for intent states */
+    --ds-border-emphasis-primary: var(--ds-indigo-7);
+    --ds-border-emphasis-secondary: var(--ds-navy-7);
+    --ds-border-emphasis-success: var(--ds-green-7);
+    --ds-border-emphasis-warning: var(--ds-orange-7);
+    --ds-border-emphasis-error: var(--ds-red-7);
+    --ds-border-emphasis-info: var(--ds-indigo-7);
+    --ds-border-strong-primary: var(--ds-indigo-8);
+    --ds-border-strong-secondary: var(--ds-navy-8);
+    --ds-border-strong-success: var(--ds-green-8);
+    --ds-border-strong-warning: var(--ds-orange-8);
+    --ds-border-strong-error: var(--ds-red-8);
+    --ds-border-strong-info: var(--ds-indigo-8);
 
     /* Background tokens */
     --ds-bg-canvas: var(--ds-olive-1);
