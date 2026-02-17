@@ -42,13 +42,18 @@ export const All: Story = {
           <NavLink href="#Venus" key="venus">
             Venus
           </NavLink>
-          <NavLink href="#Earth" key="earth">
-            Earth
-          </NavLink>
-          <NavLink href="#Mars" key="mars">
-            Mars
-          </NavLink>
         </NavLinks>
+        <NavMenu key="links" label={"Planets"}>
+          <NavMenuLink href="#Earth" key="earth">
+            Earth
+          </NavMenuLink>
+          <NavMenuLink href="#Mars" key="mars">
+            Mars
+          </NavMenuLink>
+          <NavMenuLink href="#Jupiter" key="jupiter">
+            Jupiter
+          </NavMenuLink>
+        </NavMenu>
       </>
     ),
     logo: "theme",
@@ -270,17 +275,15 @@ export const LinksInSlot: Story = {
   },
 };
 
-export const MenuLinkInSlot: Story = {
+export const LinksAndMenus: Story = {
   args: {
     leftSlot: (
       <>
+        <NavLinks>
+          <NavLink href="#Mercury">Mecury</NavLink>
+          <NavLink href="#Venus">Venus</NavLink>
+        </NavLinks>
         <NavMenu key="links" label={"Planets"}>
-          <NavMenuLink href="#Mercury" key="mercury">
-            Mercury
-          </NavMenuLink>
-          <NavMenuLink href="#Venus" key="venus">
-            Venus
-          </NavMenuLink>
           <NavMenuLink href="#Earth" key="earth">
             Earth
           </NavMenuLink>

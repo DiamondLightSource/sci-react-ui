@@ -132,6 +132,34 @@ const User = ({
               anchorEl={anchorEl}
               open={open}
               onClose={handleClose}
+              autoFocus={false}
+              sx={{
+                "li:hover": {
+                  color: theme.palette.secondary.main,
+                  borderLeft: "solid 4px",
+                  borderBottom: "none",
+                },
+                "li:focus": {
+                  color: theme.palette.secondary.main,
+                  borderLeft: "solid 4px",
+                },
+                "li" : {
+                  paddingLeft: "8px",
+                  textDecoration: "none",
+                  alignItems: "center",
+                  display: "flex",
+                  borderLeft: "4px solid transparent",
+                  backgroundColor: {md: "none"},
+                  color: theme.palette.primary.contrastText,
+                },
+                "a" :{
+                  backgroundColor: {md: "none"},
+                  color: theme.palette.primary.contrastText,
+                }, 
+              }}
+              slotProps={{
+                paper: { style: { backgroundColor: theme.palette.primary.light } },
+              }}
             >
               {menuItems}
               {auth && (
