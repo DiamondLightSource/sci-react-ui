@@ -143,22 +143,24 @@ const User = ({
                   color: theme.palette.secondary.main,
                   borderLeft: "solid 4px",
                 },
-                "li" : {
+                li: {
                   paddingLeft: "8px",
                   textDecoration: "none",
                   alignItems: "center",
                   display: "flex",
                   borderLeft: "4px solid transparent",
-                  backgroundColor: {md: "none"},
+                  backgroundColor: { md: "none" },
                   color: theme.palette.primary.contrastText,
                 },
-                "a" :{
-                  backgroundColor: {md: "none"},
+                a: {
+                  backgroundColor: { md: "none" },
                   color: theme.palette.primary.contrastText,
-                }, 
+                },
               }}
               slotProps={{
-                paper: { style: { backgroundColor: theme.palette.primary.light } },
+                paper: {
+                  style: { backgroundColor: theme.palette.primary.light },
+                },
               }}
             >
               {menuItems}
@@ -183,8 +185,8 @@ const User = ({
           onClick={handleLogin}
           startIcon={<MdLogin />}
           sx={{
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.contrastText,
+            backgroundColor: theme.vars.palette.primary.light,
+            color: theme.vars.palette.primary.contrastText,
           }}
         >
           Login
