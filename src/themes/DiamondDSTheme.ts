@@ -6,12 +6,18 @@ import { createTheme } from "@mui/material/styles";
 import type { Theme } from "@mui/material/styles";
 import type { CSSObject } from "@mui/material/styles";
 
+import type { AlertProps } from "@mui/material/Alert";
+import type { AppBarProps } from "@mui/material/AppBar";
 import type { ButtonProps } from "@mui/material/Button";
 import type { ChipProps } from "@mui/material/Chip";
 import type { CheckboxProps } from "@mui/material/Checkbox";
 import type { InputProps } from "@mui/material/Input";
 import type { FilledInputProps } from "@mui/material/FilledInput";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
+import type { RadioProps } from "@mui/material/Radio";
+import type { SliderProps } from "@mui/material/Slider";
+import type { SwitchProps } from "@mui/material/Switch";
+import type { TabProps } from "@mui/material/Tab";
 
 import { mergeThemeOptions } from "./ThemeManager";
 
@@ -85,6 +91,8 @@ declare module "@mui/material/styles" {
 export type DSMode = "light" | "dark";
 
 type MuiIntent = "primary" | "secondary" | "error" | "warning" | "info" | "success";
+type AlertSeverity = "error" | "warning" | "info" | "success";
+type AlertVariant = "standard" | "filled" | "outlined";
 
 function resolveIntentPalette(theme: Theme, colour: MuiIntent) {
   const t = theme as any;
@@ -267,6 +275,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
     },
 
     components: {
+
+      // ─── BUTTON ────────────────────────────────────────────────────────────
+
       MuiButton: {
         styleOverrides: {
           root: ({ ownerState }: { ownerState: ButtonProps; theme: Theme }): CSSObject => {
@@ -278,7 +289,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             const colour = rawColour as MuiIntent;
 
-            // Semantic tokens cover all intents — map colour to token segment
             const intentOutlinedFg = `var(--ds-intent-${colour}-outlined-fg)`;
             const intentOutlinedBorder = `var(--ds-intent-${colour}-outlined-border)`;
 
@@ -296,7 +306,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             if (variant === "text") {
               return {
                 ...base,
-                color: intentOutlinedFg, // step 11 — same fg works for text variant
+                color: intentOutlinedFg,
               } as CSSObject;
             }
 
@@ -304,6 +314,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
           },
         },
       },
+
+      // ─── CHIP ──────────────────────────────────────────────────────────────
 
       MuiChip: {
         styleOverrides: {
@@ -333,7 +345,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             return base;
           },
 
-          // All outlined intent variants resolved via semantic tokens
           outlinedPrimary: (): CSSObject => chipOutlined("primary"),
           outlinedSecondary: (): CSSObject => chipOutlined("secondary"),
           outlinedError: (): CSSObject => chipOutlined("error"),
@@ -342,6 +353,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
           outlinedSuccess: (): CSSObject => chipOutlined("success"),
         },
       },
+
+      // ─── CHECKBOX ─────────────────────────────────────────────────────────
 
       MuiCheckbox: {
         defaultProps: {
@@ -410,25 +423,22 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
+      // ─── INPUT (standard) ─────────────────────────────────────────────────
+
       MuiInput: {
         styleOverrides: {
           root: ({ ownerState }: OverrideArgs<InputProps>) => {
             const colour = (ownerState.color ?? "primary") as MuiIntent;
-
             return {
-              "&:before": {
-                borderBottomColor: "var(--ds-border-emphasis)",
-              },
+              "&:before": { borderBottomColor: "var(--ds-border-emphasis)" },
               "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
                 borderBottomColor: "var(--ds-border-strong)",
               },
               "&.Mui-focused:not(.Mui-error):after": {
-                borderBottomColor: `var(--ds-border-focus-${colour})`,  // ← dynamic
+                borderBottomColor: `var(--ds-border-focus-${colour})`,
                 borderBottomWidth: 2,
               },
-              "&.Mui-error:before": {
-                borderColor: "var(--ds-intent-error-subtle-border)",
-              },
+              "&.Mui-error:before": { borderColor: "var(--ds-intent-error-subtle-border)" },
               "&.Mui-error:hover:not(.Mui-disabled):before": {
                 borderBottomColor: "var(--ds-border-emphasis-error)",
               },
@@ -442,9 +452,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               },
             };
           },
-          // ...
         },
       },
+
+      // ─── INPUT BASE ───────────────────────────────────────────────────────
 
       MuiInputBase: {
         styleOverrides: {
@@ -457,7 +468,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               color: theme.palette.text.placeholderFocus,
             },
           }),
-
           root: ({ theme }: ThemeOnlyArgs) => ({
             "&.Mui-error input::placeholder, &.Mui-error input::-webkit-input-placeholder, &.Mui-error input::-moz-placeholder": {
               color: "var(--ds-intent-error-subtle-fg)",
@@ -471,29 +481,24 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
+      // ─── FILLED INPUT ─────────────────────────────────────────────────────
+
       MuiFilledInput: {
         styleOverrides: {
           root: ({ ownerState }: OverrideArgs<FilledInputProps>) => {
             const colour = (ownerState.color ?? "primary") as MuiIntent;
-
             return {
               backgroundColor: "var(--ds-bg-surface-2)",
-              "&:hover:not(.Mui-disabled)": {
-                backgroundColor: "var(--ds-bg-hover)",
-              },
-              "&:before": {
-                borderBottomColor: "var(--ds-border-emphasis)",
-              },
+              "&:hover:not(.Mui-disabled)": { backgroundColor: "var(--ds-bg-hover)" },
+              "&:before": { borderBottomColor: "var(--ds-border-emphasis)" },
               "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
                 borderBottomColor: "var(--ds-border-strong)",
               },
               "&.Mui-focused:not(.Mui-error):after": {
-                borderBottomColor: `var(--ds-border-focus-${colour})`,  // ← dynamic
+                borderBottomColor: `var(--ds-border-focus-${colour})`,
                 borderBottomWidth: 2,
               },
-              "&.Mui-error:before": {
-                borderColor: "var(--ds-intent-error-subtle-border)",
-              },
+              "&.Mui-error:before": { borderColor: "var(--ds-intent-error-subtle-border)" },
               "&.Mui-error:hover:not(.Mui-disabled):before": {
                 borderBottomColor: "var(--ds-border-emphasis-error)",
               },
@@ -508,15 +513,15 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               },
             };
           },
-          // ...
         },
       },
+
+      // ─── OUTLINED INPUT ───────────────────────────────────────────────────
 
       MuiOutlinedInput: {
         styleOverrides: {
           root: ({ ownerState }: OverrideArgs<OutlinedInputProps>) => {
             const colour = (ownerState.color ?? "primary") as MuiIntent;
-
             return {
               "& .MuiOutlinedInput-notchedOutline": {
                 borderColor: "var(--ds-border-emphasis)",
@@ -549,43 +554,542 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
+      // ─── INPUT LABEL ──────────────────────────────────────────────────────
+
       MuiInputLabel: {
         styleOverrides: {
           root: () => ({
-            "&:not(.MuiInputLabel-shrink)": {
-              color: "var(--ds-fg-muted)",
+            "&:not(.MuiInputLabel-shrink)": { color: "var(--ds-fg-muted)" },
+            "&.Mui-disabled:not(.MuiInputLabel-shrink)": { color: "var(--ds-fg-disabled)" },
+            "&.Mui-focused": { color: "var(--ds-intent-primary-label)" },
+            "&.Mui-focused.MuiFormLabel-colorSecondary": { color: "var(--ds-intent-secondary-label)" },
+            "&.Mui-focused.MuiFormLabel-colorSuccess": { color: "var(--ds-intent-success-label)" },
+            "&.Mui-focused.MuiFormLabel-colorWarning": { color: "var(--ds-intent-warning-label)" },
+            "&.Mui-focused.MuiFormLabel-colorError": { color: "var(--ds-intent-error-label)" },
+            "&.Mui-focused.MuiFormLabel-colorInfo": { color: "var(--ds-intent-info-label)" },
+            "&.Mui-focused.Mui-error": { color: "var(--ds-intent-error-label)" },
+            "&.Mui-disabled": { color: "var(--ds-fg-disabled)" },
+          }),
+        },
+      },
+
+      // ─── SELECT ───────────────────────────────────────────────────────────
+      // Trigger inherits OutlinedInput/FilledInput/Input overrides above.
+      // These target the dropdown icon only; listbox is handled by MuiMenu.
+
+      MuiSelect: {
+        styleOverrides: {
+          icon: (): CSSObject => ({
+            color: "var(--ds-fg-muted)",
+            "&.Mui-disabled": { color: "var(--ds-fg-disabled)" },
+          }),
+        },
+      },
+
+      // ─── MENU (Select & standalone) ───────────────────────────────────────
+
+      MuiMenu: {
+        styleOverrides: {
+          paper: (): CSSObject => ({
+            backgroundColor: "var(--ds-select-listbox-bg)",
+            border: "1px solid var(--ds-border-subtle)",
+            boxShadow:
+              "0px 4px 6px -2px rgba(0,0,0,0.08), 0px 12px 16px -4px rgba(0,0,0,0.12)",
+          }),
+        },
+      },
+
+      MuiMenuItem: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            color: "var(--ds-fg-default)",
+            "&:hover": { backgroundColor: "var(--ds-select-option-hover-bg)" },
+            "&.Mui-selected": {
+              backgroundColor: "var(--ds-select-option-selected-bg)",
+              color: "var(--ds-select-option-selected-fg)",
+              "&:hover": { backgroundColor: "var(--ds-select-option-focused-bg)" },
             },
-            "&.Mui-disabled:not(.MuiInputLabel-shrink)": {
-              color: "var(--ds-fg-disabled)",
+            "&.Mui-focusVisible": { backgroundColor: "var(--ds-select-option-focused-bg)" },
+            "&.Mui-disabled": { color: "var(--ds-fg-disabled)", opacity: 1 },
+          }),
+        },
+      },
+
+      // ─── AUTOCOMPLETE ─────────────────────────────────────────────────────
+
+      MuiAutocomplete: {
+        styleOverrides: {
+          paper: (): CSSObject => ({
+            backgroundColor: "var(--ds-select-listbox-bg)",
+            border: "1px solid var(--ds-border-subtle)",
+            boxShadow:
+              "0px 4px 6px -2px rgba(0,0,0,0.08), 0px 12px 16px -4px rgba(0,0,0,0.12)",
+          }),
+          option: (): CSSObject => ({
+            color: "var(--ds-fg-default)",
+            '&[data-focus="true"], &.Mui-focused': {
+              backgroundColor: "var(--ds-select-option-hover-bg)",
             },
-            "&.Mui-focused": {
-              color: "var(--ds-intent-primary-label)",
+            '&[aria-selected="true"]': {
+              backgroundColor: "var(--ds-select-option-selected-bg)",
+              color: "var(--ds-select-option-selected-fg)",
+              '&[data-focus="true"]': {
+                backgroundColor: "var(--ds-select-option-focused-bg)",
+              },
             },
-            "&.Mui-focused.MuiFormLabel-colorSecondary": {
-              color: "var(--ds-intent-secondary-label)",
+          }),
+          noOptions: (): CSSObject => ({ color: "var(--ds-fg-muted)" }),
+          loading: (): CSSObject => ({ color: "var(--ds-fg-muted)" }),
+          clearIndicator: (): CSSObject => ({
+            color: "var(--ds-fg-muted)",
+            "&:hover": { color: "var(--ds-fg-default)" },
+          }),
+          popupIndicator: (): CSSObject => ({
+            color: "var(--ds-fg-muted)",
+            "&:hover": { color: "var(--ds-fg-default)" },
+          }),
+        },
+      },
+
+      // ─── SWITCH ───────────────────────────────────────────────────────────
+
+      MuiSwitch: {
+        styleOverrides: {
+          root: ({ ownerState }: OverrideArgs<SwitchProps>): CSSObject => {
+            const rawColour = ownerState.color ?? "primary";
+            const trackCheckedBg =
+              rawColour === "default" || rawColour === "inherit"
+                ? "var(--ds-switch-track-checked)"
+                : `var(--ds-intent-${rawColour}-solid-bg)`;
+
+            return {
+              "& .MuiSwitch-track": {
+                backgroundColor: "var(--ds-switch-track-unchecked)",
+                opacity: 1,
+              },
+              "& .MuiSwitch-thumb": {
+                color: "var(--ds-fg-on-solid)",
+                boxShadow: "0 1px 3px rgba(0,0,0,0.3)",
+              },
+              "& .MuiSwitch-switchBase.Mui-checked": {
+                "& + .MuiSwitch-track": {
+                  backgroundColor: trackCheckedBg,
+                  opacity: 1,
+                },
+              },
+              "& .MuiSwitch-switchBase.Mui-disabled": {
+                "& .MuiSwitch-thumb": { color: "var(--ds-switch-thumb-disabled)" },
+                "& + .MuiSwitch-track": {
+                  backgroundColor: "var(--ds-switch-track-disabled)",
+                  opacity: 1,
+                },
+              },
+            } as CSSObject;
+          },
+        },
+      },
+
+      // ─── RADIO ────────────────────────────────────────────────────────────
+
+      MuiRadio: {
+        styleOverrides: {
+          root: ({ ownerState }: OverrideArgs<RadioProps>): CSSObject => {
+            if (ownerState.disabled) {
+              return {
+                color: "var(--ds-fg-disabled)",
+                "--ds-radio-stroke": "var(--ds-radio-disabled-stroke)",
+                "--ds-radio-fill": "var(--ds-radio-disabled-fill)",
+              } as unknown as CSSObject;
+            }
+
+            const rawColour = ownerState.color ?? "primary";
+            const checkedColor =
+              rawColour === "default" || rawColour === "inherit"
+                ? "var(--ds-olive-9)"
+                : `var(--ds-intent-${rawColour}-solid-bg)`;
+
+            return {
+              "&:hover, &.Mui-focusVisible": { backgroundColor: "transparent" },
+              "&:not(.Mui-checked)": {
+                color: "var(--ds-radio-unchecked-stroke)",
+                "--ds-radio-stroke": "var(--ds-radio-unchecked-stroke)",
+                "--ds-radio-fill": "none",
+              },
+              "&.Mui-checked": {
+                color: checkedColor,
+                "--ds-radio-stroke": "none",
+                "--ds-radio-fill": checkedColor,
+                "--ds-radio-dot": "var(--ds-fg-on-solid)",
+              },
+            } as unknown as CSSObject;
+          },
+        },
+      },
+
+      // ─── SLIDER ───────────────────────────────────────────────────────────
+
+      MuiSlider: {
+        styleOverrides: {
+          root: ({ ownerState }: OverrideArgs<SliderProps>): CSSObject => {
+            const rawColour = ownerState.color ?? "primary";
+            const accentColor =
+              rawColour === "secondary"
+                ? "var(--ds-intent-secondary-solid-bg)"
+                : `var(--ds-intent-${rawColour}-solid-bg)`;
+            const hoverShadow =
+              rawColour === "secondary"
+                ? "var(--ds-intent-secondary-subtle-bg)"
+                : `var(--ds-intent-${rawColour}-subtle-bg)`;
+
+            return {
+              color: accentColor,
+              "& .MuiSlider-rail": {
+                backgroundColor: "var(--ds-slider-rail-color)",
+                opacity: 1,
+              },
+              "& .MuiSlider-track": {
+                backgroundColor: accentColor,
+                borderColor: accentColor,
+              },
+              "& .MuiSlider-thumb": {
+                backgroundColor: accentColor,
+                "&:hover, &.Mui-focusVisible": { boxShadow: `0 0 0 8px ${hoverShadow}` },
+                "&.Mui-active": { boxShadow: `0 0 0 12px ${hoverShadow}` },
+              },
+              "& .MuiSlider-mark": { backgroundColor: "var(--ds-slider-mark-color)" },
+              "& .MuiSlider-markActive": { backgroundColor: "var(--ds-fg-on-solid)" },
+              "& .MuiSlider-valueLabel": {
+                backgroundColor: accentColor,
+                color: "var(--ds-slider-value-label-fg)",
+              },
+              "&.Mui-disabled": {
+                color: "var(--ds-slider-disabled-color)",
+                "& .MuiSlider-track, & .MuiSlider-thumb": {
+                  backgroundColor: "var(--ds-slider-disabled-color)",
+                  borderColor: "var(--ds-slider-disabled-color)",
+                },
+                "& .MuiSlider-rail": { backgroundColor: "var(--ds-slider-disabled-color)" },
+              },
+            } as CSSObject;
+          },
+        },
+      },
+
+      // ─── ALERT ────────────────────────────────────────────────────────────
+
+      MuiAlert: {
+        styleOverrides: {
+          root: ({ ownerState }: OverrideArgs<AlertProps>): CSSObject => {
+            const severity = (ownerState.severity ?? "info") as AlertSeverity;
+            const variant = (ownerState.variant ?? "standard") as AlertVariant;
+
+            if (variant === "standard") {
+              return {
+                backgroundColor: `var(--ds-alert-${severity}-bg)`,
+                color: `var(--ds-alert-${severity}-fg)`,
+                borderLeft: `3px solid var(--ds-alert-${severity}-border)`,
+                "& .MuiAlert-icon": { color: `var(--ds-alert-${severity}-icon)` },
+                "& .MuiAlert-action .MuiIconButton-root": {
+                  color: `var(--ds-alert-${severity}-fg)`,
+                },
+              };
+            }
+
+            if (variant === "outlined") {
+              return {
+                backgroundColor: "transparent",
+                color: `var(--ds-alert-${severity}-fg)`,
+                borderColor: `var(--ds-alert-${severity}-border)`,
+                "& .MuiAlert-icon": { color: `var(--ds-alert-${severity}-icon)` },
+              };
+            }
+
+            // filled
+            return {
+              backgroundColor: `var(--ds-intent-${severity}-solid-bg)`,
+              color: "var(--ds-fg-on-solid)",
+              "& .MuiAlert-icon": { color: "var(--ds-fg-on-solid)" },
+            };
+          },
+        },
+      },
+
+      // ─── TABS ─────────────────────────────────────────────────────────────
+
+      MuiTabs: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            borderBottom: "1px solid var(--ds-tabs-divider-color)",
+          }),
+          indicator: (): CSSObject => ({
+            backgroundColor: "var(--ds-tabs-indicator-color)",
+            height: 2,
+          }),
+        },
+      },
+
+      MuiTab: {
+        styleOverrides: {
+          root: ({ ownerState }: OverrideArgs<TabProps>): CSSObject => ({
+            textTransform: "none",
+            color: "var(--ds-tabs-tab-fg-inactive)",
+            fontWeight: 500,
+            minHeight: 44,
+            "&:hover": {
+              color: "var(--ds-tabs-tab-fg-active)",
+              backgroundColor: "var(--ds-tabs-tab-hover-bg)",
             },
-            "&.Mui-focused.MuiFormLabel-colorSuccess": {
-              color: "var(--ds-intent-success-label)",
-            },
-            "&.Mui-focused.MuiFormLabel-colorWarning": {
-              color: "var(--ds-intent-warning-label)",
-            },
-            "&.Mui-focused.MuiFormLabel-colorError": {
-              color: "var(--ds-intent-error-label)",
-            },
-            "&.Mui-focused.MuiFormLabel-colorInfo": {
-              color: "var(--ds-intent-info-label)",
-            },
-            "&.Mui-focused.Mui-error": {
-              color: "var(--ds-intent-error-label)",
+            "&.Mui-selected": {
+              color: "var(--ds-tabs-tab-fg-active)",
+              fontWeight: 600,
             },
             "&.Mui-disabled": {
-              color: "var(--ds-fg-disabled)",
+              color: "var(--ds-tabs-tab-fg-disabled)",
             },
           }),
         },
       },
-    },
+
+      // ─── APPBAR ───────────────────────────────────────────────────────────
+
+      MuiAppBar: {
+        styleOverrides: {
+          root: ({ ownerState }: OverrideArgs<AppBarProps>): CSSObject => {
+            const isBrand = ownerState.color === "primary" || ownerState.color === "secondary";
+            return {
+              backgroundColor: isBrand ? "var(--ds-appbar-brand-bg)" : "var(--ds-appbar-bg)",
+              color: isBrand ? "var(--ds-appbar-brand-fg)" : "var(--ds-appbar-fg)",
+              borderBottom: "1px solid var(--ds-appbar-border)",
+              boxShadow: "none",
+            };
+          },
+        },
+      },
+
+      // ─── DRAWER ───────────────────────────────────────────────────────────
+
+      MuiDrawer: {
+        styleOverrides: {
+          paper: (): CSSObject => ({
+            backgroundColor: "var(--ds-drawer-bg)",
+            borderRight: "1px solid var(--ds-drawer-border)",
+            boxShadow: "none",
+          }),
+        },
+      },
+
+      // ─── TABLE ────────────────────────────────────────────────────────────
+
+      MuiTable: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            borderCollapse: "separate",
+            borderSpacing: 0,
+          }),
+        },
+      },
+
+      MuiTableHead: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            "& .MuiTableCell-head": {
+              backgroundColor: "var(--ds-table-header-bg)",
+              color: "var(--ds-table-header-fg)",
+              fontWeight: 600,
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
+              borderBottom: "2px solid var(--ds-table-border)",
+            },
+          }),
+        },
+      },
+
+      MuiTableBody: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            "& .MuiTableRow-root:hover": {
+              backgroundColor: "var(--ds-table-row-hover-bg)",
+            },
+            "& .MuiTableRow-root.Mui-selected": {
+              backgroundColor: "var(--ds-table-row-selected-bg)",
+              color: "var(--ds-table-row-selected-fg)",
+              "&:hover": {
+                backgroundColor: "var(--ds-table-row-selected-bg)",
+                filter: "brightness(0.97)",
+              },
+            },
+          }),
+        },
+      },
+
+      MuiTableCell: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            borderBottom: "1px solid var(--ds-table-border)",
+            color: "var(--ds-fg-default)",
+            padding: "12px 16px",
+          }),
+          footer: (): CSSObject => ({
+            backgroundColor: "var(--ds-table-footer-bg)",
+            borderTop: "2px solid var(--ds-table-border)",
+            borderBottom: "none",
+            color: "var(--ds-fg-muted)",
+          }),
+        },
+      },
+
+      // ─── TOOLTIP ──────────────────────────────────────────────────────────
+
+      MuiTooltip: {
+        defaultProps: {
+          arrow: true,
+        },
+        styleOverrides: {
+          tooltip: (): CSSObject => ({
+            backgroundColor: "var(--ds-tooltip-bg)",
+            color: "var(--ds-tooltip-fg)",
+            fontSize: "0.75rem",
+            fontWeight: 500,
+            padding: "4px 10px",
+            borderRadius: 6,
+            maxWidth: 280,
+          }),
+          arrow: (): CSSObject => ({
+            color: "var(--ds-tooltip-bg)",
+          }),
+        },
+      },
+
+      // ─── BADGE ────────────────────────────────────────────────────────────
+
+      MuiBadge: {
+        styleOverrides: {
+          badge: ({ ownerState }: { ownerState: any }): CSSObject => {
+            const rawColour = ownerState.color ?? "default";
+            if (rawColour === "default") {
+              return {
+                backgroundColor: "var(--ds-badge-default-bg)",
+                color: "var(--ds-badge-default-fg)",
+              };
+            }
+            return {
+              backgroundColor: `var(--ds-intent-${rawColour}-solid-bg)`,
+              color: "var(--ds-fg-on-solid)",
+            };
+          },
+        },
+      },
+
+      // ─── SNACKBAR ─────────────────────────────────────────────────────────
+
+      MuiSnackbarContent: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            backgroundColor: "var(--ds-snackbar-bg)",
+            color: "var(--ds-snackbar-fg)",
+            boxShadow:
+              "0px 4px 6px -2px rgba(0,0,0,0.08), 0px 12px 16px -4px rgba(0,0,0,0.12)",
+          }),
+          action: (): CSSObject => ({
+            "& .MuiButton-root, & .MuiIconButton-root": {
+              color: "var(--ds-snackbar-action-fg)",
+            },
+          }),
+        },
+      },
+
+      // ─── ACCORDION ────────────────────────────────────────────────────────
+
+      MuiAccordion: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            border: "1px solid var(--ds-accordion-border)",
+            borderRadius: "6px !important",
+            boxShadow: "none",
+            marginBottom: 8,
+            "&:before": { display: "none" },
+            "&.Mui-expanded": {
+              backgroundColor: "var(--ds-accordion-expanded-bg)",
+              margin: "0 0 8px 0",
+            },
+          }),
+        },
+      },
+
+      MuiAccordionSummary: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            backgroundColor: "var(--ds-accordion-summary-bg)",
+            "&:hover": { backgroundColor: "var(--ds-accordion-summary-hover-bg)" },
+            "&.Mui-expanded": {
+              minHeight: 48,
+              borderBottom: "1px solid var(--ds-accordion-border)",
+            },
+          }),
+          content: (): CSSObject => ({
+            color: "var(--ds-fg-default)",
+            fontWeight: 500,
+          }),
+          expandIconWrapper: (): CSSObject => ({
+            color: "var(--ds-fg-muted)",
+          }),
+        },
+      },
+
+      MuiAccordionDetails: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            backgroundColor: "var(--ds-accordion-details-bg)",
+            padding: "16px",
+            color: "var(--ds-fg-default)",
+          }),
+        },
+      },
+
+      // ─── NAV ITEM (ListItemButton) ────────────────────────────────────────
+
+      MuiListItemButton: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            borderRadius: 6,
+            color: "var(--ds-nav-item-fg-default)",
+            "&:hover": {
+              backgroundColor: "var(--ds-nav-item-bg-hover)",
+              color: "var(--ds-nav-item-fg-hover)",
+            },
+            "&.Mui-selected": {
+              backgroundColor: "var(--ds-nav-item-bg-active)",
+              color: "var(--ds-nav-item-fg-active)",
+              "& .MuiListItemIcon-root": { color: "var(--ds-nav-item-icon-active)" },
+              "&:hover": {
+                backgroundColor: "var(--ds-nav-item-bg-active)",
+                filter: "brightness(0.97)",
+              },
+            },
+          }),
+        },
+      },
+
+      MuiListItemIcon: {
+        styleOverrides: {
+          root: (): CSSObject => ({
+            color: "var(--ds-fg-muted)",
+            minWidth: 36,
+          }),
+        },
+      },
+
+      MuiListItemText: {
+        styleOverrides: {
+          primary: (): CSSObject => ({
+            fontSize: "0.875rem",
+            fontWeight: 500,
+          }),
+        },
+      },
+
+    }, // End of components
   });
 
   return createTheme(DiamondDSThemeOptions);

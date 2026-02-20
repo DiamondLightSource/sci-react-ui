@@ -18,84 +18,84 @@
      Foundation colours for structure & typography
      ═══════════════════════════════════════ */
 
-  /* BACKGROUNDS */
-  --ds-bg-canvas: var(--ds-olive-1);            /* Page background */
-  --ds-bg-paper: var(--ds-white);               /* Cards, sheets, modals */
-  --ds-bg-surface-1: var(--ds-olive-2);         /* Subtle surface (table headers) */
-  --ds-bg-surface-2: var(--ds-olive-3);         /* Interactive surface (inputs) */
-  --ds-bg-hover: var(--ds-overlay-hover);       /* Hover state overlay */
-  --ds-bg-selected: var(--ds-overlay-selected); /* Selected state overlay */
-  --ds-bg-disabled: var(--ds-olive-a3);         /* Disabled backgrounds */
-  --ds-bg-overlay: rgba(0, 0, 0, 0.5);          /* Modal backdrop */
+    /* BACKGROUNDS */
+    --ds-bg-canvas: var(--ds-olive-1);            /* Page background */
+    --ds-bg-paper: var(--ds-white);               /* Cards, sheets, modals */
+    --ds-bg-surface-1: var(--ds-olive-2);         /* Subtle surface (table headers) */
+    --ds-bg-surface-2: var(--ds-olive-3);         /* Interactive surface (inputs) */
+    --ds-bg-hover: var(--ds-overlay-hover);       /* Hover state overlay */
+    --ds-bg-selected: var(--ds-overlay-selected); /* Selected state overlay */
+    --ds-bg-disabled: var(--ds-olive-a3);         /* Disabled backgrounds */
+    --ds-bg-overlay: rgba(0, 0, 0, 0.5);          /* Modal backdrop */
 
-  /* BORDERS */
-  --ds-border-subtle: var(--ds-olive-7);        /* Non-interactive dividers */
-  --ds-border-emphasis: var(--ds-olive-8);      /* Interactive controls baseline */
-  --ds-border-strong: var(--ds-olive-9);        /* Interactive hover state */
-  --ds-border-control: var(--ds-olive-8);       /* Form control default */
-  --ds-border-control-hover: var(--ds-olive-9); /* Form control hover */
-  --ds-border-disabled: var(--ds-olive-6);      /* Disabled state */
-  --ds-border-focus: var(--ds-olive-9);         /* Neutral focus ring */
+    /* BORDERS */
+    --ds-border-subtle: var(--ds-olive-7);        /* Non-interactive dividers */
+    --ds-border-emphasis: var(--ds-olive-8);      /* Interactive controls baseline */
+    --ds-border-strong: var(--ds-olive-9);        /* Interactive hover state */
+    --ds-border-control: var(--ds-olive-8);       /* Form control default */
+    --ds-border-control-hover: var(--ds-olive-9); /* Form control hover */
+    --ds-border-disabled: var(--ds-olive-6);      /* Disabled state */
+    --ds-border-focus: var(--ds-olive-9);         /* Neutral focus ring */
 
-  /* FOREGROUNDS */
-  --ds-fg-default: var(--ds-black);             /* Primary text */
-  --ds-fg-muted: var(--ds-olive-11);            /* Secondary text, labels */
-  --ds-fg-strong: var(--ds-olive-12);           /* Emphasised text */
-  --ds-fg-disabled: var(--ds-olive-a8);          /* Disabled text */
-  --ds-fg-on-solid: var(--ds-white);            /* Text on solid backgrounds (replaces --ds-fg-fixed-white) */
-  --ds-fg-inverse: var(--ds-white);             /* Inverted text colour */
-  --ds-fg-placeholder: var(--ds-olive-10);      /* Input placeholder */
-  --ds-fg-placeholder-focus: var(--ds-olive-9); /* Placeholder on focus */
+    /* FOREGROUNDS */
+    --ds-fg-default: var(--ds-black);             /* Primary text */
+    --ds-fg-muted: var(--ds-olive-11);            /* Secondary text, labels */
+    --ds-fg-strong: var(--ds-olive-12);           /* Emphasised text */
+    --ds-fg-disabled: var(--ds-olive-a8);          /* Disabled text */
+    --ds-fg-on-solid: var(--ds-white);            /* Text on solid backgrounds (replaces --ds-fg-fixed-white) */
+    --ds-fg-inverse: var(--ds-white);             /* Inverted text colour */
+    --ds-fg-placeholder: var(--ds-olive-10);      /* Input placeholder */
+    --ds-fg-placeholder-focus: var(--ds-olive-9); /* Placeholder on focus */
 
-  /* INTERACTIVE OVERLAYS */
-  --ds-overlay-hover: rgba(0, 0, 0, 0.06);
-  --ds-overlay-selected: rgba(0, 0, 0, 0.10);
-  --ds-overlay-focus: rgba(0, 0, 0, 0.12);
-  --ds-overlay-disabled: rgba(0, 0, 0, 0.26);
-  --ds-overlay-disabled-bg: rgba(0, 0, 0, 0.06);
+    /* INTERACTIVE OVERLAYS */
+    --ds-overlay-hover: rgba(0, 0, 0, 0.06);
+    --ds-overlay-selected: rgba(0, 0, 0, 0.10);
+    --ds-overlay-focus: rgba(0, 0, 0, 0.12);
+    --ds-overlay-disabled: rgba(0, 0, 0, 0.26);
+    --ds-overlay-disabled-bg: rgba(0, 0, 0, 0.06);
 
-  /* BRAND */
-  --ds-bg-brand: var(--ds-navy-10);             /* Diamond brand blue */
+    /* BRAND */
+    --ds-bg-brand: var(--ds-navy-10);             /* Diamond brand blue */
 
   /* ═══════════════════════════════════════
      B) FOCUS TOKENS
      Intent-specific focus rings for accessibility
      ═══════════════════════════════════════ */
 
-  /* Emphasis = step 7 (hover border for intent controls) */
-  --ds-border-emphasis-primary: var(--ds-indigo-8);
-  --ds-border-emphasis-secondary: var(--ds-navy-8);
-  --ds-border-emphasis-success: var(--ds-green-8);
-  --ds-border-emphasis-warning: var(--ds-orange-8);
-  --ds-border-emphasis-error: var(--ds-red-8);
-  --ds-border-emphasis-info: var(--ds-cyan-8);
+    /* Emphasis = step 7 (hover border for intent controls) */
+    --ds-border-emphasis-primary: var(--ds-indigo-8);
+    --ds-border-emphasis-secondary: var(--ds-navy-8);
+    --ds-border-emphasis-success: var(--ds-green-8);
+    --ds-border-emphasis-warning: var(--ds-orange-8);
+    --ds-border-emphasis-error: var(--ds-red-8);
+    --ds-border-emphasis-info: var(--ds-cyan-8);
 
-  /* Strong = step 8 (focus underline / outline for intent controls) */
-  --ds-border-strong-primary: var(--ds-indigo-9);
-  --ds-border-strong-secondary: var(--ds-navy-9);
-  --ds-border-strong-success: var(--ds-green-9);
-  --ds-border-strong-warning: var(--ds-orange-9);
-  --ds-border-strong-error: var(--ds-red-9);
-  --ds-border-strong-info: var(--ds-cyan-9);
+    /* Strong = step 8 (focus underline / outline for intent controls) */
+    --ds-border-strong-primary: var(--ds-indigo-9);
+    --ds-border-strong-secondary: var(--ds-navy-9);
+    --ds-border-strong-success: var(--ds-green-9);
+    --ds-border-strong-warning: var(--ds-orange-9);
+    --ds-border-strong-error: var(--ds-red-9);
+    --ds-border-strong-info: var(--ds-cyan-9);
 
-  /* Focus aliases (use strong step 8) */
-  --ds-border-focus-primary: var(--ds-border-strong-primary);
-  --ds-border-focus-secondary: var(--ds-border-strong-secondary);
-  --ds-border-focus-success: var(--ds-border-strong-success);
-  --ds-border-focus-warning: var(--ds-border-strong-warning);
-  --ds-border-focus-error: var(--ds-border-strong-error);
-  --ds-border-focus-info: var(--ds-border-strong-info);
+    /* Focus aliases (use strong step 8) */
+    --ds-border-focus-primary: var(--ds-border-strong-primary);
+    --ds-border-focus-secondary: var(--ds-border-strong-secondary);
+    --ds-border-focus-success: var(--ds-border-strong-success);
+    --ds-border-focus-warning: var(--ds-border-strong-warning);
+    --ds-border-focus-error: var(--ds-border-strong-error);
+    --ds-border-focus-info: var(--ds-border-strong-info);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - PRIMARY
      Solid/Subtle/Outlined
      ═══════════════════════════════════════ */
 
- /* ═══════════════════════════════════════
-   INTENT FOREGROUND TOKENS
-   Step 11 — high-contrast text for focused labels, helper text
-   Aliases subtle-fg which is the same step
-   ═══════════════════════════════════════ */
+  /* ═══════════════════════════════════════
+    INTENT FOREGROUND TOKENS
+    Step 11 — high-contrast text for focused labels, helper text
+    Aliases subtle-fg which is the same step
+    ═══════════════════════════════════════ */
     --ds-intent-primary-label:   var(--ds-indigo-11);   
     --ds-intent-secondary-label: var(--ds-navy-11); 
     --ds-intent-error-label:     var(--ds-red-11);     
@@ -103,117 +103,242 @@
     --ds-intent-warning-label:   var(--ds-orange-11);   
     --ds-intent-info-label:      var(--ds-cyan-11);      
 
-  /* Solid - Step 9 */
-  --ds-intent-primary-solid-bg: var(--ds-indigo-9);
-  --ds-intent-primary-solid-bg-hover: var(--ds-indigo-10);
-  --ds-intent-primary-solid-bg-active: var(--ds-indigo-11);
-  --ds-intent-primary-solid-fg: var(--ds-white);
+    /* Solid - Step 9 */
+    --ds-intent-primary-solid-bg: var(--ds-indigo-9);
+    --ds-intent-primary-solid-bg-hover: var(--ds-indigo-10);
+    --ds-intent-primary-solid-bg-active: var(--ds-indigo-11);
+    --ds-intent-primary-solid-fg: var(--ds-white);
 
-  /* Subtle - Steps 3-5 */
-  --ds-intent-primary-subtle-bg: var(--ds-indigo-3);
-  --ds-intent-primary-subtle-bg-hover: var(--ds-indigo-4);
-  --ds-intent-primary-subtle-bg-active: var(--ds-indigo-5);
-  --ds-intent-primary-subtle-fg: var(--ds-indigo-11);
+    /* Subtle - Steps 3-5 */
+    --ds-intent-primary-subtle-bg: var(--ds-indigo-3);
+    --ds-intent-primary-subtle-bg-hover: var(--ds-indigo-4);
+    --ds-intent-primary-subtle-bg-active: var(--ds-indigo-5);
+    --ds-intent-primary-subtle-fg: var(--ds-indigo-11);
 
-  /* Outlined */
-  --ds-intent-primary-outlined-border: var(--ds-indigo-9);
-  --ds-intent-primary-outlined-border-hover: var(--ds-indigo-10);
-  --ds-intent-primary-outlined-fg: var(--ds-indigo-11);
+    /* Outlined */
+    --ds-intent-primary-outlined-border: var(--ds-indigo-9);
+    --ds-intent-primary-outlined-border-hover: var(--ds-indigo-10);
+    --ds-intent-primary-outlined-fg: var(--ds-indigo-11);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - SECONDARY
      ═══════════════════════════════════════ */
 
-  --ds-intent-secondary-solid-bg: var(--ds-navy-9);
-  --ds-intent-secondary-solid-bg-hover: var(--ds-navy-10);
-  --ds-intent-secondary-solid-bg-active: var(--ds-navy-11);
-  --ds-intent-secondary-solid-fg: var(--ds-white);
+    --ds-intent-secondary-solid-bg: var(--ds-navy-9);
+    --ds-intent-secondary-solid-bg-hover: var(--ds-navy-10);
+    --ds-intent-secondary-solid-bg-active: var(--ds-navy-11);
+    --ds-intent-secondary-solid-fg: var(--ds-white);
 
-  --ds-intent-secondary-subtle-bg: var(--ds-navy-3);
-  --ds-intent-secondary-subtle-bg-hover: var(--ds-navy-4);
-  --ds-intent-secondary-subtle-bg-active: var(--ds-navy-5);
-  --ds-intent-secondary-subtle-fg: var(--ds-navy-11);
+    --ds-intent-secondary-subtle-bg: var(--ds-navy-3);
+    --ds-intent-secondary-subtle-bg-hover: var(--ds-navy-4);
+    --ds-intent-secondary-subtle-bg-active: var(--ds-navy-5);
+    --ds-intent-secondary-subtle-fg: var(--ds-navy-11);
 
-  --ds-intent-secondary-outlined-border: var(--ds-navy-9);
-  --ds-intent-secondary-outlined-border-hover: var(--ds-navy-10);
-  --ds-intent-secondary-outlined-fg: var(--ds-navy-11);
+    --ds-intent-secondary-outlined-border: var(--ds-navy-9);
+    --ds-intent-secondary-outlined-border-hover: var(--ds-navy-10);
+    --ds-intent-secondary-outlined-fg: var(--ds-navy-11);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - ERROR
      ═══════════════════════════════════════ */
 
-  --ds-intent-error-solid-bg: var(--ds-red-9);
-  --ds-intent-error-solid-bg-hover: var(--ds-red-10);
-  --ds-intent-error-solid-bg-active: var(--ds-red-11);
-  --ds-intent-error-solid-fg: var(--ds-white);
+    --ds-intent-error-solid-bg: var(--ds-red-9);
+    --ds-intent-error-solid-bg-hover: var(--ds-red-10);
+    --ds-intent-error-solid-bg-active: var(--ds-red-11);
+    --ds-intent-error-solid-fg: var(--ds-white);
 
-  --ds-intent-error-subtle-bg: var(--ds-red-3);
-  --ds-intent-error-subtle-bg-hover: var(--ds-red-4);
-  --ds-intent-error-subtle-bg-active: var(--ds-red-5);
-  --ds-intent-error-subtle-fg: var(--ds-red-11);
-  --ds-intent-error-subtle-border: var(--ds-red-7);
+    --ds-intent-error-subtle-bg: var(--ds-red-3);
+    --ds-intent-error-subtle-bg-hover: var(--ds-red-4);
+    --ds-intent-error-subtle-bg-active: var(--ds-red-5);
+    --ds-intent-error-subtle-fg: var(--ds-red-11);
+    --ds-intent-error-subtle-border: var(--ds-red-7);
 
-  --ds-intent-error-outlined-border: var(--ds-red-9);
-  --ds-intent-error-outlined-border-hover: var(--ds-red-10);
-  --ds-intent-error-outlined-fg: var(--ds-red-11);
+    --ds-intent-error-outlined-border: var(--ds-red-9);
+    --ds-intent-error-outlined-border-hover: var(--ds-red-10);
+    --ds-intent-error-outlined-fg: var(--ds-red-11);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - SUCCESS
      ═══════════════════════════════════════ */
 
-  --ds-intent-success-solid-bg: var(--ds-green-9);
-  --ds-intent-success-solid-bg-hover: var(--ds-green-10);
-  --ds-intent-success-solid-bg-active: var(--ds-green-11);
-  --ds-intent-success-solid-fg: var(--ds-white);
+    --ds-intent-success-solid-bg: var(--ds-green-9);
+    --ds-intent-success-solid-bg-hover: var(--ds-green-10);
+    --ds-intent-success-solid-bg-active: var(--ds-green-11);
+    --ds-intent-success-solid-fg: var(--ds-white);
 
-  --ds-intent-success-subtle-bg: var(--ds-green-3);
-  --ds-intent-success-subtle-bg-hover: var(--ds-green-4);
-  --ds-intent-success-subtle-bg-active: var(--ds-green-5);
-  --ds-intent-success-subtle-fg: var(--ds-green-11);
-  --ds-intent-success-subtle-border: var(--ds-green-7);
+    --ds-intent-success-subtle-bg: var(--ds-green-3);
+    --ds-intent-success-subtle-bg-hover: var(--ds-green-4);
+    --ds-intent-success-subtle-bg-active: var(--ds-green-5);
+    --ds-intent-success-subtle-fg: var(--ds-green-11);
+    --ds-intent-success-subtle-border: var(--ds-green-7);
 
-  --ds-intent-success-outlined-border: var(--ds-green-9);
-  --ds-intent-success-outlined-border-hover: var(--ds-green-10);
-  --ds-intent-success-outlined-fg: var(--ds-green-11);
+    --ds-intent-success-outlined-border: var(--ds-green-9);
+    --ds-intent-success-outlined-border-hover: var(--ds-green-10);
+    --ds-intent-success-outlined-fg: var(--ds-green-11);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - WARNING
      ═══════════════════════════════════════ */
 
-  --ds-intent-warning-solid-bg: var(--ds-orange-9);
-  --ds-intent-warning-solid-bg-hover: var(--ds-orange-10);
-  --ds-intent-warning-solid-bg-active: var(--ds-orange-11);
-  --ds-intent-warning-solid-fg: var(--ds-white);
+    --ds-intent-warning-solid-bg: var(--ds-orange-9);
+    --ds-intent-warning-solid-bg-hover: var(--ds-orange-10);
+    --ds-intent-warning-solid-bg-active: var(--ds-orange-11);
+    --ds-intent-warning-solid-fg: var(--ds-white);
 
-  --ds-intent-warning-subtle-bg: var(--ds-orange-3);
-  --ds-intent-warning-subtle-bg-hover: var(--ds-orange-4);
-  --ds-intent-warning-subtle-bg-active: var(--ds-orange-5);
-  --ds-intent-warning-subtle-fg: var(--ds-orange-11);
-  --ds-intent-warning-subtle-border: var(--ds-orange-7);
+    --ds-intent-warning-subtle-bg: var(--ds-orange-3);
+    --ds-intent-warning-subtle-bg-hover: var(--ds-orange-4);
+    --ds-intent-warning-subtle-bg-active: var(--ds-orange-5);
+    --ds-intent-warning-subtle-fg: var(--ds-orange-11);
+    --ds-intent-warning-subtle-border: var(--ds-orange-7);
 
-  --ds-intent-warning-outlined-border: var(--ds-orange-9);
-  --ds-intent-warning-outlined-border-hover: var(--ds-orange-10);
-  --ds-intent-warning-outlined-fg: var(--ds-orange-11);
+    --ds-intent-warning-outlined-border: var(--ds-orange-9);
+    --ds-intent-warning-outlined-border-hover: var(--ds-orange-10);
+    --ds-intent-warning-outlined-fg: var(--ds-orange-11);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - INFO
      ═══════════════════════════════════════ */
 
-  --ds-intent-info-solid-bg: var(--ds-cyan-9);
-  --ds-intent-info-solid-bg-hover: var(--ds-cyan-10);
-  --ds-intent-info-solid-bg-active: var(--ds-cyan-11);
-  --ds-intent-info-solid-fg: var(--ds-white);
+    --ds-intent-info-solid-bg: var(--ds-cyan-9);
+    --ds-intent-info-solid-bg-hover: var(--ds-cyan-10);
+    --ds-intent-info-solid-bg-active: var(--ds-cyan-11);
+    --ds-intent-info-solid-fg: var(--ds-white);
 
-  --ds-intent-info-subtle-bg: var(--ds-cyan-3);
-  --ds-intent-info-subtle-bg-hover: var(--ds-cyan-4);
-  --ds-intent-info-subtle-bg-active: var(--ds-cyan-5);
-  --ds-intent-info-subtle-fg: var(--ds-cyan-11);
-  --ds-intent-info-subtle-border: var(--ds-cyan-7);
+    --ds-intent-info-subtle-bg: var(--ds-cyan-3);
+    --ds-intent-info-subtle-bg-hover: var(--ds-cyan-4);
+    --ds-intent-info-subtle-bg-active: var(--ds-cyan-5);
+    --ds-intent-info-subtle-fg: var(--ds-cyan-11);
+    --ds-intent-info-subtle-border: var(--ds-cyan-7);
 
-  --ds-intent-info-outlined-border: var(--ds-cyan-9);
-  --ds-intent-info-outlined-border-hover: var(--ds-cyan-10);
-  --ds-intent-info-outlined-fg: var(--ds-cyan-11);
-}
+    --ds-intent-info-outlined-border: var(--ds-cyan-9);
+    --ds-intent-info-outlined-border-hover: var(--ds-cyan-10);
+    --ds-intent-info-outlined-fg: var(--ds-cyan-11);
+
+   /* ═══════════════════════════════════════
+     D) COMPONENT TOKENS
+     Semantic aliases specific to component anatomy.
+     Always reference Global (A), Focus (B), or Intent (C) tokens —
+     never reference primitives directly here.
+     ═══════════════════════════════════════ */
+
+    /* ── Alert ───────────────────────────────────────────────────
+        Maps directly to intent subtle layer.
+        icon colour = subtle-fg, border = subtle-border            */
+    --ds-alert-primary-bg:          var(--ds-intent-primary-subtle-bg);
+    --ds-alert-primary-fg:          var(--ds-intent-primary-subtle-fg);
+    --ds-alert-primary-border:      var(--ds-border-emphasis-primary);
+    --ds-alert-primary-icon:        var(--ds-intent-primary-outlined-fg);
+
+    --ds-alert-error-bg:            var(--ds-intent-error-subtle-bg);
+    --ds-alert-error-fg:            var(--ds-intent-error-subtle-fg);
+    --ds-alert-error-border:        var(--ds-intent-error-subtle-border);
+    --ds-alert-error-icon:          var(--ds-intent-error-outlined-fg);
+
+    --ds-alert-warning-bg:          var(--ds-intent-warning-subtle-bg);
+    --ds-alert-warning-fg:          var(--ds-intent-warning-subtle-fg);
+    --ds-alert-warning-border:      var(--ds-intent-warning-subtle-border);
+    --ds-alert-warning-icon:        var(--ds-intent-warning-outlined-fg);
+
+    --ds-alert-success-bg:          var(--ds-intent-success-subtle-bg);
+    --ds-alert-success-fg:          var(--ds-intent-success-subtle-fg);
+    --ds-alert-success-border:      var(--ds-intent-success-subtle-border);
+    --ds-alert-success-icon:        var(--ds-intent-success-outlined-fg);
+
+    --ds-alert-info-bg:             var(--ds-intent-info-subtle-bg);
+    --ds-alert-info-fg:             var(--ds-intent-info-subtle-fg);
+    --ds-alert-info-border:         var(--ds-intent-info-subtle-border);
+    --ds-alert-info-icon:           var(--ds-intent-info-outlined-fg);
+
+    /* ── Select / Autocomplete ───────────────────────────────────
+        Listbox uses paper + surface tokens; selected uses intent   */
+    --ds-select-listbox-bg:         var(--ds-bg-paper);
+    --ds-select-option-hover-bg:    var(--ds-bg-hover);
+    --ds-select-option-selected-bg: var(--ds-intent-primary-subtle-bg);
+    --ds-select-option-selected-fg: var(--ds-intent-primary-subtle-fg);
+    --ds-select-option-focused-bg:  var(--ds-bg-selected);
+
+    /* ── Switch ──────────────────────────────────────────────────
+        Track/thumb follow the same checked/unchecked logic as Checkbox */
+    --ds-switch-track-unchecked:    var(--ds-border-emphasis);
+    --ds-switch-track-checked:      var(--ds-intent-primary-solid-bg);
+    --ds-switch-track-disabled:     var(--ds-bg-disabled);
+    --ds-switch-thumb-color:        var(--ds-fg-on-solid);
+    --ds-switch-thumb-disabled:     var(--ds-fg-disabled);
+
+    /* ── Radio ───────────────────────────────────────────────────
+        Mirrors Checkbox CSS-variable pattern for icon rendering    */
+    --ds-radio-unchecked-stroke:    var(--ds-olive-9);
+    --ds-radio-checked-fill:        var(--ds-intent-primary-solid-bg);
+    --ds-radio-checked-dot:         var(--ds-fg-on-solid);
+    --ds-radio-disabled-stroke:     var(--ds-fg-disabled);
+    --ds-radio-disabled-fill:       transparent;
+
+    /* ── Slider ──────────────────────────────────────────────────  */
+    --ds-slider-rail-color:         var(--ds-border-emphasis);
+    --ds-slider-track-color:        var(--ds-intent-primary-solid-bg);
+    --ds-slider-thumb-color:        var(--ds-intent-primary-solid-bg);
+    --ds-slider-thumb-hover-shadow: var(--ds-intent-primary-subtle-bg);
+    --ds-slider-mark-color:         var(--ds-border-strong);
+    --ds-slider-value-label-bg:     var(--ds-intent-primary-solid-bg);
+    --ds-slider-value-label-fg:     var(--ds-fg-on-solid);
+    --ds-slider-disabled-color:     var(--ds-fg-disabled);
+
+    /* ── Tabs ────────────────────────────────────────────────────  */
+    --ds-tabs-indicator-color:      var(--ds-intent-primary-solid-bg);
+    --ds-tabs-tab-fg-inactive:      var(--ds-fg-muted);
+    --ds-tabs-tab-fg-active:        var(--ds-fg-default);
+    --ds-tabs-tab-fg-disabled:      var(--ds-fg-disabled);
+    --ds-tabs-tab-hover-bg:         var(--ds-bg-hover);
+    --ds-tabs-divider-color:        var(--ds-border-subtle);
+
+    /* ── Table ───────────────────────────────────────────────────  */
+    --ds-table-header-bg:           var(--ds-bg-surface-1);
+    --ds-table-header-fg:           var(--ds-fg-muted);
+    --ds-table-row-hover-bg:        var(--ds-bg-hover);
+    --ds-table-row-selected-bg:     var(--ds-intent-primary-subtle-bg);
+    --ds-table-row-selected-fg:     var(--ds-intent-primary-subtle-fg);
+    --ds-table-border:              var(--ds-border-subtle);
+    --ds-table-footer-bg:           var(--ds-bg-surface-1);
+
+    /* ── Tooltip ─────────────────────────────────────────────────
+        Inverted surface — light mode uses dark olive, dark mode flips */
+    --ds-tooltip-bg:                var(--ds-olive-12);
+    --ds-tooltip-fg:                var(--ds-white);
+
+    /* ── AppBar / Drawer ─────────────────────────────────────────  */
+    --ds-appbar-bg:                 var(--ds-bg-paper);
+    --ds-appbar-fg:                 var(--ds-fg-default);
+    --ds-appbar-brand-bg:           var(--ds-bg-brand);
+    --ds-appbar-brand-fg:           var(--ds-fg-on-solid);
+    --ds-appbar-border:             var(--ds-border-subtle);
+    --ds-drawer-bg:                 var(--ds-bg-paper);
+    --ds-drawer-border:             var(--ds-border-subtle);
+
+    /* ── Nav Item (sidebar / top nav) ────────────────────────────  */
+    --ds-nav-item-bg-active:        var(--ds-indigo-3);
+    --ds-nav-item-fg-active:        var(--ds-indigo-11);
+    --ds-nav-item-bg-hover:         var(--ds-overlay-hover);
+    --ds-nav-item-fg-default:       var(--ds-fg-muted);
+    --ds-nav-item-fg-hover:         var(--ds-fg-default);
+    --ds-nav-item-icon-active:      var(--ds-intent-primary-outlined-fg);
+
+    /* ── Accordion ───────────────────────────────────────────────  */
+    --ds-accordion-border:          var(--ds-border-subtle);
+    --ds-accordion-summary-bg:      transparent;
+    --ds-accordion-summary-hover-bg:var(--ds-bg-hover);
+    --ds-accordion-expanded-bg:     var(--ds-bg-surface-1);
+    --ds-accordion-details-bg:      var(--ds-bg-paper);
+
+    /* ── Badge ───────────────────────────────────────────────────  */
+    --ds-badge-default-bg:          var(--ds-olive-9);
+    --ds-badge-default-fg:          var(--ds-fg-on-solid);
+
+    /* ── Snackbar ────────────────────────────────────────────────
+        Uses inverted surface (same inversion logic as tooltip)     */
+    --ds-snackbar-bg:               var(--ds-olive-12);
+    --ds-snackbar-fg:               var(--ds-white);
+    --ds-snackbar-action-fg:        var(--ds-intent-primary-subtle-fg);
+
 
 /* ═══════════════════════════════════════
    DARK MODE OVERRIDES
@@ -223,21 +348,36 @@
 
 .dark,
 :root[data-mode="dark"] {
-  /* Global Neutral Overrides */
-  --ds-fg-default: var(--ds-white);
-  --ds-fg-inverse: var(--ds-black);
+    /* Global Neutral Overrides */
+    --ds-fg-default: var(--ds-white);
+    --ds-fg-inverse: var(--ds-black);
 
-  /* Surfaces */
-  --ds-bg-paper: var(--ds-olive-2);
-  --ds-bg-brand: var(--ds-navy-7);
+    /* Surfaces */
+    --ds-bg-paper: var(--ds-olive-2);
+    --ds-bg-brand: var(--ds-navy-7);
 
-  /* Overlay Overrides */
-  --ds-overlay-hover: rgba(255, 255, 255, 0.06);
-  --ds-overlay-selected: rgba(255, 255, 255, 0.10);
-  --ds-overlay-focus: rgba(255, 255, 255, 0.12);
-  --ds-overlay-disabled: rgba(255, 255, 255, 0.30);
-  --ds-overlay-disabled-bg: rgba(255, 255, 255, 0.08);
+    /* Overlay Overrides */
+    --ds-overlay-hover: rgba(255, 255, 255, 0.06);
+    --ds-overlay-selected: rgba(255, 255, 255, 0.10);
+    --ds-overlay-focus: rgba(255, 255, 255, 0.12);
+    --ds-overlay-disabled: rgba(255, 255, 255, 0.30);
+    --ds-overlay-disabled-bg: rgba(255, 255, 255, 0.08);
 
-  --ds-bg-disabled: rgba(255, 255, 255, 0.08);
-  --ds-bg-overlay: rgba(255, 255, 255, 0.7);
+    --ds-bg-disabled: rgba(255, 255, 255, 0.08);
+    --ds-bg-overlay: rgba(255, 255, 255, 0.7);
+
+    /* Tooltip flips to a light surface in dark mode for contrast */
+    --ds-tooltip-bg:                var(--ds-olive-3);
+    --ds-tooltip-fg:                var(--ds-fg-default);
+
+    /* Snackbar stays dark-on-dark — use a lighter inverse surface */
+    --ds-snackbar-bg:               var(--ds-olive-3);
+    --ds-snackbar-fg:               var(--ds-fg-default);
+
+    /* Nav item active uses dark-mode indigo step */
+    --ds-nav-item-bg-active:        var(--ds-indigo-3);
+    --ds-nav-item-fg-active:        var(--ds-indigo-11);
+
+    /* Switch track unchecked sits heavier in dark */
+    --ds-switch-track-unchecked:    var(--ds-border-strong);    
 }
