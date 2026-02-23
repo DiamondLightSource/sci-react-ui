@@ -280,7 +280,7 @@ export const LinksAndMenus: Story = {
     leftSlot: (
       <>
         <NavLinks>
-          <NavLink href="#Mercury">Mecury</NavLink>
+          <NavLink href="#Mercury">Mercury</NavLink>
           <NavLink href="#Venus">Venus</NavLink>
         </NavLinks>
         <NavMenu key="links" label={"Planets"}>
