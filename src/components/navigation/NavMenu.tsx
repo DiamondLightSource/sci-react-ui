@@ -13,14 +13,18 @@ import { NavLink, NavLinkProps } from "./Navbar";
 
 type NavMenuLinkProps = MenuItemProps & NavLinkProps;
 
+const NavMenuContext = React.createContext({ close: () => {} });
+
 const NavMenuLink = forwardRef<HTMLElement, NavMenuLinkProps>(
   function NavMenuLink({ children, ...props }: NavMenuLinkProps, ref) {
+    const navMenuContext = React.useContext(NavMenuContext);
     const theme = useTheme();
 
     return (
       <MenuItem
         ref={ref}
         component={NavLink}
+        onClick={navMenuContext.close}
         {...props}
         sx={{
           "&:hover": {
@@ -122,7 +126,9 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
           paper: { style: { backgroundColor: theme.palette.primary.light } },
         }}
       >
-        {children}
+        <NavMenuContext.Provider value={{ close: closeMenu }}>
+          {children}
+        </NavMenuContext.Provider>
       </Menu>
     </>
   );

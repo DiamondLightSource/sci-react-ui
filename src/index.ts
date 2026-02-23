@@ -10,6 +10,8 @@ export * from "./components/controls/Bar";
 export * from "./components/controls/ColourSchemeButton";
 export * from "./components/controls/ImageColourSchemeSwitch";
 export * from "./components/controls/Logo";
+export * from "./components/controls/Progress";
+export * from "./components/controls/ProgressDelayed";
 export * from "./components/controls/User";
 export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
