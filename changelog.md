@@ -1,8 +1,9 @@
 SciReactUI Changelog
 ====================
 
-[0.4.1-alpha.1] - 2026-??-??
---------------------
+
+[vUnreleased] - ????-??-??
+--------------------------
 
 ### Added
 - 
@@ -12,6 +13,17 @@ SciReactUI Changelog
 
 ### Changed
 -
+
+[v0.4.1-alpha.2] - 2026-02-24
+--------------------
+
+### Fixed
+- *Progress* and *ProgressDelayed* where not exported
+- Fix *User* login button having wrong colour
+
+### Changed
+- The *NavMenu* will now close if something is selected.
+- Updated styles of *User* (style now similar to *NavMenu*)
 
 
 [v0.4.0] - 2026-02-10
@@ -138,15 +150,3 @@ e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{s
   - Diamond
   - Generic
 
-
-[v0.0.0-alpha.1] - 2026-??-??
---------------------
-
-### Added
-- 
-
-### Fixed
-- 
-
-### Changed
--
