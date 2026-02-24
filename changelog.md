@@ -1,21 +1,8 @@
 SciReactUI Changelog
 ====================
 
-
-[vUnreleased] - ????-??-??
---------------------------
-
-### Added
-- 
-
-### Fixed
-- 
-
-### Changed
--
-
-[v0.4.1-alpha.2] - 2026-02-24
---------------------
+[v0.4.1] - 2026-02-24
+---------------------
 
 ### Fixed
 - *Progress* and *ProgressDelayed* where not exported
@@ -150,3 +137,14 @@ e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{s
   - Diamond
   - Generic
 
+[vUnreleased] - ????-??-??
+--------------------------
+
+### Added
+- 
+
+### Fixed
+- 
+
+### Changed
+-
