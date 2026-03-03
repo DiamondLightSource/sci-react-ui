@@ -4,7 +4,7 @@
     "dockerfile": "Dockerfile"
   },
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2.4.2": {
+    "ghcr.io/devcontainers/features/common-utils:2.5.6": {
       "username": "none",
       "upgradePackages": false
     },
@@ -19,7 +19,20 @@
       ]
     }
   },
+
   "runArgs": ["--security-opt=label=type:container_runtime_t"],
-  "workspaceMount": "source=.,target=/workspace,type=bind",
-  "workspaceFolder": "/workspace"
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
+
+  "mounts": [
+    "source=sci-react-ui-node_modules,target=/workspace/node_modules,type=volume",
+    "source=sci-react-ui-pnpm-store,target=/pnpm-store,type=volume"
+  ],
+
+  "remoteEnv": {
+    "CHOKIDAR_USEPOLLING": "true",
+    "PNPM_HOME": "/pnpm",
+    "PNPM_STORE_DIR": "/pnpm-store"
+  }
 }
