@@ -19,6 +19,9 @@ export * from "./components/systems/auth";
 // components/helpers
 export * from "./components/helpers/jsonforms";
 
+// foundation
+export * from "./foundation/icon";
+
 // themes
 export * from "./themes/BaseTheme";
 export * from "./themes/DiamondTheme";

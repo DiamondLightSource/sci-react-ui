@@ -276,7 +276,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
     components: {
 
-      // ─── BUTTON ────────────────────────────────────────────────────────────
+      // ─── BUTTON ───
 
       MuiButton: {
         styleOverrides: {
@@ -312,10 +312,40 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             return base;
           },
+          startIcon: {
+            // works for lucide + any svg icon
+            "& svg": {
+              width: "1em",
+              height: "1em",
+            },
+          },
+          endIcon: {
+            "& svg": {
+              width: "1em",
+              height: "1em",
+            },
+          },
         },
       },
 
-      // ─── CHIP ──────────────────────────────────────────────────────────────
+      // ─── ICON BUTTON ───
+
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            "& svg": {
+              width: "1em",
+              height: "1em",
+            },
+            // optional: enforce your default lucide stroke weight
+            "& svg *": {
+              vectorEffect: "non-scaling-stroke",
+            },
+          },
+        },
+      },
+
+      // ─── CHIP ───
 
       MuiChip: {
         styleOverrides: {
@@ -354,7 +384,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── CHECKBOX ─────────────────────────────────────────────────────────
+      // ─── CHECKBOX ───
 
       MuiCheckbox: {
         defaultProps: {
@@ -423,7 +453,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── INPUT (standard) ─────────────────────────────────────────────────
+      // ─── INPUT (standard) ───
 
       MuiInput: {
         styleOverrides: {
@@ -455,7 +485,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── INPUT BASE ───────────────────────────────────────────────────────
+      // ─── INPUT BASE ───
 
       MuiInputBase: {
         styleOverrides: {
@@ -481,7 +511,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── FILLED INPUT ─────────────────────────────────────────────────────
+      // ─── FILLED INPUT ───
 
       MuiFilledInput: {
         styleOverrides: {
@@ -516,7 +546,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── OUTLINED INPUT ───────────────────────────────────────────────────
+      // ─── OUTLINED INPUT ───
 
       MuiOutlinedInput: {
         styleOverrides: {
@@ -554,7 +584,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── INPUT LABEL ──────────────────────────────────────────────────────
+      // ─── INPUT LABEL ───
 
       MuiInputLabel: {
         styleOverrides: {
@@ -573,7 +603,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── SELECT ───────────────────────────────────────────────────────────
+      // ─── SELECT ────
       // Trigger inherits OutlinedInput/FilledInput/Input overrides above.
       // These target the dropdown icon only; listbox is handled by MuiMenu.
 
@@ -586,7 +616,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── MENU (Select & standalone) ───────────────────────────────────────
+      // ─── MENU (Select & standalone) ───
 
       MuiMenu: {
         styleOverrides: {
@@ -615,7 +645,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── AUTOCOMPLETE ─────────────────────────────────────────────────────
+      // ─── AUTOCOMPLETE ───
 
       MuiAutocomplete: {
         styleOverrides: {
@@ -651,7 +681,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── SWITCH ───────────────────────────────────────────────────────────
+      // ─── SWITCH ───
 
       MuiSwitch: {
         styleOverrides: {
@@ -689,7 +719,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── RADIO ────────────────────────────────────────────────────────────
+      // ─── RADIO ───
 
       MuiRadio: {
         styleOverrides: {
@@ -726,7 +756,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── SLIDER ───────────────────────────────────────────────────────────
+      // ─── SLIDER ───
 
       MuiSlider: {
         styleOverrides: {
@@ -775,7 +805,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── ALERT ────────────────────────────────────────────────────────────
+      // ─── ALERT ───
 
       MuiAlert: {
         styleOverrides: {
@@ -814,7 +844,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── TABS ─────────────────────────────────────────────────────────────
+      // ─── TABS ───
 
       MuiTabs: {
         styleOverrides: {
@@ -850,7 +880,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── APPBAR ───────────────────────────────────────────────────────────
+      // ─── APPBAR ───
 
       MuiAppBar: {
         styleOverrides: {
@@ -866,7 +896,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── DRAWER ───────────────────────────────────────────────────────────
+      // ─── DRAWER ───
 
       MuiDrawer: {
         styleOverrides: {
@@ -878,7 +908,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── TABLE ────────────────────────────────────────────────────────────
+      // ─── TABLE ───
 
       MuiTable: {
         styleOverrides: {
@@ -939,7 +969,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── TOOLTIP ──────────────────────────────────────────────────────────
+      // ─── TOOLTIP ───
 
       MuiTooltip: {
         defaultProps: {
@@ -961,7 +991,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── BADGE ────────────────────────────────────────────────────────────
+      // ─── BADGE ───
 
       MuiBadge: {
         styleOverrides: {
@@ -981,7 +1011,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── SNACKBAR ─────────────────────────────────────────────────────────
+      // ─── SNACKBAR ───
 
       MuiSnackbarContent: {
         styleOverrides: {
@@ -999,7 +1029,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── ACCORDION ────────────────────────────────────────────────────────
+      // ─── ACCORDION ───
 
       MuiAccordion: {
         styleOverrides: {
@@ -1047,7 +1077,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
 
-      // ─── NAV ITEM (ListItemButton) ────────────────────────────────────────
+      // ─── NAV ITEM (ListItemButton) ───
 
       MuiListItemButton: {
         styleOverrides: {
