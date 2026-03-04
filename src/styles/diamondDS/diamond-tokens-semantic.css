@@ -96,12 +96,19 @@
     Step 11 — high-contrast text for focused labels, helper text
     Aliases subtle-fg which is the same step
     ═══════════════════════════════════════ */
-    --ds-intent-primary-label:   var(--ds-indigo-11);   
-    --ds-intent-secondary-label: var(--ds-navy-11); 
-    --ds-intent-error-label:     var(--ds-red-11);     
-    --ds-intent-success-label:   var(--ds-green-11);
-    --ds-intent-warning-label:   var(--ds-orange-11);   
-    --ds-intent-info-label:      var(--ds-cyan-11);      
+    --ds-intent-primary-fg-strong:   var(--ds-indigo-12);   
+    --ds-intent-secondary-fg-strong: var(--ds-navy-12); 
+    --ds-intent-error-fg-strong:     var(--ds-red-12);     
+    --ds-intent-success-fg-strong:   var(--ds-green-12);
+    --ds-intent-warning-fg-strong:   var(--ds-orange-12);   
+    --ds-intent-info-fg-strong:      var(--ds-cyan-12);      
+
+    --ds-intent-primary-fg-muted:   var(--ds-indigo-11);   
+    --ds-intent-secondary-fg-muted: var(--ds-navy-11); 
+    --ds-intent-error-fg-muted:     var(--ds-red-11);     
+    --ds-intent-success-fg-muted:   var(--ds-green-11);
+    --ds-intent-warning-fg-muted:   var(--ds-orange-11);   
+    --ds-intent-info-fg-muted:      var(--ds-cyan-11);     
 
     /* Solid - Step 9 */
     --ds-intent-primary-solid-bg: var(--ds-indigo-9);

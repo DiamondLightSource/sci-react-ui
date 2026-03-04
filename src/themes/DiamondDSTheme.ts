@@ -177,9 +177,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       primary: {
-        light: "var(--ds-indigo-8)",
-        main: "var(--ds-indigo-9)",
-        dark: "var(--ds-indigo-10)",
+        light: "var(--ds-border-emphasis-primary)",
+        main: "var(--ds-intent-primary-solid-bg)",
+        dark: "var(--ds-intent-primary-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-indigo-9Channel)",
         lightChannel: "var(--ds-indigo-8Channel)",
@@ -190,9 +190,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       secondary: {
-        light: "var(--ds-navy-8)",
-        main: "var(--ds-navy-9)",
-        dark: "var(--ds-navy-10)",
+        light: "var(--ds-border-emphasis-navy)",
+        main: "var(--ds-intent-navy-solid-bg)",
+        dark: "var(--ds-intent-navy-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-navy-9Channel)",
         lightChannel: "var(--ds-navy-8Channel)",
@@ -209,9 +209,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       error: {
-        light: "var(--ds-red-8)",
-        main: "var(--ds-red-9)",
-        dark: "var(--ds-red-10)",
+        light: "var(--ds-border-emphasis-red)",
+        main: "var(--ds-intent-red-solid-bg)",
+        dark: "var(--ds-intent-red-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-red-9Channel)",
         lightChannel: "var(--ds-red-8Channel)",
@@ -222,9 +222,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       warning: {
-        light: "var(--ds-orange-8)",
-        main: "var(--ds-orange-9)",
-        dark: "var(--ds-orange-10)",
+        light: "var(--ds-border-emphasis-orange)",
+        main: "var(--ds-intent-orange-solid-bg)",
+        dark: "var(--ds-intent-orange-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-orange-9Channel)",
         lightChannel: "var(--ds-orange-8Channel)",
@@ -235,9 +235,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       success: {
-        light: "var(--ds-green-8)",
-        main: "var(--ds-green-9)",
-        dark: "var(--ds-green-10)",
+        light: "var(--ds-border-emphasis-green)",
+        main: "var(--ds-intent-green-solid-bg)",
+        dark: "var(--ds-intent-green-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-green-9Channel)",
         lightChannel: "var(--ds-green-8Channel)",
@@ -248,9 +248,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       info: {
-        light: "var(--ds-cyan-8)",
-        main: "var(--ds-cyan-9)",
-        dark: "var(--ds-cyan-10)",
+        light: "var(--ds-border-emphasis-cyan)",
+        main: "var(--ds-intent-cyan-solid-bg)",
+        dark: "var(--ds-intent-cyan-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-cyan-9Channel)",
         lightChannel: "var(--ds-cyan-8Channel)",
@@ -562,12 +562,12 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             "&:not(.MuiInputLabel-shrink)": { color: "var(--ds-fg-muted)" },
             "&.Mui-disabled:not(.MuiInputLabel-shrink)": { color: "var(--ds-fg-disabled)" },
             "&.Mui-focused": { color: "var(--ds-intent-primary-label)" },
-            "&.Mui-focused.MuiFormLabel-colorSecondary": { color: "var(--ds-intent-secondary-label)" },
-            "&.Mui-focused.MuiFormLabel-colorSuccess": { color: "var(--ds-intent-success-label)" },
-            "&.Mui-focused.MuiFormLabel-colorWarning": { color: "var(--ds-intent-warning-label)" },
-            "&.Mui-focused.MuiFormLabel-colorError": { color: "var(--ds-intent-error-label)" },
-            "&.Mui-focused.MuiFormLabel-colorInfo": { color: "var(--ds-intent-info-label)" },
-            "&.Mui-focused.Mui-error": { color: "var(--ds-intent-error-label)" },
+            "&.Mui-focused.MuiFormLabel-colorSecondary": { color: "var(--ds-intent-secondary-fg-muted)" },
+            "&.Mui-focused.MuiFormLabel-colorSuccess": { color: "var(--ds-intent-success-fg-muted)" },
+            "&.Mui-focused.MuiFormLabel-colorWarning": { color: "var(--ds-intent-warning-fg-muted)" },
+            "&.Mui-focused.MuiFormLabel-colorError": { color: "var(--ds-intent-error-fg-muted)" },
+            "&.Mui-focused.MuiFormLabel-colorInfo": { color: "var(--ds-intent-info-fg-muted)" },
+            "&.Mui-focused.Mui-error": { color: "var(--ds-intent-error-fg-muted)" },
             "&.Mui-disabled": { color: "var(--ds-fg-disabled)" },
           }),
         },
