@@ -158,7 +158,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         primaryChannel: "var(--ds-olive-12Channel)",
         secondaryChannel: "var(--ds-olive-11Channel)",
         placeholder: "var(--ds-fg-placeholder)",
-        placeholderFocus: "var(--ds-olive-9)",
+        placeholderFocus: "var(--ds-fg-placeholder-focus)",
       },
 
       background: {
@@ -350,7 +350,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 backgroundColor: isOutlined ? "transparent" : "var(--ds-bg-surface-2)",
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: isOutlined ? "var(--ds-bg-hover)" : "var(--ds-bg-surface-2)",
+                    backgroundColor: isOutlined ? "var(--ds-bg-hover)" : "var(--ds-bg-hover)",
                   },
                 }),
               } as CSSObject;
@@ -399,16 +399,16 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const isDefault = !isMuiIntent(effectiveColour);
             const p = !isDefault ? resolveIntentPalette(theme, effectiveColour) : null;
 
-            const selectedMain = isDefault ? "var(--ds-olive-9)" : p?.main;
+            const selectedMain = isDefault ? "var(--ds-olive-8)" : p?.main;
             const selectedMainChannel = isDefault ? null : p?.mainChannel;
 
             return {
               ...base,
 
               "&:not(.Mui-checked):not(.MuiCheckbox-indeterminate)": {
-                color: "var(--ds-olive-9)",
+                color: "var(--ds-control-neutral)",
                 "--ds-checkbox-box-fill": "none",
-                "--ds-checkbox-box-stroke": "var(--ds-olive-9)",
+                "--ds-checkbox-box-stroke": "var(--ds-control-neutral)",
                 "--ds-checkbox-box-strokeWidth": "2",
               },
 
@@ -721,7 +721,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             const checkedColor = isMuiIntent(rawColour)
               ? `var(--ds-intent-${rawColour}-solid-bg)`
-              : "var(--ds-olive-9)";
+              : "var(--ds-control-neutral)";
 
             return {
               "&:hover, &.Mui-focusVisible": { backgroundColor: "transparent" },

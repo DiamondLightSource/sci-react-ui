@@ -38,7 +38,7 @@
     --ds-border-focus: var(--ds-olive-9);         /* Neutral focus ring */
 
     /* FOREGROUNDS */
-    --ds-fg-default: var(--ds-fg-strong);             /* Primary text */
+    --ds-fg-default: var(--ds-olive-12);             /* Primary text */
     --ds-fg-subtle: var(--ds-olive-11);            /* Secondary text, labels */
     --ds-fg-strong: var(--ds-olive-12);           /* Emphasised text */
     --ds-fg-disabled: var(--ds-olive-a8);          /* Disabled text */
@@ -47,7 +47,11 @@
     --ds-fg-placeholder: var(--ds-olive-10);      /* Input placeholder */
     --ds-fg-placeholder-focus: var(--ds-olive-9); /* Placeholder on focus */
 
-    /* INTERACTIVE OVERLAYS */
+    /* INTERACTIVE  */
+
+    --ds-control-neutral: var(--ds-olive-9);      /*  Default control  */
+    --ds-control-neutral-channel: var(--ds-olive-9Channel);
+
     --ds-overlay-hover: rgba(0, 0, 0, 0.06);
     --ds-overlay-selected: rgba(0, 0, 0, 0.10);
     --ds-overlay-focus: rgba(0, 0, 0, 0.12);
@@ -97,14 +101,14 @@
     Aliases subtle-fg which is the same step
     ═══════════════════════════════════════ */
     --ds-intent-primary-fg-strong:   var(--ds-indigo-12);   
-    --ds-intent-secondary-fg-strong: var(--ds-navy-12); 
+    --ds-intent-secondary-fg-strong: var(--ds-olive-12); 
     --ds-intent-error-fg-strong:     var(--ds-red-12);     
     --ds-intent-success-fg-strong:   var(--ds-green-12);
     --ds-intent-warning-fg-strong:   var(--ds-orange-12);   
     --ds-intent-info-fg-strong:      var(--ds-cyan-12);      
 
     --ds-intent-primary-fg-subtle:   var(--ds-indigo-11);   
-    --ds-intent-secondary-fg-subtle: var(--ds-navy-11); 
+    --ds-intent-secondary-fg-subtle: var(--ds-olive-11); 
     --ds-intent-error-fg-subtle:     var(--ds-red-11);     
     --ds-intent-success-fg-subtle:   var(--ds-green-11);
     --ds-intent-warning-fg-subtle:   var(--ds-orange-11);   
@@ -131,19 +135,19 @@
      C) INTENT TOKENS - SECONDARY
      ═══════════════════════════════════════ */
 
-    --ds-intent-secondary-solid-bg: var(--ds-navy-9);
-    --ds-intent-secondary-solid-bg-hover: var(--ds-navy-10);
-    --ds-intent-secondary-solid-bg-active: var(--ds-navy-11);
+    --ds-intent-secondary-solid-bg: var(--ds-olive-9);
+    --ds-intent-secondary-solid-bg-hover: var(--ds-olive-10);
+    --ds-intent-secondary-solid-bg-active: var(--ds-olive-11);
     --ds-intent-secondary-solid-fg: var(--ds-white);
 
-    --ds-intent-secondary-subtle-bg: var(--ds-navy-3);
-    --ds-intent-secondary-subtle-bg-hover: var(--ds-navy-4);
-    --ds-intent-secondary-subtle-bg-active: var(--ds-navy-5);
-    --ds-intent-secondary-subtle-fg: var(--ds-navy-11);
+    --ds-intent-secondary-subtle-bg: var(--ds-olive-3);
+    --ds-intent-secondary-subtle-bg-hover: var(--ds-olive-4);
+    --ds-intent-secondary-subtle-bg-active: var(--ds-olive-5);
+    --ds-intent-secondary-subtle-fg: var(--ds-olive-11);
 
-    --ds-intent-secondary-outlined-border: var(--ds-navy-9);
-    --ds-intent-secondary-outlined-border-hover: var(--ds-navy-10);
-    --ds-intent-secondary-outlined-fg: var(--ds-navy-11);
+    --ds-intent-secondary-outlined-border: var(--ds-olive-9);
+    --ds-intent-secondary-outlined-border-hover: var(--ds-olive-10);
+    --ds-intent-secondary-outlined-fg: var(--ds-olive-11);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - ERROR

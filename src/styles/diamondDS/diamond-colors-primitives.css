@@ -135,10 +135,10 @@
     --ds-cyan-6:  #ACDBE1;
     --ds-cyan-7:  #8CCCD3;
     --ds-cyan-8:  #64BAC3;
-    --ds-cyan-9:  #3A9FAC;
-    --ds-cyan-10: #009CA6;  /* brand */
-    --ds-cyan-11: #006873;
-    --ds-cyan-12: #003A40;
+    --ds-cyan-9:  #009CA6;  /* brand */
+    --ds-cyan-10: #008F99;  
+    --ds-cyan-11: #007F89;
+    --ds-cyan-12: #0A3D41;
     --ds-cyan-a1:  #3A9FAC05;
     --ds-cyan-a2:  #3A9FAC0A;
     --ds-cyan-a3:  #3A9FAC10;
@@ -171,10 +171,10 @@
     --ds-green-6:  #B4DEB8;
     --ds-green-7:  #95CF9B;
     --ds-green-8:  #70BE78;
-    --ds-green-9:  #4CA65A;
-    --ds-green-10: #008C15;  /* brand */
-    --ds-green-11: #00620F;
-    --ds-green-12: #003708;
+    --ds-green-9:  #008C15; /* brand */
+    --ds-green-10: #007E00;  
+    --ds-green-11: #008302;
+    --ds-green-12: #193E19;
     --ds-green-a1:  #4CA65A05;
     --ds-green-a2:  #4CA65A0A;
     --ds-green-a3:  #4CA65A10;
@@ -186,7 +186,7 @@
     --ds-green-a9:  #4CA65A63;
     --ds-green-a10: #4CA65A7D;
     --ds-green-a11: #4CA65AA2;
-    --ds-green-a12: #4CA65ADE;
+    --ds-green-a12: #002900E6;
     --ds-green-1Channel: 251 254 251;
     --ds-green-2Channel: 243 251 244;
     --ds-green-3Channel: 230 246 232;
@@ -315,10 +315,10 @@
     --ds-orange-6:  #FFB777;
     --ds-orange-7:  #FFA457;
     --ds-orange-8:  #FF8B2F;
-    --ds-orange-9:  #FF780A;
-    --ds-orange-10: #FF6900;  /* brand */
-    --ds-orange-11: #A24600;
-    --ds-orange-12: #552300;
+    --ds-orange-9:  #FF6900;  /* brand */
+    --ds-orange-10: #F35B00; 
+    --ds-orange-11: #D64700;
+    --ds-orange-12: #592D18;
     --ds-orange-a1:  #FF780A05;
     --ds-orange-a2:  #FF780A0A;
     --ds-orange-a3:  #FF780A10;
@@ -330,7 +330,7 @@
     --ds-orange-a9:  #FF780A63;
     --ds-orange-a10: #FF780A7D;
     --ds-orange-a11: #FF780AA2;
-    --ds-orange-a12: #FF780ADE;
+    --ds-orange-a12: #481700E7
     --ds-orange-1Channel: 255 249 243;
     --ds-orange-2Channel: 255 241 227;
     --ds-orange-3Channel: 255 228 204;
@@ -351,10 +351,10 @@
     --ds-red-6: #fdbdaf;
     --ds-red-7: #f5a898;
     --ds-red-8: #ec8e7b;   
-    --ds-red-9: #e54d2e;
-    --ds-red-10: #E10600;  /* brand */
-    --ds-red-11: #d13415;
-    --ds-red-12: #5c271f;
+    --ds-red-9: #E10600;/* brand */
+    --ds-red-10: #D10000;  
+    --ds-red-11: #DE0000;
+    --ds-red-12: #631E17;
     --ds-red-a1: #ff000003;
     --ds-red-a2: #ff200008;
     --ds-red-a3: #f52b0018;
@@ -366,7 +366,7 @@
     --ds-red-a9: #df2600d1;
     --ds-red-a10: #d72400da;
     --ds-red-a11: #cd2200ea;
-    --ds-red-a12: #460900e0;
+    --ds-red-a12: #540800E8;
     --ds-red-1Channel: 255 252 252;
     --ds-red-2Channel: 255 239 239;
     --ds-red-3Channel: 255 226 225;
