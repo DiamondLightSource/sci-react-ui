@@ -91,8 +91,14 @@ declare module "@mui/material/styles" {
 export type DSMode = "light" | "dark";
 
 type MuiIntent = "primary" | "secondary" | "error" | "warning" | "info" | "success";
+type MuiColour = MuiIntent | "default" | "inherit";
+
 type AlertSeverity = "error" | "warning" | "info" | "success";
 type AlertVariant = "standard" | "filled" | "outlined";
+
+function isMuiIntent(colour: MuiColour): colour is MuiIntent {
+  return colour !== "default" && colour !== "inherit";
+}
 
 function resolveIntentPalette(theme: Theme, colour: MuiIntent) {
   const t = theme as any;
@@ -275,7 +281,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
     },
 
     components: {
-
       // ─── BUTTON ────────────────────────────────────────────────────────────
 
       MuiButton: {
@@ -284,10 +289,15 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const base: CSSObject = { textTransform: "none" };
 
             const variant = ownerState.variant ?? "text";
-            const rawColour = ownerState.color ?? "primary";
+            const rawColour = (ownerState.color ?? "primary") as MuiColour;
+
+            // "inherit" = don't apply DS intent styling
             if (rawColour === "inherit") return base;
 
-            const colour = rawColour as MuiIntent;
+            // If someone sets color="default", treat as neutral and let base/MUI handle it
+            if (!isMuiIntent(rawColour)) return base;
+
+            const colour = rawColour;
 
             const intentOutlinedFg = `var(--ds-intent-${colour}-outlined-fg)`;
             const intentOutlinedBorder = `var(--ds-intent-${colour}-outlined-border)`;
@@ -324,7 +334,11 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               "& .MuiChip-icon, & .MuiChip-deleteIcon": { color: "currentColor" },
             };
 
-            const isDefault = (ownerState.color ?? "default") === "default";
+            // Chip's "default" branch is intentionally neutral.
+            // If Chip ever receives "inherit" via wrappers, treat it as default.
+            const rawColour = (ownerState.color ?? "default") as MuiColour;
+            const isDefault = !isMuiIntent(rawColour);
+
             const isOutlined = ownerState.variant === "outlined";
             const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
 
@@ -379,11 +393,12 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               } as unknown as CSSObject;
             }
 
-            const raw = (ownerState.color ?? "default") as "default" | MuiIntent;
-            const isDefault = raw === "default";
-            const colour = raw as Exclude<typeof raw, "default">;
+            const rawColour = (ownerState.color ?? "default") as MuiColour;
+            const effectiveColour: MuiColour = rawColour === "inherit" ? "default" : rawColour;
 
-            const p = !isDefault ? resolveIntentPalette(theme, colour) : null;
+            const isDefault = !isMuiIntent(effectiveColour);
+            const p = !isDefault ? resolveIntentPalette(theme, effectiveColour) : null;
+
             const selectedMain = isDefault ? "var(--ds-olive-9)" : p?.main;
             const selectedMainChannel = isDefault ? null : p?.mainChannel;
 
@@ -656,11 +671,11 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiSwitch: {
         styleOverrides: {
           root: ({ ownerState }: OverrideArgs<SwitchProps>): CSSObject => {
-            const rawColour = ownerState.color ?? "primary";
-            const trackCheckedBg =
-              rawColour === "default" || rawColour === "inherit"
-                ? "var(--ds-switch-track-checked)"
-                : `var(--ds-intent-${rawColour}-solid-bg)`;
+            const rawColour = (ownerState.color ?? "primary") as MuiColour;
+
+            const trackCheckedBg = isMuiIntent(rawColour)
+              ? `var(--ds-intent-${rawColour}-solid-bg)`
+              : "var(--ds-switch-track-checked)";
 
             return {
               "& .MuiSwitch-track": {
@@ -702,11 +717,11 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               } as unknown as CSSObject;
             }
 
-            const rawColour = ownerState.color ?? "primary";
-            const checkedColor =
-              rawColour === "default" || rawColour === "inherit"
-                ? "var(--ds-olive-9)"
-                : `var(--ds-intent-${rawColour}-solid-bg)`;
+            const rawColour = (ownerState.color ?? "primary") as MuiColour;
+
+            const checkedColor = isMuiIntent(rawColour)
+              ? `var(--ds-intent-${rawColour}-solid-bg)`
+              : "var(--ds-olive-9)";
 
             return {
               "&:hover, &.Mui-focusVisible": { backgroundColor: "transparent" },
@@ -731,15 +746,18 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiSlider: {
         styleOverrides: {
           root: ({ ownerState }: OverrideArgs<SliderProps>): CSSObject => {
-            const rawColour = ownerState.color ?? "primary";
+            const rawColour = (ownerState.color ?? "primary") as MuiColour;
+            const colour: MuiIntent = isMuiIntent(rawColour) ? rawColour : "primary";
+
             const accentColor =
-              rawColour === "secondary"
+              colour === "secondary"
                 ? "var(--ds-intent-secondary-solid-bg)"
-                : `var(--ds-intent-${rawColour}-solid-bg)`;
+                : `var(--ds-intent-${colour}-solid-bg)`;
+
             const hoverShadow =
-              rawColour === "secondary"
+              colour === "secondary"
                 ? "var(--ds-intent-secondary-subtle-bg)"
-                : `var(--ds-intent-${rawColour}-subtle-bg)`;
+                : `var(--ds-intent-${colour}-subtle-bg)`;
 
             return {
               color: accentColor,
@@ -966,13 +984,15 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiBadge: {
         styleOverrides: {
           badge: ({ ownerState }: { ownerState: any }): CSSObject => {
-            const rawColour = ownerState.color ?? "default";
-            if (rawColour === "default") {
+            const rawColour = (ownerState.color ?? "default") as MuiColour;
+
+            if (!isMuiIntent(rawColour)) {
               return {
                 backgroundColor: "var(--ds-badge-default-bg)",
                 color: "var(--ds-badge-default-fg)",
               };
             }
+
             return {
               backgroundColor: `var(--ds-intent-${rawColour}-solid-bg)`,
               color: "var(--ds-fg-on-solid)",
@@ -1088,7 +1108,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
           }),
         },
       },
-
     }, // End of components
   });
 

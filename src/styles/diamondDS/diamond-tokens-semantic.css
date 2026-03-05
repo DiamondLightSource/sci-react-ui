@@ -345,7 +345,7 @@
     --ds-snackbar-bg:               var(--ds-olive-12);
     --ds-snackbar-fg:               var(--ds-white);
     --ds-snackbar-action-fg:        var(--ds-intent-primary-subtle-fg);
-
+}
 
 /* ═══════════════════════════════════════
    DARK MODE OVERRIDES
