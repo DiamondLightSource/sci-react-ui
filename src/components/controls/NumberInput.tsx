@@ -104,7 +104,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   onCommit,
   commitOnReturn = true,
   commitOnBlur = true,
-  minValue = -Infinity,
+  minValue = numberMode == "natural" ? 0 : -Infinity,
   maxValue = Infinity,
 }) => {
   const [numberText, setNumberText] = useState(
