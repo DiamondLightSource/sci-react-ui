@@ -147,7 +147,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
       text: {
         primary: "var(--ds-fg-default)",
-        secondary: "var(--ds-fg-muted)",
+        secondary: "var(--ds-fg-subtle)",
         disabled: "var(--ds-fg-disabled)",
         primaryChannel: "var(--ds-olive-12Channel)",
         secondaryChannel: "var(--ds-olive-11Channel)",
@@ -190,9 +190,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       secondary: {
-        light: "var(--ds-border-emphasis-navy)",
-        main: "var(--ds-intent-navy-solid-bg)",
-        dark: "var(--ds-intent-navy-solid-bg-hover)",
+        light: "var(--ds-border-emphasis-secondary)",
+        main: "var(--ds-intent-secondary-solid-bg)",
+        dark: "var(--ds-intent-secondary-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-navy-9Channel)",
         lightChannel: "var(--ds-navy-8Channel)",
@@ -209,9 +209,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       error: {
-        light: "var(--ds-border-emphasis-red)",
-        main: "var(--ds-intent-red-solid-bg)",
-        dark: "var(--ds-intent-red-solid-bg-hover)",
+        light: "var(--ds-border-emphasis-error)",
+        main: "var(--ds-intent-error-solid-bg)",
+        dark: "var(--ds-intent-error-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-red-9Channel)",
         lightChannel: "var(--ds-red-8Channel)",
@@ -222,9 +222,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       warning: {
-        light: "var(--ds-border-emphasis-orange)",
-        main: "var(--ds-intent-orange-solid-bg)",
-        dark: "var(--ds-intent-orange-solid-bg-hover)",
+        light: "var(--ds-border-emphasis-warning)",
+        main: "var(--ds-intent-warning-solid-bg)",
+        dark: "var(--ds-intent-warning-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-orange-9Channel)",
         lightChannel: "var(--ds-orange-8Channel)",
@@ -235,9 +235,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       success: {
-        light: "var(--ds-border-emphasis-green)",
-        main: "var(--ds-intent-green-solid-bg)",
-        dark: "var(--ds-intent-green-solid-bg-hover)",
+        light: "var(--ds-border-emphasis-success)",
+        main: "var(--ds-intent-success-solid-bg)",
+        dark: "var(--ds-intent-success-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-green-9Channel)",
         lightChannel: "var(--ds-green-8Channel)",
@@ -248,9 +248,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       info: {
-        light: "var(--ds-border-emphasis-cyan)",
-        main: "var(--ds-intent-cyan-solid-bg)",
-        dark: "var(--ds-intent-cyan-solid-bg-hover)",
+        light: "var(--ds-border-emphasis-info)",
+        main: "var(--ds-intent-info-solid-bg)",
+        dark: "var(--ds-intent-info-solid-bg-hover)",
         contrastText: "var(--ds-fg-on-solid)",
         mainChannel: "var(--ds-cyan-9Channel)",
         lightChannel: "var(--ds-cyan-8Channel)",
@@ -559,15 +559,15 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiInputLabel: {
         styleOverrides: {
           root: () => ({
-            "&:not(.MuiInputLabel-shrink)": { color: "var(--ds-fg-muted)" },
+            "&:not(.MuiInputLabel-shrink)": { color: "var(--ds-fg-subtle)" },
             "&.Mui-disabled:not(.MuiInputLabel-shrink)": { color: "var(--ds-fg-disabled)" },
             "&.Mui-focused": { color: "var(--ds-intent-primary-label)" },
-            "&.Mui-focused.MuiFormLabel-colorSecondary": { color: "var(--ds-intent-secondary-fg-muted)" },
-            "&.Mui-focused.MuiFormLabel-colorSuccess": { color: "var(--ds-intent-success-fg-muted)" },
-            "&.Mui-focused.MuiFormLabel-colorWarning": { color: "var(--ds-intent-warning-fg-muted)" },
-            "&.Mui-focused.MuiFormLabel-colorError": { color: "var(--ds-intent-error-fg-muted)" },
-            "&.Mui-focused.MuiFormLabel-colorInfo": { color: "var(--ds-intent-info-fg-muted)" },
-            "&.Mui-focused.Mui-error": { color: "var(--ds-intent-error-fg-muted)" },
+            "&.Mui-focused.MuiFormLabel-colorSecondary": { color: "var(--ds-intent-secondary-fg-subtle)" },
+            "&.Mui-focused.MuiFormLabel-colorSuccess": { color: "var(--ds-intent-success-fg-subtle)" },
+            "&.Mui-focused.MuiFormLabel-colorWarning": { color: "var(--ds-intent-warning-fg-subtle)" },
+            "&.Mui-focused.MuiFormLabel-colorError": { color: "var(--ds-intent-error-fg-subtle)" },
+            "&.Mui-focused.MuiFormLabel-colorInfo": { color: "var(--ds-intent-info-fg-subtle)" },
+            "&.Mui-focused.Mui-error": { color: "var(--ds-intent-error-fg-subtle)" },
             "&.Mui-disabled": { color: "var(--ds-fg-disabled)" },
           }),
         },
@@ -580,7 +580,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiSelect: {
         styleOverrides: {
           icon: (): CSSObject => ({
-            color: "var(--ds-fg-muted)",
+            color: "var(--ds-fg-subtle)",
             "&.Mui-disabled": { color: "var(--ds-fg-disabled)" },
           }),
         },
@@ -638,14 +638,14 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               },
             },
           }),
-          noOptions: (): CSSObject => ({ color: "var(--ds-fg-muted)" }),
-          loading: (): CSSObject => ({ color: "var(--ds-fg-muted)" }),
+          noOptions: (): CSSObject => ({ color: "var(--ds-fg-subtle)" }),
+          loading: (): CSSObject => ({ color: "var(--ds-fg-subtle)" }),
           clearIndicator: (): CSSObject => ({
-            color: "var(--ds-fg-muted)",
+            color: "var(--ds-fg-subtle)",
             "&:hover": { color: "var(--ds-fg-default)" },
           }),
           popupIndicator: (): CSSObject => ({
-            color: "var(--ds-fg-muted)",
+            color: "var(--ds-fg-subtle)",
             "&:hover": { color: "var(--ds-fg-default)" },
           }),
         },
@@ -934,7 +934,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             backgroundColor: "var(--ds-table-footer-bg)",
             borderTop: "2px solid var(--ds-table-border)",
             borderBottom: "none",
-            color: "var(--ds-fg-muted)",
+            color: "var(--ds-fg-subtle)",
           }),
         },
       },
@@ -1032,7 +1032,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             fontWeight: 500,
           }),
           expandIconWrapper: (): CSSObject => ({
-            color: "var(--ds-fg-muted)",
+            color: "var(--ds-fg-subtle)",
           }),
         },
       },
@@ -1074,7 +1074,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiListItemIcon: {
         styleOverrides: {
           root: (): CSSObject => ({
-            color: "var(--ds-fg-muted)",
+            color: "var(--ds-fg-subtle)",
             minWidth: 36,
           }),
         },

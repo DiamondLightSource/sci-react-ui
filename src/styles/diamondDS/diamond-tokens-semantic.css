@@ -38,8 +38,8 @@
     --ds-border-focus: var(--ds-olive-9);         /* Neutral focus ring */
 
     /* FOREGROUNDS */
-    --ds-fg-default: var(--ds-black);             /* Primary text */
-    --ds-fg-muted: var(--ds-olive-11);            /* Secondary text, labels */
+    --ds-fg-default: var(--ds-fg-strong);             /* Primary text */
+    --ds-fg-subtle: var(--ds-olive-11);            /* Secondary text, labels */
     --ds-fg-strong: var(--ds-olive-12);           /* Emphasised text */
     --ds-fg-disabled: var(--ds-olive-a8);          /* Disabled text */
     --ds-fg-on-solid: var(--ds-white);            /* Text on solid backgrounds (replaces --ds-fg-fixed-white) */
@@ -103,12 +103,12 @@
     --ds-intent-warning-fg-strong:   var(--ds-orange-12);   
     --ds-intent-info-fg-strong:      var(--ds-cyan-12);      
 
-    --ds-intent-primary-fg-muted:   var(--ds-indigo-11);   
-    --ds-intent-secondary-fg-muted: var(--ds-navy-11); 
-    --ds-intent-error-fg-muted:     var(--ds-red-11);     
-    --ds-intent-success-fg-muted:   var(--ds-green-11);
-    --ds-intent-warning-fg-muted:   var(--ds-orange-11);   
-    --ds-intent-info-fg-muted:      var(--ds-cyan-11);     
+    --ds-intent-primary-fg-subtle:   var(--ds-indigo-11);   
+    --ds-intent-secondary-fg-subtle: var(--ds-navy-11); 
+    --ds-intent-error-fg-subtle:     var(--ds-red-11);     
+    --ds-intent-success-fg-subtle:   var(--ds-green-11);
+    --ds-intent-warning-fg-subtle:   var(--ds-orange-11);   
+    --ds-intent-info-fg-subtle:      var(--ds-cyan-11);     
 
     /* Solid - Step 9 */
     --ds-intent-primary-solid-bg: var(--ds-indigo-9);
@@ -292,7 +292,7 @@
 
     /* ── Tabs ────────────────────────────────────────────────────  */
     --ds-tabs-indicator-color:      var(--ds-intent-primary-solid-bg);
-    --ds-tabs-tab-fg-inactive:      var(--ds-fg-muted);
+    --ds-tabs-tab-fg-inactive:      var(--ds-fg-subtle);
     --ds-tabs-tab-fg-active:        var(--ds-fg-default);
     --ds-tabs-tab-fg-disabled:      var(--ds-fg-disabled);
     --ds-tabs-tab-hover-bg:         var(--ds-bg-hover);
@@ -300,7 +300,7 @@
 
     /* ── Table ───────────────────────────────────────────────────  */
     --ds-table-header-bg:           var(--ds-bg-surface-1);
-    --ds-table-header-fg:           var(--ds-fg-muted);
+    --ds-table-header-fg:           var(--ds-fg-subtle);
     --ds-table-row-hover-bg:        var(--ds-bg-hover);
     --ds-table-row-selected-bg:     var(--ds-intent-primary-subtle-bg);
     --ds-table-row-selected-fg:     var(--ds-intent-primary-subtle-fg);
@@ -325,7 +325,7 @@
     --ds-nav-item-bg-active:        var(--ds-indigo-3);
     --ds-nav-item-fg-active:        var(--ds-indigo-11);
     --ds-nav-item-bg-hover:         var(--ds-overlay-hover);
-    --ds-nav-item-fg-default:       var(--ds-fg-muted);
+    --ds-nav-item-fg-default:       var(--ds-fg-subtle);
     --ds-nav-item-fg-hover:         var(--ds-fg-default);
     --ds-nav-item-icon-active:      var(--ds-intent-primary-outlined-fg);
 
@@ -354,10 +354,10 @@
    ═══════════════════════════════════════ */
 
 .dark,
-:root[data-mode="dark"] {
+  .dark, :root[data-mode="dark"] {
     /* Global Neutral Overrides */
     --ds-fg-default: var(--ds-white);
-    --ds-fg-inverse: var(--ds-black);
+    --ds-fg-inverse: var(--ds-fg-default);
 
     /* Surfaces */
     --ds-bg-paper: var(--ds-olive-2);

@@ -44,7 +44,7 @@ import { Meta } from "@storybook/blocks";
   .ds-swatch__meta {
     margin: 0;
     padding-left: 16px;
-    color: var(--ds-fg-muted, var(--ds-olive-11));
+    color: var(--ds-fg-subtle, var(--ds-olive-11));
     font-size: 14px;
     line-height: 20px;
   }
@@ -191,7 +191,7 @@ import { Meta } from "@storybook/blocks";
 
   .ds-kicker {
     margin: 0 0 6px;
-    color: var(--ds-fg-muted, var(--ds-olive-11));
+    color: var(--ds-fg-subtle, var(--ds-olive-11));
     font-size: 13px;
   }
 
@@ -287,12 +287,11 @@ import { Meta } from "@storybook/blocks";
   <div className="ds-note">
     <strong>Scale logic</strong>
     <ul style={{ marginTop: 8 }}>
-      <li>1–3: backgrounds</li>
-      <li>4–6: surfaces and separators</li>
-      <li>7–8: borders and subtle emphasis</li>
-      <li>9: main colour</li>
-      <li>10–11: stronger emphasis</li>
-      <li>12: maximum contrast</li>
+      <li><strong>Steps 1–3</strong>: app backgrounds and base surfaces</li>
+      <li><strong>Steps 3–5</strong>: interactive surface states (hover, selected, pressed) — often overlays</li>
+      <li><strong>Steps 6–8</strong>: separators + borders (structure → affordance)</li>
+      <li><strong>Steps 9–10</strong> solid intent backgrounds (main → hover/active)</li>
+      <li><strong>Steps 11–12</strong>: foreground emphasis (intent label/text → maximum contrast)</li>
     </ul>
   </div>
 
@@ -346,7 +345,7 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Foreground roles</p>
         <ul className="ds-swatch__meta">
           <li><strong>default</strong>: <code>--ds-fg-default</code></li>
-          <li><strong>muted</strong>: <code>--ds-fg-muted</code></li>
+          <li><strong>subtle</strong>: <code>--ds-fg-subtle</code></li>
           <li><strong>strong</strong>: <code>--ds-fg-strong</code></li>
           <li><strong>disabled</strong>: <code>--ds-fg-disabled</code></li>
           <li><strong>placeholder</strong>: <code>--ds-fg-placeholder</code></li>
@@ -744,15 +743,15 @@ import { Meta } from "@storybook/blocks";
         <p style={{ color: "var(--ds-fg-default)" }}>
           <strong>Text primary</strong> → <code>--ds-fg-default</code>
         </p>
-        <p style={{ color: "var(--ds-fg-muted)" }}>
-          Text secondary → <code>--ds-fg-muted</code>
+        <p style={{ color: "var(--ds-fg-subtle)" }}>
+          Text secondary → <code>--ds-fg-subtle</code>
         </p>
         <p style={{ color: "var(--ds-fg-disabled)" }}>
           Text disabled → <code>--ds-fg-disabled</code>
         </p>
       </div>
       <div className="ds-divider" />
-      <p style={{ margin: 0, color: "var(--ds-fg-muted)" }}>
+      <p style={{ margin: 0, color: "var(--ds-fg-subtle)" }}>
         Canvas uses <code>--ds-bg-canvas</code>, Paper uses <code>--ds-bg-paper</code>,
         surfaces use <code>--ds-bg-surface-1</code> / <code>--ds-bg-surface-2</code>,
         and dividers use <code>--ds-border-subtle</code>.
