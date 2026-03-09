@@ -24,8 +24,8 @@ interface NumberInputTextProps {
   handleCommit?: () => void;
   commitOnReturn?: boolean;
   commitOnBlur?: boolean;
-  minValue?: number;
-  maxValue?: number;
+  minValue: number;
+  maxValue: number;
 }
 
 const NumberInputText: React.FC<NumberInputTextProps> = ({
@@ -46,11 +46,7 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   const helperText = `A ${numberMode} number. Limits: ${minValue} to ${maxValue}`;
 
   const checkLimits = (value: string) => {
-    if (minValue && maxValue) {
-      return parseFloat(value) >= minValue && parseFloat(value) <= maxValue;
-    } else {
-      return true;
-    }
+    return parseFloat(value) >= minValue && parseFloat(value) <= maxValue;
   };
 
   const handleInputChange = (value: string) => {
