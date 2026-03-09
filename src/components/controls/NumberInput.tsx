@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { TextField } from "@mui/material";
 
 const Modes = {
@@ -86,8 +86,8 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
 
 interface NumberInputProps {
   label: string;
-  numberMode: keyof typeof Modes;
-  defaultValue: number | string;
+  numberMode?: keyof typeof Modes;
+  defaultValue?: number | string;
   onCommit?: (number: number) => void;
   number?: number;
   parameters?: object;
@@ -98,7 +98,7 @@ interface NumberInputProps {
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({
-  label,
+  label = "",
   numberMode = "floating",
   defaultValue,
   onCommit,
