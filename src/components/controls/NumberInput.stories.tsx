@@ -16,6 +16,7 @@ const meta: Meta<typeof NumberInput> = {
 };
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 const handleCommit = (number: number) => {
