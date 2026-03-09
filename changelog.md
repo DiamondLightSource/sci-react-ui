@@ -1,37 +1,35 @@
-SciReactUI Changelog
-====================
+# SciReactUI Changelog
 
-[v0.4.2] - unreleased
----------------------
+## [Unreleased]
 
 ### Fixed
 - Icon imports were causing issues downstream when components are unit tested.
 
-[v0.4.1] - 2026-02-24
----------------------
+
+## [v0.4.1] - 2026-02-24
 
 ### Fixed
-- *Progress* and *ProgressDelayed* where not exported
+- *Progress* and *ProgressDelayed* were not exported
 - Fix *User* login button having wrong colour
 
 ### Changed
 - The *NavMenu* will now close if something is selected.
 - Updated styles of *User* (style now similar to *NavMenu*)
 
-
-[v0.4.0] - 2026-02-10
----------------------
+## [v0.4.0] - 2026-02-10
 
 ### Added
+
 - New *Progress* component based on Diamond Light added.
 - New *ProgressDelayed* component so that the progress isn't shown at all when it's a small wait.
 - *NavMenu* component added for creating dropdown menus in the Navbar
   - *NavMenuLink* component extends NavLink to work in the NavMenu
 - *AuthProvider* added for authentication to Keycloak.
-  - An *auth* parameter was added to *User* to simplify when *AuthProvider* is used. 
+  - An *auth* parameter was added to *User* to simplify when *AuthProvider* is used.
 - *ScrollableImages* can now display in a wide view, with multiple images.
 
 ### Fixed
+
 - Hovering over a slot caused a popup with the slot title in. This has been removed.
 - Stopped Bar-based components (e.g. Navbar, Footer) from expanding when a parent component has a set height
 - The base *Bar* component was not being exported.
@@ -39,23 +37,24 @@ SciReactUI Changelog
 - *ScrollableImages* could attempt accessing images outside of array.
 
 ### Changed
+
 - *BaseTheme*/*DiamondTheme* secondary colour of dark theme has been much darkened. (You can select *DiamondOldTheme* if you prefer the older one!)
 - Remove first-child css selector as it causes problems with server-side rendering.
 
-
-[v0.3.0] - 2025-09-04
----------------------
+## [v0.3.0] - 2025-09-04
 
 ### Added
+
 - *Logo* component, to easily add the theme logo to anywhere
-- *ImageColourSchemeSwitch* takes a parameter *interchange* to swap image based on the opposite 
-of the colour scheme switch - for use with alternative background colours.
+- *ImageColourSchemeSwitch* takes a parameter *interchange* to swap image based on the opposite
+  of the colour scheme switch - for use with alternative background colours.
 - *BaseBar* component is the base for all the bars used in SciReactUI. Can also be used itself.
 - *AppBar* is a bar to show the main title of your App.
 - JsonForms renderers have been added for use with readonly mode in JsonForms.
 - Support for TIFFs in ScrollableImages component
 
 ### Fixed
+
 - Themes were not inheriting all details from their parents.
 - Fixed alt text on logos.
 - Fixed Footer was not adhering to Container width. (Can be turned off with containerWidth setting)
@@ -63,39 +62,41 @@ of the colour scheme switch - for use with alternative background colours.
 - Ordering of StoryBook now more intuitive.
 
 ### Changed
-- Breaking change: The use of *color* has been replaced with *colour* throughout. 
-  - *ImageColorSchemeSwitch*, *ImageColorSchemeSwitchType* and *ImageColorSchemeSwitchProps* 
-  renamed to *ImageColourSchemeSwitch*, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps respectively 
+
+- Breaking change: The use of *color* has been replaced with *colour* throughout.
+  - *ImageColorSchemeSwitch*, *ImageColorSchemeSwitchType* and *ImageColorSchemeSwitchProps*
+    renamed to *ImageColourSchemeSwitch*, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps respectively
   - *User* component color prop renamed to colour.
-- RootProps on *Breadcrumbs* has been removed. There props can be passed in directly. 
-e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{sx: { color: "red" } }}/>` 
+- RootProps on *Breadcrumbs* has been removed. There props can be passed in directly.
+  e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{sx: { color: "red" } }}/>`
 
-
-[v0.2.0] - 2025-06-11
----------------------
+## [v0.2.0] - 2025-06-11
 
 ### Fixed
+
 - Styles added to Navbar and Footer incorrectly remove built in styles.
 - Logo not appearing when no dark src set in dark mode.
 
 ### Changed
-- Breadcrumbs component takes optional linkComponent prop for page routing. 
+
+- Breadcrumbs component takes optional linkComponent prop for page routing.
 - Navbar, NavLink and FooterLink will use routing library for links if provided with linkComponent and to props.
 - Navbar uses slots for positioning elements. Breaking change: elements must now use rightSlot for positioning to the far right.
 - User can take additional menu items through the menuItems prop.
 - Footer uses slots for positioning elements. Breaking change: elements must now use rightSlot for positioning to the far right.
 
 ### Added
+
 - ScrollableImages component to scroll through multiple images.
 
-
-[v0.1.0] - 2025-04-10
----------------------
+## [v0.1.0] - 2025-04-10
 
 ### Added
+
 - Breadcrumbs take object array (CustomLink) for total control over names and links.
 
 ### Fixed
+
 - Stopped flicker between colour modes when starting an app in dark mode.
 - Footer links stopped from moving on hover when only showing links.
 - Footer links now correctly center horizontally, if needed.
@@ -103,29 +104,29 @@ e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{s
 - User hides id and name when on very small screens
 
 ### Changed
+
 - Footer links now align with copyright when there is no logo.
 
-
-[v0.0.3] - 2025-01-27
---------------------
+## [v0.0.3] - 2025-01-27
 
 ### Fixed
+
 - Moved unnecessary build dependencies to devDependencies
 
 ### Changed
+
 - Return key now submits VisitInput (but that can be turned off).
 
-
-[v0.0.2] - 2025-01-20
---------------------
+## [v0.0.2] - 2025-01-20
 
 ### Fixed
+
 - Not importing correctly in some external projects.
 
+## [v0.0.1] - 2024-12-19
 
-[v0.0.1] - 2024-12-19
---------------------
 ### Added
+
 - Components added:
   - Breadcrumbs - Highlight position of page in hierarchy
   - ColourSchemeButton - Switch between light and dark schemes.
@@ -143,14 +144,15 @@ e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{s
   - Diamond
   - Generic
 
-[vUnreleased] - ????-??-??
---------------------------
+## [v0.0.0-alpha.1] - 2026-??-??
 
 ### Added
-- 
+
+-
 
 ### Fixed
-- 
+
+-
 
 ### Changed
 -
