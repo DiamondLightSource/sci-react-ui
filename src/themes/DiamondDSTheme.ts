@@ -284,9 +284,19 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       // ─── BUTTON ────────────────────────────────────────────────────────────
 
       MuiButton: {
+        defaultProps: {
+          focusRipple: false,
+        },
         styleOverrides: {
           root: ({ ownerState }: { ownerState: ButtonProps; theme: Theme }): CSSObject => {
-            const base: CSSObject = { textTransform: "none" };
+            const base: CSSObject = {
+              textTransform: "none",
+              "--_ds-focus-ring-color": "var(--ds-focus-ring-color)",
+              "&.Mui-focusVisible": {
+                outline: "var(--ds-focus-ring-width) solid var(--_ds-focus-ring-color)",
+                outlineOffset: "var(--ds-focus-ring-offset)",
+              },
+            };
 
             const variant = ownerState.variant ?? "text";
             const rawColour = (ownerState.color ?? "primary") as MuiColour;
@@ -301,10 +311,12 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             const intentOutlinedFg = `var(--ds-intent-${colour}-outlined-fg)`;
             const intentOutlinedBorder = `var(--ds-intent-${colour}-outlined-border)`;
+            const focusRingColour = `var(--ds-focus-ring-color-${colour})`;
 
             if (variant === "outlined") {
               return {
                 ...base,
+                "--_ds-focus-ring-color": focusRingColour,
                 color: intentOutlinedFg,
                 borderColor: intentOutlinedBorder,
                 "&:hover": {
@@ -316,11 +328,15 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             if (variant === "text") {
               return {
                 ...base,
+                "--_ds-focus-ring-color": focusRingColour,
                 color: intentOutlinedFg,
               } as CSSObject;
             }
 
-            return base;
+            return {
+              ...base,
+              "--_ds-focus-ring-color": focusRingColour,
+            } as CSSObject;
           },
         },
       },
@@ -724,7 +740,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               : "var(--ds-control-neutral)";
 
             return {
-              "&:hover, &.Mui-focusVisible": { backgroundColor: "transparent" },
+              "&:hover, &.Mui-focusVisible": { 
+                backgroundColor: "transparent"
+              },
               "&:not(.Mui-checked)": {
                 color: "var(--ds-radio-unchecked-stroke)",
                 "--ds-radio-stroke": "var(--ds-radio-unchecked-stroke)",

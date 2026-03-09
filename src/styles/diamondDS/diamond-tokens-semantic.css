@@ -66,7 +66,7 @@
      Intent-specific focus rings for accessibility
      ═══════════════════════════════════════ */
 
-    /* Emphasis = step 7 (hover border for intent controls) */
+    /* Emphasis = step 8 (hover border for intent controls) */
     --ds-border-emphasis-primary: var(--ds-indigo-8);
     --ds-border-emphasis-secondary: var(--ds-navy-8);
     --ds-border-emphasis-success: var(--ds-green-8);
@@ -74,7 +74,7 @@
     --ds-border-emphasis-error: var(--ds-red-8);
     --ds-border-emphasis-info: var(--ds-cyan-8);
 
-    /* Strong = step 8 (focus underline / outline for intent controls) */
+    /* Strong = step 9 (focus underline / outline for intent controls) */
     --ds-border-strong-primary: var(--ds-indigo-9);
     --ds-border-strong-secondary: var(--ds-navy-9);
     --ds-border-strong-success: var(--ds-green-9);
@@ -89,6 +89,21 @@
     --ds-border-focus-warning: var(--ds-border-strong-warning);
     --ds-border-focus-error: var(--ds-border-strong-error);
     --ds-border-focus-info: var(--ds-border-strong-info);
+
+    /* Focus Ring - Systen */
+    --ds-focus-ring-width: 2px;
+    --ds-focus-ring-offset: 2px;
+
+    /* Focus Ring */
+    --ds-focus-ring-color: var(--ds-border-emphasis-primary);
+
+    /* Intent overrides */
+    --ds-focus-ring-color-primary: var(--ds-border-emphasis-primary);
+    --ds-focus-ring-color-secondary: var(--ds-border-emphasis-secondary);
+    --ds-focus-ring-color-success: var(--ds-border-emphasis-success);
+    --ds-focus-ring-color-warning: var(--ds-border-emphasis-warning);
+    --ds-focus-ring-color-error: var(--ds-border-emphasis-error);
+    --ds-focus-ring-color-info: var(--ds-border-emphasis-info);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - PRIMARY
