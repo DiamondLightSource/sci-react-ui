@@ -8,7 +8,7 @@ import {
   type MenuItemProps,
 } from "@mui/material";
 import React, { useState, forwardRef, useId } from "react";
-import { ExpandMore } from "@mui/icons-material";
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import { NavLink, NavLinkProps } from "./Navbar";
 
 type NavMenuLinkProps = MenuItemProps & NavLinkProps;
@@ -108,7 +108,7 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         }}
       >
         <Typography>{label}</Typography>
-        <ExpandMore
+        <ExpandMoreIcon
           sx={{
             transition: "transform .25s",
             transform: `rotate(${open ? -180 : 0}deg)`,

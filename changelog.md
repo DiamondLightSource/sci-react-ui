@@ -1,6 +1,12 @@
 SciReactUI Changelog
 ====================
 
+[v0.4.2] - unreleased
+---------------------
+
+### Fixed
+- Icon imports were causing issues downstream when components are unit tested.
+
 [v0.4.1] - 2026-02-24
 ---------------------
 

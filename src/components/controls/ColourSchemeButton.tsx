@@ -1,8 +1,10 @@
 import { useColorScheme, useTheme } from "@mui/material";
 import { IconButton, IconButtonProps } from "@mui/material";
 
-import LightMode from "@mui/icons-material/LightMode";
-import Bedtime from "@mui/icons-material/Bedtime";
+import {
+  LightMode as LightModeIcon,
+  Bedtime as BedtimeIcon,
+} from "@mui/icons-material";
 
 import { ColourSchemes } from "../../utils/globals";
 
@@ -38,7 +40,7 @@ const ColourSchemeButton = (props: IconButtonProps) => {
         if (props.onClick) props.onClick(event);
       }}
     >
-      {isDark() ? <Bedtime /> : <LightMode />}
+      {isDark() ? <BedtimeIcon /> : <LightModeIcon />}
     </IconButton>
   );
 };
