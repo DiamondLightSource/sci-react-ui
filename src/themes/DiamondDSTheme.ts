@@ -286,9 +286,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiButton: {
         defaultProps: {
           focusRipple: false,
+          disableElevation: true,
         },
         styleOverrides: {
-          root: ({ ownerState }: { ownerState: ButtonProps; theme: Theme }): CSSObject => {
+          _root: ({ ownerState }: { ownerState: ButtonProps; theme: Theme; }): CSSObject => {
             const base: CSSObject = {
               textTransform: "none",
               "--_ds-focus-ring-color": "var(--ds-focus-ring-color)",
@@ -337,6 +338,24 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               ...base,
               "--_ds-focus-ring-color": focusRingColour,
             } as CSSObject;
+          },
+          get root() {
+            return this._root;
+          },
+          set root(value) {
+            this._root = value;
+          },
+          contained: {
+            boxShadow: "none",
+            "&:hover": {
+              boxShadow: "none",
+            },
+            "&:active": {
+              boxShadow: "none",
+            },
+            "&:focus": {
+              boxShadow: "none",
+            },            
           },
         },
       },

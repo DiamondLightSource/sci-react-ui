@@ -29,13 +29,13 @@
     --ds-bg-overlay: rgba(0, 0, 0, 0.5);          /* Modal backdrop */
 
     /* BORDERS */
-    --ds-border-subtle: var(--ds-olive-7);        /* Non-interactive dividers */
-    --ds-border-emphasis: var(--ds-olive-8);      /* Interactive controls baseline */
-    --ds-border-strong: var(--ds-olive-9);        /* Interactive hover state */
+    --ds-border-subtle: var(--ds-olive-6);        /* Non-interactive dividers */
+    --ds-border-emphasis: var(--ds-olive-7);      /* Interactive controls baseline */
+    --ds-border-strong: var(--ds-olive-8);        /* Interactive hover state */
     --ds-border-control: var(--ds-olive-8);       /* Form control default */
     --ds-border-control-hover: var(--ds-olive-9); /* Form control hover */
     --ds-border-disabled: var(--ds-olive-6);      /* Disabled state */
-    --ds-border-focus: var(--ds-olive-9);         /* Neutral focus ring */
+    --ds-border-focus: var(--ds-olive-8);         /* Neutral focus ring */
 
     /* FOREGROUNDS */
     --ds-fg-default: var(--ds-olive-12);             /* Primary text */
@@ -67,20 +67,20 @@
      ═══════════════════════════════════════ */
 
     /* Emphasis = step 8 (hover border for intent controls) */
-    --ds-border-emphasis-primary: var(--ds-indigo-8);
-    --ds-border-emphasis-secondary: var(--ds-navy-8);
-    --ds-border-emphasis-success: var(--ds-green-8);
-    --ds-border-emphasis-warning: var(--ds-orange-8);
-    --ds-border-emphasis-error: var(--ds-red-8);
-    --ds-border-emphasis-info: var(--ds-cyan-8);
+    --ds-border-emphasis-primary: var(--ds-indigo-7);
+    --ds-border-emphasis-secondary: var(--ds-olive-7);
+    --ds-border-emphasis-success: var(--ds-green-7);
+    --ds-border-emphasis-warning: var(--ds-orange-7);
+    --ds-border-emphasis-error: var(--ds-red-7);
+    --ds-border-emphasis-info: var(--ds-cyan-7);
 
     /* Strong = step 9 (focus underline / outline for intent controls) */
-    --ds-border-strong-primary: var(--ds-indigo-9);
-    --ds-border-strong-secondary: var(--ds-navy-9);
-    --ds-border-strong-success: var(--ds-green-9);
-    --ds-border-strong-warning: var(--ds-orange-9);
-    --ds-border-strong-error: var(--ds-red-9);
-    --ds-border-strong-info: var(--ds-cyan-9);
+    --ds-border-strong-primary: var(--ds-indigo-8);
+    --ds-border-strong-secondary: var(--ds-olive-8);
+    --ds-border-strong-success: var(--ds-green-8);
+    --ds-border-strong-warning: var(--ds-orange-8);
+    --ds-border-strong-error: var(--ds-red-8);
+    --ds-border-strong-info: var(--ds-cyan-8);
 
     /* Focus aliases (use strong step 8) */
     --ds-border-focus-primary: var(--ds-border-strong-primary);
@@ -95,15 +95,15 @@
     --ds-focus-ring-offset: 2px;
 
     /* Focus Ring */
-    --ds-focus-ring-color: var(--ds-border-emphasis-primary);
+    --ds-focus-ring-color: var(--ds-border-strong-primary);
 
     /* Intent overrides */
-    --ds-focus-ring-color-primary: var(--ds-border-emphasis-primary);
-    --ds-focus-ring-color-secondary: var(--ds-border-emphasis-secondary);
-    --ds-focus-ring-color-success: var(--ds-border-emphasis-success);
-    --ds-focus-ring-color-warning: var(--ds-border-emphasis-warning);
-    --ds-focus-ring-color-error: var(--ds-border-emphasis-error);
-    --ds-focus-ring-color-info: var(--ds-border-emphasis-info);
+    --ds-focus-ring-color-primary: var(--ds-border-strong-primary);
+    --ds-focus-ring-color-secondary: var(--ds-border-strong-secondary);
+    --ds-focus-ring-color-success: var(--ds-border-strong-success);
+    --ds-focus-ring-color-warning: var(--ds-border-strong-warning);
+    --ds-focus-ring-color-error: var(--ds-border-strong-error);
+    --ds-focus-ring-color-info: var(--ds-border-strong-info);
 
   /* ═══════════════════════════════════════
      C) INTENT TOKENS - PRIMARY
@@ -142,8 +142,8 @@
     --ds-intent-primary-subtle-fg: var(--ds-indigo-11);
 
     /* Outlined */
-    --ds-intent-primary-outlined-border: var(--ds-indigo-9);
-    --ds-intent-primary-outlined-border-hover: var(--ds-indigo-10);
+    --ds-intent-primary-outlined-border: var(--ds-indigo-7);
+    --ds-intent-primary-outlined-border-hover: var(--ds-indigo-8);
     --ds-intent-primary-outlined-fg: var(--ds-indigo-11);
 
   /* ═══════════════════════════════════════
@@ -160,8 +160,8 @@
     --ds-intent-secondary-subtle-bg-active: var(--ds-olive-5);
     --ds-intent-secondary-subtle-fg: var(--ds-olive-11);
 
-    --ds-intent-secondary-outlined-border: var(--ds-olive-9);
-    --ds-intent-secondary-outlined-border-hover: var(--ds-olive-10);
+    --ds-intent-secondary-outlined-border: var(--ds-olive-7);
+    --ds-intent-secondary-outlined-border-hover: var(--ds-olive-8);
     --ds-intent-secondary-outlined-fg: var(--ds-olive-11);
 
   /* ═══════════════════════════════════════
@@ -179,8 +179,8 @@
     --ds-intent-error-subtle-fg: var(--ds-red-11);
     --ds-intent-error-subtle-border: var(--ds-red-7);
 
-    --ds-intent-error-outlined-border: var(--ds-red-9);
-    --ds-intent-error-outlined-border-hover: var(--ds-red-10);
+    --ds-intent-error-outlined-border: var(--ds-red-7);
+    --ds-intent-error-outlined-border-hover: var(--ds-red-8);
     --ds-intent-error-outlined-fg: var(--ds-red-11);
 
   /* ═══════════════════════════════════════
@@ -198,8 +198,8 @@
     --ds-intent-success-subtle-fg: var(--ds-green-11);
     --ds-intent-success-subtle-border: var(--ds-green-7);
 
-    --ds-intent-success-outlined-border: var(--ds-green-9);
-    --ds-intent-success-outlined-border-hover: var(--ds-green-10);
+    --ds-intent-success-outlined-border: var(--ds-green-7);
+    --ds-intent-success-outlined-border-hover: var(--ds-green-8);
     --ds-intent-success-outlined-fg: var(--ds-green-11);
 
   /* ═══════════════════════════════════════
@@ -217,8 +217,8 @@
     --ds-intent-warning-subtle-fg: var(--ds-orange-11);
     --ds-intent-warning-subtle-border: var(--ds-orange-7);
 
-    --ds-intent-warning-outlined-border: var(--ds-orange-9);
-    --ds-intent-warning-outlined-border-hover: var(--ds-orange-10);
+    --ds-intent-warning-outlined-border: var(--ds-orange-7);
+    --ds-intent-warning-outlined-border-hover: var(--ds-orange-8);
     --ds-intent-warning-outlined-fg: var(--ds-orange-11);
 
   /* ═══════════════════════════════════════
@@ -236,8 +236,8 @@
     --ds-intent-info-subtle-fg: var(--ds-cyan-11);
     --ds-intent-info-subtle-border: var(--ds-cyan-7);
 
-    --ds-intent-info-outlined-border: var(--ds-cyan-9);
-    --ds-intent-info-outlined-border-hover: var(--ds-cyan-10);
+    --ds-intent-info-outlined-border: var(--ds-cyan-7);
+    --ds-intent-info-outlined-border-hover: var(--ds-cyan-8);
     --ds-intent-info-outlined-fg: var(--ds-cyan-11);
 
    /* ═══════════════════════════════════════
