@@ -214,11 +214,13 @@ Publishing
 Steps needed when publishing a new version.
 - Create a new branch
   - Update the version in [./package.json](package.json) (greater than the published one!)
+    - For a normal version use v##.##.## , e.g. v1.2.3 , v12.9.345
+    - For a prerelease version append alpha or beta, e.g v1.2.3-alpha.1 , v0.9.345-beta.7 )
   - Update the changelog in [./changelog.md](changelog.md) with added/changed/fixed, new version number and today's date.
   - Check this readme still makes sense with the new changes you are about to publish.
   - Check the introduction file [./src/storybook/Introduction.mdx](src/storybook/Introduction.mdx) in Storybook still makes sense.
 - Push the branch, get it reviewed and merge.
-- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3", or "v1.2.3-alpha.1") 
+- Now create a new tag in the format "v" followed by the version (it should match the one in package.json)
   - Push it.
 - A new npm version should now have been published:
   - https://www.npmjs.com/package/@diamondlightsource/sci-react-ui?activeTab=versions
@@ -231,12 +233,11 @@ Steps needed when publishing a new version.
   - Press "Publish Release"
 - It is now published!
 
-
 ### Post Publish Changes
-It's useful to increase the version in [./package.json](package.json) with add "alpha", e.g `"version": "0.2.1alpha",`.
-and create a new section in  [./changelog.md](changelog.md) so subsequent changes can be append when needed/ e.g.:
+It's useful to increase the version in [./package.json](package.json) with "alpha", e.g `"version": "0.4.2-alpha.1",`.
+and create a new section in  [./changelog.md](changelog.md) so subsequent changes can be append when needed:
 ```text
-[v#.#.#] - 2025-##-##
+[v..-alpha.1] - unreleased
 ---------------------
 
 ### Added
