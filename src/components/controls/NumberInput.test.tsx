@@ -28,6 +28,13 @@ describe("NumberInput", () => {
     expect(screen.queryByText("Invalid input")).not.toBeInTheDocument();
   });
 
+  it("default helper text is not shown", async () => {
+    render(
+      <NumberInput label="numberbox" numberMode="natural" helperText={false} />,
+    );
+    expect(screen.queryByText("A natural number")).not.toBeInTheDocument();
+  });
+
   it("is marked valid when limits are present", async () => {
     render(
       <NumberInput
