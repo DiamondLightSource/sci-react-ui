@@ -44,6 +44,17 @@ export const NumberWithLabel: Story = {
   },
 };
 
+export const NumberWithoutHelperText: Story = {
+  args: { label: "A floating point number", helperText: false },
+  parameters: {
+    docs: {
+      description: {
+        story: "Number input field without default helper text.",
+      },
+    },
+  },
+};
+
 export const InvalidDefaultNumber: Story = {
   args: {
     label: "An invalid default number",

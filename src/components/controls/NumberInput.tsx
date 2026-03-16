@@ -26,6 +26,7 @@ interface NumberInputTextProps {
   handleCommit?: () => void;
   commitOnReturn?: boolean;
   commitOnBlur?: boolean;
+  helperText?: boolean;
   minValue: number;
   maxValue: number;
 }
@@ -42,19 +43,15 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   handleCommit,
   commitOnReturn,
   commitOnBlur,
+  helperText,
   minValue,
   maxValue,
 }) => {
   const numberRegex = Modes[numberMode];
 
-  const validHelperText = `A ${numberMode} number. Limits: ${minValue} to ${maxValue}`;
-
-  // const checkLimits = (value: string) => {
-  //   setIsInLimits(
-  //     parseFloat(value) >= minValue && parseFloat(value) <= maxValue,
-  //   );
-  //   return parseFloat(value) >= minValue && parseFloat(value) <= maxValue;
-  // };
+  const validHelperText = !helperText
+    ? ""
+    : `A ${numberMode} number. Limits: ${minValue} to ${maxValue}`;
 
   const handleInputChange = (value: string) => {
     setIsInLimits(
@@ -105,6 +102,7 @@ interface NumberInputProps {
   parameters?: object;
   commitOnReturn?: boolean;
   commitOnBlur?: boolean;
+  helperText?: boolean;
   minValue?: number;
   maxValue?: number;
 }
@@ -116,6 +114,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   onCommit,
   commitOnReturn = true,
   commitOnBlur = true,
+  helperText = true,
   minValue = numberMode == "natural" ? 0 : -Infinity,
   maxValue = Infinity,
 }) => {
@@ -152,6 +151,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
       handleCommit={handleCommit}
       commitOnReturn={commitOnReturn}
       commitOnBlur={commitOnBlur}
+      helperText={helperText}
       minValue={minValue}
       maxValue={maxValue}
     />
