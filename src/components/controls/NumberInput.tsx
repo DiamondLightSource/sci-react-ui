@@ -21,6 +21,8 @@ interface NumberInputTextProps {
   setNumberText: (v: string) => void;
   isValid: boolean;
   setIsValid: (v: boolean) => void;
+  isInLimits: boolean;
+  setIsInLimits: (v: boolean) => void;
   handleCommit?: () => void;
   commitOnReturn?: boolean;
   commitOnBlur?: boolean;
@@ -35,6 +37,8 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   setNumberText,
   isValid,
   setIsValid,
+  isInLimits,
+  setIsInLimits,
   handleCommit,
   commitOnReturn,
   commitOnBlur,
@@ -43,14 +47,20 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
 }) => {
   const numberRegex = Modes[numberMode];
 
-  const helperText = `A ${numberMode} number. Limits: ${minValue} to ${maxValue}`;
+  const validHelperText = `A ${numberMode} number. Limits: ${minValue} to ${maxValue}`;
 
-  const checkLimits = (value: string) => {
-    return parseFloat(value) >= minValue && parseFloat(value) <= maxValue;
-  };
+  // const checkLimits = (value: string) => {
+  //   setIsInLimits(
+  //     parseFloat(value) >= minValue && parseFloat(value) <= maxValue,
+  //   );
+  //   return parseFloat(value) >= minValue && parseFloat(value) <= maxValue;
+  // };
 
   const handleInputChange = (value: string) => {
-    setIsValid(numberRegex.test(value) && checkLimits(value));
+    setIsInLimits(
+      parseFloat(value) >= minValue && parseFloat(value) <= maxValue,
+    );
+    setIsValid(numberRegex.test(value));
     setNumberText(value);
   };
 
@@ -73,8 +83,14 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
       onChange={(e) => handleInputChange(e.target.value)}
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
-      error={!isValid}
-      helperText={!isValid ? "Invalid input" : helperText}
+      error={!isValid || !isInLimits}
+      helperText={
+        !isValid || !isInLimits
+          ? !isValid
+            ? "Invalid input"
+            : "Outside limits"
+          : validHelperText
+      }
       variant="outlined"
     />
   );
@@ -109,6 +125,12 @@ const NumberInput: React.FC<NumberInputProps> = ({
   const [isValid, setIsValid] = useState(
     !defaultValue ? true : Modes[numberMode].test(defaultValue.toString()),
   );
+  const [isInLimits, setIsInLimits] = useState(
+    !defaultValue
+      ? true
+      : parseFloat(defaultValue.toString()) >= minValue &&
+          parseFloat(defaultValue.toString()) <= maxValue,
+  );
 
   const handleCommit = () => {
     const parsedValue: number = parseFloat(numberText);
@@ -118,23 +140,21 @@ const NumberInput: React.FC<NumberInputProps> = ({
   };
 
   return (
-    <>
-      {
-        <NumberInputText
-          label={label}
-          numberMode={numberMode}
-          numberText={numberText}
-          setNumberText={setNumberText}
-          isValid={isValid}
-          setIsValid={setIsValid}
-          handleCommit={handleCommit}
-          commitOnReturn={commitOnReturn}
-          commitOnBlur={commitOnBlur}
-          minValue={minValue}
-          maxValue={maxValue}
-        />
-      }
-    </>
+    <NumberInputText
+      label={label}
+      numberMode={numberMode}
+      numberText={numberText}
+      setNumberText={setNumberText}
+      isValid={isValid}
+      setIsValid={setIsValid}
+      isInLimits={isInLimits}
+      setIsInLimits={setIsInLimits}
+      handleCommit={handleCommit}
+      commitOnReturn={commitOnReturn}
+      commitOnBlur={commitOnBlur}
+      minValue={minValue}
+      maxValue={maxValue}
+    />
   );
 };
 
