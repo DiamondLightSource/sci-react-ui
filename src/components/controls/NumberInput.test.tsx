@@ -4,9 +4,21 @@ import { NumberInput } from "./NumberInput";
 describe("NumberInput", () => {
   it("default value is marked invalid", async () => {
     render(
-      <NumberInput label="numberbox" numberMode="natural" defaultValue={-5} />,
+      <NumberInput label="numberbox" numberMode="natural" defaultValue={5.2} />,
     );
     expect(screen.queryByText("Invalid input")).toBeInTheDocument();
+  });
+
+  it("default value is marked outside limits", async () => {
+    render(
+      <NumberInput
+        label="numberbox"
+        numberMode="natural"
+        defaultValue={15}
+        maxValue={10}
+      />,
+    );
+    expect(screen.queryByText("Outside limits")).toBeInTheDocument();
   });
 
   it("default value is marked valid", async () => {
@@ -35,14 +47,14 @@ describe("NumberInput", () => {
     render(
       <NumberInput
         label="numberbox"
-        numberMode="natural"
+        numberMode="integer"
         defaultValue={1}
         minValue={0}
       />,
     );
     const numberInput = screen.getByLabelText("numberbox");
     fireEvent.change(numberInput, { target: { value: "-1" } });
-    expect(screen.queryByText("Invalid input")).toBeInTheDocument();
+    expect(screen.queryByText("Outside limits")).toBeInTheDocument();
   });
 
   it("is marked invalid when an upper limit is exceeded", async () => {
@@ -56,7 +68,7 @@ describe("NumberInput", () => {
     );
     const numberInput = screen.getByLabelText("numberbox");
     fireEvent.change(numberInput, { target: { value: "15" } });
-    expect(screen.queryByText("Invalid input")).toBeInTheDocument();
+    expect(screen.queryByText("Outside limits")).toBeInTheDocument();
   });
 
   it("does not accept negative numbers in natural mode", async () => {

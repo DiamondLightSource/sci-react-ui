@@ -59,11 +59,29 @@ export const InvalidDefaultNumber: Story = {
   },
 };
 
+export const DefaultNumberOutsideLimits: Story = {
+  args: {
+    label: "A default number outside limits",
+    numberMode: "integer",
+    defaultValue: "20",
+    minValue: 0,
+    maxValue: 10,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Number input field with a label and an invalid default value given.",
+      },
+    },
+  },
+};
+
 export const NaturalNumberWithLimits: Story = {
   args: {
     label: "A natural number",
     numberMode: "natural",
-    defaultValue: 1,
+    defaultValue: 10,
     minValue: 0,
     maxValue: 15,
   },
