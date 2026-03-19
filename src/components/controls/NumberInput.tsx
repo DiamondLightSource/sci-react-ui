@@ -62,13 +62,24 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   };
 
   const handleKeyDown = (event: { key: string }) => {
-    if (event.key === "Enter" && commitOnReturn && isValid && handleCommit) {
-      handleCommit();
+    if (
+      event.key === "Enter" &&
+      isValid &&
+      isInLimits &&
+      commitOnReturn &&
+      handleCommit
+    ) {
+      if (commitOnBlur) {
+        const input = document.activeElement as HTMLElement;
+        input.blur();
+      } else {
+        handleCommit();
+      }
     }
   };
 
   const handleBlur = () => {
-    if (isValid && commitOnBlur && handleCommit) {
+    if (isValid && isInLimits && commitOnBlur && handleCommit) {
       handleCommit();
     }
   };
