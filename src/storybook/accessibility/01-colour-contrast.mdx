@@ -1,108 +1,145 @@
 import { Meta } from "@storybook/blocks";
 
 <Meta title="Accessibility/Colour contrast" />
-
 <div>
   <h1>Colour contrast</h1>
+<small>Updated 23 March 2026</small>
 
 <p>
-  Colour contrast affects readability, accuracy, and fatigue. In data-heavy
-  scientific tools, poor contrast slows users down and increases errors.
+  Colour contrast directly affects readability, speed, and error rate. In dense,
+  data-heavy scientific interfaces, poor contrast increases cognitive load and
+  slows decision-making.
 </p>
 
 <p>
-  We use both WCAG contrast ratios and APCA to balance compliance with
-  real-world readability.
+  We prioritise perceptual contrast (APCA) for real-world readability, while
+  maintaining WCAG 2.x as a compliance baseline.
 </p>
 
-<h2>WCAG contrast</h2>
+<h2>Why contrast needs a modern approach</h2>
 
 <p>
-  WCAG 2.x contrast ratios provide a clear, widely accepted compliance baseline.
+  Traditional contrast ratios (WCAG 2.x) are based on simplified luminance
+  calculations. They do not account for how people actually see, especially
+  across different font sizes, weights, and light/dark environments.
 </p>
 
-<ul>
-  <li>Used to define minimum acceptable contrast.</li>
-  <li>Acts as a hard “do not go below” threshold.</li>
-  <li>Especially important for small text and critical UI.</li>
-</ul>
-
-<h2>APCA contrast</h2>
-
 <p>
-  APCA (Advanced Perceptual Contrast Algorithm) models human perception more
-  closely. It accounts for font size, weight, and polarity (light-on-dark vs
-  dark-on-light).
+  This leads to common issues:
 </p>
 
 <ul>
-  <li>Used to tune readability in light and dark themes.</li>
-  <li>Helps avoid over-contrast that causes eye strain.</li>
-  <li>Works better for large text and dense information.</li>
+  <li>Combinations that “pass” but feel hard to read.</li>
+  <li>Overly strong contrast that causes eye strain in dark mode.</li>
+  <li>Poor performance with saturated colours (green, orange, red).</li>
 </ul>
+
+<p>
+  APCA addresses these limitations by modelling perceived contrast instead of
+  raw luminance difference.
+</p>
+
+<h2>APCA contrast (primary)</h2>
+
+<p>
+  APCA (Advanced Perceptual Contrast Algorithm) reflects how contrast is
+  actually experienced by users.
+</p>
+
+<ul>
+  <li>Accounts for font size, weight, and spatial frequency.</li>
+  <li>Handles polarity correctly (light-on-dark vs dark-on-light).</li>
+  <li>Produces more reliable results for real UI text.</li>
+  <li>Reduces eye strain in long-running workflows.</li>
+</ul>
+
+<p>
+  We use APCA to define token values, component defaults, and interaction states.
+</p>
+
+<h2>WCAG 2.x contrast (baseline)</h2>
+
+<p>
+  WCAG 2.x contrast ratios remain the current regulatory standard.
+</p>
+
+<ul>
+  <li>Defines minimum acceptable contrast thresholds.</li>
+  <li>Used as a strict “do not go below” constraint.</li>
+  <li>Required for compliance and accessibility audits.</li>
+</ul>
+
+<p>
+  However, WCAG 2.x should not be used alone to judge readability quality.
+</p>
 
 <h2>How we use them together</h2>
 
 <p>
-  All text should meet WCAG minimums. APCA is then used to refine token values
-  for comfort and hierarchy.
+  Contrast decisions follow a clear order:
+</p>
+
+<ul>
+  <li><strong>1. Design using APCA</strong> for perceptual readability.</li>
+  <li><strong>2. Validate against WCAG</strong> for compliance.</li>
+  <li><strong>3. Adjust only if required</strong>, without degrading usability.</li>
+</ul>
+
+<p>
+  This ensures interfaces are both compliant and genuinely usable.
 </p>
 
   <div>
     <h2>Colour-specific considerations (green, orange, and red)</h2>
 
     <p>
-      Some hues behave poorly for perceived contrast, even when WCAG 2 contrast ratios pass.
+      Some hues behave poorly for perceived contrast, even when WCAG 2 ratios pass.
     </p>
 
     <p>
-      Green, orange, and red are common examples because perceived contrast is affected by luminance,
-      surrounding colours, polarity (light-on-dark vs dark-on-light), and colour vision differences.
+      Green, orange, and red are particularly sensitive due to luminance behaviour,
+      human vision response, and colour vision differences.
     </p>
 
     <p>
-      A practical issue we see in real interfaces: WCAG 2 ratios can sometimes indicate that black
-      text on a saturated green, orange, or red background is “high contrast”, but in practice it
-      can feel low-contrast, vibrating, or tiring to read — especially for small text, thinner
-      fonts, or dense data. This gap between numeric ratios and human perception is one of the
-      problems APCA is designed to address.
+      A common issue in real interfaces: WCAG 2 may suggest black text on saturated
+      colours is “high contrast”, but visually it can feel unstable, vibrating, or
+      tiring, especially in small or dense text.
+    </p>
+
+    <p>
+      APCA more accurately reflects these perception issues.
     </p>
 
     <ul>
       <li>
-        <strong>Green</strong>: may appear muddy or unstable with dark text, and can be difficult
-        for users with common colour vision differences.
+        <strong>Green</strong>: can appear muddy or unstable with dark text,
+        especially at smaller sizes.
       </li>
       <li>
-        <strong>Orange</strong>: often looks washed out on light backgrounds or overly bright on
-        dark backgrounds, reducing legibility.
+        <strong>Orange</strong>: often lacks perceived depth, reducing clarity on
+        both light and dark surfaces.
       </li>
       <li>
-        <strong>Red</strong>: can appear low-contrast or “vibrating” with dark text, and is
-        particularly problematic for error or alert states if not handled carefully.
+        <strong>Red</strong>: prone to “vibration” effects and reduced legibility,
+        particularly in error states.
       </li>
     </ul>
 
     <p>
-      When using these colours for status, emphasis, or meaning:
+      When using these colours:
     </p>
 
     <ul>
-      <li>Never rely on colour alone — pair with text, icons, or labels.</li>
-      <li>Test in both light and dark modes, at realistic sizes and weights.</li>
-      <li>Use APCA to assess perceived readability, not just WCAG 2 ratios.</li>
+      <li>Use APCA to validate readability, not just WCAG ratios.</li>
+      <li>Test across sizes, weights, and themes.</li>
+      <li>Always pair with text, icons, or labels.</li>
     </ul>
 
+    <p><strong>WCAG 2 vs APCA: why “passes” can still fail users</strong></p>
     <p>
-      The examples below illustrate combinations that may pass WCAG 2 but still feel hard to read
-      in practice.
-    </p>
-
-    <p><strong>WCAG 2 vs APCA: why “passes” can still look wrong</strong></p>
-    <p>
-      WCAG 2 contrast ratio is a useful baseline, but it can recommend text colours that feel
-      low-contrast in practice (especially on saturated greens/oranges/reds). APCA is designed
-      to better reflect perceived contrast and readability.
+      WCAG 2 is a useful baseline, but it does not reliably predict readability.
+      APCA aligns more closely with how users actually perceive contrast.
     </p>
 
 {/* START EXAMPLE */}
@@ -206,7 +243,7 @@ import { Meta } from "@storybook/blocks";
           <p className="ds-a11y-rowTitle">Light surface</p>
 
           <div className="ds-a11y-row">
-            <p><strong>Green</strong> bg `--ds-green-9` `#4CA65A`</p>
+            <h3><strong>Green</strong> bg</h3> `--ds-green-9` `#008C15`
             <div className="ds-chipRow">
               <div>
                 <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
@@ -214,7 +251,7 @@ import { Meta } from "@storybook/blocks";
                   className="ds-chip"
                   data-bg
                   data-fg
-                  style={{ ['--bg']: '#4CA65A', ['--fg']: '#000000' }}
+                  style={{ ['--bg']: '#008C15', ['--fg']: '#000000' }}
                 >
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
@@ -226,7 +263,7 @@ import { Meta } from "@storybook/blocks";
                   className="ds-chip"
                   data-bg
                   data-fg
-                  style={{ ['--bg']: '#4CA65A', ['--fg']: '#FFFFFF' }}
+                  style={{ ['--bg']: '#008C15', ['--fg']: '#FFFFFF' }}
                 >
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
@@ -235,18 +272,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Orange</strong> bg `--ds-orange-9` `#FF780A`</p>
+            <h3><strong>Orange</strong> bg</h3> `--ds-orange-9` `#FF6900`
             <div className="ds-chipRow">
               <div>
                 <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#FF780A', ['--fg']: '#000000' }}>
+                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#FF6900', ['--fg']: '#000000' }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
 
               <div>
                 <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#FF780A', ['--fg']: '#FFFFFF' }}>
+                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#FF6900', ['--fg']: '#FFFFFF' }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
@@ -254,18 +291,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Red</strong> bg `--ds-red-9` `#E54D2E`</p>
+            <h3><strong>Red</strong> bg</h3> `--ds-red-9` `#E10600`
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E54D2E', ['--fg']: '#000000' }}>
+                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong> ✅</p>
+                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E10600', ['--fg']: '#ffffff' }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
 
               <div>
                 <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E54D2E', ['--fg']: '#FFFFFF' }}>
+                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E10600', ['--fg']: '#FFFFFF' }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
@@ -278,10 +315,10 @@ import { Meta } from "@storybook/blocks";
           <p className="ds-a11y-rowTitle">Dark (inverse) surface</p>
 
           <div className="ds-a11y-row">
-            <p><strong>Green</strong> bg `--ds-green-9` `#30A46C`</p>
+            <h3><strong>Green</strong> bg</h3> `--ds-green-9` `#30A46C`
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
+                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong> ✅</p>
                 <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#30A46C', ['--fg']: '#FFFFFF' }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
@@ -289,7 +326,7 @@ import { Meta } from "@storybook/blocks";
 
               <div>
                 <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#30A46C', ['--fg']: '#000000' }}>
+                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#30A46C', ['--fg']: '#FFFFFF' }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
               </div>
@@ -297,7 +334,7 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Orange</strong> bg `--ds-orange-9` `#F76B15`</p>
+            <h3><strong>Orange</strong> bg</h3> `--ds-orange-9` `#F76B15`
             <div className="ds-chipRow">
               <div>
                 <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
@@ -316,7 +353,7 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Red</strong> bg `--ds-red-9` `#E54D2E`</p>
+            <h3><strong>Red</strong> bg</h3> `--ds-red-9` `#E54D2E`
             <div className="ds-chipRow">
               <div>
                 <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
@@ -336,7 +373,7 @@ import { Meta } from "@storybook/blocks";
         </div>
       </div>
     </div>
-
+<br />
       <div className="ds-note">
         <p style={{ marginBottom: 6 }}><strong>How to use this</strong></p>
         <ul>
@@ -352,49 +389,75 @@ import { Meta } from "@storybook/blocks";
 <h2>Practical guidance</h2>
 <ul>
   <li>
-    <strong>Body text</strong>: prioritise APCA readability while meeting WCAG.
+    <strong>Body text</strong>: optimise for APCA readability first, then confirm WCAG.
   </li>
   <li>
-    <strong>UI chrome</strong>: prioritise WCAG clarity and consistency.
+    <strong>UI chrome</strong>: maintain clear separation and predictable hierarchy.
   </li>
   <li>
     <strong>Subtle text</strong>: only for non-essential information.
   </li>
   <li>
-    <strong>Disabled states</strong>: visually distinct but still readable where
-    meaning matters.
+    <strong>Disabled states</strong>: must remain distinguishable without becoming unreadable.
   </li>
 </ul>
 
 <h2>Common pitfalls</h2>
 <ul>
-  <li>Reducing contrast to “de-emphasise” text that still carries meaning.</li>
-  <li>Relying on colour alone for status or validation.</li>
-  <li>Forgetting that contrast behaves differently in dark mode.</li>
+  <li>Relying on WCAG ratios alone to judge readability.</li>
+  <li>Reducing contrast for visual “subtlety” where meaning is still required.</li>
+  <li>Using saturated colours without perceptual validation.</li>
+  <li>Ignoring polarity differences between light and dark mode.</li>
 </ul>
 
 <h2>When WCAG and APCA disagree</h2>
 <ul>
-  <li>If WCAG fails, the colour must change.</li>
+  <li>If WCAG fails, the colour must change (non-compliant).</li>
   <li>
-    If WCAG passes but APCA indicates poor readability, adjust for comfort.
+    If WCAG passes but APCA indicates poor readability, adjust the colour to improve perceptual contrast - WCAG compliance alone is not sufficient.
   </li>
-  <li>For critical UI, readability always wins over subtlety.</li>
+  <li>
+    In critical workflows, readability and accuracy always take precedence over visual subtlety.
+  </li>
 </ul>
 
 <h2>Future: WCAG 3 and APCA</h2>
 
 <p>
-  APCA is being developed as part of WCAG 3, which is still in progress. While
-  WCAG 2.x remains the formal standard today, WCAG 3 reflects a shift towards
-  perceptual models of contrast and readability.
+  WCAG 3 is moving towards perceptual contrast models, with APCA as a core
+  component. This reflects a broader shift from mathematical ratios to
+  human-centred readability.
 </p>
 
-<p>Our approach reflects this transition:</p>
+<p>
+  The exact contrast method is still evolving in the WCAG 3 draft, but current
+  direction and research strongly favour perceptual approaches such as APCA.
+</p>
+
+<p>
+  Our approach reflects where standards are going, not just where they are today:
+</p>
 
 <ul>
-  <li>WCAG 2.x is treated as the compliance baseline.</li>
-  <li>APCA is used to improve real-world readability and comfort.</li>
-  <li>This positions us closer to where accessibility standards are heading.</li>
+  <li>APCA defines how we design and tune contrast.</li>
+  <li>WCAG 2.x ensures compliance during the transition period.</li>
+  <li>
+    This reduces future rework as WCAG 3 becomes the formal standard.
+  </li>
 </ul>
+
+<p>
+  Learn more:
+</p>
+
+<ul>
+  <li>
+    <a href="https://git.apcacontrast.com/documentation/APCAeasyIntro" target="_blank" rel="noopener noreferrer">APCA (Advanced Perceptual Contrast Algorithm)</a>
+  </li>
+  <li>
+    <a href="https://www.w3.org/TR/wcag-3.0/" target="_blank" rel="noopener noreferrer">WCAG 3 (W3C Working Draft)</a>
+  </li>
+</ul>
+
+
 </div>
