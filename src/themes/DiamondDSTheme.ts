@@ -75,7 +75,6 @@ declare module "@mui/material/styles" {
       IntentColour,
       {
         subtle: string;
-        subtleHover: string;
       }
     >;
   }
@@ -97,7 +96,6 @@ declare module "@mui/material/styles" {
         IntentColour,
         {
           subtle?: string;
-          subtleHover?: string;
         }
       >
     >;
@@ -148,6 +146,9 @@ const getFocusOutline = (token?: string): CSSObject => ({
   },
 });
 
+const getOverlayInset = (token = "var(--ds-overlay-hover)") =>
+  `inset 0 0 0 9999px ${token}`;
+
 export const createMuiTheme = (mode: DSMode): Theme => {
   const DiamondDSThemeOptions = mergeThemeOptions({
     typography: {
@@ -185,15 +186,16 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       mode,
 
       action: {
-        hover: "var(--ds-surface-hover)",
-        selected: "var(--ds-surface-container-high)",
-        focus: "var(--ds-surface-hover)",
-        disabled: "rgba(0 0 0 / 0.38)",
-        disabledBackground: "rgba(0 0 0 / 0.12)",
-        hoverOpacity: 0.12,
-        selectedOpacity: 0.16,
-        disabledOpacity: 0.38,
-        focusOpacity: 0.16,
+        hover: "var(--ds-overlay-hover)",
+        selected: "var(--ds-overlay-selected)",
+        focus: "var(--ds-overlay-focus)",
+        disabled: "var(--ds-overlay-disabled)",
+        disabledBackground: "var(--ds-overlay-disabled-bg)",
+
+        hoverOpacity: 0.16,
+        selectedOpacity: 0.08,
+        disabledOpacity: 0.26,
+        focusOpacity: 0.10,
       },
 
       text: {
@@ -226,27 +228,21 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       intentSurface: {
         primary: {
           subtle: "var(--ds-primary-container)",
-          subtleHover: "var(--ds-primary-container-hover)",
         },
         secondary: {
           subtle: "var(--ds-secondary-container)",
-          subtleHover: "var(--ds-secondary-container-hover)",
         },
         error: {
           subtle: "var(--ds-danger-container)",
-          subtleHover: "var(--ds-danger-container-hover)",
         },
         warning: {
           subtle: "var(--ds-warning-container)",
-          subtleHover: "var(--ds-warning-container-hover)",
         },
         success: {
           subtle: "var(--ds-success-container)",
-          subtleHover: "var(--ds-success-container-hover)",
         },
         info: {
           subtle: "var(--ds-info-container)",
-          subtleHover: "var(--ds-info-container-hover)",
         },
       },
 
@@ -321,7 +317,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       grey: {
-        50:  "#F4F4F6",
+        50: "#F4F4F6",
         100: "#ECEDF0",
         200: "#E2E3E8",
         300: "#D4D7DF",
@@ -337,8 +333,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
     components: {
       MuiButtonBase: {
         defaultProps: {
-          FocusRipple: false,
-          disableFocusRipple: true,
+          disableRipple: true,
+          disableTouchRipple: true,
+          focusRipple: false,
         },
       },
 
@@ -373,7 +370,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
             const subtle = theme.palette.intentSurface[colour].subtle;
-            const subtleHover = theme.palette.intentSurface[colour].subtleHover;
 
             if (variant === "contained") {
               return {
@@ -397,7 +393,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 borderColor: p.main,
                 backgroundColor: subtle,
                 "&:hover": {
-                  backgroundColor: subtleHover,
+                  backgroundColor: subtle,
+                  boxShadow: getOverlayInset(),
                   borderColor: p.main,
                 },
               };
@@ -409,7 +406,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 ...getFocusOutline(focusToken),
                 color: p.main,
                 "&:hover": {
-                  backgroundColor: subtleHover,
+                  backgroundColor: subtle,
+                  boxShadow: getOverlayInset(),
                 },
               };
             }
@@ -482,7 +480,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 backgroundColor: "var(--ds-surface-container)",
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: "var(--ds-surface-container-high)",
+                    backgroundColor: "var(--ds-surface-container)",
+                    boxShadow: getOverlayInset(),
                   },
                 }),
               } as CSSObject;
@@ -492,7 +491,6 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
             const subtle = theme.palette.intentSurface[colour].subtle;
-            const subtleHover = theme.palette.intentSurface[colour].subtleHover;
 
             if (isOutlined) {
               return {
@@ -503,7 +501,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 backgroundColor: subtle,
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: subtleHover,
+                    backgroundColor: subtle,
+                    boxShadow: getOverlayInset(),
                   },
                 }),
               } as CSSObject;
@@ -739,6 +738,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
           }),
         },
       },
+      
     },
   });
 
