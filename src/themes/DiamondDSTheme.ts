@@ -321,13 +321,13 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       grey: {
-        50: "#F4F4F6",
+        50:  "#F4F4F6",
         100: "#ECEDF0",
         200: "#E2E3E8",
-        300: "#C9CBD3",
-        400: "#9EA2AD",
-        500: "#7A7E8A",
-        600: "#60646C",
+        300: "#D4D7DF",
+        400: "#B4B8C3",
+        500: "#9EA2AD",
+        600: "#7A7E8A",
         700: "#4B4F5A",
         800: "#2C2F3C",
         900: "#1A1C23",
