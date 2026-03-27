@@ -739,6 +739,36 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         },
       },
       
+    MuiTab: {
+      styleOverrides: {
+        root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
+          textTransform: "none",
+          color: theme.palette.text.secondary,
+          fontWeight: 500,
+          minHeight: 44,
+
+          "&:hover": {
+            color: theme.palette.text.primary,
+            backgroundColor: "var(--ds-surface-hover)",
+          },
+
+          "&.Mui-selected": {
+            color: theme.palette.primary.main,
+            fontWeight: 600,
+          },
+
+          "&.Mui-disabled": {
+            color: theme.palette.text.disabled,
+          },
+
+          "&.Mui-focusVisible, &:focus-visible": {
+            outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
+            outlineOffset: "-2px",
+          },
+        }),
+      },
+    },
+
     },
   });
 
