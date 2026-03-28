@@ -63,8 +63,8 @@ declare module "@mui/material/styles" {
     brand?: PaletteColor;
     borders: {
       subtle: string;
+      base: string;
       strong: string;
-      emphasis: string;
     };
     surface: {
       subtle: string;
@@ -83,8 +83,8 @@ declare module "@mui/material/styles" {
     brand?: SimplePaletteColorOptions;
     borders?: {
       subtle?: string;
+      base?: string;
       strong?: string;
-      emphasis?: string;
     };
     surface?: {
       subtle?: string;
@@ -194,7 +194,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
         hoverOpacity: 0.16,
         selectedOpacity: 0.08,
-        disabledOpacity: 0.26,
+        disabledOpacity: 0.36,
         focusOpacity: 0.10,
       },
 
@@ -211,38 +211,43 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         paper: "var(--ds-surface)",
       },
 
-      divider: "var(--ds-outline-variant)",
-
-      borders: {
-        subtle: "var(--ds-outline-variant)",
-        strong: "var(--ds-outline)",
-        emphasis: "var(--ds-outline-emphasis)",
-      },
-
       surface: {
         subtle: "var(--ds-surface-container)",
         strong: "var(--ds-surface-container-high)",
-        hover: "var(--ds-surface-hover)",
+      },
+
+      divider: "var(--ds-border-subtle)",
+
+      borders: {
+        subtle: "var(--ds-border-subtle)",
+        base: "var(--ds-border)",
+        strong: "var(--ds-border-strong)",
       },
 
       intentSurface: {
         primary: {
           subtle: "var(--ds-primary-container)",
+          onSubtle: "var(--ds-on-primary-container)",
         },
         secondary: {
           subtle: "var(--ds-secondary-container)",
+          onSubtle: "var(--ds-on-secondary-container)",
         },
         error: {
           subtle: "var(--ds-danger-container)",
+          onSubtle: "var(--ds-on-danger-container)",
         },
         warning: {
           subtle: "var(--ds-warning-container)",
+          onSubtle: "var(--ds-on-warning-container)",
         },
         success: {
           subtle: "var(--ds-success-container)",
+          onSubtle: "var(--ds-on-success-container)",
         },
         info: {
           subtle: "var(--ds-info-container)",
+          onSubtle: "var(--ds-on-info-container)",
         },
       },
 
@@ -370,6 +375,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
             const subtle = theme.palette.intentSurface[colour].subtle;
+            const onSubtle = theme.palette.intentSurface[colour].onSubtle;
 
             if (variant === "contained") {
               return {
@@ -389,13 +395,19 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               return {
                 ...base,
                 ...getFocusOutline(focusToken),
-                color: p.main,
+                color: onSubtle,
                 borderColor: p.main,
                 backgroundColor: subtle,
                 "&:hover": {
                   backgroundColor: subtle,
                   boxShadow: getOverlayInset(),
                   borderColor: p.main,
+                },
+                "&.Mui-disabled": {
+                  backgroundColor: "transparent",
+                  color: "var(--ds-on-surface-disabled)",
+                  borderColor: "var(--ds-outline-variant)",
+                  boxShadow: "none",
                 },
               };
             }
@@ -491,12 +503,13 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
             const subtle = theme.palette.intentSurface[colour].subtle;
+            const onSubtle = theme.palette.intentSurface[colour].onSubtle;
 
             if (isOutlined) {
               return {
                 ...base,
                 ...(isInteractive ? getFocusOutline(focusToken) : {}),
-                color: p.main,
+                color: onSubtle,
                 borderColor: p.main,
                 backgroundColor: subtle,
                 ...(isInteractive && {
@@ -653,12 +666,12 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             return {
               "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.borders.strong,
+                borderColor: theme.palette.borders.base,
               },
 
               "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
                 {
-                  borderColor: theme.palette.borders.emphasis,
+                  borderColor: theme.palette.borders.strong,
                 },
 
               "&.Mui-focused:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
@@ -749,7 +762,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
           "&:hover": {
             color: theme.palette.text.primary,
-            backgroundColor: "var(--ds-surface-hover)",
+            boxShadow: "inset 0 0 0 9999px var(--ds-overlay-hover)",
           },
 
           "&.Mui-selected": {
