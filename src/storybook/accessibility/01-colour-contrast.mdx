@@ -2,232 +2,241 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="Accessibility/Colour contrast" />
 
+<style>{`
+  .ds-note {
+    margin: 12px 0 20px;
+    padding: 12px 14px;
+    border: 1px solid var(--ds-border-subtle, #d9dce3);
+    background: var(--ds-background, #f4f4f6);
+    border-radius: 12px;
+  }
+
+  .ds-a11y-demo, .ds-a11y-demo * {
+    box-sizing: border-box;
+  }
+
+  .ds-a11y-demo p,
+  .ds-a11y-demo span,
+  .ds-a11y-demo strong,
+  .ds-a11y-demo li,
+  .ds-a11y-demo h3 {
+    margin: 0;
+    color: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .ds-a11y-demo p {
+    margin-bottom: 8px;
+  }
+
+  .ds-a11y-demo ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .ds-a11y-grid {
+    display: grid;
+    gap: 16px;
+    max-width: 920px;
+    margin-top: 12px;
+  }
+
+  .ds-a11y-panels {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ds-a11y-panel {
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  .ds-a11y-panel--light {
+    background: var(--ds-surface, #ffffff);
+    color: var(--ds-on-surface, #1a1c23);
+    border: 1px solid var(--ds-border-subtle, #d9dce3);
+  }
+
+  .ds-a11y-panel--dark {
+    background: #161820;
+    color: #e8eaf0;
+    border: 1px solid #3b3f4a;
+  }
+
+  .ds-a11y-row {
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .ds-a11y-rowTitle {
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .ds-chipRow {
+    display: grid;
+    gap: 10px;
+  }
+
+  .ds-chipLabel {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+
+  .ds-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    line-height: 1.2;
+    border: 1px solid rgba(0,0,0,0.12);
+    width: fit-content;
+    max-width: 100%;
+    background: var(--bg);
+    color: var(--fg);
+  }
+
+  .ds-a11y-panel--dark .ds-chip {
+    border: 1px solid rgba(255,255,255,0.14);
+  }
+
+  .ds-chipText {
+    font-size: 14px;
+    font-weight: 650;
+  }
+
+  .ds-token {
+    display: inline-block;
+    font-weight: 500;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.6);
+    padding: 2px 5px;
+    border-radius: 6px;
+    white-space: nowrap;
+    margin-right: 6px;
+  }
+
+  p code, li code {
+    font-weight: 500;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.6);
+    padding: 2px 5px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+`}</style>
+
 <div>
   <h1>Colour contrast</h1>
+  <small>Updated 28 March 2026</small>
 
-<p>
-  Colour contrast affects readability, accuracy, and fatigue. In data-heavy
-  scientific tools, poor contrast slows users down and increases errors.
-</p>
+  <p>Colour contrast directly affects readability, speed, and error rate. In dense, data-heavy scientific interfaces, poor contrast increases cognitive load and slows decision-making.</p>
 
-<p>
-  We use both WCAG contrast ratios and APCA to balance compliance with
-  real-world readability.
-</p>
+  <p>We prioritise perceptual contrast using APCA when defining colour choices, while maintaining WCAG 2.2 as the compliance baseline.</p>
 
-<h2>WCAG contrast</h2>
+  <h2>Why contrast needs a modern approach</h2>
 
-<p>
-  WCAG 2.x contrast ratios provide a clear, widely accepted compliance baseline.
-</p>
+  <p>Traditional WCAG 2.x contrast ratios are useful, but they are based on luminance ratios rather than perceived readability. In practice, that means some combinations can technically pass while still feeling strained or unstable in real UI.</p>
 
-<ul>
-  <li>Used to define minimum acceptable contrast.</li>
-  <li>Acts as a hard “do not go below” threshold.</li>
-  <li>Especially important for small text and critical UI.</li>
-</ul>
+  <p>This becomes more visible across different font sizes, weights, and light or dark environments.</p>
 
-<h2>APCA contrast</h2>
+  <p>This leads to common issues:</p>
 
-<p>
-  APCA (Advanced Perceptual Contrast Algorithm) models human perception more
-  closely. It accounts for font size, weight, and polarity (light-on-dark vs
-  dark-on-light).
-</p>
+  <ul>
+    <li>Combinations that pass but still feel hard to read.</li>
+    <li>Overly strong contrast that causes glare or eye strain in dark mode.</li>
+    <li>Poor readability with saturated colours such as success, warning, and danger.</li>
+  </ul>
 
-<ul>
-  <li>Used to tune readability in light and dark themes.</li>
-  <li>Helps avoid over-contrast that causes eye strain.</li>
-  <li>Works better for large text and dense information.</li>
-</ul>
+  <p>APCA helps address these limitations by modelling perceived readability rather than relying only on raw luminance difference.</p>
 
-<h2>How we use them together</h2>
+  <h2>APCA contrast (primary)</h2>
 
-<p>
-  All text should meet WCAG minimums. APCA is then used to refine token values
-  for comfort and hierarchy.
-</p>
+  <p>APCA reflects how contrast is actually experienced by users more closely than older ratio-based methods.</p>
+
+  <ul>
+    <li>Accounts for font size, weight, and polarity.</li>
+    <li>Handles light-on-dark and dark-on-light differently.</li>
+    <li>Produces more reliable results for real UI text.</li>
+    <li>Helps reduce strain in long-running workflows.</li>
+  </ul>
+
+  <p>We use APCA to tune token values, component defaults, and interaction states.</p>
+
+  <h2>WCAG 2.2 contrast (baseline)</h2>
+
+  <p>WCAG 2.2 remains the current compliance baseline for text contrast.</p>
+
+  <ul>
+    <li>Defines minimum acceptable contrast thresholds.</li>
+    <li>Used as a strict floor we do not go below.</li>
+    <li>Required for accessibility reviews and audits.</li>
+  </ul>
+
+  <p>WCAG 2.2 is necessary, but on its own it is not enough to judge readability quality.</p>
+
+  <h2>How we use them together</h2>
+
+  <p>Contrast decisions follow a clear order:</p>
+
+  <ul>
+    <li><strong>1. Design using APCA</strong> for perceptual readability.</li>
+    <li><strong>2. Validate against WCAG 2.2</strong> for compliance.</li>
+    <li><strong>3. Adjust only if required</strong>, without degrading usability.</li>
+  </ul>
+
+  <p>This helps keep interfaces both compliant and genuinely usable.</p>
 
   <div>
-    <h2>Colour-specific considerations (green, orange, and red)</h2>
+    <h2>Colour-specific considerations (success, warning, and danger)</h2>
 
-    <p>
-      Some hues behave poorly for perceived contrast, even when WCAG 2 contrast ratios pass.
-    </p>
+    <p>Some hues behave less predictably for perceived contrast, even when WCAG 2.x ratios look acceptable.</p>
 
-    <p>
-      Green, orange, and red are common examples because perceived contrast is affected by luminance,
-      surrounding colours, polarity (light-on-dark vs dark-on-light), and colour vision differences.
-    </p>
+    <p>In DiamondDS this matters most for status colours: <code>--ds-success</code>, <code>--ds-warning</code>, and <code>--ds-danger</code>.</p>
 
-    <p>
-      A practical issue we see in real interfaces: WCAG 2 ratios can sometimes indicate that black
-      text on a saturated green, orange, or red background is “high contrast”, but in practice it
-      can feel low-contrast, vibrating, or tiring to read — especially for small text, thinner
-      fonts, or dense data. This gap between numeric ratios and human perception is one of the
-      problems APCA is designed to address.
-    </p>
+    <p>A common issue in real interfaces is that black text on a saturated colour may look mathematically strong, but visually feel unstable, vibrating, or tiring, especially for smaller or denser text.</p>
+
+    <p>APCA is better at exposing these perception problems.</p>
 
     <ul>
-      <li>
-        <strong>Green</strong>: may appear muddy or unstable with dark text, and can be difficult
-        for users with common colour vision differences.
-      </li>
-      <li>
-        <strong>Orange</strong>: often looks washed out on light backgrounds or overly bright on
-        dark backgrounds, reducing legibility.
-      </li>
-      <li>
-        <strong>Red</strong>: can appear low-contrast or “vibrating” with dark text, and is
-        particularly problematic for error or alert states if not handled carefully.
-      </li>
+      <li><strong>Success</strong>: can feel muddy or uneven with dark text, especially in small labels.</li>
+      <li><strong>Warning</strong>: often looks shallower than expected, reducing clarity on both light and dark surfaces.</li>
+      <li><strong>Danger</strong>: more prone to vibration and reduced legibility, particularly in error messaging.</li>
     </ul>
 
-    <p>
-      When using these colours for status, emphasis, or meaning:
-    </p>
+    <p>When using these colours:</p>
 
     <ul>
-      <li>Never rely on colour alone — pair with text, icons, or labels.</li>
-      <li>Test in both light and dark modes, at realistic sizes and weights.</li>
-      <li>Use APCA to assess perceived readability, not just WCAG 2 ratios.</li>
+      <li>Use APCA to judge readability, not just WCAG 2.2 ratios.</li>
+      <li>Test across sizes, weights, and both themes.</li>
+      <li>Always pair colour with text, icons, or labels.</li>
     </ul>
 
-    <p>
-      The examples below illustrate combinations that may pass WCAG 2 but still feel hard to read
-      in practice.
-    </p>
+    <p><strong>WCAG 2.2 vs APCA: why passes can still fail users</strong></p>
+    <p>WCAG 2.2 is a useful baseline, but it does not always predict comfort or readability in real interfaces. APCA tracks perceived readability more closely.</p>
 
-    <p><strong>WCAG 2 vs APCA: why “passes” can still look wrong</strong></p>
-    <p>
-      WCAG 2 contrast ratio is a useful baseline, but it can recommend text colours that feel
-      low-contrast in practice (especially on saturated greens/oranges/reds). APCA is designed
-      to better reflect perceived contrast and readability.
-    </p>
-
-{/* START EXAMPLE */}
-
-<style>{`       /* Scoped demo styles so Storybook/theme doesn't interfere */
-      .ds-a11y-demo, .ds-a11y-demo * {
-        box-sizing: border-box;
-      }
-      /* Reset common typography overrides that can change perceived contrast */
-      .ds-a11y-demo p,
-      .ds-a11y-demo span,
-      .ds-a11y-demo strong,
-      .ds-a11y-demo li,
-      .ds-a11y-demo h3 {
-        margin: 0;
-        color: inherit;
-        letter-spacing: normal;
-        text-transform: none;
-      }
-      .ds-a11y-demo p { margin-bottom: 8px; }
-      .ds-a11y-demo ul { margin: 0; padding-left: 18px; }
-      .ds-a11y-grid {
-        display: grid;
-        gap: 16px;
-        max-width: 920px;
-        margin-top: 12px;
-      }
-      .ds-a11y-panels {
-        display: grid;
-        gap: 16px;
-        grid-template-columns: 1fr 1fr;
-      }
-      .ds-a11y-panel {
-        border-radius: 10px;
-        padding: 14px;
-        border: 1px solid rgba(0,0,0,0.12);
-      }
-      .ds-a11y-panel--light {
-        background: #ffffff;
-        color: #111111;
-      }
-      .ds-a11y-panel--dark {
-        background: #0b0f14; /* "inverse" surface */
-        color: #f3f5f7;
-        border: 1px solid rgba(255,255,255,0.14);
-      }
-      .ds-a11y-row {
-        display: grid;
-        gap: 8px;
-        margin-top: 10px;
-      }
-      .ds-a11y-rowTitle {
-        font-weight: 700;
-        margin-bottom: 2px;
-      }
-      .ds-chipRow {
-        display: grid;
-        gap: 10px;
-      }
-      .ds-chipLabel {
-        font-size: 13px;
-        opacity: 0.9;
-      }
-      .ds-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 12px;
-        border-radius: 8px;
-        line-height: 1.2;
-        border: 1px solid rgba(0,0,0,0.12);
-        width: fit-content;
-        max-width: 100%;
-      }
-      .ds-a11y-panel--dark .ds-chip {
-        border: 1px solid rgba(255,255,255,0.14);
-      }
-      .ds-chipText {
-        font-size: 14px;
-        font-weight: 650;
-      }
-      /* Use CSS vars + !important so theme styles can’t override demo colours */
-      .ds-chip[data-bg] { background: var(--bg) !important; }
-      .ds-chip[data-fg] { color: var(--fg) !important; }
-      .ds-note {
-        border-radius: 10px;
-        padding: 12px 14px;
-        border: 1px solid rgba(0,0,0,0.10);
-      }
-      .ds-a11y-panel--dark + .ds-note,
-      .ds-a11y-panel--dark .ds-note {
-        border: 1px solid rgba(255,255,255,0.14);
-      }
-    `}</style>
-
-<div className="ds-a11y-demo ds-a11y-grid">
-
+    <div className="ds-a11y-demo ds-a11y-grid">
       <div className="ds-a11y-panels">
-        {/* Light */}
         <div className="ds-a11y-panel ds-a11y-panel--light">
           <p className="ds-a11y-rowTitle">Light surface</p>
 
           <div className="ds-a11y-row">
-            <p><strong>Green</strong> bg `--ds-green-9` `#4CA65A`</p>
+            <h3><strong>Success</strong> bg</h3>
+            <div><span className="ds-token">--ds-success</span><span className="ds-token">#006E10</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div
-                  className="ds-chip"
-                  data-bg
-                  data-fg
-                  style={{ ['--bg']: '#4CA65A', ['--fg']: '#000000' }}
-                >
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#006E10", ["--fg"]: "#fff" }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
               </div>
-
               <div>
-                <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div
-                  className="ds-chip"
-                  data-bg
-                  data-fg
-                  style={{ ['--bg']: '#4CA65A', ['--fg']: '#FFFFFF' }}
-                >
+                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#006E10", ["--fg"]: "#FFFFFF" }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
               </div>
@@ -235,18 +244,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Orange</strong> bg `--ds-orange-9` `#FF780A`</p>
+            <h3><strong>Warning</strong> bg</h3>
+            <div><span className="ds-token">--ds-warning</span><span className="ds-token">#D97706</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#FF780A', ['--fg']: '#000000' }}>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong></p>
+                <div className="ds-chip" style={{ ["--bg"]: "#D97706", ["--fg"]: "#000000" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
-
               <div>
-                <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#FF780A', ['--fg']: '#FFFFFF' }}>
+                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#D97706", ["--fg"]: "#FFFFFF" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
@@ -254,18 +263,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Red</strong> bg `--ds-red-9` `#E54D2E`</p>
+            <h3><strong>Danger</strong> bg</h3>
+            <div><span className="ds-token">--ds-danger</span><span className="ds-token">#B80500</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E54D2E', ['--fg']: '#000000' }}>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#B80500", ["--fg"]: "#fff" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
-
               <div>
-                <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E54D2E', ['--fg']: '#FFFFFF' }}>
+                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#B80500", ["--fg"]: "#FFFFFF" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
@@ -273,23 +282,22 @@ import { Meta } from "@storybook/blocks";
           </div>
         </div>
 
-        {/* Dark / inverse */}
         <div className="ds-a11y-panel ds-a11y-panel--dark">
-          <p className="ds-a11y-rowTitle">Dark (inverse) surface</p>
+          <p className="ds-a11y-rowTitle">Dark surface</p>
 
           <div className="ds-a11y-row">
-            <p><strong>Green</strong> bg `--ds-green-9` `#30A46C`</p>
+            <h3><strong>Success</strong> bg</h3>
+            <div><span className="ds-token">--ds-success</span><span className="ds-token">#67D983</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#30A46C', ['--fg']: '#FFFFFF' }}>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#67D983", ["--fg"]: "#000000" }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
               </div>
-
               <div>
-                <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#30A46C', ['--fg']: '#000000' }}>
+                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#67D983", ["--fg"]: "#03210A" }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
               </div>
@@ -297,18 +305,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Orange</strong> bg `--ds-orange-9` `#F76B15`</p>
+            <h3><strong>Warning</strong> bg</h3>
+            <div><span className="ds-token">--ds-warning</span><span className="ds-token">#FFAD66</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#F76B15', ['--fg']: '#000000' }}>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#FFAD66", ["--fg"]: "#000000" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
-
               <div>
-                <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#F76B15', ['--fg']: '#FFFFFF' }}>
+                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#FFAD66", ["--fg"]: "#2A1400" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
@@ -316,18 +324,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <p><strong>Red</strong> bg `--ds-red-9` `#E54D2E`</p>
+            <h3><strong>Danger</strong> bg</h3>
+            <div><span className="ds-token">--ds-danger</span><span className="ds-token">#FF8E89</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2 candidate</strong></p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E54D2E', ['--fg']: '#000000' }}>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#FF8E89", ["--fg"]: "#000000" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
-
               <div>
-                <p className="ds-chipLabel"><strong>APCA candidate</strong> ✅</p>
-                <div className="ds-chip" data-bg data-fg style={{ ['--bg']: '#E54D2E', ['--fg']: '#FFFFFF' }}>
+                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#FF8E89", ["--fg"]: "#2D0200" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
@@ -335,66 +343,58 @@ import { Meta } from "@storybook/blocks";
           </div>
         </div>
       </div>
-    </div>
 
       <div className="ds-note">
         <p style={{ marginBottom: 6 }}><strong>How to use this</strong></p>
         <ul>
-          <li>Use WCAG 2 as the baseline check, especially for small text.</li>
-          <li>Use APCA to validate perceived readability and comfort (particularly for saturated status colours).</li>
-          <li>Always pair colour with icons/text — never rely on colour alone for meaning.</li>
+          <li>Use WCAG 2.2 as the baseline check, especially for smaller text.</li>
+          <li>Use APCA to validate perceived readability and comfort, particularly for saturated status colours.</li>
+          <li>Always pair colour with icons or text. Never rely on colour alone for meaning.</li>
         </ul>
       </div>
     </div>
+  </div>
 
-{/* END EXAMPLE */}
+  <h2>Practical guidance</h2>
+  <ul>
+    <li><strong>Body text</strong>: optimise for perceptual readability first, then confirm WCAG 2.2 compliance.</li>
+    <li><strong>UI chrome</strong>: maintain clear separation and predictable hierarchy through surface and border roles.</li>
+    <li><strong>Subtle text</strong>: only use for non-essential information.</li>
+    <li><strong>Disabled states</strong>: must remain distinguishable without becoming unreadable.</li>
+  </ul>
 
-<h2>Practical guidance</h2>
-<ul>
-  <li>
-    <strong>Body text</strong>: prioritise APCA readability while meeting WCAG.
-  </li>
-  <li>
-    <strong>UI chrome</strong>: prioritise WCAG clarity and consistency.
-  </li>
-  <li>
-    <strong>Subtle text</strong>: only for non-essential information.
-  </li>
-  <li>
-    <strong>Disabled states</strong>: visually distinct but still readable where
-    meaning matters.
-  </li>
-</ul>
+  <h2>Common pitfalls</h2>
+  <ul>
+    <li>Relying on WCAG ratios alone to judge readability.</li>
+    <li>Reducing contrast for visual subtlety where meaning is still required.</li>
+    <li>Using saturated colours without perceptual validation.</li>
+    <li>Ignoring polarity differences between light and dark mode.</li>
+  </ul>
 
-<h2>Common pitfalls</h2>
-<ul>
-  <li>Reducing contrast to “de-emphasise” text that still carries meaning.</li>
-  <li>Relying on colour alone for status or validation.</li>
-  <li>Forgetting that contrast behaves differently in dark mode.</li>
-</ul>
+  <h2>When WCAG and APCA disagree</h2>
+  <ul>
+    <li>If WCAG 2.2 fails, the colour must change.</li>
+    <li>If WCAG 2.2 passes but APCA still indicates poor readability, improve the colour choice rather than treating compliance as enough.</li>
+    <li>In critical workflows, readability and accuracy take precedence over visual subtlety.</li>
+  </ul>
 
-<h2>When WCAG and APCA disagree</h2>
-<ul>
-  <li>If WCAG fails, the colour must change.</li>
-  <li>
-    If WCAG passes but APCA indicates poor readability, adjust for comfort.
-  </li>
-  <li>For critical UI, readability always wins over subtlety.</li>
-</ul>
+  <h2>Future: WCAG 3 and APCA</h2>
 
-<h2>Future: WCAG 3 and APCA</h2>
+  <p>WCAG 3 is still evolving, but perceptual contrast models such as APCA are influencing the direction of accessibility guidance.</p>
 
-<p>
-  APCA is being developed as part of WCAG 3, which is still in progress. While
-  WCAG 2.x remains the formal standard today, WCAG 3 reflects a shift towards
-  perceptual models of contrast and readability.
-</p>
+  <p>Our approach reflects that direction while staying grounded in current compliance requirements:</p>
 
-<p>Our approach reflects this transition:</p>
+  <ul>
+    <li>Use perceptual contrast thinking to design and tune colour choices.</li>
+    <li>Validate text contrast against WCAG 2.2 today.</li>
+    <li>Reduce future rework by avoiding colour decisions that are only mathematically compliant.</li>
+  </ul>
 
-<ul>
-  <li>WCAG 2.x is treated as the compliance baseline.</li>
-  <li>APCA is used to improve real-world readability and comfort.</li>
-  <li>This positions us closer to where accessibility standards are heading.</li>
-</ul>
+  <p>Learn more:</p>
+
+  <ul>
+    <li><a href="https://git.apcacontrast.com/documentation/APCAeasyIntro" target="_blank" rel="noopener noreferrer">APCA (Advanced Perceptual Contrast Algorithm)</a></li>
+    <li><a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">WCAG 2.2</a></li>
+    <li><a href="https://www.w3.org/TR/wcag-3.0/" target="_blank" rel="noopener noreferrer">WCAG 3 (W3C Working Draft)</a></li>
+  </ul>
 </div>
