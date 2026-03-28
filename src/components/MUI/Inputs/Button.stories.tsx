@@ -75,7 +75,11 @@ export const Variants: Story = {
 };
 
 export const Sizes: Story = {
-  render: (_args) => (
+  args: {
+    disableFocusRipple: true
+  },
+
+  render: (args) => (
     <Stack direction="row" spacing={1}>
       <Button size="small" variant="contained">
         Small
@@ -87,7 +91,7 @@ export const Sizes: Story = {
         Large
       </Button>
     </Stack>
-  ),
+  )
 };
 
 export const Colours: Story = {
