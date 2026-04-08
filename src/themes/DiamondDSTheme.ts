@@ -196,8 +196,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         hover: "var(--ds-overlay-hover)",
         selected: "var(--ds-overlay-selected)",
         focus: "var(--ds-overlay-focus)",
-        disabled: "var(--ds-overlay-disabled)",
-        disabledBackground: "var(--ds-overlay-disabled-bg)",
+        disabled: "var(--ds-on-surface-disabled)",
+        disabledBackground: "var(--ds-surface-disabled)",
 
         hoverOpacity: 0.04,
         selectedOpacity: 0.08,
@@ -403,7 +403,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 ...base,
                 ...getFocusOutline(focusToken),
                 color: onSubtle,
-                borderColor: p.main,
+                borderColor: p.light,
                 backgroundColor: subtle,
                 "&:hover": {
                   backgroundColor: subtle,
@@ -457,14 +457,24 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             if (rawColour === "inherit" || rawColour === "default") {
               return {
+                "&:hover": {
+                  boxShadow: "inset 0 0 0 9999px var(--ds-overlay-hover)",
+                },
                 ...getFocusOutline(),
               };
             }
 
             const colour = rawColour as IntentColour;
+            const p = getIntentPalette(theme, colour);
+            const subtle = theme.palette.intentSurface[colour].subtle;
             const focusToken = getFocusToken(colour);
 
             return {
+              color: p.main,
+              "&:hover": {
+                backgroundColor: subtle,
+                boxShadow: "inset 0 0 0 9999px var(--ds-overlay-hover)",
+              },
               ...getFocusOutline(focusToken),
             };
           },
@@ -518,7 +528,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 ...base,
                 ...(isInteractive ? getFocusOutline(focusToken) : {}),
                 color: onSubtle,
-                borderColor: p.main,
+                borderColor: p.light,
                 backgroundColor: subtle,
                 ...(isInteractive && {
                   "&:hover": {
