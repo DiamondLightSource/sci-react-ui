@@ -63,6 +63,7 @@ declare module "@mui/material/styles" {
   interface TypeText {
     placeholder?: string;
     placeholderFocus?: string;
+    onSolid?: string;
     primaryChannel?: string;
     secondaryChannel?: string;
   }
@@ -207,6 +208,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       text: {
         primary: "var(--ds-on-surface)",
         secondary: "var(--ds-on-surface-variant)",
+        onSolid: "var(--ds-on-solid)",
         disabled: "var(--ds-on-surface-disabled)",
         placeholder: "var(--ds-placeholder)",
         placeholderFocus: "var(--ds-placeholder-focus)",
@@ -481,6 +483,20 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               ...getFocusOutline(focusToken),
             };
           },
+        },
+      },
+
+      MuiToggleButton: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            textTransform: "none",
+
+            border: `1px solid ${theme.palette.borders.base}`,
+
+            "&:hover": {
+              borderColor: theme.palette.borders.strong,
+            },
+          }),
         },
       },
 

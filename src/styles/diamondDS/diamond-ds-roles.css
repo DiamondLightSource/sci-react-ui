@@ -10,6 +10,7 @@ html[data-mode="light"] {
   --ds-on-surface: #1a1c23; /* could be used for inverse-surface */
   --ds-on-surface-variant: #4b4f5a;
   --ds-on-surface-disabled: rgba(0, 0, 0, 0.26);
+  --ds-on-solid: #ffffff;
 
   --ds-on-surface-channel: 26 28 35;
   --ds-on-surface-variant-channel: 75 79 90;
@@ -19,7 +20,7 @@ html[data-mode="light"] {
 
   --ds-border: #b8bcc6;
   --ds-border-subtle: #d9dce3;
-  --ds-border-strong: #8c92a0;
+  --ds-border-strong: #a6acb8;
 
   /* Overlay */
   --ds-overlay-hover: rgba(0, 0, 0, 0.04);
@@ -71,7 +72,7 @@ html[data-mode="light"] {
   --ds-brand-hover: #151c33;
   --ds-brand-accent: #6380d7;
   --ds-brand-container: #dde1ee;
-  --ds-on-brand-container: #131a32;
+  --ds-on-brand-container: #202945;
 
   --ds-brand-fixed: #202945;
   --ds-brand-fixed-dim: #586084;
@@ -187,7 +188,7 @@ html[data-mode="dark"] {
 
   --ds-border: #4B4F5A;
   --ds-border-subtle: #3b3f4a;
-  --ds-border-strong: #b0b4c0;
+  --ds-border-strong: #707686;
 
   /* Overlay */
   --ds-overlay-hover: rgba(255, 255, 255, 0.05);
@@ -238,8 +239,8 @@ html[data-mode="dark"] {
   --ds-on-brand: #0d1530;
   --ds-brand-hover: #c1d0ff;
   --ds-brand-accent: #d2ddff;
-  --ds-brand-container: #1a2342;
-  --ds-on-brand-container: #dce4ff;
+  --ds-brand-container: #202945;
+  --ds-on-brand-container: #DDE1EE;
 
   --ds-on-brand-channel: 255 255 255;
   --ds-brand-fixed: #202945;
@@ -310,7 +311,7 @@ html[data-mode="dark"] {
   --ds-highlight-container: #4b3a05;
   --ds-on-highlight-container: #fff4c7;
   
-  --ds-on-tertiary-channel: 26 28 35;
+  --ds-on-highlight-channel: 26 28 35;
   --ds-highlight-mainChannel: 255 226 122;
   --ds-highlight-lightChannel: 255 241 184;
   --ds-highlight-darkChannel: 255 234 160;
