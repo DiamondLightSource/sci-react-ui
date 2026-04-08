@@ -5,10 +5,11 @@ html[data-mode="light"] {
   --ds-surface: #ffffff; /* could be used for inverse-on-surface */
   --ds-surface-container: #e7e9ee;
   --ds-surface-container-high: #dde0e6;
+  --ds-surface-disabled: rgba(0, 0, 0, 0.08);
 
   --ds-on-surface: #1a1c23; /* could be used for inverse-surface */
   --ds-on-surface-variant: #4b4f5a;
-  --ds-on-surface-disabled: #9ea2ad;
+  --ds-on-surface-disabled: rgba(0, 0, 0, 0.26);
 
   --ds-placeholder: #9ea2ad;
   --ds-placeholder-focus: #4b4f5a;
@@ -21,8 +22,6 @@ html[data-mode="light"] {
   --ds-overlay-hover: rgba(0, 0, 0, 0.04);
   --ds-overlay-selected: rgba(0, 0, 0, 0.08);
   --ds-overlay-focus: rgba(0, 0, 0, 0.10);
-  --ds-overlay-disabled: rgba(0, 0, 0, 0.36);
-  --ds-overlay-disabled-bg: rgba(0, 0, 0, 0.10);
 
   /* Primary (Indigo-Blue) */
   --ds-primary: #2a4db8;
@@ -160,10 +159,12 @@ html[data-mode="dark"] {
   --ds-surface-container: #222530;
   --ds-surface-container-high: #2b2f3b;
   --ds-surface-hover: #262a35;
+  --ds-surface-disabled: rgba(255, 255, 255, 0.15);
+
 
   --ds-on-surface: #e8eaf0;
   --ds-on-surface-variant: #b0b4c0;
-  --ds-on-surface-disabled: #5f6472;
+  --ds-on-surface-disabled: rgba(255, 255, 255, 0.24);
 
   --ds-placeholder: #5f6472;
   --ds-placeholder-focus: #b0b4c0;
@@ -176,8 +177,6 @@ html[data-mode="dark"] {
   --ds-overlay-hover: rgba(255, 255, 255, 0.05);
   --ds-overlay-selected: rgba(255, 255, 255, 0.08);
   --ds-overlay-focus: rgba(255, 255, 255, 0.10);
-  --ds-overlay-disabled: rgba(255, 255, 255, 0.30);
-  --ds-overlay-disabled-bg: rgba(255, 255, 255, 0.06);
 
   /* Primary */
   --ds-primary: #8aa7ff;
