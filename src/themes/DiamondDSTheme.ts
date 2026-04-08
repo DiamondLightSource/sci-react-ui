@@ -13,9 +13,6 @@ import type { TabProps } from "@mui/material/Tab";
 import type { AlertProps } from "@mui/material/Alert";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import type { CircularProgressProps } from "@mui/material/CircularProgress";
-import type { SnackbarProps } from "@mui/material/Snackbar";
-import type { SnackbarContentProps } from "@mui/material/SnackbarContent";
-import type { SkeletonProps } from "@mui/material/Skeleton";
 
 import { mergeThemeOptions } from "./ThemeManager";
 
@@ -53,6 +50,8 @@ type ExtendedPaletteColor = {
   mainChannel?: string;
   lightChannel?: string;
   darkChannel?: string;
+  container?: string;
+  onContainer?: string;
 };
 
 declare module "@mui/material/styles" {
@@ -64,8 +63,18 @@ declare module "@mui/material/styles" {
   interface TypeText {
     placeholder?: string;
     placeholderFocus?: string;
+    primaryChannel?: string;
+    secondaryChannel?: string;
   }
-
+  interface TypeTextOptions {
+    primary?: string;
+    secondary?: string;
+    disabled?: string;
+    placeholder?: string;
+    placeholderFocus?: string;
+    primaryChannel?: string;
+    secondaryChannel?: string;
+  }
   interface Palette {
     brand?: PaletteColor;
     borders: {
@@ -77,13 +86,6 @@ declare module "@mui/material/styles" {
       subtle: string;
       strong: string;
     };
-    intentSurface: Record<
-      IntentColour,
-      {
-        subtle: string;
-        onSubtle: string;
-      }
-    >;
   }
 
   interface PaletteOptions {
@@ -97,27 +99,24 @@ declare module "@mui/material/styles" {
       subtle?: string;
       strong?: string;
     };
-    intentSurface?: Partial<
-      Record<
-        IntentColour,
-        {
-          subtle?: string;
-          onSubtle?: string;
-        }
-      >
-    >;
   }
 
   interface PaletteColor {
     mainChannel?: string;
     lightChannel?: string;
     darkChannel?: string;
+    contrastTextChannel?: string;
+    container?: string;
+    onContainer?: string;
   }
 
   interface SimplePaletteColorOptions {
     mainChannel?: string;
     lightChannel?: string;
     darkChannel?: string;
+    contrastTextChannel?: string;
+    container?: string;
+    onContainer?: string;
   }
 }
 
@@ -211,6 +210,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         disabled: "var(--ds-on-surface-disabled)",
         placeholder: "var(--ds-placeholder)",
         placeholderFocus: "var(--ds-placeholder-focus)",
+
+        primaryChannel: "var(--ds-on-surface-channel)",
+        secondaryChannel: "var(--ds-on-surface-variant-channel)",
       },
 
       background: {
@@ -231,38 +233,15 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         strong: "var(--ds-surface-container-high)",
       },
 
-      intentSurface: {
-        primary: {
-          subtle: "var(--ds-primary-container)",
-          onSubtle: "var(--ds-on-primary-container)",
-        },
-        secondary: {
-          subtle: "var(--ds-secondary-container)",
-          onSubtle: "var(--ds-on-secondary-container)",
-        },
-        error: {
-          subtle: "var(--ds-danger-container)",
-          onSubtle: "var(--ds-on-danger-container)",
-        },
-        warning: {
-          subtle: "var(--ds-warning-container)",
-          onSubtle: "var(--ds-on-warning-container)",
-        },
-        success: {
-          subtle: "var(--ds-success-container)",
-          onSubtle: "var(--ds-on-success-container)",
-        },
-        info: {
-          subtle: "var(--ds-info-container)",
-          onSubtle: "var(--ds-on-info-container)",
-        },
-      },
-
       primary: {
         light: "var(--ds-primary-accent)",
         main: "var(--ds-primary)",
         dark: "var(--ds-primary-hover)",
         contrastText: "var(--ds-on-primary)",
+        container: "var(--ds-primary-container)",
+        onContainer: "var(--ds-on-primary-container)",
+
+        contrastTextChannel: "var(--ds-on-primary-channel)",
         mainChannel: "var(--ds-primary-mainChannel)",
         lightChannel: "var(--ds-primary-lightChannel)",
         darkChannel: "var(--ds-primary-darkChannel)",
@@ -273,6 +252,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         main: "var(--ds-secondary)",
         dark: "var(--ds-secondary-hover)",
         contrastText: "var(--ds-on-secondary)",
+        container: "var(--ds-secondary-container)",
+        onContainer: "var(--ds-on-secondary-container)",
+
+        contrastTextChannel: "var(--ds-on-secondary-channel)",
         mainChannel: "var(--ds-secondary-mainChannel)",
         lightChannel: "var(--ds-secondary-lightChannel)",
         darkChannel: "var(--ds-secondary-darkChannel)",
@@ -283,16 +266,24 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         main: "var(--ds-brand)",
         dark: "var(--ds-brand-hover)",
         contrastText: "var(--ds-on-brand)",
+        container: "var(--ds-brand-container)",
+        onContainer: "var(--ds-on-brand-container)",
+
+        contrastTextChannel: "var(--ds-on-brand-channel)",
         mainChannel: "var(--ds-brand-mainChannel)",
         lightChannel: "var(--ds-brand-lightChannel)",
         darkChannel: "var(--ds-brand-darkChannel)",
       },
 
-      error: {
+      error: { /* Danger */ 
         light: "var(--ds-danger-accent)",
         main: "var(--ds-danger)",
         dark: "var(--ds-danger-hover)",
         contrastText: "var(--ds-on-danger)",
+        container: "var(--ds-danger-container)",
+        onContainer: "var(--ds-on-danger-container)",
+
+        contrastTextChannel: "var(--ds-on-danger-channel)",
         mainChannel: "var(--ds-danger-mainChannel)",
         lightChannel: "var(--ds-danger-lightChannel)",
         darkChannel: "var(--ds-danger-darkChannel)",
@@ -303,6 +294,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         main: "var(--ds-warning)",
         dark: "var(--ds-warning-hover)",
         contrastText: "var(--ds-on-warning)",
+        container: "var(--ds-warning-container)",
+        onContainer: "var(--ds-on-warning-container)",
+
+        contrastTextChannel: "var(--ds-on-warning-channel)",
         mainChannel: "var(--ds-warning-mainChannel)",
         lightChannel: "var(--ds-warning-lightChannel)",
         darkChannel: "var(--ds-warning-darkChannel)",
@@ -313,6 +308,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         main: "var(--ds-success)",
         dark: "var(--ds-success-hover)",
         contrastText: "var(--ds-on-success)",
+        container: "var(--ds-success-container)",
+        onContainer: "var(--ds-on-success-container)",
+        
+        contrastTextChannel: "var(--ds-on-success-channel)",
         mainChannel: "var(--ds-success-mainChannel)",
         lightChannel: "var(--ds-success-lightChannel)",
         darkChannel: "var(--ds-success-darkChannel)",
@@ -323,6 +322,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         main: "var(--ds-info)",
         dark: "var(--ds-info-hover)",
         contrastText: "var(--ds-on-info)",
+        container: "var(--ds-info-container)",
+        onContainer: "var(--ds-on-info-container)",
+
+        contrastTextChannel: "var(--ds-on-info-channel)",
         mainChannel: "var(--ds-info-mainChannel)",
         lightChannel: "var(--ds-info-lightChannel)",
         darkChannel: "var(--ds-info-darkChannel)",
@@ -381,8 +384,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const colour = rawColour as IntentColour;
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
-            const subtle = theme.palette.intentSurface[colour].subtle;
-            const onSubtle = theme.palette.intentSurface[colour].onSubtle;
+            const subtle = p.container;
+            const onSubtle = p.onContainer;
 
             if (variant === "contained") {
               return {
@@ -458,7 +461,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             if (rawColour === "inherit" || rawColour === "default") {
               return {
                 "&:hover": {
-                  boxShadow: "inset 0 0 0 9999px var(--ds-overlay-hover)",
+                  boxShadow: getOverlayInset(),
                 },
                 ...getFocusOutline(),
               };
@@ -466,14 +469,14 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             const colour = rawColour as IntentColour;
             const p = getIntentPalette(theme, colour);
-            const subtle = theme.palette.intentSurface[colour].subtle;
+            const subtle = p.container;
             const focusToken = getFocusToken(colour);
 
             return {
               color: p.main,
               "&:hover": {
                 backgroundColor: subtle,
-                boxShadow: "inset 0 0 0 9999px var(--ds-overlay-hover)",
+                boxShadow: getOverlayInset(),
               },
               ...getFocusOutline(focusToken),
             };
@@ -491,7 +494,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             theme: Theme;
           }): CSSObject => {
             const base: CSSObject = {
-              "& .MuiChip-icon, & .MuiChip-deleteIcon": {
+              "& .MuiChip-icon": {
                 color: "currentColor",
               },
             };
@@ -507,10 +510,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 ...(isInteractive ? getFocusOutline() : {}),
                 color: "var(--ds-on-surface)",
                 borderColor: "var(--ds-border)",
-                backgroundColor: "var(--ds-surface-container)",
+                backgroundColor: "var(--ds-surface-container-high)",
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: "var(--ds-surface-container)",
+                    backgroundColor: "var(--ds-surface-container-high)",
                     boxShadow: getOverlayInset(),
                   },
                 }),
@@ -520,8 +523,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const colour = rawColour as IntentColour;
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
-            const subtle = theme.palette.intentSurface[colour].subtle;
-            const onSubtle = theme.palette.intentSurface[colour].onSubtle;
+            const subtle = p.container;
+            const onSubtle = p.onContainer;
+            const getIntentOverlayInset = (channel?: string, opacity = 0.08) => channel ? `inset 0 0 0 9999px rgba(${channel} / ${opacity})` : undefined;
 
             if (isOutlined) {
               return {
@@ -532,8 +536,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 backgroundColor: subtle,
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: subtle,
-                    boxShadow: getOverlayInset(),
+                    boxShadow: getIntentOverlayInset(p.mainChannel, 0.08),
+                    borderColor: p.main,
                   },
                 }),
               } as CSSObject;
@@ -812,8 +816,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const severity = (ownerState.severity ?? "success") as IntentColour;
             const mappedSeverity = severity === "error" ? "error" : severity;
             const p = getIntentPalette(theme, mappedSeverity);
-            const subtle = theme.palette.intentSurface[mappedSeverity].subtle;
-            const onSubtle = theme.palette.intentSurface[mappedSeverity].onSubtle;
+            const subtle = p.container;
+            const onSubtle = p.onContainer;
 
             const common: CSSObject = {
               borderRadius: 8,
@@ -866,7 +870,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             backgroundColor: "var(--ds-surface-container-high)",
           },
 
-          bar: ({ ownerState, theme }: OverrideArgs<LinearProgressProps>): CSSObject => {
+          bar: ({
+            ownerState,
+            theme,
+          }: OverrideArgs<LinearProgressProps>): CSSObject => {
             const colour = (ownerState.color ?? "primary") as IntentColour;
             const p = getIntentPalette(theme, colour);
 
@@ -879,7 +886,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
       MuiCircularProgress: {
         styleOverrides: {
-          root: ({ ownerState, theme }: OverrideArgs<CircularProgressProps>): CSSObject => {
+          root: ({
+            ownerState,
+            theme,
+          }: OverrideArgs<CircularProgressProps>): CSSObject => {
             const colour = (ownerState.color ?? "primary") as IntentColour;
             const p = getIntentPalette(theme, colour);
 
@@ -942,12 +952,11 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             color: "inherit",
 
             "& .MuiIconButton-root:hover": {
-              boxShadow: "inset 0 0 0 9999px var(--ds-overlay-hover)",
+              boxShadow: getOverlayInset(),
             },
           },
         },
       },
-
     },
   });
 

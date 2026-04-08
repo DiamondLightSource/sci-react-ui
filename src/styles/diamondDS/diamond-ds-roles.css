@@ -11,6 +11,9 @@ html[data-mode="light"] {
   --ds-on-surface-variant: #4b4f5a;
   --ds-on-surface-disabled: rgba(0, 0, 0, 0.26);
 
+  --ds-on-surface-channel: 26 28 35;
+  --ds-on-surface-variant-channel: 75 79 90;
+
   --ds-placeholder: #9ea2ad;
   --ds-placeholder-focus: #4b4f5a;
 
@@ -31,6 +34,7 @@ html[data-mode="light"] {
   --ds-primary-container: #dde4f7;
   --ds-on-primary-container: #1a2f6b;
 
+  --ds-on-primary-channel: 255 255 255;
   --ds-primary-mainChannel: 42 77 184;
   --ds-primary-lightChannel: 91 122 224;
   --ds-primary-darkChannel: 30 61 150;
@@ -43,6 +47,7 @@ html[data-mode="light"] {
   --ds-secondary-container: #d6f0f2;
   --ds-on-secondary-container: #003f45;
 
+  --ds-on-secondary-channel: 255 255 255;
   --ds-secondary-mainChannel: 0 123 132;
   --ds-secondary-lightChannel: 42 170 180;
   --ds-secondary-darkChannel: 0 94 102;
@@ -55,6 +60,7 @@ html[data-mode="light"] {
   --ds-tertiary-container: #f5d9ef;
   --ds-on-tertiary-container: #4a003c;
 
+  --ds-on-tertiary-channel: 255 255 255;
   --ds-tertiary-mainChannel: 140 0 112;
   --ds-tertiary-lightChannel: 194 46 164;
   --ds-tertiary-darkChannel: 106 0 85;
@@ -66,9 +72,12 @@ html[data-mode="light"] {
   --ds-brand-accent: #6380d7;
   --ds-brand-container: #dde1ee;
   --ds-on-brand-container: #131a32;
-  --ds-brand-fixed: #202945;
-  --ds-on-brand-fixed-dim: #586084;
 
+  --ds-brand-fixed: #202945;
+  --ds-brand-fixed-dim: #586084;
+  --ds-on-brand-fixed: #ffffff;
+
+  --ds-on-brand-channel: 255 255 255;
   --ds-brand-mainChannel: 32 41 69;
   --ds-brand-lightChannel: 99 128 215;
   --ds-brand-darkChannel: 21 28 51;
@@ -81,6 +90,7 @@ html[data-mode="light"] {
   --ds-danger-container: #fcdddd;
   --ds-on-danger-container: #6b0200;
 
+  --ds-on-danger-channel: 255 255 255;
   --ds-danger-mainChannel: 184 5 0;
   --ds-danger-lightChannel: 224 56 48;
   --ds-danger-darkChannel: 145 4 0;
@@ -93,6 +103,7 @@ html[data-mode="light"] {
   --ds-warning-container: #fdecd9;
   --ds-on-warning-container: #6b2a00;
 
+  --ds-on-warning-channel: 200 255 255;
   --ds-warning-mainChannel: 166 74 0;
   --ds-warning-lightChannel: 217 119 6;
   --ds-warning-darkChannel: 132 57 0;
@@ -105,6 +116,7 @@ html[data-mode="light"] {
   --ds-success-container: #d9f0dc;
   --ds-on-success-container: #003a06;
 
+  --ds-on-success-channel: 255 255 255;
   --ds-success-mainChannel: 0 110 16;
   --ds-success-lightChannel: 26 154 42;
   --ds-success-darkChannel: 0 82 9;
@@ -120,6 +132,7 @@ html[data-mode="light"] {
   --ds-info-container: #e8eefb;
   --ds-on-info-container: #1f377a;
 
+  --ds-on-info-channel: 255 255 255;
   --ds-info-mainChannel: 63 99 201;
   --ds-info-lightChannel: 127 159 240;
   --ds-info-darkChannel: 49 80 170;
@@ -132,6 +145,7 @@ html[data-mode="light"] {
   --ds-highlight-container: #fff4cc;
   --ds-on-highlight-container: #6b5500;
 
+  --ds-on-highlight-channel: 26 28 35; 
   --ds-highlight-mainChannel: 212 169 0;
   --ds-highlight-lightChannel: 255 216 77;
   --ds-highlight-darkChannel: 184 147 0;
@@ -161,10 +175,12 @@ html[data-mode="dark"] {
   --ds-surface-hover: #262a35;
   --ds-surface-disabled: rgba(255, 255, 255, 0.15);
 
-
   --ds-on-surface: #e8eaf0;
   --ds-on-surface-variant: #b0b4c0;
   --ds-on-surface-disabled: rgba(255, 255, 255, 0.24);
+
+  --ds-on-surface-channel: 235 237 242; 
+  --ds-on-surface-variant-channel: 176 180 192;
 
   --ds-placeholder: #5f6472;
   --ds-placeholder-focus: #b0b4c0;
@@ -186,6 +202,7 @@ html[data-mode="dark"] {
   --ds-primary-container: #1b2a5a;
   --ds-on-primary-container: #d4deff;
 
+  --ds-on-primary-channel: 26 28 35;
   --ds-primary-mainChannel: 138 167 255;
   --ds-primary-lightChannel: 189 208 255;
   --ds-primary-darkChannel: 163 187 255;
@@ -198,6 +215,7 @@ html[data-mode="dark"] {
   --ds-secondary-container: #0b3136;
   --ds-on-secondary-container: #c6f6f8;
 
+  --ds-on-secondary-channel: 26 28 35;
   --ds-secondary-mainChannel: 88 214 222;
   --ds-secondary-lightChannel: 150 238 242;
   --ds-secondary-darkChannel: 120 227 234;
@@ -210,6 +228,7 @@ html[data-mode="dark"] {
   --ds-tertiary-container: #35102f;
   --ds-on-tertiary-container: #f8d3ef;
 
+  --ds-on-tertiary-channel: 26 28 35;
   --ds-tertiary-mainChannel: 229 135 209;
   --ds-tertiary-lightChannel: 246 184 232;
   --ds-tertiary-darkChannel: 239 162 222;
@@ -221,8 +240,11 @@ html[data-mode="dark"] {
   --ds-brand-accent: #d2ddff;
   --ds-brand-container: #1a2342;
   --ds-on-brand-container: #dce4ff;
+
+  --ds-on-brand-channel: 255 255 255;
   --ds-brand-fixed: #202945;
-  --ds-on-brand-fixed-dim: #586084;  
+  --ds-brand-fixed-dim: #586084;
+  --ds-on-brand-fixed: #ffffff;
 
   --ds-brand-mainChannel: 170 189 255;
   --ds-brand-lightChannel: 210 221 255;
@@ -236,6 +258,7 @@ html[data-mode="dark"] {
   --ds-danger-container: #38100e;
   --ds-on-danger-container: #ffd8d6;
 
+  --ds-on-danger-channel: 26 28 35;
   --ds-danger-mainChannel: 255 142 137;
   --ds-danger-lightChannel: 255 192 189;
   --ds-danger-darkChannel: 255 170 166;
@@ -248,6 +271,7 @@ html[data-mode="dark"] {
   --ds-warning-container: #341b05;
   --ds-on-warning-container: #ffe3c7;
 
+  --ds-on-warning-channel: 26 28 35;
   --ds-warning-mainChannel: 255 173 102;
   --ds-warning-lightChannel: 255 210 170;
   --ds-warning-darkChannel: 255 193 135;
@@ -260,6 +284,7 @@ html[data-mode="dark"] {
   --ds-success-container: #0a3114;
   --ds-on-success-container: #d0f7d8;
 
+  --ds-on-success-channel: 26 28 35;
   --ds-success-mainChannel: 103 217 131;
   --ds-success-lightChannel: 172 240 187;
   --ds-success-darkChannel: 132 230 156;
@@ -272,6 +297,7 @@ html[data-mode="dark"] {
   --ds-info-container: #1b2854;
   --ds-on-info-container: #d8e1ff;
 
+  --ds-on-info-channel: 26 28 35;
   --ds-info-mainChannel: 155 181 255;
   --ds-info-lightChannel: 204 217 255;
   --ds-info-darkChannel: 180 199 255;
@@ -284,6 +310,7 @@ html[data-mode="dark"] {
   --ds-highlight-container: #4b3a05;
   --ds-on-highlight-container: #fff4c7;
   
+  --ds-on-tertiary-channel: 26 28 35;
   --ds-highlight-mainChannel: 255 226 122;
   --ds-highlight-lightChannel: 255 241 184;
   --ds-highlight-darkChannel: 255 234 160;
