@@ -403,7 +403,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 ...base,
                 ...getFocusOutline(focusToken),
                 color: onSubtle,
-                borderColor: p.main,
+                borderColor: p.light,
                 backgroundColor: subtle,
                 "&:hover": {
                   backgroundColor: subtle,
@@ -528,7 +528,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 ...base,
                 ...(isInteractive ? getFocusOutline(focusToken) : {}),
                 color: onSubtle,
-                borderColor: p.main,
+                borderColor: p.light,
                 backgroundColor: subtle,
                 ...(isInteractive && {
                   "&:hover": {
