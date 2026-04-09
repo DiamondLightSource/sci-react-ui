@@ -169,7 +169,10 @@ export const Colors: Story = {
       </Button>
     </Stack>
   ),
-  args: { variant: "contained" },
+  args: {
+    variant: "contained",
+    disableFocusRipple: true
+  },
 };
 
 export const WithIcons: Story = {

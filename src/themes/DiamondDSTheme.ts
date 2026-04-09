@@ -52,6 +52,8 @@ type ExtendedPaletteColor = {
   darkChannel?: string;
   container?: string;
   onContainer?: string;
+  solid?: string;
+  onSolid?: string;
 };
 
 declare module "@mui/material/styles" {
@@ -109,6 +111,8 @@ declare module "@mui/material/styles" {
     contrastTextChannel?: string;
     container?: string;
     onContainer?: string;
+    solid?: string;
+    onSolid?: string;
   }
 
   interface SimplePaletteColorOptions {
@@ -118,6 +122,8 @@ declare module "@mui/material/styles" {
     contrastTextChannel?: string;
     container?: string;
     onContainer?: string;
+    solid?: string;
+    onSolid?: string;
   }
 }
 
@@ -242,6 +248,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         contrastText: "var(--ds-on-primary)",
         container: "var(--ds-primary-container)",
         onContainer: "var(--ds-on-primary-container)",
+        solid: "var(--ds-primary-solid)",
+        onSolid: "var(--ds-on-primary-solid)",
 
         contrastTextChannel: "var(--ds-on-primary-channel)",
         mainChannel: "var(--ds-primary-mainChannel)",
@@ -256,6 +264,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         contrastText: "var(--ds-on-secondary)",
         container: "var(--ds-secondary-container)",
         onContainer: "var(--ds-on-secondary-container)",
+        solid: "var(--ds-secondary-solid)",
+        onSolid: "var(--ds-on-secondary-solid)",
 
         contrastTextChannel: "var(--ds-on-secondary-channel)",
         mainChannel: "var(--ds-secondary-mainChannel)",
@@ -270,6 +280,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         contrastText: "var(--ds-on-brand)",
         container: "var(--ds-brand-container)",
         onContainer: "var(--ds-on-brand-container)",
+        solid: "var(--ds-brand-solid)",
+        onSolid: "var(--ds-on-brand-solid)",
 
         contrastTextChannel: "var(--ds-on-brand-channel)",
         mainChannel: "var(--ds-brand-mainChannel)",
@@ -284,6 +296,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         contrastText: "var(--ds-on-danger)",
         container: "var(--ds-danger-container)",
         onContainer: "var(--ds-on-danger-container)",
+        solid: "var(--ds-danger-solid)",
+        onSolid: "var(--ds-on-danger-solid)",
 
         contrastTextChannel: "var(--ds-on-danger-channel)",
         mainChannel: "var(--ds-danger-mainChannel)",
@@ -298,6 +312,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         contrastText: "var(--ds-on-warning)",
         container: "var(--ds-warning-container)",
         onContainer: "var(--ds-on-warning-container)",
+        solid: "var(--ds-warning-solid)",
+        onSolid: "var(--ds-on-warning-solid)",
 
         contrastTextChannel: "var(--ds-on-warning-channel)",
         mainChannel: "var(--ds-warning-mainChannel)",
@@ -312,6 +328,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         contrastText: "var(--ds-on-success)",
         container: "var(--ds-success-container)",
         onContainer: "var(--ds-on-success-container)",
+        solid: "var(--ds-success-solid)",
+        onSolid: "var(--ds-on-success-solid)",
         
         contrastTextChannel: "var(--ds-on-success-channel)",
         mainChannel: "var(--ds-success-mainChannel)",
@@ -326,6 +344,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         contrastText: "var(--ds-on-info)",
         container: "var(--ds-info-container)",
         onContainer: "var(--ds-on-info-container)",
+        solid: "var(--ds-info-solid)",
+        onSolid: "var(--ds-on-info-solid)",
 
         contrastTextChannel: "var(--ds-on-info-channel)",
         mainChannel: "var(--ds-info-mainChannel)",
@@ -393,11 +413,26 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               return {
                 ...base,
                 ...getFocusOutline(focusToken),
+                backgroundColor: p.solid ?? p.main,
+                color: p.onSolid ?? "var(--ds-on-solid)",
                 "&:hover": {
-                  backgroundColor: p.dark ?? p.main,
-                  boxShadow: "none",
+                  backgroundColor: p.solid ?? p.main,
+                  boxShadow: getOverlayInset("var(--ds-overlay-hover)"),
                 },
                 "&:active": {
+                  backgroundColor: p.solid ?? p.main,
+                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                },
+                "&.Mui-focusVisible": {
+                  outline: "var(--ds-focus-ring-width) solid",
+                  outlineColor: focusToken,
+                  outlineOffset: "var(--ds-focus-ring-offset)",
+                  boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                },
+                "&.Mui-disabled": {
+                  opacity: 1,
+                  backgroundColor: "var(--ds-surface-disabled)",
+                  color: "var(--ds-on-surface-disabled)",
                   boxShadow: "none",
                 },
               };
@@ -410,7 +445,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 color: onSubtle,
                 borderColor: p.light,
                 backgroundColor: subtle,
-                "&:hover": {
+                "&:hover, &&:hover": {
                   backgroundColor: subtle,
                   boxShadow: getOverlayInset(),
                   borderColor: p.main,
@@ -501,71 +536,82 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       MuiChip: {
-        styleOverrides: {
-          root: ({
-            ownerState,
-            theme,
-          }: {
-            ownerState: ChipProps;
-            theme: Theme;
-          }): CSSObject => {
-            const base: CSSObject = {
-              "& .MuiChip-icon": {
-                color: "currentColor",
-              },
-            };
-
-            const rawColour = ownerState.color ?? "default";
-            const isDefault = rawColour === "default";
-            const isOutlined = ownerState.variant === "outlined";
-            const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
-
-            if (isDefault) {
-              return {
-                ...base,
-                ...(isInteractive ? getFocusOutline() : {}),
-                color: "var(--ds-on-surface)",
-                borderColor: "var(--ds-border)",
-                backgroundColor: "var(--ds-surface-container-high)",
-                ...(isInteractive && {
-                  "&:hover": {
-                    backgroundColor: "var(--ds-surface-container-high)",
-                    boxShadow: getOverlayInset(),
-                  },
-                }),
-              } as CSSObject;
-            }
-
-            const colour = rawColour as IntentColour;
-            const p = getIntentPalette(theme, colour);
-            const focusToken = getFocusToken(colour);
-            const subtle = p.container;
-            const onSubtle = p.onContainer;
-            const getIntentOverlayInset = (channel?: string, opacity = 0.08) => channel ? `inset 0 0 0 9999px rgba(${channel} / ${opacity})` : undefined;
-
-            if (isOutlined) {
-              return {
-                ...base,
-                ...(isInteractive ? getFocusOutline(focusToken) : {}),
-                color: onSubtle,
-                borderColor: p.light,
-                backgroundColor: subtle,
-                ...(isInteractive && {
-                  "&:hover": {
-                    boxShadow: getIntentOverlayInset(p.mainChannel, 0.08),
-                    borderColor: p.main,
-                  },
-                }),
-              } as CSSObject;
-            }
-
-            return {
-              ...base,
-              ...(isInteractive ? getFocusOutline(focusToken) : {}),
-            } as CSSObject;
-          },
+  styleOverrides: {
+    root: ({
+      ownerState,
+      theme,
+    }: {
+      ownerState: ChipProps;
+      theme: Theme;
+    }): CSSObject => {
+      const base: CSSObject = {
+        "& .MuiChip-icon": {
+          color: "currentColor",
         },
-      },
+      };
+
+      const rawColour = ownerState.color ?? "default";
+      const isDefault = rawColour === "default";
+      const isOutlined = ownerState.variant === "outlined";
+      const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
+
+      if (isDefault) {
+        return {
+          ...base,
+          ...(isInteractive ? getFocusOutline() : {}),
+          color: "var(--ds-on-surface)",
+          borderColor: "var(--ds-border)",
+          backgroundColor: "var(--ds-surface-container-high)",
+
+          "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
+            backgroundColor: "var(--ds-surface-container)",
+          },
+        };
+      }
+
+      const colour = rawColour as IntentColour;
+      const p = getIntentPalette(theme, colour);
+      const focusToken = getFocusToken(colour);
+
+      if (isOutlined) {
+        return {
+          ...base,
+          ...(isInteractive ? getFocusOutline(focusToken) : {}),
+          color: p.onContainer,
+          borderColor: p.light,
+          backgroundColor: p.container,
+
+          "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
+            backgroundColor: p.container,
+            borderColor: p.main,
+            filter: "brightness(0.96)",
+          },
+        };
+      }
+
+      return {
+        ...base,
+        ...(isInteractive ? getFocusOutline(focusToken) : {}),
+        color: p.onSolid ?? "var(--ds-on-solid)",
+        backgroundColor: p.solid ?? p.main,
+
+        "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
+          backgroundColor: p.solid ?? p.main,
+          filter: theme.palette.mode === "dark"
+            ? "brightness(1.08)"
+            : "brightness(0.94)",
+        },
+
+        "&.MuiChip-clickable:active, &.MuiChip-deletable:active": {
+          backgroundColor: p.solid ?? p.main,
+          filter: theme.palette.mode === "dark"
+            ? "brightness(1.14)"
+            : "brightness(0.90)",
+        },
+      };
+    },
+  },
+},
 
       MuiCheckbox: {
         defaultProps: {
@@ -853,8 +899,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             if (ownerState.variant === "filled") {
               return {
                 ...common,
-                backgroundColor: p.main,
-                color: p.contrastText,
+                backgroundColor: p.solid ?? p.main,
+                color: p.onSolid ?? "var(--ds-on-solid)",
               };
             }
 
