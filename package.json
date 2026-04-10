@@ -14,6 +14,23 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.js"
+    },
+    "./navigation": {
+      "import": "./dist/navigation.esm.js",
+      "require": "./dist/navigation.cjs.js",
+      "types": "./dist/navigation.d.js"
+    },
+    "./themes": {
+      "import": "./dist/themes.esm.js",
+      "require": "./dist/themes.cjs.js",
+      "types": "./dist/themes.d.js"
+    }
+  },
   "scripts": {
     "build": "tsc -b && rollup --config rollup.config.mjs",
     "docs:build": "typedoc src",

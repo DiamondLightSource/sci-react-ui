@@ -6,10 +6,8 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import {
-  Home as HomeIcon,
-  NavigateNext as NavigateNextIcon,
-} from "@mui/icons-material";
+import HomeIcon from "@mui/icons-material/Home";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { CustomLink } from "types/links";
 
 import { Bar, BarProps } from "../controls/Bar";
