@@ -18,17 +18,22 @@
     ".": {
       "import": "./dist/index.esm.js",
       "require": "./dist/index.cjs.js",
-      "types": "./dist/index.d.js"
+      "types": "./dist/index.d.ts"
     },
     "./navigation": {
       "import": "./dist/navigation.esm.js",
       "require": "./dist/navigation.cjs.js",
-      "types": "./dist/navigation.d.js"
+      "types": "./dist/navigation.d.ts"
     },
     "./themes": {
       "import": "./dist/themes.esm.js",
       "require": "./dist/themes.cjs.js",
-      "types": "./dist/themes.d.js"
+      "types": "./dist/themes.d.ts"
+    },
+    "./controls": {
+      "import": "./dist/controls.esm.js",
+      "require": "./dist/controls.cjs.js",
+      "types": "./dist/controls.d.ts"
     }
   },
   "scripts": {
