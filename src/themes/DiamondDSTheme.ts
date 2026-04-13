@@ -181,9 +181,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
     logos: {
       normal: {
         src:
-          mode === "dark"
-            ? (logoImageDark ?? logoImageLight)
-            : logoImageLight,
+          mode === "dark" ? (logoImageDark ?? logoImageLight) : logoImageLight,
         srcDark: logoImageDark ?? logoImageLight,
         alt: "Diamond Light Source Logo",
         width: "100",
@@ -224,8 +222,8 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       background: {
-        default: "var(--ds-background)",
-        paper: "var(--ds-surface)",
+        default: "rgb(var(--ds-background-channel))",
+        paper: "rgb(var(--ds-surface-channel))",
       },
 
       divider: "var(--ds-border-subtle)",
@@ -233,7 +231,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       borders: {
         subtle: "var(--ds-border-subtle)",
         base: "var(--ds-border)",
-        strong: "var(--ds-border-strong)",
+        emphasis: "var(--ds-border-emphasis)",
       },
 
       surface: {
@@ -244,7 +242,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       primary: {
         light: "var(--ds-primary-accent)",
         main: "var(--ds-primary)",
-        dark: "var(--ds-primary-hover)",
+        dark: "var(--ds-primary-emphasis)",
         contrastText: "var(--ds-on-primary)",
         container: "var(--ds-primary-container)",
         onContainer: "var(--ds-on-primary-container)",
@@ -260,7 +258,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       secondary: {
         light: "var(--ds-secondary-accent)",
         main: "var(--ds-secondary)",
-        dark: "var(--ds-secondary-hover)",
+        dark: "var(--ds-secondary-emphasis)",
         contrastText: "var(--ds-on-secondary)",
         container: "var(--ds-secondary-container)",
         onContainer: "var(--ds-on-secondary-container)",
@@ -276,7 +274,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       brand: {
         light: "var(--ds-brand-accent)",
         main: "var(--ds-brand)",
-        dark: "var(--ds-brand-hover)",
+        dark: "var(--ds-brand-emphasis)",
         contrastText: "var(--ds-on-brand)",
         container: "var(--ds-brand-container)",
         onContainer: "var(--ds-on-brand-container)",
@@ -289,10 +287,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         darkChannel: "var(--ds-brand-darkChannel)",
       },
 
-      error: { /* Danger */ 
+      error: /* Danger */ {
         light: "var(--ds-danger-accent)",
         main: "var(--ds-danger)",
-        dark: "var(--ds-danger-hover)",
+        dark: "var(--ds-danger-emphasis)",
         contrastText: "var(--ds-on-danger)",
         container: "var(--ds-danger-container)",
         onContainer: "var(--ds-on-danger-container)",
@@ -308,7 +306,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       warning: {
         light: "var(--ds-warning-accent)",
         main: "var(--ds-warning)",
-        dark: "var(--ds-warning-hover)",
+        dark: "var(--ds-warning-emphasis)",
         contrastText: "var(--ds-on-warning)",
         container: "var(--ds-warning-container)",
         onContainer: "var(--ds-on-warning-container)",
@@ -324,13 +322,13 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       success: {
         light: "var(--ds-success-accent)",
         main: "var(--ds-success)",
-        dark: "var(--ds-success-hover)",
+        dark: "var(--ds-success-emphasis)",
         contrastText: "var(--ds-on-success)",
         container: "var(--ds-success-container)",
         onContainer: "var(--ds-on-success-container)",
         solid: "var(--ds-success-solid)",
         onSolid: "var(--ds-on-success-solid)",
-        
+
         contrastTextChannel: "var(--ds-on-success-channel)",
         mainChannel: "var(--ds-success-mainChannel)",
         lightChannel: "var(--ds-success-lightChannel)",
@@ -340,7 +338,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       info: {
         light: "var(--ds-info-accent)",
         main: "var(--ds-info)",
-        dark: "var(--ds-info-hover)",
+        dark: "var(--ds-info-emphasis)",
         contrastText: "var(--ds-on-info)",
         container: "var(--ds-info-container)",
         onContainer: "var(--ds-on-info-container)",
@@ -417,7 +415,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 color: p.onSolid ?? "var(--ds-on-solid)",
                 "&:hover": {
                   backgroundColor: p.solid ?? p.main,
-                  boxShadow: getOverlayInset("var(--ds-overlay-hover)"),
+                  boxShadow: getOverlayInset("var(--ds-overlay-hover-solid)"),
                 },
                 "&:active": {
                   backgroundColor: p.solid ?? p.main,
@@ -449,6 +447,16 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                   backgroundColor: subtle,
                   boxShadow: getOverlayInset(),
                   borderColor: p.main,
+                },
+                "&:active": {
+                  backgroundColor: subtle,
+                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                },
+                "&.Mui-focusVisible": {
+                  outline: "var(--ds-focus-ring-width) solid",
+                  outlineColor: focusToken,
+                  outlineOffset: "var(--ds-focus-ring-offset)",
+                  boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
                 },
                 "&.Mui-disabled": {
                   opacity: 1,
@@ -536,82 +544,82 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       MuiChip: {
-  styleOverrides: {
-    root: ({
-      ownerState,
-      theme,
-    }: {
-      ownerState: ChipProps;
-      theme: Theme;
-    }): CSSObject => {
-      const base: CSSObject = {
-        "& .MuiChip-icon": {
-          color: "currentColor",
+      styleOverrides: {
+        root: ({
+          ownerState,
+          theme,
+        }: {
+          ownerState: ChipProps;
+          theme: Theme;
+        }): CSSObject => {
+          const base: CSSObject = {
+            "& .MuiChip-icon": {
+              color: "currentColor",
+            },
+          };
+
+          const rawColour = ownerState.color ?? "default";
+          const isDefault = rawColour === "default";
+          const isOutlined = ownerState.variant === "outlined";
+          const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
+
+          if (isDefault) {
+            return {
+              ...base,
+              ...(isInteractive ? getFocusOutline() : {}),
+              color: "var(--ds-on-surface)",
+              borderColor: "var(--ds-border)",
+              backgroundColor: "var(--ds-surface-container-high)",
+
+              "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
+                backgroundColor: "var(--ds-surface-container)",
+              },
+            };
+          }
+
+          const colour = rawColour as IntentColour;
+          const p = getIntentPalette(theme, colour);
+          const focusToken = getFocusToken(colour);
+
+          if (isOutlined) {
+            return {
+              ...base,
+              ...(isInteractive ? getFocusOutline(focusToken) : {}),
+              color: p.onContainer,
+              borderColor: p.light,
+              backgroundColor: p.container,
+
+              "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
+                backgroundColor: p.container,
+                borderColor: p.main,
+                filter: "brightness(0.96)",
+              },
+            };
+          }
+
+          return {
+            ...base,
+            ...(isInteractive ? getFocusOutline(focusToken) : {}),
+            color: p.onSolid ?? "var(--ds-on-solid)",
+            backgroundColor: p.solid ?? p.main,
+
+            "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
+              backgroundColor: p.solid ?? p.main,
+              filter: theme.palette.mode === "dark"
+                ? "brightness(1.08)"
+                : "brightness(0.94)",
+            },
+
+            "&.MuiChip-clickable:active, &.MuiChip-deletable:active": {
+              backgroundColor: p.solid ?? p.main,
+              filter: theme.palette.mode === "dark"
+                ? "brightness(1.14)"
+                : "brightness(0.90)",
+            },
+          };
         },
-      };
-
-      const rawColour = ownerState.color ?? "default";
-      const isDefault = rawColour === "default";
-      const isOutlined = ownerState.variant === "outlined";
-      const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
-
-      if (isDefault) {
-        return {
-          ...base,
-          ...(isInteractive ? getFocusOutline() : {}),
-          color: "var(--ds-on-surface)",
-          borderColor: "var(--ds-border)",
-          backgroundColor: "var(--ds-surface-container-high)",
-
-          "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
-            backgroundColor: "var(--ds-surface-container)",
-          },
-        };
-      }
-
-      const colour = rawColour as IntentColour;
-      const p = getIntentPalette(theme, colour);
-      const focusToken = getFocusToken(colour);
-
-      if (isOutlined) {
-        return {
-          ...base,
-          ...(isInteractive ? getFocusOutline(focusToken) : {}),
-          color: p.onContainer,
-          borderColor: p.light,
-          backgroundColor: p.container,
-
-          "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
-            backgroundColor: p.container,
-            borderColor: p.main,
-            filter: "brightness(0.96)",
-          },
-        };
-      }
-
-      return {
-        ...base,
-        ...(isInteractive ? getFocusOutline(focusToken) : {}),
-        color: p.onSolid ?? "var(--ds-on-solid)",
-        backgroundColor: p.solid ?? p.main,
-
-        "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
-          backgroundColor: p.solid ?? p.main,
-          filter: theme.palette.mode === "dark"
-            ? "brightness(1.08)"
-            : "brightness(0.94)",
-        },
-
-        "&.MuiChip-clickable:active, &.MuiChip-deletable:active": {
-          backgroundColor: p.solid ?? p.main,
-          filter: theme.palette.mode === "dark"
-            ? "brightness(1.14)"
-            : "brightness(0.90)",
-        },
-      };
+      },
     },
-  },
-},
 
       MuiCheckbox: {
         defaultProps: {
@@ -999,11 +1007,10 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       MuiSnackbarContent: {
         styleOverrides: {
           root: {
-            backgroundColor: "var(--ds-surface-container-high)",
+            backgroundColor: "var(--ds-surface-container)",
             color: "var(--ds-on-surface)",
             border: "1px solid var(--ds-border-subtle)",
             borderRadius: 8,
-            boxShadow: "none",
           },
 
           message: {
