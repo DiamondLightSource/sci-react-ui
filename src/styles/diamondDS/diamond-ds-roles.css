@@ -40,7 +40,7 @@ html[data-mode="light"] {
   --ds-primary-accent: #5b7ae0;
   --ds-primary-container: #dde4f7;
   --ds-on-primary-container: #1a2f6b;
-  --ds-primary-solid: var(--ds-primary);
+  --ds-primary-solid: #3F63C9;
   --ds-on-primary-solid: #ffffff;
 
   --ds-on-primary-channel: 255 255 255;
@@ -55,7 +55,7 @@ html[data-mode="light"] {
   --ds-secondary-accent: #2aaab4;
   --ds-secondary-container: #d6f0f2;
   --ds-on-secondary-container: #003f45;
-  --ds-secondary-solid: var(--ds-secondary);
+  --ds-secondary-solid: #007b84;
   --ds-on-secondary-solid: #ffffff;
 
   --ds-on-secondary-channel: 255 255 255;
@@ -70,7 +70,7 @@ html[data-mode="light"] {
   --ds-tertiary-accent: #c22ea4;
   --ds-tertiary-container: #f5d9ef;
   --ds-on-tertiary-container: #4a003c;
-  --ds-tertiary-solid: var(--ds-tertiary);
+  --ds-tertiary-solid: #B8329B;
   --ds-on-tertiary-solid: #ffffff;
 
   --ds-on-tertiary-channel: 255 255 255;
@@ -85,7 +85,7 @@ html[data-mode="light"] {
   --ds-brand-accent: #6380d7;
   --ds-brand-container: #dde1ee;
   --ds-on-brand-container: #202945;
-  --ds-brand-solid: var(--ds-brand);
+  --ds-brand-solid: #2c3860;
   --ds-on-brand-solid: #ffffff;
 
   --ds-brand-fixed: #202945;
@@ -104,7 +104,7 @@ html[data-mode="light"] {
   --ds-danger-accent: #e03830;
   --ds-danger-container: #fcdddd;
   --ds-on-danger-container: #6b0200;
-  --ds-danger-solid: var(--ds-danger);
+  --ds-danger-solid: #DD4425;
   --ds-on-danger-solid: #ffffff;
 
   --ds-on-danger-channel: 255 255 255;
@@ -119,13 +119,13 @@ html[data-mode="light"] {
   --ds-warning-accent: #f59e0b;
   --ds-warning-container: #fdecd9;
   --ds-on-warning-container: #6b2a00;
-  --ds-warning-solid: #b65f05;
+  --ds-warning-solid: #e8681a;
   --ds-on-warning-solid: #ffffff;
 
-  --ds-on-warning-channel: 200 255 255;
-  --ds-warning-mainChannel: 166 74 0;
-  --ds-warning-lightChannel: 217 119 6;
-  --ds-warning-darkChannel: 132 57 0;
+  --ds-on-warning-channel: 255 255 255;
+  --ds-warning-mainChannel: 217 119 6;
+  --ds-warning-lightChannel: 245 158 11;
+  --ds-warning-darkChannel: 182 95 5;
 
   /* Success (Green) */
   --ds-success: #006e10;
@@ -134,7 +134,7 @@ html[data-mode="light"] {
   --ds-success-accent: #1a9a2a;
   --ds-success-container: #d9f0dc;
   --ds-on-success-container: #003a06;
-  --ds-success-solid: var(--ds-success);
+  --ds-success-solid: #3a8f4b;
   --ds-on-success-solid: #ffffff;
 
   --ds-on-success-channel: 255 255 255;
@@ -149,7 +149,7 @@ html[data-mode="light"] {
   --ds-info-accent: #7f9ff0;
   --ds-info-container: #e8eefb;
   --ds-on-info-container: #1f377a;
-  --ds-info-solid: #3150aa;
+  --ds-info-solid: #5b7ae0;
   --ds-on-info-solid: #ffffff;
 
   --ds-on-info-channel: 255 255 255;
@@ -191,17 +191,17 @@ html[data-mode="light"] {
 html[data-mode="dark"] {
   /* Neutral */
   --ds-background: #0e1017; /* could be used for inverse-surface */
-  --ds-background-channel: 14, 16, 23;
+  --ds-background-channel: 14 16 23;
 
   --ds-surface: #161820; /* could be used for inverse-on-surface */
-  --ds-surface-channel: 22, 24, 32;
+  --ds-surface-channel: 22 24 32;
 
   --ds-surface-container: #222530;
   --ds-surface-container-high: #2b2f3b;
   --ds-surface-emphasis: #262a35;
   --ds-surface-disabled: rgba(255, 255, 255, 0.15);
 
-  --ds-on-surface: #e8eaf0;
+  --ds-on-surface: #e8eaf0; /* if too dark we could shift to #f1f3f9  */
   --ds-on-surface-variant: #b0b4c0;
   --ds-on-surface-disabled: rgba(255, 255, 255, 0.24);
   --ds-on-solid: #ffffff;
@@ -219,7 +219,7 @@ html[data-mode="dark"] {
   /* Overlay */
   --ds-overlay-hover: rgba(255, 255, 255, 0.16);
   --ds-overlay-hover-solid: rgba(255, 255, 255, 0.16);
-  --ds-overlay-selected: rgba(255, 255, 255, 0.16);
+  --ds-overlay-selected: rgba(255, 255, 255, 0.12);
   --ds-overlay-focus: rgba(255, 255, 255, 0.12);
 
   /* Primary */
@@ -229,7 +229,7 @@ html[data-mode="dark"] {
   --ds-primary-accent: #bdd0ff;
   --ds-primary-container: #1b2a5a;
   --ds-on-primary-container: #d4deff;
-  --ds-primary-solid: #3E63DD;
+  --ds-primary-solid: #3F63C9;
   --ds-on-primary-solid: #ffffff;
 
   --ds-on-primary-channel: 26 28 35;
@@ -244,7 +244,7 @@ html[data-mode="dark"] {
   --ds-secondary-accent: #96eef2;
   --ds-secondary-container: #0b3136;
   --ds-on-secondary-container: #c6f6f8;
-  --ds-secondary-solid: #007b84;
+  --ds-secondary-solid: #0a858e;
   --ds-on-secondary-solid: #ffffff;
 
   --ds-on-secondary-channel: 26 28 35;
@@ -259,7 +259,7 @@ html[data-mode="dark"] {
   --ds-tertiary-accent: #f6b8e8;
   --ds-tertiary-container: #35102f;
   --ds-on-tertiary-container: #f8d3ef;
-  --ds-tertiary-solid: #8c0070;
+  --ds-tertiary-solid: #B8329B;
   --ds-on-tertiary-solid: #ffffff;
 
   --ds-on-tertiary-channel: 26 28 35;
@@ -274,7 +274,7 @@ html[data-mode="dark"] {
   --ds-brand-accent: #d2ddff;
   --ds-brand-container: #202945;
   --ds-on-brand-container: #DDE1EE;
-  --ds-brand-solid: #202945;
+  --ds-brand-solid: #3a4a78;
   --ds-on-brand-solid: #ffffff;
 
   --ds-on-brand-channel: 255 255 255;
@@ -293,7 +293,7 @@ html[data-mode="dark"] {
   --ds-danger-accent: #ffc0bd;
   --ds-danger-container: #38100e;
   --ds-on-danger-container: #ffd8d6;
-  --ds-danger-solid: #b80500;
+  --ds-danger-solid: #D63C41;
   --ds-on-danger-solid: #ffffff;
 
   --ds-on-danger-channel: 26 28 35;
@@ -308,7 +308,7 @@ html[data-mode="dark"] {
   --ds-warning-accent: #ffd2aa;
   --ds-warning-container: #341b05;
   --ds-on-warning-container: #ffe3c7;
-  --ds-warning-solid: #b65f05;
+  --ds-warning-solid: #F76B15;
   --ds-on-warning-solid: #ffffff;
 
   --ds-on-warning-channel: 26 28 35;
@@ -323,7 +323,7 @@ html[data-mode="dark"] {
   --ds-success-accent: #acf0bb;
   --ds-success-container: #0a3114;
   --ds-on-success-container: #d0f7d8;
-  --ds-success-solid: #006e10;
+  --ds-success-solid: #3E9B4F;
   --ds-on-success-solid: #ffffff;
 
   --ds-on-success-channel: 26 28 35;
@@ -338,7 +338,7 @@ html[data-mode="dark"] {
   --ds-info-accent: #ccd9ff;
   --ds-info-container: #1b2854;
   --ds-on-info-container: #d8e1ff;
-  --ds-info-solid: #3f63c9;
+  --ds-info-solid: #5B7AE0;
   --ds-on-info-solid: #ffffff;
 
   --ds-on-info-channel: 26 28 35;
@@ -353,8 +353,8 @@ html[data-mode="dark"] {
   --ds-highlight-accent: #fff1b8;
   --ds-highlight-container: #4b3a05;
   --ds-on-highlight-container: #fff4c7;
-  --ds-highlight-solid: #b89300;
-  --ds-on-highlight-solid: #ffffff;
+  --ds-highlight-solid: #D4A900;
+  --ds-on-highlight-solid: #1A1C23;
   
   --ds-on-highlight-channel: 26 28 35;
   --ds-highlight-mainChannel: 255 226 122;
