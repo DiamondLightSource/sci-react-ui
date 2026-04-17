@@ -12,6 +12,8 @@ export interface ImageWithZoomProps {
   zoomWidth?: string;
   /** Width of lens. The zoom effect is a ratio between the lens size and the width of the magnified view. */
   lensWidth?: string;
+  /** Max total width */
+  maxWidth?: string;
   /** Always leave enough space on the left for the magnified view */
   alwaysPad?: boolean;
   width?: string;
@@ -29,8 +31,9 @@ export interface ImageWithZoomProps {
 export const ImageWithZoom = ({
   src,
   alt,
-  width = "60vh",
+  width = "80%",
   zoomWidth = "15vh",
+  maxWidth = "100vw",
   lensWidth = "4vh",
   alwaysPad = false,
   invert = false,
@@ -145,6 +148,7 @@ export const ImageWithZoom = ({
         width: userZoomedIn ? `calc(${zoomWidth} + ${width})` : width,
         position: "relative",
         alignSelf: "center",
+        maxWidth,
         paddingLeft: userZoomedIn || alwaysPad ? zoomWidth : 0,
       }}
     >
@@ -197,13 +201,13 @@ export const ImageWithZoom = ({
           onClick={updateMagPosition}
         />
       </div>
-      {!isLoading && !userZoomedIn && (
+      {!isLoading && (
         <Typography
           bgcolor="rgba(0,0,0,0.1)"
           textAlign="center"
           variant="body1"
           width="100%"
-          display="inherit"
+          visibility={userZoomedIn ? "hidden" : "visible"}
         >
           Click to zoom in
         </Typography>
