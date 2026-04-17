@@ -16,24 +16,24 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.esm.js",
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.esm.js"
     },
     "./navigation": {
-      "import": "./dist/navigation.esm.js",
+      "types": "./dist/navigation.d.ts",
       "require": "./dist/navigation.cjs.js",
-      "types": "./dist/navigation.d.ts"
+      "import": "./dist/navigation.esm.js"
     },
     "./themes": {
-      "import": "./dist/themes.esm.js",
+      "types": "./dist/themes.d.ts",
       "require": "./dist/themes.cjs.js",
-      "types": "./dist/themes.d.ts"
+      "import": "./dist/themes.esm.js"
     },
     "./controls": {
-      "import": "./dist/controls.esm.js",
+      "types": "./dist/controls.d.ts",
       "require": "./dist/controls.cjs.js",
-      "types": "./dist/controls.d.ts"
+      "import": "./dist/controls.esm.js"
     }
   },
   "scripts": {
