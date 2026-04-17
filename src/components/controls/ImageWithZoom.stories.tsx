@@ -10,7 +10,7 @@ const meta: Meta<typeof ImageWithZoom> = {
   parameters: {
     docs: {
       description: {
-        component: "Image with placeholder, fallback and loading indicator",
+        component: "Image with user-controlled magnified area",
       },
     },
   },
@@ -24,7 +24,7 @@ export const BasicImage: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Basic image with zoomable view on side",
+        story: "Basic image with magnified view on side",
       },
     },
   },
