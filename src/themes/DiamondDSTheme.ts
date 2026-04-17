@@ -446,7 +446,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
                 "&:hover, &&:hover": {
                   backgroundColor: subtle,
                   boxShadow: getOverlayInset(),
-                  borderColor: p.main,
+                  borderColor: p.dark,
                 },
                 "&:active": {
                   backgroundColor: subtle,
@@ -544,164 +544,96 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       },
 
       MuiChip: {
-      styleOverrides: {
-        root: ({
-          ownerState,
-          theme,
-        }: {
-          ownerState: ChipProps;
-          theme: Theme;
-        }): CSSObject => {
-          const base: CSSObject = {
-            "& .MuiChip-icon": {
-              color: "currentColor",
-            },
-          };
-
-          const rawColour = ownerState.color ?? "default";
-          const isDefault = rawColour === "default";
-          const isOutlined = ownerState.variant === "outlined";
-          const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
-
-          if (isDefault) {
-            return {
-              ...base,
-              ...(isInteractive ? getFocusOutline() : {}),
-              color: "var(--ds-on-surface)",
-              borderColor: "var(--ds-border)",
-              backgroundColor: "var(--ds-surface-container-high)",
-
-              "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
-                backgroundColor: "var(--ds-surface-container)",
-              },
-            };
-          }
-
-          const colour = rawColour as IntentColour;
-          const p = getIntentPalette(theme, colour);
-          const focusToken = getFocusToken(colour);
-
-          if (isOutlined) {
-            return {
-              ...base,
-              ...(isInteractive ? getFocusOutline(focusToken) : {}),
-              color: p.onContainer,
-              borderColor: p.light,
-              backgroundColor: p.container,
-
-              "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
-                backgroundColor: p.container,
-                borderColor: p.main,
-                filter: "brightness(0.96)",
-              },
-            };
-          }
-
-          return {
-            ...base,
-            ...(isInteractive ? getFocusOutline(focusToken) : {}),
-            color: p.onSolid ?? "var(--ds-on-solid)",
-            backgroundColor: p.solid ?? p.main,
-
-            "&.MuiChip-clickable:hover, &.MuiChip-deletable:hover": {
-              backgroundColor: p.solid ?? p.main,
-              filter: theme.palette.mode === "dark"
-                ? "brightness(1.08)"
-                : "brightness(0.94)",
-            },
-
-            "&.MuiChip-clickable:active, &.MuiChip-deletable:active": {
-              backgroundColor: p.solid ?? p.main,
-              filter: theme.palette.mode === "dark"
-                ? "brightness(1.14)"
-                : "brightness(0.90)",
-            },
-          };
-        },
-      },
-    },
-
-      MuiCheckbox: {
-        defaultProps: {
-          icon: React.createElement(DsCheckboxBlankIcon),
-          checkedIcon: React.createElement(DsCheckboxCheckedIcon),
-          indeterminateIcon: React.createElement(DsCheckboxIndeterminateIcon),
-          disableRipple: true,
-        },
         styleOverrides: {
           root: ({
             ownerState,
             theme,
           }: {
-            ownerState: CheckboxProps;
+            ownerState: ChipProps;
             theme: Theme;
           }): CSSObject => {
-            const raw = (ownerState.color ?? "default") as
-              | "default"
-              | IntentColour;
-            const isDefault = raw === "default";
-            const colour = raw as IntentColour;
-            const p = !isDefault ? getIntentPalette(theme, colour) : null;
-            const focusToken = isDefault
-              ? "var(--ds-focus-ring)"
-              : getFocusToken(colour);
-
             const base: CSSObject = {
-              ...getFocusOutline(focusToken),
-              "&:hover": {
-                backgroundColor: "transparent",
+              "& .MuiChip-icon": {
+                color: "currentColor",
               },
             };
 
-            if (ownerState.disabled) {
+            const rawColour = ownerState.color ?? "default";
+            const isDefault = rawColour === "default";
+            const isOutlined = ownerState.variant === "outlined";
+            const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
+
+            if (isDefault) {
               return {
                 ...base,
-                color: theme.palette.text.disabled,
-                "--ds-checkbox-box-fill": "none",
-                "--ds-checkbox-box-stroke": theme.palette.text.disabled,
-                "--ds-checkbox-box-strokeWidth": "2",
-                "--ds-checkbox-glyph": theme.palette.text.disabled,
-              } as unknown as CSSObject;
+                ...(isInteractive ? getFocusOutline() : {}),
+                color: "var(--ds-on-surface)",
+                borderColor: "var(--ds-border)",
+                backgroundColor: "var(--ds-surface-container-high)",
+
+                ...(isInteractive && {
+                  "&:hover": {
+                    backgroundColor: "var(--ds-surface-container)",
+                  },
+                  "&:active": {
+                    backgroundColor: "var(--ds-surface-hover)",
+                  },
+                }),
+              };
             }
 
-            const selectedMain = isDefault
-              ? theme.palette.text.secondary
-              : p?.main;
-            const selectedMainChannel = isDefault ? null : p?.mainChannel;
-            const uncheckedOutline = theme.palette.text.secondary;
+            const colour = rawColour as IntentColour;
+            const p = getIntentPalette(theme, colour);
+            const focusToken = getFocusToken(colour);
+
+            if (isOutlined) {
+              return {
+                ...base,
+                ...(isInteractive ? getFocusOutline(focusToken) : {}),
+                color: p.onContainer,
+                borderColor: p.light,
+                backgroundColor: p.container,
+
+                ...(isInteractive && {
+                  "&:hover": {
+                    backgroundColor: p.container,
+                    borderColor: p.dark,
+                  },
+                  "&:active": {
+                    backgroundColor: p.container,
+                    borderColor: p.dark,
+                    filter:
+                      theme.palette.mode === "dark"
+                        ? "brightness(1.04)"
+                        : "brightness(0.98)",
+                  },
+                }),
+              };
+            }
 
             return {
               ...base,
+              ...(isInteractive ? getFocusOutline(focusToken) : {}),
+              color: p.onSolid ?? "var(--ds-on-solid)",
+              backgroundColor: p.solid ?? p.main,
 
-              "&:not(.Mui-checked):not(.MuiCheckbox-indeterminate)": {
-                color: uncheckedOutline,
-                "--ds-checkbox-box-fill": "none",
-                "--ds-checkbox-box-stroke": uncheckedOutline,
-                "--ds-checkbox-box-strokeWidth": "2",
-              },
-
-              "&.Mui-checked": {
-                color: selectedMain,
-                "--ds-checkbox-box-fill": "currentColor",
-                "--ds-checkbox-box-stroke": "none",
-                "--ds-checkbox-box-strokeWidth": "0",
-                "--ds-checkbox-glyph": "#ffffff",
-              },
-
-              "&.MuiCheckbox-indeterminate": {
-                color: selectedMain,
-                "--ds-checkbox-box-fill": "none",
-                "--ds-checkbox-box-stroke": "currentColor",
-                "--ds-checkbox-box-strokeWidth": "2",
-                "--ds-checkbox-glyph": "currentColor",
-              },
-
-              ...(selectedMainChannel && {
-                "&.Mui-checked:hover, &.MuiCheckbox-indeterminate:hover": {
-                  backgroundColor: `rgba(${selectedMainChannel} / ${theme.palette.action.hoverOpacity})`,
+              ...(isInteractive && {
+                "&:hover": {
+                  backgroundColor: p.solid ?? p.main,
+                  filter:
+                    theme.palette.mode === "dark"
+                      ? "brightness(1.08)"
+                      : "brightness(0.94)",
+                },
+                "&:active": {
+                  backgroundColor: p.solid ?? p.main,
+                  filter:
+                    theme.palette.mode === "dark"
+                      ? "brightness(1.14)"
+                      : "brightness(0.90)",
                 },
               }),
-            } as unknown as CSSObject;
+            };
           },
         },
       },
