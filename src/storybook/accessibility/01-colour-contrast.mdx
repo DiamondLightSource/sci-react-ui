@@ -53,14 +53,24 @@ import { Meta } from "@storybook/blocks";
     padding: 14px;
   }
 
+  .light .ds-a11y-rowTitle  {
+    color: var(--ds-on-surface, #1a1c23);
+    border-bottom: 1px solid var(--ds-border-subtle, #d9dce3);
+  }
+
+  .dark .ds-a11y-rowTitle {
+    color: #e8eaf0;
+    border-bottom: 1px solid #3b3f4a;
+  }
+
   .ds-a11y-panel--light {
-    background: var(--ds-surface, #ffffff);
+    background: var(--ds-background, #F4F4F6);
     color: var(--ds-on-surface, #1a1c23);
     border: 1px solid var(--ds-border-subtle, #d9dce3);
   }
 
   .ds-a11y-panel--dark {
-    background: #161820;
+    background: #0E1017;
     color: #e8eaf0;
     border: 1px solid #3b3f4a;
   }
@@ -108,7 +118,10 @@ import { Meta } from "@storybook/blocks";
     font-size: 14px;
     font-weight: 650;
   }
-
+  .ds-tokensList {
+    gap: 8px;
+    display: flex;
+  }
   .ds-token {
     display: inline-block;
     font-weight: 500;
@@ -119,7 +132,10 @@ import { Meta } from "@storybook/blocks";
     white-space: nowrap;
     margin-right: 6px;
   }
-
+  .dark .ds-token {
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.08);
+  }
   p code, li code {
     font-weight: 500;
     border: 1px solid rgba(0,0,0,0.08);
@@ -128,6 +144,7 @@ import { Meta } from "@storybook/blocks";
     border-radius: 6px;
     white-space: nowrap;
   }
+
 `}</style>
 
 <div>
@@ -221,41 +238,41 @@ import { Meta } from "@storybook/blocks";
 
     <div className="ds-a11y-demo ds-a11y-grid">
       <div className="ds-a11y-panels">
-        <div className="ds-a11y-panel ds-a11y-panel--light">
-          <p className="ds-a11y-rowTitle">Light surface</p>
+        <div className="ds-a11y-panel ds-a11y-panel--light light">
+          <h2 className="ds-a11y-rowTitle">Light</h2>
 
           <div className="ds-a11y-row">
-            <h3><strong>Success</strong> bg</h3>
-            <div><span className="ds-token">--ds-success</span><span className="ds-token">#006E10</span></div>
-            <div className="ds-chipRow">
-              <div>
-                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#006E10", ["--fg"]: "#fff" }}>
-                  <span className="ds-chipText">Experiment complete · 12 files processed</span>
-                </div>
-              </div>
-              <div>
-                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#006E10", ["--fg"]: "#FFFFFF" }}>
-                  <span className="ds-chipText">Experiment complete · 12 files processed</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="ds-a11y-row">
-            <h3><strong>Warning</strong> bg</h3>
-            <div><span className="ds-token">--ds-warning</span><span className="ds-token">#D97706</span></div>
+            <h3><strong>Success</strong></h3>
+            <div class="ds-tokensList"><span className="ds-token">--ds-success</span><span className="ds-token">#3e9b4f</span></div>
             <div className="ds-chipRow">
               <div>
                 <p className="ds-chipLabel"><strong>WCAG 2.2</strong></p>
-                <div className="ds-chip" style={{ ["--bg"]: "#D97706", ["--fg"]: "#000000" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#3e9b4f", ["--fg"]: "#1A1C23" }}>
+                  <span className="ds-chipText">Experiment complete · 12 files processed</span>
+                </div>
+              </div>
+              <div>
+                <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
+                <div className="ds-chip" style={{ ["--bg"]: "#3e9b4f", ["--fg"]: "#ffffff" }}>
+                  <span className="ds-chipText">Experiment complete · 12 files processed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="ds-a11y-row">
+            <h3><strong>Warning</strong></h3>
+            <div class="ds-tokensList"><span className="ds-token">--ds-warning</span><span className="ds-token">#e97b12</span></div>
+            <div className="ds-chipRow">
+              <div>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong></p>
+                <div className="ds-chip" style={{ ["--bg"]: "#e97b12", ["--fg"]: "#1A1C23" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
               <div>
                 <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#D97706", ["--fg"]: "#FFFFFF" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#e97b12", ["--fg"]: "#ffffff" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
@@ -263,18 +280,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <h3><strong>Danger</strong> bg</h3>
-            <div><span className="ds-token">--ds-danger</span><span className="ds-token">#B80500</span></div>
+            <h3><strong>Danger</strong></h3>
+            <div class="ds-tokensList"><span className="ds-token">--ds-danger</span><span className="ds-token">#d63c41</span></div>
             <div className="ds-chipRow">
               <div>
                 <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#B80500", ["--fg"]: "#fff" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#d63c41", ["--fg"]: "#ffffff" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
               <div>
                 <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#B80500", ["--fg"]: "#FFFFFF" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#d63c41", ["--fg"]: "#ffffff" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
@@ -282,22 +299,22 @@ import { Meta } from "@storybook/blocks";
           </div>
         </div>
 
-        <div className="ds-a11y-panel ds-a11y-panel--dark">
-          <p className="ds-a11y-rowTitle">Dark surface</p>
+        <div className="ds-a11y-panel ds-a11y-panel--dark dark">
+          <h2 className="ds-a11y-rowTitle">Dark</h2>
 
           <div className="ds-a11y-row">
-            <h3><strong>Success</strong> bg</h3>
-            <div><span className="ds-token">--ds-success</span><span className="ds-token">#67D983</span></div>
+            <h3><strong>Success</strong></h3>
+            <div class="ds-tokensList"><span className="ds-token">--ds-success</span><span className="ds-token">#3e9b4f</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#67D983", ["--fg"]: "#000000" }}>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong></p>
+                <div className="ds-chip" style={{ ["--bg"]: "#3e9b4f", ["--fg"]: "#1A1C23" }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
               </div>
               <div>
                 <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#67D983", ["--fg"]: "#03210A" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#3e9b4f", ["--fg"]: "#ffffff" }}>
                   <span className="ds-chipText">Experiment complete · 12 files processed</span>
                 </div>
               </div>
@@ -305,18 +322,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <h3><strong>Warning</strong> bg</h3>
-            <div><span className="ds-token">--ds-warning</span><span className="ds-token">#FFAD66</span></div>
+            <h3><strong>Warning</strong></h3>
+            <div class="ds-tokensList"><span className="ds-token">--ds-warning</span><span className="ds-token">#f07a13</span></div>
             <div className="ds-chipRow">
               <div>
-                <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#FFAD66", ["--fg"]: "#000000" }}>
+                <p className="ds-chipLabel"><strong>WCAG 2.2</strong></p>
+                <div className="ds-chip" style={{ ["--bg"]: "#f07a13", ["--fg"]: "#1A1C23" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
               <div>
                 <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#FFAD66", ["--fg"]: "#2A1400" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#f07a13", ["--fg"]: "#ffffff" }}>
                   <span className="ds-chipText">Beamline temperature near limit</span>
                 </div>
               </div>
@@ -324,18 +341,18 @@ import { Meta } from "@storybook/blocks";
           </div>
 
           <div className="ds-a11y-row">
-            <h3><strong>Danger</strong> bg</h3>
-            <div><span className="ds-token">--ds-danger</span><span className="ds-token">#FF8E89</span></div>
+            <h3><strong>Danger</strong></h3>
+            <div class="ds-tokensList"><span className="ds-token">--ds-danger</span><span className="ds-token">#d63c41</span></div>
             <div className="ds-chipRow">
               <div>
                 <p className="ds-chipLabel"><strong>WCAG 2.2</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#FF8E89", ["--fg"]: "#000000" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#d63c41", ["--fg"]: "#ffffff" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>
               <div>
                 <p className="ds-chipLabel"><strong>APCA</strong> ✅</p>
-                <div className="ds-chip" style={{ ["--bg"]: "#FF8E89", ["--fg"]: "#2D0200" }}>
+                <div className="ds-chip" style={{ ["--bg"]: "#d63c41", ["--fg"]: "#ffffff" }}>
                   <span className="ds-chipText">Connection failed · retry required</span>
                 </div>
               </div>

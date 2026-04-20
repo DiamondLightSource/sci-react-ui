@@ -75,7 +75,7 @@ import { Meta } from "@storybook/blocks";
   }
 
   .text-inverse {
-    color: var(--text-on-solid, var(--ds-on-primary, #ffffff));
+    color: var(--text-on-solid, var(--ds-on-primary-solid, #ffffff));
   }
 
   .ds-dot {
@@ -296,9 +296,9 @@ import { Meta } from "@storybook/blocks";
         <ul className="ds-swatch__meta">
           <li><strong>subtle</strong>: <code>--ds-border-subtle</code></li>
           <li><strong>base</strong>: <code>--ds-border</code></li>
-          <li><strong>strong</strong>: <code>--ds-border-strong</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-border-emphasis</code></li>
         </ul>
-        <p style={{ marginTop: 10, marginBottom: 0 }}>Use subtle for quiet separation, base for standard structure, and strong where affordance needs to be clearer.</p>
+        <p style={{ marginTop: 10, marginBottom: 0 }}>Use subtle for quiet separation, base for standard structure, and emphasis where affordance needs to be clearer.</p>
       </div>
     </div>
 
@@ -318,16 +318,18 @@ import { Meta } from "@storybook/blocks";
   </div>
 
   <h2>Intent roles</h2>
-  <p>Intent roles add meaning. They are mapped into the MUI palette and also provide container and on-container values for calmer usage in dense interfaces.</p>
+  <p>Intent roles add meaning. They are mapped into the MUI palette and also provide container, solid, on-container, and on-solid values for calmer and stronger usage patterns.</p>
 
   <div className="ds-note">
     <strong>How intent works</strong>
     <ul style={{ marginTop: 8 }}>
-      <li><strong>main</strong> is the primary solid colour</li>
-      <li><strong>hover</strong> is the stronger interactive state</li>
-      <li><strong>accent</strong> supports lighter emphasis and focus</li>
+      <li><strong>main</strong> is the default semantic colour for text, icons, borders, and standard intent usage</li>
+      <li><strong>emphasis</strong> is the stronger interactive or more prominent semantic step</li>
+      <li><strong>accent</strong> supports lighter emphasis and supporting semantic detail</li>
       <li><strong>container</strong> is a subtle intent surface</li>
       <li><strong>on container</strong> is the readable foreground for that subtle surface</li>
+      <li><strong>solid</strong> is the stronger filled semantic surface</li>
+      <li><strong>on solid</strong> is the readable foreground for that stronger fill</li>
     </ul>
   </div>
 
@@ -338,15 +340,17 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Primary</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-primary</code></li>
-          <li><strong>hover</strong>: <code>--ds-primary-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-primary-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-primary-accent</code></li>
           <li><strong>container</strong>: <code>--ds-primary-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-primary-container</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-primary</code></li>
+          <li><strong>solid</strong>: <code>--ds-primary-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-primary-solid</code></li>
         </ul>
         <div className="ds-row">
           <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary)", color: "var(--ds-on-primary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-primary)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary-hover)", color: "var(--ds-on-primary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-primary)" }}>hover</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary-emphasis)", color: "var(--ds-on-primary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-primary)" }}>emphasis</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary-solid)", color: "var(--ds-on-primary-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-primary-solid)" }}>solid</span>
           <span className="ds-pill" style={{ background: "var(--ds-primary-container)", color: "var(--ds-on-primary-container)" }}>container</span>
         </div>
       </div>
@@ -358,15 +362,17 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Secondary</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-secondary</code></li>
-          <li><strong>hover</strong>: <code>--ds-secondary-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-secondary-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-secondary-accent</code></li>
           <li><strong>container</strong>: <code>--ds-secondary-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-secondary-container</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-secondary</code></li>
+          <li><strong>solid</strong>: <code>--ds-secondary-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-secondary-solid</code></li>
         </ul>
         <div className="ds-row">
           <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary)", color: "var(--ds-on-secondary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-secondary)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary-hover)", color: "var(--ds-on-secondary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-secondary)" }}>hover</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary-emphasis)", color: "var(--ds-on-secondary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-secondary)" }}>emphasis</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary-solid)", color: "var(--ds-on-secondary-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-secondary-solid)" }}>solid</span>
           <span className="ds-pill" style={{ background: "var(--ds-secondary-container)", color: "var(--ds-on-secondary-container)" }}>container</span>
         </div>
       </div>
@@ -378,15 +384,17 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Tertiary</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-tertiary</code></li>
-          <li><strong>hover</strong>: <code>--ds-tertiary-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-tertiary-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-tertiary-accent</code></li>
           <li><strong>container</strong>: <code>--ds-tertiary-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-tertiary-container</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-tertiary</code></li>
+          <li><strong>solid</strong>: <code>--ds-tertiary-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-tertiary-solid</code></li>
         </ul>
         <div className="ds-row">
           <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary)", color: "var(--ds-on-tertiary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-tertiary)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary-hover)", color: "var(--ds-on-tertiary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-tertiary)" }}>hover</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary-emphasis)", color: "var(--ds-on-tertiary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-tertiary)" }}>emphasis</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary-solid)", color: "var(--ds-on-tertiary-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-tertiary-solid)" }}>solid</span>
           <span className="ds-pill" style={{ background: "var(--ds-tertiary-container)", color: "var(--ds-on-tertiary-container)" }}>container</span>
         </div>
       </div>
@@ -398,14 +406,16 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Brand</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-brand</code></li>
-          <li><strong>hover</strong>: <code>--ds-brand-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-brand-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-brand-accent</code></li>
           <li><strong>container</strong>: <code>--ds-brand-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-brand-container</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-brand</code></li>
+          <li><strong>solid</strong>: <code>--ds-brand-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-brand-solid</code></li>
         </ul>
         <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-brand)", color: "var(--ds-on-brand)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-brand)" }}>brand</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-brand)", color: "var(--ds-on-brand)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-brand)" }}>main</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-brand-solid)", color: "var(--ds-on-brand-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-brand-solid)" }}>solid</span>
           <span className="ds-pill" style={{ background: "var(--ds-brand-container)", color: "var(--ds-on-brand-container)" }}>container</span>
         </div>
       </div>
@@ -422,11 +432,18 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Success</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-success</code></li>
-          <li><strong>hover</strong>: <code>--ds-success-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-success-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-success-accent</code></li>
           <li><strong>container</strong>: <code>--ds-success-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-success-container</code></li>
+          <li><strong>solid</strong>: <code>--ds-success-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-success-solid</code></li>
         </ul>
+        <div className="ds-row">
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-success)", color: "var(--ds-on-success)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-success)" }}>main</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-success-solid)", color: "var(--ds-on-success-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-success-solid)" }}>solid</span>
+          <span className="ds-pill" style={{ background: "var(--ds-success-container)", color: "var(--ds-on-success-container)" }}>container</span>
+        </div>
       </div>
     </div>
 
@@ -436,11 +453,18 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Warning</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-warning</code></li>
-          <li><strong>hover</strong>: <code>--ds-warning-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-warning-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-warning-accent</code></li>
           <li><strong>container</strong>: <code>--ds-warning-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-warning-container</code></li>
+          <li><strong>solid</strong>: <code>--ds-warning-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-warning-solid</code></li>
         </ul>
+        <div className="ds-row">
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-warning)", color: "var(--ds-on-warning)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-warning)" }}>main</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-warning-solid)", color: "var(--ds-on-warning-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-warning-solid)" }}>solid</span>
+          <span className="ds-pill" style={{ background: "var(--ds-warning-container)", color: "var(--ds-on-warning-container)" }}>container</span>
+        </div>
       </div>
     </div>
 
@@ -450,11 +474,18 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Danger / error</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-danger</code></li>
-          <li><strong>hover</strong>: <code>--ds-danger-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-danger-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-danger-accent</code></li>
           <li><strong>container</strong>: <code>--ds-danger-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-danger-container</code></li>
+          <li><strong>solid</strong>: <code>--ds-danger-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-danger-solid</code></li>
         </ul>
+        <div className="ds-row">
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-danger)", color: "var(--ds-on-danger)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-danger)" }}>main</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-danger-solid)", color: "var(--ds-on-danger-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-danger-solid)" }}>solid</span>
+          <span className="ds-pill" style={{ background: "var(--ds-danger-container)", color: "var(--ds-on-danger-container)" }}>container</span>
+        </div>
       </div>
     </div>
 
@@ -464,73 +495,34 @@ import { Meta } from "@storybook/blocks";
         <p className="ds-swatch__name">Info</p>
         <ul className="ds-swatch__meta">
           <li><strong>main</strong>: <code>--ds-info</code></li>
-          <li><strong>hover</strong>: <code>--ds-info-hover</code></li>
+          <li><strong>emphasis</strong>: <code>--ds-info-emphasis</code></li>
           <li><strong>accent</strong>: <code>--ds-info-accent</code></li>
           <li><strong>container</strong>: <code>--ds-info-container</code></li>
           <li><strong>on container</strong>: <code>--ds-on-info-container</code></li>
+          <li><strong>solid</strong>: <code>--ds-info-solid</code></li>
+          <li><strong>on solid</strong>: <code>--ds-on-info-solid</code></li>
         </ul>
+        <div className="ds-row">
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-info)", color: "var(--ds-on-info)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-info)" }}>main</span>
+          <span className="ds-pill text-inverse" style={{ background: "var(--ds-info-solid)", color: "var(--ds-on-info-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-info-solid)" }}>solid</span>
+          <span className="ds-pill" style={{ background: "var(--ds-info-container)", color: "var(--ds-on-info-container)" }}>container</span>
+        </div>
       </div>
     </div>
 
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-highlight)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Highlight</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-highlight</code></li>
-          <li><strong>hover</strong>: <code>--ds-highlight-hover</code></li>
-          <li><strong>accent</strong>: <code>--ds-highlight-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-highlight-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-highlight-container</code></li>
-        </ul>
-      </div>
-    </div>
   </div>
 
-  <h2>MUI palette mapping</h2>
-  <p>MUI components typically use the palette via props like <code>color="primary"</code>. In DiamondDS, those palette slots are mapped from role tokens.</p>
+  <h2>How DiamondDS roles map to the MUI palette</h2>
 
-  <div className="ds-grid">
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-primary)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Primary palette mapping</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>light</strong>: <code>--ds-primary-accent</code></li>
-          <li><strong>main</strong>: <code>--ds-primary</code></li>
-          <li><strong>dark</strong>: <code>--ds-primary-hover</code></li>
-          <li><strong>contrast</strong>: <code>--ds-on-primary</code></li>
-          <li><strong>channels</strong>: <code>--ds-primary-lightChannel</code>, <code>--ds-primary-mainChannel</code>, <code>--ds-primary-darkChannel</code></li>
-        </ul>
-      </div>
-    </div>
+  <p>DiamondDS defines colour through semantic role tokens. The MUI palette is a mapping layer that exposes those roles through the fields MUI expects, such as <code>light</code>, <code>main</code>, <code>dark</code>, and <code>contrastText</code>.</p>
 
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-secondary)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Secondary palette mapping</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>light</strong>: <code>--ds-secondary-accent</code></li>
-          <li><strong>main</strong>: <code>--ds-secondary</code></li>
-          <li><strong>dark</strong>: <code>--ds-secondary-hover</code></li>
-          <li><strong>contrast</strong>: <code>--ds-on-secondary</code></li>
-          <li><strong>channels</strong>: <code>--ds-secondary-lightChannel</code>, <code>--ds-secondary-mainChannel</code>, <code>--ds-secondary-darkChannel</code></li>
-        </ul>
-      </div>
-    </div>
+  <p>This allows standard MUI components to work with familiar props like <code>color="primary"</code>, while DiamondDS-specific roles such as <code>container</code>, <code>on-container</code>, <code>solid</code>, and <code>on-solid</code> support richer component behaviour and custom UI.</p>
 
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-success)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Status palette mapping</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>success</strong>: <code>--ds-success-…</code></li>
-          <li><strong>warning</strong>: <code>--ds-warning-…</code></li>
-          <li><strong>error</strong>: <code>--ds-danger-…</code> → mapped to MUI <code>error</code></li>
-          <li><strong>info</strong>: <code>--ds-info-…</code></li>
-        </ul>
-      </div>
-    </div>
+  <div className="ds-note">
+    <strong>Important</strong>
+    <p style={{ marginTop: 8, marginBottom: 0 }}>
+      MUI palette fields are not the source of truth. They are derived from DiamondDS role tokens so MUI components behave correctly. 
+    </p>
   </div>
 
   <div className="ds-titleRow">
@@ -569,9 +561,9 @@ import { Meta } from "@storybook/blocks";
 
   <div className="ds-overlay-demo">
     <div className="ds-overlay-tile">
-      <div className="ds-overlay-tile__top"><div className="ds-overlay-tile__overlay" style={{ ["--overlay"]: "var(--ds-overlay-hover)" }} /></div>
+      <div className="ds-overlay-tile__top"><div className="ds-overlay-tile__overlay" style={{ ["--overlay"]: "var(--ds-overlay-emphasis)" }} /></div>
       <div className="ds-overlay-tile__body">
-        <ul className="ds-swatch__meta"><li><strong>hover</strong>: <code>--ds-overlay-hover</code></li></ul>
+        <ul className="ds-swatch__meta"><li><strong>emphasis</strong>: <code>--ds-overlay-emphasis</code></li></ul>
       </div>
     </div>
 
@@ -618,7 +610,6 @@ import { Meta } from "@storybook/blocks";
       <li><strong>success</strong>: <code>--ds-focus-ring-success</code></li>
       <li><strong>info</strong>: <code>--ds-focus-ring-info</code></li>
       <li><strong>brand</strong>: <code>--ds-focus-ring-brand</code></li>
-      <li><strong>highlight</strong>: <code>--ds-focus-ring-highlight</code></li>
     </ul>
   </div>
 
