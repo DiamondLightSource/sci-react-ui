@@ -12,7 +12,6 @@ const BoxPath = (props: React.SVGProps<SVGPathElement>) => (
   />
 );
 
-/** Unchecked (outline only) */
 export function DsCheckboxBlankIcon(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 24 24">
@@ -21,20 +20,18 @@ export function DsCheckboxBlankIcon(props: SvgIconProps) {
   );
 }
 
-/** Checked (fill + tick) */
 export function DsCheckboxCheckedIcon(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 24 24">
       <BoxPath />
       <path
         d="M10 14.17l-3.59-3.58L5 12l5 5 9-9-1.41-1.41z"
-        fill="var(--ds-checkbox-glyph, var(--ds-white))"
+        fill="var(--ds-checkbox-glyph, currentColor)"
       />
     </SvgIcon>
   );
 }
 
-/** Indeterminate (outlined feel by default via vars, bar uses glyph var) */
 export function DsCheckboxIndeterminateIcon(props: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 24 24">

@@ -198,7 +198,6 @@ html[data-mode="dark"] {
 
   --ds-surface-container: #222530;
   --ds-surface-container-high: #2c303c;
-  --ds-surface-emphasis: #343947;
   --ds-surface-disabled: rgba(255, 255, 255, 0.14);
 
   --ds-on-surface: #e8eaf0; /* if too dark we could shift to #f1f3f9  */

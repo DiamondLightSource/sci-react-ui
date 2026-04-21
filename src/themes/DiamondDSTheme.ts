@@ -8,6 +8,7 @@ import type { CSSObject } from "@mui/material/styles";
 import type { ButtonProps } from "@mui/material/Button";
 import type { ChipProps } from "@mui/material/Chip";
 import type { CheckboxProps } from "@mui/material/Checkbox";
+import type { RadioProps } from "@mui/material/Radio";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { TabProps } from "@mui/material/Tab";
 import type { AlertProps } from "@mui/material/Alert";
@@ -19,13 +20,6 @@ import { mergeThemeOptions } from "./ThemeManager";
 import logoImageLight from "../public/diamond/logo-light.svg";
 import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoShort from "../public/diamond/logo-short.svg";
-
-import React from "react";
-import {
-  DsCheckboxBlankIcon,
-  DsCheckboxCheckedIcon,
-  DsCheckboxIndeterminateIcon,
-} from "./icons";
 
 type OverrideArgs<OwnerState = unknown> = {
   ownerState: OwnerState;
@@ -83,7 +77,7 @@ declare module "@mui/material/styles" {
     borders: {
       subtle: string;
       base: string;
-      strong: string;
+      emphasis: string;
     };
     surface: {
       subtle: string;
@@ -96,7 +90,7 @@ declare module "@mui/material/styles" {
     borders?: {
       subtle?: string;
       base?: string;
-      strong?: string;
+      emphasis?: string;
     };
     surface?: {
       subtle?: string;
@@ -129,6 +123,8 @@ declare module "@mui/material/styles" {
 
 export type DSMode = "light" | "dark";
 
+// --- Helpers ---
+
 const getIntentPalette = (
   theme: Theme,
   colour: IntentColour
@@ -139,6 +135,12 @@ const getIntentPalette = (
   const fallbackPalette = (theme.palette as any)[colour] as
     | ExtendedPaletteColor
     | undefined;
+
+  if (process.env.NODE_ENV !== "production" && !fallbackPalette) {
+    console.warn(
+      `[DiamondDS] getIntentPalette: colour "${colour}" not found in palette`
+    );
+  }
 
   return {
     ...fallbackPalette,
@@ -162,7 +164,9 @@ const getFocusOutline = (token?: string): CSSObject => ({
 const getOverlayInset = (token = "var(--ds-overlay-hover)") =>
   `inset 0 0 0 9999px ${token}`;
 
-export const createMuiTheme = (mode: DSMode): Theme => {
+// --- Theme factory ---
+
+export const createDiamondTheme = (mode: DSMode): Theme => {
   const DiamondDSThemeOptions = mergeThemeOptions({
     typography: {
       fontFamily: [
@@ -533,11 +537,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         styleOverrides: {
           root: ({ theme }) => ({
             textTransform: "none",
-
             border: `1px solid ${theme.palette.borders.base}`,
-
             "&:hover": {
-              borderColor: theme.palette.borders.strong,
+              borderColor: theme.palette.borders.emphasis,
             },
           }),
         },
@@ -695,7 +697,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
               "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
                 {
-                  borderColor: theme.palette.borders.strong,
+                  borderColor: theme.palette.borders.emphasis,
                 },
 
               "&.Mui-focused:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
@@ -958,11 +960,104 @@ export const createMuiTheme = (mode: DSMode): Theme => {
           },
         },
       },
+
+      MuiCheckbox: {
+        defaultProps: {
+          disableRipple: true,
+        },
+        styleOverrides: {
+          root: ({
+            ownerState,
+            theme,
+          }: {
+            ownerState: CheckboxProps;
+            theme: Theme;
+          }): CSSObject => {
+            const rawColour = ownerState.color ?? "primary";
+            const isDefault = rawColour === "default";
+            const p = !isDefault
+              ? getIntentPalette(theme, rawColour as IntentColour)
+              : null;
+            const focusToken = !isDefault
+              ? getFocusToken(rawColour as IntentColour)
+              : undefined;
+
+            return {
+              color: "var(--ds-on-surface-variant)",
+              borderRadius: 8,
+
+              "&:hover": {
+                backgroundColor: "var(--ds-overlay-hover)",
+              },
+
+              ...getFocusOutline(focusToken),
+
+              "&.Mui-checked": {
+                color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              },
+
+              "&.MuiCheckbox-indeterminate": {
+                color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              },
+
+              "&.Mui-disabled": {
+                color: "var(--ds-on-surface-disabled)",
+              },
+            };
+          },
+        },
+      },
+
+      MuiRadio: {
+        defaultProps: {
+          disableRipple: true,
+        },
+        styleOverrides: {
+          root: ({
+            ownerState,
+            theme,
+          }: {
+            ownerState: RadioProps;
+            theme: Theme;
+          }): CSSObject => {
+            const rawColour = ownerState.color ?? "primary";
+            const isDefault = rawColour === "default";
+            const colour = rawColour as IntentColour;
+
+            const p = !isDefault ? getIntentPalette(theme, colour) : null;
+            const focusToken = !isDefault ? getFocusToken(colour) : undefined;
+
+            return {
+              color: "var(--ds-on-surface-variant)",
+              borderRadius: "50%",
+
+              "&:hover": {
+                backgroundColor: "var(--ds-overlay-hover)",
+              },
+
+              ...getFocusOutline(focusToken),
+
+              "&.Mui-checked": {
+                color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              },
+
+              "&.Mui-disabled": {
+                color: "var(--ds-on-surface-disabled)",
+              },
+            };
+          },
+        },
+      },
+
     },
   });
 
   return createTheme(DiamondDSThemeOptions);
 };
 
-export const DiamondDSTheme = createMuiTheme("light");
-export const DiamondDSThemeDark = createMuiTheme("dark");
+// Convenience exports — derive from the factory so they stay in sync.
+export const DiamondDSTheme = createDiamondTheme("light");
+export const DiamondDSThemeDark = createDiamondTheme("dark");
+
+// Keep the old export name as an alias for backwards compatibility.
+export const createMuiTheme = createDiamondTheme;
