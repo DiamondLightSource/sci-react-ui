@@ -356,20 +356,28 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
       },
 
       grey: {
-        50: "#F4F4F6",
-        100: "#ECEDF0",
-        200: "#E2E3E8",
-        300: "#D4D7DF",
-        400: "#B4B8C3",
-        500: "#9EA2AD",
-        600: "#7A7E8A",
-        700: "#4B4F5A",
-        800: "#2C2F3C",
+        50: "#F8F8FA",
+        100: "#EEF1F5",
+        200: "#E6E9F0",
+        300: "#DDE1E8",
+        400: "#BCC2CD",
+        500: "#A5ACB8",
+        600: "#8A90A0",
+        700: "#505563",
+        800: "#2C3140",
         900: "#1A1C23",
       },
     },
 
     components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
+          },
+        },
+      },
+      
       MuiButtonBase: {
         defaultProps: {
           disableRipple: true,
@@ -445,7 +453,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 ...base,
                 ...getFocusOutline(focusToken),
                 color: onSubtle,
-                borderColor: p.light,
+                borderColor: p.main,
                 backgroundColor: subtle,
                 "&:hover, &&:hover": {
                   backgroundColor: subtle,
@@ -593,7 +601,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 ...base,
                 ...(isInteractive ? getFocusOutline(focusToken) : {}),
                 color: p.onContainer,
-                borderColor: p.light,
+                borderColor: p.main,
                 backgroundColor: p.container,
 
                 ...(isInteractive && {
