@@ -209,7 +209,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
 
         hoverOpacity: 0.04,
         selectedOpacity: 0.08,
-        disabledOpacity: 0.36,
+        disabledOpacity: 0.1,
         focusOpacity: 0.1,
       },
 
@@ -448,37 +448,32 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
               };
             }
 
-            if (variant === "outlined") {
-              return {
-                ...base,
-                ...getFocusOutline(focusToken),
-                color: onSubtle,
-                borderColor: p.main,
+          if (variant === "outlined") {
+            return {
+              ...base,
+              ...getFocusOutline(focusToken),
+
+              color: onSubtle,
+              backgroundColor: subtle,
+
+              "&:hover": {
                 backgroundColor: subtle,
-                "&:hover, &&:hover": {
-                  backgroundColor: subtle,
-                  boxShadow: getOverlayInset(),
-                  borderColor: p.dark,
-                },
-                "&:active": {
-                  backgroundColor: subtle,
-                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
-                },
-                "&.Mui-focusVisible": {
-                  outline: "var(--ds-focus-ring-width) solid",
-                  outlineColor: focusToken,
-                  outlineOffset: "var(--ds-focus-ring-offset)",
-                  boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
-                },
-                "&.Mui-disabled": {
-                  opacity: 1,
-                  backgroundColor: "transparent",
-                  color: "var(--ds-on-surface-disabled)",
-                  borderColor: "var(--ds-border-subtle)",
-                  boxShadow: "none",
-                },
-              };
-            }
+                boxShadow: getOverlayInset(),
+              },
+
+              "&:active": {
+                backgroundColor: subtle,
+                boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+              },
+
+              "&.Mui-disabled": {
+                opacity: 1,
+                backgroundColor: "transparent",
+                color: "var(--ds-on-surface-disabled)",
+                boxShadow: "none",
+              },
+            };
+          }
 
             if (variant === "text") {
               return {
@@ -601,7 +596,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 ...base,
                 ...(isInteractive ? getFocusOutline(focusToken) : {}),
                 color: p.onContainer,
-                borderColor: p.main,
+                borderColor: p.light,
                 backgroundColor: p.container,
 
                 ...(isInteractive && {
@@ -859,7 +854,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 ...common,
                 backgroundColor: subtle,
                 color: onSubtle,
-                border: `1px solid ${p.main}`,
+                border: `1px solid ${p.light}`,
               };
             }
 
@@ -1009,7 +1004,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
               },
 
               "&.Mui-disabled": {
-                color: "var(--ds-on-surface-disabled)",
+                color: "var(--ds-action-disabled)",
               },
             };
           },
@@ -1050,7 +1045,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
               },
 
               "&.Mui-disabled": {
-                color: "var(--ds-on-surface-disabled)",
+                color: "var(--ds-action-disabled)",
               },
             };
           },
