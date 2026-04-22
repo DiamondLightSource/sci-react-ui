@@ -14,7 +14,8 @@ html[data-mode="light"] {
 
   --ds-on-surface: #1a1c23;
   --ds-on-surface-variant: #505563;
-  --ds-on-surface-disabled: rgba(0, 0, 0, 0.26);
+  --ds-on-surface-disabled: rgba(0, 0, 0, 0.36);
+  --ds-action-disabled: rgba(0, 0, 0, 0.30); 
   --ds-on-solid: #ffffff;
 
   --ds-on-surface-channel: 26 28 35;
@@ -134,7 +135,7 @@ html[data-mode="light"] {
   --ds-success-accent: #2FB344;
   --ds-success-container: #e3f4e7;
   --ds-on-success-container: #124d22;
-  --ds-success-solid: #3e9b4f;
+  --ds-success-solid: #1B8834;
   --ds-on-success-solid: #ffffff;
 
   --ds-on-success-channel: 255 255 255;
@@ -203,7 +204,8 @@ html[data-mode="dark"] {
 
   --ds-on-surface: #e8eaf0;
   --ds-on-surface-variant: #b6bcc9;
-  --ds-on-surface-disabled: rgba(255, 255, 255, 0.24);
+  --ds-on-surface-disabled: rgba(255, 255, 255, 0.36);
+  --ds-action-disabled: rgba(255, 255, 255, 0.30);   
   --ds-on-solid: #ffffff;
 
   --ds-on-surface-channel: 232 234 240;
@@ -225,8 +227,8 @@ html[data-mode="dark"] {
   /* Primary */
   --ds-primary: #8aa7ff;
   --ds-on-primary: #0b1638;
-  --ds-primary-emphasis: #a5bcff;
-  --ds-primary-accent: #c4d4ff;
+  --ds-primary-emphasis: #c4d4ff;
+  --ds-primary-accent: #a5bcff;
   --ds-primary-container: #1b2c5f;
   --ds-on-primary-container: #e8eeff;
   --ds-primary-solid: #3f63c9;
@@ -240,8 +242,8 @@ html[data-mode="dark"] {
   /* Secondary */
   --ds-secondary: #58d6de;
   --ds-on-secondary: #002529;
-  --ds-secondary-emphasis: #7be4ea;
-  --ds-secondary-accent: #9af0f3;
+  --ds-secondary-emphasis: #9af0f3;
+  --ds-secondary-accent: #7be4ea;
   --ds-secondary-container: #0d3338;
   --ds-on-secondary-container: #ccf7f9;
   --ds-secondary-solid: #0a858e;
@@ -255,8 +257,8 @@ html[data-mode="dark"] {
   /* Tertiary */
   --ds-tertiary: #e587d1;
   --ds-on-tertiary: #2a0022;
-  --ds-tertiary-emphasis: #efa5e0;
-  --ds-tertiary-accent: #f7bfeb;
+  --ds-tertiary-emphasis: #f7bfeb;
+  --ds-tertiary-accent: #efa5e0;
   --ds-tertiary-container: #381232;
   --ds-on-tertiary-container: #f9d8f1;
   --ds-tertiary-solid: #b8329b;
@@ -270,8 +272,8 @@ html[data-mode="dark"] {
   /* Brand */
   --ds-brand: #aabdff;
   --ds-on-brand: #0d1530;
-  --ds-brand-emphasis: #c4d2ff;
-  --ds-brand-accent: #d7e1ff;
+  --ds-brand-emphasis: #d7e1ff;
+  --ds-brand-accent: #c4d2ff;
   --ds-brand-container: #202945;
   --ds-on-brand-container: #e3e8f7;
   --ds-brand-solid: #3a4a78;
@@ -289,8 +291,8 @@ html[data-mode="dark"] {
   /* Danger */
   --ds-danger: #ff9088;
   --ds-on-danger: #2f0907;
-  --ds-danger-emphasis: #ffb0aa;
-  --ds-danger-accent: #ffc7c2;
+  --ds-danger-emphasis: #ffc7c2;
+  --ds-danger-accent: #ffb0aa;
   --ds-danger-container: #3a1613;
   --ds-on-danger-container: #ffd9d6;
   --ds-danger-solid: #d63c41;
@@ -304,8 +306,8 @@ html[data-mode="dark"] {
   /* Warning */
   --ds-warning: #ffb067;
   --ds-on-warning: #311700;
-  --ds-warning-emphasis: #ffc68a;
-  --ds-warning-accent: #ffd9b0;
+  --ds-warning-emphasis: #ffd9b0;
+  --ds-warning-accent: #ffc68a;
   --ds-warning-container: #382006;
   --ds-on-warning-container: #ffe4c8;
   --ds-warning-solid: #f07a13;
@@ -319,11 +321,11 @@ html[data-mode="dark"] {
   /* Success */
   --ds-success: #6fd88a;
   --ds-on-success: #08210f;
-  --ds-success-emphasis: #8ae5a2;
-  --ds-success-accent: #b3f0c0;
+  --ds-success-emphasis: #b3f0c0;
+  --ds-success-accent: #8ae5a2;
   --ds-success-container: #10341a;
   --ds-on-success-container: #d2f7da;
-  --ds-success-solid: #3e9b4f;
+  --ds-success-solid: #23913C;
   --ds-on-success-solid: #ffffff;
 
   --ds-on-success-channel: 8 33 15;
@@ -334,8 +336,8 @@ html[data-mode="dark"] {
   /* Info */
   --ds-info: #9fb7ff;
   --ds-on-info: #101936;
-  --ds-info-emphasis: #bccdff;
-  --ds-info-accent: #d5e0ff;
+  --ds-info-emphasis: #d5e0ff;
+  --ds-info-accent: #bccdff;
   --ds-info-container: #1b2b57;
   --ds-on-info-container: #dce4ff;
   --ds-info-solid: #4d72dd;
@@ -349,8 +351,8 @@ html[data-mode="dark"] {
   /* Highlight */
   --ds-highlight: #ffd84d;
   --ds-on-highlight: #2a2100;
-  --ds-highlight-emphasis: #ffeaa0;
-  --ds-highlight-accent: #fff1b8;
+  --ds-highlight-emphasis: #fff1b8;
+  --ds-highlight-accent: #ffeaa0;
   --ds-highlight-container: #4b3a05;
   --ds-on-highlight-container: #fff4c7;
   --ds-highlight-solid: #D4A900;
@@ -361,3 +363,68 @@ html[data-mode="dark"] {
   --ds-highlight-lightChannel: 255 241 184;
   --ds-highlight-darkChannel: 255 234 160;
 }
+
+
+/* Elavation colors
+
+0: base paper, dialogs on clean surface
+1–3: cards, panels, raised sections
+4–8: menus, popovers, floating UI
+9–16: more obviously separated overlays
+17–24: rare, maximum lift
+
+Figma references:
+LIGHT
+elevation-0  = #FFFFFF
+elevation-1  = #FCFCFD
+elevation-2  = #FAFBFC
+elevation-3  = #F8F9FB
+elevation-4  = #F6F8FA
+elevation-5  = #F5F7F9
+elevation-6  = #F4F6F8
+elevation-7  = #F4F6F8
+elevation-8  = #F3F5F7
+elevation-9  = #F3F5F7
+elevation-10 = #F2F4F7
+elevation-11 = #F2F4F7
+elevation-12 = #F1F3F6
+elevation-13 = #F1F3F6
+elevation-14 = #F1F3F6
+elevation-15 = #F0F2F5
+elevation-16 = #F0F2F5
+elevation-17 = #F0F2F5
+elevation-18 = #EFF1F4
+elevation-19 = #EFF1F4
+elevation-20 = #EEF1F5
+elevation-21 = #EEF1F5
+elevation-22 = #EEF1F5
+elevation-23 = #EEF1F5
+elevation-24 = #EEF1F5
+
+DARK
+elevation-0  = #161820
+elevation-1  = #181B23
+elevation-2  = #191C25
+elevation-3  = #1A1E27
+elevation-4  = #1C2029
+elevation-5  = #1D212B
+elevation-6  = #1F232D
+elevation-7  = #1F232D
+elevation-8  = #20242F
+elevation-9  = #20242F
+elevation-10 = #212631
+elevation-11 = #212631
+elevation-12 = #222632
+elevation-13 = #222632
+elevation-14 = #222632
+elevation-15 = #242935
+elevation-16 = #242935
+elevation-17 = #252A37
+elevation-18 = #262C39
+elevation-19 = #262C39
+elevation-20 = #28303C
+elevation-21 = #28303C
+elevation-22 = #2A3140
+elevation-23 = #2A3140
+elevation-24 = #2C3140
+*/
