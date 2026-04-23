@@ -572,17 +572,33 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
               return {
                 ...base,
                 ...(isInteractive ? getFocusOutline() : {}),
+
                 color: "var(--ds-on-surface)",
                 borderColor: "var(--ds-border)",
                 backgroundColor: "var(--ds-surface-container-high)",
 
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: "var(--ds-surface-container)",
+                    backgroundColor: "var(--ds-surface-container-high)",
+                    boxShadow: getOverlayInset(),
                   },
+
                   "&:active": {
-                    backgroundColor: "var(--ds-surface-hover)",
+                    backgroundColor: "var(--ds-surface-container-high)",
+                    boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
                   },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
+                    {
+                      backgroundColor: "var(--ds-surface-container-high)",
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
+                    {
+                      backgroundColor: "var(--ds-surface-container-high)",
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
                 }),
               };
             }
@@ -592,51 +608,78 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
             const focusToken = getFocusToken(colour);
 
             if (isOutlined) {
+              const subtle = p.container;
+              const onSubtle = p.onContainer;
+
               return {
                 ...base,
                 ...(isInteractive ? getFocusOutline(focusToken) : {}),
-                color: p.onContainer,
+
+                color: onSubtle,
                 borderColor: p.light,
-                backgroundColor: p.container,
+                backgroundColor: subtle,
 
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: p.container,
-                    borderColor: p.dark,
+                    backgroundColor: subtle,
+                    borderColor: p.light,
+                    boxShadow: getOverlayInset(),
                   },
+
                   "&:active": {
-                    backgroundColor: p.container,
-                    borderColor: p.dark,
-                    filter:
-                      theme.palette.mode === "dark"
-                        ? "brightness(1.04)"
-                        : "brightness(0.98)",
+                    backgroundColor: subtle,
+                    borderColor: p.light,
+                    boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
                   },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
+                    {
+                      backgroundColor: subtle,
+                      borderColor: p.light,
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
+                    {
+                      backgroundColor: subtle,
+                      borderColor: p.light,
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
                 }),
               };
             }
 
+            const solid = p.solid ?? p.main;
+
             return {
               ...base,
               ...(isInteractive ? getFocusOutline(focusToken) : {}),
+
               color: p.onSolid ?? "var(--ds-on-solid)",
-              backgroundColor: p.solid ?? p.main,
+              backgroundColor: solid,
 
               ...(isInteractive && {
                 "&:hover": {
-                  backgroundColor: p.solid ?? p.main,
-                  filter:
-                    theme.palette.mode === "dark"
-                      ? "brightness(1.08)"
-                      : "brightness(0.94)",
+                  backgroundColor: solid,
+                  boxShadow: getOverlayInset("var(--ds-overlay-hover-solid)"),
                 },
+
                 "&:active": {
-                  backgroundColor: p.solid ?? p.main,
-                  filter:
-                    theme.palette.mode === "dark"
-                      ? "brightness(1.14)"
-                      : "brightness(0.90)",
+                  backgroundColor: solid,
+                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
                 },
+
+                "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
+                  {
+                    backgroundColor: solid,
+                    boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                  },
+
+                "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
+                  {
+                    backgroundColor: solid,
+                    boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                  },
               }),
             };
           },
