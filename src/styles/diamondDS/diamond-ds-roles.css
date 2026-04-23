@@ -13,7 +13,7 @@ html[data-mode="light"] {
   --ds-surface-disabled: rgba(0, 0, 0, 0.08);
 
   --ds-on-surface: #1a1c23;
-  --ds-on-surface-variant: #505563;
+  --ds-on-surface-variant: #5e6473;
   --ds-on-surface-disabled: rgba(0, 0, 0, 0.36);
   --ds-action-disabled: rgba(0, 0, 0, 0.30); 
   --ds-on-solid: #ffffff;
@@ -406,9 +406,9 @@ elevation-0  = #161820
 elevation-1  = #181B23
 elevation-2  = #191C25
 elevation-3  = #1A1E27
-elevation-4  = #1C2029
-elevation-5  = #1D212B
-elevation-6  = #1F232D
+elevation-4  = #1B1F28
+elevation-5  = #1C202A
+elevation-6  = #1E222C
 elevation-7  = #1F232D
 elevation-8  = #20242F
 elevation-9  = #20242F
