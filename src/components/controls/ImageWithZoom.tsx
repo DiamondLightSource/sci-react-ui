@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useMemo, useState, useRef, useEffect } from "react";
-import { Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { clampNumber } from "../../utils/generic";
 import { Image } from "./Image";
 import { useWindowSize } from "../../utils/hooks";
@@ -143,13 +143,16 @@ export const ImageWithZoom = ({
   );
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         width: userZoomedIn ? `calc(${zoomWidth} + ${width})` : width,
         position: "relative",
         alignSelf: "center",
         maxWidth,
-        paddingLeft: userZoomedIn || alwaysPad ? zoomWidth : 0,
+        paddingLeft: {
+          xl: userZoomedIn || alwaysPad ? zoomWidth : 0,
+          xs: 0,
+        },
       }}
     >
       {!isLoading && (
@@ -212,6 +215,6 @@ export const ImageWithZoom = ({
           Click to zoom in
         </Typography>
       )}
-    </div>
+    </Box>
   );
 };
