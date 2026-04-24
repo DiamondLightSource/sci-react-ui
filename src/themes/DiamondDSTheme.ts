@@ -8,20 +8,18 @@ import type { CSSObject } from "@mui/material/styles";
 import type { ButtonProps } from "@mui/material/Button";
 import type { ChipProps } from "@mui/material/Chip";
 import type { CheckboxProps } from "@mui/material/Checkbox";
+import type { RadioProps } from "@mui/material/Radio";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
+import type { TabProps } from "@mui/material/Tab";
+import type { AlertProps } from "@mui/material/Alert";
+import type { LinearProgressProps } from "@mui/material/LinearProgress";
+import type { CircularProgressProps } from "@mui/material/CircularProgress";
 
 import { mergeThemeOptions } from "./ThemeManager";
 
 import logoImageLight from "../public/diamond/logo-light.svg";
 import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoShort from "../public/diamond/logo-short.svg";
-
-import React from "react";
-import {
-  DsCheckboxBlankIcon,
-  DsCheckboxCheckedIcon,
-  DsCheckboxIndeterminateIcon,
-} from "./icons";
 
 type OverrideArgs<OwnerState = unknown> = {
   ownerState: OwnerState;
@@ -46,6 +44,10 @@ type ExtendedPaletteColor = {
   mainChannel?: string;
   lightChannel?: string;
   darkChannel?: string;
+  container?: string;
+  onContainer?: string;
+  solid?: string;
+  onSolid?: string;
 };
 
 declare module "@mui/material/styles" {
@@ -57,26 +59,30 @@ declare module "@mui/material/styles" {
   interface TypeText {
     placeholder?: string;
     placeholderFocus?: string;
+    onSolid?: string;
+    primaryChannel?: string;
+    secondaryChannel?: string;
   }
-
+  interface TypeTextOptions {
+    primary?: string;
+    secondary?: string;
+    disabled?: string;
+    placeholder?: string;
+    placeholderFocus?: string;
+    primaryChannel?: string;
+    secondaryChannel?: string;
+  }
   interface Palette {
     brand?: PaletteColor;
     borders: {
       subtle: string;
       base: string;
-      strong: string;
+      emphasis: string;
     };
     surface: {
       subtle: string;
       strong: string;
-      hover: string;
     };
-    intentSurface: Record<
-      IntentColour,
-      {
-        subtle: string;
-      }
-    >;
   }
 
   interface PaletteOptions {
@@ -84,37 +90,40 @@ declare module "@mui/material/styles" {
     borders?: {
       subtle?: string;
       base?: string;
-      strong?: string;
+      emphasis?: string;
     };
     surface?: {
       subtle?: string;
       strong?: string;
-      hover?: string;
     };
-    intentSurface?: Partial<
-      Record<
-        IntentColour,
-        {
-          subtle?: string;
-        }
-      >
-    >;
   }
 
   interface PaletteColor {
     mainChannel?: string;
     lightChannel?: string;
     darkChannel?: string;
+    contrastTextChannel?: string;
+    container?: string;
+    onContainer?: string;
+    solid?: string;
+    onSolid?: string;
   }
 
   interface SimplePaletteColorOptions {
     mainChannel?: string;
     lightChannel?: string;
     darkChannel?: string;
+    contrastTextChannel?: string;
+    container?: string;
+    onContainer?: string;
+    solid?: string;
+    onSolid?: string;
   }
 }
 
 export type DSMode = "light" | "dark";
+
+// --- Helpers ---
 
 const getIntentPalette = (
   theme: Theme,
@@ -126,6 +135,12 @@ const getIntentPalette = (
   const fallbackPalette = (theme.palette as any)[colour] as
     | ExtendedPaletteColor
     | undefined;
+
+  if (process.env.NODE_ENV !== "production" && !fallbackPalette) {
+    console.warn(
+      `[DiamondDS] getIntentPalette: colour "${colour}" not found in palette`
+    );
+  }
 
   return {
     ...fallbackPalette,
@@ -149,7 +164,9 @@ const getFocusOutline = (token?: string): CSSObject => ({
 const getOverlayInset = (token = "var(--ds-overlay-hover)") =>
   `inset 0 0 0 9999px ${token}`;
 
-export const createMuiTheme = (mode: DSMode): Theme => {
+// --- Theme factory ---
+
+export const createDiamondTheme = (mode: DSMode): Theme => {
   const DiamondDSThemeOptions = mergeThemeOptions({
     typography: {
       fontFamily: [
@@ -168,9 +185,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
     logos: {
       normal: {
         src:
-          mode === "dark"
-            ? (logoImageDark ?? logoImageLight)
-            : logoImageLight,
+          mode === "dark" ? (logoImageDark ?? logoImageLight) : logoImageLight,
         srcDark: logoImageDark ?? logoImageLight,
         alt: "Diamond Light Source Logo",
         width: "100",
@@ -189,31 +204,30 @@ export const createMuiTheme = (mode: DSMode): Theme => {
         hover: "var(--ds-overlay-hover)",
         selected: "var(--ds-overlay-selected)",
         focus: "var(--ds-overlay-focus)",
-        disabled: "var(--ds-overlay-disabled)",
-        disabledBackground: "var(--ds-overlay-disabled-bg)",
+        disabled: "var(--ds-on-surface-disabled)",
+        disabledBackground: "var(--ds-surface-disabled)",
 
-        hoverOpacity: 0.16,
+        hoverOpacity: 0.04,
         selectedOpacity: 0.08,
-        disabledOpacity: 0.36,
-        focusOpacity: 0.10,
+        disabledOpacity: 0.1,
+        focusOpacity: 0.1,
       },
 
       text: {
         primary: "var(--ds-on-surface)",
         secondary: "var(--ds-on-surface-variant)",
+        onSolid: "var(--ds-on-solid)",
         disabled: "var(--ds-on-surface-disabled)",
         placeholder: "var(--ds-placeholder)",
         placeholderFocus: "var(--ds-placeholder-focus)",
+
+        primaryChannel: "var(--ds-on-surface-channel)",
+        secondaryChannel: "var(--ds-on-surface-variant-channel)",
       },
 
       background: {
-        default: "var(--ds-background)",
-        paper: "var(--ds-surface)",
-      },
-
-      surface: {
-        subtle: "var(--ds-surface-container)",
-        strong: "var(--ds-surface-container-high)",
+        default: "rgb(var(--ds-background-channel))",
+        paper: "rgb(var(--ds-surface-channel))",
       },
 
       divider: "var(--ds-border-subtle)",
@@ -221,41 +235,25 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       borders: {
         subtle: "var(--ds-border-subtle)",
         base: "var(--ds-border)",
-        strong: "var(--ds-border-strong)",
+        emphasis: "var(--ds-border-emphasis)",
       },
 
-      intentSurface: {
-        primary: {
-          subtle: "var(--ds-primary-container)",
-          onSubtle: "var(--ds-on-primary-container)",
-        },
-        secondary: {
-          subtle: "var(--ds-secondary-container)",
-          onSubtle: "var(--ds-on-secondary-container)",
-        },
-        error: {
-          subtle: "var(--ds-danger-container)",
-          onSubtle: "var(--ds-on-danger-container)",
-        },
-        warning: {
-          subtle: "var(--ds-warning-container)",
-          onSubtle: "var(--ds-on-warning-container)",
-        },
-        success: {
-          subtle: "var(--ds-success-container)",
-          onSubtle: "var(--ds-on-success-container)",
-        },
-        info: {
-          subtle: "var(--ds-info-container)",
-          onSubtle: "var(--ds-on-info-container)",
-        },
+      surface: {
+        subtle: "var(--ds-surface-container)",
+        strong: "var(--ds-surface-container-high)",
       },
 
       primary: {
         light: "var(--ds-primary-accent)",
         main: "var(--ds-primary)",
-        dark: "var(--ds-primary-hover)",
+        dark: "var(--ds-primary-emphasis)",
         contrastText: "var(--ds-on-primary)",
+        container: "var(--ds-primary-container)",
+        onContainer: "var(--ds-on-primary-container)",
+        solid: "var(--ds-primary-solid)",
+        onSolid: "var(--ds-on-primary-solid)",
+
+        contrastTextChannel: "var(--ds-on-primary-channel)",
         mainChannel: "var(--ds-primary-mainChannel)",
         lightChannel: "var(--ds-primary-lightChannel)",
         darkChannel: "var(--ds-primary-darkChannel)",
@@ -264,8 +262,14 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       secondary: {
         light: "var(--ds-secondary-accent)",
         main: "var(--ds-secondary)",
-        dark: "var(--ds-secondary-hover)",
+        dark: "var(--ds-secondary-emphasis)",
         contrastText: "var(--ds-on-secondary)",
+        container: "var(--ds-secondary-container)",
+        onContainer: "var(--ds-on-secondary-container)",
+        solid: "var(--ds-secondary-solid)",
+        onSolid: "var(--ds-on-secondary-solid)",
+
+        contrastTextChannel: "var(--ds-on-secondary-channel)",
         mainChannel: "var(--ds-secondary-mainChannel)",
         lightChannel: "var(--ds-secondary-lightChannel)",
         darkChannel: "var(--ds-secondary-darkChannel)",
@@ -274,18 +278,30 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       brand: {
         light: "var(--ds-brand-accent)",
         main: "var(--ds-brand)",
-        dark: "var(--ds-brand-hover)",
+        dark: "var(--ds-brand-emphasis)",
         contrastText: "var(--ds-on-brand)",
+        container: "var(--ds-brand-container)",
+        onContainer: "var(--ds-on-brand-container)",
+        solid: "var(--ds-brand-solid)",
+        onSolid: "var(--ds-on-brand-solid)",
+
+        contrastTextChannel: "var(--ds-on-brand-channel)",
         mainChannel: "var(--ds-brand-mainChannel)",
         lightChannel: "var(--ds-brand-lightChannel)",
         darkChannel: "var(--ds-brand-darkChannel)",
       },
 
-      error: {
+      error: /* Danger */ {
         light: "var(--ds-danger-accent)",
         main: "var(--ds-danger)",
-        dark: "var(--ds-danger-hover)",
+        dark: "var(--ds-danger-emphasis)",
         contrastText: "var(--ds-on-danger)",
+        container: "var(--ds-danger-container)",
+        onContainer: "var(--ds-on-danger-container)",
+        solid: "var(--ds-danger-solid)",
+        onSolid: "var(--ds-on-danger-solid)",
+
+        contrastTextChannel: "var(--ds-on-danger-channel)",
         mainChannel: "var(--ds-danger-mainChannel)",
         lightChannel: "var(--ds-danger-lightChannel)",
         darkChannel: "var(--ds-danger-darkChannel)",
@@ -294,8 +310,14 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       warning: {
         light: "var(--ds-warning-accent)",
         main: "var(--ds-warning)",
-        dark: "var(--ds-warning-hover)",
+        dark: "var(--ds-warning-emphasis)",
         contrastText: "var(--ds-on-warning)",
+        container: "var(--ds-warning-container)",
+        onContainer: "var(--ds-on-warning-container)",
+        solid: "var(--ds-warning-solid)",
+        onSolid: "var(--ds-on-warning-solid)",
+
+        contrastTextChannel: "var(--ds-on-warning-channel)",
         mainChannel: "var(--ds-warning-mainChannel)",
         lightChannel: "var(--ds-warning-lightChannel)",
         darkChannel: "var(--ds-warning-darkChannel)",
@@ -304,8 +326,14 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       success: {
         light: "var(--ds-success-accent)",
         main: "var(--ds-success)",
-        dark: "var(--ds-success-hover)",
+        dark: "var(--ds-success-emphasis)",
         contrastText: "var(--ds-on-success)",
+        container: "var(--ds-success-container)",
+        onContainer: "var(--ds-on-success-container)",
+        solid: "var(--ds-success-solid)",
+        onSolid: "var(--ds-on-success-solid)",
+
+        contrastTextChannel: "var(--ds-on-success-channel)",
         mainChannel: "var(--ds-success-mainChannel)",
         lightChannel: "var(--ds-success-lightChannel)",
         darkChannel: "var(--ds-success-darkChannel)",
@@ -314,28 +342,42 @@ export const createMuiTheme = (mode: DSMode): Theme => {
       info: {
         light: "var(--ds-info-accent)",
         main: "var(--ds-info)",
-        dark: "var(--ds-info-hover)",
+        dark: "var(--ds-info-emphasis)",
         contrastText: "var(--ds-on-info)",
+        container: "var(--ds-info-container)",
+        onContainer: "var(--ds-on-info-container)",
+        solid: "var(--ds-info-solid)",
+        onSolid: "var(--ds-on-info-solid)",
+
+        contrastTextChannel: "var(--ds-on-info-channel)",
         mainChannel: "var(--ds-info-mainChannel)",
         lightChannel: "var(--ds-info-lightChannel)",
         darkChannel: "var(--ds-info-darkChannel)",
       },
 
       grey: {
-        50: "#F4F4F6",
-        100: "#ECEDF0",
-        200: "#E2E3E8",
-        300: "#D4D7DF",
-        400: "#B4B8C3",
-        500: "#9EA2AD",
-        600: "#7A7E8A",
-        700: "#4B4F5A",
-        800: "#2C2F3C",
+        50: "#F8F8FA",
+        100: "#EEF1F5",
+        200: "#E6E9F0",
+        300: "#DDE1E8",
+        400: "#BCC2CD",
+        500: "#A5ACB8",
+        600: "#8A90A0",
+        700: "#505563",
+        800: "#2C3140",
         900: "#1A1C23",
       },
     },
 
     components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
+          },
+        },
+      },
+      
       MuiButtonBase: {
         defaultProps: {
           disableRipple: true,
@@ -374,43 +416,64 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             const colour = rawColour as IntentColour;
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
-            const subtle = theme.palette.intentSurface[colour].subtle;
-            const onSubtle = theme.palette.intentSurface[colour].onSubtle;
+            const subtle = p.container;
+            const onSubtle = p.onContainer;
 
             if (variant === "contained") {
               return {
                 ...base,
                 ...getFocusOutline(focusToken),
+                backgroundColor: p.solid ?? p.main,
+                color: p.onSolid ?? "var(--ds-on-solid)",
                 "&:hover": {
-                  backgroundColor: p.dark ?? p.main,
-                  boxShadow: "none",
+                  backgroundColor: p.solid ?? p.main,
+                  boxShadow: getOverlayInset("var(--ds-overlay-hover-solid)"),
                 },
                 "&:active": {
+                  backgroundColor: p.solid ?? p.main,
+                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                },
+                "&.Mui-focusVisible": {
+                  outline: "var(--ds-focus-ring-width) solid",
+                  outlineColor: focusToken,
+                  outlineOffset: "var(--ds-focus-ring-offset)",
+                  boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                },
+                "&.Mui-disabled": {
+                  opacity: 1,
+                  backgroundColor: "var(--ds-surface-disabled)",
+                  color: "var(--ds-on-surface-disabled)",
                   boxShadow: "none",
                 },
               };
             }
 
-            if (variant === "outlined") {
-              return {
-                ...base,
-                ...getFocusOutline(focusToken),
-                color: onSubtle,
-                borderColor: p.main,
+          if (variant === "outlined") {
+            return {
+              ...base,
+              ...getFocusOutline(focusToken),
+
+              color: onSubtle,
+              backgroundColor: subtle,
+
+              "&:hover": {
                 backgroundColor: subtle,
-                "&:hover": {
-                  backgroundColor: subtle,
-                  boxShadow: getOverlayInset(),
-                  borderColor: p.main,
-                },
-                "&.Mui-disabled": {
-                  backgroundColor: "transparent",
-                  color: "var(--ds-on-surface-disabled)",
-                  borderColor: "var(--ds-outline-variant)",
-                  boxShadow: "none",
-                },
-              };
-            }
+                boxShadow: getOverlayInset(),
+              },
+
+              "&:active": {
+                backgroundColor: subtle,
+                boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+              },
+
+              "&.Mui-disabled": {
+                opacity: 1,
+                backgroundColor: "transparent",
+                color: "var(--ds-on-surface-disabled)",
+                boxShadow: "none",
+              },
+            };
+          }
 
             if (variant === "text") {
               return {
@@ -449,17 +512,39 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
             if (rawColour === "inherit" || rawColour === "default") {
               return {
+                "&:hover": {
+                  boxShadow: getOverlayInset(),
+                },
                 ...getFocusOutline(),
               };
             }
 
             const colour = rawColour as IntentColour;
+            const p = getIntentPalette(theme, colour);
+            const subtle = p.container;
             const focusToken = getFocusToken(colour);
 
             return {
+              color: p.main,
+              "&:hover": {
+                backgroundColor: subtle,
+                boxShadow: getOverlayInset(),
+              },
               ...getFocusOutline(focusToken),
             };
           },
+        },
+      },
+
+      MuiToggleButton: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            textTransform: "none",
+            border: `1px solid ${theme.palette.borders.base}`,
+            "&:hover": {
+              borderColor: theme.palette.borders.emphasis,
+            },
+          }),
         },
       },
 
@@ -473,7 +558,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
             theme: Theme;
           }): CSSObject => {
             const base: CSSObject = {
-              "& .MuiChip-icon, & .MuiChip-deleteIcon": {
+              "& .MuiChip-icon": {
                 color: "currentColor",
               },
             };
@@ -487,129 +572,116 @@ export const createMuiTheme = (mode: DSMode): Theme => {
               return {
                 ...base,
                 ...(isInteractive ? getFocusOutline() : {}),
+
                 color: "var(--ds-on-surface)",
-                borderColor: "var(--ds-outline)",
-                backgroundColor: "var(--ds-surface-container)",
+                borderColor: "var(--ds-border)",
+                backgroundColor: "var(--ds-surface-container-high)",
+
                 ...(isInteractive && {
                   "&:hover": {
-                    backgroundColor: "var(--ds-surface-container)",
+                    backgroundColor: "var(--ds-surface-container-high)",
                     boxShadow: getOverlayInset(),
                   },
+
+                  "&:active": {
+                    backgroundColor: "var(--ds-surface-container-high)",
+                    boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                  },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
+                    {
+                      backgroundColor: "var(--ds-surface-container-high)",
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
+                    {
+                      backgroundColor: "var(--ds-surface-container-high)",
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
                 }),
-              } as CSSObject;
+              };
             }
 
             const colour = rawColour as IntentColour;
             const p = getIntentPalette(theme, colour);
             const focusToken = getFocusToken(colour);
-            const subtle = theme.palette.intentSurface[colour].subtle;
-            const onSubtle = theme.palette.intentSurface[colour].onSubtle;
 
             if (isOutlined) {
+              const subtle = p.container;
+              const onSubtle = p.onContainer;
+
               return {
                 ...base,
                 ...(isInteractive ? getFocusOutline(focusToken) : {}),
+
                 color: onSubtle,
-                borderColor: p.main,
+                borderColor: p.light,
                 backgroundColor: subtle,
+
                 ...(isInteractive && {
                   "&:hover": {
                     backgroundColor: subtle,
+                    borderColor: p.light,
                     boxShadow: getOverlayInset(),
                   },
+
+                  "&:active": {
+                    backgroundColor: subtle,
+                    borderColor: p.light,
+                    boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                  },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
+                    {
+                      backgroundColor: subtle,
+                      borderColor: p.light,
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
+
+                  "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
+                    {
+                      backgroundColor: subtle,
+                      borderColor: p.light,
+                      boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                    },
                 }),
-              } as CSSObject;
+              };
             }
+
+            const solid = p.solid ?? p.main;
 
             return {
               ...base,
               ...(isInteractive ? getFocusOutline(focusToken) : {}),
-            } as CSSObject;
-          },
-        },
-      },
 
-      MuiCheckbox: {
-        defaultProps: {
-          icon: React.createElement(DsCheckboxBlankIcon),
-          checkedIcon: React.createElement(DsCheckboxCheckedIcon),
-          indeterminateIcon: React.createElement(DsCheckboxIndeterminateIcon),
-          disableRipple: true,
-        },
-        styleOverrides: {
-          root: ({
-            ownerState,
-            theme,
-          }: {
-            ownerState: CheckboxProps;
-            theme: Theme;
-          }): CSSObject => {
-            const raw = (ownerState.color ?? "default") as
-              | "default"
-              | IntentColour;
-            const isDefault = raw === "default";
-            const colour = raw as IntentColour;
-            const p = !isDefault ? getIntentPalette(theme, colour) : null;
-            const focusToken = isDefault
-              ? "var(--ds-focus-ring)"
-              : getFocusToken(colour);
+              color: p.onSolid ?? "var(--ds-on-solid)",
+              backgroundColor: solid,
 
-            const base: CSSObject = {
-              ...getFocusOutline(focusToken),
-              "&:hover": {
-                backgroundColor: "transparent",
-              },
-            };
-
-            if (ownerState.disabled) {
-              return {
-                ...base,
-                color: theme.palette.text.disabled,
-                "--ds-checkbox-box-fill": "none",
-                "--ds-checkbox-box-stroke": theme.palette.text.disabled,
-                "--ds-checkbox-box-strokeWidth": "2",
-                "--ds-checkbox-glyph": theme.palette.text.disabled,
-              } as unknown as CSSObject;
-            }
-
-            const selectedMain = isDefault
-              ? theme.palette.text.secondary
-              : p?.main;
-            const selectedMainChannel = isDefault ? null : p?.mainChannel;
-            const uncheckedOutline = theme.palette.text.secondary;
-
-            return {
-              ...base,
-
-              "&:not(.Mui-checked):not(.MuiCheckbox-indeterminate)": {
-                color: uncheckedOutline,
-                "--ds-checkbox-box-fill": "none",
-                "--ds-checkbox-box-stroke": uncheckedOutline,
-                "--ds-checkbox-box-strokeWidth": "2",
-              },
-
-              "&.Mui-checked": {
-                color: selectedMain,
-                "--ds-checkbox-box-fill": "currentColor",
-                "--ds-checkbox-box-stroke": "none",
-                "--ds-checkbox-box-strokeWidth": "0",
-                "--ds-checkbox-glyph": "#ffffff",
-              },
-
-              "&.MuiCheckbox-indeterminate": {
-                color: selectedMain,
-                "--ds-checkbox-box-fill": "none",
-                "--ds-checkbox-box-stroke": "currentColor",
-                "--ds-checkbox-box-strokeWidth": "2",
-                "--ds-checkbox-glyph": "currentColor",
-              },
-
-              ...(selectedMainChannel && {
-                "&.Mui-checked:hover, &.MuiCheckbox-indeterminate:hover": {
-                  backgroundColor: `rgba(${selectedMainChannel} / ${theme.palette.action.hoverOpacity})`,
+              ...(isInteractive && {
+                "&:hover": {
+                  backgroundColor: solid,
+                  boxShadow: getOverlayInset("var(--ds-overlay-hover-solid)"),
                 },
+
+                "&:active": {
+                  backgroundColor: solid,
+                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                },
+
+                "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
+                  {
+                    backgroundColor: solid,
+                    boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                  },
+
+                "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
+                  {
+                    backgroundColor: solid,
+                    boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
+                  },
               }),
-            } as unknown as CSSObject;
+            };
           },
         },
       },
@@ -671,7 +743,7 @@ export const createMuiTheme = (mode: DSMode): Theme => {
 
               "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
                 {
-                  borderColor: theme.palette.borders.strong,
+                  borderColor: theme.palette.borders.emphasis,
                 },
 
               "&.Mui-focused:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
@@ -751,36 +823,277 @@ export const createMuiTheme = (mode: DSMode): Theme => {
           }),
         },
       },
-      
-    MuiTab: {
-      styleOverrides: {
-        root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
-          textTransform: "none",
-          color: theme.palette.text.secondary,
-          fontWeight: 500,
-          minHeight: 44,
 
-          "&:hover": {
-            color: theme.palette.text.primary,
-            boxShadow: "inset 0 0 0 9999px var(--ds-overlay-hover)",
-          },
+      MuiTab: {
+        styleOverrides: {
+          root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
+            textTransform: "none",
+            color: theme.palette.text.secondary,
+            fontWeight: 500,
+            minHeight: 44,
 
-          "&.Mui-selected": {
-            color: theme.palette.primary.main,
-            fontWeight: 600,
-          },
+            "&:hover": {
+              color: theme.palette.text.primary,
+              boxShadow: getOverlayInset(),
+            },
 
-          "&.Mui-disabled": {
-            color: theme.palette.text.disabled,
-          },
+            "&.Mui-selected": {
+              color: theme.palette.primary.main,
+              fontWeight: 600,
+            },
 
-          "&.Mui-focusVisible, &:focus-visible": {
-            outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
-            outlineOffset: "-2px",
-          },
-        }),
+            "&.Mui-disabled": {
+              color: theme.palette.text.disabled,
+            },
+
+            "&.Mui-focusVisible, &:focus-visible": {
+              outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
+              outlineOffset: "-2px",
+            },
+          }),
+        },
       },
-    },
+
+      MuiAlert: {
+        styleOverrides: {
+          root: ({
+            ownerState,
+            theme,
+          }: {
+            ownerState: AlertProps;
+            theme: Theme;
+          }): CSSObject => {
+            const severity = (ownerState.severity ?? "success") as IntentColour;
+            const mappedSeverity = severity === "error" ? "error" : severity;
+            const p = getIntentPalette(theme, mappedSeverity);
+            const subtle = p.container;
+            const onSubtle = p.onContainer;
+
+            const common: CSSObject = {
+              borderRadius: 8,
+              alignItems: "flex-start",
+              "& .MuiAlert-icon": {
+                color: "currentColor",
+                opacity: 1,
+              },
+              "& .MuiAlert-action": {
+                color: "inherit",
+                "& .MuiIconButton-root:hover": {
+                  boxShadow: getOverlayInset(),
+                },
+              },
+            };
+
+            if (ownerState.variant === "filled") {
+              return {
+                ...common,
+                backgroundColor: p.solid ?? p.main,
+                color: p.onSolid ?? "var(--ds-on-solid)",
+              };
+            }
+
+            if (ownerState.variant === "outlined") {
+              return {
+                ...common,
+                backgroundColor: subtle,
+                color: onSubtle,
+                border: `1px solid ${p.light}`,
+              };
+            }
+
+            return {
+              ...common,
+              backgroundColor: subtle,
+              color: onSubtle,
+              border: "1px solid var(--ds-border-subtle)",
+            };
+          },
+        },
+      },
+
+      MuiLinearProgress: {
+        styleOverrides: {
+          root: {
+            height: 6,
+            borderRadius: 999,
+            overflow: "hidden",
+            backgroundColor: "var(--ds-surface-container-high)",
+          },
+
+          bar: ({
+            ownerState,
+            theme,
+          }: OverrideArgs<LinearProgressProps>): CSSObject => {
+            const colour = (ownerState.color ?? "primary") as IntentColour;
+            const p = getIntentPalette(theme, colour);
+
+            return {
+              backgroundColor: p.main,
+            };
+          },
+        },
+      },
+
+      MuiCircularProgress: {
+        styleOverrides: {
+          root: ({
+            ownerState,
+            theme,
+          }: OverrideArgs<CircularProgressProps>): CSSObject => {
+            const colour = (ownerState.color ?? "primary") as IntentColour;
+            const p = getIntentPalette(theme, colour);
+
+            return {
+              color: p.main,
+            };
+          },
+        },
+      },
+
+      MuiSkeleton: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "var(--ds-surface-container-high)",
+          },
+
+          wave: {
+            backgroundColor: "var(--ds-surface-container-high)",
+            position: "relative",
+            overflow: "hidden",
+
+            "&::after": {
+              content: '""',
+              position: "absolute",
+              inset: 0,
+              transform: "translateX(-100%)",
+              backgroundImage:
+                "linear-gradient(90deg, transparent, var(--ds-overlay-hover), transparent)",
+            },
+          },
+        },
+      },
+
+      MuiSnackbar: {
+        styleOverrides: {
+          root: {
+            "& .MuiSnackbarContent-root, & .MuiAlert-root": {
+              minWidth: 320,
+              maxWidth: 560,
+            },
+          },
+        },
+      },
+
+      MuiSnackbarContent: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "var(--ds-surface-container)",
+            color: "var(--ds-on-surface)",
+            border: "1px solid var(--ds-border-subtle)",
+            borderRadius: 8,
+          },
+
+          message: {
+            padding: "8px 0",
+          },
+
+          action: {
+            color: "inherit",
+
+            "& .MuiIconButton-root:hover": {
+              boxShadow: getOverlayInset(),
+            },
+          },
+        },
+      },
+
+      MuiCheckbox: {
+        defaultProps: {
+          disableRipple: true,
+        },
+        styleOverrides: {
+          root: ({
+            ownerState,
+            theme,
+          }: {
+            ownerState: CheckboxProps;
+            theme: Theme;
+          }): CSSObject => {
+            const rawColour = ownerState.color ?? "primary";
+            const isDefault = rawColour === "default";
+            const p = !isDefault
+              ? getIntentPalette(theme, rawColour as IntentColour)
+              : null;
+            const focusToken = !isDefault
+              ? getFocusToken(rawColour as IntentColour)
+              : undefined;
+
+            return {
+              color: "var(--ds-on-surface-variant)",
+              borderRadius: 8,
+
+              "&:hover": {
+                backgroundColor: "var(--ds-overlay-hover)",
+              },
+
+              ...getFocusOutline(focusToken),
+
+              "&.Mui-checked": {
+                color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              },
+
+              "&.MuiCheckbox-indeterminate": {
+                color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              },
+
+              "&.Mui-disabled": {
+                color: "var(--ds-action-disabled)",
+              },
+            };
+          },
+        },
+      },
+
+      MuiRadio: {
+        defaultProps: {
+          disableRipple: true,
+        },
+        styleOverrides: {
+          root: ({
+            ownerState,
+            theme,
+          }: {
+            ownerState: RadioProps;
+            theme: Theme;
+          }): CSSObject => {
+            const rawColour = ownerState.color ?? "primary";
+            const isDefault = rawColour === "default";
+            const colour = rawColour as IntentColour;
+
+            const p = !isDefault ? getIntentPalette(theme, colour) : null;
+            const focusToken = !isDefault ? getFocusToken(colour) : undefined;
+
+            return {
+              color: "var(--ds-on-surface-variant)",
+              borderRadius: "50%",
+
+              "&:hover": {
+                backgroundColor: "var(--ds-overlay-hover)",
+              },
+
+              ...getFocusOutline(focusToken),
+
+              "&.Mui-checked": {
+                color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              },
+
+              "&.Mui-disabled": {
+                color: "var(--ds-action-disabled)",
+              },
+            };
+          },
+        },
+      },
 
     },
   });
@@ -788,5 +1101,9 @@ export const createMuiTheme = (mode: DSMode): Theme => {
   return createTheme(DiamondDSThemeOptions);
 };
 
-export const DiamondDSTheme = createMuiTheme("light");
-export const DiamondDSThemeDark = createMuiTheme("dark");
+// Convenience exports — derive from the factory so they stay in sync.
+export const DiamondDSTheme = createDiamondTheme("light");
+export const DiamondDSThemeDark = createDiamondTheme("dark");
+
+// Keep the old export name as an alias for backwards compatibility.
+export const createMuiTheme = createDiamondTheme;
