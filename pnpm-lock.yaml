@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  lodash: ^4.18.1
+
 importers:
 
   .:
@@ -15,14 +18,14 @@ importers:
         specifier: ^11.13.0
         version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@jsonforms/core':
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^3.7.0
+        version: 3.7.0
       '@jsonforms/material-renderers':
-        specifier: ^3.6.0
-        version: 3.6.0(urt6nrxqlj2unp4w44pnlaf44a)
+        specifier: ^3.7.0
+        version: 3.7.0(bsjn7wfzygyrn65ghv7otqib44)
       '@jsonforms/react':
-        specifier: ^3.6.0
-        version: 3.6.0(@jsonforms/core@3.6.0)(react@18.3.1)
+        specifier: ^3.7.0
+        version: 3.7.0(@jsonforms/core@3.7.0)(react@18.3.1)
       '@mui/icons-material':
         specifier: ^6.1.7
         version: 6.3.1(@mui/material@6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
@@ -1202,25 +1205,25 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@jsonforms/core@3.6.0':
-    resolution: {integrity: sha512-Qz7qJPf/yP4ybqknZ500zggIDZRJfcufu+3efp/xNWf05mpXvxN9TdfmA++BdXi5Nr4UAgjos2kFmQpZpQaCDw==}
+  '@jsonforms/core@3.7.0':
+    resolution: {integrity: sha512-CE9viWtwi9QWLqlWLeOul1/R1GRAyOA9y6OoUpsCc0FhyR+g5p29F3k0fUExHWxL0Sf4KHcXYkfhtqfRBPS8ww==}
 
-  '@jsonforms/material-renderers@3.6.0':
-    resolution: {integrity: sha512-23ktHVnDDykOXQP2go312/7yNKiR1f/o0GJ2xNg+LVH6PtCWtzdPxaY6WFKWLt84s1DgEHyCw466XEVrPec5dA==}
+  '@jsonforms/material-renderers@3.7.0':
+    resolution: {integrity: sha512-WO9D3zigJ/x/gCckEGxvfQgrdLuy6X6g76hHMlo3KCsusEvabLQHvYz3EJmOOBsuEu8JYXgZetTKjZ44WaBXww==}
     peerDependencies:
-      '@emotion/react': ^11.4.1
+      '@emotion/react': ^11.5.0
       '@emotion/styled': ^11.3.0
-      '@jsonforms/core': 3.6.0
-      '@jsonforms/react': 3.6.0
-      '@mui/icons-material': ^5.11.16 || ^6.0.0
-      '@mui/material': ^5.13.0 || ^6.0.0
-      '@mui/x-date-pickers': ^6.0.0 || ^7.0.0
+      '@jsonforms/core': 3.7.0
+      '@jsonforms/react': 3.7.0
+      '@mui/icons-material': ^7.0.0
+      '@mui/material': ^7.0.0
+      '@mui/x-date-pickers': ^8.0.0
       react: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@jsonforms/react@3.6.0':
-    resolution: {integrity: sha512-dor7FYltCkNkAM+SVZGtabjpUhGlj0/coAqx7GIZ8h+leET+d1sLEAc8kfxxh6gZBq9C4KAErb0Pj3uHedOs9Q==}
+  '@jsonforms/react@3.7.0':
+    resolution: {integrity: sha512-HkY7qAx8vW97wPEgZ7GxCB3iiXG1c95GuObxtcDHGPBJWMwnxWBnVYJmv5h7nthrInKsQKHZL5OusnC/sj/1GQ==}
     peerDependencies:
-      '@jsonforms/core': 3.6.0
+      '@jsonforms/core': 3.7.0
       react: ^16.12.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   '@mdx-js/react@3.1.0':
@@ -3554,8 +3557,8 @@ packages:
   lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -6021,31 +6024,31 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@jsonforms/core@3.6.0':
+  '@jsonforms/core@3.7.0':
     dependencies:
       '@types/json-schema': 7.0.15
       ajv: 8.17.1
       ajv-formats: 2.1.1(ajv@8.17.1)
-      lodash: 4.17.21
+      lodash: 4.18.1
 
-  '@jsonforms/material-renderers@3.6.0(urt6nrxqlj2unp4w44pnlaf44a)':
+  '@jsonforms/material-renderers@3.7.0(bsjn7wfzygyrn65ghv7otqib44)':
     dependencies:
       '@date-io/dayjs': 3.2.0(dayjs@1.10.7)
       '@emotion/react': 11.14.0(@types/react@18.3.18)(react@18.3.1)
       '@emotion/styled': 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
-      '@jsonforms/core': 3.6.0
-      '@jsonforms/react': 3.6.0(@jsonforms/core@3.6.0)(react@18.3.1)
+      '@jsonforms/core': 3.7.0
+      '@jsonforms/react': 3.7.0(@jsonforms/core@3.7.0)(react@18.3.1)
       '@mui/icons-material': 6.3.1(@mui/material@6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@mui/material': 6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/x-date-pickers': 7.29.4(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@mui/material@6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@6.3.1(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(dayjs@1.10.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dayjs: 1.10.7
-      lodash: 4.17.21
+      lodash: 4.18.1
       react: 18.3.1
 
-  '@jsonforms/react@3.6.0(@jsonforms/core@3.6.0)(react@18.3.1)':
+  '@jsonforms/react@3.7.0(@jsonforms/core@3.7.0)(react@18.3.1)':
     dependencies:
-      '@jsonforms/core': 3.6.0
-      lodash: 4.17.21
+      '@jsonforms/core': 3.7.0
+      lodash: 4.18.1
       react: 18.3.1
 
   '@mdx-js/react@3.1.0(@types/react@18.3.18)(react@18.3.1)':
@@ -6769,7 +6772,7 @@ snapshots:
       chalk: 3.0.0
       css.escape: 1.5.1
       dom-accessibility-api: 0.6.3
-      lodash: 4.17.21
+      lodash: 4.18.1
       redent: 3.0.0
 
   '@testing-library/jest-dom@6.9.1':
@@ -8335,7 +8338,7 @@ snapshots:
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
-      lodash: 4.17.21
+      lodash: 4.18.1
       pretty-error: 4.0.0
       tapable: 2.2.1
     optionalDependencies:
@@ -8677,7 +8680,7 @@ snapshots:
 
   lodash.uniq@4.5.0: {}
 
-  lodash@4.17.21: {}
+  lodash@4.18.1: {}
 
   loose-envify@1.4.0:
     dependencies:
@@ -9168,7 +9171,7 @@ snapshots:
 
   pretty-error@4.0.0:
     dependencies:
-      lodash: 4.17.21
+      lodash: 4.18.1
       renderkid: 3.0.0
 
   pretty-format@27.5.1:
@@ -9351,7 +9354,7 @@ snapshots:
       css-select: 4.3.0
       dom-converter: 0.2.0
       htmlparser2: 6.1.0
-      lodash: 4.17.21
+      lodash: 4.18.1
       strip-ansi: 6.0.1
 
   require-from-string@2.0.2: {}
