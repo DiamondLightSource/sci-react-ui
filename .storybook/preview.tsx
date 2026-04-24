@@ -1,14 +1,54 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
 import "@fontsource-variable/inter";
+import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
-import { GenericTheme, DiamondTheme } from "../src";
-
+import {
+  GenericTheme,
+  DiamondTheme,
+  DiamondDSTheme,
+  DiamondDSThemeDark,
+} from "../src";
 import { Context, ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper";
 
 const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
+
+const TextThemeDiamondDS = "Theme: DiamondDS";
+
+function resolveTheme(selectedTheme: string, mode: "light" | "dark") {
+  switch (selectedTheme) {
+    case TextThemeBase:
+      return GenericTheme;
+    case TextThemeDiamondDS:
+      return mode === "dark" ? DiamondDSThemeDark : DiamondDSTheme;
+    case TextThemeDiamond:
+    default:
+      return DiamondTheme;
+  }
+}
+
+function ApplyModeToPreviewDoc({
+  mode,
+  doc,
+}: {
+  mode: "light" | "dark";
+  doc: Document;
+}) {
+  useLayoutEffect(() => {
+    const root = doc.documentElement; // <html>
+    root.setAttribute("data-mode", mode);
+
+    // Optional: keep class too if your CSS supports it
+    root.classList.toggle("dark", mode === "dark");
+    root.classList.toggle("light", mode === "light");
+
+    root.style.colorScheme = mode;
+  }, [mode, doc]);
+
+  return null;
+}
 
 export const decorators = [
   (StoriesWithPadding: React.FC) => (
@@ -24,12 +64,16 @@ export const decorators = [
   (StoriesWithThemeProvider: React.FC, context: Context) => {
     const selectedTheme = context.globals.theme || TextThemeBase;
     const selectedThemeMode = context.globals.themeMode || TextLight;
+    const mode = selectedThemeMode === TextLight ? "light" : "dark";
 
+    // ensure we target the preview iframe document
+    const doc: Document = context?.canvasElement?.ownerDocument ?? document;
     return (
       <ThemeProvider
-        theme={selectedTheme === TextThemeBase ? GenericTheme : DiamondTheme}
-        defaultMode={selectedThemeMode === TextLight ? "light" : "dark"}
+        theme={resolveTheme(selectedTheme, mode)}
+        defaultMode={mode}
       >
+        <ApplyModeToPreviewDoc mode={mode} doc={doc} />
         <CssBaseline />
         <StoriesWithThemeProvider />
       </ThemeProvider>
@@ -44,7 +88,7 @@ const preview: Preview = {
       toolbar: {
         title: "Theme",
         icon: "cog",
-        items: [TextThemeBase, TextThemeDiamond],
+        items: [TextThemeBase, TextThemeDiamond, TextThemeDiamondDS],
         dynamicTitle: true,
       },
     },
@@ -59,8 +103,8 @@ const preview: Preview = {
     },
   },
   initialGlobals: {
-    theme: "Theme: Diamond",
-    themeMode: "Mode: Light",
+    theme: TextThemeDiamondDS,
+    themeMode: TextLight,
   },
   parameters: {
     controls: {
@@ -72,18 +116,6 @@ const preview: Preview = {
     },
     backgrounds: { disable: true },
     layout: "fullscreen",
-    options: {
-      storySort: {
-        order: [
-          "Introduction",
-          "Components",
-          "Theme",
-          "Theme/Logos",
-          "Theme/Colours",
-          "Helpers",
-        ],
-      },
-    },
   },
   argTypes: {
     linkComponent: { control: false },

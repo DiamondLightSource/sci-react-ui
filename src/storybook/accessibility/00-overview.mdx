@@ -1,0 +1,186 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Overview" />
+
+<div>
+  <h1>Accessibility</h1>
+
+  <p>
+    Accessibility in the Diamond design system is not a checklist or a separate
+    mode. It is a baseline for quality, clarity, and usability in complex
+    scientific tools.
+  </p>
+
+  <p>
+    Our goal is to make interfaces that are understandable, predictable, and
+    usable across a wide range of abilities, environments, and levels of fatigue.
+  </p>
+
+  <h2>Standards and approach</h2>
+  <p>
+    We follow WCAG 2.2 as the baseline for accessibility compliance. 
+    
+    We also use APCA (Advanced Perceptual Contrast Algorithm) to design for perceived readability. 
+    Unlike WCAG contrast ratios, APCA accounts for font size, weight, and light/dark conditions. 
+    
+    WCAG defines minimum thresholds. APCA is used to ensure interfaces remain readable, comfortable, 
+    and usable in real-world conditions. 
+    
+    This reflects the direction of emerging standards such as WCAG 3.
+  </p>
+
+
+  
+  <h2>Core principles</h2>
+  <ul>
+    <li>
+      <strong>Clarity over cleverness</strong>: interfaces should explain
+      themselves.
+    </li>
+    <li>
+      <strong>Predictable behaviour</strong>: similar things behave in similar
+      ways.
+    </li>
+    <li>
+      <strong>Multiple ways to perceive information</strong>: never rely on one
+      signal alone.
+    </li>
+    <li>
+      <strong>Low cognitive effort by default</strong>: minimise mental overhead.
+    </li>
+  </ul>
+
+  <h2>Do</h2>
+
+  <h3>Interactive elements</h3>
+  <ul>
+    <li>Ensure every interactive control has an accessible name.</li>
+    <li>
+      Provide this via a visible label, <code>aria-label</code>, or{" "}
+      <code>aria-labelledby</code>.
+    </li>
+    <li>
+      Make keyboard focus clearly visible at all times.
+    </li>
+    <li>
+      Use a consistent focus indicator (outline) rather than transient effects
+      such as ripples.
+    </li>
+    <li>
+      Ensure disabled states are clearly distinguishable from enabled and default.
+    </li>
+  </ul>
+
+  <h3>Keyboard navigation</h3>
+  <ul>
+    <li>
+      All interactive elements must be reachable and usable using a keyboard alone.
+    </li>
+    <li>
+      Follow a logical tab order that matches the visual and reading order.
+    </li>
+    <li>
+      Do not trap focus. Users must be able to move in and out of components using
+      standard keyboard interactions.
+    </li>
+    <li>
+      Ensure focus is always visible and moves predictably between elements.
+    </li>
+    <li>
+      Support standard keyboard interactions (e.g. Enter or Space to activate
+      controls).
+    </li>
+    <li>
+      Ensure focus indicators (outlines) are clearly visible at all times.
+    </li>
+  </ul>
+
+  <p>
+    For composite components (e.g. menus, dialogs, tables), manage focus
+    intentionally:
+  </p>
+
+  <ul>
+    <li>Move focus into the component when it opens.</li>
+    <li>Keep focus within the component while it is active.</li>
+    <li>Return focus to the triggering element when it closes.</li>
+  </ul>  
+
+  <h3>Icons and icon-only actions</h3>
+  <ul>
+    <li>
+      Icon-only controls (e.g. icon buttons) must include an accessible name that
+      describes the action (e.g. “Delete sample”, not “trash icon”), using{" "}
+      <code>aria-label</code> or <code>aria-labelledby</code>.
+    </li>
+    <li>
+      Tooltips support discoverability, but they do not replace accessible names.
+    </li>
+    <li>
+      Decorative icons should be hidden from assistive technologies using{" "}
+      <code>aria-hidden="true"</code>.
+    </li>
+    <li>
+      Do not rely on an icon alone to communicate critical meaning without text,
+      context, or another accessible cue.
+    </li>
+    <li>
+      If an icon represents a toggle or state (e.g. play/pause, mute), expose the
+      state using appropriate ARIA attributes (e.g. <code>aria-pressed</code>).
+    </li>
+  </ul>
+
+  <p>
+    For interactive icons, ensure both an accessible name (for assistive
+    technologies) and a visible affordance such as a tooltip or label (for
+    sighted users).
+  </p>
+
+  <p>
+    In MUI, use <code>aria-label</code> on <code>IconButton</code> components.
+    Tooltips (e.g. <code>&lt;Tooltip /&gt;</code>) should be used in addition to,
+    not instead of, accessible labelling.
+  </p>
+
+  <h3>Forms and inputs</h3>
+  <ul>
+    <li>Always associate inputs with labels (even if visually hidden).</li>
+    <li>Do not show validation errors while a user is actively typing. Validate on blur or submission.</li>
+    <li>Make error messages clear, specific, and actionable.</li>
+    <li>Associate errors programmatically with the relevant field.</li>
+  </ul>
+
+  <h3>Content and layout</h3>
+  <ul>
+    <li>Do not rely on colour alone to convey meaning.</li>
+    <li>Do not rely on icons alone to convey critical meaning.</li>
+    <li>Use a logical, predictable reading order.</li>
+  </ul>
+
+  <h2>Don’t</h2>
+  <ul>
+    <li>Don’t use placeholder text as a replacement for labels.</li>
+    <li>Don’t hide important information in faint or decorative text.</li>
+    <li>Don’t introduce unexpected interaction patterns.</li>
+    <li>Don’t create dense, unbroken blocks of content.</li>
+  </ul>
+
+  <h2>Storybook guidance</h2>
+  <ul>
+    <li>
+      Simple component stories may be visually minimal, but they must still expose
+      an accessible name, or be explicitly documented as intentionally incomplete.
+    </li>
+    <li>
+      Accessibility warnings in Storybook are signals, not noise. Either resolve
+      them or document why they exist.
+    </li>
+  </ul>
+
+  <h2>Quick sense check</h2>
+  <ul>
+    <li>Can this be used with a keyboard only?</li>
+    <li>Is its purpose clear without colour or icons?</li>
+    <li>Would it still make sense when someone is tired or distracted?</li>
+  </ul>
+</div>
