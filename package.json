@@ -14,6 +14,28 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.esm.js"
+    },
+    "./navigation": {
+      "types": "./dist/navigation.d.ts",
+      "require": "./dist/navigation.cjs.js",
+      "import": "./dist/navigation.esm.js"
+    },
+    "./themes": {
+      "types": "./dist/themes.d.ts",
+      "require": "./dist/themes.cjs.js",
+      "import": "./dist/themes.esm.js"
+    },
+    "./controls": {
+      "types": "./dist/controls.d.ts",
+      "require": "./dist/controls.cjs.js",
+      "import": "./dist/controls.esm.js"
+    }
+  },
   "scripts": {
     "build": "tsc -b && rollup --config rollup.config.mjs",
     "docs:build": "typedoc src",
@@ -29,16 +51,16 @@
   "dependencies": {
     "keycloak-js": "^26.2.1",
     "react-icons": "^5.3.0",
-    "utif": "^3.1.0"
+    "utif": "^3.1.0",
+    "@mui/icons-material": "^7.0.0"
   },
   "peerDependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@jsonforms/core": "^3.6.0",
-    "@jsonforms/material-renderers": "^3.6.0",
-    "@jsonforms/react": "^3.6.0",
-    "@mui/icons-material": "^6.1.7",
-    "@mui/material": "^6.1.7",
+    "@jsonforms/core": "^3.7.0",
+    "@jsonforms/material-renderers": "^3.7.0",
+    "@jsonforms/react": "^3.7.0",
+    "@mui/material": "^7.0.0",
     "react": "^18.3.1"
   },
   "devDependencies": {
