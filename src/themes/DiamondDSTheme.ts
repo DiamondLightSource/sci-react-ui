@@ -777,6 +777,10 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 outlineColor: focusToken,
                 outlineOffset: "var(--ds-focus-ring-offset)",
               },
+
+              "&.Mui-disabled .MuiOutlinedInput-notchedOutline": {
+                borderColor: "var(--ds-border-subtle)",
+              },
             };
           },
         },
