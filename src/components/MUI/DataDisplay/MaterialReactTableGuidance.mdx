@@ -1,0 +1,307 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="MUI/Data Display/Table/Material React Table guidance" />
+
+<h1>Material React Table guidance</h1>
+
+<div className="ds-doc-note">
+  <strong>Only show controls that work.</strong>
+  Material React Table includes many built-in toolbar actions, but DiamondDS
+  tables should expose only the actions that are useful, connected, and relevant
+  to the current workflow.
+</div>
+
+<h2>Core principle</h2>
+
+<p>
+  Tables should not advertise capabilities that are not available. If a control
+  is visible, users should be able to use it successfully.
+</p>
+
+<p>
+  This is especially important for scientific workflows, where users may rely on
+  tables for scans, samples, files, jobs, or datasets. Disabled, disconnected, or
+  misleading controls add uncertainty and slow users down.
+</p>
+
+<h2>Toolbar rules</h2>
+
+<table className="ds-doc-table">
+  <thead>
+    <tr>
+      <th>Control</th>
+      <th>Default guidance</th>
+      <th>Show when</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Show / hide filters</td>
+      <td>Hide by default</td>
+      <td>Filters are configured, connected, and useful for the table.</td>
+    </tr>
+    <tr>
+      <td>Show / hide columns</td>
+      <td>Show when useful</td>
+      <td>Not all columns are visible by default, or users need control over table layout.</td>
+    </tr>
+    <tr>
+      <td>Toggle density</td>
+      <td>Hide for most use cases</td>
+      <td>Density meaningfully supports different working modes.</td>
+    </tr>
+    <tr>
+      <td>Toggle full screen</td>
+      <td>Hide for most use cases</td>
+      <td>The table is large, complex, or central to the task.</td>
+    </tr>
+    <tr>
+      <td>Global search</td>
+      <td>Show only when connected</td>
+      <td>Search works across the expected fields and returns useful results.</td>
+    </tr>
+    <tr>
+      <td>Export</td>
+      <td>Show only when implemented</td>
+      <td>The export format, scope, and file naming are clear.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Do</h2>
+
+<ul>
+  <li>Show only actions that are implemented and reliable.</li>
+  <li>Hide toolbar buttons that are not connected to real behaviour.</li>
+  <li>Use column visibility when users may need to reduce visual noise.</li>
+  <li>Keep the default table view focused on the most useful columns.</li>
+  <li>Use clear labels and tooltips for any non-obvious actions.</li>
+</ul>
+
+<h2>Don’t</h2>
+
+<ul>
+  <li>Don’t show the filter button if filtering is not hooked up.</li>
+  <li>Don’t show density controls just because MRT provides them.</li>
+  <li>Don’t show full screen unless it improves the task.</li>
+  <li>Don’t expose column hiding if every column must always remain visible.</li>
+  <li>Don’t rely on MRT defaults without reviewing the workflow.</li>
+</ul>
+
+<h2>Recommended default</h2>
+
+<p>
+  For most DiamondDS tables, start with a restrained toolbar:
+</p>
+
+<pre>
+{`enableColumnFilters: false
+enableDensityToggle: false
+enableFullScreenToggle: false
+enableHiding: true`}
+</pre>
+
+<p>
+  Then enable additional controls only when the table needs them.
+</p>
+
+<h2>Column visibility</h2>
+
+<p>
+  Show the show / hide columns control when the table has more columns than are
+  useful on the page, or when users may need different views for different
+  tasks.
+</p>
+
+<p>
+  If all columns are already visible, readable, and required, do not show column
+  visibility controls.
+</p>
+
+<h2>Filtering</h2>
+
+<p>
+  Filtering should only be shown when it is configured and tested. A visible
+  filter control implies that users can filter the data in a meaningful way.
+</p>
+
+<p>
+  If the data source, server-side behaviour, or column filter logic is not ready,
+  hide the filter controls until it is.
+</p>
+
+<h2>Density</h2>
+
+<p>
+  Do not show density controls by default. Most scientific tables should have a
+  considered default density based on the task, rather than asking users to tune
+  the interface.
+</p>
+
+<p>
+  Use density controls only when switching density clearly helps, such as moving
+  between review mode and high-volume scanning mode.
+</p>
+
+<h2>Full screen</h2>
+
+<p>
+  Full screen should be reserved for complex tables where extra space materially
+  helps the user complete the task.
+</p>
+
+<p>
+  Avoid full screen for small tables, supporting tables, or tables inside simple
+  forms and dialogs.
+</p>
+
+<h2>Manual row ordering</h2>
+
+<p>
+  Manual row ordering should be treated as a focused sub-function, not as the
+  default table mode.
+</p>
+
+<p>
+  Use manual ordering when users need to define a meaningful sequence that is
+  separate from sorting, such as scan order, processing order, priority, or
+  display order.
+</p>
+
+<table className="ds-doc-table">
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Guidance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Do not confuse ordering with sorting</td>
+      <td>
+        Sorting changes the view temporarily. Manual ordering changes the stored
+        sequence.
+      </td>
+    </tr>
+    <tr>
+      <td>Activate as a mode</td>
+      <td>
+        Show manual ordering after the user selects an action such as
+        <strong> Reorder rows</strong>.
+      </td>
+    </tr>
+    <tr>
+    <td>Make the mode visible</td>
+    <td>
+        When active, show drag handles as a dedicated first column. If row
+        selection is present, replace the checkbox column with drag handles
+        while reorder mode is active. Also provide a clear indication that the
+        table is in reorder mode.
+    </td>
+    </tr>
+    <tr>
+      <td>Save automatically by default</td>
+      <td>
+        Persist the new order after each completed move, unless the workflow has
+        a specific reason to require manual saving.
+      </td>
+    </tr>
+    <tr>
+      <td>Provide a clear exit</td>
+      <td>
+        Include an <strong>Exit reordering</strong> or <strong>Done</strong>
+        action so users can return to normal table use.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Recommended behaviour</h3>
+
+<ul>
+  <li>Default table mode: no drag handles shown.</li>
+  <li>User selects <strong>Reorder rows</strong>.</li>
+  <li>Drag handles appear and row ordering becomes active.</li>
+  <li>Each completed move is saved automatically.</li>
+  <li>User selects <strong>Done</strong> to exit reorder mode.</li>
+</ul>
+
+<h3>Do</h3>
+
+<ul>
+  <li>Use manual ordering only where sequence has meaning.</li>
+  <li>Make drag handles visible only in reorder mode.</li>
+  <li>Confirm that changes are saved, for example with subtle status text.</li>
+  <li>Disable sorting while reorder mode is active if sorting would confuse the sequence.</li>
+</ul>
+
+<h3>Don’t</h3>
+
+<ul>
+  <li>Don’t use drag ordering as a replacement for sorting.</li>
+  <li>Don’t show drag handles on every table by default.</li>
+  <li>Don’t leave users unsure whether the order has been saved.</li>
+  <li>Don’t allow sorting and manual reordering to fight each other.</li>
+</ul>
+
+<h2>Example configuration</h2>
+
+<pre>
+{`const table = useMaterialReactTable({
+  columns,
+  data,
+
+  enableColumnFilters: false,
+  enableDensityToggle: false,
+  enableFullScreenToggle: false,
+
+  // Use only when column visibility is useful for the task.
+  enableHiding: true,
+
+  // Add custom actions only when they are implemented.
+  enableRowSelection: true,
+});`}
+</pre>
+
+<style>{`
+  .ds-doc-note {
+    padding: 12px 16px;
+    border: 1px solid var(--ds-border-subtle);
+    border-radius: 8px;
+    background: var(--ds-bg-subtle);
+    color: var(--ds-fg);
+    margin: 0 0 24px;
+  }
+
+  .ds-doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 32px;
+    font-size: 14px;
+  }
+
+  .ds-doc-table th,
+  .ds-doc-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--ds-border-subtle);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .ds-doc-table th {
+    color: var(--ds-fg);
+    font-weight: 600;
+    background: var(--ds-bg-subtle);
+  }
+
+  .ds-doc-table td {
+    color: var(--ds-fg-muted);
+  }
+
+  pre {
+    padding: 16px;
+    border-radius: 8px;
+    background: var(--ds-bg-subtle);
+    overflow: auto;
+  }
+`}</style>

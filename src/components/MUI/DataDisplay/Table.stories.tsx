@@ -44,6 +44,10 @@ const meta: Meta<typeof Table> = {
     stickyHeader: false,
   },
 };
+
+const selectedNames = ["Ice cream sandwich"];
+import Checkbox from "@mui/material/Checkbox";
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 
@@ -75,6 +79,130 @@ export const Playground: Story = {
               <TableCell align="right">{row.protein}</TableCell>
             </TableRow>
           ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  ),
+};
+export const HoverRows: Story = {
+  render: (args) => (
+    <TableContainer component={Paper}>
+      <Table {...args} aria-label="desserts with hover rows">
+        <TableHead>
+          <TableRow>
+            <TableCell>Dessert</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow hover key={row.name}>
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.fat}</TableCell>
+              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.protein}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  ),
+};
+export const SelectedRows: Story = {
+  render: (args) => (
+    <TableContainer component={Paper}>
+      <Table {...args} aria-label="desserts with selected rows">
+        <TableHead>
+          <TableRow>
+            <TableCell padding="checkbox">
+              <Checkbox
+                indeterminate
+                checked={selectedNames.length > 0}
+              />
+            </TableCell>
+            <TableCell>Dessert</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {rows.map((row) => {
+            const isSelected = selectedNames.includes(row.name);
+
+            return (
+              <TableRow key={row.name} selected={isSelected}>
+                <TableCell padding="checkbox">
+                  <Checkbox checked={isSelected} />
+                </TableCell>
+
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.calories}</TableCell>
+                <TableCell align="right">{row.fat}</TableCell>
+                <TableCell align="right">{row.carbs}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  ),
+};
+export const HoverSelectedRows: Story = {
+  render: (args) => (
+    <TableContainer component={Paper}>
+      <Table {...args} aria-label="desserts with hover and selected rows">
+        <TableHead>
+          <TableRow>
+            <TableCell padding="checkbox">
+              <Checkbox
+                indeterminate
+                checked={selectedNames.length > 0}
+              />
+            </TableCell>
+            <TableCell>Dessert</TableCell>
+            <TableCell align="right">Calories</TableCell>
+            <TableCell align="right">Fat&nbsp;(g)</TableCell>
+            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {rows.map((row) => {
+            const isSelected = selectedNames.includes(row.name);
+
+            return (
+              <TableRow
+                key={row.name}
+                hover
+                selected={isSelected}
+              >
+                <TableCell padding="checkbox">
+                  <Checkbox checked={isSelected} />
+                </TableCell>
+
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.calories}</TableCell>
+                <TableCell align="right">{row.fat}</TableCell>
+                <TableCell align="right">{row.carbs}</TableCell>
+                <TableCell align="right">{row.protein}</TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>
