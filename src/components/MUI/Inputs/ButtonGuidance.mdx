@@ -1,0 +1,473 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as ButtonStories from "./Button.stories";
+
+<Meta title="MUI/Inputs/Button/Button guidance" />
+
+<div className="ds-docs">
+
+# Button guidance
+
+<p>
+  Buttons are used for actions such as saving, submitting, progressing a
+  workflow, opening a dialog, changing a mode, or performing an operation on
+  data.
+</p>
+
+<div className="ds-note">
+  <strong>Buttons represent actions.</strong> Use emphasis to show priority and
+  colour to show intent. Do not use button colour as decoration.
+</div>
+
+<Canvas of={ButtonStories.Variants} />
+
+## Overview
+
+<p>
+  In DiamondDS, buttons should feel calm, predictable, and intentional. They
+  should help users understand what action is available, what matters most, and
+  what will happen next.
+</p>
+
+<p>
+  The main action should be easy to find. Supporting actions should remain
+  available without competing with it. Alternative actions or modes can use the
+  secondary intent when they represent a distinct path or interaction state.
+</p>
+
+## Use buttons when
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use one clear main action per decision area.</li>
+      <li>Use <code>primary contained</code> for the main action.</li>
+      <li>Use <code>primary outlined</code> for supporting actions.</li>
+      <li>Use <code>secondary</code> only for distinct alternative actions or modes.</li>
+      <li>Use <code>error</code> for destructive or risky actions.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t use colour only for decoration.</li>
+      <li>Don’t use <code>secondary</code> to mean “second most important”.</li>
+      <li>Don’t show multiple competing contained buttons in one decision area.</li>
+      <li>Don’t place destructive actions too close to safe primary actions.</li>
+      <li>Don’t override button colours with raw hex values.</li>
+    </ul>
+  </div>
+</div>
+
+## Button hierarchy
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Meaning</th>
+      <th>Recommended style</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Main action</td>
+      <td>
+        The action users are expected to take now. This should be the clearest
+        action in the view, section, dialog, or workflow step.
+      </td>
+      <td>
+        <code>primary contained</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Secondary action</td>
+      <td>
+        A supporting action in the same workflow. It is useful, but should have
+        less visual weight than the main action.
+      </td>
+      <td>
+        <code>primary outlined</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Alternative action or mode</td>
+      <td>
+        A distinct action family, path, or interaction mode. This is not just a
+        lower-priority action.
+      </td>
+      <td>
+        <code>secondary outlined</code> by default;
+        <code>secondary contained</code> when active or strongly emphasised
+      </td>
+    </tr>
+    <tr>
+      <td>Destructive action</td>
+      <td>
+        A risky, destructive, or irreversible action, such as delete, clear, or
+        abort.
+      </td>
+      <td>
+        <code>error outlined</code> or <code>error text</code> by default;
+        <code>error contained</code> only when the destructive action is the
+        main confirmed action
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Main actions
+
+<p>
+  Use <code>primary contained</code> for the main action in a view, section,
+  dialog, or workflow step.
+</p>
+
+<ul>
+  <li>Use it for the action users are expected to take now.</li>
+  <li>Use it when the action needs clear visual priority.</li>
+  <li>Avoid having more than one main action in the same decision area.</li>
+</ul>
+
+<p>
+  If multiple actions look equally primary, users lose clarity on what to do
+  next.
+</p>
+
+<Canvas of={ButtonStories.PrimaryAction} />
+
+## Secondary actions
+
+<p>
+  Secondary actions support the main action within the same workflow. They
+  should remain visible and available, but they should not compete with the main
+  action.
+</p>
+
+<p>
+  Use <code>primary outlined</code> for secondary actions. This keeps the action
+  connected to the main workflow while giving it less visual weight.
+</p>
+
+<ul>
+  <li>
+    Use secondary actions for save draft, cancel, preview, edit, or configure.
+  </li>
+  <li>Use outlined styling when the action appears next to the main action.</li>
+  <li>Use text styling for low-priority or inline actions.</li>
+</ul>
+
+<p>
+  Do not use <code>secondary</code> colour just because an action is less
+  important. In DiamondDS, <code>secondary</code> means a different intent,
+  path, or mode.
+</p>
+
+<Canvas of={ButtonStories.PrimarySecondaryAction} />
+
+## Alternative actions
+
+<p>
+  Alternative actions often represent a different workflow, interaction mode, or
+  action family rather than a supporting action within the current workflow.
+</p>
+
+<p>
+  When an alternative action is available but inactive, use
+  <code>secondary outlined</code>. When the alternative mode becomes active,
+  <code>secondary contained</code> can be used to communicate its active state.
+</p>
+
+<p>
+  As workflows progress, the main action may change. A primary contained action
+  may become a primary outlined action when it acts as a response to an active
+  process rather than the main action used to begin it.
+</p>
+
+<Canvas of={ButtonStories.PrimaryAlternativeAction} />
+
+### Same-weight alternatives
+
+<p>
+  When two alternative actions should carry similar visual weight, use outlined
+  buttons rather than two contained buttons.
+</p>
+
+<Canvas of={ButtonStories.SecondaryAlternativeAction} />
+
+### Active alternative mode
+
+<p>
+  When an alternative mode is active, a secondary contained button can be used
+  to communicate that state. The primary action may become outlined when it
+  represents a response to an active process rather than the action used to
+  start it.
+</p>
+
+<p>
+  This pattern allows users to understand both the current mode and the actions
+  available to leave, stop, or change it.
+</p>
+
+<Canvas of={ButtonStories.SecondaryActiveAlternativeAction} />
+
+### Active primary and alternative actions
+
+<p>
+  A <code>primary contained</code> button can appear alongside a
+  <code>secondary contained</code> button when their roles are clearly
+  different: one represents the main action, while the other represents an
+  active alternative mode.
+</p>
+
+<p>
+  Avoid this pairing when the buttons represent competing choices or when both
+  appear to be primary actions.
+</p>
+
+<Canvas of={ButtonStories.ActivePrimaryAlternativeAction} />
+
+## Destructive actions
+
+<p>
+  Use <code>error</code> styling for actions that are destructive, risky, or
+  irreversible.
+</p>
+
+<ul>
+  <li>
+    Use <code>error</code> for destructive actions such as delete, abort, or
+    clear.
+  </li>
+  <li>
+    Prefer <code>error outlined</code> or <code>error text</code> by default.
+  </li>
+  <li>
+    Use <code>error contained</code> only when the destructive action is the
+    main confirmed action, such as in a confirmation dialog.
+  </li>
+  <li>
+    Avoid placing destructive actions next to safe main actions without
+    separation.
+  </li>
+</ul>
+
+<Canvas of={ButtonStories.DestructiveAction} />
+
+<Canvas of={ButtonStories.ConfirmedDestructiveAction} />
+
+## Multiple actions
+
+<p>When multiple buttons appear together, use hierarchy first, then intent.</p>
+
+<ul>
+  <li>
+    Use <code>primary contained</code> for the main action.
+  </li>
+  <li>
+    Use <code>primary outlined</code> for supporting actions in the same
+    workflow.
+  </li>
+  <li>
+    Use <code>secondary outlined</code> for distinct alternative paths or modes.
+  </li>
+  <li>
+    Use <code>secondary contained</code> only when the secondary intent is
+    active or clearly emphasised.
+  </li>
+</ul>
+
+<p>
+  In most cases, prefer one contained button per decision area. More than one
+  contained button is acceptable only when the buttons do not compete for the
+  same meaning.
+</p>
+
+## State and emphasis
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Emphasis</th>
+      <th>Use for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>contained</code>
+      </td>
+      <td>High</td>
+      <td>Main actions, active modes, or confirmed high-emphasis actions.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>outlined</code>
+      </td>
+      <td>Medium</td>
+      <td>
+        Supporting actions, available alternative modes, and actions near a main
+        action.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>text</code>
+      </td>
+      <td>Low</td>
+      <td>Inline, optional, or low-priority actions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Use emphasis to guide decisions. Use colour only when it communicates intent.
+</p>
+
+## State priority
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Purpose</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Disabled</td>
+      <td>Shows that interaction is unavailable.</td>
+      <td>Highest</td>
+    </tr>
+    <tr>
+      <td>Error</td>
+      <td>Shows that an action is risky, destructive, or has failed.</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Active</td>
+      <td>Shows that a mode or toggle-like action is currently on.</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td>Shows keyboard position.</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>Shows pointer interaction.</td>
+      <td>Low</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Disabled and error states should always win over active, hover, focus, or
+  selected states.
+</p>
+
+## Token guidance
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Need</th>
+      <th>Prefer</th>
+      <th>Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Main actions</td>
+      <td>
+        <code>primary</code>
+      </td>
+      <td>Raw brand hex values</td>
+    </tr>
+    <tr>
+      <td>Alternative actions or modes</td>
+      <td>
+        <code>secondary</code>
+      </td>
+      <td>Using secondary as decoration or “less important primary”</td>
+    </tr>
+    <tr>
+      <td>Destructive actions</td>
+      <td>
+        <code>error</code> mapped from danger tokens
+      </td>
+      <td>Custom red values</td>
+    </tr>
+    <tr>
+      <td>Button text</td>
+      <td>
+        <code>contrastText</code>, <code>onSolid</code>, semantic foreground
+        tokens
+      </td>
+      <td>Hardcoded white or black text</td>
+    </tr>
+    <tr>
+      <td>Outlined border</td>
+      <td>
+        <code>border.subtle</code>, <code>border.emphasis</code>
+      </td>
+      <td>Hardcoded grey borders</td>
+    </tr>
+    <tr>
+      <td>Hover state</td>
+      <td>
+        <code>action.hover</code>, <code>overlay.hover</code>
+      </td>
+      <td>One-off hover colours</td>
+    </tr>
+    <tr>
+      <td>Focus state</td>
+      <td>
+        <code>theme.focusRing</code>, semantic focus tokens
+      </td>
+      <td>Browser default focus only</td>
+    </tr>
+  </tbody>
+</table>
+
+## Accessibility
+
+<p>
+  Button labels should describe the action clearly. Avoid vague labels such as
+  “OK” or “Submit” when a more specific label would help users understand the
+  result.
+</p>
+
+<ul>
+  <li>Use visible focus states for keyboard users.</li>
+  <li>Do not rely on colour alone to communicate meaning.</li>
+  <li>Use disabled states only when the reason is clear from context.</li>
+  <li>Use confirmation steps for destructive or high-risk actions.</li>
+  <li>
+    Make active modes clear through label, state, and context, not colour alone.
+  </li>
+</ul>
+
+## Related components
+
+<ul>
+  <li>
+    <code>Button</code> — used for actions in forms, dialogs, toolbars, and
+    workflows.
+  </li>
+  <li>
+    <code>IconButton</code> — used for compact icon-only actions.
+  </li>
+  <li>
+    <code>ButtonGroup</code> — groups related button actions.
+  </li>
+  <li>
+    <code>ToggleButton</code> — used for selectable or persistent action states.
+  </li>
+</ul>
+
+</div>
