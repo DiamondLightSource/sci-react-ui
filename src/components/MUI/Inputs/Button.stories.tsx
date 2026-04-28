@@ -236,3 +236,45 @@ export const States: Story = {
     </Stack>
   ),
 };
+
+export const Playground: Story = {
+  args: {
+    children: "Button",
+    variant: "contained",
+    color: "primary",
+    disabled: false,
+  },
+};
+
+export const PrimaryAction: Story = {
+  render: () => (
+    <Button variant="contained" color="primary">
+      Save
+    </Button>
+  ),
+};
+
+export const PrimaryWithSecondaryActions: Story = {
+  name: "Primary with supporting actions",
+  render: () => (
+    <div
+      style={{
+        display: "flex",
+        gap: "12px",
+        alignItems: "center",
+      }}
+    >
+      <Button variant="text" color="inherit">
+        Cancel
+      </Button>
+
+      <Button variant="outlined" color="primary">
+        Preview
+      </Button>
+
+      <Button variant="contained" color="primary">
+        Save
+      </Button>
+    </div>
+  ),
+};

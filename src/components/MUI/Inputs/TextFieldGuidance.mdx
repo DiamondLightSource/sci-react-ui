@@ -1,0 +1,213 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as TextFieldStories from "./TextField.stories";
+
+<Meta title="MUI/Inputs/TextField/Guidance" />
+
+<h1>Input guidance</h1>
+
+<div className="ds-doc-note">
+  <strong>Inputs capture data.</strong> Choose the right input style based on
+  context, density, and level of attention required.
+</div>
+
+<h2>Overview</h2>
+
+<p>
+  Input fields are used for entering and editing data. In DiamondDS, input
+  styling should support clarity and flow without adding unnecessary visual
+  weight.
+</p>
+
+<p>
+  Different input variants communicate different levels of emphasis. Use them
+  intentionally based on the form context.
+</p>
+
+<h2>Variants</h2>
+
+<table className="ds-doc-table">
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Use for</th>
+      <th>Behaviour</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Outlined</td>
+      <td>Long forms, dense layouts</td>
+      <td>Balanced emphasis, supports scanning</td>
+    </tr>
+    <tr>
+      <td>Filled</td>
+      <td>Dialogs, short forms, high-attention areas</td>
+      <td>Strong emphasis, draws focus to the field</td>
+    </tr>
+    <tr>
+      <td>Standard</td>
+      <td>Minimal layouts, quick forms</td>
+      <td>Low emphasis, lightweight interaction</td>
+    </tr>
+  </tbody>
+</table>
+
+<Canvas of={TextFieldStories.Variants} />
+
+<h2>Outlined inputs</h2>
+
+<p>
+  Use outlined inputs for most standard forms, especially when multiple fields
+  are shown together.
+</p>
+
+<ul>
+  <li>Best for longer forms and structured layouts.</li>
+  <li>Supports clear separation between fields.</li>
+  <li>Default choice unless stronger emphasis is needed.</li>
+</ul>
+
+<h2>Filled inputs</h2>
+
+<p>
+  Use filled inputs when the field needs to stand out or when the form is short
+  and focused.
+</p>
+
+<ul>
+  <li>Best for dialogs and small forms.</li>
+  <li>Use when user attention should be directed to inputs.</li>
+  <li>Avoid using in dense layouts.</li>
+</ul>
+
+<h2>Standard inputs</h2>
+
+<p>
+  Use standard inputs for minimal or inline forms where visual weight should be
+  reduced.
+</p>
+
+<ul>
+  <li>Best for quick entry or compact UI.</li>
+  <li>Use when inputs should blend into the layout.</li>
+  <li>Avoid for complex or critical forms.</li>
+</ul>
+
+<h2>Choosing the right variant</h2>
+
+<ul>
+  <li>Short, focused form → <strong>Filled</strong></li>
+  <li>Long or structured form → <strong>Outlined</strong></li>
+  <li>Minimal or inline → <strong>Standard</strong></li>
+</ul>
+
+<p>
+  Avoid mixing variants within the same form unless there is a clear reason.
+</p>
+
+<h3>Do</h3>
+
+<ul>
+  <li>Use one variant consistently within a form.</li>
+  <li>Choose variant based on context, not preference.</li>
+  <li>Use labels and helper text to support clarity.</li>
+</ul>
+
+<h3>Don’t</h3>
+
+<ul>
+  <li>Don’t mix filled and outlined inputs in the same form.</li>
+  <li>Don’t use filled inputs in dense layouts.</li>
+  <li>Don’t use standard inputs for complex forms.</li>
+</ul>
+
+<h2>Validation</h2>
+
+<p>
+  Validation should support users, not interrupt them. Avoid showing errors while
+  the user is still typing.
+</p>
+
+<h3>Timing</h3>
+
+<ul>
+  <li>Do not show error states while the user is actively typing.</li>
+  <li>Show validation after the user finishes input (e.g. on blur).</li>
+  <li>Show validation on submit for required or critical fields.</li>
+  <li>Allow real-time validation only when the rule is simple and predictable (e.g. character limits).</li>
+</ul>
+
+<p>
+  Early validation can be distracting and may cause users to correct input that
+  is not yet complete.
+</p>
+
+<h3>Do</h3>
+
+<ul>
+  <li>Validate on blur or submit.</li>
+  <li>Use helper text to guide input before errors occur.</li>
+  <li>Keep error messages clear and specific.</li>
+</ul>
+
+<h3>Don’t</h3>
+
+<ul>
+  <li>Don’t show errors while the user is typing.</li>
+  <li>Don’t flash error states on partial input.</li>
+  <li>Don’t block input unnecessarily.</li>
+</ul>
+
+<h2>States</h2>
+
+<ul>
+  <li>Focus should be clearly visible using focus tokens.</li>
+  <li>Error states must be clear and take priority over other states.</li>
+  <li>Disabled fields should be visibly inactive but readable.</li>
+</ul>
+
+<h2>Accessibility</h2>
+
+<ul>
+  <li>Always provide a label for each input.</li>
+  <li>Use helper text for guidance or validation messages.</li>
+  <li>Ensure sufficient contrast for text and borders.</li>
+</ul>
+
+<h2>Light and dark mode</h2>
+
+<p>
+  Inputs should respond to <code>html[data-mode="light"]</code> and
+  <code>html[data-mode="dark"]</code> through tokens. Avoid component-level
+  overrides for colour modes.
+</p>
+
+<style>{`
+  .ds-doc-note {
+    padding: 12px 16px;
+    border: 1px solid var(--ds-border-subtle);
+    border-radius: 8px;
+    background: var(--ds-bg-subtle);
+    color: var(--ds-fg);
+    margin: 0 0 24px;
+  }
+
+  .ds-doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 32px;
+    font-size: 14px;
+  }
+
+  .ds-doc-table th,
+  .ds-doc-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--ds-border-subtle);
+    text-align: left;
+  }
+
+  .ds-doc-table th {
+    background: var(--ds-bg-subtle);
+    font-weight: 600;
+  }
+`}</style>

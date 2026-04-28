@@ -1,0 +1,196 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as ButtonStories from "./Button.stories";
+
+import { Button } from "./Button";
+
+<Meta title="MUI/Inputs/Button/Guidance" />
+
+<h1>Button guidance</h1>
+
+<div className="ds-doc-note">
+  <strong>Buttons represent actions.</strong> Use colour and emphasis to show
+  importance, not to decorate.
+</div>
+
+<h2>Overview</h2>
+
+<p>
+  Buttons trigger actions such as saving, submitting, progressing a workflow,
+  or performing operations on data. In DiamondDS, buttons should feel calm,
+  predictable, and intentional.
+</p>
+
+<p>
+  Use visual emphasis to guide users to the right action, not to compete for
+  attention.
+</p>
+
+<h2>Hierarchy</h2>
+
+<table className="ds-doc-table">
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Usage</th>
+      <th>Style</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary action</td>
+      <td>The main action at a given moment</td>
+      <td>Primary, contained</td>
+    </tr>
+    <tr>
+      <td>Secondary action</td>
+      <td>Alternative or supporting action</td>
+      <td>Secondary (contained or outlined)</td>
+    </tr>
+    <tr>
+      <td>Subtle action</td>
+      <td>Low emphasis or optional action</td>
+      <td>Outlined or text</td>
+    </tr>
+    <tr>
+      <td>Destructive action</td>
+      <td>Irreversible or risky action</td>
+      <td>Error</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Primary action</h2>
+
+<p>
+  Use a primary contained button for the key action at any given moment.
+</p>
+
+<ul>
+  <li>Use <strong>primary colour</strong> for most actions.</li>
+  <li>Use <strong>contained</strong> style for emphasis.</li>
+  <li>Avoid having more than one primary action visible at the same time.</li>
+</ul>
+
+<p>
+  If multiple actions appear primary, users lose clarity on what to do next.
+</p>
+
+<h3>Single primary action</h3>
+
+<Canvas of={ButtonStories.PrimaryAction} />
+
+<h2>Secondary and supporting actions</h2>
+
+<p>
+  Secondary actions support the primary action but should not compete with it.
+</p>
+
+<ul>
+  <li>Use <strong>secondary colour</strong> for alternative actions.</li>
+  <li>Use <strong>outlined</strong> for reduced emphasis.</li>
+  <li>Use <strong>text</strong> for low-priority or inline actions.</li>
+</ul>
+
+<h2>Destructive actions</h2>
+
+<p>
+  Use error styling for actions that are destructive or irreversible.
+</p>
+
+<ul>
+  <li>Use <strong>error colour</strong> for destructive actions (e.g. delete).</li>
+  <li>Prefer outlined or text unless strong emphasis is required.</li>
+  <li>Avoid placing destructive actions next to primary actions without separation.</li>
+</ul>
+
+<h2>Multiple actions</h2>
+
+<p>
+  When multiple buttons appear together, use a clear hierarchy.
+</p>
+
+<ul>
+  <li>Use one <strong>primary contained</strong> button.</li>
+  <li>Use outlined or text buttons for supporting actions.</li>
+  <li>Use secondary contained only when it represents a meaningful alternative.</li>
+</ul>
+
+<p>
+  Avoid multiple contained buttons with equal weight unless they represent
+  distinct and equally valid choices.
+</p>
+
+<h3>Multiple actions</h3>
+
+<Canvas of={ButtonStories.PrimaryWithSecondaryActions} />
+
+<h2>State and emphasis</h2>
+
+<ul>
+  <li>Contained = highest emphasis</li>
+  <li>Outlined = medium emphasis</li>
+  <li>Text = lowest emphasis</li>
+</ul>
+
+<p>
+  Use emphasis to guide decisions, not to increase visual noise.
+</p>
+
+<h2>Do</h2>
+
+<ul>
+  <li>Use one clear primary action per view.</li>
+  <li>Use colour to communicate intent (primary, secondary, error).</li>
+  <li>Keep button labels short and action-oriented.</li>
+</ul>
+
+<h2>Don’t</h2>
+
+<ul>
+  <li>Don’t show multiple primary actions.</li>
+  <li>Don’t use colour purely for decoration.</li>
+  <li>Don’t mix too many button styles in one group.</li>
+</ul>
+
+<h2>Light and dark mode</h2>
+
+<p>
+  Buttons should use semantic tokens and adapt automatically to light and dark
+  modes via <code>html[data-mode]</code>. Avoid mode-specific overrides in
+  components.
+</p>
+
+<h2>Examples</h2>
+
+<Canvas of={ButtonStories.Basic} />
+<Canvas of={ButtonStories.Variants} />
+
+<style>{`
+  .ds-doc-note {
+    padding: 12px 16px;
+    border: 1px solid var(--ds-border-subtle);
+    border-radius: 8px;
+    background: var(--ds-bg-subtle);
+    color: var(--ds-fg);
+    margin: 0 0 24px;
+  }
+
+  .ds-doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 32px;
+    font-size: 14px;
+  }
+
+  .ds-doc-table th,
+  .ds-doc-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--ds-border-subtle);
+    text-align: left;
+  }
+
+  .ds-doc-table th {
+    background: var(--ds-bg-subtle);
+    font-weight: 600;
+  }
+`}</style>
