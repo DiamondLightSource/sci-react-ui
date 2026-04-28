@@ -68,8 +68,8 @@ export const Variants: Story = {
   render: (_args) => (
     <Stack direction="row" spacing={1}>
       <Button variant="text">Text</Button>
-      <Button variant="contained">Contained</Button>
       <Button variant="outlined">Outlined</Button>
+      <Button variant="contained">Contained</Button>
     </Stack>
   ),
 };
@@ -165,6 +165,113 @@ export const States: Story = {
       </Box>
       <Button variant="contained" fullWidth>
         Full width
+      </Button>
+    </Stack>
+  ),
+};
+
+export const PrimaryAction: Story = {
+  name: "Primary action",
+  render: (_args) => (
+    <Button variant="contained" color="primary">
+      Run
+    </Button>
+  ),
+};
+
+export const PrimarySecondaryAction: Story = {
+  name: "Primary & Secondary action",
+  render: (_args) => (
+    <Stack direction="row" spacing={1}>
+      <Button variant="outlined" color="primary">
+        Preview
+      </Button>
+      <Button variant="contained" color="primary">
+        Run
+      </Button>
+    </Stack>
+  ),
+};
+
+export const PrimaryAlternativeAction: Story = {
+  name: "Primary & Alternative action",
+  render: (_args) => (
+    <Stack direction="row" spacing={1}>
+      <Button variant="contained" color="primary">
+        Run
+      </Button>
+      <Button variant="outlined" color="secondary">
+        Advanced mode
+      </Button>
+    </Stack>
+  ),
+};
+
+export const ActivePrimaryAlternativeAction: Story = {
+  name: "Active Primary & Alternative mode",
+  render: (_args) => (
+    <Stack direction="row" spacing={1}>
+      <Button variant="contained" color="primary">
+        Run
+      </Button>
+      <Button variant="contained" color="secondary">
+        Exit mode
+      </Button>
+    </Stack>
+  ),
+};
+
+export const SecondaryActiveAlternativeAction: Story = {
+  name: "Secondary & Active-Alternative mode",
+  render: (_args) => (
+    <Stack direction="row" spacing={1}>
+      <Button variant="outlined" color="primary">
+        Stop
+      </Button>
+      <Button variant="contained" color="secondary">
+        Exit mode
+      </Button>
+    </Stack>
+  ),
+};
+
+export const SecondaryAlternativeAction: Story = {
+  name: "Running with active alternative mode",
+  render: (_args) => (
+    <Stack direction="row" spacing={1}>
+      <Button variant="outlined" color="primary">
+        Stop
+      </Button>
+      <Button variant="outlined" color="secondary">
+        Advanced mode
+      </Button>
+    </Stack>
+  ),
+};
+
+export const DestructiveAction: Story = {
+  name: "Destructive action",
+  render: (_args) => (
+    <Stack direction="row" spacing={1}>
+      <Button variant="contained" color="primary">
+        Save
+      </Button>
+      <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+    </Stack>
+  ),
+};
+
+export const ConfirmedDestructiveAction: Story = {
+  name: "Confirmed destructive action",
+  render: (_args) => (
+    <Stack direction="row" spacing={1}>
+      <Button variant="text" color="inherit">
+        Cancel
+      </Button>
+      <Button variant="contained" color="error" startIcon={<DeleteIcon />}>
+        Delete permanently
       </Button>
     </Stack>
   ),
