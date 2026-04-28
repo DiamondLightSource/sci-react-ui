@@ -48,18 +48,31 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   maxValue,
 }) => {
   const numberRegex = Modes[numberMode];
-
   const validHelperText = !helperText
     ? ""
     : `A ${numberMode} number. Limits: ${minValue} to ${maxValue}`;
 
-  const handleInputChange = (value: string) => {
+  function calculateHelperText() {
+    return !isValid || !isInLimits
+      ? !isValid
+        ? "Invalid input"
+        : "Outside limits"
+      : validHelperText;
+  }
+
+  function checkValidity(value: string) {
+    setIsValid(numberRegex.test(value));
+  }
+
+  function checkLimits(value: string) {
     setIsInLimits(
       parseFloat(value) >= minValue && parseFloat(value) <= maxValue,
     );
-    setIsValid(numberRegex.test(value));
+  }
+
+  function updateText(value: string) {
     setNumberText(value);
-  };
+  }
 
   const handleKeyDown = (event: { key: string }) => {
     if (
@@ -88,17 +101,15 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
     <TextField
       label={label}
       value={numberText}
-      onChange={(e) => handleInputChange(e.target.value)}
+      onChange={(e) => {
+        checkValidity(e.target.value);
+        checkLimits(e.target.value);
+        updateText(e.target.value);
+      }}
       onKeyDown={handleKeyDown}
       onBlur={handleBlur}
       error={!isValid || !isInLimits}
-      helperText={
-        !isValid || !isInLimits
-          ? !isValid
-            ? "Invalid input"
-            : "Outside limits"
-          : validHelperText
-      }
+      helperText={calculateHelperText()}
       variant="outlined"
     />
   );
