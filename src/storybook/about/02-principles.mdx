@@ -1,0 +1,145 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Start here/Principles" />
+
+<style>{`
+  .ds-docs {
+    max-width: 64ch;
+  }
+
+  .ds-principles {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  @media (min-width: 800px) {
+    .ds-principles {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .ds-card {
+    border: 1px solid var(--ds-border-subtle);
+    background: var(--ds-surface-container);
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .ds-card h3 {
+    margin: 0 0 6px;
+  }
+
+  .ds-card p {
+    margin: 0;
+  }
+`}</style>
+
+<div className="ds-docs">
+
+# Core principles
+
+<p>
+  These principles guide how we design and build interfaces across the Diamond
+  Design System.
+</p>
+
+</div>
+
+<div className="ds-principles">
+
+<div className="ds-card">
+  <h3>Clarity</h3>
+  <p>
+    Interfaces should be easy to understand at a glance. Users should be able to
+    see system state and next actions without interpreting multiple signals.
+  </p>
+</div>
+
+<div className="ds-card">
+  <h3>Consistency</h3>
+  <p>
+    Similar elements should look and behave the same across the system, reducing
+    the need to relearn interactions.
+  </p>
+</div>
+
+<div className="ds-card">
+  <h3>Accessibility</h3>
+  <p>
+    Accessibility is a baseline, not an enhancement. Interfaces must remain
+    usable across a wide range of abilities and conditions.
+  </p>
+</div>
+
+<div className="ds-card">
+  <h3>Predictable behaviour</h3>
+  <p>
+    Interactions should behave as users expect. Reliability is critical in
+    stateful and high-consequence workflows.
+  </p>
+</div>
+
+<div className="ds-card">
+  <h3>Token-driven</h3>
+  <p>
+    All visual decisions are defined through design tokens, ensuring consistency
+    across themes and components.
+  </p>
+</div>
+
+<div className="ds-card">
+  <h3>Semantic first</h3>
+  <p>
+    Use roles and meaning, not raw values. For example, use
+    <code> --ds-bg-surface</code> instead of hardcoded colours.
+  </p>
+</div>
+
+<div className="ds-card">
+  <h3>Separation of concerns</h3>
+  <p>
+    Tokens, components, and implementation are distinct layers, allowing the
+    system to scale safely.
+  </p>
+</div>
+
+</div>
+<p></p>
+<div className="ds-docs">
+
+## Do and don’t
+
+### Do
+
+<ul>
+  <li>Use semantic design tokens.</li>
+  <li>Start with existing components.</li>
+  <li>Keep behaviour and interaction patterns consistent.</li>
+</ul>
+
+### Don’t
+
+<ul>
+  <li>Hardcode colours or spacing values.</li>
+  <li>Create new components without a clear need.</li>
+  <li>Override system behaviour without strong justification.</li>
+</ul>
+
+## Light and dark mode
+
+<p>
+  Light and dark mode are supported by default and are handled at the system
+  level, not per component.
+</p>
+
+<ul>
+  <li>Theme switching is controlled via <code>data-mode</code> on the <code>html</code> element.</li>
+  <li>Components should use semantic tokens so colours adapt automatically.</li>
+  <li>No component should implement separate light/dark logic.</li>
+</ul>
+
+<pre>{`<html data-mode="light">`}</pre>
+<pre>{`<html data-mode="dark">`}</pre>
+
+</div>

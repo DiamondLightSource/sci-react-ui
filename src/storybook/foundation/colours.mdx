@@ -7,8 +7,34 @@ import { Meta } from "@storybook/blocks";
     margin: 12px 0 20px;
     padding: 12px 14px;
     border: 1px solid var(--ds-border-subtle, #d9dce3);
-    background: var(--ds-background, #0e1017);
+    background: var(--ds-background, #f4f4f6);
     border-radius: 12px;
+  }
+
+  .ds-copy {
+    max-width: 64ch;
+  }
+
+  .ds-wide {
+    max-width: 120ch;
+  }
+
+  .ds-copy a,
+  .ds-wide a {
+    color: var(--ds-primary, #3f63c9);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .ds-copy a:hover,
+  .ds-wide a:hover {
+    color: var(--ds-primary-emphasis, #2f4fb0);
+  }
+
+  .ds-copy a:focus-visible,
+  .ds-wide a:focus-visible {
+    outline: 2px solid var(--ds-focus-ring, #8aa7ff);
+    outline-offset: 2px;
   }
 
   .ds-grid {
@@ -149,18 +175,8 @@ import { Meta } from "@storybook/blocks";
     font-size: 13px;
   }
 
-  .ds-guidelines h3 code {
-    font-weight: 500;
-    border: 1px solid rgba(0,0,0,0.08);
-    color: rgba(46, 52, 56, 0.9);
-    background-color: rgba(255,255,255,0.85);
-    margin: 0 2px;
-    padding: 3px 5px;
-    white-space: nowrap;
-    border-radius: 6px;
-  }
-
-  p code, li code {
+  p code,
+  li code {
     font-weight: 500;
     border: 1px solid rgba(0,0,0,0.08);
     background: rgba(255,255,255,0.6);
@@ -182,7 +198,7 @@ import { Meta } from "@storybook/blocks";
     padding: 10px 12px;
     border-radius: 10px;
     background: rgba(0,0,0,0.04);
-    overflow: auto;
+    overflow-x: auto;
     font-size: 13px;
     line-height: 18px;
   }
@@ -205,500 +221,702 @@ import { Meta } from "@storybook/blocks";
   }
 `}</style>
 
-<div>
-  <h1>Colour</h1>
+# Colour
 
-  <p>DiamondDS uses a role-based colour system designed for scientific software. Colours are defined through stable UI roles and then mapped into the MUI theme, so components remain consistent across light and dark mode.</p>
+<div className="ds-copy">
 
-  <div className="ds-note">
-    <strong>Architecture</strong>
-    <div style={{ marginTop: 8 }}><code>Role tokens → MUI theme mapping → components</code></div>
-    <p style={{ marginTop: 10, marginBottom: 0 }}>Theme switching happens via <code>&lt;html data-mode="light|dark"&gt;</code>. Role tokens define all colours and change between themes. The MUI theme maps those roles into component behaviour, so components update automatically.</p>
+<p>
+  Diamond Design System uses a role-based colour system designed for scientific
+  software. Colours are defined through stable UI roles and then mapped into the
+  MUI theme, so components remain consistent across light and dark mode.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-note">
+  <strong>Architecture</strong>
+  <div style={{ marginTop: 8 }}>
+    <code>Role tokens → MUI theme mapping → components</code>
   </div>
+  <p style={{ marginTop: 10, marginBottom: 0 }}>
+    Theme switching happens via <code>&lt;html data-mode="light|dark"&gt;</code>.
+    Role tokens define all colours and change between themes. The MUI theme maps
+    those roles into component behaviour, so components update automatically.
+  </p>
+</div>
 
-  <section className="ds-guidelines">
-    <h2>How the layers work</h2>
+</div>
 
-    <div className="ds-grid">
-      <div className="ds-note">
-        <h3>Role tokens</h3>
-        <p>These are the source of truth for colour in DiamondDS. They define UI roles directly, such as background, surface, border, text, overlay, focus, and intent.</p>
-        <ul>
-          <li>Components should depend on roles, not raw colour values</li>
-          <li>Theme switching swaps role values, not component code</li>
-        </ul>
-      </div>
+## How the layers work
 
-      <div className="ds-note">
-        <h3>Theme mapping</h3>
-        <p>The MUI theme maps those role tokens into palette slots, action states, and component defaults.</p>
-        <p style={{ marginBottom: 0 }}>This lets MUI components use familiar props like <code>color="primary"</code> while still following DiamondDS rules.</p>
-      </div>
+<div className="ds-wide">
 
-      <div className="ds-note">
-        <h3>Components</h3>
-        <p>Components consume those mapped roles. This keeps buttons, fields, tabs, chips, and custom UI consistent across themes.</p>
-        <ul>
-          <li>Structure comes from neutral roles</li>
-          <li>Meaning comes from intent roles</li>
-        </ul>
-      </div>
-    </div>
-
-    <div className="ds-note">
-      <h3>Rule of thumb</h3>
-      <p style={{ marginBottom: 0 }}><strong>Structure</strong> uses background and border roles. <strong>Meaning</strong> uses intent roles. <strong>Interaction</strong> uses overlays and focus tokens.</p>
-    </div>
-  </section>
-
-  <h2>Role tokens (theme-defined colours)</h2>
-  <p>Role tokens are the colour source of truth in DiamondDS. Each token represents a specific role in the interface and maps directly to a concrete value in light and dark mode.</p>
-
+<div className="ds-grid">
   <div className="ds-note">
-    <strong>Token groups</strong>
-    <ul style={{ marginTop: 8 }}>
-      <li><strong>Background</strong>: app and page canvas</li>
-      <li><strong>Surfaces</strong>: containers and grouped regions</li>
-      <li><strong>Borders</strong>: structure and affordance</li>
-      <li><strong>Foreground</strong>: text and icon contrast</li>
-      <li><strong>Intent</strong>: action, status, and meaning</li>
-      <li><strong>Overlays</strong>: hover, selected, focus, disabled</li>
+    <h3>Role tokens</h3>
+    <p>
+      These are the source of truth for colour in the Diamond Design System. They
+      define UI roles directly, such as background, surface, border, text,
+      overlay, focus, and intent.
+    </p>
+    <ul>
+      <li>Components should depend on roles, not raw colour values.</li>
+      <li>Theme switching swaps role values, not component code.</li>
     </ul>
   </div>
 
-  <h2>Neutral roles</h2>
-  <p>Most of the interface should be built from the neutral layer. This keeps dense screens calm, predictable, and readable before any meaning is added through intent colours.</p>
-
-  <div className="ds-grid">
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-background)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Background and surface roles</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>background</strong>: <code>--ds-background</code></li>
-          <li><strong>surface</strong>: <code>--ds-surface</code></li>
-          <li><strong>surface container</strong>: <code>--ds-surface-container</code></li>
-          <li><strong>surface container high</strong>: <code>--ds-surface-container-high</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill" style={{ background: "var(--ds-background)" }}>background</span>
-          <span className="ds-pill" style={{ background: "var(--ds-surface)" }}>surface</span>
-          <span className="ds-pill" style={{ background: "var(--ds-surface-container)" }}>container</span>
-          <span className="ds-pill" style={{ background: "var(--ds-surface-container-high)" }}>container high</span>
-        </div>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-border)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Border roles</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>subtle</strong>: <code>--ds-border-subtle</code></li>
-          <li><strong>base</strong>: <code>--ds-border</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-border-emphasis</code></li>
-        </ul>
-        <p style={{ marginTop: 10, marginBottom: 0 }}>Use subtle for quiet separation, base for standard structure, and emphasis where affordance needs to be clearer.</p>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-on-surface)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Foreground roles</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>primary text</strong>: <code>--ds-on-surface</code></li>
-          <li><strong>secondary text</strong>: <code>--ds-on-surface-variant</code></li>
-          <li><strong>disabled text</strong>: <code>--ds-on-surface-disabled</code></li>
-          <li><strong>placeholder</strong>: <code>--ds-placeholder</code></li>
-          <li><strong>placeholder focus</strong>: <code>--ds-placeholder-focus</code></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <h2>Intent roles</h2>
-  <p>Intent roles add meaning. They are mapped into the MUI palette and also provide container, solid, on-container, and on-solid values for calmer and stronger usage patterns.</p>
-
   <div className="ds-note">
-    <strong>How intent works</strong>
-    <ul style={{ marginTop: 8 }}>
-      <li><strong>main</strong> is the default semantic colour for text, icons, borders, and standard intent usage</li>
-      <li><strong>emphasis</strong> is the stronger interactive or more prominent semantic step</li>
-      <li><strong>accent</strong> supports lighter emphasis and supporting semantic detail</li>
-      <li><strong>container</strong> is a subtle intent surface</li>
-      <li><strong>on container</strong> is the readable foreground for that subtle surface</li>
-      <li><strong>solid</strong> is the stronger filled semantic surface</li>
-      <li><strong>on solid</strong> is the readable foreground for that stronger fill</li>
-    </ul>
-  </div>
-
-  <div className="ds-grid">
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-primary)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Primary</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-primary</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-primary-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-primary-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-primary-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-primary-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-primary-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-primary-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary)", color: "var(--ds-on-primary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-primary)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary-emphasis)", color: "var(--ds-on-primary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-primary)" }}>emphasis</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary-solid)", color: "var(--ds-on-primary-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-primary-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-primary-container)", color: "var(--ds-on-primary-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-secondary)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Secondary</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-secondary</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-secondary-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-secondary-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-secondary-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-secondary-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-secondary-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-secondary-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary)", color: "var(--ds-on-secondary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-secondary)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary-emphasis)", color: "var(--ds-on-secondary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-secondary)" }}>emphasis</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary-solid)", color: "var(--ds-on-secondary-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-secondary-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-secondary-container)", color: "var(--ds-on-secondary-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-tertiary)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Tertiary</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-tertiary</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-tertiary-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-tertiary-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-tertiary-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-tertiary-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-tertiary-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-tertiary-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary)", color: "var(--ds-on-tertiary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-tertiary)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary-emphasis)", color: "var(--ds-on-tertiary)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-tertiary)" }}>emphasis</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary-solid)", color: "var(--ds-on-tertiary-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-tertiary-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-tertiary-container)", color: "var(--ds-on-tertiary-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-brand)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Brand</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-brand</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-brand-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-brand-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-brand-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-brand-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-brand-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-brand-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-brand)", color: "var(--ds-on-brand)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-brand)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-brand-solid)", color: "var(--ds-on-brand-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-brand-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-brand-container)", color: "var(--ds-on-brand-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h2>Status colours</h2>
-  <p>Status colours communicate feedback and system meaning. Use them deliberately and consistently so they remain useful in dense, high-attention workflows.</p>
-
-  <div className="ds-grid">
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-success)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Success</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-success</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-success-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-success-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-success-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-success-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-success-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-success-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-success)", color: "var(--ds-on-success)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-success)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-success-solid)", color: "var(--ds-on-success-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-success-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-success-container)", color: "var(--ds-on-success-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-warning)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Warning</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-warning</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-warning-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-warning-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-warning-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-warning-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-warning-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-warning-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-warning)", color: "var(--ds-on-warning)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-warning)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-warning-solid)", color: "var(--ds-on-warning-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-warning-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-warning-container)", color: "var(--ds-on-warning-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-danger)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Danger / error</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-danger</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-danger-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-danger-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-danger-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-danger-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-danger-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-danger-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-danger)", color: "var(--ds-on-danger)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-danger)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-danger-solid)", color: "var(--ds-on-danger-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-danger-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-danger-container)", color: "var(--ds-on-danger-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-
-    <div className="ds-swatch" style={{ ["--swatch"]: "var(--ds-info)" }}>
-      <div className="ds-swatch__chip" />
-      <div className="ds-swatch__body">
-        <p className="ds-swatch__name">Info</p>
-        <ul className="ds-swatch__meta">
-          <li><strong>main</strong>: <code>--ds-info</code></li>
-          <li><strong>emphasis</strong>: <code>--ds-info-emphasis</code></li>
-          <li><strong>accent</strong>: <code>--ds-info-accent</code></li>
-          <li><strong>container</strong>: <code>--ds-info-container</code></li>
-          <li><strong>on container</strong>: <code>--ds-on-info-container</code></li>
-          <li><strong>solid</strong>: <code>--ds-info-solid</code></li>
-          <li><strong>on solid</strong>: <code>--ds-on-info-solid</code></li>
-        </ul>
-        <div className="ds-row">
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-info)", color: "var(--ds-on-info)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-info)" }}>main</span>
-          <span className="ds-pill text-inverse" style={{ background: "var(--ds-info-solid)", color: "var(--ds-on-info-solid)", borderColor: "transparent", ["--text-on-solid"]: "var(--ds-on-info-solid)" }}>solid</span>
-          <span className="ds-pill" style={{ background: "var(--ds-info-container)", color: "var(--ds-on-info-container)" }}>container</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <h2>How DiamondDS roles map to the MUI palette</h2>
-
-  <p>DiamondDS defines colour through semantic role tokens. The MUI palette is a mapping layer that exposes those roles through the fields MUI expects, such as <code>light</code>, <code>main</code>, <code>dark</code>, and <code>contrastText</code>.</p>
-
-  <p>This allows standard MUI components to work with familiar props like <code>color="primary"</code>, while DiamondDS-specific roles such as <code>container</code>, <code>on-container</code>, <code>solid</code>, and <code>on-solid</code> support richer component behaviour and custom UI.</p>
-
-  <div className="ds-note">
-    <strong>Important</strong>
-    <p style={{ marginTop: 8, marginBottom: 0 }}>
-      MUI palette fields are not the source of truth. They are derived from DiamondDS role tokens so MUI components behave correctly. 
+    <h3>Theme mapping</h3>
+    <p>
+      The MUI theme maps those role tokens into palette slots, action states, and
+      component defaults.
+    </p>
+    <p style={{ marginBottom: 0 }}>
+      This lets MUI components use familiar props like <code>color="primary"</code>
+      while still following Diamond Design System rules.
     </p>
   </div>
 
-  <div className="ds-titleRow">
-    <h2>Surfaces vs elevation (including MUI Paper)</h2>
-  </div>
-
-  <p>DiamondDS prefers colour-based surfaces over heavy shadows. This keeps interfaces calm, predictable, and readable in data-dense workflows.</p>
-
   <div className="ds-note">
-    <strong>Surface hierarchy</strong>
-    <ul style={{ marginTop: 8 }}>
-      <li><code>background</code> → app and page background (<code>--ds-background</code>)</li>
-      <li><code>surface</code> → primary container surface (<code>--ds-surface</code>)</li>
-      <li><code>surface container</code> → grouped sections (<code>--ds-surface-container</code>)</li>
-      <li><code>surface container high</code> → more prominent nested areas (<code>--ds-surface-container-high</code>)</li>
+    <h3>Components</h3>
+    <p>
+      Components consume those mapped roles. This keeps buttons, fields, tabs,
+      chips, and custom UI consistent across themes.
+    </p>
+    <ul>
+      <li>Structure comes from neutral roles.</li>
+      <li>Meaning comes from intent roles.</li>
     </ul>
-    <p style={{ marginBottom: 0 }}>Use elevation mainly for overlays: menus, popovers, dialogs, and tooltips.</p>
+  </div>
+</div>
+
+<div className="ds-note">
+  <h3>Rule of thumb</h3>
+  <p style={{ marginBottom: 0 }}>
+    <strong>Structure</strong> uses background and border roles.
+    <strong> Meaning</strong> uses intent roles.
+    <strong> Interaction</strong> uses overlays and focus tokens.
+  </p>
+</div>
+
+</div>
+
+## Role tokens
+
+<div className="ds-copy">
+
+<p>
+  Role tokens are the colour source of truth in the Diamond Design System. Each
+  token represents a specific role in the interface and maps directly to a
+  concrete value in light and dark mode.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-note">
+  <strong>Token groups</strong>
+  <ul style={{ marginTop: 8 }}>
+    <li><strong>Background</strong>: app and page canvas</li>
+    <li><strong>Surfaces</strong>: containers and grouped regions</li>
+    <li><strong>Borders</strong>: structure and affordance</li>
+    <li><strong>Foreground</strong>: text and icon contrast</li>
+    <li><strong>Intent</strong>: action, status, and meaning</li>
+    <li><strong>Overlays</strong>: hover, selected, focus, disabled</li>
+  </ul>
+</div>
+
+</div>
+
+## Neutral roles
+
+<div className="ds-copy">
+
+<p>
+  Most of the interface should be built from the neutral layer. This keeps dense
+  screens calm, predictable, and readable before any meaning is added through
+  intent colours.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-grid">
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-background)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Background and surface roles</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>background</strong>: <code>--ds-background</code></li>
+        <li><strong>surface</strong>: <code>--ds-surface</code></li>
+        <li><strong>surface container</strong>: <code>--ds-surface-container</code></li>
+        <li><strong>surface container high</strong>: <code>--ds-surface-container-high</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill" style={{ background: "var(--ds-background)" }}>background</span>
+        <span className="ds-pill" style={{ background: "var(--ds-surface)" }}>surface</span>
+        <span className="ds-pill" style={{ background: "var(--ds-surface-container)" }}>container</span>
+        <span className="ds-pill" style={{ background: "var(--ds-surface-container-high)" }}>container high</span>
+      </div>
+    </div>
   </div>
 
-  <div className="ds-example">
-    <p className="ds-kicker">Practical: Paper with surfaces inside</p>
-    <pre>
-{`<Paper elevation={0} sx={{ background: "var(--ds-surface)", border: "1px solid var(--ds-border-subtle)" }}>
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-border)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Border roles</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>subtle</strong>: <code>--ds-border-subtle</code></li>
+        <li><strong>base</strong>: <code>--ds-border</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-border-emphasis</code></li>
+      </ul>
+      <p style={{ marginTop: 10, marginBottom: 0 }}>
+        Use subtle for quiet separation, base for standard structure, and
+        emphasis where affordance needs to be clearer.
+      </p>
+    </div>
+  </div>
+
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-on-surface)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Foreground roles</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>primary text</strong>: <code>--ds-on-surface</code></li>
+        <li><strong>secondary text</strong>: <code>--ds-on-surface-variant</code></li>
+        <li><strong>disabled text</strong>: <code>--ds-on-surface-disabled</code></li>
+        <li><strong>placeholder</strong>: <code>--ds-placeholder</code></li>
+        <li><strong>placeholder focus</strong>: <code>--ds-placeholder-focus</code></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+## Intent roles
+
+<div className="ds-copy">
+
+<p>
+  Intent roles add meaning. They are mapped into the MUI palette and also
+  provide container, solid, on-container, and on-solid values for calmer and
+  stronger usage patterns.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-note">
+  <strong>How intent works</strong>
+  <ul style={{ marginTop: 8 }}>
+    <li><strong>main</strong> is the default semantic colour for text, icons, borders, and standard intent usage.</li>
+    <li><strong>emphasis</strong> is the stronger interactive or more prominent semantic step.</li>
+    <li><strong>accent</strong> supports lighter emphasis and supporting semantic detail.</li>
+    <li><strong>container</strong> is a subtle intent surface.</li>
+    <li><strong>on container</strong> is the readable foreground for that subtle surface.</li>
+    <li><strong>solid</strong> is the stronger filled semantic surface.</li>
+    <li><strong>on solid</strong> is the readable foreground for that stronger fill.</li>
+  </ul>
+</div>
+
+<div className="ds-grid">
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-primary)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Primary</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-primary</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-primary-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-primary-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-primary-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-primary-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-primary-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-primary-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary)", color: "var(--ds-on-primary)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary-emphasis)", color: "var(--ds-on-primary)", borderColor: "transparent" }}>emphasis</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-primary-solid)", color: "var(--ds-on-primary-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-primary-container)", color: "var(--ds-on-primary-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-secondary)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Secondary</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-secondary</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-secondary-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-secondary-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-secondary-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-secondary-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-secondary-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-secondary-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary)", color: "var(--ds-on-secondary)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary-emphasis)", color: "var(--ds-on-secondary)", borderColor: "transparent" }}>emphasis</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-secondary-solid)", color: "var(--ds-on-secondary-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-secondary-container)", color: "var(--ds-on-secondary-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-tertiary)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Tertiary</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-tertiary</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-tertiary-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-tertiary-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-tertiary-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-tertiary-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-tertiary-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-tertiary-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary)", color: "var(--ds-on-tertiary)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary-emphasis)", color: "var(--ds-on-tertiary)", borderColor: "transparent" }}>emphasis</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-tertiary-solid)", color: "var(--ds-on-tertiary-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-tertiary-container)", color: "var(--ds-on-tertiary-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-brand)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Brand</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-brand</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-brand-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-brand-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-brand-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-brand-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-brand-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-brand-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-brand)", color: "var(--ds-on-brand)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-brand-solid)", color: "var(--ds-on-brand-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-brand-container)", color: "var(--ds-on-brand-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+## Status colours
+
+<div className="ds-copy">
+
+<p>
+  Status colours communicate feedback and system meaning. Use them deliberately
+  and consistently so they remain useful in dense, high-attention workflows.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-grid">
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-success)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Success</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-success</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-success-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-success-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-success-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-success-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-success-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-success-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-success)", color: "var(--ds-on-success)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-success-solid)", color: "var(--ds-on-success-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-success-container)", color: "var(--ds-on-success-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-warning)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Warning</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-warning</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-warning-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-warning-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-warning-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-warning-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-warning-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-warning-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-warning)", color: "var(--ds-on-warning)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-warning-solid)", color: "var(--ds-on-warning-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-warning-container)", color: "var(--ds-on-warning-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-danger)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Danger / error</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-danger</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-danger-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-danger-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-danger-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-danger-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-danger-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-danger-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-danger)", color: "var(--ds-on-danger)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-danger-solid)", color: "var(--ds-on-danger-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-danger-container)", color: "var(--ds-on-danger-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+
+  <div className="ds-swatch" style={{ "--swatch": "var(--ds-info)" }}>
+    <div className="ds-swatch__chip" />
+    <div className="ds-swatch__body">
+      <p className="ds-swatch__name">Info</p>
+      <ul className="ds-swatch__meta">
+        <li><strong>main</strong>: <code>--ds-info</code></li>
+        <li><strong>emphasis</strong>: <code>--ds-info-emphasis</code></li>
+        <li><strong>accent</strong>: <code>--ds-info-accent</code></li>
+        <li><strong>container</strong>: <code>--ds-info-container</code></li>
+        <li><strong>on container</strong>: <code>--ds-on-info-container</code></li>
+        <li><strong>solid</strong>: <code>--ds-info-solid</code></li>
+        <li><strong>on solid</strong>: <code>--ds-on-info-solid</code></li>
+      </ul>
+      <div className="ds-row">
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-info)", color: "var(--ds-on-info)", borderColor: "transparent" }}>main</span>
+        <span className="ds-pill text-inverse" style={{ background: "var(--ds-info-solid)", color: "var(--ds-on-info-solid)", borderColor: "transparent" }}>solid</span>
+        <span className="ds-pill" style={{ background: "var(--ds-info-container)", color: "var(--ds-on-info-container)" }}>container</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+## How roles map to the MUI palette
+
+<div className="ds-copy">
+
+<p>
+  The Diamond Design System defines colour through semantic role tokens. The MUI
+  palette is a mapping layer that exposes those roles through the fields MUI
+  expects, such as <code>light</code>, <code>main</code>, <code>dark</code>, and
+  <code>contrastText</code>.
+</p>
+
+<p>
+  This allows standard MUI components to work with familiar props like
+  <code>color="primary"</code>, while Diamond-specific roles such as
+  <code>container</code>, <code>on-container</code>, <code>solid</code>, and
+  <code>on-solid</code> support richer component behaviour and custom UI.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-note">
+  <strong>Important</strong>
+  <p style={{ marginTop: 8, marginBottom: 0 }}>
+    MUI palette fields are not the source of truth. They are derived from
+    Diamond Design System role tokens so MUI components behave correctly.
+  </p>
+</div>
+
+</div>
+
+## Surfaces and elevation
+
+<div className="ds-copy">
+
+<p>
+  Diamond Design System uses elevation to create hierarchy, but most elevation
+  should come from surface colour, borders, and spacing rather than drop shadows.
+  This keeps dense scientific interfaces calm, readable, and predictable.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-note">
+  <strong>Surface hierarchy</strong>
+  <ul style={{ marginTop: 8 }}>
+    <li><code>background</code> → app and page background (<code>--ds-background</code>)</li>
+    <li><code>surface</code> → primary container surface (<code>--ds-surface</code>)</li>
+    <li><code>surface container</code> → grouped sections (<code>--ds-surface-container</code>)</li>
+    <li><code>surface container high</code> → more prominent nested areas (<code>--ds-surface-container-high</code>)</li>
+  </ul>
+  <p style={{ marginBottom: 0 }}>
+    Use drop shadows sparingly, mainly for floating overlays such as menus,
+    popovers, dialogs, and tooltips.
+  </p>
+</div>
+
+<div className="ds-example">
+  <p className="ds-kicker">Practical: Paper with surfaces inside</p>
+  <pre>{`<Paper elevation={0} sx={{ background: "var(--ds-surface)", border: "1px solid var(--ds-border-subtle)" }}>
   <Box sx={{ background: "var(--ds-surface-container)", p: 2 }}>
     Section title
   </Box>
   <Box sx={{ background: "var(--ds-surface-container-high)", p: 2 }}>
     Interactive area (inputs, controls)
   </Box>
-</Paper>`}
-    </pre>
-  </div>
+</Paper>`}</pre>
+</div>
 
-  <h2>Overlays and interaction states</h2>
-  <p>Interaction states are defined as explicit overlays so hover, selection, focus, and disabled behaviour stay consistent across themes. MUI’s <code>palette.action</code> is mapped directly to these tokens.</p>
+</div>
 
-  <div className="ds-overlay-demo">
-    <div className="ds-overlay-tile">
-      <div className="ds-overlay-tile__top"><div className="ds-overlay-tile__overlay" style={{ ["--overlay"]: "var(--ds-overlay-emphasis)" }} /></div>
-      <div className="ds-overlay-tile__body">
-        <ul className="ds-swatch__meta"><li><strong>emphasis</strong>: <code>--ds-overlay-emphasis</code></li></ul>
-      </div>
+## Overlays and interaction states
+
+<div className="ds-copy">
+
+<p>
+  Interaction states are defined as explicit overlays so hover, selection,
+  focus, and disabled behaviour stay consistent across themes. MUI’s
+  <code>palette.action</code> is mapped directly to these tokens.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-overlay-demo">
+  <div className="ds-overlay-tile">
+    <div className="ds-overlay-tile__top">
+      <div className="ds-overlay-tile__overlay" style={{ "--overlay": "var(--ds-overlay-emphasis)" }} />
     </div>
-
-    <div className="ds-overlay-tile">
-      <div className="ds-overlay-tile__top"><div className="ds-overlay-tile__overlay" style={{ ["--overlay"]: "var(--ds-overlay-selected)" }} /></div>
-      <div className="ds-overlay-tile__body">
-        <ul className="ds-swatch__meta"><li><strong>selected</strong>: <code>--ds-overlay-selected</code></li></ul>
-      </div>
-    </div>
-
-    <div className="ds-overlay-tile">
-      <div className="ds-overlay-tile__top"><div className="ds-overlay-tile__overlay" style={{ ["--overlay"]: "var(--ds-overlay-focus)" }} /></div>
-      <div className="ds-overlay-tile__body">
-        <ul className="ds-swatch__meta"><li><strong>focus</strong>: <code>--ds-overlay-focus</code></li></ul>
-      </div>
-    </div>
-
-    <div className="ds-overlay-tile">
-      <div className="ds-overlay-tile__top"><div className="ds-overlay-tile__overlay" style={{ ["--overlay"]: "var(--ds-overlay-disabled)" }} /></div>
-      <div className="ds-overlay-tile__body">
-        <ul className="ds-swatch__meta"><li><strong>disabled</strong>: <code>--ds-overlay-disabled</code></li></ul>
-      </div>
-    </div>
-
-    <div className="ds-overlay-tile">
-      <div className="ds-overlay-tile__top"><div className="ds-overlay-tile__overlay" style={{ ["--overlay"]: "var(--ds-overlay-disabled-bg)" }} /></div>
-      <div className="ds-overlay-tile__body">
-        <ul className="ds-swatch__meta"><li><strong>disabled background</strong>: <code>--ds-overlay-disabled-bg</code></li></ul>
-      </div>
+    <div className="ds-overlay-tile__body">
+      <ul className="ds-swatch__meta">
+        <li><strong>emphasis</strong>: <code>--ds-overlay-emphasis</code></li>
+      </ul>
     </div>
   </div>
 
-  <h2>Focus</h2>
-  <p>Focus is handled through explicit focus-ring tokens rather than ripple or shadow. This keeps keyboard interaction visible and steady across components.</p>
+  <div className="ds-overlay-tile">
+    <div className="ds-overlay-tile__top">
+      <div className="ds-overlay-tile__overlay" style={{ "--overlay": "var(--ds-overlay-selected)" }} />
+    </div>
+    <div className="ds-overlay-tile__body">
+      <ul className="ds-swatch__meta">
+        <li><strong>selected</strong>: <code>--ds-overlay-selected</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div className="ds-overlay-tile">
+    <div className="ds-overlay-tile__top">
+      <div className="ds-overlay-tile__overlay" style={{ "--overlay": "var(--ds-overlay-focus)" }} />
+    </div>
+    <div className="ds-overlay-tile__body">
+      <ul className="ds-swatch__meta">
+        <li><strong>focus</strong>: <code>--ds-overlay-focus</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div className="ds-overlay-tile">
+    <div className="ds-overlay-tile__top">
+      <div className="ds-overlay-tile__overlay" style={{ "--overlay": "var(--ds-overlay-disabled)" }} />
+    </div>
+    <div className="ds-overlay-tile__body">
+      <ul className="ds-swatch__meta">
+        <li><strong>disabled</strong>: <code>--ds-overlay-disabled</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div className="ds-overlay-tile">
+    <div className="ds-overlay-tile__top">
+      <div className="ds-overlay-tile__overlay" style={{ "--overlay": "var(--ds-overlay-disabled-bg)" }} />
+    </div>
+    <div className="ds-overlay-tile__body">
+      <ul className="ds-swatch__meta">
+        <li><strong>disabled background</strong>: <code>--ds-overlay-disabled-bg</code></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+## Focus
+
+<div className="ds-copy">
+
+<p>
+  Focus is handled through explicit focus-ring tokens rather than ripple or
+  shadow. This keeps keyboard interaction visible and steady across components.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-note">
+  <strong>Focus tokens</strong>
+  <ul style={{ marginTop: 8 }}>
+    <li><strong>default</strong>: <code>--ds-focus-ring</code></li>
+    <li><strong>primary</strong>: <code>--ds-focus-ring-primary</code></li>
+    <li><strong>secondary</strong>: <code>--ds-focus-ring-secondary</code></li>
+    <li><strong>danger</strong>: <code>--ds-focus-ring-danger</code></li>
+    <li><strong>warning</strong>: <code>--ds-focus-ring-warning</code></li>
+    <li><strong>success</strong>: <code>--ds-focus-ring-success</code></li>
+    <li><strong>info</strong>: <code>--ds-focus-ring-info</code></li>
+    <li><strong>brand</strong>: <code>--ds-focus-ring-brand</code></li>
+  </ul>
+</div>
+
+</div>
+
+## Using MUI palette vs Diamond roles
+
+<div className="ds-copy">
+
+<p>
+  Use MUI palette props for intent on MUI components. Use Diamond Design System
+  role tokens for structure, surfaces, borders, overlays, and custom UI.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-grid">
+  <div className="ds-note">
+    <strong>Use MUI palette when</strong>
+    <ul>
+      <li>You’re using MUI components directly.</li>
+      <li>You want consistent intent behaviour through props.</li>
+      <li>You’re relying on theme defaults for hover, selected, and focus behaviour.</li>
+    </ul>
+    <div className="ds-example" style={{ marginTop: 10, marginBottom: 0 }}>
+      <p className="ds-kicker">Example</p>
+      <pre>{`<Button color="primary" variant="contained">
+  Run scan
+</Button>`}</pre>
+    </div>
+  </div>
 
   <div className="ds-note">
-    <strong>Focus tokens</strong>
-    <ul style={{ marginTop: 8 }}>
-      <li><strong>default</strong>: <code>--ds-focus-ring</code></li>
-      <li><strong>primary</strong>: <code>--ds-focus-ring-primary</code></li>
-      <li><strong>secondary</strong>: <code>--ds-focus-ring-secondary</code></li>
-      <li><strong>danger</strong>: <code>--ds-focus-ring-danger</code></li>
-      <li><strong>warning</strong>: <code>--ds-focus-ring-warning</code></li>
-      <li><strong>success</strong>: <code>--ds-focus-ring-success</code></li>
-      <li><strong>info</strong>: <code>--ds-focus-ring-info</code></li>
-      <li><strong>brand</strong>: <code>--ds-focus-ring-brand</code></li>
+    <strong>Use Diamond roles when</strong>
+    <ul>
+      <li>You’re styling layout or containers.</li>
+      <li>You’re building a custom component or anatomy.</li>
+      <li>You need a specific surface or border role.</li>
+      <li>You’re styling non-MUI DOM elements.</li>
     </ul>
-  </div>
-
-  <h2>Using MUI palette vs DiamondDS roles</h2>
-  <p>Use MUI palette props for intent on MUI components. Use DiamondDS role tokens for structure, surfaces, borders, overlays, and custom UI.</p>
-
-  <div className="ds-grid">
-    <div className="ds-note">
-      <strong>Use MUI palette when</strong>
-      <ul>
-        <li>You’re using MUI components directly</li>
-        <li>You want consistent intent behaviour through props</li>
-        <li>You’re relying on theme defaults for hover, selected, and focus behaviour</li>
-      </ul>
-      <div className="ds-example" style={{ marginTop: 10, marginBottom: 0 }}>
-        <p className="ds-kicker">Example</p>
-        <pre>
-{`<Button color="primary" variant="contained">
-  Run scan
-</Button>`}
-        </pre>
-      </div>
-    </div>
-
-    <div className="ds-note">
-      <strong>Use DiamondDS roles when</strong>
-      <ul>
-        <li>You’re styling layout or containers</li>
-        <li>You’re building a custom component or anatomy</li>
-        <li>You need a specific surface or border role</li>
-        <li>You’re styling non-MUI DOM elements</li>
-      </ul>
-      <div className="ds-example" style={{ marginTop: 10, marginBottom: 0 }}>
-        <p className="ds-kicker">Example</p>
-        <pre>
-{`<div style={{
+    <div className="ds-example" style={{ marginTop: 10, marginBottom: 0 }}>
+      <p className="ds-kicker">Example</p>
+      <pre>{`<div style={{
   background: "var(--ds-surface-container)",
   border: "1px solid var(--ds-border-subtle)",
   color: "var(--ds-on-surface)",
 }}>
   Panel content
-</div>`}
-        </pre>
-      </div>
+</div>`}</pre>
     </div>
   </div>
+</div>
 
-  <h2>Do and don’t</h2>
-  <div className="ds-grid">
-    <div className="ds-note">
-      <strong>Do</strong>
-      <ul style={{ marginTop: 8 }}>
-        <li>Use neutral roles for structure (<code>--ds-background</code>, <code>--ds-surface</code>, <code>--ds-border-…</code>)</li>
-        <li>Use intent roles for meaning (<code>--ds-primary</code>, <code>--ds-success</code>, <code>--ds-danger</code>, etc.)</li>
-        <li>Use surfaces to separate regions rather than heavy shadows</li>
-        <li>Let the same token names work across light and dark themes</li>
-        <li>Ensure disabled and error states override other styling</li>
-      </ul>
-    </div>
+</div>
 
-    <div className="ds-note">
-      <strong>Don’t</strong>
-      <ul style={{ marginTop: 8 }}>
-        <li>Don’t hardcode hex values in component code</li>
-        <li>Don’t use strong intent colours as general layout backgrounds</li>
-        <li>Don’t use colour alone to communicate state</li>
-        <li>Don’t mix shadow-based elevation and surface layering unnecessarily</li>
-        <li>Don’t invent one-off colour behaviour inside individual components</li>
-      </ul>
-    </div>
-  </div>
+## Do and don’t
 
-  <h2>Quick visual check</h2>
-  <p>A simple sanity check for surfaces, text, and dividers in the current theme.</p>
+<div className="ds-wide">
 
-  <div className="ds-surface-demo" style={{ background: "var(--ds-background)" }}>
-    <div className="ds-surface-card" style={{ background: "var(--ds-surface)" }}>
-      <div className="ds-text-demo">
-        <p style={{ color: "var(--ds-on-surface)" }}><strong>Text primary</strong> → <code>--ds-on-surface</code></p>
-        <p style={{ color: "var(--ds-on-surface-variant)" }}>Text secondary → <code>--ds-on-surface-variant</code></p>
-        <p style={{ color: "var(--ds-on-surface-disabled)" }}>Text disabled → <code>--ds-on-surface-disabled</code></p>
-      </div>
-      <div className="ds-divider" />
-      <p style={{ margin: 0, color: "var(--ds-on-surface-variant)" }}>Background uses <code>--ds-background</code>, main containers use <code>--ds-surface</code>, grouped areas use <code>--ds-surface-container</code> / <code>--ds-surface-container-high</code>, and dividers use <code>--ds-border-subtle</code>.</p>
-    </div>
+<div className="ds-grid">
+  <div className="ds-note">
+    <strong>Do</strong>
+    <ul style={{ marginTop: 8 }}>
+      <li>Use neutral roles for structure (<code>--ds-background</code>, <code>--ds-surface</code>, <code>--ds-border-*</code>).</li>
+      <li>Use intent roles for meaning (<code>--ds-primary</code>, <code>--ds-success</code>, <code>--ds-danger</code>, etc.).</li>
+      <li>Use surfaces to separate regions rather than heavy shadows.</li>
+      <li>Let the same token names work across light and dark themes.</li>
+      <li>Ensure disabled and error states override other styling.</li>
+    </ul>
   </div>
 
   <div className="ds-note">
-    <strong>DiamondDS principle</strong>
-    <p style={{ marginTop: 8, marginBottom: 0 }}>Use colour to support careful work, not to decorate it. Build hierarchy with neutral roles, apply meaning through intent roles, and keep interaction states explicit and predictable.</p>
+    <strong>Don’t</strong>
+    <ul style={{ marginTop: 8 }}>
+      <li>Don’t hardcode hex values in component code.</li>
+      <li>Don’t use strong intent colours as general layout backgrounds.</li>
+      <li>Don’t use colour alone to communicate state.</li>
+      <li>Don’t mix shadow-based elevation and surface layering unnecessarily.</li>
+      <li>Don’t invent one-off colour behaviour inside individual components.</li>
+    </ul>
   </div>
+</div>
+
+</div>
+
+## Quick visual check
+
+<div className="ds-copy">
+
+<p>
+  A simple sanity check for surfaces, text, and dividers in the current theme.
+</p>
+
+</div>
+
+<div className="ds-wide">
+
+<div className="ds-surface-demo" style={{ background: "var(--ds-background)" }}>
+  <div className="ds-surface-card" style={{ background: "var(--ds-surface)" }}>
+    <div className="ds-text-demo">
+      <p style={{ color: "var(--ds-on-surface)" }}>
+        <strong>Text primary</strong> → <code>--ds-on-surface</code>
+      </p>
+      <p style={{ color: "var(--ds-on-surface-variant)" }}>
+        Text secondary → <code>--ds-on-surface-variant</code>
+      </p>
+      <p style={{ color: "var(--ds-on-surface-disabled)" }}>
+        Text disabled → <code>--ds-on-surface-disabled</code>
+      </p>
+    </div>
+    <div className="ds-divider" />
+    <p style={{ margin: 0, color: "var(--ds-on-surface-variant)" }}>
+      Background uses <code>--ds-background</code>, main containers use
+      <code>--ds-surface</code>, grouped areas use
+      <code>--ds-surface-container</code> / <code>--ds-surface-container-high</code>,
+      and dividers use <code>--ds-border-subtle</code>.
+    </p>
+  </div>
+</div>
+
+<div className="ds-note">
+  <strong>Diamond Design System principle</strong>
+  <p style={{ marginTop: 8, marginBottom: 0 }}>
+    Use colour to support careful work, not to decorate it. Build hierarchy with
+    neutral roles, apply meaning through intent roles, and keep interaction
+    states explicit and predictable.
+  </p>
+</div>
+
 </div>

@@ -2,17 +2,23 @@ import { Meta } from "@storybook/blocks";
 
 <Meta title="Foundation/Typography" />
 
-<div>
-  <h1>Typography</h1>
+<style>{`
+  .ds-docs {
+    max-width: 64ch;
+  }
+`}</style>
+
+<div className="ds-docs">
+
+# Typography
 
 <p>
   Typography is a functional tool, not decoration. In scientific software, type
   choices affect speed, accuracy, and confidence.
 </p>
 
-{" "}
+## Why it matters in Diamond tools
 
-<h2>Why it matters in Diamond tools</h2>
 <ul>
   <li>
     <strong>Readability and legibility</strong>: clear at small sizes and on
@@ -30,51 +36,63 @@ import { Meta } from "@storybook/blocks";
     decisions.
   </li>
   <li>
-    <strong>Works for dense data</strong>: tables, logs, dashboards, forms,
+    <strong>Works for dense data</strong>: tables, logs, dashboards, forms, and
     documentation.
   </li>
 </ul>
 
-{" "}
+## Font roles
 
-<h2>Font roles</h2>
 <ul>
   <li>
-    <strong>Inter</strong>: default UI font for functional work (body, labels,
-    tables).
+    <strong>Inter</strong>: default UI font for functional work, including body
+    text, labels, forms, tables, and component text.
   </li>
   <li>
-    <strong>IBM Plex Mono</strong>: code, identifiers, aligned technical values.
+    <strong>IBM Plex Mono</strong>: code, identifiers, logs, aligned technical
+    values, and monospace data.
   </li>
   <li>
-    <strong>Outfit</strong>: brand-forward headings and hero text (potential).
-  </li>  
+    <strong>Outfit</strong>: optional brand-forward headings and hero text, not
+    dense operational content.
+  </li>
 </ul>
 
-<h2>Practical guidance</h2>
+## Practical guidance
 
-<h3>Do</h3>
+### Do
+
 <ul>
   <li>Keep hierarchy consistent across products and screens.</li>
   <li>Prefer short, clear labels in controls and tables.</li>
-  <li>Make numbers and units easy to scan (alignment matters).</li>
+  <li>Make numbers, units, and technical values easy to scan.</li>
+  <li>Use mono type where alignment or identifier readability matters.</li>
 </ul>
 
-{" "}
+### Don’t
 
-<h3>Don’t</h3>
 <ul>
   <li>Don’t use brand typography for dense operational content.</li>
   <li>Don’t “style your way” out of hierarchy problems.</li>
-  <li>Don’t hide important info in faint secondary text.</li>
+  <li>Don’t hide important information in faint secondary text.</li>
+  <li>Don’t introduce one-off font sizes without a reusable need.</li>
 </ul>
 
-  <h2>Tokens (to be defined)</h2>
-  <p>
-    At the momemnt the default is using Inter in the MUI theme.
-  </p>
-  <p>
-    We’ll define tokens for display, body (if different), and mono usage (e.g. `typography.display.*`,
-    `typography.body.*`, `typography.mono.*`) and reference them consistently.
-  </p>
+## Tokens
+
+<p>
+  The current MUI theme uses Inter as the default UI font.
+</p>
+
+<p>
+  Typography tokens will define display, body, label, and mono usage, for
+  example `typography.display.*`, `typography.body.*`,
+  `typography.label.*`, and `typography.mono.*`.
+</p>
+
+<p>
+  These tokens should be referenced consistently across design and code rather
+  than using one-off font sizes, weights, or families.
+</p>
+
 </div>

@@ -1,15 +1,15 @@
 import { Meta } from '@storybook/blocks';
 import {ImageColourSchemeSwitch} from "../../components/controls/ImageColourSchemeSwitch";
 
-<Meta title="Theme/Logos" />
+<Meta title="Theming/Logos" />
 
 <div className="sb-container">
 	<div className='sb-section-title'>
 		# Theme Logos
         <div style={{width:"660px", margin:"0 auto"}} >
-            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
-            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-dark.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
-            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/diamond/logo-dark.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
+            <ImageColourSchemeSwitch image={{"src":"/src/public/generic/logo-light.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
+            <ImageColourSchemeSwitch image={{"src":"/src/public/generic/logo-dark.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
+            <ImageColourSchemeSwitch image={{"src":"/src/public/diamond/logo-dark.svg","alt":"A Logo",width:200}} style={{padding: "10px"}}/>
         </div>
     	Logos can be added to new themes by adding to the `createTheme` call:
 
@@ -29,7 +29,7 @@ import {ImageColourSchemeSwitch} from "../../components/controls/ImageColourSche
     	```
 
         <div style={{width:"200px", margin:"0 auto"}} >
-            <ImageColourSchemeSwitch image={{"src":"static/media/src/public/generic/logo-light.svg","alt":"A Logo",width:200}}/>
+            <ImageColourSchemeSwitch image={{"src":"/src/public/generic/logo-light.svg","alt":"A Logo",width:200}}/>
             <p>Example logo</p>
         </div>
 
