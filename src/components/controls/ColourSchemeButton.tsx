@@ -1,10 +1,8 @@
 import { useColorScheme, useTheme } from "@mui/material";
 import { IconButton, IconButtonProps } from "@mui/material";
 
-import {
-  LightMode as LightModeIcon,
-  Bedtime as BedtimeIcon,
-} from "@mui/icons-material";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import BedtimeIcon from "@mui/icons-material/Bedtime";
 
 import { ColourSchemes } from "../../utils/globals";
 
