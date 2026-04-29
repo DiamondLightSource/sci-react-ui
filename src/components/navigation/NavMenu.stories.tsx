@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { NavMenu, NavMenuLink } from "./NavMenu";
 import { Button, Divider, Typography } from "@mui/material";
-import { Autorenew } from "@mui/icons-material";
+import Autorenew from "@mui/icons-material/Autorenew";
 import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof NavMenu> = {

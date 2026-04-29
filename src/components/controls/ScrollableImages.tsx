@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Button, IconButton, Slider, Stack } from "@mui/material";
-import {
-  ArrowBack as ArrowBackIcon,
-  ArrowForward as ArrowForwardIcon,
-  ArrowBackIosNew as ArrowBackIosNewIcon,
-  ArrowForwardIos as ArrowForwardIosIcon,
-} from "@mui/icons-material";
+
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 import { extractFramesFromTiff, isTiff } from "../../utils/TiffUtils";
 
