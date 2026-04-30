@@ -1,18 +1,23 @@
 Scientific React UI
 ===================
 
-Scientific React UI components, based on MUI.
+Scientific React UI components, based on MUI. A theme and component library to make websites at scientific institutions simple to create. 
+Our [Story Book](https://diamondlightsource.github.io/sci-react-ui/) website has a indepth information about the library and each component, but this Readme is a good place to start.
 
-A theme and component library to make websites at scientific institutions simple to create.
+If you would like to contribute, please see our [Contributing](./contributing.md) document.
+
 
 Using
 -----
 ### Installing
 
-Install as usual:
+Install as usual.
 
 ```sh
-npm i @diamondlightsource/sci-react-ui
+"One of:"
+- pnpm add @diamondlightsource/sci-react-ui
+- npm i @diamondlightsource/sci-react-ui
+- yarn add @diamondlightsource/sci-react-ui
 ```
 
 ### Usage
