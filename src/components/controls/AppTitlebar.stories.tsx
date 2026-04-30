@@ -8,7 +8,10 @@ const meta: Meta<typeof AppTitlebar> = {
   parameters: {
     docs: {
       description: {
-        component: "A large title for your app.",
+        component: `A large title for your app. Not to be confused with MUI's AppBar component.  
+        See also:  
+        [AppBar Story](?path=/docs/mui-surfaces-appbar--docs) (opens in this tab)  
+        [MUI AppBar documentation](https://v7.mui.com/material-ui/react-app-bar/)`,
       },
     },
   },
