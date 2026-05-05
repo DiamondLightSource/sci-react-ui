@@ -1,7 +1,7 @@
-import { forwardRef } from "react";
+import { ElementType, forwardRef } from "react";
 
 export default function MuiWrapper<Prop, Element = HTMLDivElement>(
-  MuiComponent: any,
+  MuiComponent: ElementType,
   name: string,
 ) {
   const RefForward = forwardRef<Element, Prop>((props, ref) => (
