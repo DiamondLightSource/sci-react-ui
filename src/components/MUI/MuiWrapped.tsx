@@ -1,5 +1,19 @@
 import MuiWrapper from "./MuiWrapper";
 
+import MuiAddIcon from "@mui/icons-material/Add";
+import MuiAssignmentIcon from "@mui/icons-material/Assignment";
+import MuiDeleteIcon from "@mui/icons-material/Delete";
+import MuiExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MuiFolderIcon from "@mui/icons-material/Folder";
+import MuiInboxIcon from "@mui/icons-material/Inbox";
+import MuiMailIcon from "@mui/icons-material/Mail";
+import MuiMenuIcon from "@mui/icons-material/Menu";
+import MuiNotificationsIcon from "@mui/icons-material/Notifications";
+import MuiPageviewIcon from "@mui/icons-material/Pageview";
+import MuiSaveIcon from "@mui/icons-material/Save";
+import MuiSendIcon from "@mui/icons-material/Send";
+import MuiWorkIcon from "@mui/icons-material/Work";
+
 import MuiAccordion, {
   AccordionProps as MuiAccordionProps,
 } from "@mui/material/Accordion";
@@ -11,6 +25,12 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAlert, { AlertProps as MuiAlertProps } from "@mui/material/Alert";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import MuiAvatar, { AvatarProps as MuiAvatarProps } from "@mui/material/Avatar";
+import MuiAvatarGroup, {
+  AvatarGroupProps as MuiAvatarGroupProps,
+} from "@mui/material/AvatarGroup";
+import MuiBadge, { BadgeProps as MuiBadgeProps } from "@mui/material/Badge";
+import MuiBox, { BoxProps as MuiBoxProps } from "@mui/material/Box";
 import MuiButton, { ButtonProps as MuiButtonProps } from "@mui/material/Button";
 import MuiCard, { CardProps as MuiCardProps } from "@mui/material/Card";
 import MuiCardActions, {
@@ -23,20 +43,68 @@ import MuiCardMedia, {
   CardMediaProps as MuiCardMediaProps,
 } from "@mui/material/CardMedia";
 import MuiChip, { ChipProps as MuiChipProps } from "@mui/material/Chip";
+import MuiDivider, {
+  DividerProps as MuiDividerProps,
+} from "@mui/material/Divider";
+import MuiIcon, { IconProps as MuiIconProps } from "@mui/material/Icon";
 import MuiIconButton, {
   IconButtonProps as MuiIconButtonProps,
 } from "@mui/material/IconButton";
+import MuiList, { ListProps as MuiListProps } from "@mui/material/List";
+import MuiListItem, {
+  ListItemProps as MuiListItemProps,
+} from "@mui/material/ListItem";
+import MuiListItemAvatar, {
+  ListItemAvatarProps as MuiListItemAvatarProps,
+} from "@mui/material/ListItemAvatar";
+import MuiListItemButton, {
+  ListItemButtonProps as MuiListItemButtonProps,
+} from "@mui/material/ListItemButton";
+import MuiListItemIcon, {
+  ListItemIconProps as MuiListItemIconProps,
+} from "@mui/material/ListItemIcon";
+import MuiListItemText, {
+  ListItemTextProps as MuiListItemTextProps,
+} from "@mui/material/ListItemText";
+import MuiListSubheader, {
+  ListSubheaderProps as MuiListSubheaderProps,
+} from "@mui/material/ListSubheader";
 import MuiPaper, { PaperProps as MuiPaperProps } from "@mui/material/Paper";
 import MuiStack, { StackProps as MuiStackProps } from "@mui/material/Stack";
+import MuiSvgIcon, {
+  SvgIconProps as MuiSvgIconProps,
+} from "@mui/material/SvgIcon";
+import MuiTable, { TableProps as MuiTableProps } from "@mui/material/Table";
+import MuiTableBody, {
+  TableBodyProps as MuiTableBodyProps,
+} from "@mui/material/TableBody";
+import MuiTableCell, {
+  TableCellProps as MuiTableCellProps,
+} from "@mui/material/TableCell";
+import MuiTableContainer, {
+  TableContainerProps as MuiTableContainerProps,
+} from "@mui/material/TableContainer";
+import MuiTableFooter, {
+  TableFooterProps as MuiTableFooterProps,
+} from "@mui/material/TableFooter";
+import MuiTableHead, {
+  TableHeadProps as MuiTableHeadProps,
+} from "@mui/material/TableHead";
+import MuiTablePagination, {
+  TablePaginationProps as MuiTablePaginationProps,
+} from "@mui/material/TablePagination";
+import MuiTableRow, {
+  TableRowProps as MuiTableRowProps,
+} from "@mui/material/TableRow";
+import MuiTableSortLabel, {
+  TableSortLabelProps as MuiTableSortLabelProps,
+} from "@mui/material/TableSortLabel";
 import MuiToolbar, {
   ToolbarProps as MuiToolbarProps,
 } from "@mui/material/Toolbar";
 import MuiTypography, {
   TypographyProps as MuiTypographyProps,
 } from "@mui/material/Typography";
-
-import MuiExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MuiMenuIcon from "@mui/icons-material/Menu";
 
 export const Accordion = MuiWrapper<MuiAccordionProps>(
   MuiAccordion,
@@ -50,8 +118,17 @@ export const AccordionSummary = MuiWrapper<MuiAccordionSummaryProps>(
   MuiAccordionSummary,
   "AccordionSummary",
 );
+export const AddIcon = MuiWrapper(MuiAddIcon, "AddIcon");
 export const Alert = MuiWrapper<MuiAlertProps>(MuiAlert, "Alert");
 export const AppBar = MuiWrapper<MuiAppBarProps>(MuiAppBar, "AppBar");
+export const AssignmentIcon = MuiWrapper(MuiAssignmentIcon, "AssignmentIcon");
+export const Avatar = MuiWrapper<MuiAvatarProps>(MuiAvatar, "Avatar");
+export const AvatarGroup = MuiWrapper<MuiAvatarGroupProps>(
+  MuiAvatarGroup,
+  "AvatarGroup",
+);
+export const Badge = MuiWrapper<MuiBadgeProps>(MuiBadge, "Badge");
+export const Box = MuiWrapper<MuiBoxProps>(MuiBox, "Box");
 export const Button = MuiWrapper<MuiButtonProps>(MuiButton, "Button");
 export const Card = MuiWrapper<MuiCardProps>(MuiCard, "Card");
 export const CardActions = MuiWrapper<MuiCardActionsProps>(
@@ -67,16 +144,83 @@ export const CardMedia = MuiWrapper<MuiCardMediaProps>(
   "CardMedia",
 );
 export const Chip = MuiWrapper<MuiChipProps>(MuiChip, "Chip");
+export const DeleteIcon = MuiWrapper(MuiDeleteIcon, "DeleteIcon");
+export const Divider = MuiWrapper<MuiDividerProps>(MuiDivider, "Divider");
 export const ExpandMoreIcon = MuiWrapper(MuiExpandMoreIcon, "ExpandMoreIcon");
+export const FolderIcon = MuiWrapper(MuiFolderIcon, "FolderIcon");
+export const Icon = MuiWrapper<MuiIconProps>(MuiIcon, "Icon");
 export const IconButton = MuiWrapper<MuiIconButtonProps>(
   MuiIconButton,
   "IconButton",
 );
+export const InboxIcon = MuiWrapper(MuiInboxIcon, "InboxIcon");
+export const List = MuiWrapper<MuiListProps>(MuiList, "List");
+export const ListItem = MuiWrapper<MuiListItemProps>(MuiListItem, "ListItem");
+export const ListItemAvatar = MuiWrapper<MuiListItemAvatarProps>(
+  MuiListItemAvatar,
+  "ListItemAvatar",
+);
+export const ListItemButton = MuiWrapper<MuiListItemButtonProps>(
+  MuiListItemButton,
+  "ListItemButton",
+);
+export const ListItemIcon = MuiWrapper<MuiListItemIconProps>(
+  MuiListItemIcon,
+  "ListItemIcon",
+);
+export const ListItemText = MuiWrapper<MuiListItemTextProps>(
+  MuiListItemText,
+  "ListItemText",
+);
+export const ListSubheader = MuiWrapper<MuiListSubheaderProps>(
+  MuiListSubheader,
+  "ListSubheader",
+);
+export const MailIcon = MuiWrapper(MuiMailIcon, "MailIcon");
 export const MenuIcon = MuiWrapper(MuiMenuIcon, "MenuIcon");
+export const NotificationsIcon = MuiWrapper(
+  MuiNotificationsIcon,
+  "NotificationIcon",
+);
+export const PageviewIcon = MuiWrapper(MuiPageviewIcon, "PageviewIcon");
 export const Paper = MuiWrapper<MuiPaperProps>(MuiPaper, "Paper");
+export const SaveIcon = MuiWrapper(MuiSaveIcon, "SaveIcon");
+export const SendIcon = MuiWrapper(MuiSendIcon, "SendIcon");
 export const Stack = MuiWrapper<MuiStackProps>(MuiStack, "Stack");
+export const SvgIcon = MuiWrapper<MuiSvgIconProps>(MuiSvgIcon, "SvgIcon");
+export const Table = MuiWrapper<MuiTableProps>(MuiTable, "Table");
+export const TableBody = MuiWrapper<MuiTableBodyProps>(
+  MuiTableBody,
+  "TableBody",
+);
+export const TableCell = MuiWrapper<MuiTableCellProps>(
+  MuiTableCell,
+  "TableCell",
+);
+export const TableContainer = MuiWrapper<MuiTableContainerProps>(
+  MuiTableContainer,
+  "TableContainer",
+);
+export const TableFooter = MuiWrapper<MuiTableFooterProps>(
+  MuiTableFooter,
+  "TableFooter",
+);
+export const TableHead = MuiWrapper<MuiTableHeadProps>(
+  MuiTableHead,
+  "TableHead",
+);
+export const TablePagination = MuiWrapper<MuiTablePaginationProps>(
+  MuiTablePagination,
+  "TablePagination",
+);
+export const TableRow = MuiWrapper<MuiTableRowProps>(MuiTableRow, "TableRow");
+export const TableSortLabel = MuiWrapper<MuiTableSortLabelProps>(
+  MuiTableSortLabel,
+  "TableSortLabel",
+);
 export const Toolbar = MuiWrapper<MuiToolbarProps>(MuiToolbar, "Toolbar");
 export const Typography = MuiWrapper<MuiTypographyProps>(
   MuiTypography,
   "Typography",
 );
+export const WorkIcon = MuiWrapper(MuiWorkIcon, "WorkIcon");

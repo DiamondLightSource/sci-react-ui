@@ -22,5 +22,15 @@ const regexToVisit = (parsedVisit: RegExpExecArray): Visit => {
   };
 };
 
-export { regexToVisit, visitRegex, visitToText };
+const colourSet = [
+  "default",
+  "primary",
+  "secondary",
+  "success",
+  "error",
+  "info",
+  "warning",
+] as const;
+
+export { regexToVisit, visitRegex, visitToText, colourSet };
 export type { Visit };
