@@ -1,8 +1,8 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
 import {
-  Breadcrumbs as Mui_Breadcrumbs,
-  BreadcrumbsProps as Mui_BreadcrumbsProps,
-  Link as Mui_Link,
+  Breadcrumbs as MuiBreadcrumbs,
+  BreadcrumbsProps as MuiBreadcrumbsProps,
+  Link as MuiLink,
   styled,
   Typography,
 } from "@mui/material";
@@ -15,7 +15,7 @@ import { Bar, BarProps } from "../controls/Bar";
 interface BreadcrumbsProps extends BarProps {
   path: string | string[] | CustomLink[];
   linkComponent?: React.ElementType;
-  muiBreadcrumbsProps?: Mui_BreadcrumbsProps;
+  muiBreadcrumbsProps?: MuiBreadcrumbsProps;
 }
 
 /**
@@ -57,7 +57,7 @@ const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
   backgroundColor: theme.vars.palette.primary.light,
 }));
 
-const Mui_BreadcrumbsStyled = styled(Mui_Breadcrumbs)<Mui_BreadcrumbsProps>(
+const MuiBreadcrumbsStyled = styled(MuiBreadcrumbs)<MuiBreadcrumbsProps>(
   ({ theme }) => ({
     color: theme.vars.palette.primary.contrastText,
     padding: 0,
@@ -74,12 +74,12 @@ const Breadcrumbs = ({
 
   return (
     <BarStyled {...props}>
-      <Mui_BreadcrumbsStyled
+      <MuiBreadcrumbsStyled
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="small" />}
         {...muiBreadcrumbsProps}
       >
-        <Mui_Link
+        <MuiLink
           aria-label="Go to home page"
           key={"crumb-0"}
           underline="hover"
@@ -98,12 +98,12 @@ const Breadcrumbs = ({
             aria-hidden="true"
             sx={{ pt: 0.4, fontSize: "1.5em", mt: 0.3 }}
           />
-        </Mui_Link>
+        </MuiLink>
 
         {crumbs.map((crumb, i, all) => {
           if (i < all.length - 1)
             return (
-              <Mui_Link
+              <MuiLink
                 key={`crumb-${i + 1}`}
                 sx={{ fontSize: "smaller", mt: 0.1 }}
                 underline="hover"
@@ -113,7 +113,7 @@ const Breadcrumbs = ({
                   : { href: crumb.href })}
               >
                 {crumb.name}
-              </Mui_Link>
+              </MuiLink>
             );
           else {
             return (
@@ -126,7 +126,7 @@ const Breadcrumbs = ({
             );
           }
         })}
-      </Mui_BreadcrumbsStyled>
+      </MuiBreadcrumbsStyled>
     </BarStyled>
   );
 };
