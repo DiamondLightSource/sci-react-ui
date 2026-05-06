@@ -15,6 +15,7 @@ export * from "./components/controls/ProgressDelayed";
 export * from "./components/controls/User";
 export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
+export * from "./components/controls/NumberInput";
 
 // components/systems
 export * from "./components/systems/auth";
