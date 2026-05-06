@@ -6,8 +6,17 @@ const meta: Meta<typeof Breadcrumbs> = {
   title: "Components/Navigation/Breadcrumbs",
   component: Breadcrumbs,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component: `Not to be confused with MUI's Breadcrumbs component.  
+        See also:  
+        [Breadcrumbs Story](?path=/docs/mui-navigation-breadcrumbs--docs) (opens in this tab)  
+        [MUI Breadcrumbs documentation](https://v7.mui.com/material-ui/react-breadcrumbs/)`,
+      },
+    },
+  },
 };
-
 export default meta;
 type Story = StoryObj<typeof meta>;
 

@@ -65,7 +65,7 @@ export const InvisibleNumber: Story = {
   render: (args) => <Badge {...args} invisible={true} />,
 };
 
-export const Colors: Story = {
+export const Colours: Story = {
   args: { badgeContent: 7 },
   render: (args) => (
     <>
