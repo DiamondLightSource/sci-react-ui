@@ -23,7 +23,7 @@ const meta: Meta<typeof AppBar> = {
       description: {
         component: `
 ${muiDocsText}
-Not to be confused with custom [AppTitleBar component](?path=/docs/navigation-apptitlebar--docs)  (opens in this tab).  
+Not to be confused with custom [AppTitleBar component](?path=/docs/components-controls-apptitlebar--docs)  (opens in this tab).  
 `,
       },
     },
