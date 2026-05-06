@@ -69,7 +69,32 @@ import MuiListItemText, {
 import MuiListSubheader, {
   ListSubheaderProps as MuiListSubheaderProps,
 } from "@mui/material/ListSubheader";
+import MuiBackdrop, {
+  BackdropProps as MuiBackdropProps,
+} from "@mui/material/Backdrop";
+import MuiCircularProgress, {
+  CircularProgressProps as MuiCircularProgressProps,
+} from "@mui/material/CircularProgress";
+import MuiDialog, { DialogProps as MuiDialogProps } from "@mui/material/Dialog";
+import MuiDialogTitle, {
+  DialogTitleProps as MuiDialogTitleProps,
+} from "@mui/material/DialogTitle";
+import MuiDialogActions, {
+  DialogActionsProps as MuiDialogActionsProps,
+} from "@mui/material/DialogActions";
+import MuiDialogContent, {
+  DialogContentProps as MuiDialogContentProps,
+} from "@mui/material/DialogContent";
+import MuiLinearProgress, {
+  LinearProgressProps as MuiLinearProgressProps,
+} from "@mui/material/LinearProgress";
 import MuiPaper, { PaperProps as MuiPaperProps } from "@mui/material/Paper";
+import MuiSkeleton, {
+  SkeletonProps as MuiSkeletonProps,
+} from "@mui/material/Skeleton";
+import MuiSnackbar, {
+  SnackbarProps as MuiSnackbarProps,
+} from "@mui/material/Snackbar";
 import MuiStack, { StackProps as MuiStackProps } from "@mui/material/Stack";
 import MuiSvgIcon, {
   SvgIconProps as MuiSvgIconProps,
@@ -128,6 +153,7 @@ export const AvatarGroup = MuiWrapper<MuiAvatarGroupProps>(
   "AvatarGroup",
 );
 export const Badge = MuiWrapper<MuiBadgeProps>(MuiBadge, "Badge");
+export const Backdrop = MuiWrapper<MuiBackdropProps>(MuiBackdrop, "Backdrop");
 export const Box = MuiWrapper<MuiBoxProps>(MuiBox, "Box");
 export const Button = MuiWrapper<MuiButtonProps>(MuiButton, "Button");
 export const Card = MuiWrapper<MuiCardProps>(MuiCard, "Card");
@@ -146,6 +172,23 @@ export const CardMedia = MuiWrapper<MuiCardMediaProps>(
 export const Chip = MuiWrapper<MuiChipProps>(MuiChip, "Chip");
 export const DeleteIcon = MuiWrapper(MuiDeleteIcon, "DeleteIcon");
 export const Divider = MuiWrapper<MuiDividerProps>(MuiDivider, "Divider");
+export const CircularProgress = MuiWrapper<
+  MuiCircularProgressProps,
+  HTMLSpanElement
+>(MuiCircularProgress, "CircularProgress");
+export const Dialog = MuiWrapper<MuiDialogProps>(MuiDialog, "Dialog");
+export const DialogActions = MuiWrapper<MuiDialogActionsProps>(
+  MuiDialogActions,
+  "DialogActions",
+);
+export const DialogContent = MuiWrapper<MuiDialogContentProps>(
+  MuiDialogContent,
+  "DialogContent",
+);
+export const DialogTitle = MuiWrapper<MuiDialogTitleProps>(
+  MuiDialogTitle,
+  "DialogTitle",
+);
 export const ExpandMoreIcon = MuiWrapper(MuiExpandMoreIcon, "ExpandMoreIcon");
 export const FolderIcon = MuiWrapper(MuiFolderIcon, "FolderIcon");
 export const Icon = MuiWrapper<MuiIconProps>(MuiIcon, "Icon");
@@ -177,6 +220,11 @@ export const ListSubheader = MuiWrapper<MuiListSubheaderProps>(
   "ListSubheader",
 );
 export const MailIcon = MuiWrapper(MuiMailIcon, "MailIcon");
+
+export const LinearProgress = MuiWrapper<MuiLinearProgressProps>(
+  MuiLinearProgress,
+  "LinearProgress",
+);
 export const MenuIcon = MuiWrapper(MuiMenuIcon, "MenuIcon");
 export const NotificationsIcon = MuiWrapper(
   MuiNotificationsIcon,
@@ -186,6 +234,8 @@ export const PageviewIcon = MuiWrapper(MuiPageviewIcon, "PageviewIcon");
 export const Paper = MuiWrapper<MuiPaperProps>(MuiPaper, "Paper");
 export const SaveIcon = MuiWrapper(MuiSaveIcon, "SaveIcon");
 export const SendIcon = MuiWrapper(MuiSendIcon, "SendIcon");
+export const Skeleton = MuiWrapper<MuiSkeletonProps>(MuiSkeleton, "Skeleton");
+export const Snackbar = MuiWrapper<MuiSnackbarProps>(MuiSnackbar, "Snackbar");
 export const Stack = MuiWrapper<MuiStackProps>(MuiStack, "Stack");
 export const SvgIcon = MuiWrapper<MuiSvgIconProps>(MuiSvgIcon, "SvgIcon");
 export const Table = MuiWrapper<MuiTableProps>(MuiTable, "Table");
