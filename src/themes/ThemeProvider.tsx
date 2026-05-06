@@ -1,9 +1,9 @@
-import { ThemeProvider as Mui_ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { GenericTheme } from "./GenericTheme";
-import { ThemeProviderProps as Mui_ThemeProviderProps } from "@mui/material/styles";
+import { ThemeProviderProps as MuiThemeProviderProps } from "@mui/material/styles";
 
-interface ThemeProviderProps extends Partial<Mui_ThemeProviderProps> {
+interface ThemeProviderProps extends Partial<MuiThemeProviderProps> {
   baseline?: boolean;
 }
 
@@ -15,10 +15,10 @@ const ThemeProvider = function ({
   ...props
 }: ThemeProviderProps) {
   return (
-    <Mui_ThemeProvider theme={theme} defaultMode={defaultMode} {...props}>
+    <MuiThemeProvider theme={theme} defaultMode={defaultMode} {...props}>
       {baseline && <CssBaseline />}
       {children}
-    </Mui_ThemeProvider>
+    </MuiThemeProvider>
   );
 };
 
