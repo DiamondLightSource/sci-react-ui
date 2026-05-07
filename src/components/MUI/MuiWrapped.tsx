@@ -53,6 +53,9 @@ import MuiBreadcrumbs, {
   BreadcrumbsProps as MuiBreadcrumbsProps,
 } from "@mui/material/Breadcrumbs";
 import MuiButton, { ButtonProps as MuiButtonProps } from "@mui/material/Button";
+import MuiButtonGroup, {
+  ButtonGroupProps as MuiButtonGroupProps,
+} from "@mui/material/ButtonGroup";
 import MuiCard, { CardProps as MuiCardProps } from "@mui/material/Card";
 import MuiCardActions, {
   CardActionsProps as MuiCardActionsProps,
@@ -63,6 +66,9 @@ import MuiCardContent, {
 import MuiCardMedia, {
   CardMediaProps as MuiCardMediaProps,
 } from "@mui/material/CardMedia";
+import MuiCheckbox, {
+  CheckboxProps as MuiCheckboxProps,
+} from "@mui/material/Checkbox";
 import MuiChip, { ChipProps as MuiChipProps } from "@mui/material/Chip";
 import MuiCircularProgress, {
   CircularProgressProps as MuiCircularProgressProps,
@@ -81,6 +87,13 @@ import MuiDivider, {
   DividerProps as MuiDividerProps,
 } from "@mui/material/Divider";
 import MuiDrawer, { DrawerProps as MuiDrawerProps } from "@mui/material/Drawer";
+import MuiFab, { FabProps as MuiFabProps } from "@mui/material/Fab";
+import MuiFormControl, {
+  FormControlProps as MuiFormControlProps,
+} from "@mui/material/FormControl";
+import MuiFormControlLabel, {
+  FormControlLabelProps as MuiFormControlLabelProps,
+} from "@mui/material/FormControlLabel";
 import MuiIcon, { IconProps as MuiIconProps } from "@mui/material/Icon";
 import MuiIconButton, {
   IconButtonProps as MuiIconButtonProps,
@@ -89,6 +102,9 @@ import MuiLinearProgress, {
   LinearProgressProps as MuiLinearProgressProps,
 } from "@mui/material/LinearProgress";
 import MuiLink, { LinkProps as MuiLinkProps } from "@mui/material/Link";
+import MuiInputLabel, {
+  InputLabelProps as MuiInputLabelProps,
+} from "@mui/material/InputLabel";
 import MuiList, { ListProps as MuiListProps } from "@mui/material/List";
 import MuiListItem, {
   ListItemProps as MuiListItemProps,
@@ -116,9 +132,16 @@ import MuiPagination, {
   PaginationProps as MuiPaginationProps,
 } from "@mui/material/Pagination";
 import MuiPaper, { PaperProps as MuiPaperProps } from "@mui/material/Paper";
+import MuiRadio, { RadioProps as MuiRadioProps } from "@mui/material/Radio";
+import MuiRadioGroup, {
+  RadioGroupProps as MuiRadioGroupProps,
+} from "@mui/material/RadioGroup";
+import MuiRating, { RatingProps as MuiRatingProps } from "@mui/material/Rating";
+import MuiSelect, { SelectProps as MuiSelectProps } from "@mui/material/Select";
 import MuiSkeleton, {
   SkeletonProps as MuiSkeletonProps,
 } from "@mui/material/Skeleton";
+import MuiSlider, { SliderProps as MuiSliderProps } from "@mui/material/Slider";
 import MuiSnackbar, {
   SnackbarProps as MuiSnackbarProps,
 } from "@mui/material/Snackbar";
@@ -144,6 +167,7 @@ import MuiSvgIcon, {
   SvgIconProps as MuiSvgIconProps,
 } from "@mui/material/SvgIcon";
 import MuiTab, { TabProps as MuiTabProps } from "@mui/material/Tab";
+import MuiSwitch, { SwitchProps as MuiSwitchProps } from "@mui/material/Switch";
 import MuiTable, { TableProps as MuiTableProps } from "@mui/material/Table";
 import MuiTableBody, {
   TableBodyProps as MuiTableBodyProps,
@@ -170,6 +194,15 @@ import MuiTableSortLabel, {
   TableSortLabelProps as MuiTableSortLabelProps,
 } from "@mui/material/TableSortLabel";
 import MuiTabs, { TabsProps as MuiTabsProps } from "@mui/material/Tabs";
+import MuiTextField, {
+  TextFieldProps as MuiTextFieldProps,
+} from "@mui/material/TextField";
+import MuiToggleButton, {
+  ToggleButtonProps as MuiToggleButtonProps,
+} from "@mui/material/ToggleButton";
+import MuiToggleButtonGroup, {
+  ToggleButtonGroupProps as MuiToggleButtonGroupProps,
+} from "@mui/material/ToggleButtonGroup";
 import MuiToolbar, {
   ToolbarProps as MuiToolbarProps,
 } from "@mui/material/Toolbar";
@@ -306,6 +339,10 @@ export const Breadcrumbs = MuiWrapper<MuiBreadcrumbsProps>(
   "Breadcrumbs",
 );
 export const Button = MuiWrapper<MuiButtonProps>(MuiButton, "Button");
+export const ButtonGroup = MuiWrapper<MuiButtonGroupProps>(
+  MuiButtonGroup,
+  "ButtonGroup",
+);
 export const Card = MuiWrapper<MuiCardProps>(MuiCard, "Card");
 export const CardActions = MuiWrapper<MuiCardActionsProps>(
   MuiCardActions,
@@ -320,6 +357,7 @@ export const CardMedia = MuiWrapper<MuiCardMediaProps>(
   "CardMedia",
 );
 export const Chip = MuiWrapper<MuiChipProps>(MuiChip, "Chip");
+export const Checkbox = MuiWrapper<MuiCheckboxProps>(MuiCheckbox, "Checkbox");
 export const CircularProgress = MuiWrapper<
   MuiCircularProgressProps,
   HTMLSpanElement
@@ -339,6 +377,15 @@ export const DialogTitle = MuiWrapper<MuiDialogTitleProps>(
 );
 export const Divider = MuiWrapper<MuiDividerProps>(MuiDivider, "Divider");
 export const Drawer = MuiWrapper<MuiDrawerProps>(MuiDrawer, "Drawer");
+export const Fab = MuiWrapper<MuiFabProps>(MuiFab, "Fab");
+export const FormControl = MuiWrapper<MuiFormControlProps>(
+  MuiFormControl,
+  "FormControl",
+);
+export const FormControlLabel = MuiWrapper<MuiFormControlLabelProps>(
+  MuiFormControlLabel,
+  "FormControlLabel",
+);
 export const Icon = MuiWrapper<MuiIconProps>(MuiIcon, "Icon");
 export const IconButton = MuiWrapper<MuiIconButtonProps>(
   MuiIconButton,
@@ -349,6 +396,10 @@ export const LinearProgress = MuiWrapper<MuiLinearProgressProps>(
   "LinearProgress",
 );
 export const Link = MuiWrapper<MuiLinkProps>(MuiLink, "Link");
+export const InputLabel = MuiWrapper<MuiInputLabelProps>(
+  MuiInputLabel,
+  "InputLabel",
+);
 export const List = MuiWrapper<MuiListProps>(MuiList, "List");
 export const ListItem = MuiWrapper<MuiListItemProps>(MuiListItem, "ListItem");
 export const ListItemAvatar = MuiWrapper<MuiListItemAvatarProps>(
@@ -378,7 +429,15 @@ export const Pagination = MuiWrapper<MuiPaginationProps>(
   "Pagination",
 );
 export const Paper = MuiWrapper<MuiPaperProps>(MuiPaper, "Paper");
+export const Radio = MuiWrapper<MuiRadioProps>(MuiRadio, "Radio");
+export const RadioGroup = MuiWrapper<MuiRadioGroupProps>(
+  MuiRadioGroup,
+  "RadioGroup",
+);
+export const Rating = MuiWrapper<MuiRatingProps>(MuiRating, "Rating");
+export const Select = MuiWrapper<MuiSelectProps>(MuiSelect, "Select");
 export const Skeleton = MuiWrapper<MuiSkeletonProps>(MuiSkeleton, "Skeleton");
+export const Slider = MuiWrapper<MuiSliderProps>(MuiSlider, "Slider");
 export const Snackbar = MuiWrapper<MuiSnackbarProps>(MuiSnackbar, "Snackbar");
 export const SpeedDial = MuiWrapper<MuiSpeedDialProps>(
   MuiSpeedDial,
@@ -401,6 +460,7 @@ export const StepContent = MuiWrapper<MuiStepContentProps>(
 );
 export const SvgIcon = MuiWrapper<MuiSvgIconProps>(MuiSvgIcon, "SvgIcon");
 export const Tab = MuiWrapper<MuiTabProps>(MuiTab, "Tab");
+export const Switch = MuiWrapper<MuiSwitchProps>(MuiSwitch, "Switch");
 export const Table = MuiWrapper<MuiTableProps>(MuiTable, "Table");
 export const TableBody = MuiWrapper<MuiTableBodyProps>(
   MuiTableBody,
@@ -432,6 +492,18 @@ export const TableSortLabel = MuiWrapper<MuiTableSortLabelProps>(
   "TableSortLabel",
 );
 export const Tabs = MuiWrapper<MuiTabsProps>(MuiTabs, "Tabs");
+export const TextField = MuiWrapper<MuiTextFieldProps>(
+  MuiTextField,
+  "TextField",
+);
+export const ToggleButton = MuiWrapper<MuiToggleButtonProps>(
+  MuiToggleButton,
+  "ToggleButton",
+);
+export const ToggleButtonGroup = MuiWrapper<MuiToggleButtonGroupProps>(
+  MuiToggleButtonGroup,
+  "ToggleButtonGroup",
+);
 export const Toolbar = MuiWrapper<MuiToolbarProps>(MuiToolbar, "Toolbar");
 export const Typography = MuiWrapper<MuiTypographyProps>(
   MuiTypography,
