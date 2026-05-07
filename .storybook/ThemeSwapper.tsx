@@ -21,12 +21,14 @@ export const TextDark = "Mode: Dark";
 
 const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
   const { mode, setMode } = useColorScheme();
-  //if( !mode ) return
 
   useEffect(() => {
     const selectedThemeMode = context.globals.themeMode || TextLight;
-    setMode(selectedThemeMode == TextLight ? "light" : "dark");
-  }, [context.globals.themeMode]);
+    const nextMode = selectedThemeMode === TextLight ? "light" : "dark";
+
+    setMode(nextMode);
+    document.documentElement.setAttribute("data-mode", nextMode);
+  }, [context.globals.themeMode, setMode]);
 
   return (
     <div style={{ backgroundColor: mode === "light" ? "#fafafaaa" : "#000a" }}>
