@@ -221,8 +221,8 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
 
         hoverOpacity: 0.04,
         selectedOpacity: 0.08,
-        disabledOpacity: 0.1,
-        focusOpacity: 0.1,
+        disabledOpacity: 0.38,
+        focusOpacity: 0.16,
       },
 
       text: {
