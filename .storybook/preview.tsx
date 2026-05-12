@@ -1,51 +1,40 @@
-import React, { useLayoutEffect } from "react";
-import { CssBaseline } from "@mui/material";
+import React from "react";
 import type { Preview } from "@storybook/react";
+
 import { ThemeProvider } from "../src";
+import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
+
 import {
-  GenericTheme,
-  DiamondTheme,
-  DiamondDSTheme,
-  DiamondDSThemeDark,
-} from "../src";
-import { Context, ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper";
+  Context,
+  ThemeSwapper,
+  TextDark,
+  TextLight,
+  TextSystem,
+} from "./ThemeSwapper";
 
 const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
+const TextThemeDiamondDS = "Theme: Diamond DS";
 
-const TextThemeDiamondDS = "Theme: DiamondDS";
-
-function resolveTheme(selectedTheme: string, mode: "light" | "dark") {
+function resolveTheme(selectedTheme: string) {
   switch (selectedTheme) {
     case TextThemeBase:
       return GenericTheme;
-    case TextThemeDiamondDS:
-      return mode === "dark" ? DiamondDSThemeDark : DiamondDSTheme;
+
     case TextThemeDiamond:
-    default:
       return DiamondTheme;
+
+    case TextThemeDiamondDS:
+    default:
+      return DiamondDSTheme;
   }
 }
 
-function ApplyModeToPreviewDoc({
-  mode,
-  doc,
-}: {
-  mode: "light" | "dark";
-  doc: Document;
-}) {
-  useLayoutEffect(() => {
-    const root = doc.documentElement; // <html>
-    root.setAttribute("data-mode", mode);
+function resolveDefaultMode(selectedThemeMode: string) {
+  if (selectedThemeMode === TextLight) return "light";
+  if (selectedThemeMode === TextDark) return "dark";
 
-    // Optional: keep class too if your CSS supports it
-    root.classList.toggle("dark", mode === "dark");
-    root.classList.toggle("light", mode === "light");
-
-    root.style.colorScheme = mode;
-  }, [mode, doc]);
-
-  return null;
+  return "system";
 }
 
 export const decorators = [
@@ -56,28 +45,19 @@ export const decorators = [
       </div>
     );
   },
-  (StoriesWithThemeSwapping: React.FC, context: Context) => {
-    return (
-      <ThemeSwapper context={context}>
-        <StoriesWithThemeSwapping />
-      </ThemeSwapper>
-    );
-  },
-  (StoriesWithThemeProvider: React.FC, context: Context) => {
-    const selectedTheme = context.globals.theme || TextThemeBase;
-    const selectedThemeMode = context.globals.themeMode || TextLight;
-    const mode = selectedThemeMode === TextLight ? "light" : "dark";
 
-    // ensure we target the preview iframe document
-    const doc: Document = context?.canvasElement?.ownerDocument ?? document;
+  (StoriesWithThemeProvider: React.FC, context: Context) => {
+    const selectedTheme = context.globals.theme || TextThemeDiamondDS;
+    const selectedThemeMode = context.globals.themeMode || TextSystem;
+
     return (
       <ThemeProvider
-        theme={resolveTheme(selectedTheme, mode)}
-        defaultMode={mode}
+        theme={resolveTheme(selectedTheme)}
+        defaultMode={resolveDefaultMode(selectedThemeMode)}
       >
-        <ApplyModeToPreviewDoc mode={mode} doc={doc} />
-        <CssBaseline />
-        <StoriesWithThemeProvider />
+        <ThemeSwapper context={context}>
+          <StoriesWithThemeProvider />
+        </ThemeSwapper>
       </ThemeProvider>
     );
   },
@@ -94,20 +74,23 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
+
     themeMode: {
       description: "Global theme mode for components",
       toolbar: {
-        title: "Theme Mode",
+        title: "Theme mode",
         icon: "mirror",
-        items: [TextLight, TextDark],
+        items: [TextLight, TextDark, TextSystem],
         dynamicTitle: true,
       },
     },
   },
+
   initialGlobals: {
     theme: TextThemeDiamondDS,
-    themeMode: TextLight,
+    themeMode: TextSystem,
   },
+
   parameters: {
     controls: {
       matchers: {
@@ -132,6 +115,7 @@ const preview: Preview = {
       },
     },
   },
+
   argTypes: {
     linkComponent: {
       control: false,

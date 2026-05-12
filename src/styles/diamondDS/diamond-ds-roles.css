@@ -12,7 +12,7 @@
 }
 
 :root,
-:root[data-mode="light"] {
+:root.light {
   /* Neutral */
 
   --ds-background: #f6f6f9;
@@ -201,7 +201,7 @@
   --ds-focus-ring-highlight: var(--ds-highlight-accent);
 }
 
-:root[data-mode="dark"] {
+:root.dark {
   /* Neutral */
 
   --ds-background: #0e1017;
