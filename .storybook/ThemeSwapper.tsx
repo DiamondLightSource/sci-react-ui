@@ -1,6 +1,5 @@
-import { useColorScheme } from "@mui/material";
+import { useColorScheme } from "@mui/material/styles";
 import * as React from "react";
-import { useEffect } from "react";
 
 interface Globals {
   theme: string;
@@ -18,20 +17,35 @@ export interface ThemeSwapperProps {
 
 export const TextLight = "Mode: Light";
 export const TextDark = "Mode: Dark";
+export const TextSystem = "Mode: System";
 
 const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
-  const { mode, setMode } = useColorScheme();
+  const { mode, systemMode, setMode } = useColorScheme();
 
-  useEffect(() => {
-    const selectedThemeMode = context.globals.themeMode || TextLight;
-    const nextMode = selectedThemeMode === TextLight ? "light" : "dark";
+  React.useEffect(() => {
+    const selectedThemeMode = context.globals.themeMode || TextSystem;
 
-    setMode(nextMode);
-    document.documentElement.setAttribute("data-mode", nextMode);
+    if (selectedThemeMode === TextLight) {
+      setMode("light");
+      return;
+    }
+
+    if (selectedThemeMode === TextDark) {
+      setMode("dark");
+      return;
+    }
+
+    setMode("system");
   }, [context.globals.themeMode, setMode]);
 
+  const resolvedMode = mode === "system" ? systemMode : mode;
+
   return (
-    <div style={{ backgroundColor: mode === "light" ? "#fafafaaa" : "#000a" }}>
+    <div
+      style={{
+        backgroundColor: resolvedMode === "dark" ? "#0e1017" : "#F6F6F9",
+      }}
+    >
       {children}
     </div>
   );
