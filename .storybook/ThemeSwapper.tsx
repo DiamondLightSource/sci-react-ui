@@ -24,14 +24,11 @@ const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
 
   useEffect(() => {
     const selectedThemeMode = context.globals.themeMode || TextLight;
-    const nextMode = selectedThemeMode === TextLight ? "light" : "dark";
-
-    setMode(nextMode);
-    document.documentElement.setAttribute("data-mode", nextMode);
+    setMode(selectedThemeMode === TextLight ? "light" : "dark");
   }, [context.globals.themeMode, setMode]);
 
   return (
-    <div style={{ backgroundColor: mode === "light" ? "#fafafaaa" : "#000a" }}>
+    <div style={{ backgroundColor: mode === "light" ? "#F6F6F9" : "#0e1017" }}>
       {children}
     </div>
   );

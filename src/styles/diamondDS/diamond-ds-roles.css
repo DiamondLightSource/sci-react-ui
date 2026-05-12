@@ -1,5 +1,4 @@
-:root, .light,
-html[data-mode="light"] {
+:root {
   /* Neutral */
 
   --ds-background: #F6F6F9;
@@ -188,8 +187,7 @@ html[data-mode="light"] {
   --ds-focus-ring-highlight: var(--ds-highlight-accent);
 }
 
-.dark,
-html[data-mode="dark"] {
+:root.dark {
   /* Neutral */
 
   --ds-background: #0e1017;
