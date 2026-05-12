@@ -117,6 +117,20 @@ const preview: Preview = {
     },
     backgrounds: { disable: true },
     layout: "fullscreen",
+    options: {
+      storySort: {
+        order: [
+          "Introduction",
+          "Foundation",
+          "Helpers",
+          "MUI",
+          "Components",
+          "Theme",
+          "Theme/Logos",
+          "Theme/Colours",
+        ],
+      },
+    },
   },
   argTypes: {
     linkComponent: {
