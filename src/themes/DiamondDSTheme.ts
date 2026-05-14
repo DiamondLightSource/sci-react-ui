@@ -376,23 +376,15 @@ const getIntentFromColourProp = (
   fallback: IntentColour = "primary",
 ): IntentColour => (isIntentColour(colour) ? colour : fallback);
 
-const getFocusToken = (colour?: IntentColour) => {
-  if (!colour) return "var(--ds-focus-ring)";
-
-  return `var(--ds-focus-ring-${intentTokenName[colour]})`;
-};
-
 /**
- * Focus rings use dedicated focus tokens rather than component colours.
+ * Focus rings use one shared DiamondDS focus token.
  *
- * This keeps keyboard focus visible without confusing it with selection, status
- * or validation state. Error and disabled states should still win visually where
- * those states are present.
+ * Focus shows keyboard/navigation state. It should not change by intent,
+ * status or validation colour.
  */
-const getFocusOutline = (token?: string): CSSObject => ({
+const getFocusOutline = (): CSSObject => ({
   "&.Mui-focusVisible": {
-    outline: "var(--ds-focus-ring-width) solid",
-    outlineColor: token ?? "var(--ds-focus-ring)",
+    outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
     outlineOffset: "var(--ds-focus-ring-offset)",
   },
 });
@@ -573,6 +565,39 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
        * - avoid raw colours
        * - keep disabled and error states visually dominant
        * - prefer scoped/additive changes over breaking MUI defaults
+       *
+       * Component override summary
+       *
+       * Base interaction:
+       *   MuiButtonBase       → ripple and focus behaviour
+       *
+       * Actions and selection:
+       *   MuiButton           → contained, outlined and text variants
+       *   MuiIconButton       → intent-aware icon actions
+       *   MuiToggleButton     → selection, border and hover states
+       *
+       * Inputs and forms:
+       *   MuiInputBase        → placeholder behaviour
+       *   MuiOutlinedInput    → border priority and validation states
+       *   MuiInputLabel       → label response to focus and validation
+       *
+       * Navigation and display:
+       *   MuiTab              → navigation hierarchy and selected state
+       *   MuiAlert            → semantic feedback variants
+       *   MuiChip             → metadata, status and interactive chips
+       *
+       * Progress and loading:
+       *   MuiLinearProgress   → semantic activity indicators
+       *   MuiCircularProgress → semantic activity indicators
+       *   MuiSkeleton         → loading placeholders and shimmer
+       *
+       * Selection controls:
+       *   MuiCheckbox         → checked and disabled states
+       *   MuiRadio            → checked and disabled states
+       *
+       * Feedback surfaces:
+       *   MuiSnackbar         → layout constraints
+       *   MuiSnackbarContent  → surface styling and actions
        */
 
       MuiButtonBase: {
@@ -600,6 +625,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
         defaultProps: {
           disableFocusRipple: true,
         },
+
         styleOverrides: {
           root: ({
             ownerState,
@@ -608,6 +634,10 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
             const base: CSSObject = {
               textTransform: "none",
               boxShadow: "none",
+
+              "&:hover": {
+                boxShadow: "none",
+              },
             };
 
             const variant = ownerState.variant ?? "text";
@@ -622,12 +652,11 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
 
             const colour = getIntentFromColourProp(rawColour);
             const p = getIntentPalette(theme, colour);
-            const focusToken = getFocusToken(colour);
 
             if (variant === "contained") {
               return {
                 ...base,
-                ...getFocusOutline(focusToken),
+
                 backgroundColor: p.solid,
                 color: p.onSolid,
 
@@ -637,8 +666,8 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 ),
 
                 "&.Mui-focusVisible": {
-                  outline: "var(--ds-focus-ring-width) solid",
-                  outlineColor: focusToken,
+                  outline:
+                    "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
                   outlineOffset: "var(--ds-focus-ring-offset)",
                   boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
                 },
@@ -652,21 +681,38 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
             if (variant === "outlined") {
               return {
                 ...base,
-                ...getFocusOutline(focusToken),
+                ...getFocusOutline(),
 
                 color: p.onContainer,
                 backgroundColor: p.container,
+                border: `1px solid ${p.light}`,
 
                 ...getInteractiveSurfaceStateStyles(p.container),
 
-                "&.Mui-disabled": getDisabledControlStyles(),
+                "&:hover": {
+                  backgroundColor: p.container,
+                  borderColor: p.main,
+                  boxShadow: getOverlayInset(),
+                },
+
+                "&:active": {
+                  backgroundColor: p.container,
+                  borderColor: p.dark,
+                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                },
+
+                "&.Mui-disabled": {
+                  ...getDisabledControlStyles(),
+                  borderColor: "var(--ds-border-subtle)",
+                },
               };
             }
 
             if (variant === "text") {
               return {
                 ...base,
-                ...getFocusOutline(focusToken),
+                ...getFocusOutline(),
+
                 color: p.main,
 
                 "&:hover": {
@@ -682,7 +728,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
 
             return {
               ...base,
-              ...getFocusOutline(focusToken),
+              ...getFocusOutline(),
             };
           },
         },
@@ -711,13 +757,17 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 "&:hover": {
                   boxShadow: getOverlayInset(),
                 },
+                "&.Mui-disabled": {
+                  color: "var(--ds-on-surface-disabled)",
+                  backgroundColor: "transparent",
+                  boxShadow: "none",
+                },
                 ...getFocusOutline(),
               };
             }
 
             const colour = getIntentFromColourProp(rawColour);
             const p = getIntentPalette(theme, colour);
-            const focusToken = getFocusToken(colour);
 
             return {
               color: p.main,
@@ -727,7 +777,12 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 boxShadow: getOverlayInset(),
               },
 
-              ...getFocusOutline(focusToken),
+              "&.Mui-disabled": {
+                color: "var(--ds-on-surface-disabled)",
+                backgroundColor: "transparent",
+                boxShadow: "none",
+              },
+              ...getFocusOutline(),
             };
           },
         },
@@ -741,6 +796,23 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
 
             "&:hover": {
               borderColor: theme.palette.borders.emphasis,
+            },
+
+            "&.Mui-selected": {
+              backgroundColor: "var(--ds-primary-container)",
+              color: "var(--ds-on-primary-container)",
+              borderColor: "var(--ds-primary-accent)",
+            },
+
+            "&.Mui-selected:hover": {
+              backgroundColor: "var(--ds-primary-container)",
+              borderColor: "var(--ds-primary)",
+              boxShadow: getOverlayInset(),
+            },
+
+            "&.Mui-disabled": {
+              color: "var(--ds-on-surface-disabled)",
+              borderColor: "var(--ds-border-subtle)",
             },
           }),
         },
@@ -798,12 +870,11 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
 
             const colour = getIntentFromColourProp(rawColour);
             const p = getIntentPalette(theme, colour);
-            const focusToken = getFocusToken(colour);
 
             if (isOutlined) {
               return {
                 ...base,
-                ...(isInteractive ? getFocusOutline(focusToken) : {}),
+                ...(isInteractive ? getFocusOutline() : {}),
 
                 color: p.onContainer,
                 borderColor: p.light,
@@ -831,7 +902,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
 
             return {
               ...base,
-              ...(isInteractive ? getFocusOutline(focusToken) : {}),
+              ...(isInteractive ? getFocusOutline() : {}),
 
               color: p.onSolid,
               backgroundColor: p.solid,
@@ -924,7 +995,6 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
           }: OverrideArgs<OutlinedInputProps>): CSSObject => {
             const colour = getIntentFromColourProp(ownerState.color);
             const p = getIntentPalette(theme, colour);
-            const focusToken = getFocusToken(colour);
 
             return {
               "& .MuiOutlinedInput-notchedOutline": {
@@ -963,8 +1033,8 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
               },
 
               "&.Mui-focusVisible": {
-                outline: "var(--ds-focus-ring-width) solid",
-                outlineColor: focusToken,
+                outline:
+                  "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
                 outlineOffset: "var(--ds-focus-ring-offset)",
               },
 
@@ -1227,7 +1297,6 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
             const colour = getIntentFromColourProp(rawColour);
 
             const p = !isDefault ? getIntentPalette(theme, colour) : null;
-            const focusToken = !isDefault ? getFocusToken(colour) : undefined;
 
             return {
               color: "var(--ds-on-surface-variant)",
@@ -1237,7 +1306,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 backgroundColor: "var(--ds-overlay-hover)",
               },
 
-              ...getFocusOutline(focusToken),
+              ...getFocusOutline(),
 
               "&.Mui-checked": {
                 color: isDefault ? "var(--ds-on-surface)" : p?.main,
@@ -1269,7 +1338,6 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
             const colour = getIntentFromColourProp(rawColour);
 
             const p = !isDefault ? getIntentPalette(theme, colour) : null;
-            const focusToken = !isDefault ? getFocusToken(colour) : undefined;
 
             return {
               color: "var(--ds-on-surface-variant)",
@@ -1279,7 +1347,7 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
                 backgroundColor: "var(--ds-overlay-hover)",
               },
 
-              ...getFocusOutline(focusToken),
+              ...getFocusOutline(),
 
               "&.Mui-checked": {
                 color: isDefault ? "var(--ds-on-surface)" : p?.main,
@@ -1298,9 +1366,14 @@ export const createDiamondTheme = (mode: DSMode): Theme => {
   return createTheme(DiamondDSThemeOptions);
 };
 
-// Convenience exports — derive from the factory so they stay in sync.
+/**
+ * Pre-built themes for convenience.
+ * Most apps can use these directly; use createDiamondTheme() for custom modes.
+ */
 export const DiamondDSTheme = createDiamondTheme("light");
 export const DiamondDSThemeDark = createDiamondTheme("dark");
 
-// Keep the old export name as an alias for backwards compatibility.
+/**
+ * Backwards compatibility alias. Use createDiamondTheme() for new code.
+ */
 export const createMuiTheme = createDiamondTheme;
