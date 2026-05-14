@@ -18,12 +18,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: |
-            args: [ --force ]
-
       - name: Setup node
         uses: actions/setup-node@v4
         with:
@@ -31,6 +25,11 @@ jobs:
           registry-url: https://registry.npmjs.org/
           scope: '@diamondlightsource'
           cache: pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
