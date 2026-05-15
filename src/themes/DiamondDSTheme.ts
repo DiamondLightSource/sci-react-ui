@@ -37,30 +37,6 @@ type IntentColour =
   | "info"
   | "success";
 
-type ExtendedPaletteColor = {
-  light?: string;
-  main?: string;
-  dark?: string;
-  contrastText?: string;
-  mainChannel?: string;
-  lightChannel?: string;
-  darkChannel?: string;
-  contrastTextChannel?: string;
-  container?: string;
-  onContainer?: string;
-  solid?: string;
-  onSolid?: string;
-};
-
-type IntentPaletteRecord = Partial<Record<IntentColour, ExtendedPaletteColor>>;
-
-type ThemeWithIntentPalette = Theme & {
-  vars?: {
-    palette?: IntentPaletteRecord;
-  };
-  palette: Theme["palette"] & IntentPaletteRecord;
-};
-
 declare module "@mui/material/styles" {
   interface TypeBackground {
     default: string;
@@ -134,29 +110,6 @@ declare module "@mui/material/styles" {
   }
 }
 
-// --- Helpers ---
-
-const getIntentPalette = (
-  theme: Theme,
-  colour: IntentColour,
-): ExtendedPaletteColor => {
-  const { vars, palette } = theme as ThemeWithIntentPalette;
-
-  const fallbackPalette = palette[colour];
-  const varsPalette = vars?.palette?.[colour];
-
-  if (process.env.NODE_ENV !== "production" && !fallbackPalette) {
-    console.warn(
-      `[DiamondDS] getIntentPalette: colour "${colour}" not found in palette`,
-    );
-  }
-
-  return {
-    ...fallbackPalette,
-    ...varsPalette,
-  };
-};
-
 const getFocusToken = (colour?: IntentColour) => {
   if (!colour) return "var(--ds-focus-ring)";
 
@@ -173,7 +126,6 @@ const getFocusOutline = (token?: string): CSSObject => ({
 
 const getOverlayInset = (token = "var(--ds-overlay-hover)") =>
   `inset 0 0 0 9999px ${token}`;
-
 
 const DiamondDSThemeOptions = mergeThemeOptions({
   typography: {
@@ -205,7 +157,6 @@ const DiamondDSThemeOptions = mergeThemeOptions({
   },
 
   palette: {
-
     action: {
       hover: "var(--ds-overlay-hover)",
       selected: "var(--ds-overlay-selected)",
@@ -397,10 +348,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
         disableFocusRipple: true,
       },
       styleOverrides: {
-        root: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<ButtonProps>): CSSObject => {
+        root: ({ ownerState, theme }: OverrideArgs<ButtonProps>): CSSObject => {
           const base: CSSObject = {
             textTransform: "none",
             boxShadow: "none",
@@ -417,7 +365,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           }
 
           const colour = rawColour as IntentColour;
-          const p = getIntentPalette(theme, colour);
+          const p = theme.palette[colour];
           const focusToken = getFocusToken(colour);
           const subtle = p.container;
           const onSubtle = p.onContainer;
@@ -527,7 +475,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           }
 
           const colour = rawColour as IntentColour;
-          const p = getIntentPalette(theme, colour);
+          const p = theme.palette[colour];
           const focusToken = getFocusToken(colour);
 
           return {
@@ -569,9 +517,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           const rawColour = ownerState.color ?? "default";
           const isDefault = rawColour === "default";
           const isOutlined = ownerState.variant === "outlined";
-          const isInteractive = !!(
-            ownerState.clickable || ownerState.onDelete
-          );
+          const isInteractive = !!(ownerState.clickable || ownerState.onDelete);
 
           if (isDefault) {
             return {
@@ -609,7 +555,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           }
 
           const colour = rawColour as IntentColour;
-          const p = getIntentPalette(theme, colour);
+          const p = theme.palette[colour];
           const focusToken = getFocusToken(colour);
 
           if (isOutlined) {
@@ -744,7 +690,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           theme,
         }: OverrideArgs<OutlinedInputProps>): CSSObject => {
           const colour = (ownerState.color ?? "primary") as IntentColour;
-          const p = getIntentPalette(theme, colour);
+          const p = theme.palette[colour];
           const focusToken = getFocusToken(colour);
 
           return {
@@ -875,12 +821,9 @@ const DiamondDSThemeOptions = mergeThemeOptions({
 
     MuiAlert: {
       styleOverrides: {
-        root: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<AlertProps>): CSSObject => {
+        root: ({ ownerState, theme }: OverrideArgs<AlertProps>): CSSObject => {
           const severity = (ownerState.severity ?? "success") as IntentColour;
-          const p = getIntentPalette(theme, severity);
+          const p = theme.palette[severity];
 
           const common: CSSObject = {
             borderRadius: 8,
@@ -941,7 +884,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           theme,
         }: OverrideArgs<LinearProgressProps>): CSSObject => {
           const colour = (ownerState.color ?? "primary") as IntentColour;
-          const p = getIntentPalette(theme, colour);
+          const p = theme.palette[colour];
 
           return {
             backgroundColor: p.main,
@@ -957,7 +900,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           theme,
         }: OverrideArgs<CircularProgressProps>): CSSObject => {
           const colour = (ownerState.color ?? "primary") as IntentColour;
-          const p = getIntentPalette(theme, colour);
+          const p = theme.palette[colour];
 
           return {
             color: p.main,
@@ -1036,7 +979,7 @@ const DiamondDSThemeOptions = mergeThemeOptions({
           const isDefault = rawColour === "default";
           const colour = rawColour as IntentColour;
 
-          const p = !isDefault ? getIntentPalette(theme, colour) : null;
+          const p = !isDefault ? theme.palette[colour] : null;
           const focusToken = !isDefault ? getFocusToken(colour) : undefined;
 
           return {
@@ -1070,15 +1013,12 @@ const DiamondDSThemeOptions = mergeThemeOptions({
         disableRipple: true,
       },
       styleOverrides: {
-        root: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<RadioProps>): CSSObject => {
+        root: ({ ownerState, theme }: OverrideArgs<RadioProps>): CSSObject => {
           const rawColour = ownerState.color ?? "primary";
           const isDefault = rawColour === "default";
           const colour = rawColour as IntentColour;
 
-          const p = !isDefault ? getIntentPalette(theme, colour) : null;
+          const p = !isDefault ? theme.palette[colour] : null;
           const focusToken = !isDefault ? getFocusToken(colour) : undefined;
 
           return {
