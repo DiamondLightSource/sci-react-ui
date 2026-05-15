@@ -1,2 +1,4 @@
 ignoreScripts: true
-minimumReleaseAge: 10080
+minimumReleaseAge: 10080 # 1 week
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
