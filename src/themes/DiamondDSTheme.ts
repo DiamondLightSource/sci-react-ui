@@ -1,7 +1,7 @@
 import "../styles/diamondDS/diamond-ds-roles.css";
 
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import { createTheme } from "@mui/material/styles";
+import { extendTheme } from "@mui/material/styles";
 import type { CSSObject, Theme } from "@mui/material/styles";
 
 import type { AlertProps } from "@mui/material/Alert";
@@ -14,11 +14,10 @@ import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { RadioProps } from "@mui/material/Radio";
 import type { TabProps } from "@mui/material/Tab";
 
-import { mergeThemeOptions } from "./ThemeManager";
-
 import logoImageLight from "../public/diamond/logo-light.svg";
 import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoShort from "../public/diamond/logo-short.svg";
+import { ImageColourSchemeSwitchType } from "components/controls/ImageColourSchemeSwitch";
 
 type OverrideArgs<OwnerState = unknown> = {
   ownerState: OwnerState;
@@ -38,6 +37,20 @@ type IntentColour =
   | "success";
 
 declare module "@mui/material/styles" {
+  interface CssVarsTheme {
+    logos?: {
+      normal: ImageColourSchemeSwitchType;
+      short?: ImageColourSchemeSwitchType;
+    };
+  }
+
+  interface CssVarsThemeOptions {
+    logos?: {
+      normal: ImageColourSchemeSwitchType;
+      short?: ImageColourSchemeSwitchType;
+    };
+  }
+
   interface TypeBackground {
     default: string;
     paper: string;
@@ -110,6 +123,176 @@ declare module "@mui/material/styles" {
   }
 }
 
+const palette = {
+  action: {
+    hover: "var(--ds-overlay-hover)",
+    selected: "var(--ds-overlay-selected)",
+    focus: "var(--ds-overlay-focus)",
+    disabled: "var(--ds-on-surface-disabled)",
+    disabledBackground: "var(--ds-surface-disabled)",
+
+    hoverOpacity: 0.04,
+    selectedOpacity: 0.08,
+    disabledOpacity: 0.38,
+    focusOpacity: 0.16,
+  },
+
+  text: {
+    primary: "var(--ds-on-surface)",
+    secondary: "var(--ds-on-surface-variant)",
+    onSolid: "var(--ds-on-solid)",
+    disabled: "var(--ds-on-surface-disabled)",
+    placeholder: "var(--ds-placeholder)",
+    placeholderFocus: "var(--ds-placeholder-focus)",
+
+    primaryChannel: "var(--ds-on-surface-channel)",
+    secondaryChannel: "var(--ds-on-surface-variant-channel)",
+  },
+
+  background: {
+    default: "rgb(var(--ds-background-channel))",
+    paper: "rgb(var(--ds-surface-channel))",
+  },
+
+  divider: "var(--ds-border-subtle)",
+
+  borders: {
+    subtle: "var(--ds-border-subtle)",
+    base: "var(--ds-border)",
+    emphasis: "var(--ds-border-emphasis)",
+  },
+
+  surface: {
+    subtle: "var(--ds-surface-container)",
+    strong: "var(--ds-surface-container-high)",
+  },
+
+  primary: {
+    light: "var(--ds-primary-accent)",
+    main: "var(--ds-primary)",
+    dark: "var(--ds-primary-emphasis)",
+    contrastText: "var(--ds-on-primary)",
+    container: "var(--ds-primary-container)",
+    onContainer: "var(--ds-on-primary-container)",
+    solid: "var(--ds-primary-solid)",
+    onSolid: "var(--ds-on-primary-solid)",
+
+    contrastTextChannel: "var(--ds-on-primary-channel)",
+    mainChannel: "var(--ds-primary-mainChannel)",
+    lightChannel: "var(--ds-primary-lightChannel)",
+    darkChannel: "var(--ds-primary-darkChannel)",
+  },
+
+  secondary: {
+    light: "var(--ds-secondary-accent)",
+    main: "var(--ds-secondary)",
+    dark: "var(--ds-secondary-emphasis)",
+    contrastText: "var(--ds-on-secondary)",
+    container: "var(--ds-secondary-container)",
+    onContainer: "var(--ds-on-secondary-container)",
+    solid: "var(--ds-secondary-solid)",
+    onSolid: "var(--ds-on-secondary-solid)",
+
+    contrastTextChannel: "var(--ds-on-secondary-channel)",
+    mainChannel: "var(--ds-secondary-mainChannel)",
+    lightChannel: "var(--ds-secondary-lightChannel)",
+    darkChannel: "var(--ds-secondary-darkChannel)",
+  },
+
+  brand: {
+    light: "var(--ds-brand-accent)",
+    main: "var(--ds-brand)",
+    dark: "var(--ds-brand-emphasis)",
+    contrastText: "var(--ds-on-brand)",
+    container: "var(--ds-brand-container)",
+    onContainer: "var(--ds-on-brand-container)",
+    solid: "var(--ds-brand-solid)",
+    onSolid: "var(--ds-on-brand-solid)",
+
+    contrastTextChannel: "var(--ds-on-brand-channel)",
+    mainChannel: "var(--ds-brand-mainChannel)",
+    lightChannel: "var(--ds-brand-lightChannel)",
+    darkChannel: "var(--ds-brand-darkChannel)",
+  },
+
+  error: {
+    light: "var(--ds-danger-accent)",
+    main: "var(--ds-danger)",
+    dark: "var(--ds-danger-emphasis)",
+    contrastText: "var(--ds-on-danger)",
+    container: "var(--ds-danger-container)",
+    onContainer: "var(--ds-on-danger-container)",
+    solid: "var(--ds-danger-solid)",
+    onSolid: "var(--ds-on-danger-solid)",
+
+    contrastTextChannel: "var(--ds-on-danger-channel)",
+    mainChannel: "var(--ds-danger-mainChannel)",
+    lightChannel: "var(--ds-danger-lightChannel)",
+    darkChannel: "var(--ds-danger-darkChannel)",
+  },
+
+  warning: {
+    light: "var(--ds-warning-accent)",
+    main: "var(--ds-warning)",
+    dark: "var(--ds-warning-emphasis)",
+    contrastText: "var(--ds-on-warning)",
+    container: "var(--ds-warning-container)",
+    onContainer: "var(--ds-on-warning-container)",
+    solid: "var(--ds-warning-solid)",
+    onSolid: "var(--ds-on-warning-solid)",
+
+    contrastTextChannel: "var(--ds-on-warning-channel)",
+    mainChannel: "var(--ds-warning-mainChannel)",
+    lightChannel: "var(--ds-warning-lightChannel)",
+    darkChannel: "var(--ds-warning-darkChannel)",
+  },
+
+  success: {
+    light: "var(--ds-success-accent)",
+    main: "var(--ds-success)",
+    dark: "var(--ds-success-emphasis)",
+    contrastText: "var(--ds-on-success)",
+    container: "var(--ds-success-container)",
+    onContainer: "var(--ds-on-success-container)",
+    solid: "var(--ds-success-solid)",
+    onSolid: "var(--ds-on-success-solid)",
+
+    contrastTextChannel: "var(--ds-on-success-channel)",
+    mainChannel: "var(--ds-success-mainChannel)",
+    lightChannel: "var(--ds-success-lightChannel)",
+    darkChannel: "var(--ds-success-darkChannel)",
+  },
+
+  info: {
+    light: "var(--ds-info-accent)",
+    main: "var(--ds-info)",
+    dark: "var(--ds-info-emphasis)",
+    contrastText: "var(--ds-on-info)",
+    container: "var(--ds-info-container)",
+    onContainer: "var(--ds-on-info-container)",
+    solid: "var(--ds-info-solid)",
+    onSolid: "var(--ds-on-info-solid)",
+
+    contrastTextChannel: "var(--ds-on-info-channel)",
+    mainChannel: "var(--ds-info-mainChannel)",
+    lightChannel: "var(--ds-info-lightChannel)",
+    darkChannel: "var(--ds-info-darkChannel)",
+  },
+
+  grey: {
+    50: "#F8F8FA",
+    100: "#EEF1F5",
+    200: "#E6E9F0",
+    300: "#DDE1E8",
+    400: "#BCC2CD",
+    500: "#A5ACB8",
+    600: "#8A90A0",
+    700: "#505563",
+    800: "#2C3140",
+    900: "#1A1C23",
+  },
+};
+
 const getFocusToken = (colour?: IntentColour) => {
   if (!colour) return "var(--ds-focus-ring)";
 
@@ -127,7 +310,17 @@ const getFocusOutline = (token?: string): CSSObject => ({
 const getOverlayInset = (token = "var(--ds-overlay-hover)") =>
   `inset 0 0 0 9999px ${token}`;
 
-const DiamondDSThemeOptions = mergeThemeOptions({
+const DiamondDSTheme = extendTheme({
+  colorSchemeSelector: "data-mui-color-scheme",
+  colorSchemes: {
+    light: {
+      palette,
+    },
+    dark: {
+      palette,
+    },
+  },
+
   typography: {
     fontFamily: [
       "Inter Variable",
@@ -153,176 +346,6 @@ const DiamondDSThemeOptions = mergeThemeOptions({
       src: logoShort,
       alt: "Diamond Light Source Logo",
       width: "35",
-    },
-  },
-
-  palette: {
-    action: {
-      hover: "var(--ds-overlay-hover)",
-      selected: "var(--ds-overlay-selected)",
-      focus: "var(--ds-overlay-focus)",
-      disabled: "var(--ds-on-surface-disabled)",
-      disabledBackground: "var(--ds-surface-disabled)",
-
-      hoverOpacity: 0.04,
-      selectedOpacity: 0.08,
-      disabledOpacity: 0.38,
-      focusOpacity: 0.16,
-    },
-
-    text: {
-      primary: "var(--ds-on-surface)",
-      secondary: "var(--ds-on-surface-variant)",
-      onSolid: "var(--ds-on-solid)",
-      disabled: "var(--ds-on-surface-disabled)",
-      placeholder: "var(--ds-placeholder)",
-      placeholderFocus: "var(--ds-placeholder-focus)",
-
-      primaryChannel: "var(--ds-on-surface-channel)",
-      secondaryChannel: "var(--ds-on-surface-variant-channel)",
-    },
-
-    background: {
-      default: "rgb(var(--ds-background-channel))",
-      paper: "rgb(var(--ds-surface-channel))",
-    },
-
-    divider: "var(--ds-border-subtle)",
-
-    borders: {
-      subtle: "var(--ds-border-subtle)",
-      base: "var(--ds-border)",
-      emphasis: "var(--ds-border-emphasis)",
-    },
-
-    surface: {
-      subtle: "var(--ds-surface-container)",
-      strong: "var(--ds-surface-container-high)",
-    },
-
-    primary: {
-      light: "var(--ds-primary-accent)",
-      main: "var(--ds-primary)",
-      dark: "var(--ds-primary-emphasis)",
-      contrastText: "var(--ds-on-primary)",
-      container: "var(--ds-primary-container)",
-      onContainer: "var(--ds-on-primary-container)",
-      solid: "var(--ds-primary-solid)",
-      onSolid: "var(--ds-on-primary-solid)",
-
-      contrastTextChannel: "var(--ds-on-primary-channel)",
-      mainChannel: "var(--ds-primary-mainChannel)",
-      lightChannel: "var(--ds-primary-lightChannel)",
-      darkChannel: "var(--ds-primary-darkChannel)",
-    },
-
-    secondary: {
-      light: "var(--ds-secondary-accent)",
-      main: "var(--ds-secondary)",
-      dark: "var(--ds-secondary-emphasis)",
-      contrastText: "var(--ds-on-secondary)",
-      container: "var(--ds-secondary-container)",
-      onContainer: "var(--ds-on-secondary-container)",
-      solid: "var(--ds-secondary-solid)",
-      onSolid: "var(--ds-on-secondary-solid)",
-
-      contrastTextChannel: "var(--ds-on-secondary-channel)",
-      mainChannel: "var(--ds-secondary-mainChannel)",
-      lightChannel: "var(--ds-secondary-lightChannel)",
-      darkChannel: "var(--ds-secondary-darkChannel)",
-    },
-
-    brand: {
-      light: "var(--ds-brand-accent)",
-      main: "var(--ds-brand)",
-      dark: "var(--ds-brand-emphasis)",
-      contrastText: "var(--ds-on-brand)",
-      container: "var(--ds-brand-container)",
-      onContainer: "var(--ds-on-brand-container)",
-      solid: "var(--ds-brand-solid)",
-      onSolid: "var(--ds-on-brand-solid)",
-
-      contrastTextChannel: "var(--ds-on-brand-channel)",
-      mainChannel: "var(--ds-brand-mainChannel)",
-      lightChannel: "var(--ds-brand-lightChannel)",
-      darkChannel: "var(--ds-brand-darkChannel)",
-    },
-
-    error: {
-      light: "var(--ds-danger-accent)",
-      main: "var(--ds-danger)",
-      dark: "var(--ds-danger-emphasis)",
-      contrastText: "var(--ds-on-danger)",
-      container: "var(--ds-danger-container)",
-      onContainer: "var(--ds-on-danger-container)",
-      solid: "var(--ds-danger-solid)",
-      onSolid: "var(--ds-on-danger-solid)",
-
-      contrastTextChannel: "var(--ds-on-danger-channel)",
-      mainChannel: "var(--ds-danger-mainChannel)",
-      lightChannel: "var(--ds-danger-lightChannel)",
-      darkChannel: "var(--ds-danger-darkChannel)",
-    },
-
-    warning: {
-      light: "var(--ds-warning-accent)",
-      main: "var(--ds-warning)",
-      dark: "var(--ds-warning-emphasis)",
-      contrastText: "var(--ds-on-warning)",
-      container: "var(--ds-warning-container)",
-      onContainer: "var(--ds-on-warning-container)",
-      solid: "var(--ds-warning-solid)",
-      onSolid: "var(--ds-on-warning-solid)",
-
-      contrastTextChannel: "var(--ds-on-warning-channel)",
-      mainChannel: "var(--ds-warning-mainChannel)",
-      lightChannel: "var(--ds-warning-lightChannel)",
-      darkChannel: "var(--ds-warning-darkChannel)",
-    },
-
-    success: {
-      light: "var(--ds-success-accent)",
-      main: "var(--ds-success)",
-      dark: "var(--ds-success-emphasis)",
-      contrastText: "var(--ds-on-success)",
-      container: "var(--ds-success-container)",
-      onContainer: "var(--ds-on-success-container)",
-      solid: "var(--ds-success-solid)",
-      onSolid: "var(--ds-on-success-solid)",
-
-      contrastTextChannel: "var(--ds-on-success-channel)",
-      mainChannel: "var(--ds-success-mainChannel)",
-      lightChannel: "var(--ds-success-lightChannel)",
-      darkChannel: "var(--ds-success-darkChannel)",
-    },
-
-    info: {
-      light: "var(--ds-info-accent)",
-      main: "var(--ds-info)",
-      dark: "var(--ds-info-emphasis)",
-      contrastText: "var(--ds-on-info)",
-      container: "var(--ds-info-container)",
-      onContainer: "var(--ds-on-info-container)",
-      solid: "var(--ds-info-solid)",
-      onSolid: "var(--ds-on-info-solid)",
-
-      contrastTextChannel: "var(--ds-on-info-channel)",
-      mainChannel: "var(--ds-info-mainChannel)",
-      lightChannel: "var(--ds-info-lightChannel)",
-      darkChannel: "var(--ds-info-darkChannel)",
-    },
-
-    grey: {
-      50: "#F8F8FA",
-      100: "#EEF1F5",
-      200: "#E6E9F0",
-      300: "#DDE1E8",
-      400: "#BCC2CD",
-      500: "#A5ACB8",
-      600: "#8A90A0",
-      700: "#505563",
-      800: "#2C3140",
-      900: "#1A1C23",
     },
   },
 
@@ -1045,6 +1068,4 @@ const DiamondDSThemeOptions = mergeThemeOptions({
   },
 });
 
-const DiamondDSTheme = createTheme(DiamondDSThemeOptions);
-
-export { DiamondDSTheme, DiamondDSThemeOptions };
+export { DiamondDSTheme };

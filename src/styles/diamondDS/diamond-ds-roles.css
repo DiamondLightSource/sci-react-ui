@@ -1,4 +1,5 @@
-:root {
+:root[data-mui-color-scheme="light"] {
+  color-scheme: light;
   /* Neutral */
 
   --ds-background: #F6F6F9;
@@ -187,7 +188,8 @@
   --ds-focus-ring-highlight: var(--ds-highlight-accent);
 }
 
-:root.dark {
+:root[data-mui-color-scheme="dark"] {
+  color-scheme: dark;
   /* Neutral */
 
   --ds-background: #0e1017;
