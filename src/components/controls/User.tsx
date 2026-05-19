@@ -8,7 +8,6 @@ import {
   MenuItem,
   Stack,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { ReactElement, ReactNode, useState } from "react";
 import { MdLogin } from "react-icons/md";
@@ -59,8 +58,6 @@ const User = ({
     if (onLogout) onLogout();
   };
 
-  const theme = useTheme();
-
   if (!user && auth && auth.user) {
     user = { name: auth.user.name };
   }
@@ -74,51 +71,33 @@ const User = ({
             aria-label="User Avatar"
             onClick={handleClick}
             sx={{
-              border: "none",
-              cursor: "pointer",
               minWidth: 0,
-              marginLeft: "10px !important",
-              "&:hover": {
-                opacity: 0.8,
-              },
+              ml: 1,
             }}
           >
-            <Stack direction="row" alignItems="center">
+            <Stack direction="row" alignItems="center" spacing={1}>
               {avatar || (
                 <Avatar
                   alt={user.name + " avatar"}
                   variant="rounded"
                   sx={{
-                    backgroundColor: theme.vars.palette.primary.light,
-                    color: colour || "textPrimary",
                     height: 35,
                     width: 35,
                   }}
                 />
               )}
+
               <Box
                 sx={{
-                  padding: "5px",
                   display: { xs: "none", sm: "block" },
+                  px: 1,
                 }}
               >
-                <Typography
-                  fontSize="0.75rem"
-                  textTransform="none"
-                  textAlign="left"
-                  pl={"1px"}
-                  color={colour || "textPrimary"}
-                >
+                <Typography variant="caption" textAlign="left">
                   {user.name ? user.name : user.fedid}
                 </Typography>
                 {user.name && (
-                  <Typography
-                    fontSize="0.75rem"
-                    textTransform="none"
-                    textAlign="left"
-                    pl={"1px"}
-                    color={colour || "textPrimary"}
-                  >
+                  <Typography variant="caption" textAlign="left">
                     {user.fedid}
                   </Typography>
                 )}
@@ -133,35 +112,6 @@ const User = ({
               open={open}
               onClose={handleClose}
               autoFocus={false}
-              sx={{
-                "li:hover": {
-                  color: theme.palette.secondary.main,
-                  borderLeft: "solid 4px",
-                  borderBottom: "none",
-                },
-                "li:focus": {
-                  color: theme.palette.secondary.main,
-                  borderLeft: "solid 4px",
-                },
-                li: {
-                  paddingLeft: "8px",
-                  textDecoration: "none",
-                  alignItems: "center",
-                  display: "flex",
-                  borderLeft: "4px solid transparent",
-                  backgroundColor: { md: "none" },
-                  color: theme.palette.primary.contrastText,
-                },
-                a: {
-                  backgroundColor: { md: "none" },
-                  color: theme.palette.primary.contrastText,
-                },
-              }}
-              slotProps={{
-                paper: {
-                  style: { backgroundColor: theme.palette.primary.light },
-                },
-              }}
             >
               {menuItems}
               {auth && (
@@ -181,14 +131,7 @@ const User = ({
           )}
         </>
       ) : (
-        <Button
-          onClick={handleLogin}
-          startIcon={<MdLogin />}
-          sx={{
-            backgroundColor: theme.vars.palette.primary.light,
-            color: theme.vars.palette.primary.contrastText,
-          }}
-        >
+        <Button onClick={handleLogin} startIcon={<MdLogin />}>
           Login
         </Button>
       )}

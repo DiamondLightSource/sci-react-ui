@@ -1,97 +1,121 @@
 import React from "react";
-import {
-  Box,
-  BoxProps,
-  Breakpoint,
-  Container,
-  LinkProps,
-  Stack,
-  styled,
-} from "@mui/material";
+import { Box, BoxProps, Breakpoint, Container, Stack } from "@mui/material";
+import { SxProps, Theme } from "@mui/material/styles";
 
-interface SlotProps extends BoxProps, React.PropsWithChildren {
-  className: string;
+type IntentColour =
+  | "primary"
+  | "secondary"
+  | "error"
+  | "warning"
+  | "info"
+  | "success";
+
+interface BarProps extends BoxProps {
+  containerWidth?: false | Breakpoint;
+  color?: IntentColour;
+  variant?: "default" | "subtle";
 }
-const Slot = ({ className, style, children }: SlotProps) => (
+
+interface BarSlotsProps extends BarProps {
+  centreSlot?: React.ReactNode;
+  rightSlot?: React.ReactNode;
+  leftSlot?: React.ReactNode;
+}
+
+const getBarStyles = (
+  theme: Theme,
+  color?: IntentColour,
+  variant = "default",
+) => {
+  if (!color) {
+    return {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+    };
+  }
+
+  const p = theme.palette[color];
+
+  return {
+    backgroundColor: p.solid ?? p.main,
+    color: p.onSolid ?? theme.palette.text.onSolid,
+  };
+};
+
+const Slot = ({ children }: { children?: React.ReactNode }) => (
   <Stack
-    className={className}
     direction="row"
     alignItems="center"
     spacing={2}
-    style={style}
+    sx={{
+      color: "inherit",
+    }}
   >
     {children}
   </Stack>
 );
 
-const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
-  width: "100%",
-  height: "auto",
-  minHeight: "50px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  borderRadius: 0,
-  backgroundColor: theme.vars.palette.primary.main,
-}));
-
-interface BarProps extends BoxProps, React.PropsWithChildren {
-  containerWidth?: false | Breakpoint;
-}
-
-interface BarSlotsProps extends BarProps {
-  centreSlot?: React.ReactElement<LinkProps>;
-  rightSlot?: React.ReactElement<LinkProps>;
-  leftSlot?: React.ReactElement<LinkProps>;
-}
-
 /**
- * Basic bar. Comes with three slots, and adjustable width. Children are placed in the left slot.
+ * Basic bar with left / centre / right slots.
+ * Uses semantic colour + surface roles from the theme.
  */
 const Bar = ({
   children,
   leftSlot,
   rightSlot,
   centreSlot,
-  containerWidth,
+  containerWidth = "lg",
+  color,
+  variant = "default",
+  sx,
   ...props
-}: BarSlotsProps) => (
-  <BoxStyled {...props}>
-    <Container
-      maxWidth={containerWidth}
-      sx={{
-        height: "100%",
-      }}
-    >
-      <Stack
-        direction="row"
-        style={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          height: "100%",
+}: BarSlotsProps) => {
+  return (
+    <Box
+      {...props}
+      sx={[
+        (theme) => ({
           width: "100%",
-        }}
+          minHeight: 50,
+          display: "flex",
+          alignItems: "center",
+          borderRadius: 0,
+          ...getBarStyles(theme, color, variant),
+        }),
+        ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+      ]}
+    >
+      <Container
+        maxWidth={containerWidth}
+        sx={{ height: "100%", position: "relative" }}
       >
-        <Slot className="left-slot">
-          {leftSlot}
-          {children}
-        </Slot>
-
-        <Box
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ height: "100%", width: "100%" }}
         >
-          <Slot className="centre-slot">{centreSlot}</Slot>
-        </Box>
+          <Slot>
+            {leftSlot}
+            {children}
+          </Slot>
 
-        <Slot className="right-slot">{rightSlot}</Slot>
-      </Stack>
-    </Container>
-  </BoxStyled>
-);
+          <Box
+            sx={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <Slot>{centreSlot}</Slot>
+          </Box>
+
+          <Slot>{rightSlot}</Slot>
+        </Stack>
+      </Container>
+    </Box>
+  );
+};
 
 export { Bar };
 export type { BarProps, BarSlotsProps };

@@ -143,12 +143,10 @@ export const UsingAuth: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "If you are using SciReactUI's auth mechanism, you can simply pass the useAuth counterpart in." +
-          "<br/><br/>" +
-          "<pre>const auth = useAuth();</pre>" +
-          "<br/>" +
-          "<pre>&lt;User auth={auth}/&gt;</pre>",
+        story: `
+      If you are using SciReactUI's auth mechanism, you can simply pass the useAuth counterpart in.
+      const auth = useAuth();
+      <User auth={auth} />`,
       },
     },
   },

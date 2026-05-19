@@ -2,7 +2,6 @@ import {
   Typography,
   Menu,
   Button,
-  useTheme,
   type MenuListProps,
   MenuItem,
   type MenuItemProps,
@@ -16,32 +15,29 @@ type NavMenuLinkProps = MenuItemProps & NavLinkProps;
 const NavMenuContext = React.createContext({ close: () => {} });
 
 const NavMenuLink = forwardRef<HTMLElement, NavMenuLinkProps>(
-  function NavMenuLink({ children, ...props }: NavMenuLinkProps, ref) {
-    const navMenuContext = React.useContext(NavMenuContext);
-    const theme = useTheme();
+  function NavMenuLink({ children, ...props }, ref) {
+    const { close } = React.useContext(NavMenuContext);
 
     return (
       <MenuItem
         ref={ref}
         component={NavLink}
-        onClick={navMenuContext.close}
+        onClick={close}
         {...props}
         sx={{
-          "&:hover": {
-            color: theme.palette.secondary.main,
-            borderLeft: "solid 4px",
-            borderBottom: "none",
-          },
-          "&:focus": {
-            color: theme.palette.secondary.main,
-            borderLeft: "solid 4px",
-          },
-          textDecoration: "none",
-          alignItems: "center",
           display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
           borderLeft: "4px solid transparent",
-          backgroundColor: { md: "none" },
-          color: theme.palette.primary.contrastText,
+          color: "inherit",
+
+          "&:hover": {
+            borderColor: "primary.onSolid",
+          },
+
+          "&.active": {
+            borderColor: "primary.onSolid",
+          },
         }}
       >
         {children}
@@ -71,50 +67,43 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
     setAnchorElement(null);
   };
 
-  const theme = useTheme();
-
   return (
     <>
       <Button
         aria-controls={menuId}
         aria-expanded={open}
         aria-haspopup="menu"
-        onClick={(e) => openMenu(e)}
+        onClick={openMenu}
         disableFocusRipple
         sx={{
-          "&:hover": {
-            color: theme.palette.secondary.main,
-            borderBottom: "solid 4px",
-          },
-          "&:focus": {
-            color: theme.palette.secondary.main,
-            borderBottom: "solid 4px",
-          },
-          backgroundColor: theme.palette.primary.main,
-          transition: "none",
-          alignItems: "center",
           display: "flex",
-          padding: "13px 3px 0",
+          alignItems: "center",
+          pt: 2,
+          pb: 1.5,
           borderRadius: 0,
-          ...(open
-            ? {
-                color: theme.palette.secondary.main,
-                borderBottom: "solid 4px",
-              }
-            : {
-                color: theme.palette.primary.contrastText,
-                borderBottom: "4px solid transparent",
-              }),
+          borderBottom: "3px solid transparent",
+          color: "inherit",
+
+          "&:hover": {
+            borderColor: "primary.onSolid",
+          },
+
+          ...(open && {
+            borderColor: "primary.onSolid",
+          }),
         }}
       >
-        <Typography>{label}</Typography>
+        <Typography variant="body2">{label}</Typography>
+
         <ExpandMoreIcon
           sx={{
+            ml: 0.5,
             transition: "transform .25s",
             transform: `rotate(${open ? -180 : 0}deg)`,
           }}
         />
       </Button>
+
       <Menu
         id={menuId}
         open={open}
@@ -123,7 +112,12 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         disableAutoFocusItem
         MenuListProps={{ sx: { minWidth: menuWidth } }}
         slotProps={{
-          paper: { style: { backgroundColor: theme.palette.primary.light } },
+          paper: {
+            sx: {
+              backgroundColor: "primary.solid",
+              color: "primary.onSolid",
+            },
+          },
         }}
       >
         <NavMenuContext.Provider value={{ close: closeMenu }}>

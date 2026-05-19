@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { AppTitle, AppTitlebar } from "./AppTitlebar";
+import NewAppBar from "./NewAppBar";
 
-const meta: Meta<typeof AppTitlebar> = {
-  title: "Components/Controls/AppTitlebar",
-  component: AppTitlebar,
+const meta: Meta<typeof NewAppBar> = {
+  title: "Components/Controls/NewAppBar",
+  component: NewAppBar,
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -35,7 +35,7 @@ export const Simple: Story = {
 
 export const InCentreSlot: Story = {
   args: {
-    centreSlot: <AppTitle title="My Great App (in middle)" />,
+    centreSlot: <NewAppBar />,
   },
   parameters: {
     docs: {
@@ -65,6 +65,6 @@ export const DifferentBackground: Story = {
 
 export const CustomTypography: Story = {
   args: {
-    children: <AppTitle title="My Great App" variant="h2" />,
+    children: <NewAppBar />,
   },
 };

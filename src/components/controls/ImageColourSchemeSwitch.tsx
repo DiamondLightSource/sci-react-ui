@@ -24,20 +24,20 @@ interface ImageColourSchemeSwitchProps {
 }
 
 /** Styled component which is only displayed in dark mode. */
-const ImageDark = styled("img")(({ theme }) => [
-  { display: "none" },
-  theme.applyStyles("dark", {
-    display: "block",
-  }),
-]);
 
-/** Styled component which is only displayed in light mode. */
-const ImageLight = styled("img")(({ theme }) => [
-  { display: "block" },
-  theme.applyStyles("dark", {
+const ImageDark = styled("img")({
+  display: "none",
+  ':root[data-mui-color-scheme="dark"] &': {
+    display: "block",
+  },
+});
+
+const ImageLight = styled("img")({
+  display: "block",
+  ':root[data-mui-color-scheme="dark"] &': {
     display: "none",
-  }),
-]);
+  },
+});
 
 /**
  * Switch between two different images depending on the current color scheme selected (light or dark).

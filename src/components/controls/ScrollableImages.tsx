@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Box, Button, IconButton, Slider, Stack } from "@mui/material";
+import { Box, IconButton, Slider, Stack, Typography } from "@mui/material";
+import type { Theme } from "@mui/material/styles";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -26,6 +27,19 @@ interface ImageInfo {
   type?: string;
   alt?: string;
 }
+const getSurfaceStyles = (theme: Theme, backgroundColor?: string) => {
+  if (backgroundColor !== undefined) {
+    return {
+      backgroundColor,
+      border: `1px solid ${theme.palette.borders.base}`,
+    };
+  }
+
+  return {
+    backgroundColor: theme.palette.background.paper,
+    border: `1px solid ${theme.palette.borders.base}`,
+  };
+};
 
 const ScrollableImages = ({
   images,
@@ -36,7 +50,7 @@ const ScrollableImages = ({
   wrapAround = true,
   slider = true,
   numeration = true,
-  backgroundColor = "#eee",
+  backgroundColor,
   scrollStep = 320,
 }: ScrollableImagesProps) => {
   const [imageList, setImageList] = useState<ImageInfo[]>([]);
@@ -51,6 +65,7 @@ const ScrollableImages = ({
       const inputImages = Array.isArray(images) ? images : [images];
       let result: ImageInfo[] = [];
       let index = 1;
+
       for (const image of inputImages) {
         if (isTiff(image)) {
           const frames: ImageInfo[] = await extractFramesFromTiff({
@@ -116,14 +131,13 @@ const ScrollableImages = ({
       >
         <IconButton
           onClick={scrollLeft}
+          color="primary"
           sx={{
             position: "absolute",
             left: 0,
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 2,
-            backgroundColor: "#4C5266",
-            color: "white",
           }}
         >
           <ArrowBackIosNewIcon data-testid="scroll-left-button" />
@@ -134,25 +148,25 @@ const ScrollableImages = ({
           sx={{
             display: "flex",
             overflowX: "auto",
-            gap: "1rem",
-            padding: "1rem 3rem",
+            gap: 2,
+            px: 4,
+            py: 2,
             scrollSnapType: "x mandatory",
           }}
         >
           {imageList.map((img, i) => (
             <Box
               key={i}
-              sx={{
+              sx={(theme) => ({
                 width,
                 height,
                 flexShrink: 0,
                 scrollSnapAlign: "start",
-                backgroundColor,
-                border: "1px solid #ccc",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
+                ...getSurfaceStyles(theme, backgroundColor),
+              })}
             >
               <img
                 data-testid={`scroll-image-${i + 1}`}
@@ -170,14 +184,13 @@ const ScrollableImages = ({
 
         <IconButton
           onClick={scrollRight}
+          color="primary"
           sx={{
             position: "absolute",
             right: 0,
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 2,
-            backgroundColor: "#4C5266",
-            color: "white",
           }}
         >
           <ArrowForwardIosIcon data-testid="scroll-right-button" />
@@ -190,31 +203,25 @@ const ScrollableImages = ({
     <Stack data-testid="scrollable-images" alignItems="center" sx={{ width }}>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         {buttons && imageCount > 1 && (
-          <Button
+          <IconButton
             aria-label="Previous Image"
             onClick={handlePrev}
             size="small"
-            sx={{ minWidth: 36, width: 36, height: 36 }}
           >
             <ArrowBackIcon data-testid="prev-button" />
-          </Button>
+          </IconButton>
         )}
 
         <Box
-          data-testid="image-container"
-          data-index={currentIndex}
-          tabIndex={0}
-          onKeyDown={handleArrowKeys}
-          sx={{
+          sx={(theme) => ({
             width,
             height,
-            backgroundColor,
-            border: "1px solid #ccc",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             position: "relative",
-          }}
+            ...getSurfaceStyles(theme, backgroundColor),
+          })}
         >
           <img
             src={imageList[currentIndex].src}
@@ -240,25 +247,22 @@ const ScrollableImages = ({
         </Box>
 
         {buttons && imageCount > 1 && (
-          <Button
-            aria-label="Next Image"
-            onClick={handleNext}
-            size="small"
-            sx={{ minWidth: 36, width: 36, height: 36 }}
-          >
+          <IconButton aria-label="Next Image" onClick={handleNext} size="small">
             <ArrowForwardIcon data-testid="next-button" />
-          </Button>
+          </IconButton>
         )}
       </Box>
 
       {numeration && imageCount > 1 && (
-        <Box
+        <Typography
           aria-label="Total Images Numeration"
           data-testid="numeration"
+          variant="body2"
+          color="text.secondary"
           sx={{ mt: 1 }}
         >
           {currentIndex + 1}/{imageCount}
-        </Box>
+        </Typography>
       )}
     </Stack>
   );
