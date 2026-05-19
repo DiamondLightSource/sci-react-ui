@@ -8,8 +8,8 @@ import { Meta } from "@storybook/blocks";
   }
 
   .ds-note {
-    border: 1px solid var(--ds-border-subtle);
-    background: var(--ds-surface-container);
+    border: 1px solid #dde1e8; 
+    background: #eef1f5;
     border-radius: 12px;
     padding: 16px;
     margin: 16px 0 24px;
@@ -25,31 +25,58 @@ import { Meta } from "@storybook/blocks";
     border-radius: 999px;
     margin-right: 8px;
     vertical-align: middle;
-    border: 1px solid var(--ds-border-subtle);
+    border: 1px solid #dde1e8;
   }
+  .ds-swatch-neutral {
+    background: #8a90a0;
+  }
+
+  .ds-swatch-primary {
+    background: #2a4db8;
+  }
+
+  .ds-swatch-secondary {
+    background: #007b84;
+  }
+
+  .ds-swatch-success {
+    background: #187a2f;
+  }
+
+  .ds-swatch-warning {
+    background: #c96a04;
+  }
+
+  .ds-swatch-error {
+    background: #b42318;
+  }
+
+  .ds-swatch-info {
+    background: #355ec9;
+  }
+
+  .ds-swatch-brand {
+    background: #202945;
+  }
+
   .ds-table {
     width: 100%;
     border-collapse: collapse;
     margin: 16px 0 24px;
   }
-.ds-table td:first-child {
-  white-space: nowrap;
-}
+  .ds-table td:first-child {
+    white-space: nowrap;
+  }
   .ds-table th,
   .ds-table td {
-    border-bottom: 1px solid var(--ds-border-subtle);
+    border-bottom: 1px solid #dde1e8;
     padding: 10px 12px;
     text-align: left;
     vertical-align: top;
   }
 
   .ds-table th {
-    color: var(--ds-fg);
     font-weight: 600;
-  }
-
-  .ds-table td {
-    color: var(--ds-fg-muted);
   }
 
   .ds-dos {
@@ -65,8 +92,8 @@ import { Meta } from "@storybook/blocks";
   }
 
   .ds-card {
-    border: 1px solid var(--ds-border-subtle);
-    background: var(--ds-surface);
+    border: 1px solid #dde1e8;
+    background: #eef1f5;
     border-radius: 12px;
     padding: 16px;
   }
@@ -88,9 +115,9 @@ import { Meta } from "@storybook/blocks";
 
 # Practical guidance
 
-Diamond Design System uses MUI with Diamond semantic tokens layered on top.
+Diamond Design System uses MUI with Diamond semantic palette roles layered into the theme.
 
-CSS variables are the source of truth. The MUI theme adapts those tokens for components and implementation.
+The MUI theme is the source of truth for colour, surfaces, borders and component states. Light and dark mode are handled through MUI colour schemes.
 
 ## Using the theme
 
@@ -152,10 +179,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
   <tbody>
     <tr>
       <td>
-        <span
-          className="ds-swatch"
-          style={{ background: "var(--ds-grey-500)" }}
-        />
+        <span className="ds-swatch ds-swatch-neutral" />
         <span className="ds-role">Neutral</span>
       </td>
       <td>Structure</td>
@@ -164,10 +188,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     </tr>
     <tr>
       <td>
-        <span
-          className="ds-swatch"
-          style={{ background: "var(--ds-primary)" }}
-        />
+        <span className="ds-swatch ds-swatch-primary" />
         <span className="ds-role">Primary</span>
       </td>
       <td>Action intent</td>
@@ -176,10 +197,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     </tr>
     <tr>
       <td>
-        <span
-          className="ds-swatch"
-          style={{ background: "var(--ds-secondary)" }}
-        />
+        <span className="ds-swatch ds-swatch-secondary" />
         <span className="ds-role">Secondary</span>
       </td>
       <td>Action intent</td>
@@ -188,10 +206,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     </tr>
     <tr>
       <td>
-        <span
-          className="ds-swatch"
-          style={{ background: "var(--ds-success)" }}
-        />
+        <span className="ds-swatch ds-swatch-success" />
         <span className="ds-role">Success</span>
       </td>
       <td>Status intent</td>
@@ -200,10 +215,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     </tr>
     <tr>
       <td>
-        <span
-          className="ds-swatch"
-          style={{ background: "var(--ds-warning)" }}
-        />
+        <span className="ds-swatch ds-swatch-warning" />
         <span className="ds-role">Warning</span>
       </td>
       <td>Status intent</td>
@@ -212,10 +224,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     </tr>
     <tr>
       <td>
-        <span
-          className="ds-swatch"
-          style={{ background: "var(--ds-danger)" }}
-        />
+        <span className="ds-swatch ds-swatch-error" />
         <span className="ds-role">Error</span> <span className="ds-meta"> (Danger)</span>
       </td>
       <td>Status intent</td>
@@ -224,7 +233,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     </tr>
     <tr>
       <td>
-        <span className="ds-swatch" style={{ background: "var(--ds-info)" }} />
+        <span className="ds-swatch ds-swatch-info" />
         <span className="ds-role">Info</span>
       </td>
       <td>Status intent</td>
@@ -233,7 +242,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     </tr>
     <tr>
       <td>
-        <span className="ds-swatch" style={{ background: "var(--ds-brand)" }} />
+        <span className="ds-swatch ds-swatch-brand" />
         <span className="ds-role">Brand</span>
       </td>
       <td>Identity</td>
@@ -250,69 +259,74 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     <ul>
       <li>Use neutral roles for structure.</li>
       <li>Use intent roles for meaning.</li>
-      <li>Let tokens work across light and dark themes.</li>
-      <li>Ensure disabled and error states override other styling.</li>
+      <li>Use <code>theme.palette</code> or MUI component props so colours work across light and dark themes.</li>
+      <li>Ensure disabled and error states override hover, focus and selected styling.</li>
     </ul>
   </div>
 
   <div className="ds-card">
     <h3>Don’t</h3>
     <ul>
-      <li>Don’t hardcode hex values.</li>
+      <li>Don’t hardcode hex values in components.</li>
       <li>Don’t use strong intent colours as layout backgrounds.</li>
       <li>Don’t rely on colour alone to communicate state.</li>
-      <li>Don’t invent one-off colour behaviour.</li>
+      <li>Don’t invent one-off colour behaviour outside the theme.</li>
     </ul>
   </div>
 </div>
 
 ## Surfaces and elevation
 
+Surfaces create structure and hierarchy. They should help users understand
+where content belongs without making dense scientific interfaces feel noisy.
+
 Prefer layered surfaces and borders over heavy shadows.
 
 <table className="ds-table">
   <thead>
     <tr>
-      <th>Token</th>
-      <th>Purpose</th>
       <th>MUI mapping</th>
+      <th>Purpose</th>
+      <th>Typical use</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>
-        <code>--ds-bg-page</code>
-      </td>
-      <td>Root application background</td>
-      <td>
         <code>background.default</code>
       </td>
+      <td>Root application background</td>
+      <td>App shell, page canvas, full-screen layouts</td>
     </tr>
     <tr>
-      <td>
-        <code>--ds-surface</code>
-      </td>
-      <td>Base content surface</td>
       <td>
         <code>background.paper</code>
       </td>
+      <td>Base content surface</td>
+      <td>Cards, dialogs, menus, popovers, standard content panels</td>
     </tr>
     <tr>
-      <td>
-        <code>--ds-surface-container</code>
-      </td>
-      <td>Standard container surface</td>
       <td>
         <code>surface.subtle</code>
       </td>
+      <td>Quiet container surface</td>
+      <td>Secondary panels, grouped content, low-emphasis regions</td>
     </tr>
     <tr>
       <td>
-        <code>--ds-surface-container-high</code>
-      </td>
-      <td>Highlighted container</td>
-      <td>
         <code>surface.strong</code>
+      </td>
+      <td>Stronger container surface</td>
+      <td>Raised sections, selected regions, nested containers</td>
+    </tr>
+    <tr>
+      <td>
+        <code>surface.disabled</code>
+      </td>
+      <td>Disabled surface treatment</td>
+      <td>
+        Disabled filled controls, inactive regions where a surface still needs
+        to be visible
       </td>
     </tr>
   </tbody>
@@ -362,6 +376,99 @@ Prefer layered surfaces and borders over heavy shadows.
     </tr>
   </tbody>
 </table>
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>Do</h3>
+    <ul>
+      <li>Use <code>background.default</code> for the application canvas.</li>
+      <li>Use <code>background.paper</code> for primary content areas.</li>
+      <li>Use <code>surface.subtle</code> to group related content.</li>
+      <li>Use <code>surface.strong</code> for stronger grouping or selected regions.</li>
+      <li>Use surface changes consistently across light and dark mode.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>Don’t</h3>
+    <ul>
+      <li>Don’t use strong intent colours as general layout backgrounds.</li>
+      <li>Don’t stack too many nested surface colours.</li>
+      <li>Don’t use surface changes to compensate for unclear layout.</li>
+      <li>Don’t create one-off background colours for individual components.</li>
+      <li>Don’t make disabled surfaces look interactive.</li>
+    </ul>
+  </div>
+</div>
+
+## Borders
+
+Borders define separation, grouping and affordance. They should support structure without creating visual noise.
+
+Use border roles instead of raw greys:
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>MUI mapping</th>
+      <th>Purpose</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>divider</code>
+        <span> / </span>
+        <br />
+        <code>border.subtle</code>
+      </td>
+      <td>Quiet separation</td>
+      <td>Dividers, table row separators, low-emphasis boundaries</td>
+    </tr>
+    <tr>
+      <td>
+        <code>border.base</code>
+      </td>
+      <td>Default boundary</td>
+      <td>Inputs, cards, panels, table cells</td>
+    </tr>
+    <tr>
+      <td>
+        <code>border.emphasis</code>
+      </td>
+      <td>Stronger boundary</td>
+      <td>Hover states, active regions, important grouping</td>
+    </tr>
+  </tbody>
+</table>
+
+MUI’s native <code>divider</code> role and DiamondDS <code>border.subtle</code> use the same value.
+Use <code>divider</code> where a MUI component expects it, and <code>border.subtle</code> when writing DiamondDS border styles directly.
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>Do</h3>
+    <ul>
+      <li>Use <code>border.base</code> for standard component boundaries.</li>
+      <li>Use <code>border.subtle</code> for quiet dividers and disabled outlines.</li>
+      <li>Use <code>border.emphasis</code> when a boundary needs stronger affordance.</li>
+      <li>Use intent border colours only for meaningful states such as error or selected.</li>
+      <li>Let disabled and error borders override hover and focus styling.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>Don’t</h3>
+    <ul>
+      <li>Don’t use raw grey values for component borders.</li>
+      <li>Don’t use borders as the only way to communicate status.</li>
+      <li>Don’t add heavy borders to compensate for weak spacing or grouping.</li>
+      <li>Don’t mix several border strengths in the same small area.</li>
+      <li>Don’t invent one-off border colours outside the theme.</li>
+    </ul>
+  </div>
+</div>
 
 ## Typography usage
 
@@ -419,7 +526,7 @@ Typography should support readability, scanning, and technical clarity.
 ## General principles
 
 <ul>
-  <li>Prefer semantic tokens over raw values.</li>
+  <li>Prefer theme palette roles and component props over raw values.</li>
   <li>Reuse patterns before creating new ones.</li>
   <li>Keep interactions predictable.</li>
   <li>Design for clarity and operational confidence.</li>
