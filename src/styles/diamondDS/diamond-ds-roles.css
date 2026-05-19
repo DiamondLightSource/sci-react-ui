@@ -24,8 +24,9 @@
 
 /* Light mode semantic roles */
 :root,
-:root[data-mode="light"],
-:root.light {
+:root[data-mode="light"] {
+  color-scheme: light;
+
   /* Neutral roles */
   --ds-background: #f6f6f9;
   --ds-background-channel: 246 246 249;
@@ -52,6 +53,7 @@
   --ds-border-subtle: var(--ds-grey-300);
   --ds-border: var(--ds-grey-400);
   --ds-border-emphasis: var(--ds-grey-500);
+  --ds-border-subtle-channel: 221 225 232;
 
   /* Interaction overlays
    *
@@ -60,6 +62,7 @@
   --ds-overlay-hover: rgba(0, 0, 0, 0.08);
   --ds-overlay-hover-solid: rgba(0, 0, 0, 0.16);
   --ds-overlay-selected: rgba(0, 0, 0, 0.25);
+  --ds-overlay-selected-channel: 0 0 0;
   --ds-overlay-focus: rgba(0, 0, 0, 0.1);
 
   /* Intent semantic roles
@@ -235,8 +238,9 @@
  *
  * Values are tuned for dark surfaces rather than mechanically inverted from light mode. 
  */
-:root[data-mode="dark"],
-:root.dark {
+:root[data-mode="dark"] {
+  color-scheme: dark;
+
   /* Neutral roles */
   --ds-background: var(--ds-grey-dark-800);
   --ds-background-channel: 14 16 23;
@@ -263,11 +267,13 @@
   --ds-border-subtle: var(--ds-grey-dark-400);
   --ds-border: var(--ds-grey-dark-300);
   --ds-border-emphasis: var(--ds-grey-dark-200);
+  --ds-border-subtle-channel: 58 63 76;
 
   /* Interaction overlays */
   --ds-overlay-hover: rgba(255, 255, 255, 0.16);
   --ds-overlay-hover-solid: rgba(255, 255, 255, 0.16);
   --ds-overlay-selected: rgba(255, 255, 255, 0.12);
+  --ds-overlay-selected-channel: 255 255 255;
   --ds-overlay-focus: rgba(255, 255, 255, 0.12);
 
   /* Primary */

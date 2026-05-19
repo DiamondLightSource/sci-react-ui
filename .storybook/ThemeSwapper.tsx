@@ -1,5 +1,6 @@
-import { useColorScheme } from "@mui/material/styles";
+import { useColorScheme } from "@mui/material";
 import * as React from "react";
+import { useEffect } from "react";
 
 interface Globals {
   theme: string;
@@ -22,8 +23,8 @@ export const TextSystem = "Mode: System";
 const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
   const { mode, systemMode, setMode } = useColorScheme();
 
-  React.useEffect(() => {
-    const selectedThemeMode = context.globals.themeMode || TextSystem;
+  useEffect(() => {
+    const selectedThemeMode = context.globals.themeMode ?? TextSystem;
 
     if (selectedThemeMode === TextLight) {
       setMode("light");
@@ -43,7 +44,7 @@ const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
   return (
     <div
       style={{
-        backgroundColor: resolvedMode === "dark" ? "#0e1017" : "#F6F6F9",
+        backgroundColor: resolvedMode === "light" ? "#F6F6F9" : "#0e1017",
       }}
     >
       {children}

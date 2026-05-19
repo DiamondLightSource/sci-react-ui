@@ -1,72 +1,33 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
+import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
 
 import { ThemeProvider } from "../src";
-import {
-  GenericTheme,
-  DiamondTheme,
-  DiamondDSTheme,
-  DiamondDSThemeDark,
-} from "../src";
-
-import {
-  Context,
-  ThemeSwapper,
-  TextDark,
-  TextLight,
-  TextSystem,
-} from "./ThemeSwapper";
+import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
+import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";
+import "../src/styles/diamondDS/diamond-ds-roles.css";
 
 const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
-const TextThemeDiamondDS = "Theme: Diamond DS";
+const TextThemeDiamondDS = "Theme: DiamondDS";
 
-function resolveThemeMode(
-  selectedThemeMode: string,
-): "light" | "dark" | "system" {
+function resolveTheme(selectedTheme: string) {
+  switch (selectedTheme) {
+    case TextThemeBase:
+      return GenericTheme;
+    case TextThemeDiamond:
+      return DiamondTheme;
+    case TextThemeDiamondDS:
+    default:
+      return DiamondDSTheme;
+  }
+}
+
+function resolveDefaultMode(selectedThemeMode: string) {
   if (selectedThemeMode === TextLight) return "light";
   if (selectedThemeMode === TextDark) return "dark";
 
   return "system";
-}
-
-function getSystemMode(): "light" | "dark" {
-  return window.matchMedia?.("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
-}
-
-function resolveTheme(selectedTheme: string, resolvedMode: "light" | "dark") {
-  switch (selectedTheme) {
-    case TextThemeBase:
-      return GenericTheme;
-
-    case TextThemeDiamond:
-      return DiamondTheme;
-
-    case TextThemeDiamondDS:
-    default:
-      return resolvedMode === "dark" ? DiamondDSThemeDark : DiamondDSTheme;
-  }
-}
-
-function ApplyModeToPreviewDoc({
-  mode,
-  doc,
-}: {
-  mode: "light" | "dark";
-  doc: Document;
-}) {
-  useLayoutEffect(() => {
-    const root = doc.documentElement;
-
-    root.setAttribute("data-mode", mode);
-    root.classList.toggle("dark", mode === "dark");
-    root.classList.toggle("light", mode === "light");
-    root.style.colorScheme = mode;
-  }, [mode, doc]);
-
-  return null;
 }
 
 export const decorators = [
@@ -78,25 +39,19 @@ export const decorators = [
     );
   },
 
-  (StoriesWithThemeProvider: React.FC, context: Context) => {
+  (Story, context) => {
     const selectedTheme = context.globals.theme || TextThemeDiamondDS;
     const selectedThemeMode = context.globals.themeMode || TextSystem;
 
-    const defaultMode = resolveThemeMode(selectedThemeMode);
-    const resolvedMode =
-      defaultMode === "system" ? getSystemMode() : defaultMode;
-
-    const doc: Document = context?.canvasElement?.ownerDocument ?? document;
-
     return (
       <ThemeProvider
-        theme={resolveTheme(selectedTheme, resolvedMode)}
-        defaultMode={defaultMode}
+        theme={resolveTheme(selectedTheme)}
+        defaultMode={resolveDefaultMode(selectedThemeMode)}
       >
-        <ApplyModeToPreviewDoc mode={resolvedMode} doc={doc} />
+        <CssBaseline />
 
         <ThemeSwapper context={context}>
-          <StoriesWithThemeProvider />
+          <Story />
         </ThemeSwapper>
       </ThemeProvider>
     );
@@ -114,23 +69,20 @@ const preview: Preview = {
         dynamicTitle: true,
       },
     },
-
     themeMode: {
       description: "Global theme mode for components",
       toolbar: {
-        title: "Theme mode",
+        title: "Theme Mode",
         icon: "mirror",
         items: [TextLight, TextDark, TextSystem],
         dynamicTitle: true,
       },
     },
   },
-
   initialGlobals: {
     theme: TextThemeDiamondDS,
     themeMode: TextSystem,
   },
-
   parameters: {
     controls: {
       matchers: {
@@ -144,18 +96,15 @@ const preview: Preview = {
       storySort: {
         order: [
           "Introduction",
-          "Foundation",
-          "Helpers",
-          "MUI",
           "Components",
           "Theme",
           "Theme/Logos",
           "Theme/Colours",
+          "Helpers",
         ],
       },
     },
   },
-
   argTypes: {
     linkComponent: {
       control: false,
