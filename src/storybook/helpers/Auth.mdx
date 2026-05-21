@@ -12,6 +12,15 @@ import {useAuth} from "../../components/systems/auth";
         This component is based on the official Keycloak.js adapter.
         More info can be found here: <a href="https://www.keycloak.org/securing-apps/javascript-adapter">www.keycloak.org/securing-apps/javascript-adapter</a>
 
+        The auth component relies on keycloak-js. Although it is a peer and optional dependency of SciReactUI, you must install it separately with a compatible version (e.g. ^26.2.1).
+
+        ```sh
+        "One of:"
+        - pnpm add keycloak-js
+        - npm i keycloak-js
+        - yarn add keycloak-js
+        ```
+
         ## Basic setup
 
         First place the provider around your app:
