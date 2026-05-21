@@ -537,16 +537,16 @@ const createDiamondPalette = (mode: DSMode) => {
     brand: createBrandPaletteColour(),
 
     grey: {
-      50: "var(--ds-grey-50)",
-      100: "var(--ds-grey-100)",
-      200: "var(--ds-grey-200)",
-      300: "var(--ds-grey-300)",
-      400: "var(--ds-grey-400)",
-      500: "var(--ds-grey-500)",
-      600: "var(--ds-grey-600)",
-      700: "var(--ds-grey-700)",
-      800: "var(--ds-grey-800)",
-      900: "var(--ds-grey-900)",
+      50: "#f8f8fa",
+      100: "#eef1f5",
+      200: "#e6e9f0",
+      300: "#dde1e8",
+      400: "#bcc2cd",
+      500: "#a5acb8",
+      600: "#8a90a0",
+      700: "#505563",
+      800: "#2c3140",
+      900: "#1a1c23",
     },
   };
 };
