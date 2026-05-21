@@ -96,11 +96,12 @@ const preview: Preview = {
       storySort: {
         order: [
           "Introduction",
-          "Components",
+          "Helpers",
           "Theme",
           "Theme/Logos",
           "Theme/Colours",
-          "Helpers",
+          "MUI",
+          "Components",
         ],
       },
     },
