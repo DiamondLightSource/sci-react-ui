@@ -1,0 +1,1005 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Practical guidance" />
+
+<style>{`
+  .ds-docs {
+    max-width: 72ch;
+  }
+
+  .ds-toc {
+    display: grid;
+    gap: 6px;
+    border: 1px solid var(--ds-border-subtle);
+    background: var(--ds-surface-container);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0 32px;
+  }
+
+  .ds-toc a {
+    color: var(--ds-fg-link, var(--ds-primary));
+    text-decoration: none;
+  }
+
+  .ds-toc a:hover {
+    text-decoration: underline;
+  }
+
+  .ds-note {
+    border: 1px solid var(--ds-border-subtle);
+    background: var(--ds-surface-container);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0 24px;
+  }
+  .ds-role {
+    font-weight: 600;
+  }
+
+  .ds-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--ds-border-subtle);
+  }
+  .ds-swatch-neutral {
+    background: var(--ds-grey-500);
+  }
+
+  .ds-swatch-primary {
+    background: var(--ds-primary);
+  }
+
+  .ds-swatch-secondary {
+    background: var(--ds-secondary);
+  }
+
+  .ds-swatch-success {
+    background: var(--ds-success);
+  }
+
+  .ds-swatch-warning {
+    background: var(--ds-warning);
+  }
+
+  .ds-swatch-danger {
+    background: var(--ds-danger);
+  }
+
+  .ds-swatch-info {
+    background: var(--ds-info);
+  }
+
+  .ds-swatch-brand {
+    background: var(--ds-brand);
+  }
+
+  .ds-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+  }
+  .ds-table td:first-child {
+    white-space: nowrap;
+  }
+  .ds-table th,
+  .ds-table td {
+    border-bottom: 1px solid var(--ds-border-subtle);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .ds-table th {
+    font-weight: 600;
+  }
+
+  .ds-dos {
+    display: grid;
+    gap: 16px;
+    margin: 16px 0 24px;
+  }
+
+  @media (min-width: 800px) {
+    .ds-dos {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .ds-card {
+    border: 1px solid var(--ds-border-subtle);
+    background: var(--ds-surface-container);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .ds-card h3 {
+    margin-top: 0;
+  }
+
+  .ds-card ul {
+    margin-bottom: 0;
+  }
+
+  code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.8rem;
+  }
+
+`}</style>
+
+<div className="ds-docs">
+
+# Practical guidance
+
+Diamond Design System uses MUI with Diamond semantic tokens layered on top.
+
+CSS variables are the source of truth. The MUI theme adapts those tokens for components and implementation.
+
+## Contents
+
+<div className="ds-note">
+  <ul>
+    <li>Using the theme</li>
+    <li>Component structure</li>
+    <li>Using components</li>
+    <li>Colour usage</li>
+    <li>Surfaces and elevation</li>
+    <li>Borders</li>
+    <li>Typography usage</li>
+    <li>Button hierarchy and pairing</li>
+    <li>Feedback and status</li>
+    <li>Errors and recovery</li>
+  </ul>
+</div>
+
+## Using the theme
+
+Diamond Design System uses semantic design tokens mapped into MUI’s theme
+system.
+
+CSS variables remain the source of truth. The MUI theme adapts those values into
+component APIs, palette roles, typography, spacing, elevation, and interaction
+states.
+
+Prefer theme roles and semantic tokens over hardcoded values.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>✅ Prefer</th>
+      <th>❌ Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>theme.palette.primary.main</code>
+      </td>
+      <td>
+        <code>#005bbb</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>theme.palette.divider</code>
+      </td>
+      <td>Custom border greys</td>
+    </tr>
+    <tr>
+      <td>
+        <code>theme.spacing(2)</code>
+      </td>
+      <td>Arbitrary spacing values</td>
+    </tr>
+    <tr>
+      <td>
+        <code>surface.subtle</code>
+      </td>
+      <td>One-off background colours</td>
+    </tr>
+  </tbody>
+</table>
+
+Using semantic roles keeps interfaces consistent across products, supports light
+and dark themes, and allows the system to evolve without rewriting component
+styles.
+
+## Using components
+
+Build with existing components and patterns before creating new ones.
+
+Components should keep interfaces predictable, readable, and consistent.
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Reuse established layouts and behaviours.</li>
+      <li>Use standard component variants consistently.</li>
+      <li>Keep disabled and error states visually clear.</li>
+      <li>Use spacing and typography for hierarchy.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t restyle components screen by screen.</li>
+      <li>Don’t introduce custom colours unnecessarily.</li>
+      <li>Don’t create multiple patterns for the same interaction.</li>
+      <li>Don’t override the theme without a reusable reason.</li>
+    </ul>
+  </div>
+</div>
+
+## Colour usage
+
+Use colour semantically. Separate structure, meaning, and brand.
+
+DiamondDS supports:
+
+- action intents: primary, secondary
+- status intents: success, warning, error, info
+
+Intent colours communicate hierarchy, operational meaning, and state through component APIs such as `color="primary"` or `color="error"`.
+Their meaning depends on context and workflow.
+
+Brand colour is intentionally separate. Brand communicates Diamond identity rather than behaviour or status.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Type</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-neutral" />
+        <span className="ds-role">Neutral</span>
+      </td>
+      <td>Structure</td>
+      <td>Layout and hierarchy</td>
+      <td>Backgrounds, surfaces, borders, tables</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-primary" />
+        <span className="ds-role">Primary</span>
+      </td>
+      <td>Action intent</td>
+      <td>Main actions and emphasis</td>
+      <td>Primary actions, selected states</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-secondary" />
+        <span className="ds-role">Secondary</span>
+      </td>
+      <td>Action intent</td>
+      <td>Supporting actions and alternate emphasis</td>
+      <td>Secondary actions, filters, supporting controls</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-success" />
+        <span className="ds-role">Success</span>
+      </td>
+      <td>Status intent</td>
+      <td>Confirmed, available, or operationally valid states</td>
+      <td>Completion, confirmation, active or valid states</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-warning" />
+        <span className="ds-role">Warning</span>
+      </td>
+      <td>Status intent</td>
+      <td>Attention, caution, or elevated operational awareness</td>
+      <td>Risk states, hazardous conditions, attention-required states</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-danger" />
+        <span className="ds-role">Error</span> <span className="ds-meta"> (Danger)</span>
+      </td>
+      <td>Status intent</td>
+      <td>Critical, blocking, hazardous, or destructive states</td>
+      <td>Errors, failed actions, emergency-related or destructive actions</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-info" />
+        <span className="ds-role">Info</span>
+      </td>
+      <td>Status intent</td>
+      <td>Informational, contextual, or progress-related feedback</td>
+      <td>Progress, guidance, scanning, movement, or system messages</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-brand" />
+        <span className="ds-role">Brand</span>
+      </td>
+      <td>Identity</td>
+      <td>Facility identity</td>
+      <td>Branding moments and facility identity</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use neutral roles for structure.</li>
+      <li>Use intent roles for meaning.</li>
+      <li>Use <code>theme.palette</code> or MUI component props so colours work across light and dark themes.</li>
+      <li>Ensure disabled and error states override hover, focus and selected styling.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t hardcode hex values in components.</li>
+      <li>Don’t use strong intent colours as layout backgrounds.</li>
+      <li>Don’t rely on colour alone to communicate state.</li>
+      <li>Don’t invent one-off colour behaviour outside the theme.</li>
+    </ul>
+  </div>
+</div>
+
+## Surfaces and elevation
+
+Surfaces create structure and hierarchy. They should help users understand
+where content belongs without making dense scientific interfaces feel noisy.
+
+Prefer layered surfaces and borders over heavy shadows.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>MUI mapping</th>
+      <th>Purpose</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-bg-page</code>
+      </td>
+      <td>
+        <code>background.default</code>
+      </td>
+      <td>Root application background</td>
+      <td>App shell, page canvas, full-screen layouts</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface</code>
+      </td>
+      <td>
+        <code>background.paper</code>
+      </td>
+      <td>Base content surface</td>
+      <td>Cards, dialogs, menus, popovers, standard content panels</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface-container</code>
+      </td>
+      <td>
+        <code>surface.subtle</code>
+      </td>
+      <td>Quiet container surface</td>
+      <td>Secondary panels, grouped content, low-emphasis regions</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface-container-high</code>
+      </td>
+      <td>
+        <code>surface.strong</code>
+      </td>
+      <td>Stronger container surface</td>
+      <td>Raised sections, selected regions, nested containers</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface-disabled</code>
+      </td>
+      <td>
+        <code>surface.disabled</code>
+      </td>
+      <td>Disabled surface treatment</td>
+      <td>
+        Disabled filled controls, inactive regions where a surface still needs
+        to be visible
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Recommended treatment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Top nav bar</td>
+      <td>
+        Elevation 0 + border-bottom. Elevate to 1–2 on scroll when sticky and no
+        secondary nav is present
+      </td>
+    </tr>
+    <tr>
+      <td>Sidebar</td>
+      <td>Elevation 0 + border-right</td>
+    </tr>
+    <tr>
+      <td>Secondary header/nav bar</td>
+      <td>Elevation 1. Elevate to 1–2 on scroll when sticky</td>
+    </tr>
+    <tr>
+      <td>Cards</td>
+      <td>
+        Elevation 0-2 + subtle border, or no border when the surface is already
+        clear
+      </td>
+    </tr>
+    <tr>
+      <td>Interactive cards</td>
+      <td>Elevation 3–4, such as drag/drop cards</td>
+    </tr>
+    <tr>
+      <td>Menus, popovers, drawers</td>
+      <td>Elevation 8–16</td>
+    </tr>
+    <tr>
+      <td>Dialogs</td>
+      <td>Elevation 16–24</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use <code>background.default</code> for the application canvas.</li>
+      <li>Use <code>background.paper</code> for primary content areas.</li>
+      <li>Use <code>surface.subtle</code> to group related content.</li>
+      <li>Use <code>surface.strong</code> for stronger grouping or selected regions.</li>
+      <li>Use surface changes consistently across light and dark mode.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t use strong intent colours as general layout backgrounds.</li>
+      <li>Don’t stack too many nested surface colours.</li>
+      <li>Don’t use surface changes to compensate for unclear layout.</li>
+      <li>Don’t create one-off background colours for individual components.</li>
+      <li>Don’t make disabled surfaces look interactive.</li>
+    </ul>
+  </div>
+</div>
+
+## Borders
+
+Borders define separation, grouping and affordance. They should support structure without creating visual noise.
+
+Use border roles instead of raw greys:
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>MUI mapping</th>
+      <th>Purpose</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-border-subtle</code>
+      </td>
+      <td>
+        <code>divider</code>
+        <span> / </span>
+        <br />
+        <code>border.subtle</code>
+      </td>
+      <td>Default quiet border</td>
+      <td>Dividers, table separators, low-emphasis boundaries</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-border-emphasis</code>
+      </td>
+      <td>
+        <code>border.emphasis</code>
+      </td>
+      <td>Elevated interaction/emphasis</td>
+      <td>Inputs, highlighted cards, panels, tables, important grouping</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-border-strong</code>
+      </td>
+      <td>
+        <code>border.strong</code>
+      </td>
+      <td>Maximum border contrast</td>
+      <td>Hover states, active regions, selected-neutral</td>
+    </tr>
+  </tbody>
+</table>
+
+MUI’s native <code>divider</code> role and DiamondDS <code>border.subtle</code> use the same value.
+Use <code>divider</code> where a MUI component expects it, and <code>border.subtle</code> when writing DiamondDS border styles directly.
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use <code>border.subtle</code> for quiet dividers, separators, table boundaries, and disabled outlines.</li>
+      <li>Use <code>border.emphasis</code> for interactive component boundaries and elements that require clearer affordance.</li>
+      <li>Use <code>border.strong</code> for elevated interaction states such as hover, active, or selected elements.</li>
+      <li>Use intent border colours only for meaningful states such as error or selected.</li>
+      <li>Let disabled and error borders override hover and focus styling.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t use raw grey values for component borders.</li>
+      <li>Don’t use borders as the only way to communicate status.</li>
+      <li>Don’t add heavy borders to compensate for weak spacing or grouping.</li>
+      <li>Don’t mix several border strengths in the same small area.</li>
+      <li>Don’t invent one-off border colours outside the theme.</li>
+    </ul>
+  </div>
+</div>
+
+## Typography usage
+
+Typography should support readability, scanning, and technical clarity.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Typeface</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inter</td>
+      <td>Default interface typeface</td>
+      <td>UI text, controls, tables, navigation</td>
+    </tr>
+    <tr>
+      <td>Outfit</td>
+      <td>Brand and high-level headings</td>
+      <td>Product headings, landing areas</td>
+    </tr>
+    <tr>
+      <td>IBM Plex Mono</td>
+      <td>Technical and aligned content</td>
+      <td>IDs, timestamps, code, numeric values</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Keep hierarchy consistent across products.</li>
+      <li>Prefer short, clear labels.</li>
+      <li>Make numbers and technical values easy to scan.</li>
+      <li>Use mono type where alignment matters.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t use brand typography for dense operational content.</li>
+      <li>Don’t rely on decorative styling for hierarchy.</li>
+      <li>Don’t hide important information in faint text.</li>
+      <li>Don’t introduce one-off font sizes.</li>
+    </ul>
+  </div>
+</div>
+
+## General principles
+
+<ul>
+  <li>Prefer theme palette roles and component props over raw values.</li>
+  <li>Reuse patterns before creating new ones.</li>
+  <li>Keep interactions predictable.</li>
+  <li>Design for clarity and operational confidence.</li>
+  <li>Similar things should look and behave similarly.</li>
+</ul>
+
+## Button hierarchy and pairing
+
+<div className="ds-note">
+  Button hierarchy should make the next safe action obvious. Avoid placing
+  multiple high-emphasis actions next to each other unless they genuinely have
+  equal priority.
+</div>
+
+### Default pairing
+
+Use one contained button for the main action, then reduce emphasis for nearby
+supporting actions.
+
+### Recommended patterns
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Pattern</th>
+      <th>Use when</th>
+      <th>Recommended pairing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Main action + cancel</td>
+      <td>The user needs a clear way to proceed or back out</td>
+      <td>
+        <code>primary contained</code> + <code>text</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Main action + supporting action</td>
+      <td>The second action helps prepare or configure the main action</td>
+      <td>
+        <code>primary contained</code> + <code>outlined</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Main action + more actions</td>
+      <td>Additional actions are available but should not compete</td>
+      <td>
+        <code>primary contained</code> + menu button
+      </td>
+    </tr>
+    <tr>
+      <td>Destructive confirmation</td>
+      <td>The user is confirming a destructive or irreversible action</td>
+      <td>
+        <code>error contained</code> + neutral <code>text</code> or{" "}
+        <code>outlined</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Promoted secondary workflow</td>
+      <td>A secondary action is intentionally more useful in context</td>
+      <td>
+        Lower-emphasis primary action + <code>secondary contained</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use one high-emphasis action in a local action group.</li>
+
+      <li>
+        Use text buttons for cancel, dismiss, and low-risk exits.
+      </li>
+
+      <li>
+        Use menu buttons for overflow actions that should not compete visually.
+      </li>
+
+      <li>
+        Use destructive emphasis only when the action is genuinely destructive
+        or hazardous.
+      </li>
+    </ul>
+
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>
+        Don’t place <code>primary contained</code> and
+        <code>secondary contained</code> next to each other by default.
+      </li>
+
+      <li>
+        Don’t use multiple contained buttons to solve unclear priority.
+      </li>
+
+      <li>
+        Don’t make cancel actions visually compete with the main action.
+      </li>
+
+      <li>
+        Don’t promote secondary actions just for visual variety.
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+## Feedback and status
+
+<div className="ds-note">
+  Interfaces should continuously communicate system state, progress, success,
+  warnings, and problems. Clear feedback helps users understand what is
+  happening, what requires attention, and whether it is safe to continue.
+</div>
+
+### Communicate state clearly
+
+Provide feedback for important actions, transitions, and system events.
+
+Users should understand:
+
+<ul>
+  <li>what is happening</li>
+  <li>whether an action succeeded</li>
+  <li>whether attention is required</li>
+  <li>whether work is still in progress</li>
+  <li>what they can safely do next</li>
+</ul>
+
+Avoid relying on colour alone. Combine colour with labels, icons, text, or
+layout changes where appropriate.
+
+---
+
+### Status intent meanings
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-success" />
+        <span className="ds-role">Success</span>
+      </td>
+      <td>Positive or valid outcome</td>
+      <td>Completed actions, successful operations, valid system state</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-warning" />
+        <span className="ds-role">Warning</span>
+      </td>
+      <td>Caution or attention required</td>
+      <td>Risk states, interruptions, unusual conditions, partial issues</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-danger" />
+        <span className="ds-role">Error/Danger</span>
+      </td>
+      <td>Critical issue or failed action</td>
+      <td>Validation failures, failed operations, destructive actions</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-info" />
+        <span className="ds-role">Info</span>
+      </td>
+      <td>Informational or transitional state</td>
+      <td>Progress updates, guidance, active processes, system messages</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### Progress and transitional states
+
+Use informational feedback for active or changing system states.
+
+Examples include:
+
+<ul>
+  <li>scanning in progress</li>
+  <li>moving motors</li>
+  <li>connecting to device</li>
+  <li>processing data</li>
+  <li>queue paused</li>
+</ul>
+
+Prefer persistent inline or contextual feedback over temporary notifications for
+long-running operations.
+
+---
+
+### Success feedback
+
+Use success feedback sparingly.
+
+Not every successful action requires a notification.
+
+Prefer lightweight confirmation for routine actions, especially in repetitive
+scientific workflows.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>✅ Prefer</th>
+      <th>❌ Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Quiet inline confirmation after saving</td>
+      <td>Large celebratory success states for routine operations</td>
+    </tr>
+    <tr>
+      <td>Small status update in a queue or table row</td>
+      <td>Stacking repeated success toasts during repetitive workflows</td>
+    </tr>
+    <tr>
+      <td>Temporary confirmation for destructive actions</td>
+      <td>Interrupting workflow with unnecessary success messaging</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Errors and recovery
+
+<div className="ds-note">
+  Error handling should help users recover safely and confidently. Focus on
+  clarity, next steps, and preventing further mistakes.
+</div>
+
+### Make errors actionable
+
+Good error messages explain:
+
+<ul>
+  <li>what happened</li>
+  <li>what caused the issue, if known</li>
+  <li>what the user can do next</li>
+</ul>
+
+Avoid vague or technical-only messaging where possible.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>❌ Avoid</th>
+      <th>✅ Prefer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>Operation failed</code>
+      </td>
+      <td>
+        <code>Unable to connect to detector</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>Validation error</code>
+      </td>
+      <td>
+        <code>Exposure time must be greater than 0</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>Device unavailable</code>
+      </td>
+      <td>
+        <code>
+          Motor controller is offline. Reconnect or contact beamline staff.
+        </code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### Prefer recovery over dead ends
+
+Where possible, help users continue safely.
+
+Provide:
+
+<ul>
+  <li>retry actions</li>
+  <li>alternative paths</li>
+  <li>clear recovery guidance</li>
+  <li>safe defaults</li>
+</ul>
+
+Avoid trapping users in blocked states without explanation.
+
+---
+
+### Error severity
+
+Not all errors require the same visual weight.
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity</th>
+      <th>Typical treatment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Minor</td>
+      <td>Inline validation or local helper text</td>
+    </tr>
+    <tr>
+      <td>Moderate</td>
+      <td>Inline alert, panel warning, persistent message</td>
+    </tr>
+    <tr>
+      <td>Critical</td>
+      <td>Blocking alert, dialog, or operational interruption</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+### Safety and operational awareness
+
+In scientific and operational environments, errors may affect hardware,
+beamtime, experiments, or data integrity.
+
+Use stronger emphasis when actions may:
+
+<ul>
+  <li>interrupt experiments</li>
+  <li>move hardware</li>
+  <li>discard data</li>
+  <li>affect safety</li>
+  <li>impact other users or systems</li>
+</ul>
+
+Destructive or irreversible actions should require clear confirmation and should
+never compete visually with safe actions.
+
+</div>

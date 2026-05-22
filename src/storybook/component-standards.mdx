@@ -1,0 +1,253 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Working with components" />
+
+<style>{`
+  .ds-docs {
+    max-width: 72ch;
+  }
+
+  .ds-note {
+    border: 1px solid var(--ds-border-subtle);
+    background: var(--ds-surface-container);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0 24px;
+  }
+
+  .ds-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 24px;
+  }
+
+  .ds-table th,
+  .ds-table td {
+    border-bottom: 1px solid var(--ds-border-subtle);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .ds-table th {
+    font-weight: 600;
+  }
+
+  code {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.8rem;
+  }
+`}</style>
+
+<div className="ds-docs">
+
+# Working with components
+
+Diamond Design System components are built on MUI and adapted for Diamond
+scientific software.
+
+Use MUI components first, then apply Diamond theme roles, variants, states, and
+patterns consistently.
+
+<div className="ds-note">
+  Components should be predictable before they are distinctive. Start with the
+  standard MUI behaviour, then extend only when there is a reusable Diamond
+  need.
+</div>
+
+## Component breakdown
+
+Most components can be understood through five layers.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Purpose</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Component</td>
+      <td>The base UI element</td>
+      <td>
+        <code>Button</code>, <code>TextField</code>, <code>Alert</code>,{" "}
+        <code>Card</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Variant</td>
+      <td>The visual treatment</td>
+      <td>
+        <code>contained</code>, <code>outlined</code>, <code>text</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Intent</td>
+      <td>The semantic meaning</td>
+      <td>
+        <code>primary</code>, <code>secondary</code>, <code>success</code>,{" "}
+        <code>warning</code>, <code>error</code>, <code>info</code>
+      </td>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td>The interaction or system condition</td>
+      <td>
+        <code>hover</code>, <code>focus</code>, <code>selected</code>,{" "}
+        <code>disabled</code>, <code>error</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Pattern</td>
+      <td>How the component is used in context</td>
+      <td>Form field, toolbar action, dialog footer, queue row</td>
+    </tr>
+  </tbody>
+</table>
+
+## How to use components
+
+Use existing components and variants before creating custom behaviour.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>✅ Prefer</th>
+      <th>❌ Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Use MUI props such as <code>variant</code>, <code>color</code>,{" "}
+        <code>size</code>, and <code>disabled</code>
+      </td>
+      <td>Restyling components with one-off CSS</td>
+    </tr>
+    <tr>
+      <td>Use Diamond semantic theme roles and tokens</td>
+      <td>Hardcoded colours, spacing, or shadows</td>
+    </tr>
+    <tr>
+      <td>Use standard interaction states consistently</td>
+      <td>Different hover, focus, or disabled behaviour per screen</td>
+    </tr>
+    <tr>
+      <td>Use established layout patterns</td>
+      <td>Creating new arrangements for the same task</td>
+    </tr>
+  </tbody>
+</table>
+
+## Component standards
+
+All components should follow these standards:
+
+<ul>
+  <li>Use semantic tokens or MUI theme roles, not raw visual values.</li>
+  <li>
+    Work in both light and dark mode through <code>data-mode</code>.
+  </li>
+  <li>Use accessible labels, helper text, and keyboard behaviour.</li>
+  <li>Make focus, disabled, selected, loading, and error states clear.</li>
+  <li>Let disabled and error states override hover and active states.</li>
+  <li>
+    Keep behaviour consistent with MUI unless there is a clear reason to change
+    it.
+  </li>
+</ul>
+
+## Extending an existing component
+
+Extend an existing component when the base MUI component is right, but Diamond
+needs a reusable variation.
+
+Good reasons to extend include:
+
+<ul>
+  <li>a repeated scientific workflow pattern</li>
+  <li>a consistent Diamond-specific layout</li>
+  <li>a reusable status or feedback treatment</li>
+  <li>a common data-heavy interaction</li>
+  <li>a safer or clearer operational behaviour</li>
+</ul>
+
+Avoid extending a component just to make one screen look different.
+
+## Creating a new component
+
+Create a new component only when an existing MUI or Diamond component cannot
+support the pattern clearly.
+
+Before creating one, check:
+
+<ul>
+  <li>Can this be done with an existing MUI component?</li>
+  <li>Can this be done with an existing Diamond component?</li>
+  <li>Is the pattern likely to be reused?</li>
+  <li>Does it solve a real workflow problem?</li>
+  <li>Can it follow existing theme, state, and accessibility rules?</li>
+</ul>
+
+<div className="ds-note">
+  New components should feel like part of the system from day one. They should
+  use the same tokens, states, spacing, naming, and interaction logic as
+  existing components.
+</div>
+
+## Naming and scope
+
+Name components by what they are, not where they first appear.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>✅ Prefer</th>
+      <th>❌ Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>ScanStatus</code>
+      </td>
+      <td>
+        <code>I18StatusBox</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>QueueItem</code>
+      </td>
+      <td>
+        <code>MappingQueueCard</code> when it is reusable beyond mapping
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>DeviceConnectionStatus</code>
+      </td>
+      <td>
+        <code>BlueButtonPanel</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Review checklist
+
+Before adding or changing a component, check:
+
+<ul>
+  <li>Does it use existing MUI behaviour where possible?</li>
+  <li>Does it use Diamond semantic roles and tokens?</li>
+  <li>Does it work in light and dark mode?</li>
+  <li>Are focus, disabled, error, loading, and empty states covered?</li>
+  <li>Is the hierarchy clear?</li>
+  <li>Is the pattern reusable?</li>
+  <li>Is the documentation clear enough for another team to use it?</li>
+</ul>
+
+</div>
