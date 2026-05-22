@@ -51,8 +51,8 @@
   --ds-placeholder-focus: var(--ds-grey-700);
 
   --ds-border-subtle: var(--ds-grey-300);
-  --ds-border: var(--ds-grey-400);
-  --ds-border-emphasis: var(--ds-grey-500);
+  --ds-border-emphasis: var(--ds-grey-400);
+  --ds-border-strong: var(--ds-grey-500);
   --ds-border-subtle-channel: 221 225 232;
 
   /* Interaction overlays
