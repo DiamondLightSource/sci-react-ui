@@ -186,10 +186,10 @@ declare module "@mui/material/styles" {
     brand?: BrandPaletteColor;
 
     /** Neutral border roles used for structure, not meaning. */
-    borders: {
+    border: {
       subtle: string;
-      base: string;
       emphasis: string;
+      strong: string;
     };
 
     /** Neutral surface roles used to create hierarchy without semantic state. */
@@ -216,10 +216,10 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     brand?: BrandPaletteOptions;
 
-    borders?: {
+    border?: {
       subtle?: string;
-      base?: string;
       emphasis?: string;
+      strong?: string;
     };
     surface?: {
       subtle?: string;
@@ -514,13 +514,22 @@ const createDiamondPalette = (mode: DSMode) => {
       paper: "rgb(var(--ds-surface-channel))",
     },
 
+    /**
+     * Divider and border roles describe structure and separation, not meaning.
+     *
+     * Divider is the default border role for general structure and separatio.
+     * Border.subtle is a semantic utlisity role for components that need to reference a border colour directly.
+     * Border.emphasis is a emphasised border role for actionable elements and highlighted states.
+     * Border.strong is a stronger border role for hover and focus states.
+     *
+     */
     divider: "var(--ds-border-subtle)",
     dividerChannel: "var(--ds-border-subtle-channel)",
 
-    borders: {
-      subtle: "var(--ds-border-subtle)",
-      base: "var(--ds-border)",
+    border: {
+      subtle: "var(--ds-border)",
       emphasis: "var(--ds-border-emphasis)",
+      strong: "var(--ds-border-strong)",
     },
 
     surface: {
@@ -746,7 +755,7 @@ const DiamondDSTheme = extendTheme({
 
               "&.Mui-disabled": {
                 ...getDisabledControlStyles(),
-                borderColor: "var(--ds-border-subtle)",
+                borderColor: "var(--ds-border)",
               },
             };
           }
@@ -835,10 +844,10 @@ const DiamondDSTheme = extendTheme({
       styleOverrides: {
         root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
           textTransform: "none",
-          border: `1px solid ${theme.palette.borders.base}`,
+          border: `1px solid ${theme.palette.border.emphasis}`,
 
           "&:hover": {
-            borderColor: theme.palette.borders.emphasis,
+            borderColor: theme.palette.border.strong,
           },
 
           "&.Mui-selected": {
@@ -855,7 +864,7 @@ const DiamondDSTheme = extendTheme({
 
           "&.Mui-disabled": {
             color: "var(--ds-on-surface-disabled)",
-            borderColor: "var(--ds-border-subtle)",
+            borderColor: "var(--ds-border)",
           },
         }),
       },
@@ -888,7 +897,7 @@ const DiamondDSTheme = extendTheme({
               ...(isInteractive ? getFocusOutline() : {}),
 
               color: "var(--ds-on-surface)",
-              borderColor: "var(--ds-border)",
+              borderColor: "var(--ds-border-emphasis)",
               backgroundColor,
 
               ...(isInteractive && {
@@ -1039,12 +1048,12 @@ const DiamondDSTheme = extendTheme({
 
           return {
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.borders.base,
+              borderColor: theme.palette.border.emphasis,
             },
 
             "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: theme.palette.borders.emphasis,
+                borderColor: theme.palette.border.strong,
               },
 
             "&.Mui-focused:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
@@ -1079,7 +1088,7 @@ const DiamondDSTheme = extendTheme({
             },
 
             "&.Mui-disabled .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--ds-border-subtle)",
+              borderColor: "var(--ds-border)",
             },
           };
         },
@@ -1214,7 +1223,7 @@ const DiamondDSTheme = extendTheme({
             ...common,
             backgroundColor: p.container,
             color: p.onContainer,
-            border: "1px solid var(--ds-border-subtle)",
+            border: "1px solid var(--ds-border)",
           };
         },
       },
@@ -1302,7 +1311,7 @@ const DiamondDSTheme = extendTheme({
         root: {
           backgroundColor: "var(--ds-surface-container)",
           color: "var(--ds-on-surface)",
-          border: "1px solid var(--ds-border-subtle)",
+          border: "1px solid var(--ds-border)",
           borderRadius: 8,
         },
 
