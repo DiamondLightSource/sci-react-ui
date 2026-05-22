@@ -18,18 +18,35 @@ export interface ThemeSwapperProps {
 
 export const TextLight = "Mode: Light";
 export const TextDark = "Mode: Dark";
+export const TextSystem = "Mode: System";
 
 const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
-  const { mode, setMode } = useColorScheme();
-  //if( !mode ) return
+  const { mode, systemMode, setMode } = useColorScheme();
 
   useEffect(() => {
-    const selectedThemeMode = context.globals.themeMode || TextLight;
-    setMode(selectedThemeMode == TextLight ? "light" : "dark");
-  }, [context.globals.themeMode]);
+    const selectedThemeMode = context.globals.themeMode ?? TextSystem;
+
+    if (selectedThemeMode === TextLight) {
+      setMode("light");
+      return;
+    }
+
+    if (selectedThemeMode === TextDark) {
+      setMode("dark");
+      return;
+    }
+
+    setMode("system");
+  }, [context.globals.themeMode, setMode]);
+
+  const resolvedMode = mode === "system" ? systemMode : mode;
 
   return (
-    <div style={{ backgroundColor: mode === "light" ? "#fafafaaa" : "#000a" }}>
+    <div
+      style={{
+        backgroundColor: resolvedMode === "light" ? "#F6F6F9" : "#0e1017",
+      }}
+    >
       {children}
     </div>
   );
