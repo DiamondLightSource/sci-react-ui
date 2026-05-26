@@ -1,19 +1,31 @@
-import packageJson from "../../package.json"
+import packageJson from "../../package.json";
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Introduction" />
+<Meta title="Installation" />
+
+<style>{`
+  .ds-docs {
+    max-width: 100ch;
+  }
+
+  .ds-docs p {
+    max-width: 78ch;
+  }
+`}</style>
+
+<div className="ds-docs">
 
 <div className="sb-container">
     <div className='sb-section-title'>
-        # Scientific React UI - v{packageJson.version}
+        # SciReactUI - v{packageJson.version}
 
         ## Introduction
 
-        SciReactUI is a collection of useful scientific focused components which utilizing Material UI
-        to make your React based websites look great.
+        SciReactUI provides the implementation package for Diamond Design System.
 
-        Check out the list of components on the left. To use them, follow the instructions below.
+        Use this page to install the package, add the theme provider, and start using components in a React application.
     </div>
+
 </div>
 
 <div className="sb-container">
@@ -30,8 +42,9 @@ import { Meta } from "@storybook/blocks";
 
         ### Next, Add a ThemeProvider
 
-        Select a theme, either `GenericTheme` or `DiamondTheme` (Or you can create your own, see below), and add
-        it to the App via the ThemeProvider:
+        Select theme `DiamondDSTheme` (or `GenericTheme`), and add it to the App via the ThemeProvider.
+
+        Alternatively, you can fork an existing theme or create your own (see below).
 
         ```tsx filename="main.tsx"
         import {
@@ -111,8 +124,8 @@ import { Meta } from "@storybook/blocks";
         }
         ```
     </div>
-</div>
 
+</div>
 
 <div className="sb-container">
     <div className='sb-section-title'>
@@ -151,4 +164,20 @@ import { Meta } from "@storybook/blocks";
         on GitHub.
 
     </div>
+    <div className='sb-section-title'>
+
+        ## Adapting the Diamond DS Theme
+
+        The Diamond DS theme is a semantic layer built on top of MUI. It separates component behaviour from fixed Diamond colours, so the same theme structure can be reused with a different palette.
+
+        The important part is the role tokens. If your CSS defines the same role variables, the components will continue to work with your new colours.
+
+        To customise the theme, copy `DiamondDSTheme` and `diamond-ds-roles.css`, then rename both for your project. In your copied CSS file, keep the same token names and replace the colour values with your own palette.
+
+        For example, within the CSS file you can change `--ds-primary: #2a4db8;` to your desired primary colour.
+
+  </div>
+
+</div>
+
 </div>
