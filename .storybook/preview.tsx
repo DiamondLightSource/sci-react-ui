@@ -99,6 +99,7 @@ const preview: Preview = {
           "Overview",
           "Installation",
           "Practical Guidance",
+          "Working with Components",
           "Helpers",
           "Theme",
           "Theme/Logos",
