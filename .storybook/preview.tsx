@@ -96,7 +96,8 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          "Introduction",
+          "Overview",
+          "Installation",
           "Helpers",
           "Theme",
           "Theme/Logos",
