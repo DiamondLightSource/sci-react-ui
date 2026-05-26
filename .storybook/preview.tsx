@@ -98,6 +98,7 @@ const preview: Preview = {
         order: [
           "Overview",
           "Installation",
+          "Practical Guidance",
           "Helpers",
           "Theme",
           "Theme/Logos",
