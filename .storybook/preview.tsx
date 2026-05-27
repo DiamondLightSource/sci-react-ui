@@ -1,7 +1,8 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
-
+import "@fontsource-variable/inter";
+import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
 import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";

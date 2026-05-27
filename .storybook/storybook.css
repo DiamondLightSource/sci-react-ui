@@ -1,0 +1,58 @@
+:root {
+    --ds-font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont,
+      'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+    --ds-font-heading: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont,
+      'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+    --ds-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco,
+      Consolas, 'Liberation Mono', 'Courier New', monospace;
+  }
+  
+  /* Docs root */
+  .sbdocs, .sbdocs p, .sbdocs li,.sb-unstyled, .sb-unstyled ul, .sb-unstyled li {
+    font-family: var(--ds-font-body);
+    font-size: 16px !important;
+    line-height: 1.6;
+  }
+  
+  /* Lists */
+  .sbdocs li {
+    font-size: 16px !important;
+  }
+  
+  /* Headings use Outfit or Inter */
+  
+  .sbdocs h1 {
+    font-family: var(--ds-font-heading);
+  }
+  
+  .sbdocs h3,
+  .sbdocs h4,
+  .sbdocs h5,
+  .sbdocs h6 {
+    font-family: var(--ds-font-body);
+  }
+  
+  /* Code uses IBM Plex Mono */
+  .sbdocs code,
+  .sbdocs pre,
+  .sbdocs kbd,
+  .sbdocs samp,
+  .token {
+    font-family: var(--ds-font-mono);
+    font-size: 1em;
+  }
+  
+  /* Neutralise Storybook Docs inline preview background wrapper */
+  .sbdocs-preview div[style*="background-color"], #storybook-root div[style*="background-color"] {
+    background-color: transparent !important;
+  }
+  
+  .light .sbdocs-preview div[style*="background-color"] {
+    background-color: #f6f6f6 !important;
+  }
+  
+  .dark .sbdocs-preview div[style*="background-color"]{
+    background-color: #212121   !important;
+  }
