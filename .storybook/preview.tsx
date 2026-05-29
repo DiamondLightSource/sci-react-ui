@@ -6,6 +6,7 @@ import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
 import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";
+import { DocsContainer } from "@storybook/blocks";
 import "../src/styles/diamondDS/diamond-ds-roles.css";
 
 const TextThemeBase = "Theme: Generic";
@@ -89,6 +90,26 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    docs: {
+      container: ({ children, context }) => {
+        const selectedThemeMode = context.store.userGlobals.globals.themeMode;
+
+        const resolvedMode =
+          selectedThemeMode === TextLight
+            ? "light"
+            : selectedThemeMode === TextDark
+              ? "dark"
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+
+        React.useEffect(() => {
+          document.documentElement.setAttribute("data-mode", resolvedMode);
+        }, [resolvedMode]);
+
+        return <DocsContainer context={context}>{children}</DocsContainer>;
       },
     },
     backgrounds: { disable: true },
