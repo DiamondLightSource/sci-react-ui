@@ -1088,7 +1088,15 @@ const DiamondDSTheme = extendTheme({
             },
 
             "&.Mui-disabled .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--ds-border)",
+              borderColor: "var(--ds-border-subtle)",
+            },
+
+            "&:has(input[readonly]) .MuiOutlinedInput-notchedOutline": {
+              borderColor: "var(--ds-border-subtle)",
+            },
+
+            "&:has(input[readonly]):hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "var(--ds-border-subtle)",
             },
           };
         },
