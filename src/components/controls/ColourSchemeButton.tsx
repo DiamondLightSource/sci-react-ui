@@ -1,47 +1,34 @@
-import { useColorScheme, useTheme } from "@mui/material";
+import { useColorScheme } from "@mui/material";
 import { IconButton, IconButtonProps } from "@mui/material";
 
 import LightModeIcon from "@mui/icons-material/LightMode";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 
-import { ColourSchemes } from "../../utils/globals";
-
-const ColourSchemeButton = (props: IconButtonProps) => {
-  const theme = useTheme();
-  const { colorScheme: colourScheme, setColorScheme: setColourScheme } =
-    useColorScheme();
-
-  if (!colourScheme) return undefined;
-
-  const isDark = (): boolean => colourScheme === ColourSchemes.Dark;
+export const ColourSchemeButton = ({ sx, ...props }: IconButtonProps) => {
+  const { mode, setMode } = useColorScheme();
+  const isDark = mode === "dark";
 
   return (
     <IconButton
-      sx={{
-        height: 35,
-        width: 35,
-        marginLeft: "10px !important",
-        borderRadius: "5px",
-        backgroundColor: theme.palette.primary.light,
-        color: theme.palette.primary.contrastText,
-        "&:hover": {
-          opacity: 0.8,
-          backgroundImage: "",
-          backgroundColor: isDark() ? "#111" : "skyblue",
-          color: "yellow",
-        },
-      }}
-      aria-label={`Colour scheme switcher: ${colourScheme}`}
+      aria-label={`Colour scheme switcher: ${mode}`}
       {...props}
       onClick={(event) => {
-        setColourScheme(isDark() ? ColourSchemes.Light : ColourSchemes.Dark);
-        if (props.onClick) props.onClick(event);
+        setMode?.(isDark ? "light" : "dark");
+        props.onClick?.(event);
       }}
+      sx={[
+        {
+          ml: 1,
+          color: "inherit",
+          "&:hover": {
+            backgroundColor: (theme) => theme.palette.action.hover,
+          },
+        },
+        // Had to add to satisfy typing
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
     >
-      {isDark() ? <BedtimeIcon /> : <LightModeIcon />}
+      {isDark ? <LightModeIcon /> : <BedtimeIcon />}
     </IconButton>
   );
 };
-
-export type { IconButtonProps };
-export { ColourSchemeButton };

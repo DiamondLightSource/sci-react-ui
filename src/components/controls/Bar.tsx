@@ -8,35 +8,30 @@ import {
   Stack,
   styled,
 } from "@mui/material";
+import { Theme } from "@mui/material/styles";
+
+type IntentColour =
+  | "primary"
+  | "secondary"
+  | "error"
+  | "warning"
+  | "info"
+  | "success";
 
 interface SlotProps extends BoxProps, React.PropsWithChildren {
   className: string;
 }
-const Slot = ({ className, style, children }: SlotProps) => (
-  <Stack
-    className={className}
-    direction="row"
-    alignItems="center"
-    spacing={2}
-    style={style}
-  >
+
+const Slot = ({ className, children }: SlotProps) => (
+  <Stack className={className} direction="row" alignItems="center" spacing={2}>
     {children}
   </Stack>
 );
 
-const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
-  width: "100%",
-  height: "auto",
-  minHeight: "50px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  borderRadius: 0,
-  backgroundColor: theme.vars.palette.primary.main,
-}));
-
-interface BarProps extends BoxProps, React.PropsWithChildren {
+interface BarProps extends BoxProps {
   containerWidth?: false | Breakpoint;
+  color?: IntentColour;
+  variant?: "default" | "subtle";
 }
 
 interface BarSlotsProps extends BarProps {
@@ -44,6 +39,49 @@ interface BarSlotsProps extends BarProps {
   rightSlot?: React.ReactElement<LinkProps>;
   leftSlot?: React.ReactElement<LinkProps>;
 }
+
+const BoxStyled = styled(Box)<BarProps>(({
+  theme,
+  color,
+  variant = "default",
+}: {
+  theme: Theme;
+  color?: IntentColour;
+  variant?: "default" | "subtle";
+}) => {
+  let styles;
+
+  if (!color) {
+    styles = {
+      backgroundColor:
+        variant === "subtle"
+          ? (theme.palette.surface?.subtle ?? theme.palette.background.paper)
+          : theme.palette.background.paper,
+      color: theme.palette.text.primary,
+    };
+  } else {
+    const p = theme.palette[color];
+
+    styles =
+      variant === "subtle"
+        ? {
+            backgroundColor: p.container,
+            color: p.onContainer,
+          }
+        : {
+            backgroundColor: p.solid,
+            color: p.onSolid,
+          };
+  }
+
+  return {
+    width: "100%",
+    minHeight: 50,
+    display: "flex",
+    alignItems: "center",
+    ...styles,
+  };
+});
 
 /**
  * Basic bar. Comes with three slots, and adjustable width. Children are placed in the left slot.
@@ -57,20 +95,12 @@ const Bar = ({
   ...props
 }: BarSlotsProps) => (
   <BoxStyled {...props}>
-    <Container
-      maxWidth={containerWidth}
-      sx={{
-        height: "100%",
-      }}
-    >
+    <Container maxWidth={containerWidth} sx={{ height: "100%" }}>
       <Stack
         direction="row"
-        style={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ height: "100%", width: "100%" }}
       >
         <Slot className="left-slot">
           {leftSlot}
@@ -78,7 +108,7 @@ const Bar = ({
         </Slot>
 
         <Box
-          style={{
+          sx={{
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",

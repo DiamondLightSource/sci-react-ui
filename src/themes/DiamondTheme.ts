@@ -3,7 +3,7 @@ import { createTheme, Theme } from "@mui/material/styles";
 
 import { mergeThemeOptions } from "./ThemeManager";
 
-import logoImageLight from "../public/diamond/logo-light.svg";
+import logoImageLight from "../public/diamond/logo-light-surface.svg";
 import logoShort from "../public/diamond/logo-short.svg";
 
 const dlsLogoBlue = "#202740";

@@ -30,8 +30,8 @@ import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { RadioProps } from "@mui/material/Radio";
 import type { TabProps } from "@mui/material/Tab";
 
-import logoImageLight from "../public/diamond/logo-light.svg";
-import logoImageDark from "../public/diamond/logo-dark.svg";
+import logoImageLightSurface from "../public/diamond/logo-light-surface.svg";
+import logoImageDarkSurface from "../public/diamond/logo-dark-surface.svg";
 import logoShort from "../public/diamond/logo-short.svg";
 import type { ImageColourSchemeSwitchType } from "components/controls/ImageColourSchemeSwitch";
 
@@ -599,8 +599,8 @@ const DiamondDSTheme = extendTheme({
 
   logos: {
     normal: {
-      src: logoImageLight,
-      srcDark: logoImageDark ?? logoImageLight,
+      src: logoImageLightSurface,
+      srcDark: logoImageDarkSurface ?? logoImageLightSurface,
       alt: "Diamond Light Source Logo",
       width: "100",
     },

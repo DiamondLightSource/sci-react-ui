@@ -1,14 +1,5 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
-import {
-  Box,
-  Drawer,
-  Link,
-  LinkProps,
-  IconButton,
-  Stack,
-  useTheme,
-  styled,
-} from "@mui/material";
+import { Box, Drawer, Link, LinkProps, IconButton, Stack } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { forwardRef, useState } from "react";
 
@@ -30,8 +21,6 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
   { children, linkComponent, to, href, ...props }: NavLinkProps,
   ref,
 ) {
-  const theme = useTheme();
-
   const shouldUseLinkComponent = linkComponent && to;
 
   const linkProps = shouldUseLinkComponent
@@ -42,22 +31,20 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
     <Link
       {...linkProps}
       ref={ref}
+      color="inherit"
+      underline="none"
       sx={{
-        "&:hover": {
-          color: theme.palette.secondary.main,
-          borderBottom: "solid 4px",
-          textDecoration: "none",
-        },
-        "&.active": {
-          color: theme.palette.secondary.main,
-        },
-        textDecoration: "none",
-        alignItems: "center",
         display: "flex",
-        padding: "13px 3px 0",
+        alignItems: "center",
+        px: 1,
+        pt: "13px",
+        pb: 0.5,
         borderBottom: "4px solid transparent",
-        backgroundColor: { md: "none" },
-        color: theme.palette.primary.contrastText,
+
+        "&:hover, &.active": {
+          borderBottomColor: "currentColor",
+          backgroundColor: (theme) => theme.palette.action.hover,
+        },
       }}
       {...props}
     >
@@ -72,26 +59,21 @@ interface NavLinksProps {
 
 const NavLinks = ({ children }: NavLinksProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const theme = useTheme();
+
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
   return (
     <>
       <IconButton
-        sx={{
-          color: theme.palette.primary.contrastText,
-          display: { md: "none" },
-          order: -1,
-          marginLeft: "0 !important",
-          "&:hover": { filter: "brightness(90%);" },
-        }}
-        size={"small"}
+        size="small"
         aria-label="Open Menu"
         onClick={isOpen ? onClose : onOpen}
+        sx={{ display: { md: "none" }, order: -1 }}
       >
         {isOpen ? <MdClose /> : <MdMenu />}
       </IconButton>
+
       <Stack
         direction="row"
         sx={{
@@ -100,46 +82,36 @@ const NavLinks = ({ children }: NavLinksProps) => {
           marginLeft: "0 !important",
         }}
         component="nav"
-        spacing={4}
+        spacing={2}
       >
         {children}
       </Stack>
-      <Drawer
-        open={isOpen}
-        onClose={onClose}
-        anchor="left"
-        PaperProps={{
-          sx: { backgroundColor: theme.vars.palette.primary.main },
-        }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            padding: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            backgroundColor: theme.vars.palette.primary.main,
-          }}
-        >
-          {children}
-        </Box>
+      <Drawer open={isOpen} onClose={onClose} anchor="left">
+        <Bar color="primary" variant="default" sx={{ height: "100%" }}>
+          <Box
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            {children}
+          </Box>
+        </Bar>
       </Drawer>
     </>
   );
 };
 
-const BarStyled = styled(Bar)<BarSlotsProps>(() => ({
-  top: 0,
-  zIndex: 1,
-}));
-
 interface NavbarProps extends BarSlotsProps {
   logo?: ImageColourSchemeSwitchType | "theme";
   linkComponent?: React.ElementType;
 }
+
 /**
- * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
+ * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links. Brand surface by default.
  */
 const Navbar = ({
   logo,
@@ -149,9 +121,16 @@ const Navbar = ({
   ...props
 }: NavbarProps) => {
   return (
-    <BarStyled
+    <Bar
       data-testid="navbar"
+      color="primary"
+      variant="default"
       {...props}
+      sx={(theme) => ({
+        backgroundColor:
+          theme.palette.brand?.solid ?? theme.palette.primary.solid,
+        color: theme.palette.brand?.onSolid ?? theme.palette.primary.onSolid,
+      })}
       leftSlot={
         <>
           {logo && (
@@ -160,16 +139,24 @@ const Navbar = ({
               {...(linkComponent
                 ? { component: linkComponent, to: "/" }
                 : { href: "/" })}
+              color="inherit"
             >
               <Box
-                maxWidth="5rem"
                 sx={{
-                  "&:hover": { filter: "brightness(80%);" },
-                  marginRight: { xs: "0", md: "50px" },
+                  height: 32,
+                  display: "flex",
+                  alignItems: "center",
+                  mb: "2px",
+                  "& img": {
+                    height: "100%",
+                    width: "auto",
+                  },
+                  "&:hover": { opacity: 0.8 },
+                  mr: { xs: 0, md: 5 },
                 }}
               >
                 {logo == "theme" ? (
-                  <Logo interchange={true} />
+                  <Logo tone="inverse" />
                 ) : (
                   <ImageColourSchemeSwitch image={logo} />
                 )}

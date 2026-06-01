@@ -8,7 +8,6 @@ import {
   MenuItem,
   Stack,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { ReactElement, ReactNode, useState } from "react";
 import { MdLogin } from "react-icons/md";
@@ -25,7 +24,6 @@ interface UserProps {
   onLogin?: () => void;
   onLogout?: () => void;
   avatar?: ReactNode;
-  colour?: string;
   menuItems?: ReactElement<typeof MenuItem> | ReactElement<typeof MenuItem>[];
   auth?: Auth;
 }
@@ -35,7 +33,6 @@ const User = ({
   onLogin,
   onLogout,
   avatar,
-  colour,
   menuItems,
   auth,
 }: UserProps) => {
@@ -59,8 +56,6 @@ const User = ({
     if (onLogout) onLogout();
   };
 
-  const theme = useTheme();
-
   if (!user && auth && auth.user) {
     user = { name: auth.user.name };
   }
@@ -73,51 +68,28 @@ const User = ({
           <Button
             aria-label="User Avatar"
             onClick={handleClick}
-            sx={{
-              border: "none",
-              cursor: "pointer",
-              minWidth: 0,
-              marginLeft: "10px !important",
-              "&:hover": {
-                opacity: 0.8,
-              },
-            }}
+            variant="text"
+            color="inherit"
           >
-            <Stack direction="row" alignItems="center">
+            <Stack direction="row" alignItems="center" spacing={1}>
               {avatar || (
                 <Avatar
                   alt={user.name + " avatar"}
                   variant="rounded"
-                  sx={{
-                    backgroundColor: theme.vars.palette.primary.light,
-                    color: colour || "textPrimary",
-                    height: 35,
-                    width: 35,
-                  }}
+                  sx={{ width: 32, height: 32 }}
                 />
               )}
-              <Box
-                sx={{
-                  padding: "5px",
-                  display: { xs: "none", sm: "block" },
-                }}
-              >
-                <Typography
-                  fontSize="0.75rem"
-                  textTransform="none"
-                  textAlign="left"
-                  pl={"1px"}
-                  color={colour || "textPrimary"}
-                >
+
+              <Box>
+                <Typography variant="caption" display="block" textAlign="left">
                   {user.name ? user.name : user.fedid}
                 </Typography>
                 {user.name && (
                   <Typography
-                    fontSize="0.75rem"
-                    textTransform="none"
+                    variant="caption"
+                    display="block"
                     textAlign="left"
-                    pl={"1px"}
-                    color={colour || "textPrimary"}
+                    sx={{ opacity: 0.7 }}
                   >
                     {user.fedid}
                   </Typography>
@@ -133,49 +105,25 @@ const User = ({
               open={open}
               onClose={handleClose}
               autoFocus={false}
-              sx={{
-                "li:hover": {
-                  color: theme.palette.secondary.main,
-                  borderLeft: "solid 4px",
-                  borderBottom: "none",
-                },
-                "li:focus": {
-                  color: theme.palette.secondary.main,
-                  borderLeft: "solid 4px",
-                },
-                li: {
-                  paddingLeft: "8px",
-                  textDecoration: "none",
-                  alignItems: "center",
-                  display: "flex",
-                  borderLeft: "4px solid transparent",
-                  backgroundColor: { md: "none" },
-                  color: theme.palette.primary.contrastText,
-                },
-                a: {
-                  backgroundColor: { md: "none" },
-                  color: theme.palette.primary.contrastText,
-                },
-              }}
-              slotProps={{
-                paper: {
-                  style: { backgroundColor: theme.palette.primary.light },
-                },
-              }}
             >
               {menuItems}
+
               {auth && (
                 <MenuItem>
                   <Link
                     href={auth.getProfileUrl()}
-                    sx={{ textDecoration: "none" }}
+                    underline="none"
+                    color="inherit"
                   >
                     Profile
                   </Link>
                 </MenuItem>
               )}
+
               <MenuItem onClick={handleLogout} aria-label="Logout">
-                <Link sx={{ textDecoration: "none" }}>Logout</Link>
+                <Link underline="none" color="inherit">
+                  Logout
+                </Link>
               </MenuItem>
             </Menu>
           )}
@@ -184,10 +132,8 @@ const User = ({
         <Button
           onClick={handleLogin}
           startIcon={<MdLogin />}
-          sx={{
-            backgroundColor: theme.vars.palette.primary.light,
-            color: theme.vars.palette.primary.contrastText,
-          }}
+          variant="contained"
+          color="primary"
         >
           Login
         </Button>

@@ -3,7 +3,6 @@ import {
   Breadcrumbs as MuiBreadcrumbs,
   BreadcrumbsProps as MuiBreadcrumbsProps,
   Link as MuiLink,
-  styled,
   Typography,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
@@ -53,17 +52,6 @@ export function getCrumbs(
   });
 }
 
-const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
-  backgroundColor: theme.vars.palette.primary.light,
-}));
-
-const MuiBreadcrumbsStyled = styled(MuiBreadcrumbs)<MuiBreadcrumbsProps>(
-  ({ theme }) => ({
-    color: theme.vars.palette.primary.contrastText,
-    padding: 0,
-  }),
-);
-
 const Breadcrumbs = ({
   path,
   linkComponent,
@@ -73,8 +61,8 @@ const Breadcrumbs = ({
   const crumbs: CustomLink[] = getCrumbs(path);
 
   return (
-    <BarStyled {...props}>
-      <MuiBreadcrumbsStyled
+    <Bar variant="subtle" {...props}>
+      <MuiBreadcrumbs
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="small" />}
         {...muiBreadcrumbsProps}
@@ -105,7 +93,7 @@ const Breadcrumbs = ({
             return (
               <MuiLink
                 key={`crumb-${i + 1}`}
-                sx={{ fontSize: "smaller", mt: 0.1 }}
+                fontSize="smaller"
                 underline="hover"
                 color="inherit"
                 {...(linkComponent
@@ -118,16 +106,17 @@ const Breadcrumbs = ({
           else {
             return (
               <Typography
-                key={`crumb-${i + 1}`}
-                sx={{ fontWeight: "bold", mt: 0.2 }}
+                key={`crumb-${i}`}
+                variant="body2"
+                fontWeight="medium"
               >
                 {crumb.name}
               </Typography>
             );
           }
         })}
-      </MuiBreadcrumbsStyled>
-    </BarStyled>
+      </MuiBreadcrumbs>
+    </Bar>
   );
 };
 

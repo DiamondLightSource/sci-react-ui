@@ -73,13 +73,6 @@ export const NoNumbers: Story = {
   },
 };
 
-export const DifferentBackgroundColour: Story = {
-  args: {
-    images: imagesList,
-    backgroundColor: "#166",
-  },
-};
-
 export const OneImage: Story = {
   args: {
     images: imagesList[0],

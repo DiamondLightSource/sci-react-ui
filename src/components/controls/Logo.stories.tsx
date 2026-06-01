@@ -41,7 +41,7 @@ export const TheShortLogo: Story = {
 
 export const LightLogoForDarkTheme: Story = {
   args: {
-    interchange: true,
+    tone: "inverse",
     style: { padding: "10px", background: "grey" },
   },
   parameters: {

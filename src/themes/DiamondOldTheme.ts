@@ -3,8 +3,8 @@ import { createTheme, Theme } from "@mui/material/styles";
 import { mergeThemeOptions } from "./ThemeManager";
 import { DiamondThemeOptions } from "./DiamondTheme";
 
-import logoImageDark from "../public/diamond/logo-dark.svg";
-import logoImageLight from "../public/diamond/logo-light.svg";
+import logoImageDark from "../public/diamond/logo-dark-surface.svg";
+import logoImageLight from "../public/diamond/logo-light-surface.svg";
 
 const DiamondOldThemeOptions = mergeThemeOptions(
   {

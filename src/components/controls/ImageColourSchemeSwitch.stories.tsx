@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ImageColourSchemeSwitch } from "./ImageColourSchemeSwitch";
 
-import imageDark from "../../public/generic/logo-dark.svg";
-import imageLight from "../../public/generic/logo-light.svg";
+import imageDark from "../../public/generic/logo-dark-surface.svg";
+import imageLight from "../../public/generic/logo-light-surface.svg";
 
 const meta: Meta<typeof ImageColourSchemeSwitch> = {
   title: "Components/Controls/ImageColourSchemeSwitch",

@@ -4,20 +4,15 @@ import type { Preview } from "@storybook/react";
 import "@fontsource-variable/inter";
 import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
-import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
+import { DiamondDSTheme } from "../src";
 import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";
 import "../src/styles/diamondDS/diamond-ds-roles.css";
 
-const TextThemeBase = "Theme: Generic";
-const TextThemeDiamond = "Theme: Diamond";
 const TextThemeDiamondDS = "Theme: DiamondDS";
 
+// Left in for now even though only a single theme
 function resolveTheme(selectedTheme: string) {
   switch (selectedTheme) {
-    case TextThemeBase:
-      return GenericTheme;
-    case TextThemeDiamond:
-      return DiamondTheme;
     case TextThemeDiamondDS:
     default:
       return DiamondDSTheme;
@@ -66,7 +61,7 @@ const preview: Preview = {
       toolbar: {
         title: "Theme",
         icon: "cog",
-        items: [TextThemeBase, TextThemeDiamond, TextThemeDiamondDS],
+        items: [TextThemeDiamondDS],
         dynamicTitle: true,
       },
     },

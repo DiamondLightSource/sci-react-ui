@@ -1,5 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Box, Button, IconButton, Slider, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Slider,
+  Stack,
+  useTheme,
+} from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -40,7 +47,7 @@ const ScrollableImages = ({
   scrollStep = 320,
 }: ScrollableImagesProps) => {
   const [imageList, setImageList] = useState<ImageInfo[]>([]);
-
+  const theme = useTheme();
   const handleArrowKeys = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "ArrowLeft") handlePrev();
     else if (event.key === "ArrowRight") handleNext();
@@ -122,8 +129,6 @@ const ScrollableImages = ({
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 2,
-            backgroundColor: "#4C5266",
-            color: "white",
           }}
         >
           <ArrowBackIosNewIcon data-testid="scroll-left-button" />
@@ -147,8 +152,9 @@ const ScrollableImages = ({
                 height,
                 flexShrink: 0,
                 scrollSnapAlign: "start",
-                backgroundColor,
-                border: "1px solid #ccc",
+                backgroundColor:
+                  backgroundColor ?? theme.palette.background.paper,
+                border: `1px solid ${theme.palette.divider}`,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -176,8 +182,6 @@ const ScrollableImages = ({
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 2,
-            backgroundColor: "#4C5266",
-            color: "white",
           }}
         >
           <ArrowForwardIosIcon data-testid="scroll-right-button" />
@@ -192,6 +196,7 @@ const ScrollableImages = ({
         {buttons && imageCount > 1 && (
           <Button
             aria-label="Previous Image"
+            variant="text"
             onClick={handlePrev}
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}
@@ -208,8 +213,8 @@ const ScrollableImages = ({
           sx={{
             width,
             height,
-            backgroundColor,
-            border: "1px solid #ccc",
+            backgroundColor: backgroundColor ?? theme.palette.background.paper,
+            border: `1px solid ${theme.palette.divider}`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -242,6 +247,7 @@ const ScrollableImages = ({
         {buttons && imageCount > 1 && (
           <Button
             aria-label="Next Image"
+            variant="text"
             onClick={handleNext}
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}

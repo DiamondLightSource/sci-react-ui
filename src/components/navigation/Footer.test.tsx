@@ -46,7 +46,12 @@ describe("Footer logo and copyright", () => {
 
   test("Should render logo via theme", async () => {
     renderWithProviders(<Footer logo="theme" />);
-    expect(await screen.findByTestId("mock-logo")).toBeInTheDocument();
+
+    expect(
+      await screen.findByRole("img", {
+        name: /diamond light source/i,
+      }),
+    ).toBeInTheDocument();
   });
 
   test("Should render copyright only", async () => {
