@@ -1403,6 +1403,28 @@ const DiamondDSTheme = extendTheme({
         },
       },
     },
+
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          backgroundColor: "var(--ds-surface-container)",
+        },
+
+        stickyHeader: {
+          backgroundColor: "var(--ds-surface-container)",
+          borderBottom: "1px solid var(--ds-border-emphasis)",
+        },
+      },
+    },
+
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "var(--ds-surface)",
+          boxShadow: "none",
+        },
+      },
+    },
   },
 });
 
