@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Bar, BarProps } from "./Bar";
+import { Typography } from "@mui/material";
+import { Bar } from "./Bar";
 
 const meta: Meta<typeof Bar> = {
   title: "Components/Controls/Bar",
@@ -10,24 +11,58 @@ const meta: Meta<typeof Bar> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const Slot = ({ children }: BarProps) => (
-  <div
-    style={{
-      color: "black",
-      background: "white",
-      padding: "5px 8px",
-      borderRadius: "10px",
-    }}
-  >
-    {children}
-  </div>
-);
+export const Default: Story = {
+  args: {
+    leftSlot: <Typography variant="body1">Left</Typography>,
+    centreSlot: <Typography variant="body1">Centre</Typography>,
+    rightSlot: <Typography variant="body1">Right</Typography>,
+  },
+};
+
+export const Primary: Story = {
+  args: {
+    color: "primary",
+    leftSlot: <Typography variant="body1">Primary Bar</Typography>,
+    rightSlot: <Typography>Actions</Typography>,
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    color: "secondary",
+    leftSlot: <Typography variant="body1">Secondary Bar</Typography>,
+  },
+};
+
+export const Subtle: Story = {
+  args: {
+    color: "primary",
+    variant: "subtle",
+    leftSlot: <Typography variant="body1">Subtle Primary</Typography>,
+  },
+};
+
+export const WithTitle: Story = {
+  args: {
+    color: "primary",
+    leftSlot: <Typography variant="h6">My App</Typography>,
+    rightSlot: <Typography>Controls</Typography>,
+  },
+};
+
+export const FullWidth: Story = {
+  args: {
+    containerWidth: false,
+    leftSlot: <Typography>Full width content</Typography>,
+    rightSlot: <Typography>Right</Typography>,
+  },
+};
 
 export const AllSlots: Story = {
   args: {
-    leftSlot: <Slot>Left Slot</Slot>,
-    centreSlot: <Slot>Centre Slot</Slot>,
-    rightSlot: <Slot>Right Slot</Slot>,
+    leftSlot: <Typography>Left</Typography>,
+    centreSlot: <Typography>Centre</Typography>,
+    rightSlot: <Typography>Right</Typography>,
   },
   parameters: {
     docs: {
@@ -38,10 +73,10 @@ export const AllSlots: Story = {
   },
 };
 
-export const Children: Story = {
+export const WithChildren: Story = {
   args: {
-    leftSlot: <Slot>Left Slot</Slot>,
-    children: <Slot>Children</Slot>,
+    leftSlot: <Typography>Left</Typography>,
+    children: <Typography>Children</Typography>,
   },
   parameters: {
     docs: {
@@ -53,11 +88,20 @@ export const Children: Story = {
   },
 };
 
+export const WithContent: Story = {
+  args: {
+    leftSlot: <Typography variant="body1">Text content</Typography>,
+    centreSlot: <input placeholder="Input field" />,
+    rightSlot: <button>Action</button>,
+  },
+};
+
 export const Width: Story = {
   args: {
-    leftSlot: <Slot>|&lt;</Slot>,
-    centreSlot: <Slot>Normal width</Slot>,
-    rightSlot: <Slot>&gt;|</Slot>,
+    leftSlot: <Typography>|&lt;</Typography>,
+    centreSlot: <Typography>&quot;md&quot; Width</Typography>,
+    rightSlot: <Typography>&gt;|</Typography>,
+    containerWidth: "md",
   },
   parameters: {
     docs: {
@@ -72,9 +116,9 @@ export const Width: Story = {
 
 export const WidthMax: Story = {
   args: {
-    leftSlot: <Slot>|&lt;</Slot>,
-    centreSlot: <Slot>Max width</Slot>,
-    rightSlot: <Slot>&gt;|</Slot>,
+    leftSlot: <Typography>|&lt;</Typography>,
+    centreSlot: <Typography>Max Width</Typography>,
+    rightSlot: <Typography>&gt;|</Typography>,
     containerWidth: false,
   },
   parameters: {
@@ -89,9 +133,9 @@ export const WidthMax: Story = {
 
 export const WidthThin: Story = {
   args: {
-    leftSlot: <Slot>|&lt;</Slot>,
-    centreSlot: <Slot>&quot;sm&quot; width</Slot>,
-    rightSlot: <Slot>&gt;|</Slot>,
+    leftSlot: <Typography>|&lt;</Typography>,
+    centreSlot: <Typography>&quot;sm&quot; width</Typography>,
+    rightSlot: <Typography>&gt;|</Typography>,
     containerWidth: "sm",
   },
   parameters: {
@@ -100,68 +144,6 @@ export const WidthThin: Story = {
         story:
           'When "containerWidth" is set to one of "xs, sm, md, lg, xl", the content of the bar ' +
           "uses the corresponding width set in the theme.",
-      },
-    },
-  },
-};
-
-export const Styles: Story = {
-  args: {
-    leftSlot: (
-      <p>
-        <strong>Colours...</strong>
-      </p>
-    ),
-    centreSlot: (
-      <p>
-        <strong>and text-size...</strong>
-      </p>
-    ),
-    rightSlot: (
-      <p>
-        <strong>adjusted.</strong>
-      </p>
-    ),
-    style: { background: "#600", color: "#0df", fontSize: "larger" },
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Styles are passed through to the underlining Container with the "style" parameter.',
-      },
-    },
-  },
-};
-
-export const Content: Story = {
-  args: {
-    leftSlot: <h4>My text</h4>,
-    centreSlot: (
-      <label>
-        My input: <input placeholder={"text input"} />
-      </label>
-    ),
-    rightSlot: <button>My Button</button>,
-    style: { color: "white" },
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Bars can hold anything you want",
-      },
-    },
-  },
-};
-
-export const Spacing: Story = {
-  args: {
-    style: { background: "green", height: "10px" },
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "They can become spacing devices to, to add a strip of colour.",
       },
     },
   },

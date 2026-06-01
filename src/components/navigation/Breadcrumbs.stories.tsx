@@ -74,14 +74,3 @@ export const NoLinkComponentWithCustomPath: Story = {
     ],
   },
 };
-
-export const ColourChange: Story = {
-  args: {
-    path: ["first", "second", "third", "last"],
-    linkComponent: MockLink,
-    sx: { backgroundColor: "blue" },
-    muiBreadcrumbsProps: {
-      sx: { color: "yellow" },
-    },
-  },
-};

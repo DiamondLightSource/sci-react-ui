@@ -2,8 +2,8 @@ import Chip from "@mui/material/Chip";
 import { Meta, StoryObj } from "@storybook/react";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
-import logoImageDark from "../../public/generic/logo-dark.svg";
-import logoImageLight from "../../public/generic/logo-light.svg";
+import logoImageDark from "../../public/generic/logo-dark-surface.svg";
+import logoImageLight from "../../public/generic/logo-light-surface.svg";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
@@ -28,7 +28,6 @@ export const All: Story = {
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
-          colour={"white"}
         />
         <ColourSchemeButton key="colourScheme" />
       </>
@@ -68,7 +67,6 @@ export const WithUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
-        colour={"white"}
       />
     ),
   },
@@ -112,7 +110,6 @@ export const LinksAndUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
-        colour={"white"}
       />
     ),
     children: (
@@ -206,7 +203,7 @@ export const WithThemeLogoAsChild: Story = {
     children: (
       <>
         <Logo
-          interchange={true}
+          tone={"inverse"}
           style={{
             marginRight: "100px",
             transform: "scale(2.2) translateY(-1px)",
@@ -248,7 +245,6 @@ export const LinksInSlot: Story = {
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
-          colour={"white"}
         />
         <ColourSchemeButton key="colourScheme" />
       </>

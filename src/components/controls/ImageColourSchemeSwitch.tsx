@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { useColorScheme } from "@mui/material";
 import React from "react";
 
 type ImageColourSchemeSwitchType = {
@@ -17,64 +17,41 @@ type ImageColourSchemeSwitchType = {
 interface ImageColourSchemeSwitchProps {
   /** The definition for the two images. */
   image: ImageColourSchemeSwitchType;
-  /** When true, the light image will appear in dark mode and vice-versa. */
-  interchange?: boolean;
+  /** When inverse, the light image will appear in dark mode and vice-versa. */
+  tone?: "default" | "inverse";
   /** Additional styles to pass to the underlying img tag. */
   style?: React.CSSProperties;
 }
 
-/** Styled component which is only displayed in dark mode. */
-const ImageDark = styled("img")(({ theme }) => [
-  { display: "none" },
-  theme.applyStyles("dark", {
-    display: "block",
-  }),
-]);
-
-/** Styled component which is only displayed in light mode. */
-const ImageLight = styled("img")(({ theme }) => [
-  { display: "block" },
-  theme.applyStyles("dark", {
-    display: "none",
-  }),
-]);
-
-/**
- * Switch between two different images depending on the current color scheme selected (light or dark).
- */
 const ImageColourSchemeSwitch = ({
   image,
-  interchange,
+  tone = "default",
   style,
-}: ImageColourSchemeSwitchProps) =>
-  image.srcDark ? (
-    <>
-      <ImageLight
-        data-testid="image-light"
-        src={!interchange ? image.src : image.srcDark}
-        alt={image.alt}
-        width={image.width}
-        height={image.height}
-        style={style}
-      />
-      <ImageDark
-        data-testid="image-dark"
-        src={!interchange ? image.srcDark : image.src}
-        alt={image.alt}
-        width={image.width}
-        height={image.height}
-        style={style}
-      />
-    </>
-  ) : (
+}: ImageColourSchemeSwitchProps) => {
+  const { mode } = useColorScheme();
+  const isDark = mode === "dark";
+
+  let src = image.src;
+
+  if (image.srcDark) {
+    if (tone === "inverse") {
+      src = image.srcDark;
+    } else {
+      src = isDark ? image.srcDark : image.src;
+    }
+  }
+
+  return (
     <img
-      src={image.src}
+      data-testid={mode === "dark" ? "image-dark" : "image-light"}
+      src={src}
       alt={image.alt}
       width={image.width}
       height={image.height}
       style={style}
     />
   );
+};
 
 export { ImageColourSchemeSwitch };
 export type { ImageColourSchemeSwitchProps, ImageColourSchemeSwitchType };

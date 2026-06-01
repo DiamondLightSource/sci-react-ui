@@ -53,16 +53,10 @@ export function getCrumbs(
   });
 }
 
-const BarStyled = styled(Bar)<BarProps>(({ theme }) => ({
-  backgroundColor: theme.vars.palette.primary.light,
+const MuiBreadcrumbsStyled = styled(MuiBreadcrumbs)(() => ({
+  color: "inherit",
+  padding: 0,
 }));
-
-const MuiBreadcrumbsStyled = styled(MuiBreadcrumbs)<MuiBreadcrumbsProps>(
-  ({ theme }) => ({
-    color: theme.vars.palette.primary.contrastText,
-    padding: 0,
-  }),
-);
 
 const Breadcrumbs = ({
   path,
@@ -73,7 +67,7 @@ const Breadcrumbs = ({
   const crumbs: CustomLink[] = getCrumbs(path);
 
   return (
-    <BarStyled {...props}>
+    <Bar color="primary" variant="subtle" {...props}>
       <MuiBreadcrumbsStyled
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="small" />}
@@ -127,7 +121,7 @@ const Breadcrumbs = ({
           }
         })}
       </MuiBreadcrumbsStyled>
-    </BarStyled>
+    </Bar>
   );
 };
 

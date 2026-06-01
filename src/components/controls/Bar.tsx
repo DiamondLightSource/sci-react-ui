@@ -8,10 +8,20 @@ import {
   Stack,
   styled,
 } from "@mui/material";
+import { Theme } from "@mui/material/styles";
+
+type IntentColour =
+  | "primary"
+  | "secondary"
+  | "error"
+  | "warning"
+  | "info"
+  | "success";
 
 interface SlotProps extends BoxProps, React.PropsWithChildren {
   className: string;
 }
+
 const Slot = ({ className, style, children }: SlotProps) => (
   <Stack
     className={className}
@@ -24,7 +34,37 @@ const Slot = ({ className, style, children }: SlotProps) => (
   </Stack>
 );
 
-const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
+const getBarStyles = (
+  theme: Theme,
+  color?: IntentColour,
+  variant: "default" | "subtle" = "default",
+) => {
+  if (!color) {
+    return {
+      backgroundColor:
+        variant === "subtle"
+          ? theme.palette.surface.subtle
+          : theme.palette.background.paper,
+      color: theme.palette.text.primary,
+    };
+  }
+
+  const p = theme.palette[color];
+
+  if (variant === "subtle") {
+    return {
+      backgroundColor: p.container ?? p.main,
+      color: p.onContainer ?? theme.palette.text.primary,
+    };
+  }
+
+  return {
+    backgroundColor: p.solid ?? p.main,
+    color: p.onSolid ?? theme.palette.text.onSolid,
+  };
+};
+
+const BoxStyled = styled(Box)<BarProps>(({ theme, color, variant }) => ({
   width: "100%",
   height: "auto",
   minHeight: "50px",
@@ -32,11 +72,14 @@ const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   borderRadius: 0,
-  backgroundColor: theme.vars.palette.primary.main,
+
+  ...getBarStyles(theme, color, variant),
 }));
 
 interface BarProps extends BoxProps, React.PropsWithChildren {
   containerWidth?: false | Breakpoint;
+  color?: IntentColour;
+  variant?: "default" | "subtle";
 }
 
 interface BarSlotsProps extends BarProps {

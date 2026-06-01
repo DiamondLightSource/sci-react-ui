@@ -64,12 +64,12 @@ const FooterLink = ({
       {...linkProps}
       sx={{
         "&:hover": {
-          color: theme.vars.palette.secondary.main,
           borderBottom: "solid 4px",
-          textDecoration: "none",
         },
         textDecoration: "none",
-        color: theme.palette.primary.contrastText,
+        color: (theme) =>
+          theme.palette.primary.onSolid ?? theme.palette.primary.contrastText,
+
         marginRight: "1.5rem",
         marginBottom: "4px",
         paddingBottom: "4px",
@@ -88,7 +88,10 @@ const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
   position: "relative",
   bottom: 0,
   marginTop: "auto",
-  backgroundColor: theme.vars.palette.primary.main,
+
+  backgroundColor: theme.palette.primary.solid ?? theme.palette.primary.main,
+
+  color: theme.palette.primary.onSolid ?? theme.palette.primary.contrastText,
 }));
 
 interface FooterProps extends BarSlotsProps {
@@ -126,10 +129,12 @@ const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
                 ))}
               {copyright && (
                 <Typography
-                  style={{
-                    margin: "0 0 10px 0",
-                    color: theme.palette.primary.contrastText,
-                  }}
+                  sx={(theme) => ({
+                    mb: 1,
+                    color:
+                      theme.palette.primary.onSolid ??
+                      theme.palette.primary.contrastText,
+                  })}
                 >
                   {`Copyright © ${new Date().getFullYear()} ${copyright}`}
                 </Typography>

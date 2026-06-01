@@ -50,7 +50,9 @@ export const InCentreSlot: Story = {
 export const DifferentBackground: Story = {
   args: {
     title: "My Great App",
-    sx: { backgroundColor: "red" },
+    sx: {
+      backgroundColor: "surface.subtle",
+    },
   },
   parameters: {
     docs: {
@@ -61,21 +63,8 @@ export const DifferentBackground: Story = {
   },
 };
 
-export const DifferentColourAndLarge: Story = {
+export const CustomTypography: Story = {
   args: {
-    children: (
-      <AppTitle
-        title="My Great App"
-        sx={{ color: "yellow", fontSize: "4em" }}
-      />
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "You can add styles directly to the title when it's a child or in a slot.",
-      },
-    },
+    children: <AppTitle title="My Great App" variant="h2" />,
   },
 };

@@ -6,7 +6,6 @@ import {
   LinkProps,
   IconButton,
   Stack,
-  useTheme,
   styled,
 } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
@@ -27,11 +26,9 @@ interface NavLinkProps extends LinkProps {
 }
 
 const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
-  { children, linkComponent, to, href, ...props }: NavLinkProps,
+  { children, linkComponent, to, href, ...props },
   ref,
 ) {
-  const theme = useTheme();
-
   const shouldUseLinkComponent = linkComponent && to;
 
   const linkProps = shouldUseLinkComponent
@@ -43,21 +40,29 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
       {...linkProps}
       ref={ref}
       sx={{
-        "&:hover": {
-          color: theme.palette.secondary.main,
-          borderBottom: "solid 4px",
-          textDecoration: "none",
-        },
-        "&.active": {
-          color: theme.palette.secondary.main,
-        },
-        textDecoration: "none",
-        alignItems: "center",
         display: "flex",
-        padding: "13px 3px 0",
+        alignItems: "center",
+        textDecoration: "none",
+
+        px: 1,
+        py: 1,
+
         borderBottom: "4px solid transparent",
-        backgroundColor: { md: "none" },
-        color: theme.palette.primary.contrastText,
+
+        "&:hover": {
+          borderBottomColor: "currentColor",
+          backgroundColor: (theme) => theme.palette.action.hover,
+        },
+
+        "&.active": {
+          borderBottomColor: "currentColor",
+          backgroundColor: (theme) => theme.palette.action.hover,
+        },
+
+        color: (theme) =>
+          theme.palette.brand?.onSolid ??
+          theme.palette.primary.onSolid ??
+          theme.palette.primary.contrastText,
       }}
       {...props}
     >
@@ -72,26 +77,35 @@ interface NavLinksProps {
 
 const NavLinks = ({ children }: NavLinksProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const theme = useTheme();
+
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
   return (
     <>
       <IconButton
-        sx={{
-          color: theme.palette.primary.contrastText,
+        sx={(theme) => ({
+          color:
+            theme.palette.brand?.onSolid ??
+            theme.palette.primary.onSolid ??
+            theme.palette.primary.contrastText,
+
           display: { md: "none" },
           order: -1,
           marginLeft: "0 !important",
-          "&:hover": { filter: "brightness(90%);" },
-        }}
-        size={"small"}
+
+          "&:hover": {
+            backgroundColor: "transparent",
+            opacity: 0.85,
+          },
+        })}
+        size="small"
         aria-label="Open Menu"
         onClick={isOpen ? onClose : onOpen}
       >
         {isOpen ? <MdClose /> : <MdMenu />}
       </IconButton>
+
       <Stack
         direction="row"
         sx={{
@@ -104,23 +118,38 @@ const NavLinks = ({ children }: NavLinksProps) => {
       >
         {children}
       </Stack>
+
       <Drawer
         open={isOpen}
         onClose={onClose}
         anchor="left"
         PaperProps={{
-          sx: { backgroundColor: theme.vars.palette.primary.main },
+          sx: (theme) => ({
+            backgroundColor:
+              theme.palette.brand?.solid ??
+              theme.palette.primary.solid ??
+              theme.palette.primary.main,
+
+            color:
+              theme.palette.brand?.onSolid ??
+              theme.palette.primary.onSolid ??
+              theme.palette.primary.contrastText,
+          }),
         }}
       >
         <Box
-          sx={{
+          sx={(theme) => ({
             width: "100%",
             padding: 2,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            backgroundColor: theme.vars.palette.primary.main,
-          }}
+
+            backgroundColor:
+              theme.palette.brand?.solid ??
+              theme.palette.primary.solid ??
+              theme.palette.primary.main,
+          })}
         >
           {children}
         </Box>
@@ -138,8 +167,9 @@ interface NavbarProps extends BarSlotsProps {
   logo?: ImageColourSchemeSwitchType | "theme";
   linkComponent?: React.ElementType;
 }
+
 /**
- * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
+ * Basic navigation bar. Brand surface by default.
  */
 const Navbar = ({
   logo,
@@ -151,6 +181,18 @@ const Navbar = ({
   return (
     <BarStyled
       data-testid="navbar"
+      color="primary"
+      sx={(theme) => ({
+        backgroundColor:
+          theme.palette.brand?.solid ??
+          theme.palette.primary.solid ??
+          theme.palette.primary.main,
+
+        color:
+          theme.palette.brand?.onSolid ??
+          theme.palette.primary.onSolid ??
+          theme.palette.primary.contrastText,
+      })}
       {...props}
       leftSlot={
         <>
@@ -162,14 +204,22 @@ const Navbar = ({
                 : { href: "/" })}
             >
               <Box
-                maxWidth="5rem"
                 sx={{
-                  "&:hover": { filter: "brightness(80%);" },
+                  height: 32,
+                  display: "flex",
+                  alignItems: "center",
+
+                  "& img": {
+                    height: "100%",
+                    width: "auto",
+                  },
+
+                  "&:hover": { filter: "brightness(80%)" },
                   marginRight: { xs: "0", md: "50px" },
                 }}
               >
                 {logo == "theme" ? (
-                  <Logo interchange={true} />
+                  <Logo tone="inverse" />
                 ) : (
                   <ImageColourSchemeSwitch image={logo} />
                 )}

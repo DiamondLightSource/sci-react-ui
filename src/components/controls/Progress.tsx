@@ -28,20 +28,24 @@ const Progress = (props: ProgressProps) => (
       zoom: size[props.size ?? "medium"],
     }}
   >
+    {/* Outer */}
     <CircularProgress
       variant="determinate"
       sx={(theme) => ({
-        color: theme.vars.palette.primary.light,
+        color: theme.palette.primary.main,
+        opacity: 0.2,
       })}
       size={40}
       thickness={9}
       value={100}
       role={undefined}
     />
+    {/* Inner */}
     <CircularProgress
       variant="determinate"
       sx={(theme) => ({
-        color: theme.vars.palette.primary.dark,
+        color: theme.palette.primary.main,
+        opacity: 0.5,
         position: "absolute",
         left: 2,
         top: 2,
@@ -51,11 +55,12 @@ const Progress = (props: ProgressProps) => (
       value={100}
       role={undefined}
     />
+    {/* Spinner */}
     <CircularProgress
       variant="indeterminate"
       disableShrink
       sx={(theme) => ({
-        color: theme.vars.palette.secondary.main,
+        color: theme.palette.primary.main,
         animationDuration: speed[props.speed ?? "medium"],
         position: "absolute",
         left: 2.4,
