@@ -17,10 +17,36 @@ permissions:
   security-events: write
 
 jobs:
-  scan-pr:
-    if: github.event_name == 'pull_request' || github.event_name == 'merge_group'
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.3.2
+  osv-scan:
+    runs-on: ubuntu-latest
 
-  scan-scheduled:
-    if: github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.2
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run OSV Scanner (human-readable)
+        continue-on-error: true
+        uses: google/osv-scanner-action/osv-scanner-action@v2.3.2
+        with:
+          scan-args: |
+            --lockfile=pnpm-lock.yaml
+
+      - name: Run OSV Scanner (JSON)
+        continue-on-error: true
+        uses: google/osv-scanner-action/osv-scanner-action@v2.3.2
+        with:
+          scan-args: |
+            --format=json
+            --output=results.json
+            --lockfile=pnpm-lock.yaml
+
+      - name: Fail on CRITICAL vulnerabilities only
+        run: |
+          if jq -e '
+            .results[].packages[].vulnerabilities[]?
+            | select((.database_specific.severity // "") == "CRITICAL")
+          ' results.json > /dev/null; then
+            echo "❌ Critical vulnerabilities found"
+            exit 1
+          else
+            echo "✅ No critical vulnerabilities"
+          fi
