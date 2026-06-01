@@ -94,7 +94,7 @@ code,
 
 /* MDX Components */
 
-.sbdocs code {
+.sbdocs .ds-docs code {
   background-color: var(--sb-ds-surface-container) !important;
   color: var(--sb-ds-on-surface) !important;
   border: 1px solid var(--sb-ds-border-subtle) !important;
@@ -102,11 +102,11 @@ code,
   padding: 1px 4px;
 }
 
-.sbdocs pre {
+.sbdocs .ds-docs pre {
   padding: 16px !important;
   background-color: var(--sb-ds-surface) !important;
   border: 1px solid var(--sb-ds-border-subtle) !important;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 /* Tables */
