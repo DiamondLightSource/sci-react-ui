@@ -28,7 +28,7 @@
   --sb-ds-warning: #f1c21b;
   --sb-ds-danger: #da1e28;
   --sb-ds-info: #3d1380;
-  --sb-ds-brand: #0f62fe;
+  --sb-ds-brand: #202945;
 }
 
 body .sbdocs {
@@ -89,12 +89,17 @@ code,
 }
 
 .ds-docs p {
-  max-width: 78ch;
+  max-width: 66ch;
+}
+
+.ds-docs .lead p {
+  font-size: 1.25rem;
+  max-width: 58ch;
 }
 
 /* MDX Components */
 
-.sbdocs code {
+.sbdocs .ds-docs code {
   background-color: var(--sb-ds-surface-container) !important;
   color: var(--sb-ds-on-surface) !important;
   border: 1px solid var(--sb-ds-border-subtle) !important;
@@ -102,11 +107,25 @@ code,
   padding: 1px 4px;
 }
 
-.sbdocs pre {
+.ds-docs pre.ds-code-block {
   padding: 16px !important;
   background-color: var(--sb-ds-surface) !important;
   border: 1px solid var(--sb-ds-border-subtle) !important;
-  border-radius: 12px;
+  border-radius: 4px;
+}
+
+/* Links */
+
+.ds-docs a p {
+  color: var(--sb-ds-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 2px 4px;
+}
+.ds-docs a:hover p:hover {
+  color: var(--sb-ds-brand);
+  background: var(--sb-ds-surface-container-high);
+  width: fit-content;
 }
 
 /* Tables */
