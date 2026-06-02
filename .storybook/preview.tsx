@@ -81,7 +81,7 @@ const preview: Preview = {
     },
   },
   initialGlobals: {
-    theme: TextThemeDiamondDS,
+    theme: TextThemeDiamond,
     themeMode: TextSystem,
   },
   parameters: {
