@@ -31,6 +31,8 @@
   --sb-ds-brand: #202945;
 }
 
+/* Applied to all of Storybook, including the UI and Docs */
+
 body .sbdocs {
   background-color: var(--sb-ds-background) !important;
 }
@@ -40,30 +42,22 @@ body .sbdocs {
 .sbdocs p,
 .sbdocs li {
   font-family: var(--sb-ds-font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--sb-ds-on-surface);
 }
 
 /* Headings use Outfit or Inter */
 
-.sbdocs h1 {
+.sbdocs h1.sbdocs-title {
   font-family: var(--sb-ds-font-heading);
-  color: var(--sb-ds-on-surface);
 }
 
-.sbdocs h2 {
-  font-family: var(--sb-ds-font-body);
-  color: var(--sb-ds-on-surface);
-  border-bottom: 1px solid var(--sb-ds-border-subtle);
-}
-
+.sbdocs h2,
 .sbdocs h3,
 .sbdocs h4,
 .sbdocs h5,
-.sbdocs h6 {
+.sbdocs h6,
+table th,
+table td {
   font-family: var(--sb-ds-font-body);
-  color: var(--sb-ds-on-surface);
 }
 /* Code uses IBM Plex Mono */
 code,
@@ -73,13 +67,50 @@ code,
 .sbdocs samp,
 .token {
   font-family: var(--sb-ds-font-mono);
-  font-size: 0.8rem;
 }
 
 /* For Component Preview, actual transition based on light/dark mode */
-.sbdocs-preview div[style*="background-color"] {
-  background-color: var(--ds-surface) !important;
-  color: var(--ds-on-surface) !important;
+.light .sbdocs-preview div[style*="background-color"] {
+  background-color: #ffffff !important; /* --ds-surface in light mode */
+  color: #1a1c23 !important; /* --ds-on-surface in light mode */
+}
+.dark .sbdocs-preview div[style*="background-color"] {
+  background-color: #161820 !important; /* ---ds-surface in dark mode */
+  color: #e8eaf0 !important; /* --ds-on-surface in dark mode */
+}
+
+/* DS DOCS */
+
+/* Base font */
+
+.ds-docs h1,
+.ds-docs h2,
+.ds-docs h3,
+.ds-docs h4,
+.ds-docs h5,
+.ds-docs h6 {
+  color: var(--sb-ds-on-surface);
+}
+
+.ds-docs h2 {
+  border-bottom: 1px solid var(--sb-ds-border-subtle);
+}
+
+.ds-docs,
+.ds-docs p,
+.ds-docs li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--sb-ds-on-surface);
+}
+
+.ds-docs code,
+.ds-docs code,
+.ds-docs pre,
+.ds-docs kbd,
+.ds-docs samp,
+.ds-docs .token {
+  font-size: 0.8rem;
 }
 
 /* MDX file styling */
@@ -99,7 +130,7 @@ code,
 
 /* MDX Components */
 
-.sbdocs .ds-docs code {
+.ds-docs code {
   background-color: var(--sb-ds-surface-container) !important;
   color: var(--sb-ds-on-surface) !important;
   border: 1px solid var(--sb-ds-border-subtle) !important;
@@ -129,21 +160,21 @@ code,
 }
 
 /* Tables */
-.ds-table {
+.ds-docs .ds-table {
   width: 100%;
   border-collapse: collapse;
   margin: 16px 0 24px;
   background: var(--sb-ds-surface);
 }
-.ds-table th {
+.ds-docs .ds-table th {
   color: var(--sb-ds-on-surface-variant);
   background: var(--sb-ds-surface-container);
 }
-.ds-table td:first-child {
+.ds-docs .ds-table td:first-child {
   white-space: nowrap;
 }
-.ds-table th,
-.ds-table td {
+.ds-docs .ds-table th,
+.ds-docs .ds-table td {
   font-family: var(--sb-ds-font-body);
   border-bottom: 1px solid var(--sb-ds-border-subtle);
   padding: 10px 12px;
@@ -153,28 +184,28 @@ code,
   font-size: 0.9rem;
   line-height: 1.6;
 }
-.ds-table td p {
+.ds-docs .ds-table td p {
   font-size: 0.85rem; /* p in tables has a diffrent calculation fo size, so we try to align to the same size as the rest of the table */
   line-height: 1.8;
 }
-.ds-table tr:nth-of-type(2n) {
+.ds-docs .ds-table tr:nth-of-type(2n) {
   background: var(--sb-ds-surface) !important;
 }
 
 /* To-dos */
-.ds-dos {
+.ds-docs .ds-dos {
   display: grid;
   gap: 16px;
   margin: 16px 0 24px;
 }
 @media (min-width: 800px) {
-  .ds-dos {
+  .ds-docs .ds-dos {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 /* Note */
-.ds-note {
+.ds-docs .ds-note {
   border: 1px solid var(--sb-ds-border-subtle);
   background: var(--sb-ds-surface-container-high);
   border-radius: 12px;
@@ -183,21 +214,21 @@ code,
 }
 
 /* Cards */
-.ds-card {
+.ds-docs .ds-card {
   border: 1px solid var(--sb-ds-border-subtle);
   background: var(--sb-ds-surface-container-high);
   border-radius: 12px;
   padding: 16px;
 }
-.ds-card h3 {
+.ds-docs .ds-card h3 {
   margin-top: 0;
 }
-.ds-card ul {
+.ds-docs .ds-card ul {
   margin-bottom: 0;
 }
 
 /* Table of contents */
-.ds-toc {
+.ds-docs .ds-toc {
   display: grid;
   gap: 6px;
   border: 1px solid var(--sb-ds-border-subtle);
@@ -205,24 +236,24 @@ code,
   border-radius: 12px;
   padding: 16px;
 }
-.ds-toc li {
+.ds-docs .ds-toc li {
   font-size: 0.9rem;
 }
-.ds-toc a {
+.ds-docs .ds-toc a {
   color: var(--sb-ds-primary);
   text-decoration: none;
 }
-.ds-toc a:hover {
+.ds-docs .ds-toc a:hover {
   text-decoration: underline;
 }
 /* Roles */
-.ds-role {
+.ds-docs .ds-role {
   font-weight: 600;
   padding-left: 8px;
 }
 
 /* Swatches */
-.ds-swatch {
+.ds-docs .ds-swatch {
   display: inline-block;
   width: 12px;
   height: 12px;
