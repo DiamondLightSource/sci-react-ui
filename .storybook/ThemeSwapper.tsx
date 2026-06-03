@@ -44,7 +44,7 @@ const ThemeSwapper = ({ context, children }: ThemeSwapperProps) => {
   return (
     <div
       style={{
-        backgroundColor: resolvedMode === "light" ? "#F6F6F9" : "#0e1017",
+        backgroundColor: resolvedMode === "light" ? "#ffffff" : "#161820",
       }}
     >
       {children}

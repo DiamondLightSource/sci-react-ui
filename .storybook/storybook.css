@@ -46,7 +46,8 @@ body .sbdocs {
 
 /* Headings use Outfit or Inter */
 
-.sbdocs h1.sbdocs-title {
+.sbdocs h1.sbdocs-title,
+.sbdocs.sbdocs-content h1 :not(.sbdocs-preview) {
   font-family: var(--sb-ds-font-heading);
 }
 
@@ -67,16 +68,6 @@ code,
 .sbdocs samp,
 .token {
   font-family: var(--sb-ds-font-mono);
-}
-
-/* For Component Preview, actual transition based on light/dark mode */
-.light .sbdocs-preview div[style*="background-color"] {
-  background-color: #ffffff !important; /* --ds-surface in light mode */
-  color: #1a1c23 !important; /* --ds-on-surface in light mode */
-}
-.dark .sbdocs-preview div[style*="background-color"] {
-  background-color: #161820 !important; /* ---ds-surface in dark mode */
-  color: #e8eaf0 !important; /* --ds-on-surface in dark mode */
 }
 
 /* DS DOCS */
