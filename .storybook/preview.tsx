@@ -6,7 +6,7 @@ import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { DiamondDSTheme } from "../src";
 import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";
-import "../src/styles/diamondDS/diamond-ds-roles.css";
+import "../src/styles/diamondDS/DiamondDSTokens.css";
 
 const TextThemeDiamondDS = "Theme: DiamondDS";
 

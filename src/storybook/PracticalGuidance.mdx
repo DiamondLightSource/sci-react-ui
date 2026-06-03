@@ -27,14 +27,17 @@ Diamond Design System uses MUI with Diamond semantic tokens layered on top.
 
 ## Using the theme
 
-Diamond Design System uses semantic design tokens mapped into MUI’s theme
-system.
+Diamond Design System uses semantic design tokens mapped into MUI’s theme system.
 
-CSS variables remain the source of truth. The MUI theme adapts those values into
-component APIs, palette roles, typography, spacing, elevation, and interaction
-states.
+Design tokens are defined as CSS variables and remain the source of truth. <br />
+The MUI theme maps those tokens into semantic roles exposed through the palette, typography, spacing, elevation, and interaction state APIs.
 
-<strong>Prefer theme roles and semantic tokens over hardcoded values.</strong>
+Components should consume semantic theme roles rather than hardcoded values. Theme customisation and component overrides should reference design tokens to maintain consistency across the system.
+
+<strong>
+  Use theme roles in components and design tokens when defining or customising
+  the theme.
+</strong>
 
 <table className="ds-table">
   <thead>
