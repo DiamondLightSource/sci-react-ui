@@ -40,6 +40,12 @@ import logoImageDark from "../public/diamond/logo-dark.svg";
 import logoShort from "../public/diamond/logo-short.svg";
 import type { ImageColourSchemeSwitchType } from "components/controls/ImageColourSchemeSwitch";
 
+// =============================================================================
+// Theme contracts and types
+// =============================================================================
+
+export type DSMode = "light" | "dark";
+
 /**
  * Standard argument shape for MUI style override callbacks.
  *
@@ -136,6 +142,10 @@ type ThemeWithIntentPalette = Theme & {
   };
   palette: Theme["palette"] & IntentPaletteRecord;
 };
+
+// =============================================================================
+// MUI theme augmentation
+// =============================================================================
 
 /**
  * MUI theme augmentation for DiamondDS semantic roles.
@@ -255,9 +265,9 @@ declare module "@mui/material/styles" {
   }
 }
 
-export type DSMode = "light" | "dark";
-
-// --- Semantic palette and interaction helpers ---
+// =============================================================================
+// Intent palette helpers
+// =============================================================================
 
 const isIntentColour = (colour: unknown): colour is IntentColour =>
   typeof colour === "string" && intentColours.includes(colour as IntentColour);
@@ -394,6 +404,10 @@ const getIntentFromColourProp = (
   fallback: IntentColour = "primary",
 ): IntentColour => (isIntentColour(colour) ? colour : fallback);
 
+// =============================================================================
+// Interaction helpers
+// =============================================================================
+
 /**
  * Focus rings use one shared DiamondDS focus token.
  *
@@ -449,17 +463,9 @@ const getDisabledControlStyles = (backgroundColor = "transparent"): CSSObject =>
     boxShadow: "none",
   }) satisfies CSSObject;
 
-/**
- * Creates the resolved DiamondDS MUI theme.
- *
- * This factory:
- * - maps DiamondDS semantic tokens into MUI
- * - configures component defaults and overrides
- * - applies light/dark semantic role resolution
- * - keeps CSS variables as the source of truth
- *
- * The resulting theme should expose semantic roles rather than raw colours.
- */
+// =============================================================================
+// Theme palette creation
+// =============================================================================
 
 /**
  * Creates the shared DiamondDS semantic palette for a colour scheme.
@@ -565,6 +571,10 @@ const createDiamondPalette = (mode: DSMode) => {
   };
 };
 
+// =============================================================================
+// Theme definition
+// =============================================================================
+
 /**
  * Resolved DiamondDS MUI theme.
  *
@@ -660,6 +670,12 @@ const DiamondDSTheme = extendTheme({
      *   MuiSnackbarContent  → surface styling and actions
      */
 
+    // Components below are grouped by purpose so related roles are easier to find.
+
+    // -------------------------------------------------------------------------
+    // Base interaction
+    // -------------------------------------------------------------------------
+
     MuiButtonBase: {
       /**
        * Keeps MUI ripple behaviour available while using DiamondDS focus outlines.
@@ -670,6 +686,10 @@ const DiamondDSTheme = extendTheme({
         focusRipple: false,
       },
     },
+
+    // -------------------------------------------------------------------------
+    // Actions
+    // -------------------------------------------------------------------------
 
     MuiButton: {
       /**
@@ -985,6 +1005,10 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    // -------------------------------------------------------------------------
+    // Inputs and forms
+    // -------------------------------------------------------------------------
+
     MuiInputBase: {
       styleOverrides: {
         input: ({ theme }: ThemeOnlyArgs): CSSObject => ({
@@ -1154,194 +1178,6 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
-    MuiTab: {
-      styleOverrides: {
-        root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
-          textTransform: "none",
-          color: theme.palette.text.secondary,
-          fontWeight: 500,
-          minHeight: 44,
-
-          "&:hover": {
-            color: theme.palette.text.primary,
-            boxShadow: getOverlayInset(),
-          },
-
-          "&.Mui-selected": {
-            color: theme.palette.primary.main,
-            fontWeight: 600,
-          },
-
-          "&.Mui-disabled": {
-            color: theme.palette.text.disabled,
-          },
-
-          "&.Mui-focusVisible, &:focus-visible": {
-            outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
-            outlineOffset: "-2px",
-          },
-        }),
-      },
-    },
-
-    MuiAlert: {
-      /**
-       * Alerts use status intents only. Filled alerts use solid/onSolid; standard and
-       * outlined alerts use container/onContainer.
-       */
-      styleOverrides: {
-        root: ({ ownerState, theme }: OverrideArgs<AlertProps>): CSSObject => {
-          const severity = getIntentFromColourProp(
-            ownerState.severity,
-            "success",
-          );
-          const p = getIntentPalette(theme, severity);
-
-          const common: CSSObject = {
-            borderRadius: 8,
-            alignItems: "flex-start",
-
-            "& .MuiAlert-icon": {
-              color: "currentColor",
-              opacity: 1,
-            },
-
-            "& .MuiAlert-action": {
-              color: "inherit",
-
-              "& .MuiIconButton-root:hover": {
-                boxShadow: getOverlayInset(),
-              },
-            },
-          };
-
-          if (ownerState.variant === "filled") {
-            return {
-              ...common,
-              backgroundColor: p.solid,
-              color: p.onSolid,
-            };
-          }
-
-          if (ownerState.variant === "outlined") {
-            return {
-              ...common,
-              backgroundColor: p.container,
-              color: p.onContainer,
-              border: `1px solid ${p.light}`,
-            };
-          }
-
-          return {
-            ...common,
-            backgroundColor: p.container,
-            color: p.onContainer,
-            border: "1px solid var(--ds-border)",
-          };
-        },
-      },
-    },
-
-    /**
-     * Progress indicators use intent `main` as an activity signal, not a filled
-     * surface. This keeps them visually lighter than buttons or alerts.
-     */
-    MuiLinearProgress: {
-      styleOverrides: {
-        root: {
-          height: 6,
-          borderRadius: 999,
-          overflow: "hidden",
-          backgroundColor: "var(--ds-surface-container-high)",
-        },
-
-        bar: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<LinearProgressProps>): CSSObject => {
-          const colour = getIntentFromColourProp(ownerState.color);
-          const p = getIntentPalette(theme, colour);
-
-          return {
-            backgroundColor: p.main,
-          };
-        },
-      },
-    },
-
-    MuiCircularProgress: {
-      styleOverrides: {
-        root: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<CircularProgressProps>): CSSObject => {
-          const colour = getIntentFromColourProp(ownerState.color);
-          const p = getIntentPalette(theme, colour);
-
-          return {
-            color: p.main,
-          };
-        },
-      },
-    },
-
-    MuiSkeleton: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "var(--ds-surface-container-high)",
-        },
-
-        wave: {
-          backgroundColor: "var(--ds-surface-container-high)",
-          position: "relative",
-          overflow: "hidden",
-
-          "&::after": {
-            content: '""',
-            position: "absolute",
-            inset: 0,
-            transform: "translateX(-100%)",
-            backgroundImage:
-              "linear-gradient(90deg, transparent, var(--ds-overlay-hover), transparent)",
-          },
-        },
-      },
-    },
-
-    MuiSnackbar: {
-      styleOverrides: {
-        root: {
-          "& .MuiSnackbarContent-root, & .MuiAlert-root": {
-            minWidth: 320,
-            maxWidth: 560,
-          },
-        },
-      },
-    },
-
-    MuiSnackbarContent: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "var(--ds-surface-container)",
-          color: "var(--ds-on-surface)",
-          border: "1px solid var(--ds-border)",
-          borderRadius: 8,
-        },
-
-        message: {
-          padding: "8px 0",
-        },
-
-        action: {
-          color: "inherit",
-
-          "& .MuiIconButton-root:hover": {
-            boxShadow: getOverlayInset(),
-          },
-        },
-      },
-    },
-
     MuiCheckbox: {
       defaultProps: {
         disableRipple: true,
@@ -1416,6 +1252,210 @@ const DiamondDSTheme = extendTheme({
         },
       },
     },
+
+    // -------------------------------------------------------------------------
+    // Navigation
+    // -------------------------------------------------------------------------
+
+    MuiTab: {
+      styleOverrides: {
+        root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
+          textTransform: "none",
+          color: theme.palette.text.secondary,
+          fontWeight: 500,
+          minHeight: 44,
+
+          "&:hover": {
+            color: theme.palette.text.primary,
+            boxShadow: getOverlayInset(),
+          },
+
+          "&.Mui-selected": {
+            color: theme.palette.primary.main,
+            fontWeight: 600,
+          },
+
+          "&.Mui-disabled": {
+            color: theme.palette.text.disabled,
+          },
+
+          "&.Mui-focusVisible, &:focus-visible": {
+            outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
+            outlineOffset: "-2px",
+          },
+        }),
+      },
+    },
+
+    // -------------------------------------------------------------------------
+    // Feedback
+    // -------------------------------------------------------------------------
+
+    MuiAlert: {
+      /**
+       * Alerts use status intents only. Filled alerts use solid/onSolid; standard and
+       * outlined alerts use container/onContainer.
+       */
+      styleOverrides: {
+        root: ({ ownerState, theme }: OverrideArgs<AlertProps>): CSSObject => {
+          const severity = getIntentFromColourProp(
+            ownerState.severity,
+            "success",
+          );
+          const p = getIntentPalette(theme, severity);
+
+          const common: CSSObject = {
+            borderRadius: 8,
+            alignItems: "flex-start",
+
+            "& .MuiAlert-icon": {
+              color: "currentColor",
+              opacity: 1,
+            },
+
+            "& .MuiAlert-action": {
+              color: "inherit",
+
+              "& .MuiIconButton-root:hover": {
+                boxShadow: getOverlayInset(),
+              },
+            },
+          };
+
+          if (ownerState.variant === "filled") {
+            return {
+              ...common,
+              backgroundColor: p.solid,
+              color: p.onSolid,
+            };
+          }
+
+          if (ownerState.variant === "outlined") {
+            return {
+              ...common,
+              backgroundColor: p.container,
+              color: p.onContainer,
+              border: `1px solid ${p.light}`,
+            };
+          }
+
+          return {
+            ...common,
+            backgroundColor: p.container,
+            color: p.onContainer,
+            border: "1px solid var(--ds-border)",
+          };
+        },
+      },
+    },
+
+    MuiSnackbar: {
+      styleOverrides: {
+        root: {
+          "& .MuiSnackbarContent-root, & .MuiAlert-root": {
+            minWidth: 320,
+            maxWidth: 560,
+          },
+        },
+      },
+    },
+
+    MuiSnackbarContent: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "var(--ds-surface-container)",
+          color: "var(--ds-on-surface)",
+          border: "1px solid var(--ds-border)",
+          borderRadius: 8,
+        },
+
+        message: {
+          padding: "8px 0",
+        },
+
+        action: {
+          color: "inherit",
+
+          "& .MuiIconButton-root:hover": {
+            boxShadow: getOverlayInset(),
+          },
+        },
+      },
+    },
+
+    // -------------------------------------------------------------------------
+    // Progress and loading
+    // -------------------------------------------------------------------------
+
+    /**
+     * Progress indicators use intent `main` as an activity signal, not a filled
+     * surface. This keeps them visually lighter than buttons or alerts.
+     */
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          height: 6,
+          borderRadius: 999,
+          overflow: "hidden",
+          backgroundColor: "var(--ds-surface-container-high)",
+        },
+
+        bar: ({
+          ownerState,
+          theme,
+        }: OverrideArgs<LinearProgressProps>): CSSObject => {
+          const colour = getIntentFromColourProp(ownerState.color);
+          const p = getIntentPalette(theme, colour);
+
+          return {
+            backgroundColor: p.main,
+          };
+        },
+      },
+    },
+
+    MuiCircularProgress: {
+      styleOverrides: {
+        root: ({
+          ownerState,
+          theme,
+        }: OverrideArgs<CircularProgressProps>): CSSObject => {
+          const colour = getIntentFromColourProp(ownerState.color);
+          const p = getIntentPalette(theme, colour);
+
+          return {
+            color: p.main,
+          };
+        },
+      },
+    },
+
+    MuiSkeleton: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "var(--ds-surface-container-high)",
+        },
+
+        wave: {
+          backgroundColor: "var(--ds-surface-container-high)",
+          position: "relative",
+          overflow: "hidden",
+
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            inset: 0,
+            transform: "translateX(-100%)",
+            backgroundImage:
+              "linear-gradient(90deg, transparent, var(--ds-overlay-hover), transparent)",
+          },
+        },
+      },
+    },
+
+    // -------------------------------------------------------------------------
+    // Data display
+    // -------------------------------------------------------------------------
 
     MuiTableCell: {
       styleOverrides: {
