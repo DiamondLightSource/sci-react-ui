@@ -6,7 +6,7 @@ import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
 import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";
-import "../src/styles/diamondDS/diamond-ds-roles.css";
+import "../src/styles/diamondDS/diamond-ds-tokens.css";
 
 const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
