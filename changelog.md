@@ -1,6 +1,7 @@
 # SciReactUI Changelog
-
 ## [Unreleased]
+
+## [v0.5.0] - 2026-06-03
 
 ### Changed
 - **Breaking** `keycloak-js` has been moved from a direct dependency to a peer and optional dependency, so must now be installed by the consuming application.
@@ -8,6 +9,9 @@
 ### Fixed
 - Icon imports were causing issues downstream when components are unit tested.
 
+### Added
+- New DiamondDS theme
+- Documentation to storybook
 
 ## [v0.4.1] - 2026-02-24
 
