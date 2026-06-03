@@ -8,7 +8,7 @@ import {
   type MenuItemProps,
 } from "@mui/material";
 import React, { useState, forwardRef, useId } from "react";
-import ExpandMoreIcon from "@mui/icons-material/Expand";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { NavLink, NavLinkProps } from "./Navbar";
 
 type NavMenuLinkProps = MenuItemProps & NavLinkProps;

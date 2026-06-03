@@ -1,0 +1,312 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as TextFieldStories from "./TextField.stories";
+
+<Meta title="MUI/Inputs/TextField/Input guidance" />
+
+<div className="ds-docs">
+
+# Input guidance
+
+<p>
+  Inputs capture and edit data. In DiamondDS, input styles communicate the
+  context and consequences of an action, not simply visual preference.
+</p>
+
+<div className="ds-note">
+  <strong>Choose the input style based on context.</strong>
+  Outlined inputs are the default for forms, configuration, setup, and planning.
+  Filled inputs are reserved for direct interaction with live systems,
+  instruments, or time-sensitive operations.
+</div>
+
+<p>
+  <strong>This guidance should be applied for select fields as well</strong>
+</p>
+
+<Canvas of={TextFieldStories.Variants} />
+
+## Overview
+
+<p>
+  Input fields are used throughout acquisition, configuration, analysis, and
+  operational workflows. Different input variants help communicate whether a
+  value is being prepared, configured, or directly controlling equipment.
+</p>
+
+<p>
+  Use the least visual emphasis necessary while still providing clear feedback
+  and confidence.
+</p>
+
+## Use inputs when
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use <strong>outlined</strong> inputs by default.</li>
+      <li>Use <strong>filled</strong> inputs when interacting with live equipment.</li>
+      <li>Keep variants consistent within a workflow.</li>
+      <li>Provide labels and helper text.</li>
+      <li>Validate after users complete input.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t mix variants without a clear reason.</li>
+      <li>Don’t use filled inputs purely for decoration.</li>
+      <li>Don’t show validation errors while users are typing.</li>
+      <li>Don’t rely on placeholder text as a label.</li>
+      <li>Don’t use colour alone to communicate status.</li>
+    </ul>
+  </div>
+</div>
+
+## Input hierarchy
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Use for</th>
+      <th>Guidance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Outlined</td>
+      <td>General forms, configuration, setup, planning, metadata entry</td>
+      <td>Default choice</td>
+    </tr>
+    <tr>
+      <td>Filled</td>
+      <td>
+        Live equipment control, operational adjustments, values with immediate
+        effect
+      </td>
+      <td>Use deliberately</td>
+    </tr>
+    <tr>
+      <td>Standard</td>
+      <td>Inline or compact layouts</td>
+      <td>Rarely used</td>
+    </tr>
+  </tbody>
+</table>
+
+## Outlined inputs
+
+<p>Outlined inputs are the default input style in DiamondDS.</p>
+
+<p>
+  Use them when users are preparing values, configuring experiments, entering
+  metadata, defining scans, editing parameters, or making changes that are not
+  immediately applied to equipment.
+</p>
+
+<ul>
+  <li>Best for acquisition setup and planning.</li>
+  <li>Best for configuration screens.</li>
+  <li>Best for structured forms.</li>
+  <li>Supports dense layouts and scanning.</li>
+</ul>
+
+<Canvas of={TextFieldStories.DefaultInput} />
+
+## Filled inputs
+
+<p>Filled inputs indicate a stronger operational context.</p>
+
+<p>
+  Use them when a value directly affects a running system, instrument, motor,
+  detector, or operational process.
+</p>
+
+<ul>
+  <li>Live motor movement.</li>
+  <li>Direct instrument control.</li>
+  <li>Operational adjustments.</li>
+  <li>Situations where changes have immediate consequences.</li>
+</ul>
+
+<p>Filled inputs should be used sparingly so their meaning remains clear.</p>
+
+<Canvas of={TextFieldStories.LiveInstrumentInput} />
+
+## Input types
+
+<p>
+  TextField supports a range of native HTML input types. Choose the type that
+  best matches the data being entered.
+</p>
+
+<p>
+  Choosing the correct input type can improve validation, keyboard behaviour,
+  browser autofill, and accessibility.
+</p>
+
+<Canvas of={TextFieldStories.InputTypes} />
+
+## Future direction
+
+<p>
+  DiamondDS may introduce additional filled variants for operational workflows.
+</p>
+
+<p>
+  One possibility is a subtle intent-based filled style using semantic container
+  colours, allowing live controls to stand out without requiring strong visual
+  emphasis. This pattern is still under evaluation and should not be considered
+  part of the current guidance.
+</p>
+
+## Validation
+
+<p>Validation should support users, not interrupt them.</p>
+
+<ul>
+  <li>Validate on blur or submit.</li>
+  <li>Avoid showing errors while users are typing.</li>
+  <li>Use helper text to prevent errors before they occur.</li>
+  <li>Keep messages specific and actionable.</li>
+</ul>
+
+## Input states
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Purpose</th>
+      <th>Use when</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>Ready for input.</td>
+      <td>The field is available for editing.</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>Indicates pointer interaction.</td>
+      <td>The user is pointing at the field.</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td>Indicates keyboard or active input.</td>
+      <td>The field is currently being edited.</td>
+    </tr>
+    <tr>
+      <td>Read-only</td>
+      <td>Displays a value that cannot be edited.</td>
+      <td>
+        The value should remain visible, selectable, and copyable, but editing
+        is not permitted.
+      </td>
+    </tr>
+    <tr>
+      <td>Error</td>
+      <td>Indicates validation or input problems.</td>
+      <td>The value requires attention before the workflow can continue.</td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>Indicates interaction is unavailable.</td>
+      <td>The field cannot currently be interacted with or modified.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Prefer <strong>read-only</strong> over <strong>disabled</strong> when
+  displaying useful information. Read-only fields remain legible and can still
+  be selected or copied, while disabled fields indicate that interaction is
+  unavailable.
+</p>
+
+<p>
+  Disabled and error states should remain clearly visible and should not be
+  overridden by hover or focus styling.
+</p>
+
+<Canvas of={TextFieldStories.States} />
+
+## Token guidance
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Need</th>
+      <th>Prefer</th>
+      <th>Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Input border</td>
+      <td>
+        <code>border.emphasis</code>, <code>border.strong</code>
+      </td>
+      <td>Hardcoded greys</td>
+    </tr>
+    <tr>
+      <td>Input text</td>
+      <td>
+        <code>text.primary</code>
+      </td>
+      <td>Custom text colours</td>
+    </tr>
+    <tr>
+      <td>Error state</td>
+      <td>
+        <code>error</code>
+      </td>
+      <td>Custom red values</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td>
+        <code>theme.focusRing</code>
+      </td>
+      <td>Browser default focus only</td>
+    </tr>
+  </tbody>
+</table>
+
+## Accessibility
+
+<ul>
+  <li>Always provide a visible label.</li>
+  <li>Use helper text for guidance and validation.</li>
+  <li>Ensure sufficient text and border contrast.</li>
+  <li>Provide clear focus indicators.</li>
+  <li>Do not rely solely on colour to communicate validation.</li>
+</ul>
+
+## Related components
+
+<ul>
+  <li>
+    <code>TextField</code> — general text input.
+  </li>
+  <li>
+    <code>Autocomplete</code> — searchable selection.
+  </li>
+  <li>
+    <code>Select</code> — predefined option selection.
+  </li>
+  <li>
+    <code>Checkbox</code> — independent choices.
+  </li>
+  <li>
+    <code>Radio</code> — single selection from a group.
+  </li>
+  <li>
+    <code>Switch</code> — immediate on/off state.
+  </li>
+</ul>
+
+</div>

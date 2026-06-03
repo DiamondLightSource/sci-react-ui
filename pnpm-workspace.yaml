@@ -1,0 +1,3 @@
+ignoreScripts: true
+minimumReleaseAge: 10080 # 1 week
+trustPolicy: no-downgrade

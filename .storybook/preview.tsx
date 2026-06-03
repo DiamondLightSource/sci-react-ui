@@ -1,14 +1,35 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
-
+import "@fontsource-variable/inter";
+import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
-import { GenericTheme, DiamondTheme } from "../src";
-
-import { Context, ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper";
+import { GenericTheme, DiamondTheme, DiamondDSTheme } from "../src";
+import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";
+import "../src/styles/diamondDS/diamond-ds-roles.css";
 
 const TextThemeBase = "Theme: Generic";
 const TextThemeDiamond = "Theme: Diamond";
+const TextThemeDiamondDS = "Theme: DiamondDS";
+
+function resolveTheme(selectedTheme: string) {
+  switch (selectedTheme) {
+    case TextThemeBase:
+      return GenericTheme;
+    case TextThemeDiamond:
+      return DiamondTheme;
+    case TextThemeDiamondDS:
+    default:
+      return DiamondDSTheme;
+  }
+}
+
+function resolveDefaultMode(selectedThemeMode: string) {
+  if (selectedThemeMode === TextLight) return "light";
+  if (selectedThemeMode === TextDark) return "dark";
+
+  return "system";
+}
 
 export const decorators = [
   (StoriesWithPadding: React.FC) => {
@@ -18,24 +39,21 @@ export const decorators = [
       </div>
     );
   },
-  (StoriesWithThemeSwapping: React.FC, context: Context) => {
-    return (
-      <ThemeSwapper context={context}>
-        <StoriesWithThemeSwapping />
-      </ThemeSwapper>
-    );
-  },
-  (StoriesWithThemeProvider: React.FC, context: Context) => {
-    const selectedTheme = context.globals.theme || TextThemeBase;
-    const selectedThemeMode = context.globals.themeMode || TextLight;
+
+  (Story, context) => {
+    const selectedTheme = context.globals.theme || TextThemeDiamondDS;
+    const selectedThemeMode = context.globals.themeMode || TextSystem;
 
     return (
       <ThemeProvider
-        theme={selectedTheme == TextThemeBase ? GenericTheme : DiamondTheme}
-        defaultMode={selectedThemeMode == TextLight ? "light" : "dark"}
+        theme={resolveTheme(selectedTheme)}
+        defaultMode={resolveDefaultMode(selectedThemeMode)}
       >
         <CssBaseline />
-        <StoriesWithThemeProvider />
+
+        <ThemeSwapper context={context}>
+          <Story />
+        </ThemeSwapper>
       </ThemeProvider>
     );
   },
@@ -48,7 +66,7 @@ const preview: Preview = {
       toolbar: {
         title: "Theme",
         icon: "cog",
-        items: [TextThemeBase, TextThemeDiamond],
+        items: [TextThemeBase, TextThemeDiamond, TextThemeDiamondDS],
         dynamicTitle: true,
       },
     },
@@ -57,14 +75,14 @@ const preview: Preview = {
       toolbar: {
         title: "Theme Mode",
         icon: "mirror",
-        items: [TextLight, TextDark],
+        items: [TextLight, TextDark, TextSystem],
         dynamicTitle: true,
       },
     },
   },
   initialGlobals: {
-    theme: "Theme: Diamond",
-    themeMode: "Mode: Light",
+    theme: TextThemeDiamondDS,
+    themeMode: TextSystem,
   },
   parameters: {
     controls: {
@@ -78,12 +96,16 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          "Introduction",
-          "Components",
+          "Overview",
+          "Installation",
+          "Practical Guidance",
+          "Working with Components",
+          "Helpers",
           "Theme",
           "Theme/Logos",
           "Theme/Colours",
-          "Helpers",
+          "MUI",
+          "Components",
         ],
       },
     },

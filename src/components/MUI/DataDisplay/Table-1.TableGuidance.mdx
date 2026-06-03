@@ -1,0 +1,395 @@
+import { Meta, Canvas } from "@storybook/blocks";
+import * as TableStories from "./Table.stories";
+
+<Meta title="MUI/Data Display/Table/Table guidance" />
+
+<div className="ds-docs">
+
+# Table guidance
+
+<p>
+  Tables are used for structured data where users need to scan, compare, sort,
+  or act on rows and columns.
+</p>
+
+<div className="ds-note">
+  <strong>Only show useful table behaviour.</strong> Tables should expose the
+  states, actions, and controls that are relevant to the task. Avoid showing
+  interaction affordances that are not available or not connected.
+</div>
+
+<Canvas of={TableStories.Basic} />
+
+## Overview
+
+<p>
+  Tables are used for dense, structured information such as samples, scans,
+  processing jobs, files, datasets, sessions, or configuration values.
+</p>
+
+<p>
+  In DiamondDS, tables should feel stable and predictable. Hover helps users
+  scan rows. Selection shows an intentional state. Sorting, pagination, and row
+  actions should be clear without making the table visually noisy.
+</p>
+
+## Use tables when
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use tables for structured row and column data.</li>
+      <li>Use hover to support scanning across wide rows.</li>
+      <li>Use selected rows only when selection has meaning.</li>
+      <li>Use numeric alignment where comparison matters.</li>
+      <li>Keep row density consistent within the same table.</li>
+    </ul>
+  </div>
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t use tables for simple lists or short summaries.</li>
+      <li>Don’t use selected styling just to draw attention.</li>
+      <li>Don’t rely on colour alone for status or meaning.</li>
+      <li>Don’t make hover stronger than selection.</li>
+      <li>Don’t hardcode colours in table states.</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Row content and actions</h2>
+
+<p>
+  Table rows should prioritise clarity and scannability. Content should be
+  structured so users can quickly understand values, status, and available
+  actions without visual clutter.
+</p>
+
+### Actions
+
+<p>
+  Contextual actions and “more options” should be placed at the end of the row
+  (right side).
+</p>
+
+<ul>
+  <li>Show actions on hover by default to reduce noise.</li>
+  <li>
+    Keep actions always visible only when they are critical or frequently used.
+  </li>
+  <li>
+    Use a single “more” menu when multiple secondary actions are available.
+  </li>
+</ul>
+
+<p>
+  Avoid placing actions in the middle of the table or mixing them with data
+  values.
+</p>
+
+### Status
+
+<p>Use chips to represent status or state within a row.</p>
+
+<ul>
+  <li>
+    Use <strong>outlined (subtle)</strong> chips by default.
+  </li>
+  <li>Use stronger styles only when the status needs emphasis.</li>
+  <li>Keep chip labels short and consistent.</li>
+</ul>
+
+<p>
+  Status should support the data, not dominate it. Colour should not be the only
+  signal — combine with clear labels.
+</p>
+
+### Layout rules
+
+<ul>
+  <li>Left: primary content and identifiers.</li>
+  <li>Middle: supporting data.</li>
+  <li>Right: actions and menus.</li>
+</ul>
+
+<p>
+  This structure helps users scan rows quickly and keeps interaction predictable
+  across tables.
+</p>
+
+## Default table
+
+<p>
+  The default table is used when users need to compare structured values. It
+  should use system surface, border, and foreground tokens through the MUI
+  theme.
+</p>
+
+## Row interaction states
+
+<p>
+  Hover rows help users track the row they are reading or about to act on. Hover
+  is an interaction cue, not a persistent state.
+</p>
+
+<p>
+  Selected rows show that a user has chosen one or more rows. Selection should
+  be clearly visible in both light and dark mode, but calm enough for dense
+  scientific workflows.
+</p>
+
+<p>
+  When hover and selection appear together, selection wins. Hover may add a
+  small cue, but it must not hide or weaken the selected state.
+</p>
+
+<Canvas of={TableStories.HoverSelectedRows} />
+
+## Selection guidance
+
+<p>
+  Use row selection when the user can perform an action on one or more rows,
+  such as comparing scans, adding files to a queue, exporting results, or
+  applying a batch action.
+</p>
+
+<p>
+  Avoid using selected rows as a visual shortcut for “important”. If a row has a
+  status, use a status column, icon, label, or supporting text alongside colour.
+</p>
+
+<ul>
+  <li>Use checkboxes to indicate selectable rows.</li>
+  <li>Selected rows must include a checked checkbox.</li>
+  <li>Do not rely on row background alone to indicate selection.</li>
+  <li>Include a header checkbox when bulk selection is supported.</li>
+</ul>
+
+### Selection toolbar
+
+<p>
+  When one or more rows are selected, the table should switch to a selection
+  state. This replaces the default header or toolbar area with contextual
+  actions for the selected rows.
+</p>
+
+<p>
+  This change happens in the table header or toolbar area, not inside the row
+  content. Row selection should still be shown with checkboxes and selected row
+  styling.
+</p>
+
+<ul>
+  <li>Show the number of selected rows (e.g. “3 selected”).</li>
+  <li>
+    Display relevant actions for the selection (e.g. export, delete, queue).
+  </li>
+  <li>Place selection actions on the left side.</li>
+  <li>Hide or de-emphasise non-relevant global actions.</li>
+</ul>
+
+<p>
+  The selection state should be clearly distinct from the default table state,
+  but not visually disruptive.
+</p>
+
+## Sorting guidance
+
+<p>
+  Sort labels should be used only where sorting is available. The active sorted
+  column should be clear, but not visually heavier than the data itself.
+</p>
+
+## Pagination guidance
+
+<p>
+  Use pagination when the data set is large enough that showing every row would
+  reduce performance or make the page difficult to scan.
+</p>
+
+## State priority
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Purpose</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Disabled</td>
+      <td>Shows that interaction is unavailable.</td>
+      <td>Highest</td>
+    </tr>
+    <tr>
+      <td>Error</td>
+      <td>Shows that a row or value needs attention.</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Selected</td>
+      <td>Shows an intentional user choice.</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td>Shows keyboard position.</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>Supports scanning and pointer interaction.</td>
+      <td>Low</td>
+    </tr>
+  </tbody>
+</table>
+
+## Advanced tables (Material React Table)
+
+<p>
+  Use [Material React Table](https://www.material-react-table.com/) (MRT) when
+  the table requires advanced behaviour such as column visibility, filtering,
+  row selection, or large data handling.
+</p>
+
+<p>For simple and structured tables, use the base MUI table components.</p>
+
+### When to use MRT?
+
+<ul>
+  <li>Configurable tables (show/hide columns, filtering, grouping).</li>
+  <li>Large datasets (virtualisation or server-side data).</li>
+  <li>Workflow-driven tables (selection, batching, export, reordering).</li>
+</ul>
+
+<p>
+  See <strong>Material React Table guidance</strong> for detailed rules and
+  configuration.
+</p>
+
+## Token guidance
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Need</th>
+      <th>Prefer</th>
+      <th>Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table surface</td>
+      <td>
+        <code>background.paper</code>,
+        <code>surface.subtle</code>,
+        semantic surface roles
+      </td>
+      <td>Raw hex values</td>
+    </tr>
+
+    <tr>
+      <td>Text</td>
+      <td>
+        <code>text.primary</code>,
+        <code>text.secondary</code>
+      </td>
+      <td>Opacity-only text colours</td>
+    </tr>
+
+    <tr>
+      <td>Dividers and row borders</td>
+      <td>
+        <code>border.subtle</code>,
+        <code>divider</code>
+      </td>
+      <td>Hardcoded grey borders</td>
+    </tr>
+
+    <tr>
+      <td>Hover state</td>
+      <td>
+        <code>action.hover</code>,
+        <code>overlay.hover</code>
+      </td>
+      <td>One-off hover colours</td>
+    </tr>
+
+    <tr>
+      <td>Selected rows</td>
+      <td>
+        <code>primary.container</code>,
+        <code>overlay.selected</code>
+      </td>
+      <td>Using subtle container colour as selected colour</td>
+    </tr>
+
+    <tr>
+      <td>Focus state</td>
+      <td>
+        <code>theme.focusRing</code>,
+        semantic focus tokens
+      </td>
+      <td>Browser default focus only</td>
+    </tr>
+
+    <tr>
+      <td>Status colours</td>
+      <td>
+        Semantic intents such as
+        <code>success</code>,
+        <code>warning</code>,
+        <code>error</code>,
+        <code>info</code>
+      </td>
+      <td>Ad-hoc status colours</td>
+    </tr>
+
+  </tbody>
+</table>
+
+## Accessibility
+
+<p>
+  Tables must remain readable and navigable with keyboard, screen readers, and
+  assistive technology. Use semantic table structure wherever possible:
+  <code>Table</code>, <code>TableHead</code>, <code>TableBody</code>,
+  <code>TableRow</code>, and <code>TableCell</code>.
+</p>
+
+<p>
+  If rows are selectable, make the selection control explicit. Do not rely only
+  on row background colour to communicate selection.
+</p>
+
+## Related components
+
+<ul>
+  <li>
+    <code>TableContainer</code> — provides the table surface and scrolling
+    container.
+  </li>
+  <li>
+    <code>TableHead</code> — groups column headings.
+  </li>
+  <li>
+    <code>TableBody</code> — contains the main row data.
+  </li>
+  <li>
+    <code>TableRow</code> — handles row-level states such as hover and selected.
+  </li>
+  <li>
+    <code>TableCell</code> — displays header or body cell content.
+  </li>
+  <li>
+    <code>TableSortLabel</code> — shows sortable column behaviour.
+  </li>
+  <li>
+    <code>TablePagination</code> — controls paged data sets.
+  </li>
+</ul>
+
+</div>
