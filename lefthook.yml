@@ -1,0 +1,7 @@
+# Lefthook Git Hooks Configuration
+# Documentation: https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-push:
+  commands:
+    gitleaks:
+      run: gitleaks protect --staged --redact
