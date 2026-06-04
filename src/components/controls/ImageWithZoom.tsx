@@ -67,8 +67,7 @@ export const ImageWithZoom = ({
           lensRef.current.style.display = "none";
         }
         // Position window to left of image on larger screens
-        // MUI breakpoints are not granular enough - the extra 100px is just to be on the safe side
-        if (window.innerWidth > breakpoints.values.xl + 100) {
+        if (window.innerWidth > breakpoints.values.xl) {
           zoomViewRef.current.style.left = "0px";
         } else {
           // Move the zoomed in view left or right depending on where the lens is
@@ -145,14 +144,14 @@ export const ImageWithZoom = ({
   return (
     <Box
       sx={{
-        width: userZoomedIn ? `calc(${zoomWidth} + ${width})` : width,
+        width: {
+          xl: userZoomedIn ? `calc(${zoomWidth} + ${width})` : width,
+          xs: width,
+        },
         position: "relative",
         alignSelf: "center",
         maxWidth,
-        paddingLeft: {
-          xl: userZoomedIn || alwaysPad ? zoomWidth : 0,
-          xs: 0,
-        },
+        paddingLeft: { xl: userZoomedIn || alwaysPad ? zoomWidth : 0, xs: 0 },
       }}
     >
       {!isLoading && (
