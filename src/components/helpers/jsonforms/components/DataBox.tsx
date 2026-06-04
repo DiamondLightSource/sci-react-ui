@@ -2,11 +2,13 @@ import { Box, Stack, Typography } from "@mui/material";
 
 interface DataBoxProps {
   label: string;
-  data?: string | null;
+  data?: string | number | null;
 }
 
-export const DataOrEmpty = ({ data }: { data?: string | null }) =>
-  data ? (
+export const DataOrEmpty = ({ data }: { data?: string | number | null }) =>
+  data !== undefined &&
+  data !== null &&
+  (typeof data !== "string" || data.trim() !== "") ? (
     data
   ) : (
     <Typography

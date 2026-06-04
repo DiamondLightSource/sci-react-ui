@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { DataOrEmpty } from "./DataBox";
 
 interface DataCellProps {
-  data?: string | null;
+  data?: string | number | null;
 }
 
 const DataCell = ({ data }: DataCellProps) => (
