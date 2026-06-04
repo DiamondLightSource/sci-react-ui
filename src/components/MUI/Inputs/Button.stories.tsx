@@ -76,7 +76,7 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: (_args) => (
-    <Stack direction="row" spacing={1}>
+    <Stack direction="row" spacing={1} alignItems="center">
       <Button size="small" variant="contained">
         Small
       </Button>
