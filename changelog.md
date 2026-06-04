@@ -9,10 +9,6 @@
 ### Fixed
 - Icon imports were causing issues downstream when components are unit tested.
 
-### Added
-- New DiamondDS theme
-- Documentation to storybook
-
 ## [v0.4.1] - 2026-02-24
 
 ### Fixed
