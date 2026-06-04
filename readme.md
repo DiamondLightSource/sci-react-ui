@@ -223,8 +223,9 @@ Steps needed when publishing a new version.
   - Check this readme still makes sense with the new changes you are about to publish.
   - Check the introduction file [./src/storybook/Introduction.mdx](src/storybook/Introduction.mdx) in Storybook still makes sense.
 - Push the branch, get it reviewed and merge.
-- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3", or "v1.2.3-alpha.1") 
-  - Push it.
+- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3", or "v1.2.3-alpha.1")
+  - i.e `git tag v1.2.3-alpha.1`
+  - Push it. i.e. `git push origin v1.2.3-alpha.1`
 - A new npm version should now have been published:
   - https://www.npmjs.com/package/@diamondlightsource/sci-react-ui?activeTab=versions
 
@@ -241,7 +242,7 @@ Steps needed when publishing a new version.
 It's useful to increase the version in [./package.json](package.json) with add "alpha", e.g `"version": "0.2.1alpha",`.
 and create a new section in  [./changelog.md](changelog.md) so subsequent changes can be append when needed/ e.g.:
 ```text
-[v#.#.#] - 2025-##-##
+[v#.#.#] - unpublished
 ---------------------
 
 ### Added
