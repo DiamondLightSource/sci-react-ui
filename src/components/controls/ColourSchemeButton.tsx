@@ -1,4 +1,4 @@
-import { useColorScheme, useTheme } from "@mui/material";
+import { useColorScheme } from "@mui/material";
 import { IconButton, IconButtonProps } from "@mui/material";
 
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -7,7 +7,6 @@ import BedtimeIcon from "@mui/icons-material/Bedtime";
 export const ColourSchemeButton = ({ sx, ...props }: IconButtonProps) => {
   const { mode, setMode } = useColorScheme();
   const isDark = mode === "dark";
-  const theme = useTheme();
 
   return (
     <IconButton
@@ -22,7 +21,7 @@ export const ColourSchemeButton = ({ sx, ...props }: IconButtonProps) => {
           ml: 1,
           color: "inherit",
           "&:hover": {
-            backgroundColor: theme.palette.action.hover,
+            backgroundColor: (theme) => theme.palette.action.hover,
           },
         },
         ...(Array.isArray(sx) ? sx : [sx]),

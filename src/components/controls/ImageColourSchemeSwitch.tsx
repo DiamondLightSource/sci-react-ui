@@ -29,7 +29,7 @@ const ImageColourSchemeSwitch = ({
   style,
 }: ImageColourSchemeSwitchProps) => {
   const { mode } = useColorScheme();
-  const isDark = mode === "dark";
+  const isDark = (mode ?? "light") === "dark";
 
   let src = image.src;
 

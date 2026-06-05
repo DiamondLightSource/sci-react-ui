@@ -1,11 +1,10 @@
 import React from "react";
 import { Box, Link } from "@mui/material";
 import { Logo } from "./Logo";
-import { LogoDef } from "./NewAppBar";
 
 interface AppBarLogoProps {
   variant?: "surface" | "brand";
-  logo?: LogoDef | "theme";
+  logo?: "theme";
   href?: string;
 }
 

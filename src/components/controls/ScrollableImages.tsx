@@ -129,10 +129,6 @@ const ScrollableImages = ({
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 2,
-            backgroundColor:
-              theme.palette.surface?.strong ?? theme.palette.background.paper,
-
-            color: theme.palette.text.primary,
           }}
         >
           <ArrowBackIosNewIcon data-testid="scroll-left-button" />
@@ -186,10 +182,6 @@ const ScrollableImages = ({
             top: "50%",
             transform: "translateY(-50%)",
             zIndex: 2,
-            backgroundColor:
-              theme.palette.surface?.strong ?? theme.palette.background.paper,
-
-            color: theme.palette.text.primary,
           }}
         >
           <ArrowForwardIosIcon data-testid="scroll-right-button" />
@@ -205,7 +197,6 @@ const ScrollableImages = ({
           <Button
             aria-label="Previous Image"
             variant="text"
-            color="primary"
             onClick={handlePrev}
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}
@@ -257,7 +248,6 @@ const ScrollableImages = ({
           <Button
             aria-label="Next Image"
             variant="text"
-            color="primary"
             onClick={handleNext}
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}

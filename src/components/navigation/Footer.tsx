@@ -1,11 +1,4 @@
-import {
-  Link,
-  LinkProps,
-  Stack,
-  styled,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Link, LinkProps, Stack, Typography, StackProps } from "@mui/material";
 
 import React from "react";
 import {
@@ -15,27 +8,22 @@ import {
 import { Logo } from "../controls/Logo";
 import { Bar, BarSlotsProps } from "../controls/Bar";
 
-interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
+interface FooterLinksProps extends StackProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
-  return (
-    <div
-      style={{
-        float: "left",
-        alignItems: "center",
-        borderTop: "4px solid transparent",
-        borderBottom: "4px solid transparent",
-        display: "flex",
-        flexWrap: "wrap",
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+const FooterLinks = ({ children, ...props }: FooterLinksProps) => (
+  <Stack
+    direction="row"
+    alignItems="center"
+    flexWrap="wrap"
+    useFlexGap
+    gap={2}
+    {...props}
+  >
+    {children}
+  </Stack>
+);
 
 interface FooterLinkProps extends LinkProps {
   children: React.ReactNode;
@@ -51,8 +39,6 @@ const FooterLink = ({
   href,
   ...props
 }: FooterLinkProps) => {
-  const theme = useTheme();
-
   const shouldUseLinkComponent = linkComponent && to;
 
   const linkProps = shouldUseLinkComponent
@@ -62,37 +48,22 @@ const FooterLink = ({
   return (
     <Link
       {...linkProps}
+      color="inherit"
+      underline="none"
       sx={{
-        "&:hover": {
-          borderBottom: "solid 4px",
-        },
         textDecoration: "none",
-        color: (theme) =>
-          theme.palette.primary.onSolid ?? theme.palette.primary.contrastText,
-
-        marginRight: "1.5rem",
-        marginBottom: "4px",
-        paddingBottom: "4px",
-        lineHeight: 1,
-        cursor: "pointer",
-        borderBottom: "solid transparent 4px",
+        borderBottom: "2px solid transparent",
+        pb: 0.5,
+        "&:hover": {
+          textDecoration: "none",
+          borderBottomColor: "currentColor",
+        },
       }}
-      {...props}
     >
       {children}
     </Link>
   );
 };
-
-const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
-  position: "relative",
-  bottom: 0,
-  marginTop: "auto",
-
-  backgroundColor: theme.palette.primary.solid ?? theme.palette.primary.main,
-
-  color: theme.palette.primary.onSolid ?? theme.palette.primary.contrastText,
-}));
 
 interface FooterProps extends BarSlotsProps {
   logo?: ImageColourSchemeSwitchType | "theme";
@@ -104,23 +75,17 @@ interface FooterProps extends BarSlotsProps {
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
 const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
-  const theme = useTheme();
-
   return (
-    <BarStyled
+    <Bar
       role="contentinfo"
+      color="primary"
+      variant="default"
       {...props}
       rightSlot={
         <>
           {rightSlot}
           {(logo || copyright) && (
-            <Stack
-              direction="column"
-              style={{
-                paddingTop: "10px",
-                textAlign: "right",
-              }}
-            >
+            <Stack alignItems="flex-end" spacing={1} sx={{ pt: 1 }}>
               {logo &&
                 (logo == "theme" ? (
                   <Logo short={true} />
@@ -128,14 +93,7 @@ const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
                   <ImageColourSchemeSwitch image={logo} />
                 ))}
               {copyright && (
-                <Typography
-                  sx={(theme) => ({
-                    mb: 1,
-                    color:
-                      theme.palette.primary.onSolid ??
-                      theme.palette.primary.contrastText,
-                  })}
-                >
+                <Typography variant="body2">
                   {`Copyright © ${new Date().getFullYear()} ${copyright}`}
                 </Typography>
               )}

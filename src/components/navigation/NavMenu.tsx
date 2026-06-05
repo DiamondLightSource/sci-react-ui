@@ -25,18 +25,15 @@ const NavMenuLink = forwardRef<HTMLElement, NavMenuLinkProps>(
         onClick={close}
         {...props}
         sx={{
-          "&:hover": {
-            borderLeft: "4px solid currentColor",
-            backgroundColor: (theme) => theme.palette.action.hover,
-          },
-          "&:focus": {
-            borderLeft: "4px solid currentColor",
-            backgroundColor: (theme) => theme.palette.action.hover,
-          },
           display: "flex",
           alignItems: "center",
           borderLeft: "4px solid transparent",
           color: "inherit",
+
+          "&:hover, &:focus": {
+            borderLeft: "4px solid currentColor",
+            backgroundColor: (theme) => theme.palette.action.hover,
+          },
         }}
       >
         {children}
@@ -72,13 +69,13 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         aria-haspopup="menu"
         onClick={openMenu}
         disableFocusRipple
+        color="inherit"
         sx={{
-          color: "inherit",
-          backgroundColor: "transparent",
           display: "flex",
           alignItems: "center",
           px: 1,
-          py: 1,
+          pt: "13px",
+          pb: 0,
           borderRadius: 0,
 
           borderBottom: "4px solid transparent",
@@ -116,18 +113,6 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         anchorEl={anchorElement}
         disableAutoFocusItem
         MenuListProps={{ sx: { minWidth: menuWidth } }}
-        slotProps={{
-          paper: {
-            sx: {
-              backgroundColor: (theme) =>
-                theme.palette.primary.solid ?? theme.palette.primary.main,
-
-              color: (theme) =>
-                theme.palette.primary.onSolid ??
-                theme.palette.primary.contrastText,
-            },
-          },
-        }}
       >
         <NavMenuContext.Provider value={{ close: closeMenu }}>
           {children}

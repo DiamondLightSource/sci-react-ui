@@ -69,30 +69,14 @@ const User = ({
             aria-label="User Avatar"
             onClick={handleClick}
             variant="text"
-            sx={{
-              px: 1,
-              color: "inherit",
-              textTransform: "none",
-
-              "&:hover": {
-                backgroundColor: "transparent",
-                opacity: 0.85,
-              },
-            }}
+            color="inherit"
           >
             <Stack direction="row" alignItems="center" spacing={1}>
               {avatar || (
                 <Avatar
                   alt={user.name + " avatar"}
                   variant="rounded"
-                  sx={(theme) => ({
-                    bgcolor:
-                      theme.palette.surface?.strong ??
-                      theme.palette.primary.light,
-                    color: theme.palette.text.primary,
-                    height: 32,
-                    width: 32,
-                  })}
+                  sx={{ width: 32, height: 32 }}
                 />
               )}
 
@@ -121,27 +105,11 @@ const User = ({
               open={open}
               onClose={handleClose}
               autoFocus={false}
-              slotProps={{
-                paper: {
-                  sx: (theme) => ({
-                    backgroundColor: theme.palette.background.paper,
-                    color: theme.palette.text.primary,
-                    border: `1px solid ${theme.palette.divider}`,
-                  }),
-                },
-              }}
             >
               {menuItems}
 
               {auth && (
-                <MenuItem
-                  sx={(theme) => ({
-                    "&:hover": {
-                      backgroundColor: theme.palette.action.hover,
-                      color: theme.palette.text.primary,
-                    },
-                  })}
-                >
+                <MenuItem>
                   <Link
                     href={auth.getProfileUrl()}
                     underline="none"
@@ -152,16 +120,7 @@ const User = ({
                 </MenuItem>
               )}
 
-              <MenuItem
-                onClick={handleLogout}
-                aria-label="Logout"
-                sx={(theme) => ({
-                  "&:hover": {
-                    backgroundColor: theme.palette.action.hover,
-                    color: theme.palette.text.primary,
-                  },
-                })}
-              >
+              <MenuItem onClick={handleLogout} aria-label="Logout">
                 <Link underline="none" color="inherit">
                   Logout
                 </Link>
@@ -174,13 +133,7 @@ const User = ({
           onClick={handleLogin}
           startIcon={<MdLogin />}
           variant="contained"
-          sx={(theme) => ({
-            backgroundColor:
-              theme.palette.primary.solid ?? theme.palette.primary.main,
-            color:
-              theme.palette.primary.onSolid ??
-              theme.palette.primary.contrastText,
-          })}
+          color="primary"
         >
           Login
         </Button>

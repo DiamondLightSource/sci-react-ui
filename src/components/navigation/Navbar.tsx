@@ -1,13 +1,5 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
-import {
-  Box,
-  Drawer,
-  Link,
-  LinkProps,
-  IconButton,
-  Stack,
-  styled,
-} from "@mui/material";
+import { Box, Drawer, Link, LinkProps, IconButton, Stack } from "@mui/material";
 import { MdMenu, MdClose } from "react-icons/md";
 import React, { forwardRef, useState } from "react";
 
@@ -39,13 +31,15 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
     <Link
       {...linkProps}
       ref={ref}
+      color="inherit"
+      underline="none"
       sx={{
         display: "flex",
         alignItems: "center",
-        textDecoration: "none",
 
         px: 1,
-        py: 1,
+        pt: "13px",
+        pb: 0,
 
         borderBottom: "4px solid transparent",
 
@@ -58,11 +52,6 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLink(
           borderBottomColor: "currentColor",
           backgroundColor: (theme) => theme.palette.action.hover,
         },
-
-        color: (theme) =>
-          theme.palette.brand?.onSolid ??
-          theme.palette.primary.onSolid ??
-          theme.palette.primary.contrastText,
       }}
       {...props}
     >
@@ -84,24 +73,10 @@ const NavLinks = ({ children }: NavLinksProps) => {
   return (
     <>
       <IconButton
-        sx={(theme) => ({
-          color:
-            theme.palette.brand?.onSolid ??
-            theme.palette.primary.onSolid ??
-            theme.palette.primary.contrastText,
-
-          display: { md: "none" },
-          order: -1,
-          marginLeft: "0 !important",
-
-          "&:hover": {
-            backgroundColor: "transparent",
-            opacity: 0.85,
-          },
-        })}
         size="small"
         aria-label="Open Menu"
         onClick={isOpen ? onClose : onOpen}
+        sx={{ display: { md: "none" }, order: -1 }}
       >
         {isOpen ? <MdClose /> : <MdMenu />}
       </IconButton>
@@ -114,54 +89,29 @@ const NavLinks = ({ children }: NavLinksProps) => {
           marginLeft: "0 !important",
         }}
         component="nav"
-        spacing={4}
+        spacing={2}
       >
         {children}
       </Stack>
 
-      <Drawer
-        open={isOpen}
-        onClose={onClose}
-        anchor="left"
-        PaperProps={{
-          sx: (theme) => ({
-            backgroundColor:
-              theme.palette.brand?.solid ??
-              theme.palette.primary.solid ??
-              theme.palette.primary.main,
-
-            color:
-              theme.palette.brand?.onSolid ??
-              theme.palette.primary.onSolid ??
-              theme.palette.primary.contrastText,
-          }),
-        }}
-      >
-        <Box
-          sx={(theme) => ({
-            width: "100%",
-            padding: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-
-            backgroundColor:
-              theme.palette.brand?.solid ??
-              theme.palette.primary.solid ??
-              theme.palette.primary.main,
-          })}
-        >
-          {children}
-        </Box>
+      <Drawer open={isOpen} onClose={onClose} anchor="left">
+        <Bar color="primary" variant="default" sx={{ height: "100%" }}>
+          <Box
+            sx={{
+              p: 2,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: 250,
+            }}
+          >
+            {children}
+          </Box>
+        </Bar>
       </Drawer>
     </>
   );
 };
-
-const BarStyled = styled(Bar)<BarSlotsProps>(() => ({
-  top: 0,
-  zIndex: 1,
-}));
 
 interface NavbarProps extends BarSlotsProps {
   logo?: ImageColourSchemeSwitchType | "theme";
@@ -179,21 +129,16 @@ const Navbar = ({
   ...props
 }: NavbarProps) => {
   return (
-    <BarStyled
+    <Bar
       data-testid="navbar"
       color="primary"
+      variant="default"
+      {...props}
       sx={(theme) => ({
         backgroundColor:
-          theme.palette.brand?.solid ??
-          theme.palette.primary.solid ??
-          theme.palette.primary.main,
-
-        color:
-          theme.palette.brand?.onSolid ??
-          theme.palette.primary.onSolid ??
-          theme.palette.primary.contrastText,
+          theme.palette.brand?.solid ?? theme.palette.primary.solid,
+        color: theme.palette.brand?.onSolid ?? theme.palette.primary.onSolid,
       })}
-      {...props}
       leftSlot={
         <>
           {logo && (
@@ -202,20 +147,20 @@ const Navbar = ({
               {...(linkComponent
                 ? { component: linkComponent, to: "/" }
                 : { href: "/" })}
+              color="inherit"
             >
               <Box
                 sx={{
                   height: 32,
                   display: "flex",
                   alignItems: "center",
-
+                  mb: "2px",
                   "& img": {
                     height: "100%",
                     width: "auto",
                   },
-
-                  "&:hover": { filter: "brightness(80%)" },
-                  marginRight: { xs: "0", md: "50px" },
+                  "&:hover": { opacity: 0.8 },
+                  mr: { xs: 0, md: 5 },
                 }}
               >
                 {logo == "theme" ? (
