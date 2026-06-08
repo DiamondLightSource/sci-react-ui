@@ -10,15 +10,6 @@ import "../src/styles/diamondDS/diamond-ds-roles.css";
 
 const TextThemeDiamondDS = "Theme: DiamondDS";
 
-// Left in for now even though only a single theme
-function resolveTheme(selectedTheme: string) {
-  switch (selectedTheme) {
-    case TextThemeDiamondDS:
-    default:
-      return DiamondDSTheme;
-  }
-}
-
 function resolveDefaultMode(selectedThemeMode: string) {
   if (selectedThemeMode === TextLight) return "light";
   if (selectedThemeMode === TextDark) return "dark";
@@ -36,12 +27,11 @@ export const decorators = [
   },
 
   (Story, context) => {
-    const selectedTheme = context.globals.theme || TextThemeDiamondDS;
     const selectedThemeMode = context.globals.themeMode || TextSystem;
 
     return (
       <ThemeProvider
-        theme={resolveTheme(selectedTheme)}
+        theme={DiamondDSTheme}
         defaultMode={resolveDefaultMode(selectedThemeMode)}
       >
         <CssBaseline />
@@ -56,28 +46,19 @@ export const decorators = [
 
 const preview: Preview = {
   globalTypes: {
-    theme: {
-      description: "Global theme for components",
-      toolbar: {
-        title: "Theme",
-        icon: "cog",
-        items: [TextThemeDiamondDS],
-        dynamicTitle: true,
-      },
-    },
     themeMode: {
       description: "Global theme mode for components",
       toolbar: {
         title: "Theme Mode",
         icon: "mirror",
-        items: [TextLight, TextDark, TextSystem],
+        items: [TextLight, TextDark],
         dynamicTitle: true,
       },
     },
   },
   initialGlobals: {
-    theme: TextThemeDiamond,
-    themeMode: TextSystem,
+    theme: TextThemeDiamondDS,
+    themeMode: TextLight,
   },
   parameters: {
     controls: {
