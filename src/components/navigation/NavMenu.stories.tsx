@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { NavMenu, NavMenuLink } from "./NavMenu";
 import { Button, Divider, Typography } from "@mui/material";
-import Autorenew from "@mui/icons-material/Autorenew";
+import { RefreshIcon } from "../DataDisplay/Icons";
+
 import { MockLink } from "../../utils/MockLink";
 
 const meta: Meta<typeof NavMenu> = {
@@ -80,7 +81,7 @@ export const CustomChildren: Story = {
           Section Header
         </Typography>
         <Divider />
-        <Button sx={{ color: "white" }} startIcon={<Autorenew />}>
+        <Button sx={{ color: "white" }} startIcon={<RefreshIcon size="sm" />}>
           Button
         </Button>
       </>

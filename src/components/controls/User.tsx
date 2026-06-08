@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ReactElement, ReactNode, useState } from "react";
-import { MdLogin } from "react-icons/md";
+import { LoginIcon, LogoutIcon, UserIcon } from "../DataDisplay/Icons";
 
 import { Auth } from "../systems/auth";
 
@@ -74,10 +74,17 @@ const User = ({
             <Stack direction="row" alignItems="center" spacing={1}>
               {avatar || (
                 <Avatar
-                  alt={user.name + " avatar"}
+                  alt={`${user.name} avatar`}
                   variant="rounded"
-                  sx={{ width: 32, height: 32 }}
-                />
+                  sx={{
+                    backgroundColor: theme.vars.palette.primary.light,
+                    color: colour || "textPrimary",
+                    height: 35,
+                    width: 35,
+                  }}
+                >
+                  <UserIcon size="md" />
+                </Avatar>
               )}
 
               <Box>
@@ -121,9 +128,8 @@ const User = ({
               )}
 
               <MenuItem onClick={handleLogout} aria-label="Logout">
-                <Link underline="none" color="inherit">
-                  Logout
-                </Link>
+                <LogoutIcon size="sm" />
+                <Link sx={{ textDecoration: "none", ml: 1 }}>Logout</Link>
               </MenuItem>
             </Menu>
           )}
@@ -131,9 +137,11 @@ const User = ({
       ) : (
         <Button
           onClick={handleLogin}
-          startIcon={<MdLogin />}
-          variant="contained"
-          color="primary"
+          startIcon={<LoginIcon />}
+          sx={{
+            backgroundColor: theme.vars.palette.primary.light,
+            color: theme.vars.palette.primary.contrastText,
+          }}
         >
           Login
         </Button>

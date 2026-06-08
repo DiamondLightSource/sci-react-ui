@@ -5,6 +5,12 @@ import { ColourSchemes } from "../../utils/globals";
 import { renderWithProviders } from "../../__test-utils__/helpers";
 
 const mockSetColorScheme = vi.fn();
+
+vi.mock("../DataDisplay/Icons", () => ({
+  MoonIcon: () => <div data-testid="MoonIcon" />,
+  SunIcon: () => <div data-testid="SunIcon" />,
+}));
+
 vi.mock("@mui/material", async () => {
   const actualEnums = await vi.importActual("../../utils/globals");
 
@@ -31,7 +37,7 @@ describe("ColourSchemeButton", () => {
     const button = getByRole("button");
     expect(button).toBeInTheDocument();
 
-    const icon = getByTestId("BedtimeIcon");
+    const icon = getByTestId("MoonIcon");
     expect(icon).toBeInTheDocument();
   });
 
