@@ -32,24 +32,26 @@ import { Meta } from "@storybook/blocks";
 
         ### Next, Add a ThemeProvider
 
-        Select theme `DiamondDSTheme` (or `GenericTheme`), and add it to the App via the ThemeProvider.
-
-        Alternatively, you can fork an existing theme or create your own (see below).
+        Use the provided `DiamondDSTheme` with the ThemeProvider or create your own (see below). The theme controls colour via semantic surface tokens.
 
         ```tsx filename="main.tsx"
         import {
             ThemeProvider,
-            GenericTheme
+            DiamondDSTheme
         } from "@diamondlightsource/sci-react-ui";
 
         root.render(
-          <ThemeProvider theme={GenericTheme}>
+          <ThemeProvider theme={DiamondDSTheme}>
             <App />
           </ThemeProvider>
         )
         ```
 
-        ### Finally, Add the Components
+        The design sytem theme consists of two parts:
+            - Theme configuration (DiamondDSTheme.ts)
+            - Semantic role tokens (diamond-ds-roles.css)
+
+        ### Finally, add the Components
 
         Then create something, for instance, you may want a Navigation Bar at the top of your website:
 
@@ -119,42 +121,6 @@ import { Meta } from "@storybook/blocks";
 
 <div className="sb-container">
     <div className='sb-section-title'>
-        ## Create new Theme
-
-        The 'GenericTheme.ts' shows you a simple example of creating a new theme.
-        Use `mergeThemeOptions` to create a new one from an existing one.
-
-        To inherit from the DiamondTheme by overriding the light palette, use something like this:
-
-        ```tsx
-        import { createTheme, Theme } from "@mui/material/styles";
-        import { DiamondThemeOptions, mergeThemeOptions } from '@diamondlightsource/sci-react-ui'
-
-        const MyThemeOptions = mergeThemeOptions({
-            colorSchemes: {
-                light: {
-                    palette: {
-                        primary: {
-                            main: "#f00",
-                            light: "#f55",
-                            dark: "#a00",
-                            contrastText: "#fff",
-                        },
-                    },
-                },
-            }
-        }, DiamondThemeOptions);
-
-        const MyTheme: Theme = createTheme(MyThemeOptions);
-        export { MyTheme };
-        ```
-
-        The theme options are documented in MUI. For the examples used in DiamondTheme
-        see [DiamondTheme.tsx](https://github.com/DiamondLightSource/sci-react-ui/blob/main/src/themes/DiamondTheme.ts)
-        on GitHub.
-
-    </div>
-    <div className='sb-section-title'>
 
         ## Adapting the Diamond DS Theme
 
@@ -162,9 +128,23 @@ import { Meta } from "@storybook/blocks";
 
         The important part is the role tokens. If your CSS defines the same role variables, the components will continue to work with your new colours.
 
-        To customise the theme, copy `DiamondDSTheme` and `diamond-ds-roles.css`, then rename both for your project. In your copied CSS file, keep the same token names and replace the colour values with your own palette.
+         To create your own theme:
 
-        For example, within the CSS file you can change `--ds-primary: #2a4db8;` to your desired primary colour.
+        1. Copy the base files and rename them for your own project:
+            - DiamondDSTheme.ts -> MyDSTheme.ts
+            - diamond-ds-roles.css -> my-ds-roles.css
+
+        2. Update the CSS tokens
+
+            The CSS file defines semantic roles such as surfaces, text, and borders.
+            Keep the variable names the same, but update the values:
+
+               ```
+                :root {
+                --ds-surface: #ffffff;
+                --ds-on-surface: #1a1c23;
+                }
+                ```
 
   </div>
 

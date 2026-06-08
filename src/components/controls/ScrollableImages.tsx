@@ -43,7 +43,7 @@ const ScrollableImages = ({
   wrapAround = true,
   slider = true,
   numeration = true,
-  backgroundColor = "#eee",
+  backgroundColor,
   scrollStep = 320,
 }: ScrollableImagesProps) => {
   const [imageList, setImageList] = useState<ImageInfo[]>([]);

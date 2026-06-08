@@ -79,7 +79,6 @@ const preview: Preview = {
           "Helpers",
           "Theme",
           "Theme/Logos",
-          "Theme/Colours",
           "MUI",
           "Components",
         ],
