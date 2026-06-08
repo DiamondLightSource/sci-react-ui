@@ -13,9 +13,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    leftSlot: <Typography variant="body1">Left</Typography>,
-    centreSlot: <Typography variant="body1">Centre</Typography>,
-    rightSlot: <Typography variant="body1">Right</Typography>,
+    leftSlot: <Typography variant="body1">Left & Children Slot</Typography>,
+    centreSlot: <Typography variant="body1">Centre Slot</Typography>,
+    rightSlot: <Typography variant="body1">Right Slot</Typography>,
   },
 };
 
