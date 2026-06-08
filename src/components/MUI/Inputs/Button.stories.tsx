@@ -13,15 +13,17 @@ import {
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
 const icons = {
-  none: undefined,
+  none: null,
   save: <SaveIcon />,
   add: <AddIcon />,
   send: <SendIcon />,
   delete: <DeleteIcon />,
 };
 
+type IconName = keyof typeof icons;
+
 type ButtonStoryProps = ComponentProps<typeof Button> & {
-  icon: keyof typeof icons;
+  icon: IconName;
   iconPosition: "start" | "end";
 };
 
@@ -83,17 +85,21 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: ({ icon, iconPosition, ...args }) => (
-    <Button
-      {...args}
-      startIcon={iconPosition === "start" ? icons[icon] : undefined}
-      endIcon={iconPosition === "end" ? icons[icon] : undefined}
-      href={args.href || undefined}
-      rel={args.rel || undefined}
-    >
-      {args.children}
-    </Button>
-  ),
+  render: ({ icon = "none", iconPosition = "start", ...args }) => {
+    const iconElement = icons[icon as IconName];
+
+    return (
+      <Button
+        {...args}
+        startIcon={iconPosition === "start" ? iconElement : undefined}
+        endIcon={iconPosition === "end" ? iconElement : undefined}
+        href={args.href || undefined}
+        rel={args.rel || undefined}
+      >
+        {args.children}
+      </Button>
+    );
+  },
 };
 
 export const Variants: Story = {
