@@ -682,20 +682,13 @@ const DiamondDSTheme = extendTheme({
       },
 
       styleOverrides: {
+        sizeLarge: {
+          paddingInline: 20,
+        },
         root: ({ ownerState, theme }: OverrideArgs<ButtonProps>): CSSObject => {
           const base: CSSObject = {
             textTransform: "none",
             boxShadow: "none",
-
-            paddingInline: theme.spacing(1.5), // 12px
-
-            "&:has(.MuiButton-startIcon)": {
-              paddingLeft: theme.spacing(1), // 8px
-            },
-
-            "&:has(.MuiButton-endIcon)": {
-              paddingRight: theme.spacing(1), // 8px
-            },
 
             "&:hover": {
               boxShadow: "none",
@@ -793,16 +786,6 @@ const DiamondDSTheme = extendTheme({
             ...getFocusOutline(),
           };
         },
-
-        startIcon: ({ theme }) => ({
-          marginLeft: 0,
-          marginRight: theme.spacing(1), // 8px
-        }),
-
-        endIcon: ({ theme }) => ({
-          marginLeft: theme.spacing(1), // 8px
-          marginRight: 0,
-        }),
       },
     },
 
