@@ -128,7 +128,6 @@ export const CustomViewBoxAndInherit: Story = {
     viewBox: "0 0 48 48",
     inheritViewBox: false,
     titleAccess: "Custom viewBox icon",
-    pathD: "M24 4L12 20h8v16h8V20h8L24 4z",
   },
   render: (args) => (
     <Stack direction="row" spacing={4} alignItems="center">
