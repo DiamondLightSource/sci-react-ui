@@ -25,7 +25,7 @@ describe("DataBox", () => {
     expect(container.querySelector("dd span.empty")).not.toBeInTheDocument();
   });
 
-  test("Should render data if zero number and label", () => {
+  test("Should render data if zero int number and label", () => {
     const data = 0;
     const { container } = render(<DataBox {...props} data={data} />);
 
@@ -34,7 +34,7 @@ describe("DataBox", () => {
     expect(container.querySelector("dd span.empty")).not.toBeInTheDocument();
   });
 
-  test("Should render data if zero number and label", () => {
+  test("Should render data if zero floating-point number and label", () => {
     const data = 0.0;
     const { container } = render(<DataBox {...props} data={data} />);
 
