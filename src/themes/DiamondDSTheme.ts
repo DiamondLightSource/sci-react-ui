@@ -1152,6 +1152,15 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiAvatar: {
+      styleOverrides: {
+        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+          backgroundColor: theme.palette.surface.strong,
+          color: theme.palette.text.primary,
+        }),
+      },
+    },
+
     MuiTab: {
       styleOverrides: {
         root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
