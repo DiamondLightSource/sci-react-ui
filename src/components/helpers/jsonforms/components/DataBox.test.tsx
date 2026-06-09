@@ -16,6 +16,33 @@ describe("DataBox", () => {
     expect(container.querySelector("dd span.empty")).not.toBeInTheDocument();
   });
 
+  test("Should render data if zero and label", () => {
+    const data = "0";
+    const { container } = render(<DataBox {...props} data={data} />);
+
+    expect(screen.getByText(props.label)).toBeInTheDocument();
+    expect(screen.getByText(data)).toBeInTheDocument();
+    expect(container.querySelector("dd span.empty")).not.toBeInTheDocument();
+  });
+
+  test("Should render data if zero int number and label", () => {
+    const data = 0;
+    const { container } = render(<DataBox {...props} data={data} />);
+
+    expect(screen.getByText(props.label)).toBeInTheDocument();
+    expect(screen.getByText(data)).toBeInTheDocument();
+    expect(container.querySelector("dd span.empty")).not.toBeInTheDocument();
+  });
+
+  test("Should render data if zero floating-point number and label", () => {
+    const data = 0.0;
+    const { container } = render(<DataBox {...props} data={data} />);
+
+    expect(screen.getByText(props.label)).toBeInTheDocument();
+    expect(screen.getByText(data)).toBeInTheDocument();
+    expect(container.querySelector("dd span.empty")).not.toBeInTheDocument();
+  });
+
   test("Should render '-' with empty data", () => {
     const { container } = render(<DataBox {...props} data="" />);
 
@@ -23,8 +50,8 @@ describe("DataBox", () => {
     expect(container.querySelector("dd span.empty")).toBeInTheDocument();
   });
 
-  test("Should render '-' with null data", () => {
-    const { container } = render(<DataBox {...props} data={null} />);
+  test("Should render '-' with whitespace data", () => {
+    const { container } = render(<DataBox {...props} data="   " />);
 
     expect(screen.getByText(props.label)).toBeInTheDocument();
     expect(container.querySelector("dd span.empty")).toBeInTheDocument();
