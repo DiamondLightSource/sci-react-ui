@@ -1,37 +1,41 @@
 // Adapted from https://github.com/DiamondLightSource/workflows/blob/main/frontend/workflows-lib/tests/components/SubmissionForm.test.tsx
-import { fireEvent, render, within } from "@testing-library/react";
-
+import { fireEvent, within } from "@testing-library/react";
+import { renderWithProviders } from "../../__test-utils__/helpers";
 import { VisitInput } from "./VisitInput";
 
 it("should render visit field", () => {
-  const { getByTestId } = render(<VisitInput onSubmit={() => {}} />);
+  const { getByTestId } = renderWithProviders(
+    <VisitInput onSubmit={() => {}} />,
+  );
   expect(getByTestId("visit-field")).toBeInTheDocument();
 });
 
 it("should render submit button by default", () => {
-  const { getByTestId } = render(<VisitInput onSubmit={() => {}} />);
+  const { getByTestId } = renderWithProviders(
+    <VisitInput onSubmit={() => {}} />,
+  );
   expect(getByTestId("submit-button")).toBeInTheDocument();
 });
 
 it("should render submit button", () => {
-  const { getByTestId } = render(
+  const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={() => {}} submitButton={true} />,
   );
   expect(getByTestId("submit-button")).toBeInTheDocument();
 });
 
 it("should render visit field without submit func", () => {
-  const { getByTestId } = render(<VisitInput />);
+  const { getByTestId } = renderWithProviders(<VisitInput />);
   expect(getByTestId("visit-field")).toBeInTheDocument();
 });
 
 it("should not render submit button by default", () => {
-  const { queryByTestId } = render(<VisitInput />);
+  const { queryByTestId } = renderWithProviders(<VisitInput />);
   expect(queryByTestId("submit-button")).not.toBeInTheDocument();
 });
 
 it("should not render submit button", () => {
-  const { queryByTestId } = render(
+  const { queryByTestId } = renderWithProviders(
     <VisitInput onSubmit={() => {}} submitButton={false} />,
   );
   expect(queryByTestId("submit-button")).not.toBeInTheDocument();
@@ -39,7 +43,7 @@ it("should not render submit button", () => {
 
 it("should produce visit and parameters on submit button click", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(
+  const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} parameters={{ fedid: "abc98765" }} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
@@ -60,7 +64,9 @@ it("should produce visit and parameters on submit button click", () => {
 
 it("should produce visit on submit button click", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(<VisitInput onSubmit={onSubmit} />);
+  const { getByTestId } = renderWithProviders(
+    <VisitInput onSubmit={onSubmit} />,
+  );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
   fireEvent.change(visitField, { target: { value: "zz12345-7" } });
   const submitButton = getByTestId("submit-button");
@@ -77,7 +83,7 @@ it("should produce visit on submit button click", () => {
 
 it("should not produce parsed visit", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(
+  const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitOnReturn={true} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
@@ -93,7 +99,9 @@ it("should not produce parsed visit", () => {
 
 it("should produce visit on enter key down by default", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(<VisitInput onSubmit={onSubmit} />);
+  const { getByTestId } = renderWithProviders(
+    <VisitInput onSubmit={onSubmit} />,
+  );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
   fireEvent.change(visitField, { target: { value: "zz12345-7" } });
   fireEvent.keyDown(visitField, {
@@ -114,7 +122,7 @@ it("should produce visit on enter key down by default", () => {
 
 it("should produce visit on enter key down without submit button", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(
+  const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitButton={false} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
@@ -137,7 +145,7 @@ it("should produce visit on enter key down without submit button", () => {
 
 it("should not produce visit on enter key down", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(
+  const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitOnReturn={false} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
@@ -160,7 +168,7 @@ it("should not produce visit on enter key down", () => {
 
 it("should not produce visit on enter key down", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(
+  const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitOnReturn={false} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
@@ -183,7 +191,7 @@ it("should not produce visit on enter key down", () => {
 
 it("should not produce visit on enter key down with no onSubmit", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(<VisitInput />);
+  const { getByTestId } = renderWithProviders(<VisitInput />);
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
   fireEvent.change(visitField, { target: { value: "zz12345-7" } });
   fireEvent.keyDown(visitField, {
@@ -204,7 +212,7 @@ it("should not produce visit on enter key down with no onSubmit", () => {
 
 it("should update visit on submit", () => {
   const onSubmit = vi.fn();
-  const { getByTestId } = render(
+  const { getByTestId } = renderWithProviders(
     <VisitInput
       onSubmit={onSubmit}
       visit={{ proposalCode: "xx", proposalNumber: 98765, number: 4 }}
