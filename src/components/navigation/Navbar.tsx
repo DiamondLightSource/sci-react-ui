@@ -87,7 +87,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
         {children}
       </Stack>
       <Drawer open={isOpen} onClose={onClose} anchor="left">
-        <Bar color="primary" variant="default" sx={{ height: "100%" }}>
+        <Bar surface="brand" variant="solid" sx={{ height: "100%" }}>
           <Box
             sx={{
               p: 2,
@@ -105,15 +105,18 @@ const NavLinks = ({ children }: NavLinksProps) => {
   );
 };
 
-interface NavbarProps extends BarSlotsProps {
+type NavbarProps = BarSlotsProps & {
   logo?: ImageColourSchemeSwitchType | "theme";
   linkComponent?: React.ElementType;
-}
+};
 
 /**
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links. Brand surface by default.
  */
 const Navbar = ({
+  surface = "brand-fixed",
+  variant = "solid",
+  elevation,
   logo,
   linkComponent,
   leftSlot,
@@ -122,15 +125,11 @@ const Navbar = ({
 }: NavbarProps) => {
   return (
     <Bar
-      data-testid="navbar"
-      color="primary"
-      variant="default"
       {...props}
-      sx={(theme) => ({
-        backgroundColor:
-          theme.palette.brand?.solid ?? theme.palette.primary.solid,
-        color: theme.palette.brand?.onSolid ?? theme.palette.primary.onSolid,
-      })}
+      surface={surface}
+      variant={variant}
+      elevation={elevation}
+      data-testid="navbar"
       leftSlot={
         <>
           {logo && (

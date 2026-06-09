@@ -74,3 +74,22 @@ export const NoLinkComponentWithCustomPath: Story = {
     ],
   },
 };
+
+export const BreadcrumbsVariants: Story = {
+  render: (_args) => (
+    <>
+      <Breadcrumbs path="home/page" />
+      <Breadcrumbs path="home/page" surface="surface" elevation={1} />
+      <Breadcrumbs path="home/page" surface="primary" variant="container" />
+      <Breadcrumbs path="home/page" surface="brand" variant="container" />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Breadcrumbs are subtle by default but can adapt to different surfaces when needed.",
+      },
+    },
+  },
+};

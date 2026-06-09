@@ -11,11 +11,11 @@ import { CustomLink } from "types/links";
 
 import { Bar, BarProps } from "../controls/Bar";
 
-interface BreadcrumbsProps extends BarProps {
+type BreadcrumbsProps = BarProps & {
   path: string | string[] | CustomLink[];
   linkComponent?: React.ElementType;
   muiBreadcrumbsProps?: MuiBreadcrumbsProps;
-}
+};
 
 /**
  * Create CrumbData from crumb parts with links
@@ -53,6 +53,9 @@ export function getCrumbs(
 }
 
 const Breadcrumbs = ({
+  surface = "surface",
+  variant = "container",
+  elevation,
   path,
   linkComponent,
   muiBreadcrumbsProps,
@@ -61,17 +64,22 @@ const Breadcrumbs = ({
   const crumbs: CustomLink[] = getCrumbs(path);
 
   return (
-    <Bar variant="subtle" {...props}>
+    <Bar {...props} surface={surface} variant={variant} elevation={elevation}>
       <MuiBreadcrumbs
         aria-label="breadcrumb"
         separator={<NavigateNextIcon fontSize="small" />}
+        sx={{
+          color: "inherit",
+          "&, & *": {
+            color: "inherit !important", // required to use Bar colour for adequate text contrast
+          },
+        }}
         {...muiBreadcrumbsProps}
       >
         <MuiLink
           aria-label="Go to home page"
           key={"crumb-0"}
           underline="hover"
-          color="inherit"
           {...(linkComponent
             ? {
                 component: linkComponent,
@@ -95,7 +103,6 @@ const Breadcrumbs = ({
                 key={`crumb-${i + 1}`}
                 fontSize="smaller"
                 underline="hover"
-                color="inherit"
                 {...(linkComponent
                   ? { component: linkComponent, to: crumb.href }
                   : { href: crumb.href })}

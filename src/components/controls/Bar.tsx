@@ -4,82 +4,135 @@ import {
   BoxProps,
   Breakpoint,
   Container,
-  LinkProps,
   Stack,
   styled,
 } from "@mui/material";
 import { Theme } from "@mui/material/styles";
 
-type IntentColour =
-  | "primary"
-  | "secondary"
-  | "error"
-  | "warning"
-  | "info"
-  | "success";
+type BarProps = BoxProps & {
+  containerWidth?: false | Breakpoint;
+  surface?:
+    | "primary"
+    | "secondary"
+    | "brand"
+    | "brand-fixed"
+    | "brand-fixedDim"
+    | "surface"
+    | "paper"
+    | "background";
 
-interface SlotProps extends BoxProps, React.PropsWithChildren {
+  variant?: "solid" | "container" | "base";
+  elevation?: number;
+};
+
+type BarSlotsProps = BarProps & {
+  centreSlot?: React.ReactNode;
+  rightSlot?: React.ReactNode;
+  leftSlot?: React.ReactNode;
+};
+
+const Slot = ({
+  className,
+  children,
+}: {
   className: string;
-}
-
-const Slot = ({ className, children }: SlotProps) => (
+  children?: React.ReactNode;
+}) => (
   <Stack className={className} direction="row" alignItems="center" spacing={2}>
     {children}
   </Stack>
 );
 
-interface BarProps extends BoxProps {
-  containerWidth?: false | Breakpoint;
-  color?: IntentColour;
-  variant?: "default" | "subtle";
-}
+const resolveBarSurface = (
+  theme: Theme,
+  surface: string,
+  variant: "solid" | "container" | "base",
+  elevation: number,
+) => {
+  const baseBg =
+    elevation > 0
+      ? theme.palette.surface.elevated(elevation)
+      : theme.palette.background.paper;
 
-interface BarSlotsProps extends BarProps {
-  centreSlot?: React.ReactElement<LinkProps>;
-  rightSlot?: React.ReactElement<LinkProps>;
-  leftSlot?: React.ReactElement<LinkProps>;
-}
+  const semantic = ["primary", "secondary", "brand"] as const;
 
-const BoxStyled = styled(Box)<BarProps>(({
-  theme,
-  color,
-  variant = "default",
-}: {
-  theme: Theme;
-  color?: IntentColour;
-  variant?: "default" | "subtle";
-}) => {
-  let styles;
+  if (semantic.includes(surface as "primary" | "secondary" | "brand")) {
+    const p = (
+      surface === "brand"
+        ? theme.palette.brand
+        : theme.palette[surface as "primary" | "secondary"]
+    )!;
 
-  if (!color) {
-    styles = {
-      backgroundColor:
-        variant === "subtle"
-          ? (theme.palette.surface?.subtle ?? theme.palette.background.paper)
-          : theme.palette.background.paper,
+    if (variant === "solid") {
+      return { backgroundColor: p.solid, color: p.onSolid };
+    }
+
+    if (variant === "container") {
+      return { backgroundColor: p.container, color: p.onContainer };
+    }
+
+    return { backgroundColor: baseBg, color: theme.palette.text.primary };
+  }
+
+  if (surface === "brand-fixed" || surface === "brand-fixedDim") {
+    const p = theme.palette.brand!;
+    return {
+      backgroundColor: surface === "brand-fixed" ? p.fixed : p.fixedDim,
+      color: p.onFixed,
+    };
+  }
+
+  if (surface === "background") {
+    return {
+      backgroundColor: theme.palette.background.default,
       color: theme.palette.text.primary,
     };
-  } else {
-    const p = theme.palette[color];
-
-    styles =
-      variant === "subtle"
-        ? {
-            backgroundColor: p.container,
-            color: p.onContainer,
-          }
-        : {
-            backgroundColor: p.solid,
-            color: p.onSolid,
-          };
   }
+
+  if (surface === "surface" || surface === "paper") {
+    if (variant === "container") {
+      return {
+        backgroundColor: theme.palette.surface.subtle,
+        color: theme.palette.text.primary,
+      };
+    }
+
+    if (variant === "solid") {
+      return {
+        backgroundColor: theme.palette.surface.strong,
+        color: theme.palette.text.primary,
+      };
+    }
+
+    return {
+      backgroundColor: baseBg,
+      color: theme.palette.text.primary,
+    };
+  }
+
+  return {
+    backgroundColor: baseBg,
+    color: theme.palette.text.primary,
+  };
+};
+
+const BoxStyled = styled(Box)<BarProps>(({ theme, ...ownerState }) => {
+  const { surface = "surface", variant = "base", elevation = 0 } = ownerState;
+
+  const { backgroundColor, color } = resolveBarSurface(
+    theme,
+    surface,
+    variant,
+    elevation,
+  );
 
   return {
     width: "100%",
     minHeight: 50,
     display: "flex",
     alignItems: "center",
-    ...styles,
+    backgroundColor,
+    color,
   };
 });
 

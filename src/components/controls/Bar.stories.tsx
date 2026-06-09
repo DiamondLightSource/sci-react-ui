@@ -1,60 +1,240 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Typography } from "@mui/material";
-import { Bar } from "./Bar";
+import { BarSlotsProps, Bar } from "./Bar";
+import { Typography } from "../../components/MUI/MuiWrapped";
 
-const meta: Meta<typeof Bar> = {
+const meta: Meta<BarSlotsProps> = {
   title: "Components/Controls/Bar",
   component: Bar,
   tags: ["autodocs"],
+
+  argTypes: {
+    surface: {
+      control: "select",
+      options: [
+        "surface",
+        "paper",
+        "background",
+        "primary",
+        "secondary",
+        "brand",
+        "brand-fixed",
+        "brand-fixedDim",
+      ],
+      table: { category: "Appearance" },
+    },
+    variant: {
+      control: "select",
+      options: ["base", "container", "solid"],
+      if: { arg: "surface", neq: ["background"] },
+      description:
+        "Use 'base' only with surface/paper. Use 'container' or 'solid' for primary, secondary, and brand.",
+      table: { category: "Appearance" },
+    },
+    elevation: {
+      control: { type: "number", min: 0, max: 24 },
+      if: { arg: "variant", eq: "base" },
+      description:
+        "Only applies to surface/paper with variant='base'. Ignored otherwise.",
+      table: { category: "Appearance" },
+    },
+    containerWidth: {
+      control: "select",
+      options: [false, "xs", "sm", "md", "lg", "xl"],
+      table: { category: "Layout" },
+    },
+    leftSlot: { control: false },
+    centreSlot: { control: false },
+    rightSlot: { control: false },
+    children: { control: false },
+  },
+
+  args: {
+    surface: "surface",
+    variant: "base",
+    elevation: 0,
+    leftSlot: <Typography>Bar</Typography>,
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<BarSlotsProps>;
 
 export const Default: Story = {
   args: {
-    leftSlot: <Typography variant="body1">Left & Children Slot</Typography>,
-    centreSlot: <Typography variant="body1">Centre Slot</Typography>,
-    rightSlot: <Typography variant="body1">Right Slot</Typography>,
+    leftSlot: <Typography>Default (surface)</Typography>,
   },
 };
 
-export const Primary: Story = {
-  args: {
-    color: "primary",
-    leftSlot: <Typography variant="body1">Primary Bar</Typography>,
-    rightSlot: <Typography>Actions</Typography>,
+export const VariantsOnSurface: Story = {
+  render: (_args) => (
+    <>
+      <Bar
+        surface="surface"
+        variant="base"
+        leftSlot={<Typography>Base</Typography>}
+      />
+      <Bar
+        surface="surface"
+        variant="container"
+        leftSlot={<Typography>Container</Typography>}
+      />
+      <Bar
+        surface="surface"
+        variant="solid"
+        leftSlot={<Typography>Solid</Typography>}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Variants control emphasis on neutral surfaces. Base relies on elevation, container is subtle, and solid is strong.",
+      },
+    },
   },
 };
 
-export const Secondary: Story = {
-  args: {
-    color: "secondary",
-    leftSlot: <Typography variant="body1">Secondary Bar</Typography>,
+export const ElevationScale: Story = {
+  render: (_args) => (
+    <>
+      <Bar
+        surface="surface"
+        elevation={0}
+        leftSlot={<Typography>Elevation 0</Typography>}
+      />
+      <Bar
+        surface="surface"
+        elevation={1}
+        leftSlot={<Typography>Elevation 1</Typography>}
+      />
+      <Bar
+        surface="surface"
+        elevation={3}
+        leftSlot={<Typography>Elevation 3</Typography>}
+      />
+      <Bar
+        surface="surface"
+        elevation={6}
+        leftSlot={<Typography>Elevation 6</Typography>}
+      />
+      <Bar
+        surface="surface"
+        elevation={12}
+        leftSlot={<Typography>Elevation 12</Typography>}
+      />
+      <Bar
+        surface="surface"
+        elevation={24}
+        leftSlot={<Typography>Elevation 24</Typography>}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Elevation controls hierarchy on neutral surfaces with base variant. Higher values appear more raised.",
+      },
+    },
   },
 };
 
-export const Subtle: Story = {
-  args: {
-    color: "primary",
-    variant: "subtle",
-    leftSlot: <Typography variant="body1">Subtle Primary</Typography>,
+export const PrimaryVsSurface: Story = {
+  render: (_args) => (
+    <>
+      <Bar
+        surface="primary"
+        variant="solid"
+        leftSlot={<Typography>Primary (action)</Typography>}
+      />
+      <Bar
+        surface="surface"
+        variant="container"
+        leftSlot={<Typography>Surface (layout)</Typography>}
+      />
+      <Bar
+        surface="surface"
+        elevation={2}
+        leftSlot={<Typography>Surface Elevated</Typography>}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Semantic surfaces (e.g. primary, secondary) express intent, while neutral surfaces define structure and hierarchy.",
+      },
+    },
   },
 };
 
-export const WithTitle: Story = {
-  args: {
-    color: "primary",
-    leftSlot: <Typography variant="h6">My App</Typography>,
-    rightSlot: <Typography>Controls</Typography>,
+export const ActionVariants: Story = {
+  render: (_args) => (
+    <>
+      <Bar
+        surface="primary"
+        variant="solid"
+        leftSlot={<Typography>Primary Solid</Typography>}
+      />
+      <Bar
+        surface="primary"
+        variant="container"
+        leftSlot={<Typography>Primary Container</Typography>}
+      />
+
+      <Bar
+        surface="secondary"
+        variant="solid"
+        leftSlot={<Typography>Secondary Solid</Typography>}
+      />
+      <Bar
+        surface="secondary"
+        variant="container"
+        leftSlot={<Typography>Secondary Container</Typography>}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Variants adjust emphasis.",
+      },
+    },
   },
 };
 
-export const FullWidth: Story = {
-  args: {
-    containerWidth: false,
-    leftSlot: <Typography>Full width content</Typography>,
-    rightSlot: <Typography>Right</Typography>,
+export const BrandOptions: Story = {
+  render: (_args) => (
+    <>
+      <Bar
+        surface="brand"
+        variant="solid"
+        leftSlot={<Typography>Brand Solid</Typography>}
+      />
+      <Bar
+        surface="brand"
+        variant="container"
+        leftSlot={<Typography>Brand Container</Typography>}
+      />
+      <Bar
+        surface="brand-fixed"
+        leftSlot={<Typography>Brand Fixed</Typography>}
+      />
+      <Bar
+        surface="brand-fixedDim"
+        leftSlot={<Typography>Brand Fixed Dim</Typography>}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Brand surfaces are used for identity. brand-fixed and brand-fixedDim ignore variant prop and remain consistent across dark/light modes.",
+      },
+    },
   },
 };
 
@@ -64,35 +244,12 @@ export const AllSlots: Story = {
     centreSlot: <Typography>Centre</Typography>,
     rightSlot: <Typography>Right</Typography>,
   },
-  parameters: {
-    docs: {
-      description: {
-        story: "Three slots are available, left, centre and right.",
-      },
-    },
-  },
 };
 
 export const WithChildren: Story = {
   args: {
     leftSlot: <Typography>Left</Typography>,
     children: <Typography>Children</Typography>,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Children appear on the left, proceeding anything added directly to the "leftSlot".',
-      },
-    },
-  },
-};
-
-export const WithContent: Story = {
-  args: {
-    leftSlot: <Typography variant="body1">Text content</Typography>,
-    centreSlot: <input placeholder="Input field" />,
-    rightSlot: <button>Action</button>,
   },
 };
 

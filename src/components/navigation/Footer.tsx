@@ -58,22 +58,31 @@ const FooterLink = ({ children, linkComponent, to, href }: FooterLinkProps) => {
     </Link>
   );
 };
-
-interface FooterProps extends BarSlotsProps {
+type FooterProps = BarSlotsProps & {
   logo?: ImageColourSchemeSwitchType | "theme";
   copyright?: string | null;
-}
+};
 
 /*
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
-const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
+const Footer = ({
+  surface = "surface",
+  variant = "container",
+  elevation,
+  logo,
+  copyright,
+  rightSlot,
+  ...props
+}: FooterProps) => {
   return (
     <Bar
       role="contentinfo"
-      variant="subtle"
       {...props}
+      surface={surface}
+      variant={variant}
+      elevation={elevation}
       rightSlot={
         <>
           {rightSlot}

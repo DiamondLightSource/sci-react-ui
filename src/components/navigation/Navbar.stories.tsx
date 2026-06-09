@@ -1,4 +1,3 @@
-import Chip from "@mui/material/Chip";
 import { Meta, StoryObj } from "@storybook/react";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
@@ -9,6 +8,7 @@ import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
 import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
+import { Chip, Typography } from "../../components/MUI/MuiWrapped";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
@@ -56,6 +56,37 @@ export const All: Story = {
       </>
     ),
     logo: "theme",
+  },
+};
+
+export const NavbarVariants: Story = {
+  render: (_args) => (
+    <>
+      <Navbar leftSlot={<Typography>Default (brand-fixed)</Typography>} />
+      <Navbar
+        surface="brand"
+        variant="solid"
+        leftSlot={<Typography>Brand Solid</Typography>}
+      />
+      <Navbar
+        surface="primary"
+        variant="container"
+        leftSlot={<Typography>Primary Container</Typography>}
+      />
+      <Navbar
+        surface="surface"
+        elevation={2}
+        leftSlot={<Typography>Surface Elevated</Typography>}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Navbar defaults to brand-fixed, but surface, variant, and elevation can be customised.",
+      },
+    },
   },
 };
 

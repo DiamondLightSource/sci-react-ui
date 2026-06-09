@@ -196,6 +196,7 @@ declare module "@mui/material/styles" {
     surface: {
       subtle: string;
       strong: string;
+      elevated: (level: number) => string;
     };
   }
 
@@ -535,6 +536,8 @@ const createDiamondPalette = (mode: DSMode) => {
     surface: {
       subtle: "var(--ds-surface-container)",
       strong: "var(--ds-surface-container-high)",
+      elevated: (level: number) =>
+        `var(--ds-elevation-${Math.max(0, Math.min(24, level))})`,
     },
 
     ...intentPalette,
