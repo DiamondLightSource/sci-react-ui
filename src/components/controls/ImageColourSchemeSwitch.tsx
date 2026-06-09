@@ -21,20 +21,28 @@ interface ImageColourSchemeSwitchProps {
   tone?: "default" | "inverse";
   /** Additional styles to pass to the underlying img tag. */
   style?: React.CSSProperties;
+  /**
+   * @deprecated Use `tone="inverse"` instead.
+   * When true, forces the inverse logo.
+   */
+  interchange?: boolean;
 }
 
 const ImageColourSchemeSwitch = ({
   image,
   tone = "default",
   style,
+  interchange,
 }: ImageColourSchemeSwitchProps) => {
   const { mode } = useColorScheme();
   const isDark = (mode ?? "light") === "dark";
 
+  // Keep backwards compatibility for interchange
+  const effectiveTone = interchange ? "inverse" : tone;
   let src = image.src;
 
   if (image.srcDark) {
-    if (tone === "inverse") {
+    if (effectiveTone === "inverse") {
       src = image.srcDark;
     } else {
       src = isDark ? image.srcDark : image.src;

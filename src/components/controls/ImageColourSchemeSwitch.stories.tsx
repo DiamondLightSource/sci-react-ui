@@ -68,7 +68,8 @@ export const AddAdditionalStyles: Story = {
     },
   },
 };
-export const LightImageForDarkTheme: Story = {
+
+export const InverseToneImage: Story = {
   args: {
     image: {
       src: imageDark,
@@ -76,14 +77,14 @@ export const LightImageForDarkTheme: Story = {
       alt: "Testing Switching Image",
       width: "120",
     },
-    interchange: true,
+    tone: "inverse",
     style: { padding: "10px", background: "grey" },
   },
   parameters: {
     docs: {
       description: {
         story:
-          "You can choose to flip which image shows in which mode. This may be useful with certain background colours.",
+          "Using tone='inverse' flips which image appears in light/dark mode.",
       },
     },
   },

@@ -1,8 +1,8 @@
-import { BoxProps, useTheme } from "@mui/material";
-import { useColorScheme } from "@mui/material";
 import React from "react";
+import { BoxProps, useTheme } from "@mui/material";
+import { ImageColourSchemeSwitch } from "./ImageColourSchemeSwitch";
 
-export interface LogoProps extends BoxProps {
+interface LogoProps extends BoxProps {
   short?: boolean;
 
   /**
@@ -28,7 +28,6 @@ const Logo = ({
   style,
 }: LogoProps) => {
   const theme = useTheme();
-  const { mode } = useColorScheme();
 
   const logo = short ? theme.logos?.short : theme.logos?.normal;
 
@@ -37,25 +36,10 @@ const Logo = ({
   // Keep backwards compatibility for interchange
   const effectiveTone = interchange ? "inverse" : tone;
 
-  let src = logo.src;
-
-  if (logo.srcDark) {
-    if (effectiveTone === "inverse") {
-      src = logo.srcDark;
-    } else {
-      src = mode === "dark" ? logo.srcDark : logo.src;
-    }
-  }
-
   return (
-    <img
-      src={src}
-      alt={logo.alt}
-      width={logo.width}
-      height={logo.height}
-      style={style}
-    />
+    <ImageColourSchemeSwitch image={logo} tone={effectiveTone} style={style} />
   );
 };
 
 export { Logo };
+export type { LogoProps };
