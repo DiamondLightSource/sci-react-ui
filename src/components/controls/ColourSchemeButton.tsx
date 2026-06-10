@@ -3,7 +3,7 @@ import { IconButton, IconButtonProps, useColorScheme } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 
-export const ColourSchemeButton = ({ sx, ...props }: IconButtonProps) => {
+export const ColourSchemeButton = (props: IconButtonProps) => {
   const { mode, setMode } = useColorScheme();
   const isDark = mode === "dark";
 
