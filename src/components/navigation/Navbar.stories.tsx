@@ -13,6 +13,7 @@ import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
   component: Navbar,
+  subcomponents: { NavMenu, NavMenuLink, NavLink, NavLinks },
   tags: ["autodocs"],
 };
 
