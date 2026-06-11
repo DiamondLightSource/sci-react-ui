@@ -14,6 +14,7 @@ interface VisitInputTextProps {
   setIsValid: (v: boolean) => void;
   handleSubmit?: () => void;
   submitOnReturn?: boolean;
+  submitOnBlur?: boolean;
 }
 
 const VisitInputText: React.FC<VisitInputTextProps> = ({
@@ -23,6 +24,7 @@ const VisitInputText: React.FC<VisitInputTextProps> = ({
   setIsValid,
   handleSubmit,
   submitOnReturn,
+  submitOnBlur,
 }) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -36,12 +38,19 @@ const VisitInputText: React.FC<VisitInputTextProps> = ({
     }
   };
 
+  const handleBlur = () => {
+    if (submitOnBlur && handleSubmit) {
+      handleSubmit();
+    }
+  };
+
   return (
     <TextField
       label="Visit"
       value={visitText}
       onChange={handleInputChange}
       onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
       error={!isValid}
       helperText={!isValid ? "Invalid visit" : ""}
       variant="outlined"
@@ -56,6 +65,7 @@ interface VisitInputProps {
   parameters?: object;
   submitButton?: boolean;
   submitOnReturn?: boolean;
+  submitOnBlur?: boolean;
 }
 
 const VisitInput: React.FC<VisitInputProps> = ({
@@ -64,6 +74,7 @@ const VisitInput: React.FC<VisitInputProps> = ({
   parameters,
   submitButton = true,
   submitOnReturn = true,
+  submitOnBlur = false,
 }) => {
   const [visitText, setVisitText] = useState(visitToText(visit));
   const [isValid, setIsValid] = useState(true);
@@ -88,6 +99,7 @@ const VisitInput: React.FC<VisitInputProps> = ({
             setIsValid={setIsValid}
             handleSubmit={handleSubmit}
             submitOnReturn={submitOnReturn}
+            submitOnBlur={submitOnBlur}
           />
           <Button
             variant="contained"
@@ -107,6 +119,7 @@ const VisitInput: React.FC<VisitInputProps> = ({
           setIsValid={setIsValid}
           handleSubmit={handleSubmit}
           submitOnReturn={submitOnReturn}
+          submitOnBlur={submitOnBlur}
         />
       )}
     </>

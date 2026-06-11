@@ -34,6 +34,15 @@ export const InitialVisitWithSubmitButton: Story = {
   },
 };
 
+export const InitialVisitWithSubmitOnBlur: Story = {
+  args: {
+    onSubmit: handleSubmit,
+    visit: { proposalCode: "xx", proposalNumber: 99999, number: 7 },
+    submitButton: false,
+    submitOnBlur: true,
+  },
+};
+
 export const InitialVisitWithoutReturnKeySubmission: Story = {
   args: {
     onSubmit: handleSubmit,

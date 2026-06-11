@@ -234,3 +234,114 @@ it("should update visit on submit", () => {
     },
   );
 });
+
+it("should not produce visit on blur by default", () => {
+  const onSubmit = vi.fn();
+  const { getByTestId } = render(<VisitInput onSubmit={onSubmit} />);
+  const visitField = within(getByTestId("visit-field")).getByRole("textbox");
+  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
+  fireEvent.blur(visitField, {
+    key: "Enter",
+    code: "Enter",
+    keyCode: 13,
+    charCode: 13,
+  });
+  expect(onSubmit).not.toHaveBeenCalledWith(
+    {
+      proposalCode: "zz",
+      proposalNumber: 12345,
+      number: 7,
+    },
+    undefined,
+  );
+});
+
+it("should produce visit on blur without submit button", () => {
+  const onSubmit = vi.fn();
+  const { getByTestId } = render(
+    <VisitInput onSubmit={onSubmit} submitButton={false} submitOnBlur={true} />,
+  );
+  const visitField = within(getByTestId("visit-field")).getByRole("textbox");
+  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
+  fireEvent.blur(visitField, {
+    key: "Enter",
+    code: "Enter",
+    keyCode: 13,
+    charCode: 13,
+  });
+  expect(onSubmit).toHaveBeenCalledWith(
+    {
+      proposalCode: "zz",
+      proposalNumber: 12345,
+      number: 7,
+    },
+    undefined,
+  );
+});
+
+it("should not produce visit on blur", () => {
+  const onSubmit = vi.fn();
+  const { getByTestId } = render(
+    <VisitInput onSubmit={onSubmit} submitOnBlur={false} />,
+  );
+  const visitField = within(getByTestId("visit-field")).getByRole("textbox");
+  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
+  fireEvent.blur(visitField, {
+    key: "Enter",
+    code: "Enter",
+    keyCode: 13,
+    charCode: 13,
+  });
+  expect(onSubmit).not.toHaveBeenCalledWith(
+    {
+      proposalCode: "zz",
+      proposalNumber: 12345,
+      number: 7,
+    },
+    undefined,
+  );
+});
+
+it("should produce visit on blur", () => {
+  const onSubmit = vi.fn();
+  const { getByTestId } = render(
+    <VisitInput onSubmit={onSubmit} submitOnBlur={true} />,
+  );
+  const visitField = within(getByTestId("visit-field")).getByRole("textbox");
+  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
+  fireEvent.blur(visitField, {
+    key: "Enter",
+    code: "Enter",
+    keyCode: 13,
+    charCode: 13,
+  });
+  expect(onSubmit).toHaveBeenCalledWith(
+    {
+      proposalCode: "zz",
+      proposalNumber: 12345,
+      number: 7,
+    },
+    undefined,
+  );
+});
+
+it("should not produce visit on blur with no onSubmit", () => {
+  const onSubmit = vi.fn();
+  const { getByTestId } = render(<VisitInput submitOnBlur={true} />);
+  const visitField = within(getByTestId("visit-field")).getByRole("textbox");
+  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
+  fireEvent.blur(visitField, {
+    key: "Enter",
+    code: "Enter",
+    keyCode: 13,
+    charCode: 13,
+  });
+  expect(onSubmit).not.toHaveBeenCalledWith(
+    {
+      proposalCode: "zz",
+      proposalNumber: 12345,
+      number: 7,
+    },
+    undefined,
+  );
+});
