@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ThemeProvider, ThemeProviderProps } from "@mui/material/styles";
-import { DiamondTheme } from "../themes/DiamondTheme";
+import { DiamondDSTheme } from "../themes/DiamondDSTheme";
 import { render, RenderResult } from "@testing-library/react";
 
 type ThemeProviderPropsWithOptionalTheme = Omit<ThemeProviderProps, "theme"> &
@@ -12,7 +12,7 @@ export const addProviders = (
   themeOptions?: ThemeProviderPropsWithOptionalTheme,
 ) => {
   return (
-    <ThemeProvider theme={DiamondTheme} {...themeOptions}>
+    <ThemeProvider theme={DiamondDSTheme} {...themeOptions}>
       {children}
     </ThemeProvider>
   );

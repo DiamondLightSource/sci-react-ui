@@ -10,11 +10,13 @@ import { Logo } from "./Logo";
 
 describe("Logo", () => {
   const src = "a/test/src";
+  const srcDark = "a/test/srcDark";
   const TestTheme: Theme = createTheme({
     ...BaseThemeOptions,
     logos: {
       normal: {
         src,
+        srcDark,
         alt: "alt",
       },
       short: {
@@ -54,5 +56,38 @@ describe("Logo", () => {
     const img = screen.getByRole("img");
     expect(img).toBeInTheDocument();
     expect(img).toHaveAttribute("style", "margin: 10px;");
+  });
+
+  it("should use dark logo when fixedTone='dark'", () => {
+    render(<Logo fixedTone="dark" />);
+    const img = screen.getByRole("img");
+
+    expect(img).toHaveAttribute("src", srcDark);
+  });
+
+  it("should use light logo when fixedTone='light'", () => {
+    render(<Logo fixedTone="light" />);
+    const img = screen.getByRole("img");
+
+    expect(img).toHaveAttribute("src", src);
+  });
+
+  it("should fall back to default behaviour when fixedTone is undefined", () => {
+    render(<Logo fixedTone={undefined} />);
+    const img = screen.getByRole("img");
+
+    expect(img).toHaveAttribute("src", src);
+  });
+
+  it("should be dark when tone='inverse' in light mode", () => {
+    render(<Logo tone="inverse" />);
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", srcDark);
+  });
+
+  it("should prioritise fixedTone over tone", () => {
+    render(<Logo fixedTone="light" tone="inverse" />);
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", src);
   });
 });
