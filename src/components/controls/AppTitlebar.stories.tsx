@@ -26,10 +26,6 @@ const meta: Meta<AppTitlebarProps> = {
     rightSlot: { control: false },
     children: { control: false },
   },
-
-  args: {
-    title: "Your App Name",
-  },
 };
 
 export default meta;
