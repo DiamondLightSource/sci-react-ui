@@ -75,4 +75,68 @@ describe("ImageColourSchemeSwitch", () => {
     const img = screen.getByRole("img");
     expect(img).toHaveAttribute("src", testVals.src);
   });
+
+  it("should use dark src when fixedTone='dark'", () => {
+    renderWithProviders(
+      <ImageColourSchemeSwitch image={{ ...testVals }} fixedTone="dark" />,
+      {
+        defaultMode: "dark",
+      },
+    );
+
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", testVals.srcDark);
+  });
+
+  it("should use light src when fixedTone='light'", () => {
+    renderWithProviders(
+      <ImageColourSchemeSwitch image={{ ...testVals }} fixedTone="light" />,
+      {
+        defaultMode: "dark",
+      },
+    );
+
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", testVals.src);
+  });
+
+  it("should reset to default when fixedTone is undefined", () => {
+    renderWithProviders(
+      <ImageColourSchemeSwitch image={{ ...testVals }} fixedTone={undefined} />,
+      {
+        defaultMode: "light",
+      },
+    );
+
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", testVals.src);
+  });
+
+  it("should use dark src with tone='inverse' in light mode", () => {
+    renderWithProviders(
+      <ImageColourSchemeSwitch image={{ ...testVals }} tone="inverse" />,
+      {
+        defaultMode: "light",
+      },
+    );
+
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", testVals.srcDark);
+  });
+
+  it("should prioritise fixedTone over tone", () => {
+    renderWithProviders(
+      <ImageColourSchemeSwitch
+        image={{ ...testVals }}
+        fixedTone="light"
+        tone="inverse"
+      />,
+      {
+        defaultMode: "dark",
+      },
+    );
+
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", testVals.src);
+  });
 });

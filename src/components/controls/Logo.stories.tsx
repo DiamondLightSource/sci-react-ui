@@ -12,13 +12,32 @@ const meta: Meta<typeof Logo> = {
       },
     },
   },
+  argTypes: {
+    fixedTone: {
+      control: { type: "select" },
+      options: ["undefined", "light", "dark"],
+      mapping: {
+        undefined: undefined,
+        light: "light",
+        dark: "dark",
+      },
+      description:
+        "Force to light/dark version. Select 'undefined' to reset to default behavior.",
+    },
+    tone: {
+      control: { type: "radio" },
+      options: ["default", "inverse"],
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const TheLogo: Story = {
-  args: {},
+  args: {
+    fixedTone: undefined,
+  },
   parameters: {
     docs: {
       description: {
@@ -29,7 +48,10 @@ export const TheLogo: Story = {
 };
 
 export const TheShortLogo: Story = {
-  args: { short: true },
+  args: {
+    short: true,
+    fixedTone: undefined,
+  },
   parameters: {
     docs: {
       description: {
@@ -42,13 +64,29 @@ export const TheShortLogo: Story = {
 export const LightLogoForDarkTheme: Story = {
   args: {
     tone: "inverse",
+    fixedTone: undefined,
     style: { padding: "10px", background: "grey" },
   },
   parameters: {
     docs: {
       description: {
         story:
-          "You can switch-over the light and dark logo. Useful depending on what background it is displayed on.",
+          "You can swap the light and dark logo. Useful depending on what background it is displayed on.",
+      },
+    },
+  },
+};
+
+export const ForcedDarkLogoForLightAndDarkTheme: Story = {
+  args: {
+    fixedTone: "dark",
+    style: { padding: "10px", background: "grey" },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Forces the dark logo regardless of theme. Use 'undefined' in controls to reset.",
       },
     },
   },

@@ -17,6 +17,8 @@ type ImageColourSchemeSwitchType = {
 interface ImageColourSchemeSwitchProps {
   /** The definition for the two images. */
   image: ImageColourSchemeSwitchType;
+  /** When light, the light image will appear in both light and dark mode and vice-versa. Takes priority over tone when both are defined. */
+  fixedTone?: "light" | "dark";
   /** When inverse, the light image will appear in dark mode and vice-versa. */
   tone?: "default" | "inverse";
   /** Additional styles to pass to the underlying img tag. */
@@ -30,6 +32,7 @@ interface ImageColourSchemeSwitchProps {
 
 const ImageColourSchemeSwitch = ({
   image,
+  fixedTone = undefined,
   tone = "default",
   style,
   interchange,
@@ -41,12 +44,14 @@ const ImageColourSchemeSwitch = ({
   const effectiveTone = interchange ? "inverse" : tone;
   let src = image.src;
 
-  if (image.srcDark) {
-    if (effectiveTone === "inverse") {
-      src = image.srcDark;
-    } else {
-      src = isDark ? image.srcDark : image.src;
-    }
+  if (
+    image.srcDark &&
+    fixedTone != "light" &&
+    (fixedTone === "dark" ||
+      (isDark && effectiveTone === "default") ||
+      (!isDark && effectiveTone === "inverse"))
+  ) {
+    src = image.srcDark;
   }
 
   return (

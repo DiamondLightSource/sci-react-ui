@@ -5,6 +5,9 @@ import { ImageColourSchemeSwitch } from "./ImageColourSchemeSwitch";
 interface LogoProps extends BoxProps {
   short?: boolean;
 
+  /** When light, the light image will appear in both light and dark mode and vice-versa. Takes priority over tone when both are defined. */
+  fixedTone?: "light" | "dark";
+
   /**
    * Tone of the logo.
    * - "default": follows light/dark mode
@@ -23,6 +26,7 @@ interface LogoProps extends BoxProps {
 
 const Logo = ({
   short = false,
+  fixedTone = undefined,
   tone = "default",
   interchange,
   style,
@@ -37,7 +41,12 @@ const Logo = ({
   const effectiveTone = interchange ? "inverse" : tone;
 
   return (
-    <ImageColourSchemeSwitch image={logo} tone={effectiveTone} style={style} />
+    <ImageColourSchemeSwitch
+      image={logo}
+      fixedTone={fixedTone}
+      tone={effectiveTone}
+      style={style}
+    />
   );
 };
 

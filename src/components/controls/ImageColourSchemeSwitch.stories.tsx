@@ -8,19 +8,39 @@ const meta: Meta<typeof ImageColourSchemeSwitch> = {
   title: "Components/Controls/ImageColourSchemeSwitch",
   component: ImageColourSchemeSwitch,
   tags: ["autodocs"],
+  argTypes: {
+    fixedTone: {
+      control: { type: "select" },
+      options: ["undefined", "light", "dark"],
+      mapping: {
+        undefined: undefined,
+        light: "light",
+        dark: "dark",
+      },
+      description: "Force to light/dark version. Select 'undefined' to reset.",
+    },
+    tone: {
+      control: { type: "radio" },
+      options: ["default", "inverse"],
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const image = {
+  src: imageDark,
+  srcDark: imageLight,
+  alt: "Testing Switching Image",
+  width: "100",
+};
+
 export const SwitchingImage: Story = {
   args: {
-    image: {
-      src: imageDark,
-      srcDark: imageLight,
-      alt: "Testing Switching Image",
-      width: "100",
-    },
+    image: image,
+
+    fixedTone: undefined,
   },
   parameters: {
     docs: {
@@ -34,12 +54,7 @@ export const SwitchingImage: Story = {
 
 export const LargeSwitchingImage: Story = {
   args: {
-    image: {
-      src: imageDark,
-      srcDark: imageLight,
-      alt: "Testing Switching Image",
-      width: "300",
-    },
+    image: { ...image, width: "300" },
   },
   parameters: {
     docs: {
@@ -52,12 +67,7 @@ export const LargeSwitchingImage: Story = {
 
 export const AddAdditionalStyles: Story = {
   args: {
-    image: {
-      src: imageDark,
-      srcDark: imageLight,
-      alt: "Testing Switching Image",
-      width: "100",
-    },
+    image: { ...image },
     style: { border: "3px dotted red" },
   },
   parameters: {
@@ -71,13 +81,9 @@ export const AddAdditionalStyles: Story = {
 
 export const InverseToneImage: Story = {
   args: {
-    image: {
-      src: imageDark,
-      srcDark: imageLight,
-      alt: "Testing Switching Image",
-      width: "120",
-    },
+    image: { ...image, width: "120" },
     tone: "inverse",
+    fixedTone: undefined,
     style: { padding: "10px", background: "grey" },
   },
   parameters: {
@@ -90,6 +96,37 @@ export const InverseToneImage: Story = {
   },
 };
 
+export const ForcedDarkImage: Story = {
+  args: {
+    image: image,
+    fixedTone: "dark",
+    style: { background: "grey", padding: "10px" },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Using fixedTone='dark' force dark image in both light and dark modes.",
+      },
+    },
+  },
+};
+
+export const ForcedLightImage: Story = {
+  args: {
+    image: image,
+    fixedTone: "light",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Using fixedTone='light' force dark image in both light and dark modes.",
+      },
+    },
+  },
+};
+
 export const NonSwitchingImage: Story = {
   args: {
     image: {
@@ -97,7 +134,6 @@ export const NonSwitchingImage: Story = {
       alt: "Testing Non-Switching Image",
       width: "100",
     },
-    style: { border: "1px solid black" },
   },
   parameters: {
     docs: {

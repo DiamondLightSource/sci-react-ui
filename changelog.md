@@ -6,7 +6,7 @@
 - **Breaking** Introduced new design system theme based on semantic surface tokens.
 - **Breaking** Removed Diamond and Generic themes which are no longer supported.
 - **Breaking** Updated components to new theme and ensure compatability in light/dark modes.
-- *Logo* uses tone (default/inverse) to adapt to surface colour. Deprecated use of interchange prop.
+- *Logo* and *ImageColourSchemeSwitch* use tone (default/inverse) and fixedTone to adapt to surface colour. Deprecated use of interchange prop.
 
 ## [v0.5.0] - 2026-06-03
 
