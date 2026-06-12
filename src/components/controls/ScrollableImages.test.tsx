@@ -1,5 +1,6 @@
 import { ImageInfo, ScrollableImages } from "./ScrollableImages";
-import { screen, fireEvent, render } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
+import { renderWithProviders } from "../../__test-utils__/helpers";
 
 const imagesList: ImageInfo[] = [
   { src: "one", alt: "one" },
@@ -10,45 +11,53 @@ const imagesList: ImageInfo[] = [
 
 describe("ScrollableImages – viewer mode", () => {
   it("should render", () => {
-    const { getByTestId } = render(<ScrollableImages images={imagesList} />);
+    const { getByTestId } = renderWithProviders(
+      <ScrollableImages images={imagesList} />,
+    );
     expect(getByTestId("scrollable-images")).toBeInTheDocument();
     expect(getByTestId("image-container")).toBeInTheDocument();
   });
 
   it("should render buttons by default", () => {
-    render(<ScrollableImages images={imagesList} />);
+    renderWithProviders(<ScrollableImages images={imagesList} />);
     expect(screen.getByTestId("prev-button")).toBeInTheDocument();
     expect(screen.getByTestId("next-button")).toBeInTheDocument();
   });
 
   it("should not render buttons when buttons is false", () => {
-    render(<ScrollableImages images={imagesList} buttons={false} />);
+    renderWithProviders(
+      <ScrollableImages images={imagesList} buttons={false} />,
+    );
     expect(screen.queryByTestId("prev-button")).not.toBeInTheDocument();
     expect(screen.queryByTestId("next-button")).not.toBeInTheDocument();
   });
 
   it("should render slider by default", () => {
-    render(<ScrollableImages images={imagesList} />);
+    renderWithProviders(<ScrollableImages images={imagesList} />);
     expect(screen.getByTestId("slider")).toBeInTheDocument();
   });
 
   it("should not render slider when slider is false", () => {
-    render(<ScrollableImages images={imagesList} slider={false} />);
+    renderWithProviders(
+      <ScrollableImages images={imagesList} slider={false} />,
+    );
     expect(screen.queryByTestId("slider")).not.toBeInTheDocument();
   });
 
   it("should render numeration by default", () => {
-    render(<ScrollableImages images={imagesList} />);
+    renderWithProviders(<ScrollableImages images={imagesList} />);
     expect(screen.getByTestId("numeration")).toBeInTheDocument();
   });
 
   it("should not render numeration when numeration is false", () => {
-    render(<ScrollableImages images={imagesList} numeration={false} />);
+    renderWithProviders(
+      <ScrollableImages images={imagesList} numeration={false} />,
+    );
     expect(screen.queryByTestId("numeration")).not.toBeInTheDocument();
   });
 
   it("should wrap around by default", () => {
-    render(<ScrollableImages images={imagesList} />);
+    renderWithProviders(<ScrollableImages images={imagesList} />);
     fireEvent.click(screen.getByTestId("prev-button"));
     expect(screen.getByTestId("image-container")).toHaveAttribute(
       "data-index",
@@ -57,7 +66,9 @@ describe("ScrollableImages – viewer mode", () => {
   });
 
   it("should not wrap when wrapAround is false", () => {
-    render(<ScrollableImages images={imagesList} wrapAround={false} />);
+    renderWithProviders(
+      <ScrollableImages images={imagesList} wrapAround={false} />,
+    );
     const imageContainer = screen.getByTestId("image-container");
 
     fireEvent.click(screen.getByTestId("prev-button"));
@@ -72,7 +83,7 @@ describe("ScrollableImages – viewer mode", () => {
   });
 
   it("should not render controls with only one image", () => {
-    render(<ScrollableImages images={[imagesList[0]]} />);
+    renderWithProviders(<ScrollableImages images={[imagesList[0]]} />);
     expect(screen.queryByTestId("numeration")).not.toBeInTheDocument();
     expect(screen.queryByTestId("slider")).not.toBeInTheDocument();
     expect(screen.queryByTestId("prev-button")).not.toBeInTheDocument();
@@ -80,7 +91,7 @@ describe("ScrollableImages – viewer mode", () => {
   });
 
   it("should respond to arrow keys when focused", () => {
-    render(<ScrollableImages images={imagesList} />);
+    renderWithProviders(<ScrollableImages images={imagesList} />);
     const container = screen.getByTestId("image-container");
     container.focus();
 
@@ -92,7 +103,7 @@ describe("ScrollableImages – viewer mode", () => {
   });
 
   it("should not respond to arrow keys when not focused", () => {
-    render(<ScrollableImages images={imagesList} />);
+    renderWithProviders(<ScrollableImages images={imagesList} />);
     const container = screen.getByTestId("image-container");
 
     fireEvent.keyDown(window, { key: "ArrowRight" });
@@ -102,18 +113,18 @@ describe("ScrollableImages – viewer mode", () => {
 
 describe("ScrollableImages – scroll mode", () => {
   it("should render scroll container", () => {
-    render(<ScrollableImages images={imagesList} mode="scroll" />);
+    renderWithProviders(<ScrollableImages images={imagesList} mode="scroll" />);
     expect(screen.getByTestId("image-scroll-container")).toBeInTheDocument();
   });
 
   it("should render left and right scroll buttons", () => {
-    render(<ScrollableImages images={imagesList} mode="scroll" />);
+    renderWithProviders(<ScrollableImages images={imagesList} mode="scroll" />);
     expect(screen.getByTestId("scroll-left-button")).toBeInTheDocument();
     expect(screen.getByTestId("scroll-right-button")).toBeInTheDocument();
   });
 
   it("should render all images in scroll mode", () => {
-    render(<ScrollableImages images={imagesList} mode="scroll" />);
+    renderWithProviders(<ScrollableImages images={imagesList} mode="scroll" />);
 
     imagesList.forEach((_, index) => {
       expect(
@@ -123,7 +134,7 @@ describe("ScrollableImages – scroll mode", () => {
   });
 
   it.skip("should call scrollBy when clicking scroll buttons", () => {
-    render(<ScrollableImages images={imagesList} mode="scroll" />);
+    renderWithProviders(<ScrollableImages images={imagesList} mode="scroll" />);
 
     const container = screen.getByTestId("image-scroll-container");
 
@@ -140,7 +151,7 @@ describe("ScrollableImages – scroll mode", () => {
   });
 
   it("should not render viewer-only controls in scroll mode", () => {
-    render(<ScrollableImages images={imagesList} mode="scroll" />);
+    renderWithProviders(<ScrollableImages images={imagesList} mode="scroll" />);
 
     expect(screen.queryByTestId("slider")).not.toBeInTheDocument();
     expect(screen.queryByTestId("numeration")).not.toBeInTheDocument();

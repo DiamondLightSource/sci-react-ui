@@ -1,7 +1,7 @@
 import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
-import { GenericTheme } from "./GenericTheme";
 import { ThemeProviderProps as MuiThemeProviderProps } from "@mui/material/styles";
+import { DiamondDSTheme } from "./DiamondDSTheme";
 
 interface ThemeProviderProps extends Partial<MuiThemeProviderProps> {
   baseline?: boolean;
@@ -9,7 +9,7 @@ interface ThemeProviderProps extends Partial<MuiThemeProviderProps> {
 
 const ThemeProvider = function ({
   children,
-  theme = GenericTheme,
+  theme = DiamondDSTheme,
   baseline = true,
   defaultMode = "system",
   ...props

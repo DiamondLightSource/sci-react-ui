@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { MockLink } from "../../utils/MockLink";
+import { Typography } from "../../components/MUI/MuiWrapped";
 
 const meta: Meta<typeof Footer> = {
   title: "Components/Navigation/Footer",
@@ -56,6 +57,17 @@ const staticFooterLinks = (
   </FooterLinks>
 );
 
+const rightSlotLinks = (
+  <FooterLinks key="footer-links">
+    <FooterLink href="#TheMoon" key="the-moon">
+      The Moon
+    </FooterLink>
+    <FooterLink href="#Phobos" key="phobos">
+      Phobos
+    </FooterLink>
+  </FooterLinks>
+);
+
 export const All: Story = {
   args: {
     logo: "theme",
@@ -103,16 +115,58 @@ export const RightSlot: Story = {
   args: {
     logo: "theme",
     copyright: "Company",
-    rightSlot: (
-      <FooterLinks key="footer-links">
-        <FooterLink href="#TheMoon" key="the-moon">
-          The Moon
-        </FooterLink>
-        <FooterLink href="#Phobos" key="phobos">
-          Phobos
-        </FooterLink>
-      </FooterLinks>
-    ),
+    rightSlot: rightSlotLinks,
+  },
+};
+
+export const FooterVariants: Story = {
+  render: (_args) => (
+    <>
+      <Footer
+        surface="surface"
+        variant="base"
+        logo={"theme"}
+        copyright={"Company"}
+        leftSlot={<Typography>Surface Base</Typography>}
+        rightSlot={rightSlotLinks}
+      />
+
+      <Footer
+        surface="surface"
+        variant="base"
+        elevation={12}
+        logo={"theme"}
+        copyright={"Company"}
+        leftSlot={<Typography>Surface Elevated</Typography>}
+        rightSlot={rightSlotLinks}
+      />
+
+      <Footer
+        surface="primary"
+        variant="container"
+        logo={"theme"}
+        copyright={"Company"}
+        leftSlot={<Typography>Primary Container</Typography>}
+        rightSlot={rightSlotLinks}
+      />
+
+      <Footer
+        surface="brand"
+        variant="solid"
+        logo={"theme"}
+        copyright={"Company"}
+        leftSlot={<Typography>Brand Solid</Typography>}
+        rightSlot={rightSlotLinks}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Footer is subtle by default but supports the full surface and variant system when needed.",
+      },
+    },
   },
 };
 

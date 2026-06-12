@@ -1,11 +1,4 @@
-import {
-  Link,
-  LinkProps,
-  Stack,
-  styled,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Link, LinkProps, Stack, Typography, StackProps } from "@mui/material";
 
 import React from "react";
 import {
@@ -15,27 +8,22 @@ import {
 import { Logo } from "../controls/Logo";
 import { Bar, BarSlotsProps } from "../controls/Bar";
 
-interface FooterLinksProps extends React.HTMLProps<HTMLDivElement> {
+interface FooterLinksProps extends StackProps {
   children: React.ReactElement<LinkProps> | React.ReactElement<LinkProps>[];
 }
 
-const FooterLinks = ({ children, ...props }: FooterLinksProps) => {
-  return (
-    <div
-      style={{
-        float: "left",
-        alignItems: "center",
-        borderTop: "4px solid transparent",
-        borderBottom: "4px solid transparent",
-        display: "flex",
-        flexWrap: "wrap",
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+const FooterLinks = ({ children, ...props }: FooterLinksProps) => (
+  <Stack
+    direction="row"
+    alignItems="center"
+    flexWrap="wrap"
+    useFlexGap
+    gap={2}
+    {...props}
+  >
+    {children}
+  </Stack>
+);
 
 interface FooterLinkProps extends LinkProps {
   children: React.ReactNode;
@@ -44,15 +32,7 @@ interface FooterLinkProps extends LinkProps {
   href?: string;
 }
 
-const FooterLink = ({
-  children,
-  linkComponent,
-  to,
-  href,
-  ...props
-}: FooterLinkProps) => {
-  const theme = useTheme();
-
+const FooterLink = ({ children, linkComponent, to, href }: FooterLinkProps) => {
   const shouldUseLinkComponent = linkComponent && to;
 
   const linkProps = shouldUseLinkComponent
@@ -62,62 +42,52 @@ const FooterLink = ({
   return (
     <Link
       {...linkProps}
+      color="inherit"
+      underline="none"
       sx={{
-        "&:hover": {
-          color: theme.vars.palette.secondary.main,
-          borderBottom: "solid 4px",
-          textDecoration: "none",
-        },
         textDecoration: "none",
-        color: theme.palette.primary.contrastText,
-        marginRight: "1.5rem",
-        marginBottom: "4px",
-        paddingBottom: "4px",
-        lineHeight: 1,
-        cursor: "pointer",
-        borderBottom: "solid transparent 4px",
+        borderBottom: "2px solid transparent",
+        pb: 0.5,
+        "&:hover": {
+          textDecoration: "none",
+          borderBottomColor: "currentColor",
+        },
       }}
-      {...props}
     >
       {children}
     </Link>
   );
 };
-
-const BarStyled = styled(Bar)<BarSlotsProps>(({ theme }) => ({
-  position: "relative",
-  bottom: 0,
-  marginTop: "auto",
-  backgroundColor: theme.vars.palette.primary.main,
-}));
-
-interface FooterProps extends BarSlotsProps {
+type FooterProps = BarSlotsProps & {
   logo?: ImageColourSchemeSwitchType | "theme";
   copyright?: string | null;
-}
+};
 
 /*
  * Basic footer bar.
  * Can be used with `FooterLinks` and `FooterLink` to display a list of links.
  */
-const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
-  const theme = useTheme();
-
+const Footer = ({
+  surface = "surface",
+  variant = "container",
+  elevation,
+  logo,
+  copyright,
+  rightSlot,
+  ...props
+}: FooterProps) => {
   return (
-    <BarStyled
+    <Bar
       role="contentinfo"
       {...props}
+      surface={surface}
+      variant={variant}
+      elevation={elevation}
       rightSlot={
         <>
           {rightSlot}
           {(logo || copyright) && (
-            <Stack
-              direction="column"
-              style={{
-                paddingTop: "10px",
-                textAlign: "right",
-              }}
-            >
+            <Stack alignItems="flex-end" spacing={1} sx={{ pt: 1 }}>
               {logo &&
                 (logo == "theme" ? (
                   <Logo short={true} />
@@ -125,12 +95,7 @@ const Footer = ({ logo, copyright, rightSlot, ...props }: FooterProps) => {
                   <ImageColourSchemeSwitch image={logo} />
                 ))}
               {copyright && (
-                <Typography
-                  style={{
-                    margin: "0 0 10px 0",
-                    color: theme.palette.primary.contrastText,
-                  }}
-                >
+                <Typography variant="body2">
                   {`Copyright © ${new Date().getFullYear()} ${copyright}`}
                 </Typography>
               )}

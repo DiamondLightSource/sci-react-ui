@@ -72,11 +72,10 @@ export const NoNumbers: Story = {
     numeration: false,
   },
 };
-
 export const DifferentBackgroundColour: Story = {
   args: {
     images: imagesList,
-    backgroundColor: "#166",
+    backgroundColor: "primary.container",
   },
 };
 
