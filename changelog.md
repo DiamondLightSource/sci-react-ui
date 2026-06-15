@@ -15,6 +15,7 @@
 
 ### Changed
 - **Breaking** `keycloak-js` has been moved from a direct dependency to a peer and optional dependency, so must now be installed by the consuming application.
+- Added submitOnBlur boolean prop to VisitInput which defaults to false.
 
 ### Fixed
 - Icon imports were causing issues downstream when components are unit tested.

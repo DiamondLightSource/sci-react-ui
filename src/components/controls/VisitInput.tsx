@@ -11,27 +11,36 @@ interface VisitInputTextProps {
   visitText: string;
   setVisitText: (v: string) => void;
   isValid: boolean;
-  setIsValid: (v: boolean) => void;
   handleSubmit?: () => void;
   submitOnReturn?: boolean;
+  submitOnBlur?: boolean;
 }
 
 const VisitInputText: React.FC<VisitInputTextProps> = ({
   visitText,
   setVisitText,
   isValid,
-  setIsValid,
   handleSubmit,
   submitOnReturn,
+  submitOnBlur,
 }) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setVisitText(value);
-    setIsValid(visitRegex.test(value));
   };
 
-  const handleKeyDown = (event: { key: string }) => {
-    if (event.key === "Enter" && submitOnReturn && handleSubmit) {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && isValid && submitOnReturn && handleSubmit) {
+      if (submitOnBlur) {
+        (document.activeElement as HTMLElement).blur();
+      } else {
+        handleSubmit();
+      }
+    }
+  };
+
+  const handleBlur = () => {
+    if (submitOnBlur && isValid && handleSubmit) {
       handleSubmit();
     }
   };
@@ -42,6 +51,7 @@ const VisitInputText: React.FC<VisitInputTextProps> = ({
       value={visitText}
       onChange={handleInputChange}
       onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
       error={!isValid}
       helperText={!isValid ? "Invalid visit" : ""}
       variant="outlined"
@@ -56,6 +66,7 @@ interface VisitInputProps {
   parameters?: object;
   submitButton?: boolean;
   submitOnReturn?: boolean;
+  submitOnBlur?: boolean;
 }
 
 const VisitInput: React.FC<VisitInputProps> = ({
@@ -64,9 +75,10 @@ const VisitInput: React.FC<VisitInputProps> = ({
   parameters,
   submitButton = true,
   submitOnReturn = true,
+  submitOnBlur = false,
 }) => {
   const [visitText, setVisitText] = useState(visitToText(visit));
-  const [isValid, setIsValid] = useState(true);
+  const isValid = visitRegex.test(visitText);
 
   const handleSubmit = () => {
     const parsedVisit = visitRegex.exec(visitText);
@@ -85,9 +97,9 @@ const VisitInput: React.FC<VisitInputProps> = ({
             visitText={visitText}
             setVisitText={setVisitText}
             isValid={isValid}
-            setIsValid={setIsValid}
             handleSubmit={handleSubmit}
             submitOnReturn={submitOnReturn}
+            submitOnBlur={submitOnBlur}
           />
           <Button
             variant="contained"
@@ -104,9 +116,9 @@ const VisitInput: React.FC<VisitInputProps> = ({
           visitText={visitText}
           setVisitText={setVisitText}
           isValid={isValid}
-          setIsValid={setIsValid}
           handleSubmit={handleSubmit}
           submitOnReturn={submitOnReturn}
+          submitOnBlur={submitOnBlur}
         />
       )}
     </>
