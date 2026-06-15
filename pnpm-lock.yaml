@@ -21,33 +21,12 @@ importers:
 
   .:
     dependencies:
-      '@emotion/react':
-        specifier: ^11.13.3
-        version: 11.14.0(@types/react@18.3.18)(react@18.3.1)
-      '@emotion/styled':
-        specifier: ^11.13.0
-        version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
-      '@jsonforms/core':
-        specifier: ^3.7.0
-        version: 3.7.0
-      '@jsonforms/material-renderers':
-        specifier: ^3.7.0
-        version: 3.7.0(408a1c23dbeeab334b849b456cede2fb)
-      '@jsonforms/react':
-        specifier: ^3.7.0
-        version: 3.7.0(@jsonforms/core@3.7.0)(react@18.3.1)
       '@mui/icons-material':
         specifier: ^7.0.0
         version: 7.3.10(@mui/material@7.3.10(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
-      '@mui/material':
-        specifier: ^7.0.0
-        version: 7.3.10(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react:
-        specifier: ^18.3.1
-        version: 18.3.1
       react-icons:
         specifier: ^5.3.0
         version: 5.4.0(react@18.3.1)
@@ -70,6 +49,12 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
         version: 3.2.3(react@18.3.1)(storybook@8.6.18(prettier@3.4.2))
+      '@emotion/react':
+        specifier: ^11.13.3
+        version: 11.14.0(@types/react@18.3.18)(react@18.3.1)
+      '@emotion/styled':
+        specifier: ^11.13.0
+        version: 11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1)
       '@eslint/eslintrc':
         specifier: ^3.2.0
         version: 3.2.0
@@ -85,6 +70,18 @@ importers:
       '@fontsource/outfit':
         specifier: ^5.2.8
         version: 5.2.8
+      '@jsonforms/core':
+        specifier: ^3.7.0
+        version: 3.7.0
+      '@jsonforms/material-renderers':
+        specifier: ^3.7.0
+        version: 3.7.0(408a1c23dbeeab334b849b456cede2fb)
+      '@jsonforms/react':
+        specifier: ^3.7.0
+        version: 3.7.0(@jsonforms/core@3.7.0)(react@18.3.1)
+      '@mui/material':
+        specifier: ^7.0.0
+        version: 7.3.10(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react@18.3.1))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rollup/plugin-commonjs':
         specifier: ^28.0.1
         version: 28.0.2(rollup@4.30.0)
@@ -184,6 +181,9 @@ importers:
       gh-pages:
         specifier: ^6.2.0
         version: 6.3.0
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
       react-dom:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
