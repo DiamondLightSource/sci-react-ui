@@ -1,16 +1,21 @@
 /**
  * DiamondDS MUI theme
  *
- * Maps DiamondDS semantic design tokens and interaction rules into MUI's
- * theme system, component model and runtime styling APIs.
+ * Maps DiamondDS semantic design tokens, palette roles and interaction rules
+ * into MUI's theme system, component model and runtime styling APIs.
  *
- * CSS variables remain the source of truth.
+ * CSS variables are the source of truth.
+ * These are defined in diamond-ds-tokens.css.
+ *
+ * Tokens are the CSS variables.
+ * Roles are the semantic values exposed through the MUI palette and component APIs.
+ *
  * The MUI theme acts as the semantic adapter consumed by components.
  *
  * Components should consume semantic roles from the theme or semantic CSS
  * variables rather than raw colour values.
  */
-import "../styles/diamondDS/diamond-ds-roles.css";
+import "../styles/diamondDS/DiamondDSTokens.css";
 
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
