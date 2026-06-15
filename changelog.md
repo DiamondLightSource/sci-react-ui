@@ -1,12 +1,33 @@
 # SciReactUI Changelog
 
-## [Unreleased]
+## [v1.0.0] - TBD
+
+### Added
+
+- Diamond DS, a new design system theme based on semantic roles and tokens.
+- Storybook coverage for MUI components.
+- Added Inter as the default font for the Diamond DS theme.
+- Added Inter, Outfit and IBM Plex Mono font support to Storybook typography examples.
+- Design system documentation, including overview, component standards and usage guidance.
+- Guidance and stories for buttons, text fields and Material React Table.
+- Storybook documentation styling and typography.
 
 ### Changed
-- **Breaking** Introduced new design system theme based on semantic surface tokens.
-- **Breaking** Removed Diamond and Generic themes which are no longer supported.
-- **Breaking** Updated components to new theme and ensure compatability in light/dark modes.
-- *Logo* and *ImageColourSchemeSwitch* use tone (default/inverse) and fixedTone to adapt to surface colour. Deprecated use of interchange prop.
+
+- **Breaking** Introduced Diamond DS theme, semantic CSS roles and component overrides.
+- **Breaking** Introduced separate `brand` colour and updated `primary` colour to be more action oriented.
+- **Breaking** Introduced roles for surfaces and borders.
+- **Breaking** Introduced solid and subtle action patterns.
+- **Breaking** Added CSS-driven light and dark colour schemes with support for `data-mode="light|dark"`.
+- **Breaking** Updated components to use consistent semantic styling patterns.
+- Updated Storybook examples and documentation.
+- Improved accessibility, contrast and future customisation.
+- _Logo_ and _ImageColourSchemeSwitch_ use tone (default/inverse) and fixedTone to adapt to surface colour. Deprecated use of interchange prop.
+
+### Removed
+
+- **Breaking** Removed Diamond and Generic themes, which are no longer supported.
+- Removed legacy colour documentation.
 
 ## [v0.5.0] - 2026-06-03
 
