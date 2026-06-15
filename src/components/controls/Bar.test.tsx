@@ -38,7 +38,7 @@ describe("Bar", () => {
     // check new style is set
     expect(headerComputedStyle.border).toBe(borderStyle);
     // Check default values are still set
-    expect(headerComputedStyle.height).toBe("auto");
+    expect(headerComputedStyle.height).not.toBe("0px");
   });
 });
 

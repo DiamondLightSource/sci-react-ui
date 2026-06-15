@@ -2,7 +2,6 @@ import {
   Typography,
   Menu,
   Button,
-  useTheme,
   type MenuListProps,
   MenuItem,
   type MenuItemProps,
@@ -16,32 +15,25 @@ type NavMenuLinkProps = MenuItemProps & NavLinkProps;
 const NavMenuContext = React.createContext({ close: () => {} });
 
 const NavMenuLink = forwardRef<HTMLElement, NavMenuLinkProps>(
-  function NavMenuLink({ children, ...props }: NavMenuLinkProps, ref) {
-    const navMenuContext = React.useContext(NavMenuContext);
-    const theme = useTheme();
+  function NavMenuLink({ children, ...props }, ref) {
+    const { close } = React.useContext(NavMenuContext);
 
     return (
       <MenuItem
         ref={ref}
         component={NavLink}
-        onClick={navMenuContext.close}
+        onClick={close}
         {...props}
         sx={{
-          "&:hover": {
-            color: theme.palette.secondary.main,
-            borderLeft: "solid 4px",
-            borderBottom: "none",
-          },
-          "&:focus": {
-            color: theme.palette.secondary.main,
-            borderLeft: "solid 4px",
-          },
-          textDecoration: "none",
-          alignItems: "center",
           display: "flex",
+          alignItems: "center",
           borderLeft: "4px solid transparent",
-          backgroundColor: { md: "none" },
-          color: theme.palette.primary.contrastText,
+          color: "inherit",
+
+          "&:hover, &:focus": {
+            borderLeft: "4px solid currentColor",
+            backgroundColor: (theme) => theme.palette.action.hover,
+          },
         }}
       >
         {children}
@@ -67,11 +59,7 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
     }
   };
 
-  const closeMenu = () => {
-    setAnchorElement(null);
-  };
-
-  const theme = useTheme();
+  const closeMenu = () => setAnchorElement(null);
 
   return (
     <>
@@ -79,37 +67,38 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         aria-controls={menuId}
         aria-expanded={open}
         aria-haspopup="menu"
-        onClick={(e) => openMenu(e)}
+        onClick={openMenu}
         disableFocusRipple
+        color="inherit"
+        // The padding settings below are repeated in NavLink which is not ideal
         sx={{
-          "&:hover": {
-            color: theme.palette.secondary.main,
-            borderBottom: "solid 4px",
-          },
-          "&:focus": {
-            color: theme.palette.secondary.main,
-            borderBottom: "solid 4px",
-          },
-          backgroundColor: theme.palette.primary.main,
-          transition: "none",
-          alignItems: "center",
           display: "flex",
-          padding: "13px 3px 0",
+          alignItems: "center",
+          px: 1,
+          pt: "13px",
+          pb: 0.5,
           borderRadius: 0,
-          ...(open
-            ? {
-                color: theme.palette.secondary.main,
-                borderBottom: "solid 4px",
-              }
-            : {
-                color: theme.palette.primary.contrastText,
-                borderBottom: "4px solid transparent",
-              }),
+          borderBottom: "4px solid transparent",
+
+          "&:hover": {
+            borderBottomColor: "currentColor",
+            backgroundColor: (theme) => theme.palette.action.hover,
+          },
+
+          "&:focus": {
+            borderBottomColor: "currentColor",
+            backgroundColor: (theme) => theme.palette.action.hover,
+          },
+
+          ...(open && {
+            borderBottomColor: "currentColor",
+          }),
         }}
       >
         <Typography>{label}</Typography>
         <ExpandMoreIcon
           sx={{
+            ml: 0.5,
             transition: "transform .25s",
             transform: `rotate(${open ? -180 : 0}deg)`,
           }}
@@ -123,7 +112,12 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         disableAutoFocusItem
         MenuListProps={{ sx: { minWidth: menuWidth } }}
         slotProps={{
-          paper: { style: { backgroundColor: theme.palette.primary.light } },
+          paper: {
+            sx: (theme) => ({
+              backgroundColor: theme.palette.brand?.solid,
+              color: theme.palette.brand?.onSolid,
+            }),
+          },
         }}
       >
         <NavMenuContext.Provider value={{ close: closeMenu }}>
@@ -134,4 +128,5 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
   );
 };
 
-export { NavMenu, NavMenuLink, type NavMenuLinkProps, type NavMenuProps };
+export { NavMenu, NavMenuLink };
+export type { NavMenuLinkProps, NavMenuProps };

@@ -7,6 +7,7 @@ import { MockLink } from "../../utils/MockLink";
 const meta: Meta<typeof NavMenu> = {
   title: "Components/Navigation/NavMenu",
   component: NavMenu,
+  subcomponents: { NavMenuLink },
   tags: ["autodocs"],
   parameters: {
     docs: {

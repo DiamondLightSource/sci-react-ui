@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import type { ComponentProps } from "react";
+
 import {
   AddIcon,
   Box,
@@ -10,7 +12,22 @@ import {
 } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
-const meta: Meta<typeof Button> = {
+const icons = {
+  none: null,
+  save: <SaveIcon />,
+  add: <AddIcon />,
+  send: <SendIcon />,
+  delete: <DeleteIcon />,
+};
+
+type IconName = keyof typeof icons;
+
+type ButtonStoryProps = ComponentProps<typeof Button> & {
+  icon: IconName;
+  iconPosition: "start" | "end";
+};
+
+const meta: Meta<ButtonStoryProps> = {
   title: "MUI/Inputs/Button",
   component: Button,
   tags: ["autodocs"],
@@ -36,6 +53,15 @@ const meta: Meta<typeof Button> = {
       control: "select",
       options: ["small", "medium", "large"],
     },
+    icon: {
+      control: "select",
+      options: Object.keys(icons),
+    },
+    iconPosition: {
+      control: "radio",
+      options: ["start", "end"],
+      if: { arg: "icon", neq: "none" },
+    },
     href: { control: "text" },
     rel: { control: "text" },
     children: { name: "label", control: "text" },
@@ -45,6 +71,8 @@ const meta: Meta<typeof Button> = {
     variant: "contained",
     color: "primary",
     size: "medium",
+    icon: "none",
+    iconPosition: "start",
     disabled: false,
     disableElevation: false,
     fullWidth: false,
@@ -57,11 +85,21 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: (args) => (
-    <Button {...args} href={args.href || undefined} rel={args.rel || undefined}>
-      {args.children}
-    </Button>
-  ),
+  render: ({ icon = "none", iconPosition = "start", ...args }) => {
+    const iconElement = icons[icon as IconName];
+
+    return (
+      <Button
+        {...args}
+        startIcon={iconPosition === "start" ? iconElement : undefined}
+        endIcon={iconPosition === "end" ? iconElement : undefined}
+        href={args.href || undefined}
+        rel={args.rel || undefined}
+      >
+        {args.children}
+      </Button>
+    );
+  },
 };
 
 export const Variants: Story = {
@@ -76,7 +114,7 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: (_args) => (
-    <Stack direction="row" spacing={1}>
+    <Stack direction="row" spacing={1} alignItems="center">
       <Button size="small" variant="contained">
         Small
       </Button>

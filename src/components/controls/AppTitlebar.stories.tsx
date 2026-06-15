@@ -1,9 +1,10 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { AppTitle, AppTitlebar } from "./AppTitlebar";
+import { AppTitle, AppTitlebar, AppTitlebarProps } from "./AppTitlebar";
 
-const meta: Meta<typeof AppTitlebar> = {
+const meta: Meta<AppTitlebarProps> = {
   title: "Components/Controls/AppTitlebar",
   component: AppTitlebar,
+  subcomponents: { AppTitle },
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -15,10 +16,21 @@ const meta: Meta<typeof AppTitlebar> = {
       },
     },
   },
+
+  argTypes: {
+    surface: { table: { disable: true } },
+    variant: { table: { disable: true } },
+    elevation: { table: { disable: true } },
+
+    leftSlot: { control: false },
+    centreSlot: { control: false },
+    rightSlot: { control: false },
+    children: { control: false },
+  },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<AppTitlebarProps>;
 
 export const Simple: Story = {
   args: {
@@ -47,34 +59,54 @@ export const InCentreSlot: Story = {
   },
 };
 
-export const DifferentBackground: Story = {
+export const WithActions: Story = {
   args: {
-    title: "My Great App",
-    sx: { backgroundColor: "red" },
+    title: "My App",
+    rightSlot: <button>Action</button>,
   },
   parameters: {
     docs: {
       description: {
-        story: "You can pass styles to the bar.",
+        story: "Use slots to add actions or controls to the title bar.",
       },
     },
   },
 };
 
-export const DifferentColourAndLarge: Story = {
+export const CustomTypography: Story = {
   args: {
-    children: (
-      <AppTitle
-        title="My Great App"
-        sx={{ color: "yellow", fontSize: "4em" }}
-      />
-    ),
+    children: <AppTitle title="My Great App" variant="h2" />,
   },
   parameters: {
     docs: {
       description: {
         story:
-          "You can add styles directly to the title when it's a child or in a slot.",
+          "You can override the title content if you need custom typography.",
+      },
+    },
+  },
+};
+export const AppTitlebarVariants: Story = {
+  render: (_args) => (
+    <>
+      <AppTitlebar title="Default (primary solid)" />
+
+      <AppTitlebar
+        title="Primary Container"
+        surface="primary"
+        variant="container"
+      />
+
+      <AppTitlebar title="Surface Elevated" surface="surface" elevation={2} />
+
+      <AppTitlebar title="Brand Solid" surface="brand" variant="solid" />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "AppTitlebar defaults to surface container but can be adapted for different emphasis and context.",
       },
     },
   },

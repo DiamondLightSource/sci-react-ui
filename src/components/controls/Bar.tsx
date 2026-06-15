@@ -4,46 +4,137 @@ import {
   BoxProps,
   Breakpoint,
   Container,
-  LinkProps,
   Stack,
   styled,
 } from "@mui/material";
+import { Theme } from "@mui/material/styles";
 
-interface SlotProps extends BoxProps, React.PropsWithChildren {
+type BarProps = BoxProps & {
+  containerWidth?: false | Breakpoint;
+  surface?:
+    | "primary"
+    | "secondary"
+    | "brand"
+    | "brand-fixed"
+    | "brand-fixedDim"
+    | "surface"
+    | "paper"
+    | "background";
+
+  variant?: "solid" | "container" | "base";
+  elevation?: number;
+};
+
+type BarSlotsProps = BarProps & {
+  centreSlot?: React.ReactNode;
+  rightSlot?: React.ReactNode;
+  leftSlot?: React.ReactNode;
+};
+
+const Slot = ({
+  className,
+  children,
+}: {
   className: string;
-}
-const Slot = ({ className, style, children }: SlotProps) => (
-  <Stack
-    className={className}
-    direction="row"
-    alignItems="center"
-    spacing={2}
-    style={style}
-  >
+  children?: React.ReactNode;
+}) => (
+  <Stack className={className} direction="row" alignItems="center" spacing={2}>
     {children}
   </Stack>
 );
 
-const BoxStyled = styled(Box)<BoxProps>(({ theme }) => ({
-  width: "100%",
-  height: "auto",
-  minHeight: "50px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  borderRadius: 0,
-  backgroundColor: theme.vars.palette.primary.main,
-}));
+const resolveBarSurface = (
+  theme: Theme,
+  surface: string,
+  variant: "solid" | "container" | "base",
+  elevation: number,
+) => {
+  const baseBg =
+    elevation > 0
+      ? theme.palette.surface.elevated(elevation)
+      : theme.palette.background.paper;
 
-interface BarProps extends BoxProps, React.PropsWithChildren {
-  containerWidth?: false | Breakpoint;
-}
+  const semantic = ["primary", "secondary", "brand"] as const;
 
-interface BarSlotsProps extends BarProps {
-  centreSlot?: React.ReactElement<LinkProps>;
-  rightSlot?: React.ReactElement<LinkProps>;
-  leftSlot?: React.ReactElement<LinkProps>;
-}
+  if (semantic.includes(surface as "primary" | "secondary" | "brand")) {
+    const p = (
+      surface === "brand"
+        ? theme.palette.brand
+        : theme.palette[surface as "primary" | "secondary"]
+    )!;
+
+    if (variant === "solid") {
+      return { backgroundColor: p.solid, color: p.onSolid };
+    }
+
+    if (variant === "container") {
+      return { backgroundColor: p.container, color: p.onContainer };
+    }
+
+    return { backgroundColor: baseBg, color: theme.palette.text.primary };
+  }
+
+  if (surface === "brand-fixed" || surface === "brand-fixedDim") {
+    const p = theme.palette.brand!;
+    return {
+      backgroundColor: surface === "brand-fixed" ? p.fixed : p.fixedDim,
+      color: p.onFixed,
+    };
+  }
+
+  if (surface === "background") {
+    return {
+      backgroundColor: theme.palette.background.default,
+      color: theme.palette.text.primary,
+    };
+  }
+
+  if (surface === "surface" || surface === "paper") {
+    if (variant === "container") {
+      return {
+        backgroundColor: theme.palette.surface.subtle,
+        color: theme.palette.text.primary,
+      };
+    }
+
+    if (variant === "solid") {
+      return {
+        backgroundColor: theme.palette.surface.strong,
+        color: theme.palette.text.primary,
+      };
+    }
+
+    return {
+      backgroundColor: baseBg,
+      color: theme.palette.text.primary,
+    };
+  }
+
+  return {
+    backgroundColor: baseBg,
+    color: theme.palette.text.primary,
+  };
+};
+
+const BoxStyled = styled(Box)<BarProps>(({ theme, ...ownerState }) => {
+  const { surface = "surface", variant = "base", elevation = 0 } = ownerState;
+
+  const { backgroundColor, color } = resolveBarSurface(
+    theme,
+    surface,
+    variant,
+    elevation,
+  );
+
+  return {
+    width: "100%",
+    minHeight: 50,
+    display: "flex",
+    alignItems: "center",
+    backgroundColor,
+    color,
+  };
+});
 
 /**
  * Basic bar. Comes with three slots, and adjustable width. Children are placed in the left slot.
@@ -57,20 +148,12 @@ const Bar = ({
   ...props
 }: BarSlotsProps) => (
   <BoxStyled {...props}>
-    <Container
-      maxWidth={containerWidth}
-      sx={{
-        height: "100%",
-      }}
-    >
+    <Container maxWidth={containerWidth} sx={{ height: "100%" }}>
       <Stack
         direction="row"
-        style={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-        }}
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ height: "100%", width: "100%" }}
       >
         <Slot className="left-slot">
           {leftSlot}
@@ -78,7 +161,7 @@ const Bar = ({
         </Slot>
 
         <Box
-          style={{
+          sx={{
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",

@@ -30,8 +30,8 @@ import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { RadioProps } from "@mui/material/Radio";
 import type { TabProps } from "@mui/material/Tab";
 
-import logoImageLight from "../public/diamond/logo-light.svg";
-import logoImageDark from "../public/diamond/logo-dark.svg";
+import logoImageLightSurface from "../public/diamond/logo-light-surface.svg";
+import logoImageDarkSurface from "../public/diamond/logo-dark-surface.svg";
 import logoShort from "../public/diamond/logo-short.svg";
 import type { ImageColourSchemeSwitchType } from "components/controls/ImageColourSchemeSwitch";
 
@@ -196,6 +196,7 @@ declare module "@mui/material/styles" {
     surface: {
       subtle: string;
       strong: string;
+      elevated: (level: number) => string;
     };
   }
 
@@ -535,6 +536,8 @@ const createDiamondPalette = (mode: DSMode) => {
     surface: {
       subtle: "var(--ds-surface-container)",
       strong: "var(--ds-surface-container-high)",
+      elevated: (level: number) =>
+        `var(--ds-elevation-${Math.max(0, Math.min(24, level))})`,
     },
 
     ...intentPalette,
@@ -599,8 +602,8 @@ const DiamondDSTheme = extendTheme({
 
   logos: {
     normal: {
-      src: logoImageLight,
-      srcDark: logoImageDark ?? logoImageLight,
+      src: logoImageLightSurface,
+      srcDark: logoImageDarkSurface ?? logoImageLightSurface,
       alt: "Diamond Light Source Logo",
       width: "100",
     },
@@ -1145,6 +1148,15 @@ const DiamondDSTheme = extendTheme({
           "&.Mui-disabled": {
             color: theme.palette.text.disabled,
           },
+        }),
+      },
+    },
+
+    MuiAvatar: {
+      styleOverrides: {
+        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+          backgroundColor: theme.palette.surface.strong,
+          color: theme.palette.text.primary,
         }),
       },
     },

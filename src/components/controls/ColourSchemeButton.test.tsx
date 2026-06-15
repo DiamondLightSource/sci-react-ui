@@ -1,7 +1,8 @@
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 
 import { ColourSchemeButton } from "./ColourSchemeButton";
 import { ColourSchemes } from "../../utils/globals";
+import { renderWithProviders } from "../../__test-utils__/helpers";
 
 const mockSetColorScheme = vi.fn();
 vi.mock("@mui/material", async () => {
@@ -19,11 +20,13 @@ vi.mock("@mui/material", async () => {
 
 describe("ColourSchemeButton", () => {
   it("should render without errors", () => {
-    render(<ColourSchemeButton />);
+    renderWithProviders(<ColourSchemeButton />);
   });
 
   it("should show dark icon and button", () => {
-    const { getByTestId, getByRole } = render(<ColourSchemeButton />);
+    const { getByTestId, getByRole } = renderWithProviders(
+      <ColourSchemeButton />,
+    );
 
     const button = getByRole("button");
     expect(button).toBeInTheDocument();
@@ -33,7 +36,7 @@ describe("ColourSchemeButton", () => {
   });
 
   it("should change colour scheme on click", () => {
-    const { getByRole } = render(<ColourSchemeButton />);
+    const { getByRole } = renderWithProviders(<ColourSchemeButton />);
 
     const button = getByRole("button");
     fireEvent.click(button);
@@ -43,7 +46,9 @@ describe("ColourSchemeButton", () => {
 
   it("should call local onclick when button clicked", () => {
     const mockOnClick = vi.fn();
-    const { getByRole } = render(<ColourSchemeButton onClick={mockOnClick} />);
+    const { getByRole } = renderWithProviders(
+      <ColourSchemeButton onClick={mockOnClick} />,
+    );
 
     const button = getByRole("button");
     fireEvent.click(button);

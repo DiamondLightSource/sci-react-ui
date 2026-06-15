@@ -206,6 +206,9 @@ import MuiToggleButtonGroup, {
 import MuiToolbar, {
   ToolbarProps as MuiToolbarProps,
 } from "@mui/material/Toolbar";
+import MuiTooltip, {
+  TooltipProps as MuiTooltipProps,
+} from "@mui/material/Tooltip";
 import MuiTypography, {
   TypographyProps as MuiTypographyProps,
 } from "@mui/material/Typography";
@@ -505,6 +508,7 @@ export const ToggleButtonGroup = MuiWrapper<MuiToggleButtonGroupProps>(
   "ToggleButtonGroup",
 );
 export const Toolbar = MuiWrapper<MuiToolbarProps>(MuiToolbar, "Toolbar");
+export const Tooltip = MuiWrapper<MuiTooltipProps>(MuiTooltip, "Tooltip");
 export const Typography = MuiWrapper<MuiTypographyProps>(
   MuiTypography,
   "Typography",

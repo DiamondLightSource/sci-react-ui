@@ -1,38 +1,33 @@
-import React from "react";
-import { styled, Typography, TypographyProps } from "@mui/material";
-
+import { Typography, TypographyProps } from "@mui/material";
 import { Bar, BarSlotsProps } from "./Bar";
 
 interface AppTitleProps extends TypographyProps {
   title: string;
 }
 
-const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  color: theme.vars.palette.primary.contrastText,
-  fontSize: "2em",
-}));
-
-/**
- * A simple wrapper for a H1 title
- * @param title The title to display
- * @param props Additional styles, etc.
- */
 const AppTitle = ({ title, ...props }: AppTitleProps) => (
-  <TypographyStyled {...props} id="app-title" variant="h1">
+  <Typography id="app-title" variant="h4" color="inherit" {...props}>
     {title}
-  </TypographyStyled>
+  </Typography>
 );
 
-interface AppTitlebarProps extends BarSlotsProps {
+type AppTitlebarProps = BarSlotsProps & {
   title?: string;
-}
+};
 
 /**
 A Title bar for your App.
  */
-const AppTitlebar = ({ title, children, ...props }: AppTitlebarProps) => {
+const AppTitlebar = ({
+  surface = "surface",
+  variant = "container",
+  elevation,
+  title,
+  children,
+  ...props
+}: AppTitlebarProps) => {
   return (
-    <Bar {...props}>
+    <Bar {...props} surface={surface} variant={variant} elevation={elevation}>
       {title && <AppTitle title={title} />}
       {children}
     </Bar>
@@ -40,4 +35,4 @@ const AppTitlebar = ({ title, children, ...props }: AppTitlebarProps) => {
 };
 
 export { AppTitlebar, AppTitle };
-export type { AppTitlebarProps, AppTitleProps };
+export type { AppTitlebarProps };

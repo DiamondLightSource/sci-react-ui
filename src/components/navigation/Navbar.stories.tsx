@@ -1,18 +1,19 @@
-import Chip from "@mui/material/Chip";
 import { Meta, StoryObj } from "@storybook/react";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
-import logoImageDark from "../../public/generic/logo-dark.svg";
-import logoImageLight from "../../public/generic/logo-light.svg";
+import logoImageDark from "../../public/generic/logo-dark-surface.svg";
+import logoImageLight from "../../public/generic/logo-light-surface.svg";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
 import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
+import { Chip, Typography } from "../../components/MUI/MuiWrapped";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
   component: Navbar,
+  subcomponents: { NavMenu, NavMenuLink, NavLink, NavLinks },
   tags: ["autodocs"],
 };
 
@@ -28,7 +29,6 @@ export const All: Story = {
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
-          colour={"white"}
         />
         <ColourSchemeButton key="colourScheme" />
       </>
@@ -60,6 +60,37 @@ export const All: Story = {
   },
 };
 
+export const NavbarVariants: Story = {
+  render: (_args) => (
+    <>
+      <Navbar leftSlot={<Typography>Default (brand-fixed)</Typography>} />
+      <Navbar
+        surface="brand"
+        variant="solid"
+        leftSlot={<Typography>Brand Solid</Typography>}
+      />
+      <Navbar
+        surface="primary"
+        variant="container"
+        leftSlot={<Typography>Primary Container</Typography>}
+      />
+      <Navbar
+        surface="surface"
+        elevation={2}
+        leftSlot={<Typography>Surface Elevated</Typography>}
+      />
+    </>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Navbar defaults to brand-fixed, but surface, variant, and elevation can be customised.",
+      },
+    },
+  },
+};
+
 export const WithUser: Story = {
   args: {
     rightSlot: (
@@ -68,7 +99,6 @@ export const WithUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
-        colour={"white"}
       />
     ),
   },
@@ -112,7 +142,6 @@ export const LinksAndUser: Story = {
         onLogin={() => {}}
         onLogout={() => {}}
         user={{ name: "Name", fedid: "FedID" }}
-        colour={"white"}
       />
     ),
     children: (
@@ -206,7 +235,7 @@ export const WithThemeLogoAsChild: Story = {
     children: (
       <>
         <Logo
-          interchange={true}
+          tone={"inverse"}
           style={{
             marginRight: "100px",
             transform: "scale(2.2) translateY(-1px)",
@@ -248,7 +277,6 @@ export const LinksInSlot: Story = {
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
-          colour={"white"}
         />
         <ColourSchemeButton key="colourScheme" />
       </>
