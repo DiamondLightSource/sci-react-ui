@@ -4,6 +4,7 @@ import { AppTitle, AppTitlebar, AppTitlebarProps } from "./AppTitlebar";
 const meta: Meta<AppTitlebarProps> = {
   title: "Components/Controls/AppTitlebar",
   component: AppTitlebar,
+  subcomponents: { AppTitle },
   tags: ["autodocs"],
   parameters: {
     docs: {

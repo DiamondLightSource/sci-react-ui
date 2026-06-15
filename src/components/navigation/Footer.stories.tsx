@@ -6,6 +6,7 @@ import { Typography } from "../../components/MUI/MuiWrapped";
 const meta: Meta<typeof Footer> = {
   title: "Components/Navigation/Footer",
   component: Footer,
+  subcomponents: { FooterLink, FooterLinks },
   decorators: [(Story) => <Story />],
   tags: ["autodocs"],
   parameters: {
