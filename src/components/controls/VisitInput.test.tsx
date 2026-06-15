@@ -1,6 +1,8 @@
 // Adapted from https://github.com/DiamondLightSource/workflows/blob/main/frontend/workflows-lib/tests/components/SubmissionForm.test.tsx
-import { fireEvent, within } from "@testing-library/react";
+import { within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "../../__test-utils__/helpers";
+
 import { VisitInput } from "./VisitInput";
 
 it("should render visit field", () => {
@@ -41,15 +43,15 @@ it("should not render submit button when submitButton is false", () => {
   expect(queryByTestId("submit-button")).not.toBeInTheDocument();
 });
 
-it("should call onSubmit with parsed visit and parameters on submit button click", () => {
+it("should call onSubmit with parsed visit and parameters on submit button click", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} parameters={{ fedid: "abc98765" }} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  const submitButton = getByTestId("submit-button");
-  fireEvent.click(submitButton);
+  await user.type(visitField, "zz12345-7");
+  await user.click(getByTestId("submit-button"));
   expect(onSubmit).toHaveBeenCalledWith(
     {
       proposalCode: "zz",
@@ -62,15 +64,15 @@ it("should call onSubmit with parsed visit and parameters on submit button click
   );
 });
 
-it("should call onSubmit with parsed visit on submit button click", () => {
+it("should call onSubmit with parsed visit on submit button click", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  const submitButton = getByTestId("submit-button");
-  fireEvent.click(submitButton);
+  await user.type(visitField, "zz12345-7");
+  await user.click(getByTestId("submit-button"));
   expect(onSubmit).toHaveBeenCalledWith(
     {
       proposalCode: "zz",
@@ -81,35 +83,27 @@ it("should call onSubmit with parsed visit on submit button click", () => {
   );
 });
 
-it("should not call onSubmit for empty visit input", () => {
+it("should not call onSubmit for empty visit input", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitOnReturn={true} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "" } });
-  fireEvent.keyDown(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.click(visitField);
+  await user.keyboard("{Enter}");
   expect(onSubmit).not.toHaveBeenCalled();
 });
 
-it("should call onSubmit with parsed visit on enter key down by default", () => {
+it("should call onSubmit with parsed visit on enter key down by default", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.keyDown(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.type(visitField, "zz12345-7");
+  await user.keyboard("{Enter}");
   expect(onSubmit).toHaveBeenCalledWith(
     {
       proposalCode: "zz",
@@ -120,19 +114,15 @@ it("should call onSubmit with parsed visit on enter key down by default", () => 
   );
 });
 
-it("should call onSubmit with parsed visit on enter key down when submitButton is false", () => {
+it("should call onSubmit with parsed visit on enter key down when submitButton is false", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitButton={false} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.keyDown(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.type(visitField, "zz12345-7");
+  await user.keyboard("{Enter}");
   expect(onSubmit).toHaveBeenCalledWith(
     {
       proposalCode: "zz",
@@ -143,37 +133,28 @@ it("should call onSubmit with parsed visit on enter key down when submitButton i
   );
 });
 
-it("should not call onSubmit on enter key down when submitOnReturn is false", () => {
+it("should not call onSubmit on enter key down when submitOnReturn is false", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitOnReturn={false} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.keyDown(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.type(visitField, "zz12345-7");
+  await user.keyboard("{Enter}");
   expect(onSubmit).not.toHaveBeenCalled();
 });
 
-it("should not call onSubmit on enter key down when onSubmit is not provided", () => {
-  const onSubmit = vi.fn();
+it("should not call onSubmit on enter key down when onSubmit is not provided", async () => {
+  const user = userEvent.setup();
   const { getByTestId } = renderWithProviders(<VisitInput />);
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.keyDown(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
-  expect(onSubmit).not.toHaveBeenCalled();
+  await user.type(visitField, "zz12345-7");
+  await user.keyboard("{Enter}");
 });
 
-it("should call onSubmit with updated visit on submit button click", () => {
+it("should call onSubmit with updated visit on submit button click", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput
@@ -183,9 +164,9 @@ it("should call onSubmit with updated visit on submit button click", () => {
     />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  const submitButton = getByTestId("submit-button");
-  fireEvent.click(submitButton);
+  await user.clear(visitField);
+  await user.type(visitField, "zz12345-7");
+  await user.click(getByTestId("submit-button"));
   expect(onSubmit).toHaveBeenCalledWith(
     {
       proposalCode: "zz",
@@ -198,35 +179,27 @@ it("should call onSubmit with updated visit on submit button click", () => {
   );
 });
 
-it("should not call onSubmit on blur by default", () => {
+it("should not call onSubmit on blur by default", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.blur(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.type(visitField, "zz12345-7");
+  await user.tab();
   expect(onSubmit).not.toHaveBeenCalled();
 });
 
-it("should call onSubmit with parsed visit on blur when submitButton is false", () => {
+it("should call onSubmit with parsed visit on blur when submitButton is false", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitButton={false} submitOnBlur={true} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.blur(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.type(visitField, "zz12345-7");
+  await user.tab();
   expect(onSubmit).toHaveBeenCalledWith(
     {
       proposalCode: "zz",
@@ -237,35 +210,27 @@ it("should call onSubmit with parsed visit on blur when submitButton is false", 
   );
 });
 
-it("should not call onSubmit on blur when submitOnBlur is false", () => {
+it("should not call onSubmit on blur when submitOnBlur is false", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitOnBlur={false} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.blur(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.type(visitField, "zz12345-7");
+  await user.tab();
   expect(onSubmit).not.toHaveBeenCalled();
 });
 
-it("should call onSubmit with parsed visit on blur when submitOnBlur is true", () => {
+it("should call onSubmit with parsed visit on blur when submitOnBlur is true", async () => {
+  const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
     <VisitInput onSubmit={onSubmit} submitOnBlur={true} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.blur(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
+  await user.type(visitField, "zz12345-7");
+  await user.tab();
   expect(onSubmit).toHaveBeenCalledWith(
     {
       proposalCode: "zz",
@@ -276,18 +241,12 @@ it("should call onSubmit with parsed visit on blur when submitOnBlur is true", (
   );
 });
 
-it("should not call onSubmit on blur when onSubmit is not provided", () => {
-  const onSubmit = vi.fn();
+it("should not call onSubmit on blur when onSubmit is not provided", async () => {
+  const user = userEvent.setup();
   const { getByTestId } = renderWithProviders(
     <VisitInput submitOnBlur={true} />,
   );
   const visitField = within(getByTestId("visit-field")).getByRole("textbox");
-  fireEvent.change(visitField, { target: { value: "zz12345-7" } });
-  fireEvent.blur(visitField, {
-    key: "Enter",
-    code: "Enter",
-    keyCode: 13,
-    charCode: 13,
-  });
-  expect(onSubmit).not.toHaveBeenCalled();
+  await user.type(visitField, "zz12345-7");
+  await user.tab();
 });
