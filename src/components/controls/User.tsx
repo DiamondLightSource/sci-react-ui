@@ -99,7 +99,8 @@ const User = ({
               <Box
                 sx={{
                   padding: "5px",
-                  display: { xs: "none", sm: "block" },
+                  display: { xs: "none", sm: "flex" },
+                  flexDirection: "column",
                 }}
               >
                 <Typography
