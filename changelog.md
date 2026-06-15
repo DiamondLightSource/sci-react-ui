@@ -1,13 +1,17 @@
 # SciReactUI Changelog
 ## [Unreleased]
 
-## [v0.5.0] - 2026-06-03
+## [v0.5.0] - 2026-06-15
 
 ### Changed
+- Packages updated to latest.
+- Security on package management tightened.
+- **Breaking** MUI has been upgraded from v6.5 to v7. Check their documentation
 - **Breaking** `keycloak-js` has been moved from a direct dependency to a peer and optional dependency, so must now be installed by the consuming application.
 
 ### Fixed
 - Icon imports were causing issues downstream when components are unit tested.
+- JsonForms were showing "-" when an int of zero was passed in.
 
 ## [v0.4.1] - 2026-02-24
 
