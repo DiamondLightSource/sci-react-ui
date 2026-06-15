@@ -10,9 +10,11 @@
 
 ## [v0.5.0] - 2026-06-03
 
+### Added
+- New *NumberInput* component which validates various number types, high limits, and low limits.
+
 ### Changed
 - **Breaking** `keycloak-js` has been moved from a direct dependency to a peer and optional dependency, so must now be installed by the consuming application.
-- New *NumberInput* component which validates various number types, high limits, and low limits.
 
 ### Fixed
 - Icon imports were causing issues downstream when components are unit tested.
