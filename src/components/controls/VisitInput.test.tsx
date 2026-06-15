@@ -191,7 +191,7 @@ it("should not call onSubmit on blur by default", async () => {
   expect(onSubmit).not.toHaveBeenCalled();
 });
 
-it("should call onSubmit with parsed visit on blur when submitButton is false", async () => {
+it("should call onSubmit once only with parsed visit on blur when submitButton is false", async () => {
   const user = userEvent.setup();
   const onSubmit = vi.fn();
   const { getByTestId } = renderWithProviders(
@@ -208,6 +208,7 @@ it("should call onSubmit with parsed visit on blur when submitButton is false", 
     },
     undefined,
   );
+  expect(onSubmit).toHaveBeenCalledTimes(1);
 });
 
 it("should not call onSubmit on blur when submitOnBlur is false", async () => {
