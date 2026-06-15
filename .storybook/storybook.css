@@ -47,7 +47,7 @@ body .sbdocs {
 /* Headings use Outfit or Inter */
 
 .sbdocs h1.sbdocs-title,
-.sbdocs.sbdocs-content h1 :not(.sbdocs-preview) {
+.sbdocs.sbdocs-content h1:not(.MuiTypography-root) {
   font-family: var(--sb-ds-font-heading);
 }
 

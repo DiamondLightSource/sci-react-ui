@@ -1166,6 +1166,14 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          minHeight: 44,
+        },
+      },
+    },
+
     MuiTab: {
       styleOverrides: {
         root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
