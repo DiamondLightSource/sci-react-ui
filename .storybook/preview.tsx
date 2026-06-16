@@ -69,6 +69,7 @@ const preview: Preview = {
           "Installation",
           "Practical Guidance",
           "Working with Components",
+          "Foundations",
           "Helpers",
           "Theme",
           "Theme/Logos",
