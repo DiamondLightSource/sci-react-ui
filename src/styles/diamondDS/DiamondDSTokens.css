@@ -2,7 +2,7 @@
   /* Neutral primitives */
   --ds-grey-50: #f8f8fa;
   --ds-grey-100: #eef1f5;
-  --ds-grey-200: #e6e9f0;
+  --ds-grey-200: #eaedf3;
   --ds-grey-300: #dde1e8;
   --ds-grey-400: #bcc2cd;
   --ds-grey-500: #a5acb8;
@@ -54,8 +54,6 @@
   --ds-elevation-22: #eef1f5;
   --ds-elevation-23: #eef1f5;
   --ds-elevation-24: #eef1f5;
-
-
 
   /* Neutral roles */
   --ds-background: #f6f6f9;
@@ -296,7 +294,6 @@
   --ds-elevation-22: #2a3140;
   --ds-elevation-23: #2a3140;
   --ds-elevation-24: #2c3140;
-
 
   /* Neutral roles */
   --ds-background: var(--ds-grey-dark-800);

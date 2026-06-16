@@ -84,16 +84,18 @@ styles.
 
 Build with existing components and patterns before creating new ones.
 
-Components should keep interfaces predictable, readable, and consistent.
+Components should keep interfaces <strong>predictable, efficient, readable, and consistent</strong>. Users should be able to understand how an interface behaves, complete common tasks with minimal effort, and recognise the meaning of visual cues without additional explanation.
 
 <div className="ds-dos">
   <div className="ds-card">
     <h3>✅ Do</h3>
     <ul>
-      <li>Reuse established layouts and behaviours.</li>
+      <li>Reuse established layouts, behaviours, and interaction patterns.</li>
       <li>Use standard component variants consistently.</li>
-      <li>Keep disabled and error states visually clear.</li>
-      <li>Use spacing and typography for hierarchy.</li>
+      <li>Minimise unnecessary steps for common tasks.</li>
+      <li>Use spacing, typography, and colour to create clear hierarchy.</li>
+      <li>Keep disabled, read-only, selected, and error states visually distinct.</li>
+      <li>Use visual styling that matches the meaning being communicated.</li>
     </ul>
   </div>
 
@@ -103,6 +105,8 @@ Components should keep interfaces predictable, readable, and consistent.
       <li>Don’t restyle components screen by screen.</li>
       <li>Don’t introduce custom colours unnecessarily.</li>
       <li>Don’t create multiple patterns for the same interaction.</li>
+      <li>Don't require extra interactions when a direct action would be expected.</li>
+      <li>Don't use error or warning styling for normal states.</li>
       <li>Don’t override the theme without a reusable reason.</li>
     </ul>
   </div>
