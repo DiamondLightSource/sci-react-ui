@@ -35,7 +35,7 @@ const collectCssVars = (value: unknown): string[] => {
 };
 
 const getCssModeSection = (mode: "light" | "dark"): string => {
-  const selector = `:root[data-mode="${mode}"]`;
+  const selector = `[data-mode="${mode}"]`;
   const startIndex = tokensCss.indexOf(selector);
 
   if (startIndex === -1) {
@@ -1086,8 +1086,8 @@ describe("DiamondDS tokens", () => {
   });
 
   it("defines light and dark data-mode token sections", () => {
-    expect(tokensCss).toContain(':root[data-mode="light"]');
-    expect(tokensCss).toContain(':root[data-mode="dark"]');
+    expect(tokensCss).toContain('[data-mode="light"]');
+    expect(tokensCss).toContain('[data-mode="dark"]');
   });
 
   it("defines required neutral surface variables", () => {

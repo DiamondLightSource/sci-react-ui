@@ -1,0 +1,321 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Foundations/Theme Colours" />
+
+<div className="ds-docs">
+
+# Theme colours
+
+Theme colours provide the complete semantic colour palette available in DiamondDS. Each colour role is shown in both light and dark modes using the design system tokens. These values are intended as a reference for implementation and should be used through their semantic names rather than by selecting colours based on appearance.
+
+<div className="ds-note">
+
+This page is a token reference. If you're deciding which colour role to use, read the **[Colour](/docs/foundations-colour--docs)** guidance first.
+
+</div>
+<br />
+
+## Light mode
+
+<div className="ds-colour-page">
+ <section className="ds-mode-panel" data-mode="light">
+  <section>
+   <h3>Intent colours</h3>
+   <div className="ds-intent-grid">
+    {[
+     ["primary", "Primary", false],
+     ["secondary", "Secondary", false],
+     ["tertiary", "Tertiary", false],
+     ["brand", "Brand", true],
+     ["danger", "Danger", false],
+     ["warning", "Warning", false],
+     ["success", "Success", false],
+     ["info", "Info", false],
+    ].map(([key, label, hasFixed]) => (
+     <div className="ds-colour-family" key={key}>
+      <div className="ds-colour-stack">
+       <div className={`ds-colour-row ds-bg-${key}-main ds-fg-${key}-contrast`}>
+        <span>{label}</span>
+        <code>main</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-dark ds-fg-${key}-contrast`}>
+        <span>{label} Emphasis</span>
+        <code>dark</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-light ds-fg-${key}-contrast`}>
+        <span>{label} Accent</span>
+        <code>light</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-container ds-fg-${key}-on-container`}>
+        <span>{label} Container</span>
+        <code>container</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-on-container ds-fg-${key}-container`}>
+        <span>{label} On Container</span>
+        <code>onContainer</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-solid ds-fg-${key}-on-solid`}>
+        <span>{label} Solid</span>
+        <code>solid</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-on-solid ds-fg-${key}-solid`}>
+        <span>{label} On Solid</span>
+        <code>onSolid</code>
+       </div>
+      </div>
+      {hasFixed && (
+       <div className="ds-colour-stack ds-colour-stack-fixed">
+        <div className={`ds-colour-row ds-bg-${key}-fixed ds-fg-${key}-on-fixed`}>
+         <span>{label} Fixed</span>
+         <code>fixed</code>
+        </div>
+        <div className={`ds-colour-row ds-bg-${key}-fixed-dim ds-fg-${key}-on-fixed`}>
+         <span>{label} Fixed Dim</span>
+         <code>fixedDim</code>
+        </div>
+        <div className={`ds-colour-row ds-bg-${key}-on-fixed ds-fg-${key}-fixed`}>
+         <span>{label} On Fixed</span>
+         <code>onFixed</code>
+        </div>
+       </div>
+      )}
+     </div>
+    ))}
+
+   </div>
+  </section>
+  <section>
+   <h3>Neutral colours</h3>
+   <div className="ds-neutral-grid">
+    <div className="ds-colour-stack">
+     <div className="ds-colour-row ds-bg-background ds-fg-primary">
+      <span>Background</span>
+      <code>background</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface ds-fg-primary">
+      <span>Surface</span>
+      <code>surface</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface-container ds-fg-primary">
+      <span>Surface Container</span>
+      <code>surface.container</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface-container-high ds-fg-primary">
+      <span>Surface Container High</span>
+      <code>surface.containerHigh</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface-disabled ds-fg-on-surface-disabled">
+      <span>Surface Disabled</span>
+      <code>surface.disabled</code>
+     </div>
+    </div>
+    <div className="ds-colour-stack">
+     <div className="ds-colour-row ds-bg-on-surface ds-fg-surface">
+      <span>On Surface</span>
+      <code>onSurface</code>
+     </div>
+     <div className="ds-colour-row ds-bg-on-surface-variant ds-fg-surface">
+      <span>On Surface Variant</span>
+      <code>onSurfaceVariant</code>
+     </div>
+     <div className="ds-colour-row ds-bg-on-surface-subtle ds-fg-surface">
+      <span>On Surface Subtle</span>
+      <code>onSurfaceSubtle</code>
+     </div>
+     <div className="ds-colour-row ds-bg-on-surface-muted ds-fg-surface">
+      <span>On Surface Muted</span>
+      <code>onSurfaceMuted</code>
+     </div>
+     <div className="ds-colour-row ds-bg-action-disabled ds-fg-surface">
+      <span>Action Disabled</span>
+      <code>action.disabled</code>
+     </div>
+    </div>
+    <div className="ds-colour-family">
+     <div className="ds-colour-stack">
+      <div className="ds-colour-row ds-bg-placeholder ds-fg-surface">
+       <span>Placeholder</span>
+       <code>placeholder</code>
+      </div>
+     <div className="ds-colour-row ds-bg-placeholder-focus ds-fg-surface">
+       <span>Placeholder Focus</span>
+       <code>placeholder.focus</code>
+      </div>
+     <div className="ds-colour-row ds-bg-on-solid ds-fg-primary">
+       <span>On Solid</span>
+       <code>onSolid</code>
+      </div>
+     </div>
+     <div className="ds-colour-stack ds-colour-stack-fixed">
+      <div className="ds-colour-row ds-bg-border-subtle ds-fg-primary">
+       <span>Border Subtle</span>
+       <code>border.subtle</code>
+      </div>
+     <div className="ds-colour-row ds-bg-border-emphasis ds-fg-primary">
+       <span>Border Emphasis</span>
+       <code>border.emphasis</code>
+      </div>
+     <div className="ds-colour-row ds-bg-border-strong ds-fg-surface">
+       <span>Border Strong</span>
+       <code>border.strong</code>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+ </section>
+
+## Dark mode
+
+ <section className="ds-mode-panel" data-mode="dark">
+  <section>
+   <h3>Intent colours</h3>
+   <div className="ds-intent-grid">
+    {[
+     ["primary", "Primary", false],
+     ["secondary", "Secondary", false],
+     ["tertiary", "Tertiary", false],
+     ["brand", "Brand", true],
+     ["danger", "Danger", false],
+     ["warning", "Warning", false],
+     ["success", "Success", false],
+     ["info", "Info", false],
+    ].map(([key, label, hasFixed]) => (
+     <div className="ds-colour-family" key={key}>
+      <div className="ds-colour-stack">
+       <div className={`ds-colour-row ds-bg-${key}-main ds-fg-${key}-contrast`}>
+        <span>{label}</span>
+        <code>main</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-dark ds-fg-${key}-contrast`}>
+        <span>{label} Emphasis</span>
+        <code>dark</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-light ds-fg-${key}-contrast`}>
+        <span>{label} Accent</span>
+        <code>light</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-container ds-fg-${key}-on-container`}>
+        <span>{label} Container</span>
+        <code>container</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-on-container ds-fg-${key}-container`}>
+        <span>{label} On Container</span>
+        <code>onContainer</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-solid ds-fg-${key}-on-solid`}>
+        <span>{label} Solid</span>
+        <code>solid</code>
+       </div>
+       <div className={`ds-colour-row ds-bg-${key}-on-solid ds-fg-${key}-solid`}>
+        <span>{label} On Solid</span>
+        <code>onSolid</code>
+       </div>
+      </div>
+      {hasFixed && (
+       <div className="ds-colour-stack ds-colour-stack-fixed">
+        <div className={`ds-colour-row ds-bg-${key}-fixed ds-fg-${key}-on-fixed`}>
+         <span>{label} Fixed</span>
+         <code>fixed</code>
+        </div>
+
+        <div className={`ds-colour-row ds-bg-${key}-fixed-dim ds-fg-${key}-on-fixed`}>
+         <span>{label} Fixed Dim</span>
+         <code>fixedDim</code>
+        </div>
+
+        <div className={`ds-colour-row ds-bg-${key}-on-fixed ds-fg-${key}-fixed`}>
+         <span>{label} On Fixed</span>
+         <code>onFixed</code>
+        </div>
+       </div>
+      )}
+     </div>
+    ))}
+
+   </div>
+  </section>
+  <section>
+   <h3>Neutral colours</h3>
+   <div className="ds-neutral-grid">
+    <div className="ds-colour-stack">
+     <div className="ds-colour-row ds-bg-background ds-fg-primary">
+      <span>Background</span>
+      <code>background</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface ds-fg-primary">
+      <span>Surface</span>
+      <code>surface</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface-container ds-fg-primary">
+      <span>Surface Container</span>
+      <code>surface.container</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface-container-high ds-fg-primary">
+      <span>Surface Container High</span>
+      <code>surface.containerHigh</code>
+     </div>
+     <div className="ds-colour-row ds-bg-surface-disabled ds-fg-on-surface-disabled">
+      <span>Surface Disabled</span>
+      <code>surface.disabled</code>
+     </div>
+    </div>
+    <div className="ds-colour-stack">
+     <div className="ds-colour-row ds-bg-on-surface ds-fg-surface">
+      <span>On Surface</span>
+      <code>onSurface</code>
+     </div>
+     <div className="ds-colour-row ds-bg-on-surface-variant ds-fg-surface">
+      <span>On Surface Variant</span>
+      <code>onSurfaceVariant</code>
+     </div>
+     <div className="ds-colour-row ds-bg-on-surface-subtle ds-fg-surface">
+      <span>On Surface Subtle</span>
+      <code>onSurfaceSubtle</code>
+     </div>
+     <div className="ds-colour-row ds-bg-on-surface-muted ds-fg-surface">
+      <span>On Surface Muted</span>
+      <code>onSurfaceMuted</code>
+     </div>
+     <div className="ds-colour-row ds-bg-action-disabled ds-fg-surface">
+      <span>Action Disabled</span>
+      <code>action.disabled</code>
+     </div>
+    </div>
+    <div className="ds-colour-family">
+     <div className="ds-colour-stack">
+      <div className="ds-colour-row ds-bg-placeholder ds-fg-surface">
+       <span>Placeholder</span>
+       <code>placeholder</code>
+      </div>
+      <div className="ds-colour-row ds-bg-placeholder-focus ds-fg-surface">
+       <span>Placeholder Focus</span>
+       <code>placeholder.focus</code>
+      </div>
+      <div className="ds-colour-row ds-bg-on-solid ds-fg-surface">
+       <span>On Solid</span>
+       <code>onSolid</code>
+      </div>
+     </div>
+     <div className="ds-colour-stack ds-colour-stack-fixed">
+      <div className="ds-colour-row ds-bg-border-subtle ds-fg-primary">
+       <span>Border Subtle</span>
+       <code>border.subtle</code>
+      </div>
+      <div className="ds-colour-row ds-bg-border-emphasis ds-fg-primary">
+       <span>Border Emphasis</span>
+       <code>border.emphasis</code>
+      </div>
+      <div className="ds-colour-row ds-bg-border-strong ds-fg-surface">
+       <span>Border Strong</span>
+       <code>border.strong</code>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+
+ </section>
+</div>
+
+</div>
