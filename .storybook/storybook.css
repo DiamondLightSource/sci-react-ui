@@ -1,4 +1,4 @@
-:root {
+:root:not(.MuiTypography-root) {
   --sb-ds-font-body:
     "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
@@ -14,7 +14,7 @@
   --sb-ds-background: #f6f6f9;
   --sb-ds-surface: #ffffff;
   --sb-ds-surface-container: #eef1f5;
-  --sb-ds-surface-container-high: #eaedf3;
+  --sb-ds-surface-container-high: #e6e9f0;
 
   --sb-ds-on-surface: #1a1c23;
   --sb-ds-on-surface-variant: #505563;
@@ -27,20 +27,20 @@
   --sb-ds-success: #24a148;
   --sb-ds-warning: #f1c21b;
   --sb-ds-danger: #da1e28;
-  --sb-ds-info: #355ec9;
+  --sb-ds-info: #3d1380;
   --sb-ds-brand: #202945;
 }
 
 /* Applied to all of Storybook, including the UI and Docs */
 
-body .sbdocs {
+body .sbdocs:not(.MuiTypography-root) {
   background-color: var(--sb-ds-background) !important;
 }
 
 /* Base font */
-.sbdocs,
-.sbdocs p,
-.sbdocs li {
+.sbdocs:not(.MuiTypography-root),
+.sbdocs p:not(.MuiTypography-root),
+.sbdocs li:not(.MuiTypography-root) {
   font-family: var(--sb-ds-font-body);
 }
 
@@ -51,22 +51,22 @@ body .sbdocs {
   font-family: var(--sb-ds-font-heading);
 }
 
-.sbdocs h2,
-.sbdocs h3,
-.sbdocs h4,
-.sbdocs h5,
-.sbdocs h6,
-table th,
-table td {
+.sbdocs h2:not(.MuiTypography-root),
+.sbdocs h3:not(.MuiTypography-root),
+.sbdocs h4:not(.MuiTypography-root),
+.sbdocs h5:not(.MuiTypography-root),
+.sbdocs h6:not(.MuiTypography-root),
+table th:not(.MuiTypography-root),
+table td:not(.MuiTypography-root) {
   font-family: var(--sb-ds-font-body);
 }
 /* Code uses IBM Plex Mono */
-code,
-.sbdocs code,
-.sbdocs pre,
-.sbdocs kbd,
-.sbdocs samp,
-.token {
+code:not(.MuiTypography-root),
+.sbdocs code:not(.MuiTypography-root),
+.sbdocs pre:not(.MuiTypography-root),
+.sbdocs kbd:not(.MuiTypography-root),
+.sbdocs samp:not(.MuiTypography-root),
+.token:not(.MuiTypography-root) {
   font-family: var(--sb-ds-font-mono);
 }
 
