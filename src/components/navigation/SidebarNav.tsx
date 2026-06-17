@@ -24,6 +24,7 @@ type NavItemDefinition = {
   label: string;
   icon: ReactNode;
   linkProps: LinkProps;
+  selected?: boolean;
 };
 
 type LinkProps = ExternalLinkProps | InternalLinkProps;
@@ -87,7 +88,11 @@ export function SidebarNav({ navigation, open }: NavProps) {
               {groupIndex > 0 && <SectionDivider />}
               {group.navItems.map((item, itemIndex) => {
                 return (
-                  <NavItem key={itemIndex} definition={item} open={open} />
+                  <NavItem
+                    key={itemIndex}
+                    definition={item}
+                    sidebarOpen={open}
+                  />
                 );
               })}
             </Fragment>
@@ -108,12 +113,12 @@ function SectionDivider() {
 
 interface NavItemProps {
   definition: NavItemDefinition;
-  open: boolean;
+  sidebarOpen: boolean;
 }
 
 function NavItem(props: NavItemProps) {
   const item = props.definition;
-  const open = props.open;
+  const open = props.sidebarOpen;
   const icon = (
     <ListItemIcon
       sx={{
@@ -133,10 +138,11 @@ function NavItem(props: NavItemProps) {
     <ListItem disablePadding sx={{ mb: 0.5 }}>
       <ListItemButton
         {...item.linkProps}
+        selected={props.definition.selected}
         sx={{
           p: 1,
           borderRadius: 2,
-          "&.active": {
+          "&.active, &.Mui-selected": {
             bgcolor: "action.selected",
             color: "primary.onContainer",
           },
