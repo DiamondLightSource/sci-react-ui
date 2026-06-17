@@ -19,10 +19,18 @@ import {
 import { Theme } from "@mui/material/styles";
 import { Logo } from "../controls/Logo";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
+import { NavLink, MemoryRouter } from "react-router-dom";
 
 const meta: Meta<typeof SidebarNav> = {
   title: "Components/Navigation/SidebarNav",
   component: SidebarNav,
+  decorators: [
+    (Story: Story) => (
+      <MemoryRouter>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -43,17 +51,17 @@ const navigation = [
       {
         label: "Setup",
         icon: <Abc />,
-        linkProps: { href: "#1" },
+        linkProps: { to: "/1", component: NavLink },
       },
       {
         label: "Acquisition",
         icon: <ArrowForward />,
-        linkProps: { href: "#2" },
+        linkProps: { to: "/2", component: NavLink },
       },
       {
         label: "Analysis",
         icon: <GraphicEq />,
-        linkProps: { href: "#3" },
+        linkProps: { to: "/3", component: NavLink },
       },
     ],
   },
@@ -62,7 +70,7 @@ const navigation = [
       {
         label: "Organisation",
         icon: <CorporateFare />,
-        linkProps: { href: "" },
+        linkProps: { href: "#4" },
       },
     ],
   },
@@ -82,10 +90,13 @@ export const WithAppBar: Story = {
       <Box sx={{ display: "flex" }}>
         <AppBar
           position="fixed"
-          // color="inherit"
+          color="inherit"
           sx={{
             zIndex: (theme: Theme) => theme.zIndex.drawer + 1,
+            borderBottom: "1px solid",
+            borderColor: "divider",
           }}
+          elevation={0}
         >
           <Toolbar>
             <IconButton
@@ -99,8 +110,8 @@ export const WithAppBar: Story = {
               <Menu />
             </IconButton>
 
-            <Box sx={{ mr: 2, width: 100 }}>
-              <Logo />
+            <Box sx={{ mr: 2, mt: 1.5 }}>
+              <Logo sx={{ display: "block" }} />
             </Box>
 
             <Divider orientation="vertical" variant="middle" flexItem />
