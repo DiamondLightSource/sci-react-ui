@@ -25,7 +25,7 @@ const meta: Meta<typeof SidebarNav> = {
   title: "Components/Navigation/SidebarNav",
   component: SidebarNav,
   decorators: [
-    (Story: Story) => (
+    (Story) => (
       <MemoryRouter>
         <Story />
       </MemoryRouter>
