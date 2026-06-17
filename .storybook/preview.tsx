@@ -2,6 +2,9 @@ import React from "react";
 import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
 import "@fontsource-variable/inter";
+import "@fontsource-variable/outfit";
+import "@fontsource/ibm-plex-mono";
+import "@fontsource/ibm-plex-mono/600.css";
 import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { DiamondDSTheme } from "../src";

@@ -13,6 +13,14 @@ const tokensCss = readFileSync(
   "utf8",
 );
 
+const typographyCss = readFileSync(
+  resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    "../styles/diamondDS/DiamondDSTypography.css",
+  ),
+  "utf8",
+);
+
 const getVarNames = (value: unknown): string[] => {
   if (typeof value !== "string") return [];
   return [...value.matchAll(/var\((--[^),\s]+)/g)].map((match) => match[1]);
@@ -133,7 +141,7 @@ const getReferencedDiamondVars = (): Set<string> =>
 
 const getDefinedDiamondVars = (): Set<string> =>
   new Set(
-    [...tokensCss.matchAll(/(--ds-[a-zA-Z0-9-]+)\s*:/g)].map(
+    [...(tokensCss + typographyCss).matchAll(/(--ds-[a-zA-Z0-9-]+)\s*:/g)].map(
       (match) => match[1],
     ),
   );
@@ -186,17 +194,7 @@ describe("DiamondDSTheme", () => {
 
   it("configures the DiamondDS font stack", () => {
     expect(DiamondDSTheme.typography.fontFamily).toBe(
-      [
-        '"Inter Variable"',
-        "Inter",
-        "system-ui",
-        "-apple-system",
-        '"Segoe UI"',
-        "Roboto",
-        "Helvetica",
-        "Arial",
-        "sans-serif",
-      ].join(","),
+      "var(--ds-font-family-default)",
     );
   });
 
