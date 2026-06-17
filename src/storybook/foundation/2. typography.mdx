@@ -6,7 +6,7 @@ import { Meta } from "@storybook/blocks";
 
 # Typography
 
-<span class="lead">
+<span className="lead">
   Typography in Diamond DS should support readability, scanning, and technical
   clarity. Interfaces are often used in dense scientific workflows, so type
   should feel calm, consistent, and easy to parse.
@@ -18,6 +18,8 @@ import { Meta } from "@storybook/blocks";
   <thead>
     <tr>
       <th>Typeface</th>
+      <th>Token</th>
+      <th>MUI roles</th>
       <th>Purpose</th>
       <th>Typical usage</th>
     </tr>
@@ -25,31 +27,42 @@ import { Meta } from "@storybook/blocks";
   <tbody>
     <tr>
       <td>Inter</td>
+      <td>
+        <code>--ds-font-family-default</code>
+      </td>
+      <td>
+        <code>body1</code>, <code>body2</code>, <code>subtitle1</code>,
+        <code>subtitle2</code>, <code>caption</code>,<code>meta</code>,{" "}
+        <code>button</code>
+      </td>
       <td>Default interface typeface</td>
       <td>UI text, controls, tables, navigation, forms</td>
     </tr>
     <tr>
       <td>Outfit</td>
-      <td>Brand and high-level headings</td>
+      <td>
+        <code>--ds-font-family-display</code>
+      </td>
+      <td>
+        <code>h1Display</code>, <code>h2Display</code>,<code>h3Display</code>,{" "}
+        <code>h4Display</code>
+      </td>
+      <td>Display and high-level headings</td>
       <td>Product headings, landing areas, documentation hero areas</td>
     </tr>
     <tr>
       <td>IBM Plex Mono</td>
+      <td>
+        <code>--ds-font-family-mono</code>
+      </td>
+      <td>
+        <code>mono1</code>, <code>mono2</code>,<code>mono3</code>
+      </td>
       <td>Technical and aligned content</td>
       <td>IDs, timestamps, code, logs, numeric values, instrument output</td>
     </tr>
   </tbody>
 </table>
-
-<div className="ds-note">
-  <p>
-    Diamond DS currently defines <strong>Inter</strong> as the application
-    interface typeface. <strong>Outfit</strong> and{" "}
-    <strong>IBM Plex Mono</strong>
-    are used in Storybook documentation only and are not yet part of the
-    published application theme. This should be rectified soon.
-  </p>
-</div>
 
 ## Core principle
 
@@ -65,13 +78,191 @@ Use a clear and repeatable hierarchy across products.
 
 - Use headings to structure the page.
 - Use body text for explanation and supporting content.
+- Use meta text for compact operational information and status.
 - Use labels for controls, fields, table headers, and short descriptors.
 - Use mono type for technical values where alignment or precision matters.
 
 Avoid creating one-off heading sizes or local typographic styles unless there is
 a reusable reason.
 
-## Typeface roles
+Use heading levels in order where possible. Avoid jumping directly from h1 to h4 unless the surrounding structure justifies it.
+
+## Typography variants
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>Variants</th>
+      <th>Use for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Display</td>
+      <td>
+        <code>h1Display</code>, <code>h2Display</code>, <code>h3Display</code>,{" "}
+        <code>h4Display</code>
+      </td>
+      <td>Public-facing pages, landing areas, documentation hero sections</td>
+    </tr>
+    <tr>
+      <td>Headings</td>
+      <td>
+        <code>h1</code>–<code>h6</code>
+      </td>
+      <td>Application and document structure</td>
+    </tr>
+    <tr>
+      <td>Body</td>
+      <td>
+        <code>lead</code>, <code>body1</code>, <code>body2</code>,{" "}
+        <code>subtitle1</code>, <code>subtitle2</code>
+      </td>
+      <td>Readable interface text and supporting content</td>
+    </tr>
+    <tr>
+      <td>Utility</td>
+      <td>
+        <code>caption</code>, <code>meta</code>, <code>overline</code>,{" "}
+        <code>overlineSmall</code>
+      </td>
+      <td>
+        Supporting text, operational metadata, grouping labels, status bars and
+        compact section labels
+      </td>
+    </tr>
+    <tr>
+      <td>Mono</td>
+      <td>
+        <code>mono1</code>, <code>mono2</code>, <code>mono3</code>
+      </td>
+      <td>Logs, console output, IDs, paths, timestamps, technical values</td>
+    </tr>
+  </tbody>
+</table>
+
+<p className="ds-note">
+  Subtitle variants are intended for supporting headings and structured content.
+  Use body variants for prose and explanatory text.
+</p>
+
+## Typography scale
+
+Diamond DS provides a shared typography scale that underpins all typography
+variants.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-font-size-100</code>
+      </td>
+      <td>0.6875rem (11px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-200</code>
+      </td>
+      <td>0.75rem (12px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-300</code>
+      </td>
+      <td>0.875rem (14px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-400</code>
+      </td>
+      <td>1rem (16px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-500</code>
+      </td>
+      <td>1.125rem (18px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-600</code>
+      </td>
+      <td>1.25rem (20px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-700</code>
+      </td>
+      <td>1.75rem (28px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-800</code>
+      </td>
+      <td>2rem (32px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-900</code>
+      </td>
+      <td>2.125rem (34px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-1000</code>
+      </td>
+      <td>3rem (48px)</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-size-1100</code>
+      </td>
+      <td>4.5rem (72px)</td>
+    </tr>
+  </tbody>
+</table>
+
+Typography variants should normally be used directly.
+
+Font size tokens are primarily intended for creating reusable components,
+defining typography variants, and establishing consistent scale across the
+design system.
+
+Avoid applying arbitrary font sizes when an existing typography variant already
+communicates the correct hierarchy and meaning.
+
+## Display and heading variants
+
+Use display variants for large, high-level moments such as landing pages,
+welcome screens, product introductions, and documentation hero areas.
+
+Use heading variants for application structure and content hierarchy.
+
+Display variants should be used sparingly and are not intended to replace the
+standard heading hierarchy within operational interfaces.
+
+<div className="ds-note">
+  <p>
+    The current typography model uses dedicated display variants (
+    <code>h1Display</code>–<code>h4Display</code>) for display typography and
+    <code>h1</code>–<code>h6</code> for application hierarchy.
+  </p>
+
+  <p>
+    As the design system evolves, <code>h1</code> and/or <code>h2</code> may
+    adopt the display typeface in some contexts. This decision is still under
+    review and may change based on application and public-facing usage patterns.
+  </p>
+</div>
+
+## Choosing a typeface
 
 ### Inter
 
@@ -94,12 +285,12 @@ Outfit or IBM Plex Mono.
 
 ### Outfit
 
-Outfit is used for brand-level and high-level headings.
+Outfit is used for display and high-level headings.
 
 Use Outfit sparingly for:
 
 - Product names
-- Page-level headings
+- Major page titles
 - Welcome or landing areas
 - Documentation hero headings
 
@@ -118,6 +309,8 @@ Use IBM Plex Mono for:
 - Code
 - Logs
 - Console output
+- Numeric columns
+- Technical table values
 - Numeric values where alignment helps comparison
 - File paths
 - API-like values
@@ -144,7 +337,7 @@ the whole table.
 
 Keep numbers and units readable.
 
-```tsx
+```text
 12.4 keV
 0.5 s
 180 ms
@@ -156,12 +349,93 @@ otherwise.
 
 Avoid inconsistent formatting:
 
-```tsx
+```text
 12.4keV
 0.5sec
 180 milliseconds
 1024 Frames
 ```
+
+## Overlines and grouping
+
+Overlines provide lightweight hierarchy and grouping without introducing a full
+heading.
+
+They are particularly useful in dense scientific interfaces where additional
+structure is needed without increasing visual weight.
+
+Use overlines to:
+
+- Group related controls
+- Separate sections within cards or panels
+- Label groups of settings
+- Introduce collections of information
+- Provide context above headings or values
+
+```tsx
+<Typography variant="overline">
+  Acquisition
+</Typography>
+
+<Typography variant="h4">
+  Detector settings
+</Typography>
+```
+
+Prefer overlines when a full heading would create unnecessary visual weight.
+
+## Utility text
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>caption</code>
+      </td>
+      <td>Small explanatory or supporting text</td>
+      <td>Helper text, figure captions, secondary descriptions</td>
+    </tr>
+    <tr>
+      <td>
+        <code>meta</code>
+      </td>
+      <td>Small operational information</td>
+      <td>Status bars, timestamps, counts, short technical metadata</td>
+    </tr>
+    <tr>
+      <td>
+        <code>overline</code>
+      </td>
+      <td>Grouping and categorisation</td>
+      <td>Section labels, grouped controls, settings groups, card sections</td>
+    </tr>
+    <tr>
+      <td>
+        <code>overlineSmall</code>
+      </td>
+      <td>Compact grouping and dense labelling</td>
+      <td>Dense panels, compact cards, highly constrained layouts</td>
+    </tr>
+  </tbody>
+</table>
+
+### Meta
+
+Use meta for compact operational information such as:
+
+- Status bars
+- Timestamps
+- Counts
+- Short technical metadata
+- Connection status
+- Acquisition state
 
 ## Logs and console output
 
@@ -177,7 +451,7 @@ Logs and console output should use mono type.
 Use colour and status tokens carefully. Typography should not be the only way to
 communicate severity.
 
-## Do and don’t
+## Do and don't
 
 <div className="ds-dos">
   <div className="ds-card">
@@ -187,20 +461,24 @@ communicate severity.
       <li>Prefer short, clear labels.</li>
       <li>Make numbers and technical values easy to scan.</li>
       <li>Use mono type where alignment matters.</li>
-      <li>Use Outfit sparingly for high-level headings.</li>
+      <li>Use display variants sparingly for high-level moments.</li>
+      <li>Use meta for compact operational information.</li>
+      <li>Use overlines for lightweight grouping.</li>
       <li>Keep dense UI text calm and readable.</li>
     </ul>
   </div>
 
   <div className="ds-card">
-    <h3>❌ Don’t</h3>
+    <h3>❌ Don't</h3>
     <ul>
-      <li>Don’t create new type styles screen by screen.</li>
-      <li>Don’t use decorative typography in operational interfaces.</li>
-      <li>Don’t use mono type for long paragraphs.</li>
-      <li>Don’t rely on font weight alone to show status or severity.</li>
-      <li>Don’t mix heading styles without a clear structure.</li>
-      <li>Don’t make technical values harder to copy or compare.</li>
+      <li>Don't create new type styles screen by screen.</li>
+      <li>Don't use decorative typography in operational interfaces.</li>
+      <li>Don't use display variants as the default heading style inside applications.</li>
+      <li>Don't use mono type for long paragraphs.</li>
+      <li>Don't rely on font weight alone to show status or severity.</li>
+      <li>Don't mix heading styles without a clear structure.</li>
+      <li>Don't use caption when the content is operational metadata.</li>
+      <li>Don't make technical values harder to copy or compare.</li>
     </ul>
   </div>
 </div>
@@ -209,9 +487,9 @@ communicate severity.
 
 Typography should remain readable in both light and dark modes.
 
-Use semantic foreground tokens rather than raw colour values:
+Use semantic foreground roles rather than raw colour values:
 
-```css
+```tsx
 <Typography color="text.primary">
   Primary text
 </Typography>
