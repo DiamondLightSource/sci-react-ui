@@ -3,7 +3,9 @@ import {
   ArrowForward,
   CorporateFare,
   GraphicEq,
+  Insights,
   Menu,
+  Schedule,
 } from "@mui/icons-material";
 import { SidebarNav } from "./SidebarNav";
 import { Meta, StoryObj } from "@storybook/react";
@@ -45,7 +47,45 @@ const meta: Meta<typeof SidebarNav> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const navigation = [
+const standardLinks = [
+  {
+    navItems: [
+      {
+        label: "Setup",
+        icon: <Abc />,
+        linkProps: { href: "" },
+      },
+      {
+        label: "Acquisition",
+        icon: <ArrowForward />,
+        linkProps: { href: "" },
+        selected: true,
+      },
+      {
+        label: "Analysis",
+        icon: <GraphicEq />,
+        linkProps: { href: "" },
+      },
+    ],
+  },
+];
+
+export const NormalLinks: Story = {
+  args: {
+    navigation: standardLinks,
+    open: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "When using standard links, the caller must handle the selected state and set it to the correct item.",
+      },
+    },
+  },
+};
+
+const reactRouterNavigation = [
   {
     navItems: [
       {
@@ -70,16 +110,77 @@ const navigation = [
       {
         label: "Organisation",
         icon: <CorporateFare />,
-        linkProps: { href: "#4" },
+        linkProps: { to: "/4", component: NavLink },
       },
     ],
   },
 ];
 
-export const Basic: Story = {
+export const RouterLinks: Story = {
   args: {
-    navigation,
+    navigation: reactRouterNavigation,
+    open: false,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `React Router _NavLinks_ will handle selected state internally.`,
+      },
+    },
+  },
+};
+
+const groupedNavigation = [
+  {
+    navItems: [
+      {
+        label: "Setup",
+        icon: <Abc />,
+        linkProps: { to: "/1", component: NavLink },
+      },
+      {
+        label: "Acquisition",
+        icon: <ArrowForward />,
+        linkProps: { to: "/2", component: NavLink },
+      },
+    ],
+  },
+  {
+    navItems: [
+      {
+        label: "Analysis",
+        icon: <GraphicEq />,
+        linkProps: { to: "/3", component: NavLink },
+      },
+      {
+        label: "Data Browse",
+        icon: <Insights />,
+        linkProps: { to: "/4", component: NavLink },
+      },
+    ],
+  },
+  {
+    navItems: [
+      {
+        label: "Log",
+        icon: <Schedule />,
+        linkProps: { to: "/5", component: NavLink },
+      },
+    ],
+  },
+];
+
+export const GroupedNavigation: Story = {
+  args: {
+    navigation: groupedNavigation,
     open: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Sections are grouped with dividers",
+      },
+    },
   },
 };
 
@@ -135,7 +236,7 @@ export const WithAppBar: Story = {
           </Toolbar>
         </AppBar>
 
-        <SidebarNav navigation={navigation} open={open} />
+        <SidebarNav navigation={reactRouterNavigation} open={open} />
       </Box>
     );
   },
