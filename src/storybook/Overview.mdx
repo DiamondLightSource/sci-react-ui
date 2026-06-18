@@ -1,4 +1,5 @@
 import { Meta } from "@storybook/blocks";
+import Button from "@mui/material/Button";
 
 <Meta title="Overview" />
 
@@ -6,10 +7,12 @@ import { Meta } from "@storybook/blocks";
 
 # Diamond Design System ❖
 
-<div className="lead">
+<span className="lead">
   The design system for Diamond Light Source, providing a shared foundation for
   building clear, consistent, reliable, and predictable scientific interfaces.
-</div>
+</span>
+
+Built on Material UI and implemented through the **SciReactUI** component library.
 
 ## What the design system includes
 
@@ -19,6 +22,27 @@ import { Meta } from "@storybook/blocks";
   <li>Practical guidance for hierarchy, interaction, feedback, and layout.</li>
   <li>Shared patterns for operational and data-heavy interfaces.</li>
 </ul>
+
+## Design system and React library
+
+Diamond Design System provides the foundations, guidance, patterns, and standards used across scientific applications at Diamond.
+
+The React implementation is provided through **SciReactUI**, a MUI-based component library that applies Diamond DS tokens, theme roles, and component standards.
+
+<div className="ds-docs-actions">
+  <Button
+    variant="outlined"
+    size="small"
+    href="https://github.com/diamondlightsource/sci-react-ui"
+    target="_blank"
+    rel="noreferrer"
+    sx={{
+      textTransform: "none",
+    }}
+  >
+    <span>View on GitHub</span>
+  </Button>
+</div>
 
 ## What it helps us do
 
@@ -49,6 +73,9 @@ The system focuses on:
   <li>
     Read [Working with Components](/docs/working-with-components--docs) to understand component standards and extension
     rules.
+  </li>
+    <li>
+    Set up the package using the [Installation](/docs/installation--docs) page.
   </li>
   <li>Use existing components and patterns before creating new ones.</li>
   <li>Prefer semantic theme roles and tokens over hardcoded values.</li>
