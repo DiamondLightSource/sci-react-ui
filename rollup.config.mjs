@@ -33,8 +33,7 @@ export default [
       commonjs(),
       terser(),
       typescript({
-        tsconfig: "./tsconfig.json",
-        exclude: ["**/*.stories.*", "**/*.test.*"],
+        tsconfig: "./tsconfig.rollup.json",
       }),
       postcss({
         extensions: [".css"],

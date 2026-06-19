@@ -25,7 +25,7 @@ describe("Footer logo and copyright", () => {
   });
 
   test("Should render correctly with styles", async () => {
-    const borderStyle = "1px solid orange";
+    const borderStyle = "1px solid rgb(255, 165, 0)";
     renderWithProviders(<Footer style={{ border: borderStyle }} />);
     const footerComputedStyle = window.getComputedStyle(
       await screen.findByRole("contentinfo"),

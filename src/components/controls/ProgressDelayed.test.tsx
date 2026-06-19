@@ -31,10 +31,10 @@ describe("ProgressDelayed", () => {
     renderWithProviders(<ProgressDelayed delay={300} fade={false} />);
 
     const progressbar = await screen.findByRole("progressbar");
-    const progressDelay = progressbar.parentElement?.parentElement;
+    const progressDelay = progressbar.parentElement?.parentElement as Element;
 
     expect(progressDelay).toBeInTheDocument();
-    expect(progressDelay).toHaveStyle("animation-delay:");
+    expect(window.getComputedStyle(progressDelay).animationDelay).toBe("0s");
   });
 
   it("should have a different progress bar", async () => {

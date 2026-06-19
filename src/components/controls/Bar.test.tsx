@@ -26,7 +26,7 @@ describe("Bar", () => {
   });
 
   it("should render with styles", async () => {
-    const borderStyle = "1px solid orange";
+    const borderStyle = "1px solid rgb(255, 165, 0)";
     renderWithProviders(
       <Bar data-testid="test-bar" style={{ border: borderStyle }} />,
     );

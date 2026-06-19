@@ -13,7 +13,7 @@ describe("Navbar", () => {
   });
 
   it("should render with styles", async () => {
-    const borderStyle = "1px solid orange";
+    const borderStyle = "1px solid rgb(255, 165, 0)";
     renderWithProviders(<Navbar style={{ border: borderStyle }} />);
 
     const headerComputedStyle = window.getComputedStyle(
