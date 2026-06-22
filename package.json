@@ -41,6 +41,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && rollup --config rollup.config.mjs",
+    "dev": "pnpm --dir dev dev",
+    "dev:install": "pnpm --dir dev install",
     "docs:build": "typedoc src",
     "test": "vitest",
     "lint": "eslint .",
