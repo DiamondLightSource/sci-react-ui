@@ -24,8 +24,7 @@ export interface AuthProviderSettings {
 }
 
 export interface AuthProviderProps
-  extends AuthProviderSettings,
-    PropsWithChildren {
+  extends AuthProviderSettings, PropsWithChildren {
   /* Main Keycloak.js config file. */
   keycloakConfig: KeycloakServerConfig;
   /* Keycloak.js initiate options. */

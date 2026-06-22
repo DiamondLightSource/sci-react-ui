@@ -9,14 +9,13 @@ import placeholder from "../../public/generic/no-image.png";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
-export interface ImageProps
-  extends Omit<
-    Omit<
-      DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
-      "onLoad" | "onError"
-    >,
-    "src"
-  > {
+export interface ImageProps extends Omit<
+  Omit<
+    DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
+    "onLoad" | "onError"
+  >,
+  "src"
+> {
   src?: string | null;
   onLoad?: () => void;
   onError?: () => void;
