@@ -41,8 +41,6 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && rollup --config rollup.config.mjs",
-    "dev": "pnpm --dir dev dev",
-    "dev:install": "pnpm --dir dev install",
     "docs:build": "typedoc src",
     "test": "vitest",
     "lint": "eslint .",
@@ -51,7 +49,11 @@
     "rollup": "rollup --config rollup.config.mjs",
     "storybook": "storybook dev -p 6006 --disable-telemetry",
     "storybook:build": "storybook build -o storybook-static",
-    "storybook:publish": "gh-pages -b storybook/publish -d storybook-static"
+    "storybook:publish": "gh-pages -b storybook/publish -d storybook-static",
+    "dev:install": "pnpm --dir ./dev install --ignore-workspace",
+    "dev": "pnpm --dir ./dev dev",
+    "dev:build": "pnpm --dir ./dev build",
+    "dev:preview": "pnpm --dir ./dev preview"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
