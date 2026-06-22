@@ -1,18 +1,20 @@
-import { IconButton, IconButtonProps, useColorScheme } from "@mui/material";
-
+import { IconButton, IconButtonProps } from "@mui/material";
+import { useColorScheme } from "@mui/material/styles";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import BedtimeIcon from "@mui/icons-material/Bedtime";
 
 export const ColourSchemeButton = (props: IconButtonProps) => {
-  const { mode, setMode } = useColorScheme();
-  const isDark = mode === "dark";
+  const { mode, systemMode, setMode } = useColorScheme();
+
+  const resolvedMode = mode === "system" ? systemMode : mode;
+  const isDark = resolvedMode === "dark";
 
   return (
     <IconButton
-      aria-label={`Colour scheme switcher: ${mode}`}
+      aria-label={`Colour scheme switcher: ${resolvedMode ?? "unknown"}`}
       {...props}
       onClick={(event) => {
-        setMode?.(isDark ? "light" : "dark");
+        setMode(isDark ? "light" : "dark");
         props.onClick?.(event);
       }}
       sx={(theme) => ({

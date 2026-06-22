@@ -9,6 +9,7 @@ import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
 import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
 import { Chip, Typography } from "../../components/MUI/MuiWrapped";
+import { TextLight, TextDark } from "../../../.storybook/ThemeSwapper";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
@@ -57,6 +58,9 @@ export const All: Story = {
       </>
     ),
     logo: "theme",
+  },
+  parameters: {
+    disableThemeSwapper: true,
   },
 };
 
@@ -301,6 +305,9 @@ export const LinksInSlot: Story = {
     ),
     logo: "theme",
   },
+  parameters: {
+    disableThemeSwapper: true,
+  },
 };
 
 export const LinksAndMenus: Story = {
@@ -365,6 +372,7 @@ export const AllSlots: Story = {
     logo: "theme",
   },
 };
+
 export const WithLogin: Story = {
   args: {
     children: <User onLogin={() => {}} onLogout={() => {}} user={null} />,
@@ -373,4 +381,30 @@ export const WithLogin: Story = {
 
 export const Empty: Story = {
   args: {},
+};
+
+export const AllFixedLight: Story = {
+  ...All,
+  name: "All (Fixed Light)",
+  parameters: {
+    docs: {
+      disable: true,
+    },
+  },
+  globals: {
+    themeMode: TextLight,
+  },
+};
+
+export const AllFixedDark: Story = {
+  ...All,
+  name: "All (Fixed Dark)",
+  parameters: {
+    docs: {
+      disable: true,
+    },
+  },
+  globals: {
+    themeMode: TextDark,
+  },
 };
