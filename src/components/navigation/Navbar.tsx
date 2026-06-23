@@ -124,6 +124,8 @@ const Navbar = ({
   children,
   ...props
 }: NavbarProps) => {
+  const forceOnDarkLogo = surface === "brand" || surface === "brand-fixed";
+
   return (
     <Bar
       {...props}
@@ -165,7 +167,11 @@ const Navbar = ({
                         height: "100%",
                       }}
                     >
-                      <Logo tone="inverse" short />
+                      <Logo
+                        fixedTone={forceOnDarkLogo ? "dark" : undefined}
+                        tone="inverse"
+                        short
+                      />
                     </Box>
                     <Box
                       sx={{
@@ -174,7 +180,10 @@ const Navbar = ({
                         height: "100%",
                       }}
                     >
-                      <Logo tone="inverse" />
+                      <Logo
+                        fixedTone={forceOnDarkLogo ? "dark" : undefined}
+                        tone="inverse"
+                      />
                     </Box>
                   </>
                 ) : (
