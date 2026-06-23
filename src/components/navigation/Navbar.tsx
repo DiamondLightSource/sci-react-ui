@@ -156,7 +156,26 @@ const Navbar = ({
                 }}
               >
                 {logo == "theme" ? (
-                  <Logo tone="inverse" />
+                  <>
+                    <Box
+                      sx={{
+                        display: { xs: "flex", md: "none" },
+                        alignItems: "center",
+                        height: "100%",
+                      }}
+                    >
+                      <Logo tone="inverse" short />
+                    </Box>
+                    <Box
+                      sx={{
+                        display: { xs: "none", md: "flex" },
+                        alignItems: "center",
+                        height: "100%",
+                      }}
+                    >
+                      <Logo tone="inverse" />
+                    </Box>
+                  </>
                 ) : (
                   <ImageColourSchemeSwitch image={logo} />
                 )}
