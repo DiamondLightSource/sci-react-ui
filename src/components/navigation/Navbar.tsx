@@ -69,7 +69,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
         size="small"
         aria-label="Open Menu"
         onClick={isOpen ? onClose : onOpen}
-        sx={{ display: { md: "none" }, order: -1 }}
+        sx={{ display: { md: "none" }, order: -1, color: "inherit" }}
       >
         {isOpen ? <MdClose /> : <MdMenu />}
       </IconButton>
@@ -152,6 +152,7 @@ const Navbar = ({
                   },
                   "&:hover": { opacity: 0.8 },
                   mr: { xs: 0, md: 5 },
+                  ml: { xs: 2, md: 0 },
                 }}
               >
                 {logo == "theme" ? (
