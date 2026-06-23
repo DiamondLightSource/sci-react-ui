@@ -89,6 +89,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
       <Drawer open={isOpen} onClose={onClose} anchor="left">
         <Bar surface="brand" variant="solid" sx={{ height: "100%" }}>
           <Box
+            onClick={onClose}
             sx={{
               p: 2,
               display: "flex",
