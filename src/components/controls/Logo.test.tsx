@@ -4,7 +4,6 @@ import { screen } from "@testing-library/react";
 import { createTheme, Theme } from "@mui/material/styles";
 
 import { renderWithProviders } from "../../__test-utils__/helpers";
-import { BaseThemeOptions } from "../../themes/BaseTheme";
 
 import { Logo } from "./Logo";
 
@@ -12,7 +11,6 @@ describe("Logo", () => {
   const src = "a/test/src";
   const srcDark = "a/test/srcDark";
   const TestTheme: Theme = createTheme({
-    ...BaseThemeOptions,
     logos: {
       normal: {
         src,

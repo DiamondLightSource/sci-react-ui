@@ -1,11 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { createTheme, Theme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 
 import { ThemeProvider } from "./ThemeProvider";
-import { BaseThemeOptions } from "./BaseTheme";
-import { GenericTheme } from "./GenericTheme";
-import { DiamondTheme } from "./DiamondTheme";
+import { DiamondDSTheme } from "./DiamondDSTheme";
 
 vi.mock("@mui/material", async () => {
   const MockCssBaseline = () => <div data-testid="Mock_CssBaseline" />;
@@ -34,30 +31,12 @@ describe("ThemeProvider Component", () => {
     const { getByText } = render(<ThemeProvider>{testApp}</ThemeProvider>);
     expect(getByText(buttonText)).toBeInTheDocument();
   });
-
-  it("should render with generic theme", () => {
+  
+  it("should render with DiamondDS theme", () => {
     const { getByText } = render(
-      <ThemeProvider theme={GenericTheme}>{testApp}</ThemeProvider>,
+      <ThemeProvider theme={DiamondDSTheme}>{testApp}</ThemeProvider>,
     );
 
-    expect(getByText(buttonText)).toBeInTheDocument();
-  });
-
-  it("should render with diamond theme", () => {
-    const { getByText } = render(
-      <ThemeProvider theme={DiamondTheme}>{testApp}</ThemeProvider>,
-    );
-
-    expect(getByText(buttonText)).toBeInTheDocument();
-  });
-
-  it("should render with a new theme", () => {
-    const NewTheme: Theme = createTheme({
-      ...BaseThemeOptions,
-    });
-    const { getByText } = render(
-      <ThemeProvider theme={NewTheme}>{testApp}</ThemeProvider>,
-    );
     expect(getByText(buttonText)).toBeInTheDocument();
   });
 });
