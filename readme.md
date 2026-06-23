@@ -213,6 +213,22 @@ In the test app repo:
 pnpm install <path-to-this-app-folder>/diamondlightsource-sci-react-ui-0.0.1.tgz
 ```
 
+### Dev app
+
+Test out components in the dev app.
+
+First install dependencies with:
+```sh
+pnpm dev:install
+```
+
+Then run the dev app:
+```sh
+pnpm dev
+```
+
+You can modify `dev/src/App.tsx` to test out the theme and components
+
 Publishing
 ----------
 
