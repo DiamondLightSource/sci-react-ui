@@ -1,23 +1,46 @@
 # SciReactUI Changelog
 
-## [Unreleased]
+## [v0.6.0] - 2026-06-??
+
+### Added
+
+- Diamond DS Theme: a new design system theme based on semantic roles and tokens.
+- Design system documentation, including overview, component standards, and usage guidance.
+- Component guidance for *Button*, *TextField*, and *MaterialReactTable*.
+- Inter, Outfit and IBM Plex Mono fonts.
+- New *Image* and *ImageWithZoom* components with loading indicators and zoom support.
 
 ### Changed
-- **Breaking** Introduced new design system theme based on semantic surface tokens.
-- **Breaking** Removed Diamond and Generic themes which are no longer supported.
-- **Breaking** Updated components to new theme and ensure compatability in light/dark modes.
-- *Logo* and *ImageColourSchemeSwitch* use tone (default/inverse) and fixedTone to adapt to surface colour. Deprecated use of interchange prop.
+
+- **Breaking** MUI v7 is now required.
+- **Breaking** Replaced previous theming approach with Diamond DS Theme.
+- **Breaking** Updated all components to use the new Diamond DS Theme and support light and dark modes.
+- Updated *Logo* and *ImageColourSchemeSwitch* to use tone (default/inverse) and fixedTone to adapt to surface colour. Deprecated use of interchange prop.
+- Improved accessibility and colour contrast.
+- *Navbar* uses short logo (if available) on small screen sizes.
+
+### Removed
+
+- **Breaking** Removed legacy Diamond and Generic themes.
+- Removed legacy colour documentation.
+
+### Fixed
+
+- Fixed *DataCell* and *DataBox* in JsonForms to prevent dash appearing when zero should be displayed.
 
 ## [v0.5.0] - 2026-06-03
 
 ### Added
+
 - New *NumberInput* component which validates various number types, high limits, and low limits.
 
 ### Changed
+
 - **Breaking** `keycloak-js` has been moved from a direct dependency to a peer and optional dependency, so must now be installed by the consuming application.
 - Added submitOnBlur boolean prop to VisitInput which defaults to false.
 
 ### Fixed
+
 - Icon imports were causing issues downstream when components are unit tested.
 
 
