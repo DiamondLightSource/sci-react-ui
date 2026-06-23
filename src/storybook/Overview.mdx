@@ -1,3 +1,4 @@
+import packageJson from "../../package.json";
 import { Meta } from "@storybook/blocks";
 import Button from "@mui/material/Button";
 
@@ -5,29 +6,15 @@ import Button from "@mui/material/Button";
 
 <div className="ds-docs">
 
-# Diamond Design System ❖
+# SciReactUI - v{packageJson.version}
 
-<span className="lead">
-  The design system for Diamond Light Source, providing a shared foundation for
-  building clear, consistent, reliable, and predictable scientific interfaces.
+<span class="lead">
+  SciReactUI is the React implementation of the Diamond Design System.
 </span>
 
-Built on Material UI and implemented through the **SciReactUI** component library.
+Built on MUI, it provides the Diamond Design System theme, design tokens, and reusable components used across scientific applications.
 
-## What the design system includes
-
-<ul>
-  <li>Reusable MUI-based components adapted for scientific workflows.</li>
-  <li>Semantic theme roles and design tokens.</li>
-  <li>Practical guidance for hierarchy, interaction, feedback, and layout.</li>
-  <li>Shared patterns for operational and data-heavy interfaces.</li>
-</ul>
-
-## Design system and React library
-
-Diamond Design System provides the foundations, guidance, patterns, and standards used across scientific applications at Diamond.
-
-The React implementation is provided through **SciReactUI**, a MUI-based component library that applies Diamond DS tokens, theme roles, and component standards.
+The Diamond Design System provides the foundations, guidance, and component documentation needed to build clear, consistent, reliable, and predictable software at Diamond Light Source.
 
 <div className="ds-docs-actions">
   <Button
@@ -35,14 +22,33 @@ The React implementation is provided through **SciReactUI**, a MUI-based compone
     size="small"
     href="https://github.com/diamondlightsource/sci-react-ui"
     target="_blank"
-    rel="noreferrer"
+    rel="noopener noreferrer"
     sx={{
       textTransform: "none",
     }}
   >
     <span>View on GitHub</span>
   </Button>
+  <Button
+    variant="outlined"
+    size="small"
+    href="/?path=/docs/installation--docs"
+    sx={{
+      textTransform: "none",
+    }}
+  >
+    <span>Go to installation</span>
+  </Button>
 </div>
+<br />
+## What is included
+
+<ul>
+  <li>Reusable MUI-based components adapted for scientific workflows.</li>
+  <li>Semantic theme roles and design tokens.</li>
+  <li>Practical guidance for hierarchy, interaction, feedback, and layout.</li>
+  <li>Shared patterns for operational and data-heavy interfaces.</li>
+</ul>
 
 ## What it helps us do
 
@@ -69,13 +75,13 @@ The system focuses on:
 ## Start here
 
 <ul>
+  <li>
+    Set up the package using the [Installation](/docs/installation--docs) page.
+  </li>
   <li>Start with the [Practical Guidance](/docs/practical-guidance--docs) section.</li>
   <li>
     Read [Working with Components](/docs/working-with-components--docs) to understand component standards and extension
     rules.
-  </li>
-    <li>
-    Set up the package using the [Installation](/docs/installation--docs) page.
   </li>
   <li>Use existing components and patterns before creating new ones.</li>
   <li>Prefer semantic theme roles and tokens over hardcoded values.</li>
