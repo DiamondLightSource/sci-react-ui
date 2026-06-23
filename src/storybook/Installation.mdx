@@ -150,4 +150,35 @@ import { Meta } from "@storybook/blocks";
 
 </div>
 
+  <div className="sb-container">
+    <div className='sb-section-title'>
+    ### Avoiding Dark Mode Flicker in SSR Apps
+
+    To prevent a flash of incorrect theme (e.g. light mode before switching to dark), include the `InitColorSchemeScript` in your app code.
+
+    This ensures the correct colour scheme is applied immediately, based on system preference or saved user choice.
+
+
+      ```tsx filename="main.tsx"
+      import { InitColorSchemeScript } from "@mui/material";
+
+      function Root() {
+        return (
+          <>
+            <InitColorSchemeScript attribute="[data-mode='%s']" />
+            <App />
+          </>
+        );
+      }
+      ```
+
+      If your app renders into `index.html`, place the script at the top of the body so the mode is set before React mounts.
+
+      This helps avoid the brief light-mode flash when the user prefers dark mode.
+
+      For more info see MUI's documentation on [InitColorSchemeScript](https://v7.mui.com/material-ui/react-init-color-scheme-script/).
+
+    </div>
+
+  </div>
 </div>
