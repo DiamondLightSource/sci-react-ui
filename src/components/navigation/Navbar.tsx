@@ -114,7 +114,7 @@ type NavbarProps = BarSlotsProps & {
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links. Brand surface by default.
  */
 const Navbar = ({
-  surface = "brand-fixed",
+  surface = "brand",
   variant = "solid",
   elevation,
   logo,
