@@ -1,27 +1,3 @@
-:root {
-  /* Neutral primitives */
-  --ds-grey-50: #f8f8fa;
-  --ds-grey-100: #eef1f5;
-  --ds-grey-200: #eaedf3;
-  --ds-grey-300: #dde1e8;
-  --ds-grey-400: #bcc2cd;
-  --ds-grey-500: #a5acb8;
-  --ds-grey-600: #8a90a0;
-  --ds-grey-700: #505563;
-  --ds-grey-800: #2c3140;
-  --ds-grey-900: #1a1c23;
-
-  --ds-grey-dark-50: #e8eaf0;
-  --ds-grey-dark-100: #b6bcc9;
-  --ds-grey-dark-200: #7c8394;
-  --ds-grey-dark-300: #505664;
-  --ds-grey-dark-400: #3a3f4c;
-  --ds-grey-dark-500: #2c3140;
-  --ds-grey-dark-600: #222632;
-  --ds-grey-dark-700: #161820;
-  --ds-grey-dark-800: #0e1017;
-}
-
 /* Light mode semantic roles */
 :root,
 :root[data-mode="light"] {
@@ -62,12 +38,12 @@
   --ds-surface: #ffffff;
   --ds-surface-channel: 255 255 255;
 
-  --ds-surface-container: var(--ds-grey-100);
-  --ds-surface-container-high: var(--ds-grey-200);
+  --ds-surface-container: #eef1f5;
+  --ds-surface-container-high: #e6e9f0;
   --ds-surface-disabled: rgba(0, 0, 0, 0.08);
 
-  --ds-on-surface: var(--ds-grey-900);
-  --ds-on-surface-variant: var(--ds-grey-700);
+  --ds-on-surface: #1a1c23;
+  --ds-on-surface-variant: #505563;
   --ds-on-surface-disabled: rgba(0, 0, 0, 0.36);
   --ds-action-disabled: rgba(0, 0, 0, 0.3);
   --ds-on-solid: #ffffff;
@@ -75,12 +51,12 @@
   --ds-on-surface-channel: 26 28 35;
   --ds-on-surface-variant-channel: 80 85 99;
 
-  --ds-placeholder: var(--ds-grey-600);
-  --ds-placeholder-focus: var(--ds-grey-700);
+  --ds-placeholder: #8a90a0;
+  --ds-placeholder-focus: #505563;
 
-  --ds-border-subtle: var(--ds-grey-300);
-  --ds-border-emphasis: var(--ds-grey-400);
-  --ds-border-strong: var(--ds-grey-500);
+  --ds-border-subtle: #dde1e8;
+  --ds-border-emphasis: #bcc2cd;
+  --ds-border-strong: #a5acb8;
   --ds-border-subtle-channel: 221 225 232;
 
   /* Interaction overlays
@@ -296,18 +272,18 @@
   --ds-elevation-24: #2c3140;
 
   /* Neutral roles */
-  --ds-background: var(--ds-grey-dark-800);
+  --ds-background: #0e1017;
   --ds-background-channel: 14 16 23;
 
-  --ds-surface: var(--ds-grey-dark-700);
+  --ds-surface: #161820;
   --ds-surface-channel: 22 24 32;
 
-  --ds-surface-container: var(--ds-grey-dark-600);
-  --ds-surface-container-high: var(--ds-grey-dark-500);
+  --ds-surface-container: #222632;
+  --ds-surface-container-high: #2c3140;
   --ds-surface-disabled: rgba(255, 255, 255, 0.14);
 
-  --ds-on-surface: var(--ds-grey-dark-50);
-  --ds-on-surface-variant: var(--ds-grey-dark-100);
+  --ds-on-surface: #e8eaf0;
+  --ds-on-surface-variant: #b6bcc9;
   --ds-on-surface-disabled: rgba(255, 255, 255, 0.36);
   --ds-action-disabled: rgba(255, 255, 255, 0.3);
   --ds-on-solid: #ffffff;
@@ -315,12 +291,12 @@
   --ds-on-surface-channel: 232 234 240;
   --ds-on-surface-variant-channel: 182 188 201;
 
-  --ds-placeholder: var(--ds-grey-dark-200);
-  --ds-placeholder-focus: var(--ds-grey-dark-100);
+  --ds-placeholder: #7c8394;
+  --ds-placeholder-focus: #b6bcc9;
 
-  --ds-border-subtle: var(--ds-grey-dark-400);
-  --ds-border: var(--ds-grey-dark-300);
-  --ds-border-emphasis: var(--ds-grey-dark-200);
+  --ds-border-subtle: #3a3f4c;
+  --ds-border: #505664;
+  --ds-border-emphasis: #7c8394;
   --ds-border-subtle-channel: 58 63 76;
 
   /* Interaction overlays */
