@@ -1,3 +1,5 @@
+/* Diamond Design System Token list for Light and Dark modes
+
 /* Light mode semantic roles */
 :root,
 :root[data-mode="light"] {
@@ -44,6 +46,8 @@
 
   --ds-on-surface: #1a1c23;
   --ds-on-surface-variant: #505563;
+  --ds-on-surface-subtle: #6c7484;
+  --ds-on-surface-muted: #8a90a0;
   --ds-on-surface-disabled: rgba(0, 0, 0, 0.36);
   --ds-action-disabled: rgba(0, 0, 0, 0.3);
   --ds-on-solid: #ffffff;
@@ -284,6 +288,8 @@
 
   --ds-on-surface: #e8eaf0;
   --ds-on-surface-variant: #b6bcc9;
+  --ds-on-surface-subtle: #979eae;
+  --ds-on-surface-muted: #7c8394;
   --ds-on-surface-disabled: rgba(255, 255, 255, 0.36);
   --ds-action-disabled: rgba(255, 255, 255, 0.3);
   --ds-on-solid: #ffffff;
@@ -445,67 +451,3 @@
   --ds-highlight-lightChannel: 255 241 184;
   --ds-highlight-darkChannel: 255 234 160;
 }
-
-/* Elavation colors
-
-0: base paper, dialogs on clean surface
-1–3: cards, panels, raised sections
-4–8: menus, popovers, floating UI
-9–16: more obviously separated overlays
-17–24: rare, maximum lift
-
-Figma references:
-LIGHT
-elevation-0  = #FFFFFF
-elevation-1  = #FDFDFE
-elevation-2  = #FAFBFC
-elevation-3  = #F8F9FB
-elevation-4  = #F7F9FB
-elevation-5  = #F6F8FA
-elevation-6  = #F5F7F9
-elevation-7  = #F4F6F8
-elevation-8  = #F3F5F7
-elevation-9  = #F3F5F7
-elevation-10 = #F2F4F7
-elevation-11 = #F2F4F7
-elevation-12 = #F1F3F6
-elevation-13 = #F1F3F6
-elevation-14 = #F1F3F6
-elevation-15 = #F0F2F5
-elevation-16 = #F0F2F5
-elevation-17 = #F0F2F5
-elevation-18 = #EFF1F4
-elevation-19 = #EFF1F4
-elevation-20 = #EEF1F5
-elevation-21 = #EEF1F5
-elevation-22 = #EEF1F5
-elevation-23 = #EEF1F5
-elevation-24 = #EEF1F5
-
-DARK
-elevation-0  = #161820
-elevation-1  = #181B23
-elevation-2  = #191C25
-elevation-3  = #1A1E27
-elevation-4  = #1B1F28
-elevation-5  = #1C202A
-elevation-6  = #1E222C
-elevation-7  = #1F232D
-elevation-8  = #20242F
-elevation-9  = #20242F
-elevation-10 = #212631
-elevation-11 = #212631
-elevation-12 = #222632
-elevation-13 = #222632
-elevation-14 = #222632
-elevation-15 = #242935
-elevation-16 = #242935
-elevation-17 = #252A37
-elevation-18 = #262C39
-elevation-19 = #262C39
-elevation-20 = #28303C
-elevation-21 = #28303C
-elevation-22 = #2A3140
-elevation-23 = #2A3140
-elevation-24 = #2C3140
-*/

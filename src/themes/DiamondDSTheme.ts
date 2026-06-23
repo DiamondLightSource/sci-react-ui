@@ -164,8 +164,15 @@ declare module "@mui/material/styles" {
   }
 
   interface TypeText {
+    /** Adding more subtleties to text colours */
+    tertiary?: string;
+    muted?: string;
+
+    /** Input placeholder text. Kept here for MUI compatibility. */
     placeholder?: string;
     placeholderFocus?: string;
+
+    /** Text/icons placed on solid coloured surfaces. */
     onSolid?: string;
     primaryChannel?: string;
     secondaryChannel?: string;
@@ -174,6 +181,8 @@ declare module "@mui/material/styles" {
   interface TypeTextOptions {
     primary?: string;
     secondary?: string;
+    tertiary?: string;
+    muted?: string;
     disabled?: string;
     placeholder?: string;
     placeholderFocus?: string;
@@ -506,6 +515,8 @@ const createDiamondPalette = (mode: DSMode) => {
     text: {
       primary: "var(--ds-on-surface)",
       secondary: "var(--ds-on-surface-variant)",
+      tertiary: "var(--ds-on-surface-subtle)",
+      muted: "var(--ds-on-surface-muted)",
       onSolid: "var(--ds-on-solid)",
       disabled: "var(--ds-on-surface-disabled)",
       placeholder: "var(--ds-placeholder)",
