@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { ColourSchemeButton } from "./ColourSchemeButton";
+import { TextLight, TextDark } from "../../../.storybook/ThemeSwapper";
 
 const meta: Meta<typeof ColourSchemeButton> = {
   title: "Components/Controls/ColourSchemeButton",
@@ -8,7 +9,8 @@ const meta: Meta<typeof ColourSchemeButton> = {
   parameters: {
     docs: {
       description: {
-        component: "Switch between dark and light modes.",
+        component:
+          "Interactively switch between dark and light modes (does not follow global theme switching above).",
       },
     },
   },
@@ -17,6 +19,30 @@ const meta: Meta<typeof ColourSchemeButton> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const Interactive: Story = {
+  parameters: {
+    disableThemeSwapper: true,
+  },
+};
+
 export const LightSelected: Story = {
-  args: {},
+  globals: {
+    themeMode: TextLight,
+  },
+  parameters: {
+    docs: {
+      disable: true,
+    },
+  },
+};
+
+export const DarkSelected: Story = {
+  globals: {
+    themeMode: TextDark,
+  },
+  parameters: {
+    docs: {
+      disable: true,
+    },
+  },
 };
