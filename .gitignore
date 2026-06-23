@@ -1,5 +1,6 @@
 /dist/
 /node_modules/
+/dev/node_modules/
 /coverage
 
 *storybook.log
