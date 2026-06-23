@@ -1,10 +1,16 @@
 {
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-      "declaration": true,
-      "declarationDir": "dist",
-      "emitDeclarationOnly": true
-    },
-    "include": ["src", "src/types"],
-    "rootDir": "src"
-  }
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": true
+  },
+  "include": ["src", "src/types"],
+  "exclude": [
+    "**/*.test.*",
+    "**/*.stories.*",
+    ".storybook/*",
+    "src/__test-utils__"
+  ],
+  "rootDir": "src"
+}

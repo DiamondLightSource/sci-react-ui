@@ -1,11 +1,16 @@
 {
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-      "declaration": false,
-      "emitDeclarationOnly": false,
-      "noEmit": false,
-      "outDir": "./dist/.ts-build"
-    },
-    "include": ["src"],
-    "exclude": ["**/*.test.*", "**/*.stories.*"]
-  }
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "noEmit": false,
+    "outDir": "./dist/.ts-build"
+  },
+  "include": ["src"],
+  "exclude": [
+    "**/*.test.*",
+    "**/*.stories.*",
+    ".storybook/*",
+    "src/__test-utils__"
+  ]
+}
