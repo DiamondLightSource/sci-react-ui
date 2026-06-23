@@ -3,6 +3,7 @@
   "include": [
     "src",
     "src/types",
+    "dev",
     ".storybook/**/*.tsx",
     ".storybook/**/*.ts",
     ".storybook/**/*.js",

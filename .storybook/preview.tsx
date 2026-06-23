@@ -5,17 +5,10 @@ import "@fontsource-variable/inter";
 import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { DiamondDSTheme } from "../src";
-import { ThemeSwapper, TextLight, TextDark, TextSystem } from "./ThemeSwapper";
+import { ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper";
 import "../src/styles/diamondDS/DiamondDSTokens.css";
 
 const TextThemeDiamondDS = "Theme: DiamondDS";
-
-function resolveDefaultMode(selectedThemeMode: string) {
-  if (selectedThemeMode === TextLight) return "light";
-  if (selectedThemeMode === TextDark) return "dark";
-
-  return "system";
-}
 
 export const decorators = [
   (StoriesWithPadding: React.FC) => {
@@ -27,18 +20,18 @@ export const decorators = [
   },
 
   (Story, context) => {
-    const selectedThemeMode = context.globals.themeMode || TextSystem;
-
+    const disableThemeSwapper = context.parameters.disableThemeSwapper === true;
     return (
-      <ThemeProvider
-        theme={DiamondDSTheme}
-        defaultMode={resolveDefaultMode(selectedThemeMode)}
-      >
+      <ThemeProvider theme={DiamondDSTheme}>
         <CssBaseline />
 
-        <ThemeSwapper context={context}>
+        {disableThemeSwapper ? (
           <Story />
-        </ThemeSwapper>
+        ) : (
+          <ThemeSwapper context={context}>
+            <Story />
+          </ThemeSwapper>
+        )}
       </ThemeProvider>
     );
   },
