@@ -1,17 +1,47 @@
+import packageJson from "../../package.json";
 import { Meta } from "@storybook/blocks";
+import Button from "@mui/material/Button";
 
 <Meta title="Overview" />
 
 <div className="ds-docs">
 
-# Diamond Design System ❖
+# SciReactUI - v{packageJson.version}
 
-<div className="lead">
-  The design system for Diamond Light Source, providing a shared foundation for
-  building clear, consistent, reliable, and predictable scientific interfaces.
+<span class="lead">
+  SciReactUI is the React implementation of the Diamond Design System.
+</span>
+
+Built on MUI, it provides the Diamond Design System theme, design tokens, and reusable components used across scientific applications.
+
+The Diamond Design System provides the foundations, guidance, and component documentation needed to build clear, consistent, reliable, and predictable software at Diamond Light Source.
+
+<div className="ds-docs-actions">
+  <Button
+    variant="outlined"
+    size="small"
+    href="https://github.com/diamondlightsource/sci-react-ui"
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{
+      textTransform: "none",
+    }}
+  >
+    <span>View on GitHub</span>
+  </Button>
+  <Button
+    variant="outlined"
+    size="small"
+    href="/?path=/docs/installation--docs"
+    sx={{
+      textTransform: "none",
+    }}
+  >
+    <span>Go to installation</span>
+  </Button>
 </div>
-
-## What the design system includes
+<br />
+## What is included
 
 <ul>
   <li>Reusable MUI-based components adapted for scientific workflows.</li>
@@ -45,6 +75,9 @@ The system focuses on:
 ## Start here
 
 <ul>
+  <li>
+    Set up the package using the [Installation](/docs/installation--docs) page.
+  </li>
   <li>Start with the [Practical Guidance](/docs/practical-guidance--docs) section.</li>
   <li>
     Read [Working with Components](/docs/working-with-components--docs) to understand component standards and extension

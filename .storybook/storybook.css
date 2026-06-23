@@ -194,6 +194,23 @@ code:not(.MuiTypography-root),
     grid-template-columns: 1fr 1fr;
   }
 }
+.ds-doc-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 2rem;
+  display: flex;
+  width: 100%;
+}
+
+.ds-docs-actions .MuiButton-root {
+  margin-right: 0.75rem;
+  text-transform: none;
+}
+
+.ds-docs-actions .MuiButton-root:last-child {
+  margin-right: 0;
+}
 
 /* Note */
 .ds-docs .ds-note {
