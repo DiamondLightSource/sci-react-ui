@@ -1,26 +1,4 @@
-:root {
-  /* Neutral primitives */
-  --ds-grey-50: #f8f8fa;
-  --ds-grey-100: #eef1f5;
-  --ds-grey-200: #e6e9f0;
-  --ds-grey-300: #dde1e8;
-  --ds-grey-400: #bcc2cd;
-  --ds-grey-500: #a5acb8;
-  --ds-grey-600: #8a90a0;
-  --ds-grey-700: #505563;
-  --ds-grey-800: #2c3140;
-  --ds-grey-900: #1a1c23;
-
-  --ds-grey-dark-50: #e8eaf0;
-  --ds-grey-dark-100: #b6bcc9;
-  --ds-grey-dark-200: #7c8394;
-  --ds-grey-dark-300: #505664;
-  --ds-grey-dark-400: #3a3f4c;
-  --ds-grey-dark-500: #2c3140;
-  --ds-grey-dark-600: #222632;
-  --ds-grey-dark-700: #161820;
-  --ds-grey-dark-800: #0e1017;
-}
+/* Diamond Design System Token list for Light and Dark modes
 
 /* Light mode semantic roles */
 :root,
