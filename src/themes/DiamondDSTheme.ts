@@ -17,6 +17,10 @@
  */
 import "../styles/diamondDS/DiamondDSTokens.css";
 
+// Fonts
+import "@fontsource-variable/inter";
+import "@fontsource-variable/inter/wght-italic.css";
+
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { extendTheme } from "@mui/material/styles";
