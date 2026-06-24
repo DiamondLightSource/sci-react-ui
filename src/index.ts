@@ -1,3 +1,7 @@
+// Fonts
+import "@fontsource-variable/inter";
+import "@fontsource-variable/inter/wght-italic.css";
+
 // components/navigation
 export * from "./components/navigation/Breadcrumbs";
 export * from "./components/navigation/Footer";
