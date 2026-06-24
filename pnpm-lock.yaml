@@ -30,6 +30,21 @@ importers:
       '@fontsource-variable/inter':
         specifier: ^5.2.8
         version: 5.2.8
+      '@fontsource-variable/outfit':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/ibm-plex-mono':
+        specifier: ^5.2.7
+        version: 5.2.7
+      '@jsonforms/core':
+        specifier: ^3.7.0
+        version: 3.7.0
+      '@jsonforms/material-renderers':
+        specifier: ^3.7.0
+        version: 3.7.0(473fb1f785dad7f4dc63481054c6796e)
+      '@jsonforms/react':
+        specifier: ^3.7.0
+        version: 3.7.0(@jsonforms/core@3.7.0)(react@18.3.1)
       '@mui/icons-material':
         specifier: ^7.0.0
         version: 7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.31)(react@18.3.1)
@@ -67,21 +82,6 @@ importers:
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@9.39.4)
-      '@fontsource/ibm-plex-mono':
-        specifier: ^5.2.7
-        version: 5.2.7
-      '@fontsource/outfit':
-        specifier: ^5.2.8
-        version: 5.2.8
-      '@jsonforms/core':
-        specifier: ^3.7.0
-        version: 3.7.0
-      '@jsonforms/material-renderers':
-        specifier: ^3.7.0
-        version: 3.7.0(473fb1f785dad7f4dc63481054c6796e)
-      '@jsonforms/react':
-        specifier: ^3.7.0
-        version: 3.7.0(@jsonforms/core@3.7.0)(react@18.3.1)
       '@mui/material':
         specifier: ^7.0.0
         version: 7.3.11(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1141,11 +1141,11 @@ packages:
   '@fontsource-variable/inter@5.2.8':
     resolution: {integrity: sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ==}
 
+  '@fontsource-variable/outfit@5.2.8':
+    resolution: {integrity: sha512-4oUDCZx/Tcz6HZP423w/niqEH31Gks5IsqHV2ZZz1qKHaVIZdj2f0/S1IK2n8jl6Xo0o3N+3RjNHlV9R73ozQA==}
+
   '@fontsource/ibm-plex-mono@5.2.7':
     resolution: {integrity: sha512-MKAb8qV+CaiMQn2B0dIi1OV3565NYzp3WN5b4oT6LTkk+F0jR6j0ZN+5BKJiIhffDC3rtBULsYZE65+0018z9w==}
-
-  '@fontsource/outfit@5.2.8':
-    resolution: {integrity: sha512-rXC6g0MqD7cOBjht0bMqc43qM6lRqDLML9KXsmg9uykz0wLQhy8Z/ajrMG6iyoT3NJR+MYgU+OEHp7uHoTb+Yw==}
 
   '@gerrit0/mini-shiki@3.23.0':
     resolution: {integrity: sha512-bEMORlG0cqdjVyCEuU0cDQbORWX+kYCeo0kV1lbxF5bt4r7SID2l9bqsxJEM0zndaxpOUT7riCyIVEuqq/Ynxg==}
@@ -6091,9 +6091,9 @@ snapshots:
 
   '@fontsource-variable/inter@5.2.8': {}
 
-  '@fontsource/ibm-plex-mono@5.2.7': {}
+  '@fontsource-variable/outfit@5.2.8': {}
 
-  '@fontsource/outfit@5.2.8': {}
+  '@fontsource/ibm-plex-mono@5.2.7': {}
 
   '@gerrit0/mini-shiki@3.23.0':
     dependencies:

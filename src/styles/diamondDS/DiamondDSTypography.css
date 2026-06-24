@@ -1,0 +1,69 @@
+:root {
+  --ds-font-family-default: "Inter Variable", system-ui, sans-serif;
+  --ds-font-family-display:
+    "Outfit Variable", "Inter Variable", system-ui, sans-serif;
+  --ds-font-family-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* TYPOGRAPHY SCALE */
+  --ds-font-size-100: 0.6875rem; /* 11px */
+  --ds-font-size-200: 0.75rem; /* 12px */
+  --ds-font-size-300: 0.875rem; /* 14px */
+  --ds-font-size-400: 1rem; /* 16px */
+  --ds-font-size-500: 1.125rem; /* 18px */
+  --ds-font-size-600: 1.25rem; /* 20px */
+  --ds-font-size-700: 1.75rem; /* 28px */
+  --ds-font-size-800: 2rem; /* 32px */
+  --ds-font-size-900: 2.125rem; /* 34px */
+  --ds-font-size-1000: 3rem; /* 48px */
+  --ds-font-size-1100: 4.5rem; /* 72px */
+
+  /* TYPE SIZES */
+  --ds-type-h1-size: var(--ds-font-size-1000);
+  --ds-type-h2-size: var(--ds-font-size-900);
+  --ds-type-h3-size: var(--ds-font-size-800);
+  --ds-type-h4-size: var(--ds-font-size-700);
+  --ds-type-h5-size: var(--ds-font-size-600);
+  --ds-type-h6-size: var(--ds-font-size-500);
+
+  --ds-type-display-h1-size: var(--ds-font-size-1100);
+  --ds-type-display-h2-size: var(--ds-font-size-1000);
+  --ds-type-display-h3-size: var(--ds-font-size-900);
+  --ds-type-display-h4-size: var(--ds-font-size-700);
+
+  --ds-type-lead-size: var(--ds-font-size-600);
+
+  --ds-type-body1-size: var(--ds-font-size-400);
+  --ds-type-body2-size: var(--ds-font-size-300);
+
+  --ds-type-subtitle1-size: var(--ds-font-size-400);
+  --ds-type-subtitle2-size: var(--ds-font-size-300);
+
+  --ds-type-overline-size: var(--ds-font-size-200);
+  --ds-type-overline-small-size: var(--ds-font-size-100);
+
+  --ds-type-caption-size: var(--ds-font-size-200);
+  --ds-type-meta-size: var(--ds-font-size-200);
+
+  --ds-type-mono1-size: var(--ds-font-size-400);
+  --ds-type-mono2-size: var(--ds-font-size-300);
+  --ds-type-mono3-size: var(--ds-font-size-200);
+
+  /* WEIGHT SIZES */
+  --ds-font-weight-light: 300;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+
+  /* LINE HEIGHTS */
+  --ds-line-height-tight: 1.1;
+  --ds-line-height-condensed: 1.2;
+  --ds-line-height-normal: 1.4;
+  --ds-line-height-relaxed: 1.5;
+
+  /* LETTER SPACING */
+  --ds-letter-spacing-tight: -0.03em;
+  --ds-letter-spacing-condensed: -0.01em;
+  --ds-letter-spacing-normal: 0;
+  --ds-letter-spacing-wide: 0.08em;
+}
