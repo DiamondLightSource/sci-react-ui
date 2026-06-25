@@ -82,6 +82,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^10.0.1",
     "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/inter": "^5.2.8",
     "@fontsource/outfit": "^5.2.8",
     "@jsonforms/core": "^3.7.0",
     "@jsonforms/material-renderers": "^3.7.0",
