@@ -714,15 +714,55 @@ const DiamondDSTheme = extendTheme({
           const variant = ownerState.variant ?? "text";
           const rawColour = ownerState.color ?? "primary";
 
+          const colour = getIntentFromColourProp(rawColour);
+          const p = getIntentPalette(theme, colour);
+
           if (rawColour === "inherit") {
+            if (variant === "outlined") {
+              return {
+                ...base,
+                ...getFocusOutline(),
+
+                color: "inherit",
+                backgroundColor: "transparent",
+                border: "1px solid var(--ds-border-emphasis)",
+
+                "&:hover": {
+                  backgroundColor: "var(--ds-overlay-hover)",
+                  borderColor: "var(--ds-border-strong)",
+                  boxShadow: getOverlayInset(),
+                },
+
+                "&:active": {
+                  borderColor: "var(--ds-border-strong)",
+                  boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
+                },
+
+                "&.Mui-disabled": {
+                  ...getDisabledControlStyles(),
+                  borderColor: "var(--ds-border-subtle)",
+                },
+              };
+            }
+
+            if (variant === "contained") {
+              return {
+                ...base,
+                ...getFocusOutline(),
+              };
+            }
+
             return {
               ...base,
               ...getFocusOutline(),
+
+              color: "inherit",
+
+              "&.Mui-disabled": {
+                color: "var(--ds-on-surface-disabled)",
+              },
             };
           }
-
-          const colour = getIntentFromColourProp(rawColour);
-          const p = getIntentPalette(theme, colour);
 
           if (variant === "contained") {
             return {
