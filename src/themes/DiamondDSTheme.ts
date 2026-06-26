@@ -27,6 +27,7 @@ import type { CSSObject, Theme } from "@mui/material/styles";
  */
 import type { AlertProps } from "@mui/material/Alert";
 import type { ButtonProps } from "@mui/material/Button";
+import type { ToggleButtonProps } from "@mui/material/ToggleButton";
 import type { CheckboxProps } from "@mui/material/Checkbox";
 import type { ChipProps } from "@mui/material/Chip";
 import type { CircularProgressProps } from "@mui/material/CircularProgress";
@@ -649,6 +650,7 @@ const DiamondDSTheme = extendTheme({
      *   MuiButton           → contained, outlined and text variants
      *   MuiIconButton       → intent-aware icon actions
      *   MuiToggleButton     → selection, border and hover states
+     *   MuiButtonGroup      → selection, border and hover states
      *
      * Inputs and forms:
      *   MuiInputBase        → placeholder behaviour
@@ -901,31 +903,91 @@ const DiamondDSTheme = extendTheme({
 
     MuiToggleButton: {
       styleOverrides: {
-        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
-          textTransform: "none",
-          border: `1px solid ${theme.palette.border.emphasis}`,
+        root: ({
+          ownerState,
+          theme,
+        }: OverrideArgs<ToggleButtonProps>): CSSObject => {
+          const colour = ownerState.color ?? "standard";
+          const isPrimary = colour === "primary";
+
+          return {
+            textTransform: "none",
+            border: `1px solid ${theme.palette.border.emphasis}`,
+
+            color: "inherit",
+
+            "&:hover": {
+              borderColor: theme.palette.border.strong,
+              boxShadow: getOverlayInset(),
+            },
+
+            "&.Mui-selected": {
+              backgroundColor: isPrimary
+                ? "var(--ds-primary-container)"
+                : "var(--ds-overlay-selected)",
+
+              color: isPrimary ? "var(--ds-on-primary-container)" : "inherit",
+
+              borderColor: isPrimary
+                ? "var(--ds-primary-accent)"
+                : "var(--ds-border-strong)",
+            },
+
+            "&.Mui-selected:hover": {
+              backgroundColor: isPrimary
+                ? "var(--ds-primary-container)"
+                : "var(--ds-overlay-selected)",
+
+              borderColor: isPrimary
+                ? "var(--ds-primary)"
+                : "var(--ds-border-strong)",
+
+              boxShadow: getOverlayInset(),
+            },
+
+            "&.Mui-disabled": {
+              color: "var(--ds-on-surface-disabled)",
+              borderColor: "var(--ds-border-subtle)",
+              boxShadow: "none",
+            },
+          };
+        },
+      },
+    },
+
+    MuiButtonGroup: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+        },
+
+        contained: {
+          boxShadow: "none",
+        },
+
+        grouped: {
+          boxShadow: "none",
+
+          "&.Mui-disabled": {
+            boxShadow: "none",
+          },
+        },
+
+        groupedContained: {
+          boxShadow: "none",
 
           "&:hover": {
-            borderColor: theme.palette.border.strong,
+            boxShadow: getOverlayInset("var(--ds-overlay-hover-solid)"),
           },
 
-          "&.Mui-selected": {
-            backgroundColor: "var(--ds-primary-container)",
-            color: "var(--ds-on-primary-container)",
-            borderColor: "var(--ds-primary-accent)",
-          },
-
-          "&.Mui-selected:hover": {
-            backgroundColor: "var(--ds-primary-container)",
-            borderColor: "var(--ds-primary)",
-            boxShadow: getOverlayInset(),
+          "&:active": {
+            boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
           },
 
           "&.Mui-disabled": {
-            color: "var(--ds-on-surface-disabled)",
-            borderColor: "var(--ds-border)",
+            boxShadow: "none",
           },
-        }),
+        },
       },
     },
 

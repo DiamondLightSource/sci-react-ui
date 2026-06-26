@@ -69,9 +69,9 @@
    */
   --ds-overlay-hover: rgba(0, 0, 0, 0.08);
   --ds-overlay-hover-solid: rgba(0, 0, 0, 0.16);
-  --ds-overlay-selected: rgba(0, 0, 0, 0.25);
+  --ds-overlay-selected: rgba(0, 0, 0, 0.08);
   --ds-overlay-selected-channel: 0 0 0;
-  --ds-overlay-focus: rgba(0, 0, 0, 0.1);
+  --ds-overlay-focus: rgba(0, 0, 0, 0.12);
 
   /* Intent semantic roles
    *
@@ -306,11 +306,11 @@
   --ds-border-subtle-channel: 58 63 76;
 
   /* Interaction overlays */
-  --ds-overlay-hover: rgba(255, 255, 255, 0.16);
-  --ds-overlay-hover-solid: rgba(255, 255, 255, 0.16);
+  --ds-overlay-hover: rgba(255, 255, 255, 0.12);
+  --ds-overlay-hover-solid: rgba(255, 255, 255, 0.2);
   --ds-overlay-selected: rgba(255, 255, 255, 0.12);
   --ds-overlay-selected-channel: 255 255 255;
-  --ds-overlay-focus: rgba(255, 255, 255, 0.12);
+  --ds-overlay-focus: rgba(255, 255, 255, 0.16);
 
   /* Primary */
   --ds-primary: #8aa7ff;
