@@ -1170,7 +1170,7 @@ const DiamondDSTheme = extendTheme({
 
     MuiAvatar: {
       styleOverrides: {
-        root: ({ theme }) => ({
+        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
           "&:has(.MuiAvatar-fallback)": {
             backgroundColor: theme.palette.surface.strong,
             color: theme.palette.text.primary,
