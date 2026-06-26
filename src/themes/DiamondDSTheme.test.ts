@@ -499,6 +499,9 @@ describe("DiamondDS component overrides", () => {
       DiamondDSTheme.components?.MuiToggleButton?.styleOverrides?.root;
 
     const styles = getStyleOverride(root, {
+      ownerState: {
+        color: "primary", // Add this
+      },
       theme: DiamondDSTheme,
     });
 
