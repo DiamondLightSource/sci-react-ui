@@ -55,6 +55,11 @@
   --ds-on-surface-channel: 26 28 35;
   --ds-on-surface-variant-channel: 80 85 99;
 
+  --ds-inverse-surface: #1a1c23;
+  --ds-inverse-surface-channel: 26 28 35;
+  --ds-inverse-on-surface: #e8eaf0;
+  --ds-inverse-on-surface-channel: 232 234 240;
+
   --ds-placeholder: #8a90a0;
   --ds-placeholder-focus: #505563;
 
@@ -296,6 +301,11 @@
 
   --ds-on-surface-channel: 232 234 240;
   --ds-on-surface-variant-channel: 182 188 201;
+
+  --ds-inverse-surface: #e8eaf0;
+  --ds-inverse-surface-channel: 232, 234, 240;
+  --ds-inverse-on-surface: #1a1c23;
+  --ds-inverse-on-surface-channel: 26 28 35;
 
   --ds-placeholder: #7c8394;
   --ds-placeholder-focus: #b6bcc9;

@@ -174,8 +174,14 @@ declare module "@mui/material/styles" {
 
     /** Text/icons placed on solid coloured surfaces. */
     onSolid?: string;
+
+    /** Text/icons placed on inverse surfaces. */
+    onSurfaceInverse?: string;
+
+    /** RGB channels for alpha compositing. */
     primaryChannel?: string;
     secondaryChannel?: string;
+    onSurfaceInverseChannel?: string;
   }
 
   interface TypeTextOptions {
@@ -239,6 +245,8 @@ declare module "@mui/material/styles" {
     surface?: {
       subtle?: string;
       strong?: string;
+      inverse?: string;
+      inverseChannel?: string;
     };
   }
 
@@ -519,11 +527,13 @@ const createDiamondPalette = (mode: DSMode) => {
       muted: "var(--ds-on-surface-muted)",
       onSolid: "var(--ds-on-solid)",
       disabled: "var(--ds-on-surface-disabled)",
+      onSurfaceInverse: "var(--ds-inverse-on-surface)",
       placeholder: "var(--ds-placeholder)",
       placeholderFocus: "var(--ds-placeholder-focus)",
 
       primaryChannel: "var(--ds-on-surface-channel)",
       secondaryChannel: "var(--ds-on-surface-variant-channel)",
+      onSurfaceInverseChannel: "var(--ds-inverse-on-surface-channel)",
     },
 
     background: {
@@ -554,6 +564,9 @@ const createDiamondPalette = (mode: DSMode) => {
       strong: "var(--ds-surface-container-high)",
       elevated: (level: number) =>
         `var(--ds-elevation-${Math.max(0, Math.min(24, level))})`,
+
+      inverse: "var(--ds-inverse-surface)",
+      inverseChannel: "var(--ds-inverse-surface-channel)",
     },
 
     ...intentPalette,
@@ -1127,6 +1140,11 @@ const DiamondDSTheme = extendTheme({
     MuiFilledInput: {
       styleOverrides: {
         root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+          "--mui-palette-FilledInput-bg":
+            "rgb(var(--ds-on-surface-channel) / 0.06)",
+          "--mui-palette-FilledInput-hoverBg":
+            "rgb(var(--ds-on-surface-channel) / 0.10)",
+
           "&:before": {
             borderBottomColor: theme.palette.border.emphasis,
           },
@@ -1538,6 +1556,18 @@ const DiamondDSTheme = extendTheme({
         root: {
           backgroundColor: "var(--ds-surface)",
           boxShadow: "none",
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: "rgb(var(--ds-inverse-surface-channel) / 0.9)",
+          color: "var(--ds-on-inverse-surface)",
+        },
+
+        arrow: {
+          color: "rgb(var(--ds-inverse-surface-channel) / 0.9)",
         },
       },
     },
