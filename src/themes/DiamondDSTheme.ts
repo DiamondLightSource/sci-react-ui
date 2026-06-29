@@ -653,6 +653,8 @@ const DiamondDSTheme = extendTheme({
      * Inputs and forms:
      *   MuiInputBase        → placeholder behaviour
      *   MuiOutlinedInput    → border priority and validation states
+     *   MuiFilledInput      → border priority and validation states
+     *   MuiInput            → border priority and validation states
      *   MuiInputLabel       → label response to focus and validation
      *
      * Navigation and display:
@@ -1107,15 +1109,136 @@ const DiamondDSTheme = extendTheme({
             },
 
             "&.Mui-disabled .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--ds-border-subtle)",
+              borderColor: theme.palette.border.emphasis,
             },
 
             "&:has(input[readonly]) .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--ds-border-subtle)",
+              borderColor: theme.palette.border.emphasis,
             },
 
             "&:has(input[readonly]):hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--ds-border-subtle)",
+              borderColor: theme.palette.border.emphasis,
+            },
+          };
+        },
+      },
+    },
+
+    MuiFilledInput: {
+      styleOverrides: {
+        root: ({
+          ownerState,
+          theme,
+        }: OverrideArgs<FilledInputProps>): CSSObject => {
+          const colour = getIntentFromColourProp(ownerState.color);
+          const p = getIntentPalette(theme, colour);
+
+          return {
+            "&:before": {
+              borderBottomColor: theme.palette.border.emphasis,
+            },
+
+            "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused):before":
+              {
+                borderBottomColor: theme.palette.border.strong,
+              },
+
+            "&:after": {
+              borderBottomColor: p.light,
+            },
+
+            "&.Mui-focused:not(.Mui-disabled):not(.Mui-error):after": {
+              borderBottomColor: p.light,
+            },
+
+            "&.Mui-error:before, &.Mui-error:after": {
+              borderBottomColor: theme.palette.error.light,
+            },
+
+            "&.Mui-error:hover:not(.Mui-disabled):before": {
+              borderBottomColor: theme.palette.error.light,
+            },
+
+            "&.Mui-error.Mui-focused:after": {
+              borderBottomColor: theme.palette.error.light,
+            },
+
+            "&.Mui-disabled:before": {
+              borderBottomStyle: "solid",
+              borderBottomColor: theme.palette.border.subtle,
+            },
+
+            "&:has(input[readonly]):before, &:has(textarea[readonly]):before": {
+              borderBottomColor: theme.palette.border.subtle,
+            },
+
+            "&:has(input[readonly]):hover:before, &:has(textarea[readonly]):hover:before":
+              {
+                borderBottomColor: theme.palette.border.subtle,
+              },
+
+            "&.Mui-focusVisible": {
+              outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
+              outlineOffset: "var(--ds-focus-ring-offset)",
+            },
+          };
+        },
+      },
+    },
+
+    MuiInput: {
+      styleOverrides: {
+        root: ({ ownerState, theme }: OverrideArgs<InputProps>): CSSObject => {
+          const colour = getIntentFromColourProp(ownerState.color);
+          const p = getIntentPalette(theme, colour);
+
+          return {
+            "&:before": {
+              borderBottomColor: theme.palette.border.emphasis,
+            },
+
+            "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused):before":
+              {
+                borderBottomColor: theme.palette.border.strong,
+              },
+
+            "&:after": {
+              borderBottomColor: p.light,
+            },
+
+            "&.Mui-focused:not(.Mui-disabled):not(.Mui-error):after": {
+              borderBottomColor: p.light,
+            },
+
+            "&.Mui-error:before, &.Mui-error:after": {
+              borderBottomColor: theme.palette.error.light,
+            },
+
+            "&.Mui-error:hover:not(.Mui-disabled):before": {
+              borderBottomColor: theme.palette.error.light,
+            },
+
+            "&.Mui-error.Mui-focused:after": {
+              borderBottomColor: theme.palette.error.light,
+            },
+
+            "&.Mui-disabled:before": {
+              borderBottomStyle: "solid",
+              borderBottomColor: theme.palette.border.subtle,
+            },
+
+            "&:has(input[readonly]):before, &:has(textarea[readonly]):before": {
+              borderBottomColor: theme.palette.border.subtle,
+            },
+
+            "&:has(input[readonly]):hover:before, &:has(textarea[readonly]):hover:before":
+              {
+                borderBottomColor: theme.palette.border.subtle,
+              },
+
+            "&.Mui-focusVisible": {
+              outline: "var(--ds-focus-ring-width) solid var(--ds-focus-ring)",
+              outlineOffset: "var(--ds-focus-ring-offset)",
             },
           };
         },
