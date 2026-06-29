@@ -42,14 +42,14 @@
 
   --ds-surface-container: #eef1f5;
   --ds-surface-container-high: #e6e9f0;
-  --ds-surface-disabled: rgba(0, 0, 0, 0.08);
+  --ds-surface-disabled: rgba(26, 28, 35, 0.08);
 
   --ds-on-surface: #1a1c23;
   --ds-on-surface-variant: #505563;
   --ds-on-surface-subtle: #6c7484;
   --ds-on-surface-muted: #8a90a0;
-  --ds-on-surface-disabled: rgba(0, 0, 0, 0.36);
-  --ds-action-disabled: rgba(0, 0, 0, 0.3);
+  --ds-on-surface-disabled: rgba(26, 28, 35, 0.36);
+  --ds-action-disabled: rgba(26, 28, 35, 0.3);
   --ds-on-solid: #ffffff;
 
   --ds-on-surface-channel: 26 28 35;
@@ -67,11 +67,11 @@
    *
    * Overlays are layered on top of semantic surfaces rather than replacing them. 
    */
-  --ds-overlay-hover: rgba(0, 0, 0, 0.08);
-  --ds-overlay-hover-solid: rgba(0, 0, 0, 0.16);
-  --ds-overlay-selected: rgba(0, 0, 0, 0.25);
+  --ds-overlay-hover: rgba(26, 28, 35, 0.08);
+  --ds-overlay-hover-solid: rgba(26, 28, 35, 0.16);
+  --ds-overlay-selected: rgba(26, 28, 35, 0.08);
   --ds-overlay-selected-channel: 0 0 0;
-  --ds-overlay-focus: rgba(0, 0, 0, 0.1);
+  --ds-overlay-focus: rgba(26, 28, 35, 0.12);
 
   /* Intent semantic roles
    *
@@ -284,14 +284,14 @@
 
   --ds-surface-container: #222632;
   --ds-surface-container-high: #2c3140;
-  --ds-surface-disabled: rgba(255, 255, 255, 0.14);
+  --ds-surface-disabled: rgba(232, 234, 240, 0.14);
 
   --ds-on-surface: #e8eaf0;
   --ds-on-surface-variant: #b6bcc9;
   --ds-on-surface-subtle: #979eae;
   --ds-on-surface-muted: #7c8394;
-  --ds-on-surface-disabled: rgba(255, 255, 255, 0.36);
-  --ds-action-disabled: rgba(255, 255, 255, 0.3);
+  --ds-on-surface-disabled: rgba(232, 234, 240, 0.36);
+  --ds-action-disabled: rgba(232, 234, 240, 0.3);
   --ds-on-solid: #ffffff;
 
   --ds-on-surface-channel: 232 234 240;
@@ -300,17 +300,17 @@
   --ds-placeholder: #7c8394;
   --ds-placeholder-focus: #b6bcc9;
 
-  --ds-border-subtle: #3a3f4c;
-  --ds-border: #505664;
-  --ds-border-emphasis: #7c8394;
+  --ds-border-subtle: #282c35;
+  --ds-border-emphasis: #505664;
+  --ds-border-strong: #7c8394;
   --ds-border-subtle-channel: 58 63 76;
 
   /* Interaction overlays */
-  --ds-overlay-hover: rgba(255, 255, 255, 0.16);
-  --ds-overlay-hover-solid: rgba(255, 255, 255, 0.16);
-  --ds-overlay-selected: rgba(255, 255, 255, 0.12);
+  --ds-overlay-hover: rgba(232, 234, 240, 0.12);
+  --ds-overlay-hover-solid: rgba(232, 234, 240, 0.2);
+  --ds-overlay-selected: rgba(232, 234, 240, 0.12);
   --ds-overlay-selected-channel: 255 255 255;
-  --ds-overlay-focus: rgba(255, 255, 255, 0.12);
+  --ds-overlay-focus: rgba(232, 234, 240, 0.16);
 
   /* Primary */
   --ds-primary: #8aa7ff;
