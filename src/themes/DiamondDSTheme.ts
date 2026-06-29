@@ -653,6 +653,8 @@ const DiamondDSTheme = extendTheme({
      * Inputs and forms:
      *   MuiInputBase        → placeholder behaviour
      *   MuiOutlinedInput    → border priority and validation states
+     *   MuiFilledInput      → border priority and validation states
+     *   MuiInput            → border priority and validation states
      *   MuiInputLabel       → label response to focus and validation
      *
      * Navigation and display:
@@ -1119,6 +1121,76 @@ const DiamondDSTheme = extendTheme({
             },
           };
         },
+      },
+    },
+
+    MuiFilledInput: {
+      styleOverrides: {
+        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+          "&:before": {
+            borderBottomColor: theme.palette.border.emphasis,
+          },
+
+          "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
+            borderBottomColor: theme.palette.border.strong,
+          },
+
+          "&:after": {
+            borderBottomColor: theme.palette.primary.light,
+          },
+
+          "&.Mui-error:before, &.Mui-error:after": {
+            borderBottomColor: theme.palette.error.light,
+          },
+
+          "&.Mui-disabled:before": {
+            borderBottomStyle: "solid",
+            borderBottomColor: theme.palette.border.subtle,
+          },
+
+          "&:has(input[readonly]):before": {
+            borderBottomColor: theme.palette.border.subtle,
+          },
+
+          "&:has(input[readonly]):hover:before": {
+            borderBottomColor: theme.palette.border.subtle,
+          },
+        }),
+      },
+    },
+
+    MuiInput: {
+      styleOverrides: {
+        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+          "&:before": {
+            borderBottomColor: theme.palette.border.emphasis,
+          },
+
+          "&:hover:not(.Mui-disabled):not(.Mui-error):before": {
+            borderBottomColor: theme.palette.border.strong,
+          },
+
+          "&:after": {
+            borderBottomColor: theme.palette.primary.light,
+          },
+
+          "&.Mui-error:before, &.Mui-error:after": {
+            borderBottomColor: theme.palette.error.light,
+          },
+
+          "&.Mui-disabled:before": {
+            borderBottomStyle: "solid",
+            borderBottomColor: theme.palette.border.subtle,
+          },
+
+          "&:has(input[readonly]):before": {
+            borderBottomColor: theme.palette.border.subtle,
+          },
+
+          "&:has(input[readonly]):hover:before": {
+            borderBottomColor: theme.palette.border.subtle,
+          },
+        }),
       },
     },
 
