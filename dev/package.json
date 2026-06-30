@@ -1,13 +1,24 @@
 {
-    "name": "try-react-ui",
-    "private": true,
-    "type": "module",
-    "scripts": {
-      "dev": "vite",
-      "build": "vite build",
-      "preview": "vite preview"
-    },
-    "devDependencies": {
-      "vite": "^8.0.0"
-    }
+  "name": "try-react-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.0",
+    "@vitejs/plugin-react": "^5.1.1"
+  },
+  "dependencies": {
+    "@diamondlightsource/sci-react-ui": "^0.4.1",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
+    "@mui/material": "7.3.11",
+    "@mui/icons-material": "7.3.11",
+    "material-react-table": "^3.2.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   }
+}
