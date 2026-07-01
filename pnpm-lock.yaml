@@ -23,9 +23,6 @@ overrides:
   uuid@<11.1.1: 11.1.1
   undici: 7.28.0
 
-patchedDependencies:
-  material-react-table@3.2.1: 33ccbeb97ab663beec420d8c0aca81bd21eac11b3a4ee153f7d14a8aca5744e8
-
 importers:
 
   .:
@@ -195,7 +192,7 @@ importers:
         version: 29.1.1
       material-react-table:
         specifier: ^3.2.1
-        version: 3.2.1(patch_hash=33ccbeb97ab663beec420d8c0aca81bd21eac11b3a4ee153f7d14a8aca5744e8)(f4b1253460cdc9bc37ccbb5b99491234)
+        version: 3.2.1(f4b1253460cdc9bc37ccbb5b99491234)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -8937,7 +8934,7 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
-  material-react-table@3.2.1(patch_hash=33ccbeb97ab663beec420d8c0aca81bd21eac11b3a4ee153f7d14a8aca5744e8)(f4b1253460cdc9bc37ccbb5b99491234):
+  material-react-table@3.2.1(f4b1253460cdc9bc37ccbb5b99491234):
     dependencies:
       '@emotion/react': 11.14.0(@types/react@18.3.31)(react@18.3.1)
       '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@18.3.31)(react@18.3.1))(@types/react@18.3.31)(react@18.3.1)

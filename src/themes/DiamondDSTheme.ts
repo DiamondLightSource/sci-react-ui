@@ -33,7 +33,6 @@ import type { CircularProgressProps } from "@mui/material/CircularProgress";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { RadioProps } from "@mui/material/Radio";
-import type { TabProps } from "@mui/material/Tab";
 
 import logoImageLightSurface from "../public/diamond/logo-light-surface.svg";
 import logoImageDarkSurface from "../public/diamond/logo-dark-surface.svg";
@@ -119,16 +118,6 @@ type BrandPaletteOptions = Partial<BrandPaletteColor>;
  * Every supported intent colour must provide the full semantic role set.
  */
 type IntentPaletteRecord = Record<IntentColour, ExtendedPaletteColor>;
-
-/**
- * Theme shape used by intent helpers when reading resolved MUI palette values.
- */
-type ThemeWithIntentPalette = Theme & {
-  vars?: {
-    palette?: Partial<Record<IntentColour, Partial<PaletteColor>>>;
-  };
-  palette: Theme["palette"] & IntentPaletteRecord;
-};
 
 /**
  * MUI theme augmentation for DiamondDS semantic roles.
@@ -469,46 +458,6 @@ const createIntentPalette = (mode: DSMode): IntentPaletteRecord => ({
 });
 
 /**
- * Returns a supported MUI intent palette.
- *
- * `theme.vars.palette` can be present when MUI CSS variables are enabled. When
- * it exists, it may contain the resolved variable-aware values. We merge it over
- * `theme.palette` while preserving the DiamondDS contract.
- *
- * Fallback policy:
- * - unsupported colour values fall back to primary before this function is used
- * - missing palette entries fall back to primary in development with a warning
- *
- * That fallback has a deliberate meaning: primary is the safest non-destructive
- * action intent. We do not silently fall back from error/warning to decorative
- * or brand values.
- */
-const getIntentPalette = (theme: Theme, colour: IntentColour): PaletteColor => {
-  const { vars, palette } = theme as ThemeWithIntentPalette;
-
-  const paletteColour = palette[colour];
-  const varsColour = vars?.palette?.[colour];
-
-  if (paletteColour) {
-    return {
-      ...paletteColour,
-      ...varsColour,
-    };
-  }
-
-  if (process.env.NODE_ENV !== "production") {
-    console.warn(
-      `[DiamondDS] getIntentPalette: colour "${colour}" not found. Falling back to primary.`,
-    );
-  }
-
-  return {
-    ...palette.primary,
-    ...vars?.palette?.primary,
-  };
-};
-
-/**
  * Normalises external MUI colour props into DiamondDS-supported intents.
  *
  * Component `ownerState` values come from MUI props and internal state. They can
@@ -772,6 +721,7 @@ const DiamondDSTheme = extendTheme({
      *   MuiInputLabel       → label response to focus and validation
      *
      * Navigation and display:
+     *   MuiTabs             → height
      *   MuiTab              → navigation hierarchy and selected state
      *   MuiAlert            → semantic feedback variants
      *   MuiChip             → metadata, status and interactive chips
@@ -1306,6 +1256,17 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          minHeight: 44,
+        },
+        indicator: {
+          backgroundColor: "var(--ds-primary-accent)",
+        },
+      },
+    },
+
     MuiTab: {
       styleOverrides: {
         root: (): CSSObject => ({
@@ -1315,12 +1276,13 @@ const DiamondDSTheme = extendTheme({
           minHeight: 44,
 
           "&:hover": {
-            color: "var(--ds-on-surface)",
+            color: "var(--ds-on-primary-container)",
             boxShadow: getOverlayInset(),
           },
 
           "&.Mui-selected": {
-            color: "var(--ds-primary-accent)",
+            color: "var(--ds-primary)",
+            borderBottom: "2px solid var(--ds-primary)",
             fontWeight: 600,
           },
 

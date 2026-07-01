@@ -1,6 +1,5 @@
-import type { Theme } from "@mui/material/styles";
-
 export const DiamondDSIntegrations = {
+  /* Material React Table (MRT) */
   mrt() {
     return {
       baseBackgroundColor: "rgb(var(--ds-surface-channel))",
