@@ -20,7 +20,7 @@ import "../styles/diamondDS/DiamondDSTokens.css";
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { extendTheme } from "@mui/material/styles";
-import type { CSSObject, Theme } from "@mui/material/styles";
+import type { CSSObject, PaletteColor, Theme } from "@mui/material/styles";
 
 /**
  * Component prop types are used to type `ownerState` inside MUI style overrides.
@@ -33,7 +33,6 @@ import type { CircularProgressProps } from "@mui/material/CircularProgress";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { RadioProps } from "@mui/material/Radio";
-import type { TabProps } from "@mui/material/Tab";
 
 import logoImageLightSurface from "../public/diamond/logo-light-surface.svg";
 import logoImageDarkSurface from "../public/diamond/logo-dark-surface.svg";
@@ -42,8 +41,6 @@ import type { ImageColourSchemeSwitchType } from "components/controls/ImageColou
 
 /**
  * Standard argument shape for MUI style override callbacks.
- *
- * `ownerState` is MUI's current component prop/state snapshot.
  */
 type OverrideArgs<OwnerState = unknown> = {
   ownerState: OwnerState;
@@ -82,12 +79,13 @@ const intentColours = [
 type IntentColour = (typeof intentColours)[number];
 
 /**
- * Internal DiamondDS palette contract.
+ * MUI-compatible palette colours generated for supported DiamondDS intents.
  *
- * Every supported intent colour must provide the roles needed for text,
- * container, solid and interaction states. MUI's public palette option types
- * remain partial, but DiamondDS helpers use this stricter resolved contract.
+ * These are adapter values for MUI APIs. DiamondDS-specific roles such as
+ * container, solid and accent should be consumed directly as `var(--ds-*)`
+ * tokens in component overrides.
  */
+
 type ExtendedPaletteColor = {
   light: string;
   main: string;
@@ -103,11 +101,9 @@ type ExtendedPaletteColor = {
   onSolid: string;
 };
 
-type BrandPaletteColor = ExtendedPaletteColor & {
+type BrandPaletteColor = PaletteColor & {
   /**
-   * Fixed brand roles stay stable across light and dark mode.
-   *
-   * Use for persistent Diamond identity surfaces or accents only.
+   * Optional fixed brand roles for persistent Diamond identity accents.
    */
   fixed: string;
   fixedDim: string;
@@ -122,20 +118,6 @@ type BrandPaletteOptions = Partial<BrandPaletteColor>;
  * Every supported intent colour must provide the full semantic role set.
  */
 type IntentPaletteRecord = Record<IntentColour, ExtendedPaletteColor>;
-
-/**
- * Theme shape used by DiamondDS intent helpers.
- *
- * `theme.palette` is treated as the resolved strict contract.
- * `theme.vars.palette` remains partial because MUI controls CSS variable
- * resolution.
- */
-type ThemeWithIntentPalette = Theme & {
-  vars?: {
-    palette?: Partial<Record<IntentColour, Partial<ExtendedPaletteColor>>>;
-  };
-  palette: Theme["palette"] & IntentPaletteRecord;
-};
 
 /**
  * MUI theme augmentation for DiamondDS semantic roles.
@@ -243,11 +225,18 @@ declare module "@mui/material/styles" {
     };
   }
 
+  /**
+   * DiamondDS semantic colour roles exposed on MUI palette colours.
+   *
+   * These mirror CSS tokens for developer ergonomics. CSS variables remain the
+   * source of truth.
+   */
   interface PaletteColor {
     mainChannel?: string;
     lightChannel?: string;
     darkChannel?: string;
     contrastTextChannel?: string;
+
     container?: string;
     onContainer?: string;
     solid?: string;
@@ -259,6 +248,7 @@ declare module "@mui/material/styles" {
     lightChannel?: string;
     darkChannel?: string;
     contrastTextChannel?: string;
+
     container?: string;
     onContainer?: string;
     solid?: string;
@@ -268,58 +258,186 @@ declare module "@mui/material/styles" {
 
 export type DSMode = "light" | "dark";
 
-// --- Semantic palette and interaction helpers ---
+type PaletteAdapter = {
+  light: string;
+  main: string;
+  dark: string;
+  contrastText: string;
+};
 
+/*  MUI palette adapter values.
+
+    These are parseable colours for MUI and third-party libraries that call
+    alpha(), lighten(), or darken() on standard palette slots.
+
+    They are replicated in the CSS variable layer, which remains the source of truth for DiamondDS 
+    component styling, and use semantic `var(--ds-*)` tokens.
+
+    Light: accent/focus-adjacent role 
+    Main: default semantic/text colour
+    Dark: stronger emphasis role, not simply a darker colour
+    contrastText: foreground on default semantic colour (if used as a background)
+
+    Note: in dark mode, `dark` may be visually lighter. In DiamondDS this
+    represents stronger emphasis, not a literal darker shade.
+*/
+const paletteAdapterValues: Record<DSMode, Record<string, PaletteAdapter>> = {
+  light: {
+    primary: {
+      light: "#6a86e4", // --ds-primary-accent
+      main: "#2a4db8", // --ds-primary
+      dark: "#1f3d96", // --ds-primary-emphasis
+      contrastText: "#ffffff", // --ds-on-primary
+    },
+    secondary: {
+      light: "#27adb7", // --ds-secondary-accent
+      main: "#007b84", // --ds-secondary
+      dark: "#005f67", // --ds-secondary-emphasis
+      contrastText: "#ffffff", // --ds-on-secondary
+    },
+    danger: {
+      light: "#d94f45", // --ds-danger-accent
+      main: "#b42318", // --ds-danger
+      dark: "#912018", // --ds-danger-emphasis
+      contrastText: "#ffffff", // --ds-on-danger
+    },
+    warning: {
+      light: "#e98a15", // --ds-warning-accent
+      main: "#c96a04", // --ds-warning
+      dark: "#a95703", // --ds-warning-emphasis
+      contrastText: "#ffffff", // --ds-on-warning
+    },
+    success: {
+      light: "#2fb344", // --ds-success-accent
+      main: "#187a2f", // --ds-success
+      dark: "#146125", // --ds-success-emphasis
+      contrastText: "#ffffff", // --ds-on-success
+    },
+    info: {
+      light: "#6f8fe8", // --ds-info-accent
+      main: "#355ec9", // --ds-info
+      dark: "#2a4ea7", // --ds-info-emphasis
+      contrastText: "#ffffff", // --ds-on-info
+    },
+  },
+
+  dark: {
+    // same as light mode, but with different values
+    primary: {
+      light: "#a5bcff",
+      main: "#8aa7ff",
+      dark: "#c4d4ff",
+      contrastText: "#1a1c23",
+    },
+    secondary: {
+      light: "#7be4ea",
+      main: "#58d6de",
+      dark: "#9af0f3",
+      contrastText: "#1a1c23",
+    },
+    danger: {
+      light: "#ffb0aa",
+      main: "#ff9088",
+      dark: "#ffc7c2",
+      contrastText: "#1a1c23",
+    },
+    warning: {
+      light: "#ffc68a",
+      main: "#ffb067",
+      dark: "#ffd9b0",
+      contrastText: "#1a1c23",
+    },
+    success: {
+      light: "#8ae5a2",
+      main: "#6fd88a",
+      dark: "#b3f0c0",
+      contrastText: "#1a1c23",
+    },
+    info: {
+      light: "#bccdff",
+      main: "#9fb7ff",
+      dark: "#d5e0ff",
+      contrastText: "#1a1c23",
+    },
+  },
+};
+
+/**
+ * Type guard that checks whether a value is a supported semantic intent.
+ *
+ * Returning `colour is IntentColour` allows TypeScript to safely narrow the
+ * type after this check succeeds.
+ */
 const isIntentColour = (colour: unknown): colour is IntentColour =>
   typeof colour === "string" && intentColours.includes(colour as IntentColour);
 
 /**
- * Creates a DiamondDS semantic palette entry from a token namespace.
+ * Creates a MUI-compatible palette colour from adapter values.
  *
  * CSS variables remain the source of truth. The MUI palette is an adapter layer
- * that lets component overrides use stable semantic names instead of repeating
- * raw `var(--ds-*)` references everywhere.
+ * that lets component overrides use stable semantic names, while standard MUI slots
+ * receive parseable fallback values.
  *
  * MUI mapping follows the DiamondDS/Radix-style role logic:
  * - light        -> accent / focus-adjacent role
- * - main         -> default semantic colour
- * - dark         -> stronger emphasis role (not simply a darker colour)
+ * - main         -> default semantic and text colour
+ * - dark         -> stronger emphasis role, not simply a darker colour
  * - container    -> subtle semantic surface
  * - onContainer  -> foreground on subtle semantic surface
  * - solid        -> filled interactive surface
  * - onSolid      -> foreground on filled interactive surface
  */
-const createPaletteColour = (tokenName: string): ExtendedPaletteColor => ({
-  light: `var(--ds-${tokenName}-accent)`,
-  main: `var(--ds-${tokenName})`,
-  dark: `var(--ds-${tokenName}-emphasis)`,
-  contrastText: `var(--ds-on-${tokenName})`,
-  container: `var(--ds-${tokenName}-container)`,
-  onContainer: `var(--ds-on-${tokenName}-container)`,
-  solid: `var(--ds-${tokenName}-solid)`,
-  onSolid: `var(--ds-on-${tokenName}-solid)`,
+const createPaletteColour = (
+  tokenName: string,
+  mode: DSMode,
+): ExtendedPaletteColor => {
+  const paletteAdapter = paletteAdapterValues[mode][tokenName];
 
-  contrastTextChannel: `var(--ds-on-${tokenName}-channel)`,
-  mainChannel: `var(--ds-${tokenName}-mainChannel)`,
-  lightChannel: `var(--ds-${tokenName}-lightChannel)`,
-  darkChannel: `var(--ds-${tokenName}-darkChannel)`,
-});
+  return {
+    light: paletteAdapter.light, // --ds-${tokenName}-accent
+    main: paletteAdapter.main, // --ds-${tokenName}
+    dark: paletteAdapter.dark, // --ds-${tokenName}-emphasis
+    contrastText: paletteAdapter.contrastText, // --ds-on-${tokenName}
+
+    container: `var(--ds-${tokenName}-container)`,
+    onContainer: `var(--ds-on-${tokenName}-container)`,
+    solid: `var(--ds-${tokenName}-solid)`,
+    onSolid: `var(--ds-on-${tokenName}-solid)`,
+
+    mainChannel: `var(--ds-${tokenName}-mainChannel)`,
+    lightChannel: `var(--ds-${tokenName}-lightChannel)`,
+    darkChannel: `var(--ds-${tokenName}-darkChannel)`,
+    contrastTextChannel: `var(--ds-on-${tokenName}-channel)`,
+  };
+};
 
 /**
- * Creates the DiamondDS brand palette.
+ * Creates the DiamondDS brand palette adapter.
  *
  * Brand includes the regular semantic palette roles plus fixed brand roles.
  * Fixed roles remain stable across light and dark mode and should only be used
  * for persistent Diamond identity surfaces or accents.
  */
 const createBrandPaletteColour = (): BrandPaletteColor => ({
-  ...createPaletteColour("brand"),
+  light: "var(--ds-brand-accent)",
+  main: "var(--ds-brand)",
+  dark: "var(--ds-brand-emphasis)",
+  contrastText: "var(--ds-on-brand)",
+
+  container: "var(--ds-brand-container)",
+  onContainer: "var(--ds-on-brand-container)",
+  solid: "var(--ds-brand-solid)",
+  onSolid: "var(--ds-on-brand-solid)",
+
+  contrastTextChannel: "var(--ds-on-brand-channel)",
+  mainChannel: "var(--ds-brand-mainChannel)",
+  lightChannel: "var(--ds-brand-lightChannel)",
+  darkChannel: "var(--ds-brand-darkChannel)",
 
   fixed: "var(--ds-brand-fixed)",
   fixedDim: "var(--ds-brand-fixed-dim)",
   onFixed: "var(--ds-on-brand-fixed)",
 });
-
 /**
  * MUI uses `error`; DiamondDS tokens use `danger`.
  *
@@ -336,62 +454,16 @@ const intentTokenName: Record<IntentColour, string> = {
 };
 
 /**
- * Builds the complete DiamondDS intent palette from token namespaces.
- *
- * Keeping this generated from `intentTokenName` avoids repeating the same MUI
- * palette mapping for every supported intent.
+ * Builds the MUI-compatible intent palette for a colour scheme.
  */
-const createIntentPalette = (): IntentPaletteRecord => ({
-  primary: createPaletteColour(intentTokenName.primary),
-  secondary: createPaletteColour(intentTokenName.secondary),
-  error: createPaletteColour(intentTokenName.error),
-  warning: createPaletteColour(intentTokenName.warning),
-  success: createPaletteColour(intentTokenName.success),
-  info: createPaletteColour(intentTokenName.info),
+const createIntentPalette = (mode: DSMode): IntentPaletteRecord => ({
+  primary: createPaletteColour(intentTokenName.primary, mode),
+  secondary: createPaletteColour(intentTokenName.secondary, mode),
+  error: createPaletteColour(intentTokenName.error, mode),
+  warning: createPaletteColour(intentTokenName.warning, mode),
+  success: createPaletteColour(intentTokenName.success, mode),
+  info: createPaletteColour(intentTokenName.info, mode),
 });
-
-/**
- * Returns a supported intent palette.
- *
- * `theme.vars.palette` can be present when MUI CSS variables are enabled. When
- * it exists, it may contain the resolved variable-aware values. We merge it over
- * `theme.palette` while preserving the DiamondDS contract.
- *
- * Fallback policy:
- * - unsupported colour values fall back to primary before this function is used
- * - missing palette entries fall back to primary in development with a warning
- *
- * That fallback has a deliberate meaning: primary is the safest non-destructive
- * action intent. We do not silently fall back from error/warning to decorative
- * or brand values.
- */
-const getIntentPalette = (
-  theme: Theme,
-  colour: IntentColour,
-): ExtendedPaletteColor => {
-  const { vars, palette } = theme as ThemeWithIntentPalette;
-
-  const paletteColour = palette[colour];
-  const varsColour = vars?.palette?.[colour];
-
-  if (paletteColour) {
-    return {
-      ...paletteColour,
-      ...varsColour,
-    };
-  }
-
-  if (process.env.NODE_ENV !== "production") {
-    console.warn(
-      `[DiamondDS] getIntentPalette: colour "${colour}" not found. Falling back to primary.`,
-    );
-  }
-
-  return {
-    ...palette.primary,
-    ...vars?.palette?.primary,
-  };
-};
 
 /**
  * Normalises external MUI colour props into DiamondDS-supported intents.
@@ -481,7 +553,7 @@ const getDisabledControlStyles = (backgroundColor = "transparent"): CSSObject =>
  * MUI a proper colour-scheme-aware theme.
  */
 const createDiamondPalette = (mode: DSMode) => {
-  const intentPalette = createIntentPalette();
+  const intentPalette = createIntentPalette(mode);
 
   return {
     mode,
@@ -535,9 +607,9 @@ const createDiamondPalette = (mode: DSMode) => {
     /**
      * Divider and border roles describe structure and separation, not meaning.
      *
-     * Divider is the default border role for general structure and separatio.
-     * Border.subtle is a semantic utlisity role for components that need to reference a border colour directly.
-     * Border.emphasis is a emphasised border role for actionable elements and highlighted states.
+     * Divider is the default border role for general structure and separation.
+     * Border.subtle is a semantic utility role for components that need to reference a border colour directly.
+     * Border.emphasis is an emphasised border role for actionable elements and highlighted states.
      * Border.strong is a stronger border role for hover and focus states.
      *
      */
@@ -657,6 +729,7 @@ const DiamondDSTheme = extendTheme({
      *   MuiInputLabel       → label response to focus and validation
      *
      * Navigation and display:
+     *   MuiTabs             → height
      *   MuiTab              → navigation hierarchy and selected state
      *   MuiAlert            → semantic feedback variants
      *   MuiChip             → metadata, status and interactive chips
@@ -702,7 +775,7 @@ const DiamondDSTheme = extendTheme({
       },
 
       styleOverrides: {
-        root: ({ ownerState, theme }: OverrideArgs<ButtonProps>): CSSObject => {
+        root: ({ ownerState }: OverrideArgs<ButtonProps>): CSSObject => {
           const base: CSSObject = {
             textTransform: "none",
             boxShadow: "none",
@@ -723,17 +796,24 @@ const DiamondDSTheme = extendTheme({
           }
 
           const colour = getIntentFromColourProp(rawColour);
-          const p = getIntentPalette(theme, colour);
+          const tokenName = colour === "error" ? "danger" : colour;
+
+          const main = `var(--ds-${tokenName})`;
+          const accent = `var(--ds-${tokenName}-accent)`;
+          const container = `var(--ds-${tokenName}-container)`;
+          const onContainer = `var(--ds-on-${tokenName}-container)`;
+          const solid = `var(--ds-${tokenName}-solid)`;
+          const onSolid = `var(--ds-on-${tokenName}-solid)`;
 
           if (variant === "contained") {
             return {
               ...base,
 
-              backgroundColor: p.solid,
-              color: p.onSolid,
+              backgroundColor: solid,
+              color: onSolid,
 
               ...getInteractiveSurfaceStateStyles(
-                p.solid,
+                solid,
                 "var(--ds-overlay-hover-solid)",
               ),
 
@@ -755,21 +835,21 @@ const DiamondDSTheme = extendTheme({
               ...base,
               ...getFocusOutline(),
 
-              color: p.onContainer,
-              backgroundColor: p.container,
-              border: `1px solid ${p.light}`,
+              color: onContainer,
+              backgroundColor: container,
+              border: `1px solid ${accent}`,
 
-              ...getInteractiveSurfaceStateStyles(p.container),
+              ...getInteractiveSurfaceStateStyles(container),
 
               "&:hover": {
-                backgroundColor: p.container,
-                borderColor: p.main,
+                backgroundColor: container,
+                borderColor: main,
                 boxShadow: getOverlayInset(),
               },
 
               "&:active": {
-                backgroundColor: p.container,
-                borderColor: p.dark,
+                backgroundColor: container,
+                borderColor: main,
                 boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
               },
 
@@ -785,10 +865,10 @@ const DiamondDSTheme = extendTheme({
               ...base,
               ...getFocusOutline(),
 
-              color: p.main,
+              color: main,
 
               "&:hover": {
-                backgroundColor: p.container,
+                backgroundColor: container,
                 boxShadow: getOverlayInset(),
               },
 
@@ -818,7 +898,6 @@ const DiamondDSTheme = extendTheme({
       styleOverrides: {
         root: ({
           ownerState,
-          theme,
         }: OverrideArgs<{
           color?: "inherit" | "default" | IntentColour;
         }>): CSSObject => {
@@ -839,13 +918,13 @@ const DiamondDSTheme = extendTheme({
           }
 
           const colour = getIntentFromColourProp(rawColour);
-          const p = getIntentPalette(theme, colour);
+          const tokenName = colour === "error" ? "danger" : colour;
 
           return {
-            color: p.main,
+            color: `var(--ds-${tokenName})`,
 
             "&:hover": {
-              backgroundColor: p.container,
+              backgroundColor: `var(--ds-${tokenName}-container)`,
               boxShadow: getOverlayInset(),
             },
 
@@ -897,7 +976,7 @@ const DiamondDSTheme = extendTheme({
        * Interactive chips receive focus and overlay states; static chips remain calm.
        */
       styleOverrides: {
-        root: ({ ownerState, theme }: OverrideArgs<ChipProps>): CSSObject => {
+        root: ({ ownerState }: OverrideArgs<ChipProps>): CSSObject => {
           const base: CSSObject = {
             "& .MuiChip-icon": {
               color: "currentColor",
@@ -939,31 +1018,37 @@ const DiamondDSTheme = extendTheme({
           }
 
           const colour = getIntentFromColourProp(rawColour);
-          const p = getIntentPalette(theme, colour);
+          const tokenName = colour === "error" ? "danger" : colour;
+
+          const accent = `var(--ds-${tokenName}-accent)`;
+          const container = `var(--ds-${tokenName}-container)`;
+          const onContainer = `var(--ds-on-${tokenName}-container)`;
+          const solid = `var(--ds-${tokenName}-solid)`;
+          const onSolid = `var(--ds-on-${tokenName}-solid)`;
 
           if (isOutlined) {
             return {
               ...base,
               ...(isInteractive ? getFocusOutline() : {}),
 
-              color: p.onContainer,
-              borderColor: p.light,
-              backgroundColor: p.container,
+              color: onContainer,
+              borderColor: accent,
+              backgroundColor: container,
 
               ...(isInteractive && {
-                ...getInteractiveSurfaceStateStyles(p.container),
+                ...getInteractiveSurfaceStateStyles(container),
 
                 "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
                   {
-                    backgroundColor: p.container,
-                    borderColor: p.light,
+                    backgroundColor: container,
+                    borderColor: accent,
                     boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
                   },
 
                 "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
                   {
-                    backgroundColor: p.container,
-                    borderColor: p.light,
+                    backgroundColor: container,
+                    borderColor: accent,
                     boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
                   },
               }),
@@ -974,24 +1059,24 @@ const DiamondDSTheme = extendTheme({
             ...base,
             ...(isInteractive ? getFocusOutline() : {}),
 
-            color: p.onSolid,
-            backgroundColor: p.solid,
+            color: onSolid,
+            backgroundColor: solid,
 
             ...(isInteractive && {
               ...getInteractiveSurfaceStateStyles(
-                p.solid,
+                solid,
                 "var(--ds-overlay-hover-solid)",
               ),
 
               "&&.MuiChip-clickable.Mui-focusVisible, &&.MuiChip-deletable.Mui-focusVisible":
                 {
-                  backgroundColor: p.solid,
+                  backgroundColor: solid,
                   boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
                 },
 
               "&&.MuiChip-clickable.Mui-focusVisible:hover, &&.MuiChip-deletable.Mui-focusVisible:hover":
                 {
-                  backgroundColor: p.solid,
+                  backgroundColor: solid,
                   boxShadow: getOverlayInset("var(--ds-overlay-focus)"),
                 },
             }),
@@ -1064,7 +1149,8 @@ const DiamondDSTheme = extendTheme({
           theme,
         }: OverrideArgs<OutlinedInputProps>): CSSObject => {
           const colour = getIntentFromColourProp(ownerState.color);
-          const p = getIntentPalette(theme, colour);
+          const tokenName = colour === "error" ? "danger" : colour;
+          const accent = `var(--ds-${tokenName}-accent)`;
 
           return {
             "& .MuiOutlinedInput-notchedOutline": {
@@ -1078,27 +1164,27 @@ const DiamondDSTheme = extendTheme({
 
             "&.Mui-focused:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: p.light,
+                borderColor: accent,
                 borderWidth: 2,
               },
 
             "&.Mui-focused:hover:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: p.light,
+                borderColor: accent,
                 borderWidth: 2,
               },
 
             "&.Mui-error .MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.error.light,
+              borderColor: "var(--ds-danger-accent)",
             },
 
             "&.Mui-error:hover:not(.Mui-disabled):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: theme.palette.error.light,
+                borderColor: "var(--ds-danger-accent)",
               },
 
             "&.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.error.light,
+              borderColor: "var(--ds-danger-accent)",
               borderWidth: 2,
             },
 
@@ -1125,45 +1211,45 @@ const DiamondDSTheme = extendTheme({
 
     MuiInputLabel: {
       styleOverrides: {
-        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+        root: (): CSSObject => ({
           "&:not(.MuiInputLabel-shrink)": {
-            color: theme.palette.text.secondary,
+            color: "var(--ds-on-surface-variant)",
           },
 
           "&.Mui-disabled:not(.MuiInputLabel-shrink)": {
-            color: theme.palette.text.disabled,
+            color: "var(--ds-on-surface-disabled)",
           },
 
           "&.Mui-focused": {
-            color: theme.palette.primary.main,
+            color: "var(--ds-primary-accent)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorSecondary": {
-            color: theme.palette.secondary.main,
+            color: "var(--ds-secondary-accent)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorSuccess": {
-            color: theme.palette.success.main,
+            color: "var(--ds-success-accent)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorWarning": {
-            color: theme.palette.warning.main,
+            color: "var(--ds-warning-accent)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorError": {
-            color: theme.palette.error.main,
+            color: "var(--ds-danger-accent)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorInfo": {
-            color: theme.palette.info.main,
+            color: "var(--ds-info-accent)",
           },
 
           "&.Mui-focused.Mui-error": {
-            color: theme.palette.error.main,
+            color: "var(--ds-danger-accent)",
           },
 
           "&.Mui-disabled": {
-            color: theme.palette.text.disabled,
+            color: "var(--ds-on-surface-disabled)",
           },
         }),
       },
@@ -1185,29 +1271,33 @@ const DiamondDSTheme = extendTheme({
         root: {
           minHeight: 44,
         },
+        indicator: {
+          backgroundColor: "var(--ds-primary-accent)",
+        },
       },
     },
 
     MuiTab: {
       styleOverrides: {
-        root: ({ theme }: OverrideArgs<TabProps>): CSSObject => ({
+        root: (): CSSObject => ({
           textTransform: "none",
-          color: theme.palette.text.secondary,
+          color: "var(--ds-on-surface-variant)",
           fontWeight: 500,
           minHeight: 44,
 
           "&:hover": {
-            color: theme.palette.text.primary,
+            color: "var(--ds-on-primary-container)",
             boxShadow: getOverlayInset(),
           },
 
           "&.Mui-selected": {
-            color: theme.palette.primary.main,
+            color: "var(--ds-primary)",
+            borderBottom: "2px solid var(--ds-primary)",
             fontWeight: 600,
           },
 
           "&.Mui-disabled": {
-            color: theme.palette.text.disabled,
+            color: "var(--ds-on-surface-disabled)",
           },
 
           "&.Mui-focusVisible, &:focus-visible": {
@@ -1224,12 +1314,12 @@ const DiamondDSTheme = extendTheme({
        * outlined alerts use container/onContainer.
        */
       styleOverrides: {
-        root: ({ ownerState, theme }: OverrideArgs<AlertProps>): CSSObject => {
+        root: ({ ownerState }: OverrideArgs<AlertProps>): CSSObject => {
           const severity = getIntentFromColourProp(
             ownerState.severity,
             "success",
           );
-          const p = getIntentPalette(theme, severity);
+          const tokenName = severity === "error" ? "danger" : severity;
 
           const common: CSSObject = {
             borderRadius: 8,
@@ -1252,24 +1342,24 @@ const DiamondDSTheme = extendTheme({
           if (ownerState.variant === "filled") {
             return {
               ...common,
-              backgroundColor: p.solid,
-              color: p.onSolid,
+              backgroundColor: `var(--ds-${tokenName}-solid)`,
+              color: `var(--ds-on-${tokenName}-solid)`,
             };
           }
 
           if (ownerState.variant === "outlined") {
             return {
               ...common,
-              backgroundColor: p.container,
-              color: p.onContainer,
-              border: `1px solid ${p.light}`,
+              backgroundColor: `var(--ds-${tokenName}-container)`,
+              color: `var(--ds-on-${tokenName}-container)`,
+              border: `1px solid var(--ds-${tokenName}-accent)`,
             };
           }
 
           return {
             ...common,
-            backgroundColor: p.container,
-            color: p.onContainer,
+            backgroundColor: `var(--ds-${tokenName}-container)`,
+            color: `var(--ds-on-${tokenName}-container)`,
             border: "1px solid var(--ds-border-subtle)",
           };
         },
@@ -1289,15 +1379,12 @@ const DiamondDSTheme = extendTheme({
           backgroundColor: "var(--ds-surface-container-high)",
         },
 
-        bar: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<LinearProgressProps>): CSSObject => {
+        bar: ({ ownerState }: OverrideArgs<LinearProgressProps>): CSSObject => {
           const colour = getIntentFromColourProp(ownerState.color);
-          const p = getIntentPalette(theme, colour);
+          const tokenName = colour === "error" ? "danger" : colour;
 
           return {
-            backgroundColor: p.main,
+            backgroundColor: `var(--ds-${tokenName})`,
           };
         },
       },
@@ -1307,13 +1394,12 @@ const DiamondDSTheme = extendTheme({
       styleOverrides: {
         root: ({
           ownerState,
-          theme,
         }: OverrideArgs<CircularProgressProps>): CSSObject => {
           const colour = getIntentFromColourProp(ownerState.color);
-          const p = getIntentPalette(theme, colour);
+          const tokenName = colour === "error" ? "danger" : colour;
 
           return {
-            color: p.main,
+            color: `var(--ds-${tokenName})`,
           };
         },
       },
@@ -1381,15 +1467,14 @@ const DiamondDSTheme = extendTheme({
         disableRipple: true,
       },
       styleOverrides: {
-        root: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<CheckboxProps>): CSSObject => {
+        root: ({ ownerState }: OverrideArgs<CheckboxProps>): CSSObject => {
           const rawColour = ownerState.color ?? "primary";
           const isDefault = rawColour === "default";
           const colour = getIntentFromColourProp(rawColour);
-
-          const p = !isDefault ? getIntentPalette(theme, colour) : null;
+          const tokenName = colour === "error" ? "danger" : colour;
+          const checkedColour = isDefault
+            ? "var(--ds-on-surface)"
+            : `var(--ds-${tokenName})`;
 
           return {
             color: "var(--ds-on-surface-variant)",
@@ -1402,11 +1487,11 @@ const DiamondDSTheme = extendTheme({
             ...getFocusOutline(),
 
             "&.Mui-checked": {
-              color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              color: checkedColour,
             },
 
             "&.MuiCheckbox-indeterminate": {
-              color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              color: checkedColour,
             },
 
             "&.Mui-disabled": {
@@ -1422,12 +1507,14 @@ const DiamondDSTheme = extendTheme({
         disableRipple: true,
       },
       styleOverrides: {
-        root: ({ ownerState, theme }: OverrideArgs<RadioProps>): CSSObject => {
+        root: ({ ownerState }: OverrideArgs<RadioProps>): CSSObject => {
           const rawColour = ownerState.color ?? "primary";
           const isDefault = rawColour === "default";
           const colour = getIntentFromColourProp(rawColour);
-
-          const p = !isDefault ? getIntentPalette(theme, colour) : null;
+          const tokenName = colour === "error" ? "danger" : colour;
+          const checkedColour = isDefault
+            ? "var(--ds-on-surface)"
+            : `var(--ds-${tokenName})`;
 
           return {
             color: "var(--ds-on-surface-variant)",
@@ -1440,7 +1527,7 @@ const DiamondDSTheme = extendTheme({
             ...getFocusOutline(),
 
             "&.Mui-checked": {
-              color: isDefault ? "var(--ds-on-surface)" : p?.main,
+              color: checkedColour,
             },
 
             "&.Mui-disabled": {
