@@ -1,4 +1,11 @@
-/* Diamond Design System Token list for Light and Dark modes
+/* Diamond Design System Token list for Light and Dark modes */
+
+html.ds-mode-changing *,
+html.ds-mode-changing *::before,
+html.ds-mode-changing *::after {
+  transition: none !important;
+  animation: none !important;
+}
 
 /* Light mode semantic roles */
 :root,

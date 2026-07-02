@@ -14,7 +14,14 @@ export const ColourSchemeButton = (props: IconButtonProps) => {
       aria-label={`Colour scheme switcher: ${resolvedMode ?? "unknown"}`}
       {...props}
       onClick={(event) => {
+        document.documentElement.classList.add("ds-mode-changing");
+
         setMode(isDark ? "light" : "dark");
+
+        window.setTimeout(() => {
+          document.documentElement.classList.remove("ds-mode-changing");
+        }, 250);
+
         props.onClick?.(event);
       }}
       sx={(theme) => ({
