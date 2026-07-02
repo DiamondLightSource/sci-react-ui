@@ -9,9 +9,11 @@ import {
   ListItemText,
   Toolbar,
   Tooltip,
-  type Theme,
 } from "@mui/material";
+import { useTheme, Theme } from "@mui/material/styles";
 import { Fragment, type ElementType, type ReactNode } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useState } from "react";
 
 export type Navigation = NavItemGroup[];
 
@@ -57,49 +59,96 @@ const drawerTransition = (theme: Theme, opening: boolean) => {
 type NavProps = {
   navigation: Navigation;
   open: boolean;
+  setOpen: (open: boolean) => void;
 };
 
-export function SidebarNav({ navigation, open }: NavProps) {
-  const width = open ? 257 : 65; // 256/64 + 1 pixel for the border
+export function SidebarNav(props: NavProps) {
+  const theme = useTheme();
+  const desktopLayout = useMediaQuery(theme.breakpoints.up("sm"));
+
+  if (desktopLayout) {
+    return <PermanentDrawer {...props} />;
+  }
+  return <TemporaryDrawer {...props} />;
+}
+
+/**
+ * Main layout: a permanant-variant drawer
+ * which toggles between full width and slim states.
+ * Pushes main content to the right.
+ */
+function PermanentDrawer(props: NavProps) {
+  const width = props.open ? 257 : 65; // 256/64 + 1 pixel for the border
   return (
     <Drawer
       variant="permanent"
-      sx={(theme) => ({
+      sx={(theme: Theme) => ({
         width: width,
         flexShrink: 0,
-        transition: (theme) => drawerTransition(theme, open),
+        transition: (theme: Theme) => drawerTransition(theme, props.open),
         [`& .MuiDrawer-paper`]: {
           width: width,
           boxSizing: "border-box",
-          transition: drawerTransition(theme, open),
+          transition: drawerTransition(theme, props.open),
         },
       })}
     >
       <Toolbar /> {/* spacer equal to the AppBar's height*/}
-      <Box sx={{ overflow: "auto" }}>
-        <List
-          sx={{
-            p: 1,
-            flexDirection: "column",
-          }}
-        >
-          {navigation.map((group, groupIndex) => (
-            <Fragment key={groupIndex}>
-              {groupIndex > 0 && <SectionDivider />}
-              {group.navItems.map((item, itemIndex) => {
-                return (
-                  <NavItem
-                    key={itemIndex}
-                    definition={item}
-                    sidebarOpen={open}
-                  />
-                );
-              })}
-            </Fragment>
-          ))}
-        </List>
-      </Box>
+      <NavigationItems {...props} />
     </Drawer>
+  );
+}
+
+/**
+ * Small-screen layout: a temporary drawer which toggles between
+ * not visible and something resembling the full-width variant of the main layout.
+ * Overlayed over main content.
+ */
+function TemporaryDrawer(props: NavProps) {
+  const width = 257;
+  return (
+    <Drawer
+      variant="temporary"
+      open={props.open}
+      onClose={() => props.setOpen(false)}
+      onClick={() => props.setOpen(false)}
+      sx={{
+        width: width,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+          width: width,
+          boxSizing: "border-box",
+          backgroundImage: 'none',
+        },
+      }}
+    >
+      <Toolbar />
+      <NavigationItems {...props} />
+    </Drawer>
+  );
+}
+
+function NavigationItems({ navigation, open }: NavProps) {
+  return (
+    <Box sx={{ overflow: "auto" }}>
+      <List
+        sx={{
+          p: 1,
+          flexDirection: "column",
+        }}
+      >
+        {navigation.map((group, groupIndex) => (
+          <Fragment key={groupIndex}>
+            {groupIndex > 0 && <SectionDivider />}
+            {group.navItems.map((item, itemIndex) => {
+              return (
+                <NavItem key={itemIndex} definition={item} sidebarOpen={open} />
+              );
+            })}
+          </Fragment>
+        ))}
+      </List>
+    </Box>
   );
 }
 
@@ -162,7 +211,7 @@ function NavItem(props: NavItemProps) {
           sx={{
             overflow: "hidden",
             opacity: open ? 1 : 0,
-            transition: (theme) =>
+            transition: (theme: Theme) =>
               theme.transitions.create("opacity", {
                 duration: theme.transitions.duration.shorter,
               }),

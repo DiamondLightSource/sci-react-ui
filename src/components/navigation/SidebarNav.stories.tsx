@@ -236,7 +236,15 @@ export const WithAppBar: Story = {
           </Toolbar>
         </AppBar>
 
-        <SidebarNav navigation={reactRouterNavigation} open={open} />
+        <SidebarNav
+          navigation={reactRouterNavigation}
+          open={open}
+          setOpen={setOpen}
+        />
+        <Box>
+          <Toolbar />
+          <Typography variant="h5">Main content here</Typography>
+        </Box>
       </Box>
     );
   },
