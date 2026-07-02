@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SciReactUI Dev</title>
+    <!-- Initialise the colour scheme before React loads -->
+    <script>
+      (function () {
+        var mode = localStorage.getItem("mui-mode") || "system";
+        document.documentElement.setAttribute("data-mode", mode);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
