@@ -6,6 +6,14 @@
     <title>SciReactUI Dev</title>
   </head>
   <body>
+    <script>
+      (function () {
+        var mode = localStorage.getItem("mui-mode");
+        if (mode) {
+          document.documentElement.setAttribute("data-mode", mode);
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

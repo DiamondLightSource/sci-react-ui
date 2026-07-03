@@ -161,35 +161,67 @@ Use this page to install SciReactUI, configure the Diamond Design System theme, 
 
 </div>
 
-  <div className="sb-container">
-    <div className='sb-section-title'>
-    ### Avoiding Dark Mode Flicker in SSR Apps
+<div className="sb-container">
+  <div className="sb-section-title">
 
-    To prevent a flash of incorrect theme (e.g. light mode before switching to dark), include the `InitColorSchemeScript` in your app code.
+    ### Avoiding Dark Mode Flicker
 
-    This ensures the correct colour scheme is applied immediately, based on system preference or saved user choice.
+    Applications that support dark mode may briefly render the default colour scheme before the user's preferred mode is applied.
 
+    #### SSR Applications
 
-      ```tsx filename="main.tsx"
-      import { InitColorSchemeScript } from "@mui/material";
+    To prevent a flash of incorrect theme in SSR applications, use MUI's `InitColorSchemeScript` and place it before your application content so the correct colour scheme is applied before hydration.
+    For example, for Next.js App Router:
+    ```tsx filename="layout.tsx"
+    import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 
-      function Root() {
-        return (
-          <>
-            <InitColorSchemeScript attribute="[data-mode='%s']" />
-            <App />
-          </>
-        );
-      }
-      ```
+    export default function RootLayout(props: { children: React.ReactNode }) {
+    return (
+        <html lang="en" suppressHydrationWarning>
+        <body>
+            <InitColorSchemeScript attribute="data" />
+            {props.children}
+        </body>
+        </html>
+    );
+    }
+    ```
+    If your app renders into `index.html`, place the script at the top of the body so the mode is set before React mounts.
+    For more info see MUI's documentation on [InitColorSchemeScript](https://v7.mui.com/material-ui/react-init-color-scheme-script/).
 
-      If your app renders into `index.html`, place the script at the top of the body so the mode is set before React mounts.
+    #### Client-Side Applications (Vite etc.)
 
-      This helps avoid the brief light-mode flash when the user prefers dark mode.
+    For client-side applications, initialise the mode before React mounts:
+    ```
+    <body>
+        <script>
+        (function () {
+            var mode = localStorage.getItem("mui-mode");
+            if (mode) {
+            document.documentElement.setAttribute("data-mode", mode);
+            }
+        })();
+        </script>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
+    ```
 
-      For more info see MUI's documentation on [InitColorSchemeScript](https://v7.mui.com/material-ui/react-init-color-scheme-script/).
+    This ensures the correct DiamondDS token set is applied before the first paint, avoiding a flash of the default colour scheme when a saved preference exists.
 
-    </div>
+    DiamondDS uses:
+    ```
+    <html data-mode="light">
+    ```
+    or
+    ```
+    <html data-mode="dark">
+    ```
+    and should be configured with
+    ```
+    colorSchemeSelector: '[data-mode="%s"]'
+    ```
 
+  </div>
   </div>
 </div>
