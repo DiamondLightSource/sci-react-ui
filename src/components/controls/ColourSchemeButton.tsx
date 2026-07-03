@@ -7,15 +7,16 @@ export const ColourSchemeButton = (props: IconButtonProps) => {
   const { mode, systemMode, setMode } = useColorScheme();
 
   const resolvedMode = mode === "system" ? systemMode : mode;
-  const isDark = resolvedMode === "dark";
 
-  if (resolvedMode === undefined) {
+  if (resolvedMode !== "light" && resolvedMode !== "dark") {
     return null;
   }
 
+  const isDark = resolvedMode === "dark";
+
   return (
     <IconButton
-      aria-label={`Colour scheme switcher: ${resolvedMode ?? "unknown"}`}
+      aria-label={`Colour scheme switcher: ${resolvedMode}`}
       {...props}
       onClick={(event) => {
         setMode(isDark ? "light" : "dark");
@@ -28,6 +29,7 @@ export const ColourSchemeButton = (props: IconButtonProps) => {
         borderRadius: 1,
         backgroundColor: theme.palette.surface.strong,
         color: theme.palette.text.primary,
+
         "&:hover": {
           backgroundColor: theme.palette.surface.strong,
           borderColor: theme.palette.border.subtle,
