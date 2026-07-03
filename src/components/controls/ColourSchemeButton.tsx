@@ -9,6 +9,10 @@ export const ColourSchemeButton = (props: IconButtonProps) => {
   const resolvedMode = mode === "system" ? systemMode : mode;
   const isDark = resolvedMode === "dark";
 
+  if (resolvedMode === undefined) {
+    return null;
+  }
+
   return (
     <IconButton
       aria-label={`Colour scheme switcher: ${resolvedMode ?? "unknown"}`}

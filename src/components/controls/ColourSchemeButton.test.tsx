@@ -1,29 +1,42 @@
 import { fireEvent } from "@testing-library/react";
+import { useColorScheme } from "@mui/material/styles";
 
 import { ColourSchemeButton } from "./ColourSchemeButton";
-import { ColourSchemes } from "../../utils/globals";
 import { renderWithProviders } from "../../__test-utils__/helpers";
 
 const mockSetColorScheme = vi.fn();
-vi.mock("@mui/material", async () => {
-  const actualEnums = await vi.importActual("../../utils/globals");
+vi.mock("@mui/material/styles", async () => {
+  const actual = await vi.importActual<typeof import("@mui/material/styles")>(
+    "@mui/material/styles",
+  );
 
   return {
-    ...(await vi.importActual("@mui/material")),
-    useColorScheme: vi.fn().mockReturnValue({
-      // @ts-expect-error module doesn't have a type
-      colorScheme: actualEnums.ColourSchemes.Dark,
-      setColorScheme: (scheme: ColourSchemes) => mockSetColorScheme(scheme),
-    }),
+    ...actual,
+    useColorScheme: vi.fn(),
   };
 });
 
+const mockUseColorScheme = vi.mocked(useColorScheme);
+
 describe("ColourSchemeButton", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+
+    mockUseColorScheme.mockReturnValue({
+      mode: "dark",
+      systemMode: undefined,
+      setMode: mockSetColorScheme,
+      colorScheme: "dark",
+      allColorSchemes: ["light", "dark"],
+      setColorScheme: vi.fn(),
+    });
+  });
+
   it("should render without errors", () => {
     renderWithProviders(<ColourSchemeButton />);
   });
 
-  it("should show dark icon and button", () => {
+  it("should show button and light mode icon when current mode is dark", () => {
     const { getByTestId, getByRole } = renderWithProviders(
       <ColourSchemeButton />,
     );
@@ -31,7 +44,7 @@ describe("ColourSchemeButton", () => {
     const button = getByRole("button");
     expect(button).toBeInTheDocument();
 
-    const icon = getByTestId("BedtimeIcon");
+    const icon = getByTestId("LightModeIcon");
     expect(icon).toBeInTheDocument();
   });
 
@@ -41,7 +54,7 @@ describe("ColourSchemeButton", () => {
     const button = getByRole("button");
     fireEvent.click(button);
 
-    //expect(mockSetColorScheme).toHaveBeenCalledWith(ColourSchemes.Light);
+    expect(mockSetColorScheme).toHaveBeenCalledWith("light");
   });
 
   it("should call local onclick when button clicked", () => {
@@ -54,5 +67,20 @@ describe("ColourSchemeButton", () => {
     fireEvent.click(button);
 
     expect(mockOnClick).toHaveBeenCalled();
+  });
+
+  it("should not render while colour scheme is unresolved", () => {
+    mockUseColorScheme.mockReturnValue({
+      mode: undefined,
+      systemMode: undefined,
+      setMode: mockSetColorScheme,
+      colorScheme: undefined,
+      allColorSchemes: ["light", "dark"],
+      setColorScheme: vi.fn(),
+    });
+
+    const { queryByRole } = renderWithProviders(<ColourSchemeButton />);
+
+    expect(queryByRole("button")).not.toBeInTheDocument();
   });
 });
