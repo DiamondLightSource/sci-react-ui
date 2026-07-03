@@ -13,7 +13,6 @@ import {
 import { useTheme, Theme } from "@mui/material/styles";
 import { Fragment, type ElementType, type ReactNode } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState } from "react";
 
 export type Navigation = NavItemGroup[];
 
@@ -110,15 +109,17 @@ function TemporaryDrawer(props: NavProps) {
     <Drawer
       variant="temporary"
       open={props.open}
-      onClose={() => props.setOpen(false)}
-      onClick={() => props.setOpen(false)}
+      onClose={() => props.setOpen(false)} // close when clicking off the drawer
+      onClick={() => props.setOpen(false)} // close after making a selection
       sx={{
         width: width,
         flexShrink: 0,
         [`& .MuiDrawer-paper`]: {
           width: width,
           boxSizing: "border-box",
-          backgroundImage: 'none',
+          backgroundImage: "none",
+          borderRight: "1px solid",
+          borderColor: "divider",
         },
       }}
     >
