@@ -9,7 +9,6 @@ vi.mock("@mui/material/useMediaQuery");
 const mockedUseMediaQuery = vi.mocked(useMediaQuery);
 
 describe("SidebarNav", () => {
-
   const navigation: Navigation = [
     {
       navItems: [
@@ -45,14 +44,15 @@ describe("SidebarNav", () => {
     const router = createMemoryRouter([
       {
         path: "/",
-        element: <SidebarNav navigation={navigation} open={open} setOpen={setOpen}/>,
+        element: (
+          <SidebarNav navigation={navigation} open={open} setOpen={setOpen} />
+        ),
       },
     ]);
     render(<RouterProvider router={router} />);
   }
 
   describe("Desktop layout", () => {
-
     beforeEach(() => {
       mockedUseMediaQuery.mockReturnValue(true);
     });
@@ -96,7 +96,9 @@ describe("SidebarNav", () => {
       await user.hover(icon);
 
       // notice we await because the tooltip appears after some time
-      const tooltip = await screen.findByRole("tooltip", { name: "Acquisition" });
+      const tooltip = await screen.findByRole("tooltip", {
+        name: "Acquisition",
+      });
       expect(tooltip).toBeVisible();
     });
 
@@ -133,26 +135,27 @@ describe("SidebarNav", () => {
   });
 
   describe("Mobile layout", () => {
-
     beforeEach(() => {
       mockedUseMediaQuery.mockReturnValue(false);
     });
 
     it("renders temporary drawer", () => {
-        renderSidenav(true);
+      renderSidenav(true);
 
-        // Drawer paper is rendered
-        expect(document.querySelector(".MuiDrawer-root")).toBeInTheDocument();
+      // Drawer paper is rendered
+      expect(document.querySelector(".MuiDrawer-root")).toBeInTheDocument();
 
-        // nav content is visible
-        expect(screen.getByText("Setup")).toBeVisible();
-      });
+      // nav content is visible
+      expect(screen.getByText("Setup")).toBeVisible();
+    });
 
     it("closed drawer is not visible", () => {
       renderSidenav(false);
 
       expect(screen.queryByText("Setup")).not.toBeInTheDocument();
-      expect(screen.queryByRole("link", { name: "Setup" })).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("link", { name: "Setup" }),
+      ).not.toBeInTheDocument();
     });
 
     it("open drawer is visible", () => {
