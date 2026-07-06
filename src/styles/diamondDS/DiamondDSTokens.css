@@ -199,7 +199,7 @@
 
   --ds-on-success-channel: 255 255 255;
   --ds-success-mainChannel: 24 122 47;
-  --ds-success-lightChannel: 47 154 73;
+  --ds-success-lightChannel: 47 179 68;
   --ds-success-darkChannel: 20 97 37;
 
   /* Info (Blue) */
@@ -303,7 +303,7 @@
   --ds-border-subtle: #282c35;
   --ds-border-emphasis: #505664;
   --ds-border-strong: #7c8394;
-  --ds-border-subtle-channel: 58 63 76;
+  --ds-border-subtle-channel: 40 44 53;
 
   /* Interaction overlays */
   --ds-overlay-hover: rgba(232, 234, 240, 0.12);
@@ -324,8 +324,8 @@
 
   --ds-on-primary-channel: 11 22 56;
   --ds-primary-mainChannel: 138 167 255;
-  --ds-primary-lightChannel: 196 212 255;
-  --ds-primary-darkChannel: 165 188 255;
+  --ds-primary-lightChannel: 165 188 255;
+  --ds-primary-darkChannel: 196 212 255;
 
   /* Secondary */
   --ds-secondary: #58d6de;
@@ -339,8 +339,8 @@
 
   --ds-on-secondary-channel: 0 37 41;
   --ds-secondary-mainChannel: 88 214 222;
-  --ds-secondary-lightChannel: 154 240 243;
-  --ds-secondary-darkChannel: 123 228 234;
+  --ds-secondary-lightChannel: 123 228 234;
+  --ds-secondary-darkChannel: 154 240 243;
 
   /* Tertiary */
   --ds-tertiary: #e587d1;
@@ -354,8 +354,8 @@
 
   --ds-on-tertiary-channel: 42 0 34;
   --ds-tertiary-mainChannel: 229 135 209;
-  --ds-tertiary-lightChannel: 247 191 235;
-  --ds-tertiary-darkChannel: 239 165 224;
+  --ds-tertiary-lightChannel: 239 165 224;
+  --ds-tertiary-darkChannel: 247 191 235;
 
   /* Brand */
   --ds-brand: #aabdff;
@@ -373,8 +373,8 @@
 
   --ds-on-brand-channel: 13 21 48;
   --ds-brand-mainChannel: 170 189 255;
-  --ds-brand-lightChannel: 215 225 255;
-  --ds-brand-darkChannel: 196 210 255;
+  --ds-brand-lightChannel: 196 210 255;
+  --ds-brand-darkChannel: 215 225 255;
 
   /* Danger */
   --ds-danger: #ff9088;
@@ -388,8 +388,8 @@
 
   --ds-on-danger-channel: 47 9 7;
   --ds-danger-mainChannel: 255 144 136;
-  --ds-danger-lightChannel: 255 199 194;
-  --ds-danger-darkChannel: 255 176 170;
+  --ds-danger-lightChannel: 255 176 170;
+  --ds-danger-darkChannel: 255 199 194;
 
   /* Warning */
   --ds-warning: #ffb067;
@@ -403,8 +403,8 @@
 
   --ds-on-warning-channel: 49 23 0;
   --ds-warning-mainChannel: 255 176 103;
-  --ds-warning-lightChannel: 255 217 176;
-  --ds-warning-darkChannel: 255 198 138;
+  --ds-warning-lightChannel: 255 198 138;
+  --ds-warning-darkChannel: 255 217 176;
 
   /* Success */
   --ds-success: #6fd88a;
@@ -418,8 +418,8 @@
 
   --ds-on-success-channel: 8 33 15;
   --ds-success-mainChannel: 111 216 138;
-  --ds-success-lightChannel: 179 240 192;
-  --ds-success-darkChannel: 138 229 162;
+  --ds-success-lightChannel: 138 229 162;
+  --ds-success-darkChannel: 179 240 192;
 
   /* Info */
   --ds-info: #9fb7ff;
@@ -433,8 +433,8 @@
 
   --ds-on-info-channel: 16 25 54;
   --ds-info-mainChannel: 159 183 255;
-  --ds-info-lightChannel: 213 224 255;
-  --ds-info-darkChannel: 188 205 255;
+  --ds-info-lightChannel: 188 205 255;
+  --ds-info-darkChannel: 213 224 255;
 
   /* Highlight */
   --ds-highlight: #ffd84d;
@@ -446,8 +446,8 @@
   --ds-highlight-solid: #d4a900;
   --ds-on-highlight-solid: #1a1c23;
 
-  --ds-on-highlight-channel: 26 28 35;
-  --ds-highlight-mainChannel: 255 226 122;
-  --ds-highlight-lightChannel: 255 241 184;
-  --ds-highlight-darkChannel: 255 234 160;
+  --ds-on-highlight-channel: 42 33 0;
+  --ds-highlight-mainChannel: 255 216 77;
+  --ds-highlight-lightChannel: 255 234 160;
+  --ds-highlight-darkChannel: 255 241 184;
 }
