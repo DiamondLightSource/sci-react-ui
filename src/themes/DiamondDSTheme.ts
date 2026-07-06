@@ -186,6 +186,7 @@ declare module "@mui/material/styles" {
     disabled?: string;
     placeholder?: string;
     placeholderFocus?: string;
+    onSolid?: string;
     primaryChannel?: string;
     secondaryChannel?: string;
   }
@@ -544,7 +545,7 @@ const createDiamondPalette = (mode: DSMode) => {
     dividerChannel: "var(--ds-border-subtle-channel)",
 
     border: {
-      subtle: "var(--ds-border)",
+      subtle: "var(--ds-border-subtle)",
       emphasis: "var(--ds-border-emphasis)",
       strong: "var(--ds-border-strong)",
     },
@@ -774,7 +775,7 @@ const DiamondDSTheme = extendTheme({
 
               "&.Mui-disabled": {
                 ...getDisabledControlStyles(),
-                borderColor: "var(--ds-border)",
+                borderColor: "var(--ds-border-subtle)",
               },
             };
           }
@@ -883,7 +884,7 @@ const DiamondDSTheme = extendTheme({
 
           "&.Mui-disabled": {
             color: "var(--ds-on-surface-disabled)",
-            borderColor: "var(--ds-border)",
+            borderColor: "var(--ds-border-subtle)",
           },
         }),
       },
@@ -1269,7 +1270,7 @@ const DiamondDSTheme = extendTheme({
             ...common,
             backgroundColor: p.container,
             color: p.onContainer,
-            border: "1px solid var(--ds-border)",
+            border: "1px solid var(--ds-border-subtle)",
           };
         },
       },
@@ -1357,7 +1358,7 @@ const DiamondDSTheme = extendTheme({
         root: {
           backgroundColor: "var(--ds-surface-container)",
           color: "var(--ds-on-surface)",
-          border: "1px solid var(--ds-border)",
+          border: "1px solid var(--ds-border-subtle)",
           borderRadius: 8,
         },
 
