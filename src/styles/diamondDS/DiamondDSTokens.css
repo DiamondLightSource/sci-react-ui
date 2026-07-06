@@ -2,7 +2,7 @@
 
 /* Light mode semantic roles */
 :root,
-:root[data-mode="light"] {
+[data-mode="light"] {
   color-scheme: light;
 
   /* Elevation */
@@ -246,7 +246,7 @@
  *
  * Values are tuned for dark surfaces rather than mechanically inverted from light mode. 
  */
-:root[data-mode="dark"] {
+[data-mode="dark"] {
   color-scheme: dark;
 
   --ds-elevation-0: #161820;

@@ -365,7 +365,7 @@ Each semantic colour role contains related tokens that support different levels 
   </thead>
   <tbody>
     <tr>
-      <td>Main</td>
+      <td>Default/Main</td>
       <td>Core semantic colour</td>
       <td>Actions, status indicators, emphasis</td>
     </tr>
@@ -407,6 +407,58 @@ Each semantic colour role contains related tokens that support different levels 
   </tbody>
 </table>
 
+### Light and dark comparison
+
+<div className="ds-mode-compare">
+  <section className="ds-mode-panel" data-mode="light">
+    <header>
+      <h3>Light</h3>
+      <p>Default appearance on light surfaces.</p>
+    </header>
+    <div className="ds-token-grid">
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-main" />
+        <strong>Primary</strong>
+        <code>--ds-primary</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-container" />
+        <strong>Primary container</strong>
+        <code>--ds-primary-container</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-surface" />
+        <strong>Surface</strong>
+        <code>--ds-surface</code>
+      </div>
+    </div>
+  </section>
+
+  <section className="ds-mode-panel" data-mode="dark">
+    <header>
+      <h3>Dark</h3>
+      <p>Equivalent roles on dark surfaces.</p>
+    </header>
+    <div className="ds-token-grid">
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-main" />
+        <strong>Primary</strong>
+        <code>--ds-primary</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-container" />
+        <strong>Primary container</strong>
+        <code>--ds-primary-container</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-surface" />
+        <strong>Surface</strong>
+        <code>--ds-surface</code>
+      </div>
+    </div>
+  </section>
+</div>
+
 ### Container and solid patterns
 
 DiamondDS uses two primary semantic presentation patterns: **container** and **solid**.
@@ -439,6 +491,14 @@ DiamondDS uses two primary semantic presentation patterns: **container** and **s
 Use **container** when meaning should be visible but quiet.
 
 Use **solid** when an action or state needs stronger emphasis.
+
+<div className="ds-note">
+
+**Looking for the implementation reference?**
+
+This page explains the principles behind colour in DiamondDS. For a complete reference of every semantic theme token in light and dark mode, see **[Theme Colours](/docs/foundations-theme-colours--docs)**.
+
+</div>
 
 ## 6. Interaction states
 
