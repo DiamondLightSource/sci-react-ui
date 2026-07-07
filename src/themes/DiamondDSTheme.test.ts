@@ -744,8 +744,15 @@ describe("DiamondDS component overrides", () => {
       theme: DiamondDSTheme,
     });
 
-    expect(styles.backgroundColor).toBe("var(--ds-surface-container-high)");
-    expect(styles.color).toBe("var(--ds-on-surface)");
+    const fallbackStyles = styles["&:has(.MuiAvatar-fallback)"] as Record<
+      string,
+      unknown
+    >;
+
+    expect(fallbackStyles.backgroundColor).toBe(
+      "var(--ds-surface-container-high)",
+    );
+    expect(fallbackStyles.color).toBe("var(--ds-on-surface)");
   });
 
   it("uses semantic roles for tabs", () => {
