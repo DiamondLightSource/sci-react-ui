@@ -299,9 +299,9 @@ const createPaletteColour = (tokenName: string): ExtendedPaletteColor => ({
   onSolid: `var(--ds-on-${tokenName}-solid)`,
 
   contrastTextChannel: `var(--ds-on-${tokenName}-channel)`,
-  mainChannel: `var(--ds-${tokenName}-mainChannel)`,
-  lightChannel: `var(--ds-${tokenName}-lightChannel)`,
-  darkChannel: `var(--ds-${tokenName}-darkChannel)`,
+  mainChannel: `var(--ds-${tokenName}-channel)`,
+  lightChannel: `var(--ds-${tokenName}-accent-channel)`,
+  darkChannel: `var(--ds-${tokenName}-emphasis-channel)`,
 });
 
 /**
