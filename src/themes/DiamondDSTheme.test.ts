@@ -1135,63 +1135,78 @@ describe("DiamondDS tokens", () => {
       },
 
       { source: "--ds-on-primary", channel: "--ds-on-primary-channel" },
-      { source: "--ds-primary", channel: "--ds-primary-mainChannel" },
-      { source: "--ds-primary-accent", channel: "--ds-primary-lightChannel" },
-      { source: "--ds-primary-emphasis", channel: "--ds-primary-darkChannel" },
+      { source: "--ds-primary", channel: "--ds-primary-channel" },
+      { source: "--ds-primary-accent", channel: "--ds-primary-accent-channel" },
+      {
+        source: "--ds-primary-emphasis",
+        channel: "--ds-primary-emphasis-channel",
+      },
 
       { source: "--ds-on-secondary", channel: "--ds-on-secondary-channel" },
-      { source: "--ds-secondary", channel: "--ds-secondary-mainChannel" },
+      { source: "--ds-secondary", channel: "--ds-secondary-channel" },
       {
         source: "--ds-secondary-accent",
-        channel: "--ds-secondary-lightChannel",
+        channel: "--ds-secondary-accent-channel",
       },
       {
         source: "--ds-secondary-emphasis",
-        channel: "--ds-secondary-darkChannel",
+        channel: "--ds-secondary-emphasis-channel",
       },
 
       { source: "--ds-on-tertiary", channel: "--ds-on-tertiary-channel" },
-      { source: "--ds-tertiary", channel: "--ds-tertiary-mainChannel" },
-      { source: "--ds-tertiary-accent", channel: "--ds-tertiary-lightChannel" },
+      { source: "--ds-tertiary", channel: "--ds-tertiary-channel" },
+      {
+        source: "--ds-tertiary-accent",
+        channel: "--ds-tertiary-accent-channel",
+      },
       {
         source: "--ds-tertiary-emphasis",
-        channel: "--ds-tertiary-darkChannel",
+        channel: "--ds-tertiary-emphasis-channel",
       },
 
       { source: "--ds-on-brand", channel: "--ds-on-brand-channel" },
-      { source: "--ds-brand", channel: "--ds-brand-mainChannel" },
-      { source: "--ds-brand-accent", channel: "--ds-brand-lightChannel" },
-      { source: "--ds-brand-emphasis", channel: "--ds-brand-darkChannel" },
+      { source: "--ds-brand", channel: "--ds-brand-channel" },
+      { source: "--ds-brand-accent", channel: "--ds-brand-accent-channel" },
+      { source: "--ds-brand-emphasis", channel: "--ds-brand-emphasis-channel" },
 
       { source: "--ds-on-danger", channel: "--ds-on-danger-channel" },
-      { source: "--ds-danger", channel: "--ds-danger-mainChannel" },
-      { source: "--ds-danger-accent", channel: "--ds-danger-lightChannel" },
-      { source: "--ds-danger-emphasis", channel: "--ds-danger-darkChannel" },
+      { source: "--ds-danger", channel: "--ds-danger-channel" },
+      { source: "--ds-danger-accent", channel: "--ds-danger-accent-channel" },
+      {
+        source: "--ds-danger-emphasis",
+        channel: "--ds-danger-emphasis-channel",
+      },
 
       { source: "--ds-on-warning", channel: "--ds-on-warning-channel" },
-      { source: "--ds-warning", channel: "--ds-warning-mainChannel" },
-      { source: "--ds-warning-accent", channel: "--ds-warning-lightChannel" },
-      { source: "--ds-warning-emphasis", channel: "--ds-warning-darkChannel" },
+      { source: "--ds-warning", channel: "--ds-warning-channel" },
+      { source: "--ds-warning-accent", channel: "--ds-warning-accent-channel" },
+      {
+        source: "--ds-warning-emphasis",
+        channel: "--ds-warning-emphasis-channel",
+      },
 
       { source: "--ds-on-success", channel: "--ds-on-success-channel" },
-      { source: "--ds-success", channel: "--ds-success-mainChannel" },
-      { source: "--ds-success-accent", channel: "--ds-success-lightChannel" },
-      { source: "--ds-success-emphasis", channel: "--ds-success-darkChannel" },
+      { source: "--ds-success", channel: "--ds-success-channel" },
+      { source: "--ds-success-accent", channel: "--ds-success-accent-channel" },
+      {
+        source: "--ds-success-emphasis",
+        channel: "--ds-success-emphasis-channel",
+      },
 
       { source: "--ds-on-info", channel: "--ds-on-info-channel" },
-      { source: "--ds-info", channel: "--ds-info-mainChannel" },
-      { source: "--ds-info-accent", channel: "--ds-info-lightChannel" },
-      { source: "--ds-info-emphasis", channel: "--ds-info-darkChannel" },
+      { source: "--ds-info", channel: "--ds-info-channel" },
+      { source: "--ds-info-accent", channel: "--ds-info-accent-channel" },
+      { source: "--ds-info-emphasis", channel: "--ds-info-emphasis-channel" },
 
       { source: "--ds-on-highlight", channel: "--ds-on-highlight-channel" },
-      { source: "--ds-highlight", channel: "--ds-highlight-mainChannel" },
+      { source: "--ds-highlight", channel: "--ds-highlight-channel" },
       {
         source: "--ds-highlight-accent",
-        channel: "--ds-highlight-lightChannel",
+        channel: "--ds-highlight-accent-channel",
       },
       {
         source: "--ds-highlight-emphasis",
-        channel: "--ds-highlight-darkChannel",
+        channel: "--ds-highlight-emphasis-channel",
       },
     ];
 
