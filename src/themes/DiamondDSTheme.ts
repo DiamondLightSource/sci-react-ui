@@ -800,6 +800,7 @@ const DiamondDSTheme = extendTheme({
 
           const main = `var(--ds-${tokenName})`;
           const accent = `var(--ds-${tokenName}-accent)`;
+          const emphasis = `var(--ds-${tokenName}-emphasis)`;
           const container = `var(--ds-${tokenName}-container)`;
           const onContainer = `var(--ds-on-${tokenName}-container)`;
           const solid = `var(--ds-${tokenName}-solid)`;
@@ -849,7 +850,7 @@ const DiamondDSTheme = extendTheme({
 
               "&:active": {
                 backgroundColor: container,
-                borderColor: main,
+                borderColor: emphasis,
                 boxShadow: getOverlayInset("var(--ds-overlay-selected)"),
               },
 
@@ -941,12 +942,12 @@ const DiamondDSTheme = extendTheme({
 
     MuiToggleButton: {
       styleOverrides: {
-        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+        root: (): CSSObject => ({
           textTransform: "none",
-          border: `1px solid ${theme.palette.border.emphasis}`,
+          border: `1px solid ${"var(--ds-border-emphasis)"}`,
 
           "&:hover": {
-            borderColor: theme.palette.border.strong,
+            borderColor: "var(--ds-border-strong)",
           },
 
           "&.Mui-selected": {
@@ -1087,48 +1088,48 @@ const DiamondDSTheme = extendTheme({
 
     MuiInputBase: {
       styleOverrides: {
-        input: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+        input: (): CSSObject => ({
           "&::placeholder": {
-            color: theme.palette.text.placeholder,
+            color: "var(--ds-placeholder)",
             opacity: 1,
           },
 
           "&::-webkit-input-placeholder": {
-            color: theme.palette.text.placeholder,
+            color: "var(--ds-placeholder)",
             opacity: 1,
           },
 
           "&::-moz-placeholder": {
-            color: theme.palette.text.placeholder,
+            color: "var(--ds-placeholder)",
             opacity: 1,
           },
 
           "&:focus::placeholder": {
-            color: theme.palette.text.placeholderFocus,
+            color: "var(--ds-placeholder-focus)",
           },
 
           "&:focus::-webkit-input-placeholder": {
-            color: theme.palette.text.placeholderFocus,
+            color: "var(--ds-placeholder-focus)",
             opacity: 1,
           },
 
           "&:focus::-moz-placeholder": {
-            color: theme.palette.text.placeholderFocus,
+            color: "var(--ds-placeholder-focus)",
             opacity: 1,
           },
         }),
 
-        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+        root: (): CSSObject => ({
           /** Error and disabled placeholder states win over normal focus. */
           "&.Mui-error input::placeholder, &.Mui-error input::-webkit-input-placeholder, &.Mui-error input::-moz-placeholder":
             {
-              color: theme.palette.error.light,
+              color: "var(--ds-danger-accent)",
               opacity: 1,
             },
 
           "&.Mui-disabled input::placeholder, &.Mui-disabled input::-webkit-input-placeholder, &.Mui-disabled input::-moz-placeholder":
             {
-              color: theme.palette.text.disabled,
+              color: "var(--ds-on-surface-disabled)",
               opacity: 1,
             },
         }),
@@ -1154,12 +1155,12 @@ const DiamondDSTheme = extendTheme({
 
           return {
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.border.emphasis,
+              borderColor: "var(--ds-border-emphasis)",
             },
 
             "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: theme.palette.border.strong,
+                borderColor: "var(--ds-border-strong)",
               },
 
             "&.Mui-focused:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
@@ -1221,31 +1222,31 @@ const DiamondDSTheme = extendTheme({
           },
 
           "&.Mui-focused": {
-            color: "var(--ds-primary-accent)",
+            color: "var(--ds-primary)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorSecondary": {
-            color: "var(--ds-secondary-accent)",
+            color: "var(--ds-secondary)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorSuccess": {
-            color: "var(--ds-success-accent)",
+            color: "var(--ds-success)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorWarning": {
-            color: "var(--ds-warning-accent)",
+            color: "var(--ds-warning)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorError": {
-            color: "var(--ds-danger-accent)",
+            color: "var(--ds-danger)",
           },
 
           "&.Mui-focused.MuiFormLabel-colorInfo": {
-            color: "var(--ds-info-accent)",
+            color: "var(--ds-info)",
           },
 
           "&.Mui-focused.Mui-error": {
-            color: "var(--ds-danger-accent)",
+            color: "var(--ds-danger)",
           },
 
           "&.Mui-disabled": {
@@ -1257,10 +1258,10 @@ const DiamondDSTheme = extendTheme({
 
     MuiAvatar: {
       styleOverrides: {
-        root: ({ theme }: ThemeOnlyArgs): CSSObject => ({
+        root: (): CSSObject => ({
           "&:has(.MuiAvatar-fallback)": {
-            backgroundColor: theme.palette.surface.strong,
-            color: theme.palette.text.primary,
+            backgroundColor: "var(--ds-surface-container-high)",
+            color: "var(--ds-on-surface)",
           },
         }),
       },
@@ -1287,7 +1288,6 @@ const DiamondDSTheme = extendTheme({
 
           "&:hover": {
             color: "var(--ds-on-primary-container)",
-            boxShadow: getOverlayInset(),
           },
 
           "&.Mui-selected": {
