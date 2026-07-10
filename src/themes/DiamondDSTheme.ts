@@ -1277,13 +1277,15 @@ const DiamondDSTheme = extendTheme({
           minHeight: 44,
 
           "&:hover": {
-            color: "var(--ds-on-primary-container)",
+            color: "var(--ds-on-surface)",
+            backgroundColor: "var(--ds-surface-container-high)",
           },
 
           "&.Mui-selected": {
             color: "var(--ds-primary)",
             borderBottom: "2px solid var(--ds-primary)",
             fontWeight: 600,
+            backgroundColor: "inherit",
           },
 
           "&.Mui-disabled": {
