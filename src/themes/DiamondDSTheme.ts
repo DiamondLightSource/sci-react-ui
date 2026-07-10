@@ -48,13 +48,6 @@ type OverrideArgs<OwnerState = unknown> = {
 };
 
 /**
- * Theme-only argument shape for MUI style overrides.
- */
-type ThemeOnlyArgs = {
-  theme: Theme;
-};
-
-/**
  * Canonical list of supported DiamondDS intent colours.
  *
  * DiamondDS supports:
@@ -1145,10 +1138,7 @@ const DiamondDSTheme = extendTheme({
          *
          * This order avoids a focused or hover style masking validation state.
          */
-        root: ({
-          ownerState,
-          theme,
-        }: OverrideArgs<OutlinedInputProps>): CSSObject => {
+        root: ({ ownerState }: OverrideArgs<OutlinedInputProps>): CSSObject => {
           const colour = getIntentFromColourProp(ownerState.color);
           const tokenName = colour === "error" ? "danger" : colour;
           const accent = `var(--ds-${tokenName}-accent)`;
