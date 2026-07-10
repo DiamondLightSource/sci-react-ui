@@ -27,6 +27,7 @@ import {
   DiamondDSIntegrations,
   DiamondDSTheme,
 } from "../../src/index";
+import type { Theme } from "@mui/material/styles";
 
 import {
   Navbar,
@@ -555,10 +556,16 @@ const intentRows = [
   { bg: "onFixed", fg: "fixed", label: "On Fixed" },
 ];
 
-const getPaletteValue = (theme: Theme, path: string) =>
-  path.split(".").reduce<any>((obj, key) => obj?.[key], theme.palette);
+const getPaletteValue = (theme: Theme, path: string): string | undefined => {
+  const value = path.split(".").reduce<unknown>((obj, key) => {
+    if (obj && typeof obj === "object") {
+      return (obj as Record<string, unknown>)[key];
+    }
+    return undefined;
+  }, theme.palette);
 
-import type { Theme } from "@mui/material/styles";
+  return typeof value === "string" ? value : undefined;
+};
 
 type ColourRowProps = {
   label: string;

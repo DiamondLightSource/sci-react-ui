@@ -28,7 +28,6 @@ export * from "./themes/BaseTheme";
 export * from "./themes/DiamondTheme";
 export * from "./themes/DiamondDSTheme";
 export * from "./themes/DiamondDSIntegrations";
-export * from "./themes/DiamondDSInitColorSchemeScript";
 export * from "./themes/GenericTheme";
 export * from "./themes/ThemeProvider";
 export * from "./themes/ThemeManager";

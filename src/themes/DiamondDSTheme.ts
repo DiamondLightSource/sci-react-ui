@@ -316,37 +316,37 @@ const paletteAdapterValues: Record<DSMode, Record<string, PaletteAdapter>> = {
 
   dark: {
     primary: {
-      light: "#6a86e4",
+      light: "#a5bcff",
       main: "#8aa7ff",
       dark: "#c4d4ff",
       contrastText: "#1a1c23",
     },
     secondary: {
-      light: "#27adb7",
+      light: "#7be4ea",
       main: "#58d6de",
       dark: "#9af0f3",
       contrastText: "#1a1c23",
     },
     danger: {
-      light: "#d94f45",
+      light: "#ffb0aa",
       main: "#ff9088",
       dark: "#ffc7c2",
       contrastText: "#1a1c23",
     },
     warning: {
-      light: "#e98a15",
+      light: "#ffc68a",
       main: "#ffb067",
       dark: "#ffd9b0",
       contrastText: "#1a1c23",
     },
     success: {
-      light: "#2fb344",
+      light: "#8ae5a2",
       main: "#6fd88a",
       dark: "#b3f0c0",
       contrastText: "#1a1c23",
     },
     info: {
-      light: "#6f8fe8",
+      light: "#bccdff",
       main: "#9fb7ff",
       dark: "#d5e0ff",
       contrastText: "#1a1c23",

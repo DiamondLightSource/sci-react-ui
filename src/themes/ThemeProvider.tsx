@@ -1,6 +1,8 @@
-import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
-import { CssBaseline } from "@mui/material";
-import { ThemeProviderProps as MuiThemeProviderProps } from "@mui/material/styles";
+import { CssBaseline, GlobalStyles } from "@mui/material";
+import {
+  ThemeProvider as MuiThemeProvider,
+  ThemeProviderProps as MuiThemeProviderProps,
+} from "@mui/material/styles";
 import { DiamondDSTheme } from "./DiamondDSTheme";
 
 interface ThemeProviderProps extends Partial<MuiThemeProviderProps> {
@@ -17,6 +19,16 @@ const ThemeProvider = function ({
   return (
     <MuiThemeProvider theme={theme} defaultMode={defaultMode} {...props}>
       {baseline && <CssBaseline />}
+
+      <GlobalStyles
+        styles={{
+          "html.ds-mode-changing *, html.ds-mode-changing *::before, html.ds-mode-changing *::after":
+            {
+              transition: "none !important",
+            },
+        }}
+      />
+
       {children}
     </MuiThemeProvider>
   );
