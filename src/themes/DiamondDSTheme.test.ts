@@ -1207,4 +1207,90 @@ describe("DiamondDS tokens", () => {
       }
     }
   });
+
+  it.each(["light", "dark"] as const)(
+    "maps %s semantic palette values to DiamondDS CSS variables",
+    (mode) => {
+      const palette = DiamondDSTheme.colorSchemes[mode]!.palette;
+      const modeSection = getCssModeSection(mode);
+
+      expect(palette.primary.main).toBe(
+        getCssVariableValue(modeSection, "--ds-primary"),
+      );
+      expect(palette.primary.light).toBe(
+        getCssVariableValue(modeSection, "--ds-primary-accent"),
+      );
+      expect(palette.primary.dark).toBe(
+        getCssVariableValue(modeSection, "--ds-primary-emphasis"),
+      );
+      expect(palette.primary.contrastText).toBe(
+        getCssVariableValue(modeSection, "--ds-on-primary"),
+      );
+
+      expect(palette.secondary.main).toBe(
+        getCssVariableValue(modeSection, "--ds-secondary"),
+      );
+      expect(palette.secondary.light).toBe(
+        getCssVariableValue(modeSection, "--ds-secondary-accent"),
+      );
+      expect(palette.secondary.dark).toBe(
+        getCssVariableValue(modeSection, "--ds-secondary-emphasis"),
+      );
+      expect(palette.secondary.contrastText).toBe(
+        getCssVariableValue(modeSection, "--ds-on-secondary"),
+      );
+
+      expect(palette.warning.main).toBe(
+        getCssVariableValue(modeSection, "--ds-warning"),
+      );
+      expect(palette.warning.light).toBe(
+        getCssVariableValue(modeSection, "--ds-warning-accent"),
+      );
+      expect(palette.warning.dark).toBe(
+        getCssVariableValue(modeSection, "--ds-warning-emphasis"),
+      );
+      expect(palette.warning.contrastText).toBe(
+        getCssVariableValue(modeSection, "--ds-on-warning"),
+      );
+
+      expect(palette.success.main).toBe(
+        getCssVariableValue(modeSection, "--ds-success"),
+      );
+      expect(palette.success.light).toBe(
+        getCssVariableValue(modeSection, "--ds-success-accent"),
+      );
+      expect(palette.success.dark).toBe(
+        getCssVariableValue(modeSection, "--ds-success-emphasis"),
+      );
+      expect(palette.success.contrastText).toBe(
+        getCssVariableValue(modeSection, "--ds-on-success"),
+      );
+
+      expect(palette.info.main).toBe(
+        getCssVariableValue(modeSection, "--ds-info"),
+      );
+      expect(palette.info.light).toBe(
+        getCssVariableValue(modeSection, "--ds-info-accent"),
+      );
+      expect(palette.info.dark).toBe(
+        getCssVariableValue(modeSection, "--ds-info-emphasis"),
+      );
+      expect(palette.info.contrastText).toBe(
+        getCssVariableValue(modeSection, "--ds-on-info"),
+      );
+
+      expect(palette.error.main).toBe(
+        getCssVariableValue(modeSection, "--ds-danger"),
+      );
+      expect(palette.error.light).toBe(
+        getCssVariableValue(modeSection, "--ds-danger-accent"),
+      );
+      expect(palette.error.dark).toBe(
+        getCssVariableValue(modeSection, "--ds-danger-emphasis"),
+      );
+      expect(palette.error.contrastText).toBe(
+        getCssVariableValue(modeSection, "--ds-on-danger"),
+      );
+    },
+  );
 });
