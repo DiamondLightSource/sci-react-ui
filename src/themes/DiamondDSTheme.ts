@@ -983,7 +983,7 @@ const DiamondDSTheme = extendTheme({
 
           return {
             textTransform: "none",
-            border: `1px solid ${"var(--ds-border-emphasis)"}`,
+            border: "1px solid var(--ds-border-emphasis)",
 
             color: "inherit",
 

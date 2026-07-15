@@ -494,19 +494,18 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
-  it("uses semantic roles for toggle button borders and selected state", () => {
+  it("uses neutral toggle button styles by default", () => {
     const root =
       DiamondDSTheme.components?.MuiToggleButton?.styleOverrides?.root;
 
     const styles = getStyleOverride(root, {
-      ownerState: {
-        color: "primary", // Add this
-      },
+      ownerState: {},
       theme: DiamondDSTheme,
     });
 
     expect(styles.textTransform).toBe("none");
     expect(styles.border).toBe("1px solid var(--ds-border-emphasis)");
+    expect(styles.color).toBe("inherit");
 
     expect(styles["&:hover"]).toEqual(
       expect.objectContaining({
@@ -516,9 +515,16 @@ describe("DiamondDS component overrides", () => {
 
     expect(styles["&.Mui-selected"]).toEqual(
       expect.objectContaining({
-        backgroundColor: "var(--ds-primary-container)",
-        color: "var(--ds-on-primary-container)",
-        borderColor: "var(--ds-primary-accent)",
+        backgroundColor: "var(--ds-overlay-selected)",
+        color: "inherit",
+        borderColor: "var(--ds-border-strong)",
+      }),
+    );
+
+    expect(styles["&.Mui-selected:hover"]).toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-overlay-selected)",
+        borderColor: "var(--ds-border-strong)",
       }),
     );
 
@@ -526,6 +532,34 @@ describe("DiamondDS component overrides", () => {
       expect.objectContaining({
         color: "var(--ds-on-surface-disabled)",
         borderColor: "var(--ds-border-subtle)",
+        boxShadow: "none",
+      }),
+    );
+  });
+
+  it("uses primary semantic roles for selected toggle button states", () => {
+    const root =
+      DiamondDSTheme.components?.MuiToggleButton?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      ownerState: {
+        color: "primary",
+      },
+      theme: DiamondDSTheme,
+    });
+
+    expect(styles["&.Mui-selected"]).toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-primary-container)",
+        color: "var(--ds-on-primary-container)",
+        borderColor: "var(--ds-primary-accent)",
+      }),
+    );
+
+    expect(styles["&.Mui-selected:hover"]).toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-primary-container)",
+        borderColor: "var(--ds-primary)",
       }),
     );
   });
