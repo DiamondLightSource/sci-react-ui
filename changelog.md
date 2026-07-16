@@ -1,5 +1,27 @@
 # SciReactUI Changelog
 
+## [v0.6.2] - 2026-07-16
+
+### Added
+
+- Comprehensive tests for `DiamondDSTheme` to improve coverage and ensure theme consistency.
+- Added overrides for MuiButtonGroup for improved styling consistency.
+
+### Changed
+
+- Refactored the theme architecture to improve maintainability and compatibility with Material React Table (MRT).
+- Updated border and alpha colour tokens to align with the design system theme and improve visual consistency.
+- Updated Avatar and MuiToggleButton theme overrides for improved styling consistency.
+- Updated the project's Node.js version.
+
+### Fixed
+
+- Updated the theme implementation to satisfy the new test suite and improve reliability.
+- Fixed initial theme flash by updating `ColourSchemeButton` and the development index.
+- Fixed colour scheme transition animation flicker when switching between light and dark modes.
+- Fixed minor compatibility issues
+- Fixed the Storybook installation link.
+
 ## [v0.6.1] - 2026-06-25
 
 ### Added
