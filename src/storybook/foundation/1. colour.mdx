@@ -1,0 +1,1009 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Foundations/Colour" />
+
+<div className="ds-docs">
+
+# Colour
+
+<span class="lead">
+  Colour helps users understand structure, meaning, and system state across
+  Diamond applications. In scientific software, colour must support complex
+  workflows, dense information displays, and operational decision-making without
+  becoming distracting or overwhelming.
+</span>
+
+DiamondDS uses colour semantically. Colours are chosen based on purpose rather than appearance. Neutral colours provide structure and hierarchy, intent colours communicate actions and status, and brand colours express Diamond identity.
+
+Most interfaces should be built primarily from neutral colours, with semantic colours used deliberately to draw attention to actions, changes in state, warnings, errors, or other important information. This helps maintain clarity, reduces visual noise, and ensures meaningful information stands out when it matters.
+
+---
+
+<em>
+  Colour should support understanding, not carry meaning on its own. Important
+  information should also be communicated through text, icons, labels, layout,
+  or interaction patterns.
+</em>
+
+## Contents
+
+<div className="ds-toc">
+  <ol>
+    <li>Colour principles</li>
+    <li>Colour model</li>
+    <li>Colour decision tree</li>
+    <li>Surface model</li>
+    <li>Colour anatomy</li>
+    <li>Interaction states</li>
+    <li>Scientific workflow guidance</li>
+    <li>Data visualisation guidance</li>
+    <li>Accessibility</li>
+    <li>Token reference</li>
+  </ol>
+</div>
+
+## 1. Colour principles
+
+<div className="ds-note">
+### Colour supports scientific work
+
+Colour should help users understand information, state, and action without becoming visual noise. Scientific applications often display large amounts of information at the same time, so colour must be deliberate, predictable, and accessible.
+
+### Structure before meaning
+
+Use neutral colours to build hierarchy, grouping, and layout.
+
+Apply semantic colours only when meaning needs to be communicated.
+
+### Meaning before brand
+
+Action and status colours communicate behaviour and system state.
+
+Brand colours communicate Diamond identity.
+
+Brand colour should rarely be responsible for functional meaning.
+
+### Consistency over decoration
+
+The same colour role should always communicate the same thing throughout the system.
+
+Avoid using colour simply to make an interface feel more decorative.
+
+### Accessible by default
+
+Colour must never be the sole method of communication.
+
+Use labels, icons, typography, and spatial cues alongside colour.
+
+</div>
+
+## 2. Colour model
+
+DiamondDS separates colour into three categories: **neutral**, **intent**, and **brand**.
+
+This separation helps ensure that visual structure, operational meaning, and organisational identity remain distinct.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-neutral" />
+        <span className="ds-role">Neutral</span>
+      </td>
+      <td>Structure and hierarchy</td>
+      <td>Backgrounds, surfaces, borders, text, tables, layout</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-primary" />
+        <span className="ds-role">Intent</span>
+      </td>
+      <td>Actions, status, and system meaning</td>
+      <td>Buttons, alerts, validation, feedback, selected states</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-brand" />
+        <span className="ds-role">Brand</span>
+      </td>
+      <td>Diamond identity</td>
+      <td>Branding moments, facility identity, splash screens</td>
+    </tr>
+  </tbody>
+</table>
+
+### Neutral
+
+Neutral colours define the structure of the interface.
+
+Use neutral colours for:
+
+- Page backgrounds
+- Surfaces
+- Containers
+- Dividers
+- Tables
+- Text
+- Data-heavy interfaces
+
+Neutral should account for the majority of visible colour in most applications.
+
+### Intent
+
+Intent colours communicate behaviour, status, and meaning.
+
+Intent colours answer: <em>What does this mean?</em>
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Intent</th>
+      <th>Meaning</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-primary" />
+        <span className="ds-role">Primary</span>
+      </td>
+      <td>Main action</td>
+      <td>Primary buttons, selected states, primary emphasis</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-secondary" />
+        <span className="ds-role">Secondary</span>
+      </td>
+      <td>Alternative or supporting action</td>
+      <td>Secondary buttons, filters, supporting controls</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-success" />
+        <span className="ds-role">success</span>
+      </td>
+      <td>Valid, complete, or operational</td>
+      <td>Confirmation, completion, available states</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-warning" />
+        <span className="ds-role">Warning</span>
+      </td>
+      <td>Caution or attention required</td>
+      <td>Risk states, thresholds, degraded conditions</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-danger" />
+        <span className="ds-role">Error/Danger</span>
+      </td>
+      <td>Blocking, failed, hazardous, or destructive</td>
+      <td>Errors, failed actions, destructive actions</td>
+    </tr>
+    <tr>
+      <td>
+        <span className="ds-swatch ds-swatch-info" />
+        <span className="ds-role">Info</span>
+      </td>
+      <td>Informational, contextual, or in progress</td>
+      <td>Guidance, progress, system messages</td>
+    </tr>
+  </tbody>
+</table>
+
+### Brand
+
+Brand colours communicate Diamond identity.
+
+Brand colours answer: <em>Who are we?</em>
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Use brand colour for:</h3>
+    <ul>
+<li>Logos</li>
+<li>Branded pages</li>
+<li>Onboarding experiences</li>
+<li>Splash screens</li>
+<li>Facility identity</li>
+</ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Avoid using brand colour for:</h3>
+    <ul>
+<li>Status</li>
+<li>Errors</li>
+<li>Warnings</li>
+<li>Destructive actions</li>
+<li>Operational state</li>
+    </ul>
+  </div>
+</div>
+
+## 3. Colour decision tree
+
+When choosing a colour role, start with purpose rather than appearance.
+
+```text
+Do I need colour?
+│
+├─ No
+│   └─ Neutral
+│
+└─ Yes
+    │
+    ├─ Communicating action?
+    │   ├─ Primary
+    │   └─ Secondary
+    │
+    ├─ Communicating status?
+    │   ├─ Success
+    │   ├─ Warning
+    │   ├─ Error
+    │   └─ Info
+    │
+    └─ Communicating identity?
+        └─ Brand
+```
+
+## 4. Surface model
+
+Neutral colours establish hierarchy and depth throughout the interface.
+
+Surface roles define the relationship between areas of content, while elevation provides additional visual prominence where needed.
+
+In most Diamond applications, hierarchy should be communicated through surface roles, spacing, borders, and layout before relying on elevation.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Surface level</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Background</td>
+      <td>Application canvas</td>
+      <td>App shell, page background, full-screen layouts</td>
+    </tr>
+    <tr>
+      <td>Surface</td>
+      <td>Default content surface</td>
+      <td>Cards, dialogs, menus, content panels</td>
+    </tr>
+    <tr>
+      <td>Surface container</td>
+      <td>Quiet grouped surface</td>
+      <td>Secondary panels, grouped controls, low-emphasis regions</td>
+    </tr>
+    <tr>
+      <td>Surface container high</td>
+      <td>Stronger grouped surface</td>
+      <td>Nested containers, selected regions, raised sections</td>
+    </tr>
+    <tr>
+      <td>Overlay</td>
+      <td>Temporary elevated layer</td>
+      <td>Menus, popovers, drawers</td>
+    </tr>
+    <tr>
+      <td>Modal</td>
+      <td>Highest-emphasis layer</td>
+      <td>Dialogs and critical workflows</td>
+    </tr>
+  </tbody>
+</table>
+
+### Surface hierarchy
+
+```text
+Background
+ └─ Surface
+     └─ Surface container
+         └─ Surface container high
+             └─ Overlay
+                 └─ Modal
+```
+
+### Surface hierarchy and elevation
+
+Surface roles and elevation work together but serve different purposes.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Concept</th> <th>Purpose</th> <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Surface hierarchy</td>
+      <td>Defines content relationships and grouping</td>
+      <td>Background, Surface, Container, Overlay</td>
+    </tr>
+    <tr>
+      <td>Elevation</td> <td>Defines visual prominence and separation</td>
+      <td>Cards, menus, dialogs, temporary layers</td>
+    </tr>
+  </tbody>
+</table>
+
+A surface may use elevation, but elevation alone should not be used to communicate hierarchy.
+
+<div className="ds-note">
+  <p>
+    Prefer surface hierarchy, spacing, and borders before increasing elevation.
+    Elevation should be used primarily for floating, temporary, or
+    high-attention content such as menus, popovers, and dialogs.
+  </p>
+</div>
+
+## 5. Colour anatomy
+
+Each semantic colour role contains related tokens that support different levels of emphasis and interaction.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default/Main</td>
+      <td>Core semantic colour</td>
+      <td>Actions, status indicators, emphasis</td>
+    </tr>
+    <tr>
+      <td>Accent</td>
+      <td>Supporting highlight</td>
+      <td>Focus rings, highlights, supporting accents</td>
+    </tr>
+    <tr>
+      <td>Emphasis</td>
+      <td>Stronger emphasis</td>
+      <td>Hover, active, or stronger emphasis states</td>
+    </tr>
+    <tr>
+      <td>Container</td>
+      <td>Low-emphasis semantic surface</td>
+      <td>Chips, alerts, selected regions, grouped states</td>
+    </tr>
+    <tr>
+      <td>On Container</td>
+      <td>Foreground for container</td>
+      <td>Text and icons inside semantic containers</td>
+    </tr>
+    <tr>
+      <td>Solid</td>
+      <td>High-emphasis interactive surface</td>
+      <td>Contained buttons and strong interactive controls</td>
+    </tr>
+    <tr>
+      <td>On Solid</td>
+      <td>Foreground for solid</td>
+      <td>Text and icons inside solid controls</td>
+    </tr>
+    <tr>
+      <td>Contrast Text</td>
+      <td>Foreground for the main colour</td>
+      <td>Text and icons placed directly on the main colour</td>
+    </tr>
+  </tbody>
+</table>
+
+### Light and dark comparison
+
+<div className="ds-mode-compare">
+  <section className="ds-mode-panel" data-mode="light">
+    <header>
+      <h3>Light</h3>
+      <p>Default appearance on light surfaces.</p>
+    </header>
+    <div className="ds-token-grid">
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-main" />
+        <strong>Primary</strong>
+        <code>--ds-primary</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-container" />
+        <strong>Primary container</strong>
+        <code>--ds-primary-container</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-surface" />
+        <strong>Surface</strong>
+        <code>--ds-surface</code>
+      </div>
+    </div>
+  </section>
+
+  <section className="ds-mode-panel" data-mode="dark">
+    <header>
+      <h3>Dark</h3>
+      <p>Equivalent roles on dark surfaces.</p>
+    </header>
+    <div className="ds-token-grid">
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-main" />
+        <strong>Primary</strong>
+        <code>--ds-primary</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-primary-container" />
+        <strong>Primary container</strong>
+        <code>--ds-primary-container</code>
+      </div>
+      <div className="ds-token-card">
+        <span className="ds-token-swatch ds-bg-surface" />
+        <strong>Surface</strong>
+        <code>--ds-surface</code>
+      </div>
+    </div>
+  </section>
+</div>
+
+### Container and solid patterns
+
+DiamondDS uses two primary semantic presentation patterns: **container** and **solid**.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Pattern</th>
+      <th>Emphasis</th>
+      <th>Purpose</th>
+      <th>Typical usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Container</td>
+      <td>Low</td>
+      <td>Provides a semantic surface without dominating the interface</td>
+      <td>Alerts, chips, selected regions, informational panels</td>
+    </tr>
+    <tr>
+      <td>Solid</td>
+      <td>High</td>
+      <td>Creates a strong interactive or semantic surface</td>
+      <td>Contained buttons, primary actions, high-priority controls</td>
+    </tr>
+  </tbody>
+</table>
+
+Use **container** when meaning should be visible but quiet.
+
+Use **solid** when an action or state needs stronger emphasis.
+
+<div className="ds-note">
+
+**Looking for the implementation reference?**
+
+This page explains the principles behind colour in DiamondDS. For a complete reference of every semantic theme token in light and dark mode, see **[Theme Colours](/docs/foundations-theme-colours--docs)**.
+
+</div>
+
+## 6. Interaction states
+
+Colour changes should support interaction without becoming the only indication of state.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Purpose</th>
+      <th>Guidance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rest</td>
+      <td>Default appearance</td>
+      <td>Use the base semantic role for the component or surface.</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>Pointer interaction</td>
+      <td>Use a subtle change in surface, border, or emphasis.</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td>Keyboard focus</td>
+      <td>Always use the focus ring. Do not rely only on colour changes.</td>
+    </tr>
+    <tr>
+      <td>Active</td>
+      <td>Pressed state</td>
+      <td>Use a stronger interaction treatment than hover.</td>
+    </tr>
+    <tr>
+      <td>Selected</td>
+      <td>Persistent selection</td>
+      <td>
+        Use a clear selected treatment that remains visible after interaction.
+      </td>
+    </tr>
+    <tr>
+      <td>Read-only</td>
+      <td>Viewable but not editable</td>
+      <td>
+        Content remains selectable and readable. Users can focus, copy, and
+        inspect values, but cannot modify them.
+      </td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>Unavailable interaction</td>
+      <td>
+        Disabled styles always override hover, focus, active, and selected
+        states.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### Read-only
+
+Read-only content is available for inspection but cannot be edited.
+
+Use read-only when users need access to information while preventing modification. This is common in scientific and operational workflows where values may be locked, system-generated, or controlled by permissions, but still need to be reviewed, verified, compared, copied, or referenced.
+
+<div className="ds-note">
+  <p>
+    Prefer <strong>read-only</strong> over <strong>disabled</strong> whenever
+    users still need access to the underlying information. Disabled states
+    should primarily be used for unavailable actions and controls rather than
+    viewable data.
+  </p>
+</div>
+
+Disabled content may be omitted from form submissions, skipped during keyboard navigation, unavailable to some automation and testing tools, or inaccessible to integrations and data extraction workflows. Read-only content remains part of the interface and remains available for inspection, copying, automation, and accessibility tooling.
+
+Use read-only when users need to:
+
+- Review values before making decisions.
+- Compare settings or configuration.
+- Copy text or data.
+- Reference system-generated information.
+- Access information that is currently locked for editing.
+
+Read-only content should remain:
+
+- Readable.
+- Clearly identifiable as non-editable.
+- Focusable where appropriate.
+- Selectable and copyable where appropriate.
+- Visually distinct from editable controls.
+
+Read-only content should not appear disabled.
+
+Disabled content communicates that a control is unavailable. Read-only content communicates that a value is available but cannot be changed.
+
+### Read-only vs disabled
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Capability</th>
+      <th>Read-only</th>
+      <th>Disabled</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Visible</td>
+      <td>✓</td>
+      <td>✓</td>
+    </tr>
+    <tr>
+      <td>Readable</td>
+      <td>✓</td>
+      <td>✓</td>
+    </tr>
+    <tr>
+      <td>Focusable</td>
+      <td>Usually</td>
+      <td>✕</td>
+    </tr>
+    <tr>
+      <td>Selectable</td>
+      <td>✓</td>
+      <td>Usually not</td>
+    </tr>
+    <tr>
+      <td>Copyable</td>
+      <td>✓</td>
+      <td>Usually not</td>
+    </tr>
+    <tr>
+      <td>Submitted with forms</td>
+      <td>Usually</td>
+      <td>Usually not</td>
+    </tr>
+    <tr>
+      <td>Available to automation and integrations</td>
+      <td>Usually</td>
+      <td>Not always</td>
+    </tr>
+    <tr>
+      <td>Editable</td>
+      <td>✕</td>
+      <td>✕</td>
+    </tr>
+  </tbody>
+</table>
+
+### State priority
+
+When multiple states apply, use this priority order.
+
+```text
+Disabled
+  ↓
+Error
+  ↓
+Selected
+  ↓
+Active
+  ↓
+Hover
+  ↓
+Rest
+```
+
+Disabled and error states always win over other visual states.
+
+## 7. Scientific workflow guidance
+
+Scientific interfaces often contain:
+
+- Large tables
+- Live data
+- Monitoring views
+- Control panels
+- Acquisition screens
+- Alerts and operational feedback
+
+In these environments, colour must maintain a strong signal-to-noise ratio.
+
+### Do
+
+<div className="ds-dos">
+  <div className="ds-card">
+    <h3>✅ Do</h3>
+    <ul>
+      <li>Use neutral colours for most layout and structure.</li>
+      <li>Reserve semantic colours for meaningful changes in state.</li>
+      <li>Use warning and error colours only when attention or action is needed.</li>
+      <li>Ensure critical alerts remain visually distinct.</li>
+      <li>Allow data visualisation colours to remain distinct from UI colours.</li>
+    </ul>
+  </div>
+
+  <div className="ds-card">
+    <h3>❌ Don’t</h3>
+    <ul>
+      <li>Don’t use large blocks of semantic colour as decoration.</li>
+      <li>Don’t colour every data point, metric, or row.</li>
+      <li>Don’t use status colours for general layout structure.</li>
+      <li>Don’t create multiple competing status colours in the same view.</li>
+      <li>Don’t make visualisation colours compete with interface colours.</li>
+    </ul>
+  </div>
+</div>
+
+## 8. Data visualisation guidance
+
+UI colours and visualisation colours serve different purposes.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Colour system</th>
+      <th>Purpose</th>
+      <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UI colours</td>
+      <td>Communicate structure, actions, and status</td>
+      <td>Buttons, alerts, text, borders, surfaces</td>
+    </tr>
+    <tr>
+      <td>Visualisation colours</td>
+      <td>Communicate data categories, measurements, and trends</td>
+      <td>Charts, plots, heatmaps, scientific visualisations</td>
+    </tr>
+  </tbody>
+</table>
+
+Do not reuse UI intent colours as a general chart palette.
+
+Use visualisation colours for data and UI colours for interface meaning.
+
+## 9. Accessibility
+
+Colour plays an important role in accessibility but should not be relied upon as the sole means of communication.
+
+Important information should be communicated through a combination of colour, text, icons, labels, layout, and interaction patterns.
+
+### Colour accessibility principles
+
+- Do not communicate meaning through colour alone.
+- Ensure important states remain distinguishable in both light and dark modes.
+- Pair status colours with labels, icons, or supporting text.
+- Use semantic colour tokens rather than hardcoded values.
+- Test colour usage in realistic workflows and data-dense interfaces.
+
+<div className="ds-note">
+  For contrast requirements, focus indicators, and broader accessibility
+  standards, refer to the Accessibility section.
+</div>
+
+## 10. Token reference
+
+The token reference connects DiamondDS semantic colour roles to CSS variables and MUI palette roles.
+
+Use semantic tokens and MUI palette roles in components. Avoid hardcoded hex values.
+
+### Semantic intent and brand roles
+
+Intent and brand colours follow a shared semantic structure.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Token pattern</th>
+      <th>MUI role</th>
+      <th>Purpose</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-[token]</code>
+      </td>
+      <td>
+        <code>palette.[role].main</code>
+      </td>
+      <td>Main semantic colour</td>
+      <td>Actions, status communication, emphasis, identity</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-on-[token]</code>
+      </td>
+      <td>
+        <code>palette.[role].contrastText</code>
+      </td>
+      <td>Foreground colour paired with the role</td>
+      <td>Text and icons shown on the role colour</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-[token]-emphasis</code>
+      </td>
+      <td>
+        <code>palette.[role].dark</code>
+      </td>
+      <td>Stronger variation of the role</td>
+      <td>Hover, active, or stronger emphasis states</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-[token]-accent</code>
+      </td>
+      <td>
+        <code>palette.[role].light</code>
+      </td>
+      <td>Lighter accent variation</td>
+      <td>Focus rings, highlights, supporting accents</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-[token]-container</code>
+      </td>
+      <td>
+        <code>palette.[role].container</code>
+      </td>
+      <td>Lower-emphasis role surface</td>
+      <td>Chips, alerts, selected regions, grouped states</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-on-[token]-container</code>
+      </td>
+      <td>
+        <code>palette.[role].onContainer</code>
+      </td>
+      <td>Foreground colour paired with role containers</td>
+      <td>Text and icons inside semantic containers</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-[token]-solid</code>
+      </td>
+      <td>
+        <code>palette.[role].solid</code>
+      </td>
+      <td>High-emphasis interactive surface</td>
+      <td>Contained buttons and strong interactive controls</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-on-[token]-solid</code>
+      </td>
+      <td>
+        <code>palette.[role].onSolid</code>
+      </td>
+      <td>Foreground colour paired with solid surfaces</td>
+      <td>Text and icons inside solid controls</td>
+    </tr>
+  </tbody>
+</table>
+
+<div className="ds-note">
+  <p>Token names and MUI role names are usually aligned.</p>
+  <p>
+    DiamondDS uses <code>danger</code> tokens internally, which map to the MUI
+    <code>error</code> palette role.
+  </p>
+</div>
+
+### Neutral roles
+
+Neutral tokens create the structure of the interface. They should be the default choice for layout, surfaces, borders, text, and dense scientific workflows.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>MUI role</th>
+      <th>Purpose</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-background</code>
+      </td>
+      <td>
+        <code>background.default</code>
+      </td>
+      <td>Root application background</td>
+      <td>App shell, page canvas, full-screen layouts</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface</code>
+      </td>
+      <td>
+        <code>background.paper</code>
+      </td>
+      <td>Base content surface</td>
+      <td>Cards, dialogs, menus, content panels</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface-container</code>
+      </td>
+      <td>
+        <code>surface.subtle</code>
+      </td>
+      <td>Quiet grouped surface</td>
+      <td>Secondary panels, grouped controls, low-emphasis regions</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface-container-high</code>
+      </td>
+      <td>
+        <code>surface.strong</code>
+      </td>
+      <td>Stronger grouped surface</td>
+      <td>Nested containers, selected regions, raised sections</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-surface-disabled</code>
+      </td>
+      <td>
+        <code>surface.disabled</code>
+      </td>
+      <td>Disabled surface treatment</td>
+      <td>Disabled filled controls and inactive regions</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-on-surface</code>
+      </td>
+      <td>
+        <code>text.primary</code>
+      </td>
+      <td>Main foreground colour</td>
+      <td>Primary text and icons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-on-surface-variant</code>
+      </td>
+      <td>
+        <code>text.secondary</code>
+      </td>
+      <td>Lower-emphasis foreground colour</td>
+      <td>Secondary text, metadata, helper text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-on-surface-disabled</code>
+      </td>
+      <td>
+        <code>text.disabled</code>
+      </td>
+      <td>Disabled foreground colour</td>
+      <td>Disabled text and icons</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-action-disabled</code>
+      </td>
+      <td>
+        <code>action.disabled</code>
+      </td>
+      <td>Disabled interactive colour</td>
+      <td>Disabled buttons, controls, and actions</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-border-subtle</code>
+      </td>
+      <td>
+        <code>border.subtle</code>
+      </td>
+      <td>Quiet structural boundary</td>
+      <td>Dividers, table lines, subtle outlines</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-border-emphasis</code>
+      </td>
+      <td>
+        <code>border.emphasis</code>
+      </td>
+      <td>Stronger boundary</td>
+      <td>Interactive boundaries and active regions</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-border-strong</code>
+      </td>
+      <td>
+        <code>border.strong</code>
+      </td>
+      <td>Highest-emphasis neutral boundary</td>
+      <td>Hover states and high-attention boundaries</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
