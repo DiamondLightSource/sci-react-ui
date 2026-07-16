@@ -397,9 +397,9 @@ const createPaletteColour = (
     solid: `var(--ds-${tokenName}-solid)`,
     onSolid: `var(--ds-on-${tokenName}-solid)`,
 
-    mainChannel: `var(--ds-${tokenName}-mainChannel)`,
-    lightChannel: `var(--ds-${tokenName}-lightChannel)`,
-    darkChannel: `var(--ds-${tokenName}-darkChannel)`,
+    mainChannel: `var(--ds-${tokenName}-channel)`,
+    lightChannel: `var(--ds-${tokenName}-accent-channel)`,
+    darkChannel: `var(--ds-${tokenName}-emphasis-channel)`,
     contrastTextChannel: `var(--ds-on-${tokenName}-channel)`,
   };
 };
@@ -423,9 +423,9 @@ const createBrandPaletteColour = (): BrandPaletteColor => ({
   onSolid: "var(--ds-on-brand-solid)",
 
   contrastTextChannel: "var(--ds-on-brand-channel)",
-  mainChannel: "var(--ds-brand-mainChannel)",
-  lightChannel: "var(--ds-brand-lightChannel)",
-  darkChannel: "var(--ds-brand-darkChannel)",
+  mainChannel: "var(--ds-brand-channel)",
+  lightChannel: "var(--ds-brand-accent-channel)",
+  darkChannel: "var(--ds-brand-emphasis-channel)",
 
   fixed: "var(--ds-brand-fixed)",
   fixedDim: "var(--ds-brand-fixed-dim)",
