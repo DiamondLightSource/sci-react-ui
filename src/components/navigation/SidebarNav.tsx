@@ -11,8 +11,9 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useTheme, Theme } from "@mui/material/styles";
-import { Fragment, type ElementType, type ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import type { LinkProps } from "./types";
 
 export type Navigation = NavItemGroup[];
 
@@ -28,23 +29,9 @@ type NavItemDefinition = {
   selected?: boolean;
 };
 
-type LinkProps = ExternalLinkProps | InternalLinkProps;
+const getSidebarNavWidth = (open: boolean) => (open ? 257 : 65); // 256/64 + 1 pixel for the border
 
-/** For native anchor tags */
-type ExternalLinkProps = {
-  href: string;
-  component?: never;
-  to?: never;
-};
-
-/** For SPA navigation */
-type InternalLinkProps = {
-  component: ElementType;
-  to: string;
-  href?: never;
-};
-
-const drawerTransition = (theme: Theme, opening: boolean) => {
+export const drawerTransition = (theme: Theme, opening: boolean) => {
   return theme.transitions.create("width", {
     easing: opening
       ? theme.transitions.easing.easeIn
@@ -77,7 +64,7 @@ export function SidebarNav(props: NavProps) {
  * Pushes main content to the right.
  */
 function PermanentDrawer(props: NavProps) {
-  const width = props.open ? 257 : 65; // 256/64 + 1 pixel for the border
+  const width = getSidebarNavWidth(props.open);
   return (
     <Drawer
       variant="permanent"
