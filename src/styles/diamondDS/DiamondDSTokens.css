@@ -158,7 +158,7 @@
   --ds-brand-emphasis-channel: 23 31 53;
 
   /* Danger (Red) */
-  --ds-danger: #b42318;
+  --ds-danger: #ae1e13;
   --ds-on-danger: #ffffff;
   --ds-danger-emphasis: #912018;
   --ds-danger-accent: #d94f45;
@@ -168,14 +168,14 @@
   --ds-on-danger-solid: #ffffff;
 
   --ds-on-danger-channel: 255 255 255;
-  --ds-danger-channel: 180 35 24;
+  --ds-danger-channel: 174 30 19;
   --ds-danger-accent-channel: 217 79 69;
   --ds-danger-emphasis-channel: 145 32 24;
 
   /* Warning (Orange) */
-  --ds-warning: #c96a04;
+  --ds-warning: #a95703;
   --ds-on-warning: #ffffff;
-  --ds-warning-emphasis: #a95703;
+  --ds-warning-emphasis: #944b00;
   --ds-warning-accent: #e98a15;
   --ds-warning-container: #fef0df;
   --ds-on-warning-container: #6f3200;
@@ -183,22 +183,22 @@
   --ds-on-warning-solid: #ffffff;
 
   --ds-on-warning-channel: 255 255 255;
-  --ds-warning-channel: 201 106 4;
+  --ds-warning-channel: 169 87 3;
   --ds-warning-accent-channel: 233 138 21;
-  --ds-warning-emphasis-channel: 169 87 3;
+  --ds-warning-emphasis-channel: 148 75 0;
 
   /* Success (Green) */
-  --ds-success: #187a2f;
+  --ds-success: #137329;
   --ds-on-success: #ffffff;
   --ds-success-emphasis: #146125;
   --ds-success-accent: #2fb344;
-  --ds-success-container: #e3f4e7;
-  --ds-on-success-container: #124d22;
+  --ds-success-container: #d4f3df;
+  --ds-on-success-container: #0d491d;
   --ds-success-solid: #1b8834;
   --ds-on-success-solid: #ffffff;
 
   --ds-on-success-channel: 255 255 255;
-  --ds-success-channel: 24 122 47;
+  --ds-success-channel: 19 115 41;
   --ds-success-accent-channel: 47 179 68;
   --ds-success-emphasis-channel: 20 97 37;
 

@@ -291,19 +291,19 @@ const paletteAdapterValues: Record<DSMode, Record<string, PaletteAdapter>> = {
     },
     danger: {
       light: "#d94f45", // --ds-danger-accent
-      main: "#b42318", // --ds-danger
+      main: "#ae1e13", // --ds-danger
       dark: "#912018", // --ds-danger-emphasis
       contrastText: "#ffffff", // --ds-on-danger
     },
     warning: {
       light: "#e98a15", // --ds-warning-accent
-      main: "#c96a04", // --ds-warning
-      dark: "#a95703", // --ds-warning-emphasis
+      main: "#a95703", // --ds-warning
+      dark: "#944b00", // --ds-warning-emphasis
       contrastText: "#ffffff", // --ds-on-warning
     },
     success: {
       light: "#2fb344", // --ds-success-accent
-      main: "#187a2f", // --ds-success
+      main: "#137329", // --ds-success
       dark: "#146125", // --ds-success-emphasis
       contrastText: "#ffffff", // --ds-on-success
     },
