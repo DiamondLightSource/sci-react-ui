@@ -1,6 +1,6 @@
 # SciReactUI Changelog
 
-## [v0.6.2] - 2026-07-16
+## [v0.6.2] - 2026-07-21
 
 ### Added
 
