@@ -11,7 +11,15 @@ import "../src/styles/diamondDS/DiamondDSTokens.css";
 const TextThemeDiamondDS = "Theme: DiamondDS";
 
 export const decorators = [
-  (StoriesWithPadding: React.FC) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (StoriesWithPadding: React.FC, context: any) => {
+    /* Fixed-position content (for example permanent Drawers) ignores this
+       wrapper's padding and stays aligned to the viewport, leaving a visible
+       gap beside padded content. 
+       Full-page layout stories opt out with this flag. */
+    if (context.parameters.fullBleed === true) {
+      return <StoriesWithPadding />;
+    }
     return (
       <div style={{ padding: "2em" }}>
         <StoriesWithPadding />
