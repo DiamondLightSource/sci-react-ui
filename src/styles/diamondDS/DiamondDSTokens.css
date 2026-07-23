@@ -119,19 +119,19 @@
    *
    * Available as a token family but not currently exposed as a MUI intent colour.
    */
-  --ds-tertiary: #8c0070;
+  --ds-tertiary: #950078;
   --ds-on-tertiary: #ffffff;
-  --ds-tertiary-emphasis: #6c0057;
-  --ds-tertiary-accent: #c735a8;
-  --ds-tertiary-container: #f8e2f2;
-  --ds-on-tertiary-container: #4f003f;
-  --ds-tertiary-solid: #b8329b;
+  --ds-tertiary-emphasis: #7d0064;
+  --ds-tertiary-accent: #d44ebb;
+  --ds-tertiary-container: #f8e0f2;
+  --ds-on-tertiary-container: #560045;
+  --ds-tertiary-solid: #b0008e;
   --ds-on-tertiary-solid: #ffffff;
 
   --ds-on-tertiary-channel: 255 255 255;
-  --ds-tertiary-channel: 140 0 112;
-  --ds-tertiary-accent-channel: 199 53 168;
-  --ds-tertiary-emphasis-channel: 108 0 87;
+  --ds-tertiary-channel: 149 0 120;
+  --ds-tertiary-accent-channel: 212 78 187;
+  --ds-tertiary-emphasis-channel: 125 0 100;
 
   /* Brand (Diamond Blue) */
   --ds-brand: #202945;
@@ -221,19 +221,19 @@
    *
    * Available as a token family but not currently exposed as a MUI intent colour.
    */
-  --ds-highlight: #d4a900;
+  --ds-highlight: #e5b800;
   --ds-on-highlight: #1a1c23;
-  --ds-highlight-emphasis: #b89300;
-  --ds-highlight-accent: #ffd84d;
-  --ds-highlight-container: #fff4cc;
+  --ds-highlight-emphasis: #c49b00;
+  --ds-highlight-accent: #fddc60;
+  --ds-highlight-container: #fef4cc;
   --ds-on-highlight-container: #6b5500;
-  --ds-highlight-solid: #b89300;
-  --ds-on-highlight-solid: #ffffff;
+  --ds-highlight-solid: #fcd021;
+  --ds-on-highlight-solid: #1a1c23;
 
   --ds-on-highlight-channel: 26 28 35;
-  --ds-highlight-channel: 212 169 0;
-  --ds-highlight-accent-channel: 255 216 77;
-  --ds-highlight-emphasis-channel: 184 147 0;
+  --ds-highlight-channel: 229 184 0;
+  --ds-highlight-accent-channel: 253 220 96;
+  --ds-highlight-emphasis-channel: 196 155 0;
 
   /* Focus roles */
   --ds-focus-ring: var(--ds-primary-accent);
@@ -343,19 +343,19 @@
   --ds-secondary-emphasis-channel: 154 240 243;
 
   /* Tertiary */
-  --ds-tertiary: #e587d1;
-  --ds-on-tertiary: #2a0022;
-  --ds-tertiary-emphasis: #f7bfeb;
-  --ds-tertiary-accent: #efa5e0;
-  --ds-tertiary-container: #381232;
-  --ds-on-tertiary-container: #f9d8f1;
-  --ds-tertiary-solid: #b8329b;
+  --ds-tertiary: #e080cc;
+  --ds-on-tertiary: #2d0024;
+  --ds-tertiary-emphasis: #f0b8e3;
+  --ds-tertiary-accent: #e898d5;
+  --ds-tertiary-container: #3a0e30;
+  --ds-on-tertiary-container: #f5d0eb;
+  --ds-tertiary-solid: #9a007c;
   --ds-on-tertiary-solid: #ffffff;
 
-  --ds-on-tertiary-channel: 42 0 34;
-  --ds-tertiary-channel: 229 135 209;
-  --ds-tertiary-accent-channel: 239 165 224;
-  --ds-tertiary-emphasis-channel: 247 191 235;
+  --ds-on-tertiary-channel: 45 0 36;
+  --ds-tertiary-channel: 224 128 204;
+  --ds-tertiary-accent-channel: 232 152 213;
+  --ds-tertiary-emphasis-channel: 240 184 227;
 
   /* Brand */
   --ds-brand: #aabdff;
@@ -437,17 +437,17 @@
   --ds-info-emphasis-channel: 213 224 255;
 
   /* Highlight */
-  --ds-highlight: #ffd84d;
-  --ds-on-highlight: #2a2100;
-  --ds-highlight-emphasis: #fff1b8;
-  --ds-highlight-accent: #ffeaa0;
-  --ds-highlight-container: #4b3a05;
-  --ds-on-highlight-container: #fff4c7;
-  --ds-highlight-solid: #d4a900;
+  --ds-highlight: #fddc60;
+  --ds-on-highlight: #2b2000;
+  --ds-highlight-emphasis: #fee899;
+  --ds-highlight-accent: #fde070;
+  --ds-highlight-container: #352b00;
+  --ds-on-highlight-container: #fef0b3;
+  --ds-highlight-solid: #e5b800;
   --ds-on-highlight-solid: #1a1c23;
 
-  --ds-on-highlight-channel: 42 33 0;
-  --ds-highlight-channel: 255 216 77;
-  --ds-highlight-accent-channel: 255 234 160;
-  --ds-highlight-emphasis-channel: 255 241 184;
+  --ds-on-highlight-channel: 43 32 0;
+  --ds-highlight-channel: 253 220 96;
+  --ds-highlight-accent-channel: 253 224 112;
+  --ds-highlight-emphasis-channel: 254 232 153;
 }
