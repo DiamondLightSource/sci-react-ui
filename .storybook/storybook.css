@@ -410,7 +410,7 @@ pre .language-tsx:not(.MuiTypography-root) {
 
 .ds-intent-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -575,6 +575,28 @@ section.ds-mode-panel section {
   background: var(--ds-on-tertiary-solid);
 }
 
+.ds-bg-highlight-main {
+  background: var(--ds-highlight);
+}
+.ds-bg-highlight-dark {
+  background: var(--ds-highlight-emphasis);
+}
+.ds-bg-highlight-light {
+  background: var(--ds-highlight-accent);
+}
+.ds-bg-highlight-container {
+  background: var(--ds-highlight-container);
+}
+.ds-bg-highlight-on-container {
+  background: var(--ds-on-highlight-container);
+}
+.ds-bg-highlight-solid {
+  background: var(--ds-highlight-solid);
+}
+.ds-bg-highlight-on-solid {
+  background: var(--ds-on-highlight-solid);
+}
+
 .ds-bg-brand-main {
   background: var(--ds-brand);
 }
@@ -694,6 +716,36 @@ section.ds-mode-panel section {
   background: var(--ds-on-info-solid);
 }
 
+/* Contrast text (onPrimary, onDanger, etc.) shown as its own swatch */
+
+.ds-bg-on-primary {
+  background: var(--ds-on-primary);
+}
+.ds-bg-on-secondary {
+  background: var(--ds-on-secondary);
+}
+.ds-bg-on-tertiary {
+  background: var(--ds-on-tertiary);
+}
+.ds-bg-on-brand {
+  background: var(--ds-on-brand);
+}
+.ds-bg-on-danger {
+  background: var(--ds-on-danger);
+}
+.ds-bg-on-warning {
+  background: var(--ds-on-warning);
+}
+.ds-bg-on-success {
+  background: var(--ds-on-success);
+}
+.ds-bg-on-info {
+  background: var(--ds-on-info);
+}
+.ds-bg-on-highlight {
+  background: var(--ds-on-highlight);
+}
+
 /* Foregrounds */
 
 .ds-fg-primary-contrast,
@@ -703,7 +755,8 @@ section.ds-mode-panel section {
 .ds-fg-danger-contrast,
 .ds-fg-warning-contrast,
 .ds-fg-success-contrast,
-.ds-fg-info-contrast {
+.ds-fg-info-contrast,
+.ds-fg-highlight-contrast {
   color: var(--ds-on-solid);
 }
 
@@ -737,6 +790,40 @@ section.ds-mode-panel section {
 
 .ds-fg-info-contrast {
   color: var(--ds-on-info);
+}
+
+.ds-fg-highlight-contrast {
+  color: var(--ds-on-highlight);
+}
+
+/* Paired with the on-X backgrounds above so contrastText swatches stay legible */
+
+.ds-fg-primary-main {
+  color: var(--ds-primary);
+}
+.ds-fg-secondary-main {
+  color: var(--ds-secondary);
+}
+.ds-fg-tertiary-main {
+  color: var(--ds-tertiary);
+}
+.ds-fg-brand-main {
+  color: var(--ds-brand);
+}
+.ds-fg-danger-main {
+  color: var(--ds-danger);
+}
+.ds-fg-warning-main {
+  color: var(--ds-warning);
+}
+.ds-fg-success-main {
+  color: var(--ds-success);
+}
+.ds-fg-info-main {
+  color: var(--ds-info);
+}
+.ds-fg-highlight-main {
+  color: var(--ds-highlight);
 }
 
 .ds-fg-primary-container {
@@ -794,6 +881,19 @@ section.ds-mode-panel section {
 }
 .ds-fg-tertiary-on-fixed {
   color: var(--ds-on-tertiary-fixed);
+}
+
+.ds-fg-highlight-container {
+  color: var(--ds-highlight-container);
+}
+.ds-fg-highlight-on-container {
+  color: var(--ds-on-highlight-container);
+}
+.ds-fg-highlight-solid {
+  color: var(--ds-highlight-solid);
+}
+.ds-fg-highlight-on-solid {
+  color: var(--ds-on-highlight-solid);
 }
 
 .ds-fg-brand-container {
