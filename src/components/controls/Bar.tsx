@@ -11,6 +11,18 @@ import { Theme } from "@mui/material/styles";
 
 type BarProps = BoxProps & {
   containerWidth?: false | Breakpoint;
+
+  /**
+   * Background family for the bar. Pairs with `variant` — see its doc for how each surface
+   * responds to `solid` / `container` / `base`.
+   *
+   * - `primary` / `secondary` / `brand` — semantic intents. Only `solid`/`container` actually use
+   *   the intent colour; `base` falls back to a plain neutral background.
+   * - `brand-fixed` / `brand-fixedDim` — a persistent Diamond identity colour that stays constant
+   *   across light/dark mode, unlike `brand`. `variant` is ignored.
+   * - `surface` / `paper` — neutral, non-branded surface (aliases of each other).
+   * - `background` — the page's own background colour. `variant` is ignored.
+   */
   surface?:
     | "primary"
     | "secondary"
@@ -21,6 +33,16 @@ type BarProps = BoxProps & {
     | "paper"
     | "background";
 
+  /**
+   * How saturated the chosen `surface` is.
+   *
+   * - `solid` — full intent colour on a semantic surface, or the strongest neutral on `surface`/`paper`.
+   * - `container` — tinted container colour on a semantic surface, or a subtle neutral tint on `surface`/`paper`.
+   * - `base` (default) — plain neutral background. On a semantic surface (`primary`/`secondary`/`brand`)
+   *   this does NOT apply the intent colour — it renders the same neutral background as `surface`/`base`.
+   *
+   * Ignored by `brand-fixed`, `brand-fixedDim`, and `background`.
+   */
   variant?: "solid" | "container" | "base";
   elevation?: number;
 };

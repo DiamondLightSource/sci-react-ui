@@ -112,7 +112,19 @@ type NavbarProps = BarSlotsProps & {
 };
 
 /**
- * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links. Brand surface by default.
+ * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
+ *
+ * Defaults to the `brand` surface (solid), which adapts with light/dark mode like the rest of
+ * the theme. Alternatives include `brand-fixed`/`brand-fixedDim` for a persistent Diamond
+ * identity colour that stays constant across modes, and the neutral `surface` in `base` or
+ * `container` variant. Most Diamond apps should probably reach for `brand-fixed` or
+ * `surface`/`base` rather than the default — a constant Diamond identity colour, or a plain
+ * neutral bar, tend to suit real product chrome better than a navbar that shifts with the mode.
+ *
+ * `brand-fixed`/`brand-fixedDim` (any variant) and `solid` variant on `brand`/`primary`/`secondary`
+ * resolve to a fully saturated colour that provides its own separation from the page. Every other
+ * combination (including `container`, and `base` on a semantic intent, which falls back to a
+ * plain neutral background) picks up a bottom border so it doesn't blend into the content below.
  */
 const Navbar = ({
   surface = "brand",
@@ -122,9 +134,18 @@ const Navbar = ({
   linkComponent,
   leftSlot,
   children,
+  sx,
   ...props
 }: NavbarProps) => {
-  const forceOnDarkLogo = surface === "brand" || surface === "brand-fixed";
+  const isFixedBrand =
+    surface === "brand-fixed" || surface === "brand-fixedDim";
+  const isSemanticIntent =
+    surface === "brand" || surface === "primary" || surface === "secondary";
+  const isSolidIntent = isSemanticIntent && variant === "solid";
+  // Solid/fixed surfaces stay a dark, saturated colour in both light and dark mode, so the logo
+  // needs to be forced light-on-dark rather than following the page mode.
+  const isSaturatedSurface = isFixedBrand || isSolidIntent;
+  const hasNeutralSurface = !isSaturatedSurface;
 
   return (
     <Bar
@@ -133,6 +154,12 @@ const Navbar = ({
       variant={variant}
       elevation={elevation}
       data-testid="navbar"
+      sx={[
+        hasNeutralSurface && {
+          borderBottom: "1px solid var(--ds-border-subtle)",
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       leftSlot={
         <>
           {logo && (
@@ -168,8 +195,8 @@ const Navbar = ({
                       }}
                     >
                       <Logo
-                        fixedTone={forceOnDarkLogo ? "dark" : undefined}
-                        tone="inverse"
+                        fixedTone={isSaturatedSurface ? "dark" : undefined}
+                        tone="default"
                         short
                       />
                     </Box>
@@ -181,13 +208,16 @@ const Navbar = ({
                       }}
                     >
                       <Logo
-                        fixedTone={forceOnDarkLogo ? "dark" : undefined}
-                        tone="inverse"
+                        fixedTone={isSaturatedSurface ? "dark" : undefined}
+                        tone="default"
                       />
                     </Box>
                   </>
                 ) : (
-                  <ImageColourSchemeSwitch image={logo} />
+                  <ImageColourSchemeSwitch
+                    image={logo}
+                    fixedTone={isSaturatedSurface ? "dark" : undefined}
+                  />
                 )}
               </Box>
             </Link>

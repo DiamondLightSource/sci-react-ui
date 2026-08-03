@@ -7,6 +7,21 @@ const meta: Meta<BarSlotsProps> = {
   component: Bar,
   tags: ["autodocs"],
 
+  parameters: {
+    docs: {
+      description: {
+        component: `Basic bar. Comes with three slots, and adjustable width. Children are placed in the left slot.
+
+\`surface\` picks the background family; \`variant\` picks how saturated it is within that family.
+
+- \`primary\` / \`secondary\` / \`brand\` — semantic intents. Only \`solid\`/\`container\` actually use the intent colour; \`base\` falls back to a plain neutral background.
+- \`brand-fixed\` / \`brand-fixedDim\` — a persistent Diamond identity colour that stays constant across light/dark mode, unlike \`brand\`. \`variant\` is ignored.
+- \`surface\` / \`paper\` — neutral, non-branded surface (aliases of each other).
+- \`background\` — the page's own background colour. \`variant\` is ignored.`,
+      },
+    },
+  },
+
   argTypes: {
     surface: {
       control: "select",
@@ -27,7 +42,7 @@ const meta: Meta<BarSlotsProps> = {
       options: ["base", "container", "solid"],
       if: { arg: "surface", neq: ["background"] },
       description:
-        "Use 'base' only with surface/paper. Use 'container' or 'solid' for primary, secondary, and brand.",
+        "'base' renders a plain neutral background — it does not tint primary/secondary/brand, so use 'container' or 'solid' there for the intent colour to actually show.",
       table: { category: "Appearance" },
     },
     elevation: {
@@ -164,7 +179,7 @@ export const PrimaryVsSurface: Story = {
     docs: {
       description: {
         story:
-          "Semantic surfaces (e.g. primary, secondary) express intent, while neutral surfaces define structure and hierarchy.",
+          "Semantic surfaces (e.g. primary, secondary) express intent, while neutral surfaces define structure and hierarchy. Note this only holds for 'solid'/'container' — a semantic surface with variant='base' falls back to the same plain neutral shown here, not the intent colour.",
       },
     },
   },
@@ -199,7 +214,8 @@ export const ActionVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Variants adjust emphasis.",
+        story:
+          "'solid' and 'container' adjust emphasis on a semantic surface. 'base' is left out here deliberately — on primary/secondary/brand it doesn't tint at all, it falls back to a plain neutral background.",
       },
     },
   },
@@ -232,7 +248,7 @@ export const BrandOptions: Story = {
     docs: {
       description: {
         story:
-          "Brand surfaces are used for identity. brand-fixed and brand-fixedDim ignore variant prop and remain consistent across dark/light modes.",
+          "Brand surfaces are used for identity. brand-fixed and brand-fixedDim ignore the variant prop and stay a constant colour across light/dark mode, unlike brand (solid/container), which adapts with the theme.",
       },
     },
   },
