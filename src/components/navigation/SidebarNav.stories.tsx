@@ -18,6 +18,13 @@ import {
   Toolbar,
   Typography,
 } from "../MUI/MuiWrapped";
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 import { Theme } from "@mui/material/styles";
 import { Logo } from "../controls/Logo";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
@@ -44,6 +51,9 @@ A collapsing/expanding sidebar for your app's primary navigation.
 
 For normal screen sizes, the implementation uses MUI's permanent drawer toggling between two widths showing either icon and text or just icon.
 For smaller screens, we use the temporary variant instead.`,
+      },
+      story: {
+        height: "600px",
       },
     },
   },
@@ -76,24 +86,25 @@ const standardLinks = [
 ];
 
 export const NormalLinks: Story = {
-  render: (args) => {
+  render: (_args) => {
+    const [open, setOpen] = React.useState(true);
     return (
       <Box sx={{ display: "flex" }}>
-        <SidebarNav
-          navigation={standardLinks}
-          open={args.open}
-          setOpen={args.setOpen}
-        />
-        <Typography>
-          When using standard links, the caller must handle the selected state
-          and set it to the correct item.
-        </Typography>
+        <SidebarNav navigation={standardLinks} open={open} setOpen={setOpen} />
+        <Box sx={{ p: 2 }}>
+          <IconButton onClick={() => setOpen(!open)}>
+            <Menu />
+          </IconButton>
+          <Typography>
+            When using standard links, the caller must handle the selected state
+            and set it to the correct item.
+          </Typography>
+        </Box>
       </Box>
     );
   },
   args: {
     navigation: standardLinks,
-    open: true,
   },
 };
 
@@ -129,23 +140,29 @@ const reactRouterNavigation = [
 ];
 
 export const RouterLinks: Story = {
-  render: (args) => {
+  render: (_args) => {
+    const [open, setOpen] = React.useState(false);
     return (
       <Box sx={{ display: "flex" }}>
         <SidebarNav
           navigation={reactRouterNavigation}
-          open={args.open}
-          setOpen={args.setOpen}
+          open={open}
+          setOpen={setOpen}
         />
-        <Typography>
-          React Router <em>NavLinks</em> will handle selected state internally.
-        </Typography>
+        <Box sx={{ p: 2 }}>
+          <IconButton onClick={() => setOpen(!open)}>
+            <Menu />
+          </IconButton>
+          <Typography>
+            React Router <em>NavLinks</em> will handle selected state
+            internally.
+          </Typography>
+        </Box>
       </Box>
     );
   },
   args: {
     navigation: reactRouterNavigation,
-    open: false,
   },
 };
 
@@ -190,21 +207,120 @@ const groupedNavigation = [
 ];
 
 export const GroupedNavigation: Story = {
-  render: (args) => {
+  render: (_args) => {
+    const [open, setOpen] = React.useState(true);
     return (
       <Box sx={{ display: "flex" }}>
         <SidebarNav
-          navigation={args.navigation}
-          open={args.open}
-          setOpen={args.setOpen}
+          navigation={groupedNavigation}
+          open={open}
+          setOpen={setOpen}
         />
-        <Typography>Sections are grouped with dividers</Typography>
+        <Box sx={{ p: 2 }}>
+          <IconButton onClick={() => setOpen(!open)}>
+            <Menu />
+          </IconButton>
+          <Typography>Sections are grouped with dividers.</Typography>
+        </Box>
       </Box>
     );
   },
-  args: {
-    navigation: groupedNavigation,
-    open: true,
+};
+
+/** A dashed, tinted wrapper so it's obvious in the story which content is coming from a slot vs. the `navigation` prop. */
+const SlotOutline = ({
+  label,
+  open,
+  children,
+}: {
+  label: string;
+  open: boolean;
+  children: React.ReactNode;
+}) => (
+  <Box
+    sx={{
+      m: 1,
+      mt: 0,
+      border: "1px dashed",
+      borderColor: "divider",
+      borderRadius: 2,
+      bgcolor: "action.hover",
+      overflow: "hidden",
+    }}
+  >
+    {open && (
+      <Typography
+        variant="overline"
+        color="text.secondary"
+        sx={{ display: "block", px: 1.5, pt: 0.5 }}
+      >
+        {label}
+      </Typography>
+    )}
+    <List sx={{ p: 0.5, pt: 0 }}>{children}</List>
+  </Box>
+);
+
+export const WithSlots: Story = {
+  render: (_args) => {
+    const [open, setOpen] = React.useState(true);
+    return (
+      <Box sx={{ display: "flex" }}>
+        <SidebarNav
+          navigation={groupedNavigation}
+          open={open}
+          setOpen={setOpen}
+          afterNavSlot={
+            <SlotOutline label="afterNavSlot" open={open}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  href="https://www.example.com/docs"
+                  sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
+                >
+                  <ListItemIcon sx={{ minWidth: 32 }}>
+                    <Insights />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Documentation"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </SlotOutline>
+          }
+          footerSlot={
+            <SlotOutline label="footerSlot" open={open}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  href="#settings"
+                  sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
+                >
+                  <ListItemIcon sx={{ minWidth: 32 }}>
+                    <CorporateFare />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary="Settings"
+                    sx={{ opacity: open ? 1 : 0 }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </SlotOutline>
+          }
+        />
+        <Box sx={{ p: 2 }}>
+          <IconButton onClick={() => setOpen(!open)}>
+            <Menu />
+          </IconButton>
+          <Typography>
+            Adds slots to the navbar, boxes are only there to highlight what
+            each slot renders, they aren&apos;t part of the component.{" "}
+            <em>afterNavSlot</em> renders inside the scrollable area, right
+            after the navigation items. <em>footerSlot</em> is pinned to the
+            bottom of the drawer, outside the scroll area.
+          </Typography>
+        </Box>
+      </Box>
+    );
   },
 };
 
