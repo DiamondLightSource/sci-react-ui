@@ -150,7 +150,7 @@ const BoxStyled = styled(Box)<BarProps>(({ theme, ...ownerState }) => {
 
   return {
     width: "100%",
-    minHeight: 50,
+    minHeight: 48,
     display: "flex",
     alignItems: "center",
     backgroundColor,
