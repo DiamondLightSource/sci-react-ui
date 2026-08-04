@@ -1688,6 +1688,16 @@ const DiamondDSTheme = extendTheme({
         root: {
           backgroundColor: "var(--ds-surface)",
           boxShadow: "none",
+          border: "1px solid var(--ds-border-subtle)",
+          borderRadius: 8,
+
+          // Otherwise the last row's own border-bottom sits ~1px above the
+          // border above, reading as a doubled line. Covers both cell tags -
+          // MUI's row-header convention is `<TableCell component="th">` for
+          // the first column, so `td` alone misses it.
+          "& tbody tr:last-child td, & tbody tr:last-child th": {
+            borderBottom: "none",
+          },
         },
       },
     },

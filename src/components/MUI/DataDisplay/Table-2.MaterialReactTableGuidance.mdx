@@ -38,6 +38,40 @@ import { Meta } from "@storybook/blocks";
 
 </div>
 
+## Styling
+
+<p>
+  Material React Table is not a native MUI component, so it does not pick up{" "}
+  <strong>DiamondDSTheme</strong> automatically the way MuiTable or MuiButton
+  do. Styling has to be passed into each table explicitly through MRT's own{" "}
+  <strong>mrtTheme</strong> and <strong>muiTable*Props</strong> options.
+</p>
+
+<p>
+  <strong>DiamondDSIntegrations</strong> provides these values ready-made:{" "}
+  <strong>mrtTheme</strong> supplies MRT's internal theme colours (background,
+  selection, hover, dragging), and <strong>mrtOptions()</strong> supplies the
+  MUI slot props (header background, paper border, row hover/selected states)
+  that give MRT the same look as the base MUI table.
+</p>
+
+<pre className="ds-code-block">
+  {`const table = useMaterialReactTable({
+  columns,
+  data,
+  mrtTheme: DiamondDSIntegrations.mrtTheme,
+  ...DiamondDSIntegrations.mrtOptions(),
+});`}
+</pre>
+
+<div className="ds-note">
+  <strong>Apply this per table.</strong>
+  These values are not merged into the shared theme - every{" "}
+  <strong>useMaterialReactTable</strong> call needs its own{" "}
+  <strong>mrtTheme</strong> and <strong>mrtOptions()</strong>, or that table
+  falls back to MRT's unstyled defaults.
+</div>
+
 ## Core principle
 
 <p>
@@ -291,6 +325,29 @@ enableHiding: true`}
   </div>
 </div>
 
+## Full-width tables
+
+<p>
+  MRT tables normally render inside a bordered, rounded container to match the
+  plain MUI table. When a table spans the full width of a page or panel with no
+  surrounding container of its own, that border and radius should be dropped
+  rather than left floating inside the layout.
+</p>
+
+<p>
+  Pass <strong>fullWidth: true</strong> to{" "}
+  <strong>DiamondDSIntegrations.mrtOptions()</strong> to drop both.
+</p>
+
+<pre className="ds-code-block">
+  {`const table = useMaterialReactTable({
+  columns,
+  data,
+  mrtTheme: DiamondDSIntegrations.mrtTheme,
+  ...DiamondDSIntegrations.mrtOptions({ fullWidth: true }),
+});`}
+</pre>
+
 ## Example configuration
 
 <pre className="ds-code-block">
@@ -307,6 +364,9 @@ enableHiding: true`}
 
   // Add custom actions only when they are implemented.
   enableRowSelection: true,
+
+  mrtTheme: DiamondDSIntegrations.mrtTheme,
+  ...DiamondDSIntegrations.mrtOptions(),
 });`}
 </pre>
 
