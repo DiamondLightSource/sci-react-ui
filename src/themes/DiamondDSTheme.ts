@@ -25,7 +25,12 @@ import "../styles/diamondDS/DiamondDSTypography.css";
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { extendTheme } from "@mui/material/styles";
-import type { CSSObject, PaletteColor, Theme } from "@mui/material/styles";
+import type {
+  CSSObject,
+  Overlays,
+  PaletteColor,
+  Theme,
+} from "@mui/material/styles";
 
 import { createDiamondTypography } from "./createDiamondTypography";
 
@@ -38,6 +43,7 @@ import type { ToggleButtonProps } from "@mui/material/ToggleButton";
 import type { CheckboxProps } from "@mui/material/Checkbox";
 import type { ChipProps } from "@mui/material/Chip";
 import type { CircularProgressProps } from "@mui/material/CircularProgress";
+import type { DrawerProps } from "@mui/material/Drawer";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { RadioProps } from "@mui/material/Radio";
@@ -696,6 +702,24 @@ const createDiamondPalette = (mode: DSMode) => {
 };
 
 /**
+ * Paper's automatic elevation tint (`--Paper-overlay`, applied as a
+ * `backgroundImage`) is dark-mode-only by default in MUI: a generic white
+ * overlay barely reads against a light background, so MUI ships an empty
+ * overlay set for light schemes.
+ *
+ * DiamondDS replaces that generic overlay with its own tonal elevation
+ * tokens (`--ds-elevation-*`, the same tokens `palette.surface.elevated`
+ * uses), which are authored per colour scheme, so the same token-driven
+ * overlay works in both light and dark.
+ */
+const createDiamondOverlays = (): Overlays =>
+  [...Array(25)].map((_, level) =>
+    level === 0
+      ? "none"
+      : `linear-gradient(var(--ds-elevation-${level}), var(--ds-elevation-${level}))`,
+  ) as Overlays;
+
+/**
  * Resolved DiamondDS MUI theme.
  *
  * MUI handles the colour-scheme state. DiamondDS handles the actual role values
@@ -712,9 +736,11 @@ const DiamondDSTheme = extendTheme({
   colorSchemes: {
     light: {
       palette: createDiamondPalette("light"),
+      overlays: createDiamondOverlays(),
     },
     dark: {
       palette: createDiamondPalette("dark"),
+      overlays: createDiamondOverlays(),
     },
   },
 
@@ -749,6 +775,15 @@ const DiamondDSTheme = extendTheme({
      * Base interaction:
      *   MuiButtonBase       → ripple and focus behaviour
      *
+     * Surfaces and overlays:
+     *   MuiPaper            → no shadow by default; DiamondDS uses tonal
+     *                          elevation (surface.elevated) instead of
+     *                          --Paper-shadow for non-overlay hierarchy
+     *   MuiDialog           → restores shadow (modal)
+     *   MuiPopover          → restores shadow (menu, select, autocomplete)
+     *   MuiAutocomplete     → restores shadow (listbox popup)
+     *   MuiDrawer           → restores shadow, temporary variant only
+     *
      * Actions and selection:
      *   MuiButton           → contained, outlined and text variants
      *   MuiIconButton       → intent-aware icon actions
@@ -777,7 +812,7 @@ const DiamondDSTheme = extendTheme({
      *
      * Feedback surfaces:
      *   MuiSnackbar         → layout constraints
-     *   MuiSnackbarContent  → surface styling and actions
+     *   MuiSnackbarContent  → surface styling, actions and restored shadow
      *
      *  Font Style overrides:
      *   MuiCssBaseline      → typography
@@ -791,6 +826,76 @@ const DiamondDSTheme = extendTheme({
         disableRipple: false,
         disableTouchRipple: false,
         focusRipple: false,
+      },
+    },
+
+    /**
+     * DiamondDS communicates non-overlay surface hierarchy through tonal
+     * elevation (`palette.surface.elevated` / the `--ds-elevation-*`-driven
+     * `--Paper-overlay` tint set up above), not drop shadows. Shadow is
+     * reserved for true overlays that float above page content, so it is
+     * suppressed by default here and reinstated per-component below.
+     *
+     * No default border either: `variant="outlined"` is Paper's existing
+     * built-in opt-in (`1px solid var(--ds-border-subtle)`, the same token
+     * and width used everywhere else a border appears in this file), so a
+     * flat surface that needs one already has a route to it without a
+     * bespoke prop.
+     *
+     * A future draggable card variant can opt back into `--Paper-shadow` the
+     * same way: restore `boxShadow` on the relevant slot.
+     */
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+        },
+      },
+    },
+
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          boxShadow: "var(--Paper-shadow)",
+        },
+      },
+    },
+
+    MuiPopover: {
+      /**
+       * Menu and Select build their dropdown Paper on top of Popover, so
+       * this also restores shadow for those.
+       */
+      styleOverrides: {
+        paper: {
+          boxShadow: "var(--Paper-shadow)",
+        },
+      },
+    },
+
+    MuiAutocomplete: {
+      /**
+       * Autocomplete renders its own Paper rather than reusing Popover's,
+       * so it needs a separate restore.
+       */
+      styleOverrides: {
+        paper: {
+          boxShadow: "var(--Paper-shadow)",
+        },
+      },
+    },
+
+    MuiDrawer: {
+      /**
+       * Only the temporary variant floats above content with a backdrop;
+       * permanent and persistent drawers sit inline in the layout and stay
+       * flat.
+       */
+      styleOverrides: {
+        paper: ({ ownerState }: OverrideArgs<DrawerProps>): CSSObject =>
+          ownerState.variant === "temporary"
+            ? { boxShadow: "var(--Paper-shadow)" }
+            : {},
       },
     },
 
@@ -1578,6 +1683,7 @@ const DiamondDSTheme = extendTheme({
           color: "var(--ds-on-surface)",
           border: "1px solid var(--ds-border-subtle)",
           borderRadius: 8,
+          boxShadow: "var(--Paper-shadow)",
         },
 
         message: {
