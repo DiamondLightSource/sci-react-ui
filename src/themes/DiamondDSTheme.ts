@@ -134,6 +134,7 @@ declare module "@mui/material/styles" {
     h4Display: React.CSSProperties;
     lead: React.CSSProperties;
     overlineSmall: React.CSSProperties;
+    meta: React.CSSProperties;
     mono1: React.CSSProperties;
     mono2: React.CSSProperties;
     mono3: React.CSSProperties;
@@ -145,7 +146,8 @@ declare module "@mui/material/styles" {
     h3Display?: React.CSSProperties;
     h4Display?: React.CSSProperties;
     lead?: React.CSSProperties;
-    overlineSmal?: React.CSSProperties;
+    overlineSmall?: React.CSSProperties;
+    meta?: React.CSSProperties;
     mono1?: React.CSSProperties;
     mono2?: React.CSSProperties;
     mono3?: React.CSSProperties;
@@ -290,6 +292,7 @@ declare module "@mui/material/Typography" {
     h4Display: true;
     lead: true;
     overlineSmall: true;
+    meta: true;
     mono1: true;
     mono2: true;
     mono3: true;

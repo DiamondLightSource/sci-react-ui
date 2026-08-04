@@ -198,6 +198,50 @@ describe("DiamondDSTheme", () => {
     );
   });
 
+  it("adds the DiamondDS custom typography variants", () => {
+    expect(DiamondDSTheme.typography).toEqual(
+      expect.objectContaining({
+        h1Display: expect.any(Object),
+        h2Display: expect.any(Object),
+        h3Display: expect.any(Object),
+        h4Display: expect.any(Object),
+        lead: expect.any(Object),
+        overlineSmall: expect.any(Object),
+        meta: expect.any(Object),
+        mono1: expect.any(Object),
+        mono2: expect.any(Object),
+        mono3: expect.any(Object),
+      }),
+    );
+  });
+
+  it("uses the DiamondDS display font family for display heading variants", () => {
+    expect(DiamondDSTheme.typography.h1Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+    expect(DiamondDSTheme.typography.h2Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+    expect(DiamondDSTheme.typography.h3Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+    expect(DiamondDSTheme.typography.h4Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+  });
+
+  it("uses the DiamondDS monospace font family for mono variants", () => {
+    expect(DiamondDSTheme.typography.mono1.fontFamily).toBe(
+      "var(--ds-font-family-mono)",
+    );
+    expect(DiamondDSTheme.typography.mono2.fontFamily).toBe(
+      "var(--ds-font-family-mono)",
+    );
+    expect(DiamondDSTheme.typography.mono3.fontFamily).toBe(
+      "var(--ds-font-family-mono)",
+    );
+  });
+
   it("configures DiamondDS logos", () => {
     expect(DiamondDSTheme.logos?.normal).toEqual(
       expect.objectContaining({
