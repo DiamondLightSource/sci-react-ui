@@ -484,6 +484,15 @@ where content belongs without making dense scientific interfaces feel noisy.
 
 Prefer layered surfaces and borders over heavy shadows.
 
+Drop shadow (<code>--Paper-shadow</code>) is off by default on every Paper-based
+surface — Card, Accordion, plain Paper. It's restored only on true overlays
+that need to float above page content: Dialog, Menu/Select/Popover,
+Autocomplete's listbox, temporary Drawers, and Snackbar. Tonal elevation (the
+<code>--ds-elevation-*</code> background tint below) still applies everywhere
+regardless of shadow. If tone alone isn't enough separation for a flat
+surface, use <code>variant="outlined"</code> rather than a manual border
+override — see Borders below.
+
 <table className="ds-table">
   <thead>
     <tr>
@@ -532,7 +541,7 @@ Prefer layered surfaces and borders over heavy shadows.
         <code>surface.strong</code>
       </td>
       <td>Stronger container surface</td>
-      <td>Raised sections, selected regions, nested containers</td>
+      <td>Emphasized sections, selected regions, nested containers</td>
     </tr>
     <tr>
       <td>
@@ -549,6 +558,30 @@ Prefer layered surfaces and borders over heavy shadows.
     </tr>
   </tbody>
 </table>
+
+Pick between the two systems above by what the surface represents, not by how it looks:
+
+<ul>
+  <li>
+    <code>surface.subtle</code>/<code>surface.strong</code> are fixed, static
+    roles for content that stays in normal page flow — secondary panels,
+    nested containers, selected regions. There's no range; pick whichever
+    of the two gives enough contrast.
+  </li>
+  <li>
+    Paper <code>elevation</code> applies only to Paper-based components —
+    Card, Dialog, Menu/Select/Popover, Drawer, Snackbar, Autocomplete —
+    where the number also governs whether real shadow shows, per the table
+    below. Don't reach for it to tint an arbitrary <code>Box</code> for
+    layout grouping.
+  </li>
+</ul>
+
+<code>surface.subtle</code> and <code>surface.strong</code> are tuned to
+land on the same tone as elevation 7 and 16, so a grouped panel and a Card
+at a similar elevation read as the same visual weight by design — that's
+shared vocabulary between the two systems, not a reason to use one in
+place of the other.
 
 <table className="ds-table">
   <thead>
@@ -576,24 +609,50 @@ Prefer layered surfaces and borders over heavy shadows.
     <tr>
       <td>Cards</td>
       <td>
-        Elevation 0-2 + subtle border, or no border when the surface is already
-        clear
+        Elevation 0-4 + subtle border, or no border when the surface is
+        already clear. Raise incrementally within this range if a card
+        needs to read as more elevated than its neighbours
       </td>
     </tr>
     <tr>
-      <td>Interactive cards</td>
-      <td>Elevation 3–4, such as drag/drop cards</td>
+      <td>Feedback surfaces</td>
+      <td>Elevation 5–7, such as Snackbar</td>
     </tr>
     <tr>
-      <td>Menus, popovers, drawers</td>
+      <td>Interactive cards</td>
+      <td>
+        Elevation 8 via the <code>raised</code> prop, such as drag/drop
+        cards. Shares its tone with the row below and gets real shadow,
+        since a raised card is meant to float the same way
+      </td>
+    </tr>
+    <tr>
+      <td>Menus, popovers, temporary drawers</td>
       <td>Elevation 8–16</td>
     </tr>
     <tr>
       <td>Dialogs</td>
-      <td>Elevation 16–24</td>
+      <td>Elevation 17–24</td>
     </tr>
   </tbody>
 </table>
+
+Component-specific notes:
+
+<ul>
+  <li>
+    Use <code>raised</code> for interactive cards rather than a manual{" "}
+    <code>elevation</code> value — the theme gives it real shadow to match.
+  </li>
+  <li>
+    <code>Autocomplete</code>'s listbox is themed to match{" "}
+    <code>Menu</code>/<code>Select</code>/<code>Popover</code> automatically.
+  </li>
+  <li>
+    When using <code>AppBar</code> as a top nav bar, add a border-bottom via{" "}
+    <code>sx</code>.
+  </li>
+</ul>
 
 <div className="ds-dos">
   <div className="ds-card">
@@ -604,6 +663,8 @@ Prefer layered surfaces and borders over heavy shadows.
       <li>Use <code>surface.subtle</code> to group related content.</li>
       <li>Use <code>surface.strong</code> for stronger grouping or selected regions.</li>
       <li>Use surface changes consistently across light and dark mode.</li>
+      <li>Use the elevation band that matches a surface's role in the table above.</li>
+      <li>Reach for <code>surface.subtle</code>/<code>surface.strong</code> for static layout regions, and Paper <code>elevation</code> only on Paper-based components.</li>
     </ul>
   </div>
 
@@ -615,6 +676,8 @@ Prefer layered surfaces and borders over heavy shadows.
       <li>Don’t use surface changes to compensate for unclear layout.</li>
       <li>Don’t create one-off background colours for individual components.</li>
       <li>Don’t make disabled surfaces look interactive.</li>
+      <li>Don’t add a custom <code>boxShadow</code> to fake elevation — use the <code>elevation</code> prop.</li>
+      <li>Don’t use Paper <code>elevation</code> to tint a plain <code>Box</code> for layout grouping — use <code>surface.subtle</code>/<code>surface.strong</code>.</li>
     </ul>
   </div>
 </div>

@@ -40,6 +40,7 @@ import { createDiamondTypography } from "./createDiamondTypography";
 import type { AlertProps } from "@mui/material/Alert";
 import type { ButtonProps } from "@mui/material/Button";
 import type { ToggleButtonProps } from "@mui/material/ToggleButton";
+import type { CardProps } from "@mui/material/Card";
 import type { CheckboxProps } from "@mui/material/Checkbox";
 import type { ChipProps } from "@mui/material/Chip";
 import type { CircularProgressProps } from "@mui/material/CircularProgress";
@@ -782,6 +783,7 @@ const DiamondDSTheme = extendTheme({
      *   MuiDialog           → restores shadow (modal)
      *   MuiPopover          → restores shadow (menu, select, autocomplete)
      *   MuiAutocomplete     → restores shadow (listbox popup)
+     *   MuiCard             → restores shadow, raised variant only
      *   MuiDrawer           → restores shadow, temporary variant only
      *
      * Actions and selection:
@@ -841,9 +843,6 @@ const DiamondDSTheme = extendTheme({
      * and width used everywhere else a border appears in this file), so a
      * flat surface that needs one already has a route to it without a
      * bespoke prop.
-     *
-     * A future draggable card variant can opt back into `--Paper-shadow` the
-     * same way: restore `boxShadow` on the relevant slot.
      */
     MuiPaper: {
       styleOverrides: {
@@ -875,13 +874,30 @@ const DiamondDSTheme = extendTheme({
 
     MuiAutocomplete: {
       /**
-       * Autocomplete renders its own Paper rather than reusing Popover's,
-       * so it needs a separate restore.
+       * Autocomplete renders its own Paper and defaults to elevation 1
+       * internally, unlike Popover/Menu/Select's 8 — even though this is
+       * the same "floating listbox" surface the guidance groups them with.
+       * `var(--Paper-shadow)` would just restore elevation 1's much weaker
+       * shadow, so match Popover's elevation 8 directly instead.
        */
       styleOverrides: {
-        paper: {
-          boxShadow: "var(--Paper-shadow)",
-        },
+        paper: ({ theme }: OverrideArgs): CSSObject => ({
+          boxShadow: (theme.vars || theme).shadows[8],
+          backgroundImage: (theme.vars || theme).overlays?.[8],
+        }),
+      },
+    },
+
+    MuiCard: {
+      /**
+       * `raised` is MUI's own built-in escape hatch for an interactive card
+       * (elevation 8) — the same tone tier as Menus/popovers/drawers. Give
+       * it real shadow too, since a raised card is meant to visually float
+       * the same way those do; a plain (non-raised) Card stays flat.
+       */
+      styleOverrides: {
+        root: ({ ownerState }: OverrideArgs<CardProps>): CSSObject =>
+          ownerState.raised ? { boxShadow: "var(--Paper-shadow)" } : {},
       },
     },
 
