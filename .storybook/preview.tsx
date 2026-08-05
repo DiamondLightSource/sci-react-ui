@@ -1,12 +1,10 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
 import type { Preview } from "@storybook/react";
-import "@fontsource-variable/inter";
 import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { DiamondDSTheme } from "../src";
 import { ThemeSwapper, TextLight, TextDark } from "./ThemeSwapper";
-import "../src/styles/diamondDS/DiamondDSTokens.css";
 
 const TextThemeDiamondDS = "Theme: DiamondDS";
 

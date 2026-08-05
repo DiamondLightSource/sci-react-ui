@@ -13,6 +13,14 @@ const tokensCss = readFileSync(
   "utf8",
 );
 
+const typographyCss = readFileSync(
+  resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    "../styles/diamondDS/DiamondDSTypography.css",
+  ),
+  "utf8",
+);
+
 const getVarNames = (value: unknown): string[] => {
   if (typeof value !== "string") return [];
   return [...value.matchAll(/var\((--[^),\s]+)/g)].map((match) => match[1]);
@@ -133,7 +141,7 @@ const getReferencedDiamondVars = (): Set<string> =>
 
 const getDefinedDiamondVars = (): Set<string> =>
   new Set(
-    [...tokensCss.matchAll(/(--ds-[a-zA-Z0-9-]+)\s*:/g)].map(
+    [...(tokensCss + typographyCss).matchAll(/(--ds-[a-zA-Z0-9-]+)\s*:/g)].map(
       (match) => match[1],
     ),
   );
@@ -186,17 +194,51 @@ describe("DiamondDSTheme", () => {
 
   it("configures the DiamondDS font stack", () => {
     expect(DiamondDSTheme.typography.fontFamily).toBe(
-      [
-        '"Inter Variable"',
-        "Inter",
-        "system-ui",
-        "-apple-system",
-        '"Segoe UI"',
-        "Roboto",
-        "Helvetica",
-        "Arial",
-        "sans-serif",
-      ].join(","),
+      "var(--ds-font-family-default)",
+    );
+  });
+
+  it("adds the DiamondDS custom typography variants", () => {
+    expect(DiamondDSTheme.typography).toEqual(
+      expect.objectContaining({
+        h1Display: expect.any(Object),
+        h2Display: expect.any(Object),
+        h3Display: expect.any(Object),
+        h4Display: expect.any(Object),
+        lead: expect.any(Object),
+        overlineSmall: expect.any(Object),
+        meta: expect.any(Object),
+        mono1: expect.any(Object),
+        mono2: expect.any(Object),
+        mono3: expect.any(Object),
+      }),
+    );
+  });
+
+  it("uses the DiamondDS display font family for display heading variants", () => {
+    expect(DiamondDSTheme.typography.h1Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+    expect(DiamondDSTheme.typography.h2Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+    expect(DiamondDSTheme.typography.h3Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+    expect(DiamondDSTheme.typography.h4Display.fontFamily).toBe(
+      "var(--ds-font-family-display)",
+    );
+  });
+
+  it("uses the DiamondDS monospace font family for mono variants", () => {
+    expect(DiamondDSTheme.typography.mono1.fontFamily).toBe(
+      "var(--ds-font-family-mono)",
+    );
+    expect(DiamondDSTheme.typography.mono2.fontFamily).toBe(
+      "var(--ds-font-family-mono)",
+    );
+    expect(DiamondDSTheme.typography.mono3.fontFamily).toBe(
+      "var(--ds-font-family-mono)",
     );
   });
 

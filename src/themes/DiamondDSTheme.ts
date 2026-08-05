@@ -15,12 +15,19 @@
  * Components should consume semantic roles from the theme or semantic CSS
  * variables rather than raw colour values.
  */
+import "@fontsource-variable/inter";
+import "@fontsource-variable/outfit";
+import "@fontsource/ibm-plex-mono";
+import "@fontsource/ibm-plex-mono/600.css";
 import "../styles/diamondDS/DiamondDSTokens.css";
+import "../styles/diamondDS/DiamondDSTypography.css";
 
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import { extendTheme } from "@mui/material/styles";
 import type { CSSObject, PaletteColor, Theme } from "@mui/material/styles";
+
+import { createDiamondTypography } from "./createDiamondTypography";
 
 /**
  * Component prop types are used to type `ownerState` inside MUI style overrides.
@@ -120,6 +127,32 @@ type IntentPaletteRecord = Record<IntentColour, ExtendedPaletteColor>;
  * text, surface, border and palette roles through the MUI theme API.
  */
 declare module "@mui/material/styles" {
+  interface TypographyVariants {
+    h1Display: React.CSSProperties;
+    h2Display: React.CSSProperties;
+    h3Display: React.CSSProperties;
+    h4Display: React.CSSProperties;
+    lead: React.CSSProperties;
+    overlineSmall: React.CSSProperties;
+    meta: React.CSSProperties;
+    mono1: React.CSSProperties;
+    mono2: React.CSSProperties;
+    mono3: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    h1Display?: React.CSSProperties;
+    h2Display?: React.CSSProperties;
+    h3Display?: React.CSSProperties;
+    h4Display?: React.CSSProperties;
+    lead?: React.CSSProperties;
+    overlineSmall?: React.CSSProperties;
+    meta?: React.CSSProperties;
+    mono1?: React.CSSProperties;
+    mono2?: React.CSSProperties;
+    mono3?: React.CSSProperties;
+  }
+
   interface CssVarsTheme {
     logos?: {
       normal: ImageColourSchemeSwitchType;
@@ -247,6 +280,22 @@ declare module "@mui/material/styles" {
     onContainer?: string;
     solid?: string;
     onSolid?: string;
+  }
+}
+
+/* Typography for branded headers */
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    h1Display: true;
+    h2Display: true;
+    h3Display: true;
+    h4Display: true;
+    lead: true;
+    overlineSmall: true;
+    meta: true;
+    mono1: true;
+    mono2: true;
+    mono3: true;
   }
 }
 
@@ -669,19 +718,7 @@ const DiamondDSTheme = extendTheme({
     },
   },
 
-  typography: {
-    fontFamily: [
-      '"Inter Variable"',
-      "Inter",
-      "system-ui",
-      "-apple-system",
-      '"Segoe UI"',
-      "Roboto",
-      "Helvetica",
-      "Arial",
-      "sans-serif",
-    ].join(","),
-  },
+  typography: createDiamondTypography(),
 
   logos: {
     normal: {
@@ -741,6 +778,9 @@ const DiamondDSTheme = extendTheme({
      * Feedback surfaces:
      *   MuiSnackbar         → layout constraints
      *   MuiSnackbarContent  → surface styling and actions
+     *
+     *  Font Style overrides:
+     *   MuiCssBaseline      → typography
      */
 
     MuiButtonBase: {
@@ -1648,6 +1688,21 @@ const DiamondDSTheme = extendTheme({
         root: {
           backgroundColor: "var(--ds-surface)",
           boxShadow: "none",
+        },
+      },
+    },
+
+    MuiCssBaseline: {
+      styleOverrides: {
+        "code, kbd, samp, pre": {
+          fontFamily: "var(--ds-font-family-mono)",
+          fontSize: "0.875em",
+          lineHeight: "var(--ds-line-height-normal)",
+        },
+
+        pre: {
+          fontSize: "var(--ds-font-size-300)",
+          overflowX: "auto",
         },
       },
     },

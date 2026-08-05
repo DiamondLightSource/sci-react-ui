@@ -1,16 +1,4 @@
-:root:not(.MuiTypography-root) {
-  --sb-ds-font-body:
-    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
-
-  --sb-ds-font-heading:
-    "Outfit", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
-
-  --sb-ds-font-mono:
-    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-
+:root {
   --sb-ds-background: #f6f6f9;
   --sb-ds-surface: #ffffff;
   --sb-ds-surface-container: #eef1f5;
@@ -43,14 +31,14 @@ body .sbdocs:not(.MuiTypography-root) {
 .sbdocs li:not(.MuiTypography-root),
 .sbdocs :where(div:not(.sb-anchor, .sb-unstyled, .sb-unstyled div)),
 .sbdocs :where(span:not(.sb-anchor, .sb-unstyled, .sb-unstyled span)) {
-  font-family: var(--sb-ds-font-body) !important;
+  font-family: var(--ds-font-family-default) !important;
 }
 
 /* Headings use Outfit or Inter */
 
 .sbdocs h1.sbdocs-title,
 .sbdocs.sbdocs-content h1:not(.MuiTypography-root) {
-  font-family: var(--sb-ds-font-heading);
+  font-family: var(--ds-font-family-display);
 }
 
 .sbdocs h2:not(.MuiTypography-root),
@@ -60,7 +48,7 @@ body .sbdocs:not(.MuiTypography-root) {
 .sbdocs h6:not(.MuiTypography-root),
 table th:not(.MuiTypography-root),
 table td:not(.MuiTypography-root) {
-  font-family: var(--sb-ds-font-body);
+  font-family: var(--ds-font-family-default);
 }
 /* Code uses IBM Plex Mono */
 code:not(.MuiTypography-root),
@@ -70,8 +58,9 @@ code:not(.MuiTypography-root),
 .sbdocs samp:not(.MuiTypography-root),
 .token:not(.MuiTypography-root),
 pre .language-text:not(.MuiTypography-root),
-pre .language-tsx:not(.MuiTypography-root) {
-  font-family: var(--sb-ds-font-mono) !important;
+pre .language-tsx:not(.MuiTypography-root),
+pre .language-shell:not(.MuiTypography-root) {
+  font-family: var(--ds-font-family-mono) !important;
 }
 
 /* DS DOCS */
@@ -170,7 +159,7 @@ pre .language-tsx:not(.MuiTypography-root) {
 }
 .ds-docs .ds-table th,
 .ds-docs .ds-table td {
-  font-family: var(--sb-ds-font-body);
+  font-family: var(--ds-font-family-default);
   border-bottom: 1px solid var(--sb-ds-border-subtle);
   padding: 10px 12px;
   text-align: left;
