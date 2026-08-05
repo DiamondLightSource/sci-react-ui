@@ -33,6 +33,20 @@ const meta: Meta<typeof SidebarNav> = {
       </MemoryRouter>
     ),
   ],
+  tags: ["autodocs"],
+  parameters: {
+    docs: {
+      disable: true,
+      pages: {},
+      description: {
+        component: `
+A collapsing/expanding sidebar for your app's primary navigation.
+
+For normal screen sizes, the implementation uses MUI's permanent drawer toggling between two widths showing either icon and text or just icon.
+For smaller screens, we use the temporary variant instead.`,
+      },
+    },
+  },
 };
 
 export default meta;
