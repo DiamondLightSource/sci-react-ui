@@ -33,15 +33,6 @@ const meta: Meta<typeof SidebarNav> = {
       </MemoryRouter>
     ),
   ],
-  tags: ["autodocs"],
-  parameters: {
-    docs: {
-      pages: {},
-      description: {
-        component: `A collapsing/expanding sidebar for your app's primary navigation. Click on the individual stories to see the examples.`,
-      },
-    },
-  },
 };
 
 export default meta;
@@ -71,17 +62,24 @@ const standardLinks = [
 ];
 
 export const NormalLinks: Story = {
+  render: (args) => {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <SidebarNav
+          navigation={standardLinks}
+          open={args.open}
+          setOpen={args.setOpen}
+        />
+        <Typography>
+          When using standard links, the caller must handle the selected state
+          and set it to the correct item.
+        </Typography>
+      </Box>
+    );
+  },
   args: {
     navigation: standardLinks,
     open: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "When using standard links, the caller must handle the selected state and set it to the correct item.",
-      },
-    },
   },
 };
 
@@ -117,16 +115,23 @@ const reactRouterNavigation = [
 ];
 
 export const RouterLinks: Story = {
+  render: (args) => {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <SidebarNav
+          navigation={reactRouterNavigation}
+          open={args.open}
+          setOpen={args.setOpen}
+        />
+        <Typography>
+          React Router <em>NavLinks</em> will handle selected state internally.
+        </Typography>
+      </Box>
+    );
+  },
   args: {
     navigation: reactRouterNavigation,
     open: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `React Router _NavLinks_ will handle selected state internally.`,
-      },
-    },
   },
 };
 
@@ -171,16 +176,21 @@ const groupedNavigation = [
 ];
 
 export const GroupedNavigation: Story = {
+  render: (args) => {
+    return (
+      <Box sx={{ display: "flex" }}>
+        <SidebarNav
+          navigation={args.navigation}
+          open={args.open}
+          setOpen={args.setOpen}
+        />
+        <Typography>Sections are grouped with dividers</Typography>
+      </Box>
+    );
+  },
   args: {
     navigation: groupedNavigation,
     open: true,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "Sections are grouped with dividers",
-      },
-    },
   },
 };
 
@@ -243,17 +253,12 @@ export const WithAppBar: Story = {
         />
         <Box>
           <Toolbar />
-          <Typography variant="h5">Main content here</Typography>
+          <Typography>
+            MUI wants to draw a Drawer above everything, so in this example the
+            AppBar&apos;s zIndex is increased.
+          </Typography>
         </Box>
       </Box>
     );
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "MUI wants to draw a Drawer above everything, so in this example the AppBar's zIndex is increased.",
-      },
-    },
   },
 };
