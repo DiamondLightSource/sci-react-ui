@@ -16,6 +16,15 @@ const Modes = {
     /^[+\\-]?(([0-9]+)|([0-9]+[\\.])|([\\.][0-9]+)|([0-9]+[\\.][0-9]+))([eE][+\\-]?[0-9]+)?$/,
 };
 
+function decimalPlaces(value: number): number {
+  const text = value.toString();
+  if (text.includes("e") || text.includes("E")) {
+    return 0;
+  }
+  const pointIndex = text.indexOf(".");
+  return pointIndex === -1 ? 0 : text.length - pointIndex - 1;
+}
+
 interface NumberInputTextProps {
   label: string;
   numberMode: keyof typeof Modes;
@@ -87,7 +96,8 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
 
   const handleStep = (direction: 1 | -1) => {
     const current = isValid && numberText !== "" ? parseFloat(numberText) : 0;
-    const stepped = current + direction * step;
+    const precision = Math.max(decimalPlaces(current), decimalPlaces(step));
+    const stepped = Number((current + direction * step).toFixed(precision));
     const clamped = Math.min(maxValue, Math.max(minValue, stepped));
     setNumberText(clamped.toString());
   };
