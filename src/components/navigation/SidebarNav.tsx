@@ -209,6 +209,7 @@ function NavItem(props: NavItemProps) {
         )}
         <ListItemText // always render but conditionally hide
           primary={item.label}
+          slotProps={{ primary: { noWrap: true } }}
           sx={{
             overflow: "hidden",
             opacity: open ? 1 : 0,
