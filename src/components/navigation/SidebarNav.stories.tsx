@@ -395,4 +395,10 @@ export const WithAppBar: Story = {
       </Box>
     );
   },
+  parameters: {
+    // SidebarNav's permanent Drawer is position:fixed on desktop - the story
+    // canvas's default padding wrapper would otherwise misalign it against
+    // the normal-flow main content beside it.
+    fullBleed: true,
+  },
 };
