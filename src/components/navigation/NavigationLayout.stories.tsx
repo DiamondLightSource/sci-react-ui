@@ -10,7 +10,8 @@ import {
   Toolbar,
   Typography,
 } from "../MUI/MuiWrapped";
-import { Theme } from "@mui/material/styles";
+import { Theme, useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Logo } from "../controls/Logo";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { NavLink, MemoryRouter, type NavLinkProps } from "react-router-dom";
@@ -66,13 +67,67 @@ const setupGroups = [
 
 export const WithAppBar: Story = {
   render: () => {
+    const theme = useTheme();
+    const desktopLayout = useMediaQuery(theme.breakpoints.up("sm"));
+
     const [sidebarOpen, setSidebarOpen] = React.useState(true);
     const [secondaryNavOpen, setSecondaryNavOpen] = React.useState(false);
+    const [selectedItem, setSelectedItem] = React.useState<
+      "setup" | "acquisition" | "analysis"
+    >("acquisition");
 
-    // Only "Setup" has an associated secondary panel, so its link opens it and
-    // every other top-level link closes it - in a real app this would instead
-    // be derived from the current route, not from click handlers on each link.
-    const SetupLink = React.useMemo(() => {
+    // Only "Setup" has an associated secondary panel, so its link opens it
+    // and every other top-level link closes it.
+    const makeNavLink = React.useCallback(
+      (
+        id: "setup" | "acquisition" | "analysis",
+        opensSecondaryNav: boolean,
+      ) => {
+        const Component = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
+          (props, ref) => (
+            <NavLink
+              ref={ref}
+              {...props}
+              onClick={(e) => {
+                props.onClick?.(e);
+                setSecondaryNavOpen(opensSecondaryNav);
+                setSelectedItem(id);
+              }}
+            />
+          ),
+        );
+        Component.displayName = `${id}Link`;
+        return Component;
+      },
+      [],
+    );
+    const SetupLink = React.useMemo(
+      () => makeNavLink("setup", true),
+      [makeNavLink],
+    );
+    const AcquisitionLink = React.useMemo(
+      () => makeNavLink("acquisition", false),
+      [makeNavLink],
+    );
+    const AnalysisLink = React.useMemo(
+      () => makeNavLink("analysis", false),
+      [makeNavLink],
+    );
+
+    // On desktop the secondary panel is persistent chrome for the active
+    // section, so it should always match `selectedItem` - even if it was
+    // closed while drilling into it on mobile (selecting "General" closes
+    // the mobile overlay without changing `selectedItem`).
+    React.useEffect(() => {
+      if (desktopLayout) {
+        setSecondaryNavOpen(selectedItem === "setup");
+      }
+    }, [desktopLayout, selectedItem]);
+
+    // Selecting a destination inside the secondary panel closes both panels
+    // on mobile, dropping all the way to main content. No-op on desktop,
+    // where the panel stays open side by side.
+    const ChildLink = React.useMemo(() => {
       const Component = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
         (props, ref) => (
           <NavLink
@@ -80,30 +135,42 @@ export const WithAppBar: Story = {
             {...props}
             onClick={(e) => {
               props.onClick?.(e);
-              setSecondaryNavOpen(true);
+              if (!desktopLayout) {
+                setSecondaryNavOpen(false);
+                setSidebarOpen(false);
+              }
             }}
           />
         ),
       );
-      Component.displayName = "SetupLink";
+      Component.displayName = "ChildLink";
       return Component;
-    }, []);
-    const OtherLink = React.useMemo(() => {
-      const Component = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
-        (props, ref) => (
-          <NavLink
-            ref={ref}
-            {...props}
-            onClick={(e) => {
-              props.onClick?.(e);
-              setSecondaryNavOpen(false);
-            }}
-          />
-        ),
-      );
-      Component.displayName = "OtherLink";
-      return Component;
-    }, []);
+    }, [desktopLayout]);
+
+    const setupGroups = React.useMemo(
+      () => [
+        {
+          items: [
+            {
+              id: "general",
+              label: "General",
+              linkProps: { to: "/setup/general", component: ChildLink },
+            },
+            {
+              id: "devices",
+              label: "Devices",
+              linkProps: { to: "/setup/devices", component: ChildLink },
+            },
+            {
+              id: "permissions",
+              label: "Permissions",
+              linkProps: { to: "/setup/permissions", component: ChildLink },
+            },
+          ],
+        },
+      ],
+      [ChildLink],
+    );
 
     const navigation = [
       {
@@ -112,17 +179,19 @@ export const WithAppBar: Story = {
             label: "Setup",
             icon: <Abc />,
             linkProps: { to: "/1", component: SetupLink },
+            selected: selectedItem === "setup",
           },
           {
             label: "Acquisition",
             icon: <ArrowForward />,
-            linkProps: { to: "/2", component: OtherLink },
-            selected: true,
+            linkProps: { to: "/2", component: AcquisitionLink },
+            selected: selectedItem === "acquisition",
           },
           {
             label: "Analysis",
             icon: <GraphicEq />,
-            linkProps: { to: "/3", component: OtherLink },
+            linkProps: { to: "/3", component: AnalysisLink },
+            selected: selectedItem === "analysis",
           },
         ],
       },
