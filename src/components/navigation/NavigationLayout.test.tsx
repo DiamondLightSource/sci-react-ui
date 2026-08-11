@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { useState } from "react";
 import { NavigationLayout } from "./NavigationLayout";
 import type { Navigation } from "./SidebarNav";
-import type { SecondaryNavProps } from "./SecondaryNav";
+import type { SecondaryNavContentProps } from "./SecondaryNav";
 import { createMemoryRouter, NavLink, RouterProvider } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -24,7 +24,7 @@ const navigation: Navigation = [
   },
 ];
 
-const secondaryNav: Omit<SecondaryNavProps, "open" | "setOpen" | "onBack"> = {
+const secondaryNav: Omit<SecondaryNavContentProps, "onBack"> = {
   title: "Secondary",
   groups: [
     {
@@ -135,7 +135,7 @@ describe("NavigationLayout", () => {
       expect(screen.queryByText("Secondary")).not.toBeInTheDocument();
     });
 
-    it("drilling into secondary nav hides the sidebar drawer", () => {
+    it("drilling into secondary nav hides the sidebar drawer and shows the secondary content in its own temporary drawer", () => {
       renderHarness({
         initialSidebarOpen: true,
         initialSecondaryNavOpen: true,
@@ -144,6 +144,40 @@ describe("NavigationLayout", () => {
       expect(screen.queryByText("Setup")).not.toBeInTheDocument();
       expect(screen.getByText("Secondary")).toBeVisible();
       expect(screen.getByRole("link", { name: "Detail" })).toBeVisible();
+      // Only one drawer mounted at a time on mobile - the sidebar's is
+      // closed (and unmounted), the secondary content's is open.
+      expect(document.querySelectorAll(".MuiDrawer-root")).toHaveLength(1);
+    });
+
+    it("clicking a nav item inside the secondary drawer closes it", async () => {
+      const user = userEvent.setup();
+      renderHarness({
+        initialSidebarOpen: true,
+        initialSecondaryNavOpen: true,
+      });
+
+      await user.click(screen.getByRole("link", { name: "Detail" }));
+
+      await waitFor(() => {
+        expect(screen.queryByText("Secondary")).not.toBeInTheDocument();
+      });
+    });
+
+    it("clicking the backdrop closes the secondary drawer", async () => {
+      const user = userEvent.setup();
+      renderHarness({
+        initialSidebarOpen: true,
+        initialSecondaryNavOpen: true,
+      });
+
+      const backdrop = document.querySelector(".MuiBackdrop-root");
+      expect(backdrop).toBeInTheDocument();
+
+      await user.click(backdrop!);
+
+      await waitFor(() => {
+        expect(screen.queryByText("Secondary")).not.toBeInTheDocument();
+      });
     });
 
     it("the back button drills back to the sidebar", async () => {
@@ -171,11 +205,9 @@ describe("NavigationLayout", () => {
     });
 
     it("the back button still reaches the sidebar even if secondary nav opened while sidebarOpen was false", async () => {
-      // Reproduces opening the secondary panel without the sidebar ever
-      // having been marked open first (e.g. deep-linking straight into it,
-      // or a tap landing during the sidebar's own exit transition) -
-      // NavigationLayout should self-heal `sidebarOpen` rather than leaving
-      // the back button with nothing to fall back to.
+      // Opens the secondary panel without the sidebar ever having been
+      // marked open first (e.g. deep-linking straight into it) - exercises
+      // NavigationLayout's self-heal of `sidebarOpen`.
       const user = userEvent.setup();
       renderHarness({
         initialSidebarOpen: false,
