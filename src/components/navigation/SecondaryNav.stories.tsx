@@ -1,12 +1,12 @@
 import { Abc, ArrowForward, GraphicEq } from "@mui/icons-material";
-import { SecondaryNav } from "./SecondaryNav";
+import { SecondaryNavContent } from "./SecondaryNav";
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { NavLink, MemoryRouter } from "react-router-dom";
 
-const meta: Meta<typeof SecondaryNav> = {
+const meta: Meta<typeof SecondaryNavContent> = {
   title: "Components/Navigation/SecondaryNav",
-  component: SecondaryNav,
+  component: SecondaryNavContent,
   decorators: [
     (Story) => (
       <MemoryRouter>
@@ -18,7 +18,7 @@ const meta: Meta<typeof SecondaryNav> = {
   parameters: {
     docs: {
       description: {
-        component: `An optional contextual navigation panel that sits next to SidebarNav. Mostly ListItems, optionally with a title, search, grouped sections, and one-level expandable rows. Use NavigationLayout to compose it with SidebarNav and get the responsive mobile drill-down / desktop side-by-side behaviour for free.`,
+        component: `The content of an optional contextual navigation panel that sits next to SidebarNav: a header (title/search/back) plus a grouped, optionally-expandable list. Use NavigationLayout to get the responsive mobile drill-down / desktop side-by-side drawer-or-panel behaviour around it.`,
       },
     },
   },
@@ -53,8 +53,6 @@ const basicGroups = [
 export const Basic: Story = {
   args: {
     groups: basicGroups,
-    open: true,
-    setOpen: () => {},
   },
   parameters: {
     docs: {
@@ -68,8 +66,6 @@ export const Basic: Story = {
 export const Comfortable: Story = {
   args: {
     groups: basicGroups,
-    open: true,
-    setOpen: () => {},
     dense: false,
   },
   parameters: {
@@ -85,11 +81,9 @@ export const WithTitleAndSearch: Story = {
   render: () => {
     const [value, setValue] = React.useState("");
     return (
-      <SecondaryNav
+      <SecondaryNavContent
         title="Experiments"
         groups={basicGroups}
-        open={true}
-        setOpen={() => {}}
         search={{ value, onChange: setValue, placeholder: "Search items" }}
       />
     );
@@ -130,8 +124,6 @@ const groupedGroups = [
 export const GroupedWithSubheaders: Story = {
   args: {
     groups: groupedGroups,
-    open: true,
-    setOpen: () => {},
   },
 };
 
@@ -162,8 +154,6 @@ const expandableGroups = [
 export const WithExpandableItems: Story = {
   args: {
     groups: expandableGroups,
-    open: true,
-    setOpen: () => {},
   },
   parameters: {
     docs: {
@@ -179,8 +169,6 @@ export const WithBackButton: Story = {
   args: {
     title: "Experiments",
     groups: basicGroups,
-    open: true,
-    setOpen: () => {},
     onBack: () => {},
   },
   parameters: {

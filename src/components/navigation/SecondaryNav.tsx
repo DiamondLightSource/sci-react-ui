@@ -2,7 +2,6 @@ import {
   Box,
   Collapse,
   Divider,
-  Drawer,
   IconButton,
   InputAdornment,
   List,
@@ -12,10 +11,9 @@ import {
   ListItemText,
   ListSubheader,
   TextField,
-  Toolbar,
   Typography,
 } from "@mui/material";
-import { useTheme, Theme } from "@mui/material/styles";
+import { Theme } from "@mui/material/styles";
 import {
   Fragment,
   useEffect,
@@ -23,14 +21,10 @@ import {
   type MouseEvent,
   type ReactNode,
 } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
-import { drawerTransition } from "./SidebarNav";
 import type { LinkProps } from "./types";
-
-const SECONDARY_NAV_WIDTH = 256; // matches SidebarNav's open-state baseline width
 
 type SecondaryNavGroup = {
   /** Rendered as an overline ListSubheader when present; omit for an ungrouped list. */
@@ -53,10 +47,7 @@ type SecondaryNavItemDefinition = SecondaryNavChildItemDefinition & {
   defaultExpanded?: boolean;
 };
 
-type SecondaryNavProps = {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-
+type SecondaryNavContentProps = {
   title?: string;
 
   search?: {
@@ -69,7 +60,7 @@ type SecondaryNavProps = {
 
   /**
    * Renders a back affordance above the title/search when provided.
-   * NavigationLayout supplies this on mobile only; omit for standalone/desktop use.
+   * NavigationLayout supplies this on mobile only; omit for standalone use.
    */
   onBack?: () => void;
 
@@ -77,81 +68,13 @@ type SecondaryNavProps = {
   dense?: boolean;
 };
 
-function SecondaryNav(props: SecondaryNavProps) {
-  const theme = useTheme();
-  const desktopLayout = useMediaQuery(theme.breakpoints.up("sm"));
-  const resolvedProps = { ...props, dense: props.dense ?? true };
-
-  if (desktopLayout) {
-    return <SecondaryPanel {...resolvedProps} />;
-  }
-  return <TemporarySecondaryDrawer {...resolvedProps} />;
-}
-
 /**
- * Desktop layout: a plain flex sibling of whatever sits to its left (e.g.
- * SidebarNav) - not a Drawer. MUI's Drawer paper is position:fixed regardless
- * of variant, so two permanent Drawers side by side render on top of each
- * other rather than beside each other; a normal Box avoids that entirely.
- * Transitions between full width and fully hidden, reusing SidebarNav's
- * width-transition mechanism rather than a second show/hide pattern.
+ * Just the contextual nav's content - a header (title/search/back) plus a
+ * grouped, optionally-expandable list. Presentation (Drawer vs. side-by-side
+ * panel, responsive switching) is NavigationLayout's job, not this
+ * component's.
  */
-function SecondaryPanel(props: SecondaryNavProps) {
-  const width = props.open ? SECONDARY_NAV_WIDTH + 1 : 0; // +1 pixel for the border
-
-  return (
-    <Box
-      sx={(theme: Theme) => ({
-        width,
-        minHeight: "100vh",
-        flexShrink: 0,
-        overflowX: "hidden",
-        visibility: props.open ? "visible" : "hidden",
-        transition: drawerTransition(theme, props.open),
-        bgcolor: theme.palette.surface.elevated(1),
-        borderRight: props.open ? "1px solid" : "none",
-        borderColor: "divider",
-      })}
-    >
-      <Toolbar /> {/* spacer equal to the AppBar's height */}
-      <Box sx={{ width: SECONDARY_NAV_WIDTH, height: "100%" }}>
-        <SecondaryNavContent {...props} />
-      </Box>
-    </Box>
-  );
-}
-
-/**
- * Small-screen layout: a temporary drawer overlayed over main content, closed
- * on backdrop click or on selecting a navigable item (not on expand/collapse).
- */
-function TemporarySecondaryDrawer(props: SecondaryNavProps) {
-  return (
-    <Drawer
-      variant="temporary"
-      open={props.open}
-      onClose={() => props.setOpen(false)}
-      onClick={() => props.setOpen(false)}
-      sx={{
-        width: SECONDARY_NAV_WIDTH,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: {
-          width: SECONDARY_NAV_WIDTH,
-          boxSizing: "border-box",
-          backgroundImage: "none",
-          bgcolor: (theme: Theme) => theme.palette.surface.elevated(1),
-          borderRight: "1px solid",
-          borderColor: "divider",
-        },
-      }}
-    >
-      <Toolbar />
-      <SecondaryNavContent {...props} />
-    </Drawer>
-  );
-}
-
-function SecondaryNavContent(props: SecondaryNavProps) {
+function SecondaryNavContent(props: SecondaryNavContentProps) {
   const dense = props.dense ?? true;
 
   return (
@@ -186,7 +109,7 @@ function SecondaryNavContent(props: SecondaryNavProps) {
   );
 }
 
-function SecondaryNavHeader(props: SecondaryNavProps) {
+function SecondaryNavHeader(props: SecondaryNavContentProps) {
   const hasHeader = props.onBack || props.title || props.search;
 
   if (!hasHeader) {
@@ -288,11 +211,11 @@ function SecondaryNavItem({
     e.stopPropagation();
     toggle();
   };
-  // Toggle-only rows (no linkProps) toggle on the whole row, stopping
-  // propagation so it doesn't also trigger the mobile drawer's
-  // close-on-select. Rows that are also links toggle on click too, but let
-  // the click keep bubbling so navigation and the drawer's close-on-select
-  // still happen alongside the toggle.
+  // Toggle-only rows (no linkProps) toggle on the whole row and stop
+  // propagation, so a consumer wrapping this in a closable container (e.g.
+  // NavigationLayout's mobile drawer) doesn't treat expand/collapse as a
+  // selection. Rows that are also links toggle on click too, but let it
+  // keep bubbling so navigation and close-on-select still happen.
   const onRowClick = hasChildren
     ? item.linkProps
       ? toggle
@@ -412,9 +335,9 @@ function SecondaryNavChildItem({
   );
 }
 
-export { SecondaryNav };
+export { SecondaryNavContent };
 export type {
-  SecondaryNavProps,
+  SecondaryNavContentProps,
   SecondaryNavGroup,
   SecondaryNavItemDefinition,
   SecondaryNavChildItemDefinition,
