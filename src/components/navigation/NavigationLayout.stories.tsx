@@ -36,6 +36,10 @@ const meta: Meta<typeof NavigationLayout> = {
       description: {
         component: `Composes SidebarNav and SecondaryNav, owning the responsive coordination between them. On mobile only one drawer is visible at a time - opening the secondary panel drills in and hides the primary sidebar, and a back affordance drills back out. On desktop both panels are shown side by side. Which primary item a secondary panel belongs to (e.g. "Setup" having its own sub-navigation) is entirely up to the consumer - NavigationLayout only owns the responsive mechanics, not when the panel opens.`,
       },
+      // Isolates each story in its own iframe, since autodocs otherwise
+      // embeds them inline in one document and their position:fixed
+      // SidebarNavs stack on top of each other.
+      story: { inline: false, iframeHeight: 600 },
     },
   },
 };
@@ -265,35 +269,47 @@ export const WithAppBar: Story = {
   },
 };
 
-export const DesktopSideBySide: Story = {
-  args: {
-    navigation: [
+const desktopSideBySideNavigation = [
+  {
+    navItems: [
       {
-        navItems: [
-          {
-            label: "Setup",
-            icon: <Abc />,
-            linkProps: { to: "/1", component: NavLink },
-            selected: true,
-          },
-          {
-            label: "Acquisition",
-            icon: <ArrowForward />,
-            linkProps: { to: "/2", component: NavLink },
-          },
-          {
-            label: "Analysis",
-            icon: <GraphicEq />,
-            linkProps: { to: "/3", component: NavLink },
-          },
-        ],
+        label: "Setup",
+        icon: <Abc />,
+        linkProps: { to: "/1", component: NavLink },
+        selected: true,
+      },
+      {
+        label: "Acquisition",
+        icon: <ArrowForward />,
+        linkProps: { to: "/2", component: NavLink },
+      },
+      {
+        label: "Analysis",
+        icon: <GraphicEq />,
+        linkProps: { to: "/3", component: NavLink },
       },
     ],
-    sidebarOpen: true,
-    setSidebarOpen: () => {},
-    secondaryNav: { title: "Setup", groups: setupGroups },
-    secondaryNavOpen: true,
-    setSecondaryNavOpen: () => {},
-    children: <Typography variant="h5">Main content here</Typography>,
+  },
+];
+
+export const DesktopSideBySide: Story = {
+  // Real state so the drawers stay closeable if autodocs' real browser
+  // viewport narrows this below desktop width.
+  render: () => {
+    const [sidebarOpen, setSidebarOpen] = React.useState(true);
+    const [secondaryNavOpen, setSecondaryNavOpen] = React.useState(true);
+
+    return (
+      <NavigationLayout
+        navigation={desktopSideBySideNavigation}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+        secondaryNav={{ title: "Setup", groups: setupGroups }}
+        secondaryNavOpen={secondaryNavOpen}
+        setSecondaryNavOpen={setSecondaryNavOpen}
+      >
+        <Typography variant="h5">Main content here</Typography>
+      </NavigationLayout>
+    );
   },
 };
