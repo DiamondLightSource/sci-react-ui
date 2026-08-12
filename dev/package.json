@@ -3,12 +3,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-      "dev": "vite",
+      "dev": "vite --port 3000",
       "build": "vite build",
       "preview": "vite preview"
     },
     "dependencies": {
-      "@mui/x-date-pickers": "^9.10.1",
       "material-react-table": "^3.2.1"
     },
     "devDependencies": {
