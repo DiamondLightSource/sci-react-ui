@@ -114,17 +114,13 @@ type NavbarProps = BarSlotsProps & {
 /**
  * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
  *
- * Defaults to the `brand` surface (solid), which adapts with light/dark mode like the rest of
- * the theme. Alternatives include `brand-fixed`/`brand-fixedDim` for a persistent Diamond
- * identity colour that stays constant across modes, and the neutral `surface` in `base` or
- * `container` variant. Most Diamond apps should probably reach for `brand-fixed` or
- * `surface`/`base` rather than the default — a constant Diamond identity colour, or a plain
- * neutral bar, tend to suit real product chrome better than a navbar that shifts with the mode.
+ * Defaults to the `brand` surface (solid), which adapts with light/dark mode. Alternatives are
+ * `brand-fixed`/`brand-fixedDim` (a persistent Diamond identity colour) and the neutral `surface`
+ * in `base` or `container` variant. Most Diamond apps should reach for `brand-fixed` or
+ * `surface`/`base` rather than the default.
  *
- * `brand-fixed`/`brand-fixedDim` (any variant) and `solid` variant on `brand`/`primary`/`secondary`
- * resolve to a fully saturated colour that provides its own separation from the page. Every other
- * combination (including `container`, and `base` on a semantic intent, which falls back to a
- * plain neutral background) picks up a bottom border so it doesn't blend into the content below.
+ * `brand-fixed`/`brand-fixedDim` and `solid` on `brand`/`primary`/`secondary` are fully saturated
+ * and need no extra separation from the page; everything else picks up a bottom border.
  */
 const Navbar = ({
   surface = "brand",
