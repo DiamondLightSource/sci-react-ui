@@ -257,7 +257,7 @@ const SlotOutline = ({
         {label}
       </Typography>
     )}
-    <List sx={{ p: 0.5, pt: 0 }}>{children}</List>
+    {children}
   </Box>
 );
 
@@ -272,38 +272,42 @@ export const WithSlots: Story = {
           setOpen={setOpen}
           afterNavSlot={
             <SlotOutline label="afterNavSlot" open={open}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  href="https://www.example.com/docs"
-                  sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
-                >
-                  <ListItemIcon sx={{ minWidth: 32 }}>
-                    <Insights />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Documentation"
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              </ListItem>
+              <List sx={{ p: 0.5, pt: 0 }}>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    href="https://www.example.com/docs"
+                    sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
+                  >
+                    <ListItemIcon sx={{ minWidth: 32 }}>
+                      <Insights />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Documentation"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </List>
             </SlotOutline>
           }
           footerSlot={
             <SlotOutline label="footerSlot" open={open}>
-              <ListItem disablePadding>
-                <ListItemButton
-                  href="#settings"
-                  sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
-                >
-                  <ListItemIcon sx={{ minWidth: 32 }}>
-                    <CorporateFare />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Settings"
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              </ListItem>
+              <List sx={{ p: 0.5, pt: 0 }}>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    href="#settings"
+                    sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
+                  >
+                    <ListItemIcon sx={{ minWidth: 32 }}>
+                      <CorporateFare />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary="Settings"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </List>
             </SlotOutline>
           }
         />

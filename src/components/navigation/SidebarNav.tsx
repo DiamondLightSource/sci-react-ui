@@ -91,7 +91,6 @@ function PermanentDrawer(props: NavProps) {
         transition: (theme: Theme) => drawerTransition(theme, props.open),
         [`& .MuiDrawer-paper`]: {
           width: width,
-          height: "100vh",
           boxSizing: "border-box",
           transition: drawerTransition(theme, props.open),
         },
