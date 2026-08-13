@@ -980,7 +980,7 @@ describe("DiamondDS component overrides", () => {
 
     expect(styles["&.Mui-disabled"]).toEqual(
       expect.objectContaining({
-        color: "var(--ds-action-disabled)",
+        color: "var(--ds-control-disabled)",
       }),
     );
   });
@@ -1035,7 +1035,7 @@ describe("DiamondDS component overrides", () => {
 
     expect(styles["&.Mui-disabled"]).toEqual(
       expect.objectContaining({
-        color: "var(--ds-action-disabled)",
+        color: "var(--ds-control-disabled)",
       }),
     );
   });
@@ -1141,7 +1141,7 @@ describe("DiamondDS tokens", () => {
     expect(tokensCss).toContain("--ds-on-surface-subtle:");
     expect(tokensCss).toContain("--ds-on-surface-muted:");
     expect(tokensCss).toContain("--ds-on-surface-disabled:");
-    expect(tokensCss).toContain("--ds-action-disabled:");
+    expect(tokensCss).toContain("--ds-control-disabled:");
     expect(tokensCss).toContain("--ds-on-solid:");
   });
 

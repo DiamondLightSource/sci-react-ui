@@ -1030,8 +1030,12 @@ section.ds-mode-panel section {
   background: var(--ds-on-surface-muted);
 }
 
-.ds-bg-action-disabled {
-  background: var(--ds-action-disabled);
+.ds-bg-on-surface-disabled {
+  background: var(--ds-on-surface-disabled);
+}
+
+.ds-bg-control-disabled {
+  background: var(--ds-control-disabled);
 }
 
 .ds-bg-placeholder {

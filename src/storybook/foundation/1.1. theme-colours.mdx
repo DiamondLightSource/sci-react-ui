@@ -27,61 +27,61 @@ This page is a token reference. If you're deciding which colour role to use, rea
    </p>
    <div className="ds-intent-grid">
     {[
-     ["primary", "Primary", false],
-     ["secondary", "Secondary", false],
-     ["info", "Info", false],
-     ["danger", "Danger", false],
-     ["warning", "Warning", false],
-     ["success", "Success", false],
-    ].map(([key, label, hasFixed]) => (
+     ["primary", "Primary", false, "primary"],
+     ["secondary", "Secondary", false, "secondary"],
+     ["info", "Info", false, "info"],
+     ["danger", "Danger", false, "error"],
+     ["warning", "Warning", false, "warning"],
+     ["success", "Success", false, "success"],
+    ].map(([key, label, hasFixed, muiRole]) => (
      <div className="ds-colour-family" key={key}>
       <div className="ds-colour-stack">
        <div className={`ds-colour-row ds-bg-${key}-main ds-fg-${key}-contrast`}>
         <span>{label}</span>
-        <code>main</code>
+        <code>{muiRole ? `${muiRole}.main` : "main"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-on-${key} ds-fg-${key}-main`}>
-        <span>{label} Contrast Text</span>
-        <code>contrastText</code>
+        <span>On {label}</span>
+        <code>{muiRole ? `${muiRole}.contrastText` : "contrastText"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-dark ds-fg-${key}-contrast`}>
         <span>{label} Emphasis</span>
-        <code>dark</code>
+        <code>{muiRole ? `${muiRole}.dark` : "dark"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-light ds-fg-${key}-contrast`}>
         <span>{label} Accent</span>
-        <code>light</code>
+        <code>{muiRole ? `${muiRole}.light` : "light"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-container ds-fg-${key}-on-container`}>
         <span>{label} Container</span>
-        <code>container</code>
+        <code>{muiRole ? `${muiRole}.container` : "container"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-container ds-fg-${key}-container`}>
         <span>{label} On Container</span>
-        <code>onContainer</code>
+        <code>{muiRole ? `${muiRole}.onContainer` : "onContainer"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-solid ds-fg-${key}-on-solid`}>
         <span>{label} Solid</span>
-        <code>solid</code>
+        <code>{muiRole ? `${muiRole}.solid` : "solid"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-solid ds-fg-${key}-solid`}>
         <span>{label} On Solid</span>
-        <code>onSolid</code>
+        <code>{muiRole ? `${muiRole}.onSolid` : "onSolid"}</code>
        </div>
       </div>
       {hasFixed && (
        <div className="ds-colour-stack ds-colour-stack-fixed">
         <div className={`ds-colour-row ds-bg-${key}-fixed ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed</span>
-         <code>fixed</code>
+         <code>{muiRole ? `${muiRole}.fixed` : "fixed"}</code>
         </div>
         <div className={`ds-colour-row ds-bg-${key}-fixed-dim ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed Dim</span>
-         <code>fixedDim</code>
+         <code>{muiRole ? `${muiRole}.fixedDim` : "fixedDim"}</code>
         </div>
         <div className={`ds-colour-row ds-bg-${key}-on-fixed ds-fg-${key}-fixed`}>
          <span>{label} On Fixed</span>
-         <code>onFixed</code>
+         <code>{muiRole ? `${muiRole}.onFixed` : "onFixed"}</code>
         </div>
        </div>
       )}
@@ -99,58 +99,58 @@ This page is a token reference. If you're deciding which colour role to use, rea
    </p>
    <div className="ds-intent-grid">
     {[
-     ["brand", "Brand", true],
-     ["tertiary", "Tertiary", false],
-     ["highlight", "Highlight", false],
-    ].map(([key, label, hasFixed]) => (
+     ["brand", "Brand", true, "brand"],
+     ["tertiary", "Tertiary", false, null],
+     ["highlight", "Highlight", false, null],
+    ].map(([key, label, hasFixed, muiRole]) => (
      <div className="ds-colour-family" key={key}>
       <div className="ds-colour-stack">
        <div className={`ds-colour-row ds-bg-${key}-main ds-fg-${key}-contrast`}>
         <span>{label}</span>
-        <code>main</code>
+        <code>{muiRole ? `${muiRole}.main` : "main"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-on-${key} ds-fg-${key}-main`}>
-        <span>{label} Contrast Text</span>
-        <code>contrastText</code>
+        <span>On {label}</span>
+        <code>{muiRole ? `${muiRole}.contrastText` : "contrastText"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-dark ds-fg-${key}-contrast`}>
         <span>{label} Emphasis</span>
-        <code>dark</code>
+        <code>{muiRole ? `${muiRole}.dark` : "dark"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-light ds-fg-${key}-contrast`}>
         <span>{label} Accent</span>
-        <code>light</code>
+        <code>{muiRole ? `${muiRole}.light` : "light"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-container ds-fg-${key}-on-container`}>
         <span>{label} Container</span>
-        <code>container</code>
+        <code>{muiRole ? `${muiRole}.container` : "container"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-container ds-fg-${key}-container`}>
         <span>{label} On Container</span>
-        <code>onContainer</code>
+        <code>{muiRole ? `${muiRole}.onContainer` : "onContainer"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-solid ds-fg-${key}-on-solid`}>
         <span>{label} Solid</span>
-        <code>solid</code>
+        <code>{muiRole ? `${muiRole}.solid` : "solid"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-solid ds-fg-${key}-solid`}>
         <span>{label} On Solid</span>
-        <code>onSolid</code>
+        <code>{muiRole ? `${muiRole}.onSolid` : "onSolid"}</code>
        </div>
       </div>
       {hasFixed && (
        <div className="ds-colour-stack ds-colour-stack-fixed">
         <div className={`ds-colour-row ds-bg-${key}-fixed ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed</span>
-         <code>fixed</code>
+         <code>{muiRole ? `${muiRole}.fixed` : "fixed"}</code>
         </div>
         <div className={`ds-colour-row ds-bg-${key}-fixed-dim ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed Dim</span>
-         <code>fixedDim</code>
+         <code>{muiRole ? `${muiRole}.fixedDim` : "fixedDim"}</code>
         </div>
         <div className={`ds-colour-row ds-bg-${key}-on-fixed ds-fg-${key}-fixed`}>
          <span>{label} On Fixed</span>
-         <code>onFixed</code>
+         <code>{muiRole ? `${muiRole}.onFixed` : "onFixed"}</code>
         </div>
        </div>
       )}
@@ -201,9 +201,9 @@ This page is a token reference. If you're deciding which colour role to use, rea
       <span>On Surface Muted</span>
       <code>text.muted</code>
      </div>
-     <div className="ds-colour-row ds-bg-action-disabled ds-fg-surface">
-      <span>Action Disabled</span>
-      <code>--ds-action-disabled</code>
+     <div className="ds-colour-row ds-bg-on-surface-disabled ds-fg-surface">
+      <span>On Surface Disabled</span>
+      <code>text.disabled / action.disabled</code>
      </div>
     </div>
     <div className="ds-colour-family">
@@ -251,63 +251,63 @@ This page is a token reference. If you're deciding which colour role to use, rea
    </p>
    <div className="ds-intent-grid">
     {[
-     ["primary", "Primary", false],
-     ["secondary", "Secondary", false],
-     ["info", "Info", false],
-     ["danger", "Danger", false],
-     ["warning", "Warning", false],
-     ["success", "Success", false],
-    ].map(([key, label, hasFixed]) => (
+     ["primary", "Primary", false, "primary"],
+     ["secondary", "Secondary", false, "secondary"],
+     ["info", "Info", false, "info"],
+     ["danger", "Danger", false, "error"],
+     ["warning", "Warning", false, "warning"],
+     ["success", "Success", false, "success"],
+    ].map(([key, label, hasFixed, muiRole]) => (
      <div className="ds-colour-family" key={key}>
       <div className="ds-colour-stack">
        <div className={`ds-colour-row ds-bg-${key}-main ds-fg-${key}-contrast`}>
         <span>{label}</span>
-        <code>main</code>
+        <code>{muiRole ? `${muiRole}.main` : "main"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-on-${key} ds-fg-${key}-main`}>
-        <span>{label} Contrast Text</span>
-        <code>contrastText</code>
+        <span>On {label}</span>
+        <code>{muiRole ? `${muiRole}.contrastText` : "contrastText"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-dark ds-fg-${key}-contrast`}>
         <span>{label} Emphasis</span>
-        <code>dark</code>
+        <code>{muiRole ? `${muiRole}.dark` : "dark"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-light ds-fg-${key}-contrast`}>
         <span>{label} Accent</span>
-        <code>light</code>
+        <code>{muiRole ? `${muiRole}.light` : "light"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-container ds-fg-${key}-on-container`}>
         <span>{label} Container</span>
-        <code>container</code>
+        <code>{muiRole ? `${muiRole}.container` : "container"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-container ds-fg-${key}-container`}>
         <span>{label} On Container</span>
-        <code>onContainer</code>
+        <code>{muiRole ? `${muiRole}.onContainer` : "onContainer"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-solid ds-fg-${key}-on-solid`}>
         <span>{label} Solid</span>
-        <code>solid</code>
+        <code>{muiRole ? `${muiRole}.solid` : "solid"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-solid ds-fg-${key}-solid`}>
         <span>{label} On Solid</span>
-        <code>onSolid</code>
+        <code>{muiRole ? `${muiRole}.onSolid` : "onSolid"}</code>
        </div>
       </div>
       {hasFixed && (
        <div className="ds-colour-stack ds-colour-stack-fixed">
         <div className={`ds-colour-row ds-bg-${key}-fixed ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed</span>
-         <code>fixed</code>
+         <code>{muiRole ? `${muiRole}.fixed` : "fixed"}</code>
         </div>
 
         <div className={`ds-colour-row ds-bg-${key}-fixed-dim ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed Dim</span>
-         <code>fixedDim</code>
+         <code>{muiRole ? `${muiRole}.fixedDim` : "fixedDim"}</code>
         </div>
 
         <div className={`ds-colour-row ds-bg-${key}-on-fixed ds-fg-${key}-fixed`}>
          <span>{label} On Fixed</span>
-         <code>onFixed</code>
+         <code>{muiRole ? `${muiRole}.onFixed` : "onFixed"}</code>
         </div>
        </div>
       )}
@@ -325,60 +325,60 @@ This page is a token reference. If you're deciding which colour role to use, rea
    </p>
    <div className="ds-intent-grid">
     {[
-     ["brand", "Brand", true],
-     ["tertiary", "Tertiary", false],
-     ["highlight", "Highlight", false],
-    ].map(([key, label, hasFixed]) => (
+     ["brand", "Brand", true, "brand"],
+     ["tertiary", "Tertiary", false, null],
+     ["highlight", "Highlight", false, null],
+    ].map(([key, label, hasFixed, muiRole]) => (
      <div className="ds-colour-family" key={key}>
       <div className="ds-colour-stack">
        <div className={`ds-colour-row ds-bg-${key}-main ds-fg-${key}-contrast`}>
         <span>{label}</span>
-        <code>main</code>
+        <code>{muiRole ? `${muiRole}.main` : "main"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-on-${key} ds-fg-${key}-main`}>
-        <span>{label} Contrast Text</span>
-        <code>contrastText</code>
+        <span>On {label}</span>
+        <code>{muiRole ? `${muiRole}.contrastText` : "contrastText"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-dark ds-fg-${key}-contrast`}>
         <span>{label} Emphasis</span>
-        <code>dark</code>
+        <code>{muiRole ? `${muiRole}.dark` : "dark"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-light ds-fg-${key}-contrast`}>
         <span>{label} Accent</span>
-        <code>light</code>
+        <code>{muiRole ? `${muiRole}.light` : "light"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-container ds-fg-${key}-on-container`}>
         <span>{label} Container</span>
-        <code>container</code>
+        <code>{muiRole ? `${muiRole}.container` : "container"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-container ds-fg-${key}-container`}>
         <span>{label} On Container</span>
-        <code>onContainer</code>
+        <code>{muiRole ? `${muiRole}.onContainer` : "onContainer"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-solid ds-fg-${key}-on-solid`}>
         <span>{label} Solid</span>
-        <code>solid</code>
+        <code>{muiRole ? `${muiRole}.solid` : "solid"}</code>
        </div>
        <div className={`ds-colour-row ds-bg-${key}-on-solid ds-fg-${key}-solid`}>
         <span>{label} On Solid</span>
-        <code>onSolid</code>
+        <code>{muiRole ? `${muiRole}.onSolid` : "onSolid"}</code>
        </div>
       </div>
       {hasFixed && (
        <div className="ds-colour-stack ds-colour-stack-fixed">
         <div className={`ds-colour-row ds-bg-${key}-fixed ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed</span>
-         <code>fixed</code>
+         <code>{muiRole ? `${muiRole}.fixed` : "fixed"}</code>
         </div>
 
         <div className={`ds-colour-row ds-bg-${key}-fixed-dim ds-fg-${key}-on-fixed`}>
          <span>{label} Fixed Dim</span>
-         <code>fixedDim</code>
+         <code>{muiRole ? `${muiRole}.fixedDim` : "fixedDim"}</code>
         </div>
 
         <div className={`ds-colour-row ds-bg-${key}-on-fixed ds-fg-${key}-fixed`}>
          <span>{label} On Fixed</span>
-         <code>onFixed</code>
+         <code>{muiRole ? `${muiRole}.onFixed` : "onFixed"}</code>
         </div>
        </div>
       )}
@@ -429,9 +429,9 @@ This page is a token reference. If you're deciding which colour role to use, rea
       <span>On Surface Muted</span>
       <code>text.muted</code>
      </div>
-     <div className="ds-colour-row ds-bg-action-disabled ds-fg-surface">
-      <span>Action Disabled</span>
-      <code>--ds-action-disabled</code>
+     <div className="ds-colour-row ds-bg-on-surface-disabled ds-fg-surface">
+      <span>On Surface Disabled</span>
+      <code>text.disabled / action.disabled</code>
      </div>
     </div>
     <div className="ds-colour-family">
