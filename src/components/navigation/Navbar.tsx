@@ -117,7 +117,9 @@ type NavbarProps = BarSlotsProps & {
  * Defaults to the `brand` surface (solid), which adapts with light/dark mode. Alternatives are
  * `brand-fixed`/`brand-fixedDim` (a persistent Diamond identity colour) and the neutral `surface`
  * in `base` or `container` variant. Most Diamond apps should reach for `brand-fixed` or
- * `surface`/`base` rather than the default.
+ * `surface`/`base` rather than the default. A constant identity colour or neutral header can work
+ * better for persistent product chrome, providing a stable visual anchor across light and dark
+ * modes, even when its tone shifts to suit the colour scheme.
  *
  * `brand-fixed`/`brand-fixedDim` and `solid` on `brand`/`primary`/`secondary` are fully saturated
  * and need no extra separation from the page; everything else picks up a bottom border.

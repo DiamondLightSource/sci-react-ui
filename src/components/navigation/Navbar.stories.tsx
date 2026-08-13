@@ -27,7 +27,7 @@ const meta: Meta<typeof Navbar> = {
 - \`surface\` \`base\` — plain neutral background.
 - \`surface\` \`container\` — a subtle neutral tint.
 
-Most Diamond apps should use \`brand-fixed\` or \`surface\`/\`base\` rather than the default. Having a constant identity colour or plain neutral bar suits real product chrome better than one that shifts with the mode.
+Most Diamond apps should use \`brand-fixed\` or \`surface\`/\`base\` rather than the default. A constant identity colour or neutral header can work better for persistent product chrome, providing a stable visual anchor across light and dark modes, even when its tone shifts to suit the colour scheme.
 
 Fully saturated colour ( \`brand-fixed\`/\`brand-fixedDim\`, or \`solid\` on \`brand\`/\`primary\`/\`secondary\`) separate themselves from the page. Everything else, including \`container\`, \`base\`, and \`solid\` on \`surface\`/\`paper\`, gets a bottom border instead.`,
       },
