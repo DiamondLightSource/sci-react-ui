@@ -121,6 +121,44 @@ describe("SidebarNav", () => {
       expect(divider).toBeInTheDocument();
     });
 
+    it("renders afterNavSlot after the navigation items", () => {
+      const router = createMemoryRouter([
+        {
+          path: "/",
+          element: (
+            <SidebarNav
+              navigation={navigation}
+              open={true}
+              setOpen={vi.fn()}
+              afterNavSlot={<div data-testid="after-nav">Extra links</div>}
+            />
+          ),
+        },
+      ]);
+      render(<RouterProvider router={router} />);
+
+      expect(screen.getByTestId("after-nav")).toBeVisible();
+    });
+
+    it("renders footerSlot", () => {
+      const router = createMemoryRouter([
+        {
+          path: "/",
+          element: (
+            <SidebarNav
+              navigation={navigation}
+              open={true}
+              setOpen={vi.fn()}
+              footerSlot={<div data-testid="footer">User menu</div>}
+            />
+          ),
+        },
+      ]);
+      render(<RouterProvider router={router} />);
+
+      expect(screen.getByTestId("footer")).toBeVisible();
+    });
+
     it("renders internal and external links with correct href", () => {
       // even though specified differently, ultimately both types
       // should have the correct href attribute

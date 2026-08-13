@@ -59,6 +59,10 @@ type NavProps = {
   navigation: Navigation;
   open: boolean;
   setOpen: (open: boolean) => void;
+  /** Rendered after the navigation items, inside the scrollable area. */
+  afterNavSlot?: ReactNode;
+  /** Rendered pinned to the bottom of the drawer, outside the scrollable area. */
+  footerSlot?: ReactNode;
 };
 
 export function SidebarNav(props: NavProps) {
@@ -93,7 +97,7 @@ function PermanentDrawer(props: NavProps) {
       })}
     >
       <Toolbar /> {/* spacer equal to the AppBar's height*/}
-      <NavigationItems {...props} />
+      <DrawerContent {...props} />
     </Drawer>
   );
 }
@@ -124,14 +128,35 @@ function TemporaryDrawer(props: NavProps) {
       }}
     >
       <Toolbar />
-      <NavigationItems {...props} />
+      <DrawerContent {...props} />
     </Drawer>
   );
 }
 
-function NavigationItems({ navigation, open }: NavProps) {
+function DrawerContent(props: NavProps) {
   return (
-    <Box sx={{ overflow: "auto" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 0,
+        flex: 1,
+      }}
+    >
+      <NavigationItems {...props} />
+      {props.footerSlot && (
+        <Box sx={{ flexShrink: 0 }}>
+          <SectionDivider />
+          <Box sx={{ px: 1, pb: 1 }}>{props.footerSlot}</Box>
+        </Box>
+      )}
+    </Box>
+  );
+}
+
+function NavigationItems({ navigation, open, afterNavSlot }: NavProps) {
+  return (
+    <Box sx={{ overflow: "auto", flex: 1, minHeight: 0 }}>
       <List
         sx={{
           p: 1,
@@ -149,6 +174,7 @@ function NavigationItems({ navigation, open }: NavProps) {
           </Fragment>
         ))}
       </List>
+      {afterNavSlot}
     </Box>
   );
 }
