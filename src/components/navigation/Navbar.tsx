@@ -112,7 +112,17 @@ type NavbarProps = BarSlotsProps & {
 };
 
 /**
- * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links. Brand surface by default.
+ * Basic navigation bar. Can be used with `NavLinks` and `NavLink` to display a responsive list of links.
+ *
+ * Defaults to the `brand` surface (solid), which adapts with light/dark mode. Alternatives are
+ * `brand-fixed`/`brand-fixedDim` (a persistent Diamond identity colour) and the neutral `surface`
+ * in `base` or `container` variant. Most Diamond apps should reach for `brand-fixed` or
+ * `surface`/`base` rather than the default. A constant identity colour or neutral header can work
+ * better for persistent product chrome, providing a stable visual anchor across light and dark
+ * modes, even when its tone shifts to suit the colour scheme.
+ *
+ * `brand-fixed`/`brand-fixedDim` and `solid` on `brand`/`primary`/`secondary` are fully saturated
+ * and need no extra separation from the page; everything else picks up a bottom border.
  */
 const Navbar = ({
   surface = "brand",
@@ -122,9 +132,18 @@ const Navbar = ({
   linkComponent,
   leftSlot,
   children,
+  sx,
   ...props
 }: NavbarProps) => {
-  const forceOnDarkLogo = surface === "brand" || surface === "brand-fixed";
+  const isFixedBrand =
+    surface === "brand-fixed" || surface === "brand-fixedDim";
+  const isSemanticIntent =
+    surface === "brand" || surface === "primary" || surface === "secondary";
+  const isSolidIntent = isSemanticIntent && variant === "solid";
+  // Solid/fixed surfaces stay a dark, saturated colour in both light and dark mode, so the logo
+  // needs to be forced light-on-dark rather than following the page mode.
+  const isSaturatedSurface = isFixedBrand || isSolidIntent;
+  const hasNeutralSurface = !isSaturatedSurface;
 
   return (
     <Bar
@@ -133,6 +152,12 @@ const Navbar = ({
       variant={variant}
       elevation={elevation}
       data-testid="navbar"
+      sx={[
+        hasNeutralSurface && {
+          borderBottom: "1px solid var(--ds-border-subtle)",
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
       leftSlot={
         <>
           {logo && (
@@ -168,8 +193,8 @@ const Navbar = ({
                       }}
                     >
                       <Logo
-                        fixedTone={forceOnDarkLogo ? "dark" : undefined}
-                        tone="inverse"
+                        fixedTone={isSaturatedSurface ? "dark" : undefined}
+                        tone="default"
                         short
                       />
                     </Box>
@@ -181,13 +206,16 @@ const Navbar = ({
                       }}
                     >
                       <Logo
-                        fixedTone={forceOnDarkLogo ? "dark" : undefined}
-                        tone="inverse"
+                        fixedTone={isSaturatedSurface ? "dark" : undefined}
+                        tone="default"
                       />
                     </Box>
                   </>
                 ) : (
-                  <ImageColourSchemeSwitch image={logo} />
+                  <ImageColourSchemeSwitch
+                    image={logo}
+                    fixedTone={isSaturatedSurface ? "dark" : undefined}
+                  />
                 )}
               </Box>
             </Link>

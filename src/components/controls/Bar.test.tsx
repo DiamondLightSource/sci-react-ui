@@ -25,6 +25,13 @@ describe("Bar", () => {
     expect(await screen.findByTestId("test-right-slot")).toBeInTheDocument();
   });
 
+  it("should have a 48px minimum height", async () => {
+    renderWithProviders(<Bar data-testid="test-bar" />);
+
+    const bar = await screen.findByTestId("test-bar");
+    expect(window.getComputedStyle(bar).minHeight).toBe("48px");
+  });
+
   it("should render with styles", async () => {
     const borderStyle = "1px solid rgb(255, 165, 0)";
     renderWithProviders(
@@ -37,8 +44,6 @@ describe("Bar", () => {
     const headerComputedStyle = window.getComputedStyle(bar);
     // check new style is set
     expect(headerComputedStyle.border).toBe(borderStyle);
-    // Check default values are still set
-    expect(headerComputedStyle.height).not.toBe("0px");
   });
 });
 

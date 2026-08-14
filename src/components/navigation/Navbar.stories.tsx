@@ -16,6 +16,23 @@ const meta: Meta<typeof Navbar> = {
   component: Navbar,
   subcomponents: { NavMenu, NavMenuLink, NavLink, NavLinks },
   tags: ["autodocs"],
+
+  parameters: {
+    docs: {
+      description: {
+        component: `Basic navigation bar. Can be used with \`NavLinks\` and \`NavLink\` to display a responsive list of links.
+
+- \`brand\` (default) — solid brand colour that adapts with light/dark mode.
+- \`brand-fixed\` / \`brand-fixedDim\` — a persistent Diamond identity colour that stays constant across modes.
+- \`surface\` \`base\` — plain neutral background.
+- \`surface\` \`container\` — a subtle neutral tint.
+
+Most Diamond apps should use \`brand-fixed\` or \`surface\`/\`base\` rather than the default. A constant identity colour or neutral header can work better for persistent product chrome, providing a stable visual anchor across light and dark modes, even when its tone shifts to suit the colour scheme.
+
+Fully saturated colour ( \`brand-fixed\`/\`brand-fixedDim\`, or \`solid\` on \`brand\`/\`primary\`/\`secondary\`) separate themselves from the page. Everything else, including \`container\`, \`base\`, and \`solid\` on \`surface\`/\`paper\`, gets a bottom border instead.`,
+      },
+    },
+  },
 };
 
 export default meta;
@@ -67,21 +84,20 @@ export const All: Story = {
 export const NavbarVariants: Story = {
   render: (_args) => (
     <>
-      <Navbar leftSlot={<Typography>Default (brand-fixed)</Typography>} />
+      <Navbar leftSlot={<Typography>Default (brand)</Typography>} />
       <Navbar
-        surface="brand"
-        variant="solid"
-        leftSlot={<Typography>Brand Solid</Typography>}
-      />
-      <Navbar
-        surface="primary"
-        variant="container"
-        leftSlot={<Typography>Primary Container</Typography>}
+        surface="brand-fixed"
+        leftSlot={<Typography>Brand Fixed</Typography>}
       />
       <Navbar
         surface="surface"
-        elevation={2}
-        leftSlot={<Typography>Surface Elevated</Typography>}
+        variant="base"
+        leftSlot={<Typography>Surface Base</Typography>}
+      />
+      <Navbar
+        surface="surface"
+        variant="container"
+        leftSlot={<Typography>Surface Container</Typography>}
       />
     </>
   ),
@@ -89,7 +105,7 @@ export const NavbarVariants: Story = {
     docs: {
       description: {
         story:
-          "Navbar defaults to brand-fixed, but surface, variant, and elevation can be customised.",
+          "Navbar defaults to brand (solid), which adapts with light/dark mode. Alternatives are brand-fixed (a persistent Diamond identity colour that doesn't change with mode), surface base, and surface container — the two surface variants pick up a bottom border since they're too close in tone to the page background to rely on contrast alone. Most Diamond apps should probably reach for brand-fixed or surface base rather than the default.",
       },
     },
   },

@@ -33,9 +33,6 @@ describe("Footer logo and copyright", () => {
 
     // check new style is set
     expect(footerComputedStyle.border).toBe(borderStyle);
-
-    // Check default values are still set
-    expect(footerComputedStyle.minHeight).toBe("50px");
   });
 
   test("Should render logo only", async () => {
