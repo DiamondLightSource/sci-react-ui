@@ -30,6 +30,26 @@ const textSizes: TypographyProps["variant"][] = [
   "button",
 ];
 
+// Grouped by rendered font-size (largest to smallest), per the
+// --ds-font-size-* scale, independent of semantic category or font family.
+// See VariantGuide for the semantic/grouped tour of the same variants.
+const sizeRamp: {
+  px: number;
+  variants: NonNullable<TypographyProps["variant"]>[];
+}[] = [
+  { px: 72, variants: ["h1Display"] },
+  { px: 48, variants: ["h1", "h2Display"] },
+  { px: 34, variants: ["h2", "h3Display"] },
+  { px: 32, variants: ["h3"] },
+  { px: 28, variants: ["h4", "h4Display"] },
+  { px: 20, variants: ["h5", "lead"] },
+  { px: 18, variants: ["h6"] },
+  { px: 16, variants: ["body1", "subtitle1", "mono1"] },
+  { px: 14, variants: ["body2", "subtitle2", "mono2", "button"] },
+  { px: 12, variants: ["overline", "caption", "meta", "mono3"] },
+  { px: 11, variants: ["overlineSmall"] },
+];
+
 type VariantGuideEntry = {
   variant: NonNullable<TypographyProps["variant"]>;
   note: string;
@@ -37,12 +57,14 @@ type VariantGuideEntry = {
 
 type VariantGuideGroup = {
   group: string;
+  fontFace: "Outfit" | "Inter" | "IBM Plex Mono";
   entries: VariantGuideEntry[];
 };
 
 const variantGuide: VariantGuideGroup[] = [
   {
     group: "Display",
+    fontFace: "Outfit",
     entries: [
       {
         variant: "h1Display",
@@ -64,6 +86,7 @@ const variantGuide: VariantGuideGroup[] = [
   },
   {
     group: "Headings",
+    fontFace: "Inter",
     entries: [
       {
         variant: "h1",
@@ -93,6 +116,7 @@ const variantGuide: VariantGuideGroup[] = [
   },
   {
     group: "Body",
+    fontFace: "Inter",
     entries: [
       {
         variant: "lead",
@@ -118,6 +142,7 @@ const variantGuide: VariantGuideGroup[] = [
   },
   {
     group: "Utility",
+    fontFace: "Inter",
     entries: [
       {
         variant: "overline",
@@ -139,6 +164,7 @@ const variantGuide: VariantGuideGroup[] = [
   },
   {
     group: "Mono",
+    fontFace: "IBM Plex Mono",
     entries: [
       {
         variant: "mono1",
@@ -157,7 +183,6 @@ const variantGuide: VariantGuideGroup[] = [
 ];
 
 type ColourGuideEntry = {
-  label: string;
   color: NonNullable<TypographyProps["color"]>;
   swatch: string;
   note: string;
@@ -174,37 +199,31 @@ const colourGuide: ColourGuideGroup[] = [
     group: "Palette intents",
     entries: [
       {
-        label: "primary",
         color: "primary",
         swatch: "primary.main",
         note: "Primary actions: buttons, links, active state, key interactive elements.",
       },
       {
-        label: "secondary",
         color: "secondary",
         swatch: "secondary.main",
         note: "Secondary actions: less prominent buttons and interactive elements alongside a primary action.",
       },
       {
-        label: "success",
         color: "success",
         swatch: "success.main",
         note: "Positive or successful status.",
       },
       {
-        label: "error",
         color: "error",
         swatch: "error.main",
         note: "Errors, destructive actions, validation failures.",
       },
       {
-        label: "warning",
         color: "warning",
         swatch: "warning.main",
         note: "Warnings and states needing caution.",
       },
       {
-        label: "info",
         color: "info",
         swatch: "info.main",
         note: "Informational status, neutral notices.",
@@ -215,7 +234,6 @@ const colourGuide: ColourGuideGroup[] = [
     group: "Brand",
     entries: [
       {
-        label: "brand",
         color: "brand",
         swatch: "brand.main",
         note: "Diamond identity and accent colour, for recognition and selected visual highlights. Not a status or action signal (prefer a palette intent for those).",
@@ -226,50 +244,42 @@ const colourGuide: ColourGuideGroup[] = [
     group: "Text roles",
     entries: [
       {
-        label: "text.primary",
         color: "text.primary",
         swatch: "text.primary",
         note: "Default text colour for body copy and headings.",
       },
       {
-        label: "text.secondary",
         color: "text.secondary",
         swatch: "text.secondary",
         note: "De-emphasised supporting text, e.g. captions or helper copy.",
       },
       {
-        label: "text.tertiary",
         color: "text.tertiary",
         swatch: "text.tertiary",
         note: "Further de-emphasised text, e.g. low-priority metadata.",
       },
       {
-        label: "text.muted",
         color: "text.muted",
         swatch: "text.muted",
         note: "Muted text for the least prominent content.",
       },
       {
-        label: "text.onSolid",
         color: "text.onSolid",
         swatch: "text.onSolid",
         note: "Text and icons placed on a solid, coloured surface, e.g. inside a filled chip or banner.",
         demoBackground: "primary.main",
       },
       {
-        label: "text.disabled",
         color: "text.disabled",
         swatch: "text.disabled",
         note: "Disabled controls and read-only text.",
       },
       {
-        label: "text.placeholder",
         color: "text.placeholder",
         swatch: "text.placeholder",
         note: "Placeholder text inside an empty input.",
       },
       {
-        label: "text.placeholderFocus",
         color: "text.placeholderFocus",
         swatch: "text.placeholderFocus",
         note: "Placeholder text inside a focused, empty input.",
@@ -277,14 +287,6 @@ const colourGuide: ColourGuideGroup[] = [
     ],
   },
 ];
-
-const textRoleColours = colourGuide
-  .find((group) => group.group === "Text roles")!
-  .entries.map((entry) => entry.color);
-
-const brandColour = colourGuide
-  .find((group) => group.group === "Brand")!
-  .entries.map((entry) => entry.color);
 
 const meta: Meta<typeof Typography> = {
   title: "MUI/Data Display/Typography",
@@ -298,7 +300,14 @@ const meta: Meta<typeof Typography> = {
     },
     color: {
       control: { type: "select" },
-      options: [...colourSet, ...brandColour, ...textRoleColours],
+      options: [
+        ...new Set([
+          ...colourSet,
+          ...colourGuide.flatMap((group) =>
+            group.entries.map((entry) => entry.color),
+          ),
+        ]),
+      ],
     },
     align: {
       control: { type: "select" },
@@ -328,13 +337,137 @@ export const Basic: Story = {
   render: (args) => <Typography {...args} />,
 };
 
-export const TextSizes: Story = {
+export const SizeRamp: Story = {
+  name: "Size ramp",
   render: (args) => (
-    <Stack spacing={1}>
-      {textSizes.map((textSize) => (
-        <Typography key={textSize} {...args} variant={textSize}>
-          {textSize}
-        </Typography>
+    <Stack spacing={2}>
+      {sizeRamp.map(({ px, variants }) => (
+        <Box key={px} sx={{ display: "flex", alignItems: "baseline", gap: 2 }}>
+          <Typography
+            variant="mono2"
+            color="text.secondary"
+            sx={{ width: 40, flexShrink: 0 }}
+          >
+            {px}px
+          </Typography>
+          <Stack
+            direction="row"
+            spacing={3}
+            sx={{ flexWrap: "wrap", rowGap: 1 }}
+          >
+            {variants.map((variant) => (
+              <Typography key={variant} {...args} variant={variant}>
+                {variant}
+              </Typography>
+            ))}
+          </Stack>
+        </Box>
+      ))}
+    </Stack>
+  ),
+};
+
+export const VariantGuide: Story = {
+  name: "Variant guide",
+  parameters: {
+    controls: { disable: true },
+  },
+  render: (_args) => (
+    <Stack spacing={4} sx={{ maxWidth: 720 }}>
+      {variantGuide.map(({ group, fontFace, entries }) => (
+        <Box key={group}>
+          <Typography variant="overline" color="text.secondary">
+            {group}
+          </Typography>
+          <Typography variant="caption" color="text.tertiary" component="div">
+            Font: {fontFace}
+          </Typography>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            {entries.map(({ variant, note }) => (
+              <Box key={variant}>
+                <Typography variant={variant} component="div">
+                  {variant}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {note}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+      ))}
+    </Stack>
+  ),
+};
+
+export const ColourGuide: Story = {
+  name: "Colour guide",
+  parameters: {
+    controls: { disable: true },
+  },
+  render: (_args) => (
+    <Stack spacing={4}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{ maxWidth: "66ch" }}
+      >
+        The `color` prop accepts palette intents (`primary`, `secondary`,
+        `success`, `error`, `warning`, `info`) and semantic text roles
+        (`text.primary`, `text.secondary`, `text.disabled`, etc). Prefer text
+        roles for ordinary body and heading text, and reserve palette intents
+        for content that communicates status or brand emphasis.
+      </Typography>
+      {colourGuide.map(({ group, entries }) => (
+        <Box key={group}>
+          <Typography variant="overline" color="text.secondary">
+            {group}
+          </Typography>
+          <Stack spacing={1.5} sx={{ mt: 1 }}>
+            {entries.map(({ color, swatch, note, demoBackground }) => (
+              <Box key={color} sx={{ display: "flex", gap: 1.5 }}>
+                <Box
+                  sx={{
+                    width: 20,
+                    height: 20,
+                    mt: 0.5,
+                    flexShrink: 0,
+                    borderRadius: "50%",
+                    border: "1px solid",
+                    borderColor: "divider",
+                    bgcolor: swatch,
+                  }}
+                />
+                <Box>
+                  <Box
+                    sx={
+                      demoBackground
+                        ? {
+                            display: "inline-block",
+                            px: 1,
+                            py: 0.25,
+                            borderRadius: 0.5,
+                            bgcolor: demoBackground,
+                          }
+                        : undefined
+                    }
+                  >
+                    <Typography variant="body1" color={color} component="div">
+                      {color}
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    component="div"
+                  >
+                    {note}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
       ))}
     </Stack>
   ),
@@ -356,111 +489,12 @@ export const Alignment: Story = {
   ),
 };
 
-export const ColourGuide: Story = {
-  name: "Colour guide",
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => (
-    <Stack spacing={4} sx={{ maxWidth: 720 }}>
-      <Typography variant="body2" color="text.secondary">
-        The `color` prop accepts palette intents (`primary`, `secondary`,
-        `success`, `error`, `warning`, `info`) and semantic text roles
-        (`text.primary`, `text.secondary`, `text.disabled`, etc). Prefer text
-        roles for ordinary body and heading text, and reserve palette intents
-        for content that communicates status or brand emphasis.
-      </Typography>
-      {colourGuide.map(({ group, entries }) => (
-        <Box key={group}>
-          <Typography variant="overline" color="text.secondary">
-            {group}
-          </Typography>
-          <Stack spacing={1.5} sx={{ mt: 1 }}>
-            {entries.map(({ label, color, swatch, note, demoBackground }) => (
-              <Box key={label} sx={{ display: "flex", gap: 1.5 }}>
-                <Box
-                  sx={{
-                    width: 20,
-                    height: 20,
-                    mt: 0.5,
-                    flexShrink: 0,
-                    borderRadius: 0.5,
-                    border: "1px solid",
-                    borderColor: "divider",
-                    bgcolor: swatch,
-                  }}
-                />
-                <Box>
-                  <Box
-                    sx={
-                      demoBackground
-                        ? {
-                            display: "inline-block",
-                            px: 1,
-                            py: 0.25,
-                            borderRadius: 0.5,
-                            bgcolor: demoBackground,
-                          }
-                        : undefined
-                    }
-                  >
-                    <Typography variant="body1" color={color} component="div">
-                      {label}
-                    </Typography>
-                  </Box>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    {note}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
-          </Stack>
-        </Box>
-      ))}
-    </Stack>
-  ),
-};
-
-export const VariantGuide: Story = {
-  name: "Variant guide",
-  parameters: {
-    controls: { disable: true },
-  },
-  render: () => (
-    <Stack spacing={4} sx={{ maxWidth: 720 }}>
-      {variantGuide.map(({ group, entries }) => (
-        <Box key={group}>
-          <Typography variant="overline" color="text.secondary">
-            {group}
-          </Typography>
-          <Stack spacing={2} sx={{ mt: 1 }}>
-            {entries.map(({ variant, note }) => (
-              <Box key={variant}>
-                <Typography variant={variant} component="div">
-                  {variant}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  {note}
-                </Typography>
-              </Box>
-            ))}
-          </Stack>
-        </Box>
-      ))}
-    </Stack>
-  ),
-};
-
 export const SemanticLevelVsVisualSize: Story = {
   name: "Semantic level vs. visual size",
   parameters: {
     controls: { disable: true },
   },
-  render: () => (
+  render: (_args) => (
     <Stack spacing={3} sx={{ maxWidth: 720 }}>
       <Typography variant="body2" color="text.secondary">
         `variant` sets the visual size and weight; `component` sets the semantic
