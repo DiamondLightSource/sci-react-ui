@@ -1,24 +1,290 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Stack, Typography } from "../MuiWrapped";
+import { Box, Stack, Typography } from "../MuiWrapped";
 import { colourSet } from "../../../utils/diamond";
 import { TypographyProps } from "@mui/material/Typography";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
 const textSizes: TypographyProps["variant"][] = [
+  "h1Display",
+  "h2Display",
+  "h3Display",
+  "h4Display",
   "h1",
   "h2",
   "h3",
   "h4",
   "h5",
   "h6",
+  "lead",
   "subtitle1",
   "subtitle2",
   "body1",
   "body2",
-  "caption",
-  "button",
   "overline",
+  "overlineSmall",
+  "caption",
+  "meta",
+  "mono1",
+  "mono2",
+  "mono3",
+  "button",
 ];
+
+type VariantGuideEntry = {
+  variant: NonNullable<TypographyProps["variant"]>;
+  note: string;
+};
+
+type VariantGuideGroup = {
+  group: string;
+  entries: VariantGuideEntry[];
+};
+
+const variantGuide: VariantGuideGroup[] = [
+  {
+    group: "Display",
+    entries: [
+      {
+        variant: "h1Display",
+        note: "Largest display heading. Use sparingly for landing pages, welcome screens and documentation hero areas. Not for application structure.",
+      },
+      {
+        variant: "h2Display",
+        note: "Secondary display heading for hero and high-level introductory areas.",
+      },
+      {
+        variant: "h3Display",
+        note: "Smaller display heading for supporting hero content.",
+      },
+      {
+        variant: "h4Display",
+        note: "Smallest display heading, still reserved for display contexts rather than in-app hierarchy.",
+      },
+    ],
+  },
+  {
+    group: "Headings",
+    entries: [
+      {
+        variant: "h1",
+        note: "Top-level heading for application and document structure. Use one per page.",
+      },
+      {
+        variant: "h2",
+        note: "Section heading, level below h1.",
+      },
+      {
+        variant: "h3",
+        note: "Subsection heading. Also common for a group, panel or listing heading if that's the right depth on the page.",
+      },
+      {
+        variant: "h4",
+        note: "Heading one level below h3, e.g. a card or settings block title nested inside a subsection.",
+      },
+      {
+        variant: "h5",
+        note: "Minor heading for dense layouts, one level below h4.",
+      },
+      {
+        variant: "h6",
+        note: "Smallest heading, for compact groupings within dense UI.",
+      },
+    ],
+  },
+  {
+    group: "Body",
+    entries: [
+      {
+        variant: "lead",
+        note: "Introductory paragraph that sets up a page or section before body copy.",
+      },
+      {
+        variant: "body1",
+        note: "Default body copy for prose and explanatory content.",
+      },
+      {
+        variant: "body2",
+        note: "Secondary body copy, slightly smaller than body1.",
+      },
+      {
+        variant: "subtitle1",
+        note: "Supporting heading or structured content above body text.",
+      },
+      {
+        variant: "subtitle2",
+        note: "Compact supporting heading or structured content.",
+      },
+    ],
+  },
+  {
+    group: "Utility",
+    entries: [
+      {
+        variant: "overline",
+        note: "Uppercase grouping label above a heading, e.g. to introduce a section or card.",
+      },
+      {
+        variant: "overlineSmall",
+        note: "Compact grouping label for dense panels and cards.",
+      },
+      {
+        variant: "caption",
+        note: "Small explanatory or supporting text, e.g. helper text or figure captions.",
+      },
+      {
+        variant: "meta",
+        note: "Compact operational information: status bars, timestamps, counts, connection state.",
+      },
+    ],
+  },
+  {
+    group: "Mono",
+    entries: [
+      {
+        variant: "mono1",
+        note: "Technical values where alignment or precision matters: IDs, timestamps, numeric values.",
+      },
+      {
+        variant: "mono2",
+        note: "Compact technical values, e.g. dense table cells or inline metadata.",
+      },
+      {
+        variant: "mono3",
+        note: "Smallest mono size, for the densest technical listings.",
+      },
+    ],
+  },
+];
+
+type ColourGuideEntry = {
+  label: string;
+  color: NonNullable<TypographyProps["color"]>;
+  swatch: string;
+  note: string;
+  demoBackground?: string;
+};
+
+type ColourGuideGroup = {
+  group: string;
+  entries: ColourGuideEntry[];
+};
+
+const colourGuide: ColourGuideGroup[] = [
+  {
+    group: "Palette intents",
+    entries: [
+      {
+        label: "primary",
+        color: "primary",
+        swatch: "primary.main",
+        note: "Primary actions: buttons, links, active state, key interactive elements.",
+      },
+      {
+        label: "secondary",
+        color: "secondary",
+        swatch: "secondary.main",
+        note: "Secondary actions: less prominent buttons and interactive elements alongside a primary action.",
+      },
+      {
+        label: "success",
+        color: "success",
+        swatch: "success.main",
+        note: "Positive or successful status.",
+      },
+      {
+        label: "error",
+        color: "error",
+        swatch: "error.main",
+        note: "Errors, destructive actions, validation failures.",
+      },
+      {
+        label: "warning",
+        color: "warning",
+        swatch: "warning.main",
+        note: "Warnings and states needing caution.",
+      },
+      {
+        label: "info",
+        color: "info",
+        swatch: "info.main",
+        note: "Informational status, neutral notices.",
+      },
+    ],
+  },
+  {
+    group: "Brand",
+    entries: [
+      {
+        label: "brand",
+        color: "brand",
+        swatch: "brand.main",
+        note: "Diamond identity and accent colour, for recognition and selected visual highlights. Not a status or action signal (prefer a palette intent for those).",
+      },
+    ],
+  },
+  {
+    group: "Text roles",
+    entries: [
+      {
+        label: "text.primary",
+        color: "text.primary",
+        swatch: "text.primary",
+        note: "Default text colour for body copy and headings.",
+      },
+      {
+        label: "text.secondary",
+        color: "text.secondary",
+        swatch: "text.secondary",
+        note: "De-emphasised supporting text, e.g. captions or helper copy.",
+      },
+      {
+        label: "text.tertiary",
+        color: "text.tertiary",
+        swatch: "text.tertiary",
+        note: "Further de-emphasised text, e.g. low-priority metadata.",
+      },
+      {
+        label: "text.muted",
+        color: "text.muted",
+        swatch: "text.muted",
+        note: "Muted text for the least prominent content.",
+      },
+      {
+        label: "text.onSolid",
+        color: "text.onSolid",
+        swatch: "text.onSolid",
+        note: "Text and icons placed on a solid, coloured surface, e.g. inside a filled chip or banner.",
+        demoBackground: "primary.main",
+      },
+      {
+        label: "text.disabled",
+        color: "text.disabled",
+        swatch: "text.disabled",
+        note: "Disabled controls and read-only text.",
+      },
+      {
+        label: "text.placeholder",
+        color: "text.placeholder",
+        swatch: "text.placeholder",
+        note: "Placeholder text inside an empty input.",
+      },
+      {
+        label: "text.placeholderFocus",
+        color: "text.placeholderFocus",
+        swatch: "text.placeholderFocus",
+        note: "Placeholder text inside a focused, empty input.",
+      },
+    ],
+  },
+];
+
+const textRoleColours = colourGuide
+  .find((group) => group.group === "Text roles")!
+  .entries.map((entry) => entry.color);
+
+const brandColour = colourGuide
+  .find((group) => group.group === "Brand")!
+  .entries.map((entry) => entry.color);
 
 const meta: Meta<typeof Typography> = {
   title: "MUI/Data Display/Typography",
@@ -32,7 +298,7 @@ const meta: Meta<typeof Typography> = {
     },
     color: {
       control: { type: "select" },
-      options: colourSet,
+      options: [...colourSet, ...brandColour, ...textRoleColours],
     },
     align: {
       control: { type: "select" },
@@ -90,14 +356,136 @@ export const Alignment: Story = {
   ),
 };
 
-export const Colours: Story = {
-  render: (args) => (
-    <Stack spacing={1}>
-      {colourSet.map((colourOption) => (
-        <Typography key={colourOption} {...args} color={colourOption}>
-          {colourOption}
-        </Typography>
+export const ColourGuide: Story = {
+  name: "Colour guide",
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Stack spacing={4} sx={{ maxWidth: 720 }}>
+      <Typography variant="body2" color="text.secondary">
+        The `color` prop accepts palette intents (`primary`, `secondary`,
+        `success`, `error`, `warning`, `info`) and semantic text roles
+        (`text.primary`, `text.secondary`, `text.disabled`, etc). Prefer text
+        roles for ordinary body and heading text, and reserve palette intents
+        for content that communicates status or brand emphasis.
+      </Typography>
+      {colourGuide.map(({ group, entries }) => (
+        <Box key={group}>
+          <Typography variant="overline" color="text.secondary">
+            {group}
+          </Typography>
+          <Stack spacing={1.5} sx={{ mt: 1 }}>
+            {entries.map(({ label, color, swatch, note, demoBackground }) => (
+              <Box key={label} sx={{ display: "flex", gap: 1.5 }}>
+                <Box
+                  sx={{
+                    width: 20,
+                    height: 20,
+                    mt: 0.5,
+                    flexShrink: 0,
+                    borderRadius: 0.5,
+                    border: "1px solid",
+                    borderColor: "divider",
+                    bgcolor: swatch,
+                  }}
+                />
+                <Box>
+                  <Box
+                    sx={
+                      demoBackground
+                        ? {
+                            display: "inline-block",
+                            px: 1,
+                            py: 0.25,
+                            borderRadius: 0.5,
+                            bgcolor: demoBackground,
+                          }
+                        : undefined
+                    }
+                  >
+                    <Typography variant="body1" color={color} component="div">
+                      {label}
+                    </Typography>
+                  </Box>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    component="div"
+                  >
+                    {note}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
       ))}
+    </Stack>
+  ),
+};
+
+export const VariantGuide: Story = {
+  name: "Variant guide",
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Stack spacing={4} sx={{ maxWidth: 720 }}>
+      {variantGuide.map(({ group, entries }) => (
+        <Box key={group}>
+          <Typography variant="overline" color="text.secondary">
+            {group}
+          </Typography>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            {entries.map(({ variant, note }) => (
+              <Box key={variant}>
+                <Typography variant={variant} component="div">
+                  {variant}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {note}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+      ))}
+    </Stack>
+  ),
+};
+
+export const SemanticLevelVsVisualSize: Story = {
+  name: "Semantic level vs. visual size",
+  parameters: {
+    controls: { disable: true },
+  },
+  render: () => (
+    <Stack spacing={3} sx={{ maxWidth: 720 }}>
+      <Typography variant="body2" color="text.secondary">
+        `variant` sets the visual size and weight; `component` sets the semantic
+        HTML element that gets rendered. They don&apos;t have to match. Use this
+        when the document outline calls for an `h1` but the design calls for a
+        smaller (or larger) visual treatment.
+      </Typography>
+
+      <Box>
+        <Typography variant="h5" component="h1">
+          Semantic h1, sized like h5
+        </Typography>
+        <Typography variant="mono2" color="text.secondary">
+          {'<Typography variant="h5" component="h1">'}
+        </Typography>
+      </Box>
+
+      <Box>
+        <Typography variant="h1" component="h2">
+          Semantic h2, sized like h1
+        </Typography>
+        <Typography variant="mono2" color="text.secondary">
+          {'<Typography variant="h1" component="h2">'}
+        </Typography>
+      </Box>
     </Stack>
   ),
 };
