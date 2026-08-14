@@ -1749,7 +1749,7 @@ const DiamondDSTheme = extendTheme({
             },
 
             "&.Mui-disabled": {
-              color: "var(--ds-action-disabled)",
+              color: "var(--ds-control-disabled)",
             },
           };
         },
@@ -1785,7 +1785,7 @@ const DiamondDSTheme = extendTheme({
             },
 
             "&.Mui-disabled": {
-              color: "var(--ds-action-disabled)",
+              color: "var(--ds-control-disabled)",
             },
           };
         },
