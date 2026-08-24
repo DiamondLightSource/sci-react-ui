@@ -3,14 +3,12 @@ import {
   Collapse,
   Divider,
   IconButton,
-  InputAdornment,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Theme } from "@mui/material/styles";
@@ -23,44 +21,25 @@ import {
 } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import SearchIcon from "@mui/icons-material/Search";
-import type { LinkProps } from "./types";
+import type { NavItem, NavItemWithChildren } from "./types";
 
-type SecondaryNavGroup = {
+type SubNavGroup = {
   /** Rendered as an overline ListSubheader when present; omit for an ungrouped list. */
   subheader?: string;
-  items: SecondaryNavItemDefinition[];
+  items: NavItemWithChildren[];
 };
 
-type SecondaryNavChildItemDefinition = {
-  id: string;
-  label: string;
-  icon?: ReactNode;
-  linkProps?: LinkProps;
-  selected?: boolean;
-};
-
-type SecondaryNavItemDefinition = SecondaryNavChildItemDefinition & {
-  /** One level only - children cannot themselves expand. */
-  children?: SecondaryNavChildItemDefinition[];
-  /** Initial Collapse state for this item; uncontrolled thereafter. */
-  defaultExpanded?: boolean;
-};
-
-type SecondaryNavContentProps = {
+type SubNavContentProps = {
   title?: string;
 
-  search?: {
-    value: string;
-    onChange: (value: string) => void;
-    placeholder?: string;
-  };
+  /** Rendered in the header, above the item list; typically a search field. */
+  searchSlot?: ReactNode;
 
-  groups: SecondaryNavGroup[];
+  groups: SubNavGroup[];
 
   /**
    * Renders a back affordance above the title/search when provided.
-   * NavigationLayout supplies this on mobile only; omit for standalone use.
+   * SidebarNav supplies this on mobile only; omit for standalone use.
    */
   onBack?: () => void;
 
@@ -71,15 +50,14 @@ type SecondaryNavContentProps = {
 /**
  * Just the contextual nav's content - a header (title/search/back) plus a
  * grouped, optionally-expandable list. Presentation (Drawer vs. side-by-side
- * panel, responsive switching) is NavigationLayout's job, not this
- * component's.
+ * panel, responsive switching) is SidebarNav's job, not this component's.
  */
-function SecondaryNavContent(props: SecondaryNavContentProps) {
+function SubNavContent(props: SubNavContentProps) {
   const dense = props.dense ?? true;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <SecondaryNavHeader {...props} />
+      <SubNavHeader {...props} />
       <Box sx={{ overflow: "auto", flex: 1 }}>
         <List dense={dense} sx={{ p: 1, flexDirection: "column" }}>
           {props.groups.map((group, groupIndex) => (
@@ -98,8 +76,8 @@ function SecondaryNavContent(props: SecondaryNavContentProps) {
                   {group.subheader}
                 </ListSubheader>
               )}
-              {group.items.map((item) => (
-                <SecondaryNavItem key={item.id} item={item} dense={dense} />
+              {group.items.map((item, itemIndex) => (
+                <SubNavItem key={itemIndex} item={item} dense={dense} />
               ))}
             </Fragment>
           ))}
@@ -109,8 +87,8 @@ function SecondaryNavContent(props: SecondaryNavContentProps) {
   );
 }
 
-function SecondaryNavHeader(props: SecondaryNavContentProps) {
-  const hasHeader = props.onBack || props.title || props.search;
+function SubNavHeader(props: SubNavContentProps) {
+  const hasHeader = props.onBack || props.title || props.searchSlot;
 
   if (!hasHeader) {
     return null;
@@ -145,24 +123,7 @@ function SecondaryNavHeader(props: SecondaryNavContentProps) {
         </Box>
       )}
 
-      {props.search && (
-        <TextField
-          fullWidth
-          size="small"
-          value={props.search.value}
-          onChange={(e) => props.search!.onChange(e.target.value)}
-          placeholder={props.search.placeholder ?? "Search"}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon fontSize="small" />
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-      )}
+      {props.searchSlot}
     </Box>
   );
 }
@@ -187,11 +148,11 @@ function getItemButtonSx(dense: boolean) {
   };
 }
 
-function SecondaryNavItem({
+function SubNavItem({
   item,
   dense,
 }: {
-  item: SecondaryNavItemDefinition;
+  item: NavItemWithChildren;
   dense: boolean;
 }) {
   const hasChildren = !!item.children?.length;
@@ -213,7 +174,7 @@ function SecondaryNavItem({
   };
   // Toggle-only rows (no linkProps) toggle on the whole row and stop
   // propagation, so a consumer wrapping this in a closable container (e.g.
-  // NavigationLayout's mobile drawer) doesn't treat expand/collapse as a
+  // SidebarNav's mobile drawer) doesn't treat expand/collapse as a
   // selection. Rows that are also links toggle on click too, but let it
   // keep bubbling so navigation and close-on-select still happen.
   const onRowClick = hasChildren
@@ -281,12 +242,8 @@ function SecondaryNavItem({
       {hasChildren && (
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <List component="div" disablePadding sx={{ pl: 4 }}>
-            {item.children!.map((child) => (
-              <SecondaryNavChildItem
-                key={child.id}
-                item={child}
-                dense={dense}
-              />
+            {item.children!.map((child, childIndex) => (
+              <SubNavChildItem key={childIndex} item={child} dense={dense} />
             ))}
           </List>
         </Collapse>
@@ -295,13 +252,7 @@ function SecondaryNavItem({
   );
 }
 
-function SecondaryNavChildItem({
-  item,
-  dense,
-}: {
-  item: SecondaryNavChildItemDefinition;
-  dense: boolean;
-}) {
+function SubNavChildItem({ item, dense }: { item: NavItem; dense: boolean }) {
   const iconSize = dense ? 24 : 28;
 
   return (
@@ -335,10 +286,5 @@ function SecondaryNavChildItem({
   );
 }
 
-export { SecondaryNavContent };
-export type {
-  SecondaryNavContentProps,
-  SecondaryNavGroup,
-  SecondaryNavItemDefinition,
-  SecondaryNavChildItemDefinition,
-};
+export { SubNavContent };
+export type { SubNavContentProps, SubNavGroup };
