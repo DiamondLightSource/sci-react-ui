@@ -3,9 +3,8 @@ export * from "./components/navigation/Breadcrumbs";
 export * from "./components/navigation/Footer";
 export * from "./components/navigation/Navbar";
 export * from "./components/navigation/NavMenu";
-export * from "./components/navigation/NavigationLayout";
-export * from "./components/navigation/SecondaryNav";
 export * from "./components/navigation/SidebarNav";
+export * from "./components/navigation/SubNav";
 export * from "./components/navigation/types";
 
 // components/controls
