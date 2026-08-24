@@ -52,7 +52,7 @@ const sizeRamp: {
 
 type VariantGuideEntry = {
   variant: NonNullable<TypographyProps["variant"]>;
-  note: string;
+  note: string | string[];
 };
 
 type VariantGuideGroup = {
@@ -68,7 +68,10 @@ const variantGuide: VariantGuideGroup[] = [
     entries: [
       {
         variant: "h1Display",
-        note: "Largest display heading. Use sparingly for landing pages, welcome screens and documentation hero areas. Not for application structure.",
+        note: [
+          "Largest display heading. Use sparingly for landing pages, welcome screens and documentation hero areas.",
+          "Not for application structure.",
+        ],
       },
       {
         variant: "h2Display",
@@ -90,7 +93,10 @@ const variantGuide: VariantGuideGroup[] = [
     entries: [
       {
         variant: "h1",
-        note: "Top-level heading for application and document structure. Use one per page.",
+        note: [
+          "Top-level heading for application and document structure.",
+          "Use one per page.",
+        ],
       },
       {
         variant: "h2",
@@ -98,7 +104,10 @@ const variantGuide: VariantGuideGroup[] = [
       },
       {
         variant: "h3",
-        note: "Subsection heading. Also common for a group, panel or listing heading if that's the right depth on the page.",
+        note: [
+          "Subsection heading.",
+          "Also common for a group, panel or listing heading if that's the right depth on the page.",
+        ],
       },
       {
         variant: "h4",
@@ -185,7 +194,7 @@ const variantGuide: VariantGuideGroup[] = [
 type ColourGuideEntry = {
   color: NonNullable<TypographyProps["color"]>;
   swatch: string;
-  note: string;
+  note: string | string[];
   demoBackground?: string;
 };
 
@@ -236,7 +245,10 @@ const colourGuide: ColourGuideGroup[] = [
       {
         color: "brand",
         swatch: "brand.main",
-        note: "Diamond identity and accent colour, for recognition and selected visual highlights. Not a status or action signal (prefer a palette intent for those).",
+        note: [
+          "Diamond identity and accent colour, for recognition and selected visual highlights.",
+          "Not a status or action signal (prefer a palette intent for those).",
+        ],
       },
     ],
   },
@@ -388,9 +400,24 @@ export const VariantGuide: Story = {
                 <Typography variant={variant} component="div">
                   {variant}
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  {note}
-                </Typography>
+                {Array.isArray(note) ? (
+                  <Stack component="ul" spacing={0.5} sx={{ m: 0, pl: 2.5 }}>
+                    {note.map((line) => (
+                      <Typography
+                        key={line}
+                        component="li"
+                        variant="caption"
+                        color="text.secondary"
+                      >
+                        {line}
+                      </Typography>
+                    ))}
+                  </Stack>
+                ) : (
+                  <Typography variant="caption" color="text.secondary">
+                    {note}
+                  </Typography>
+                )}
               </Box>
             ))}
           </Stack>
@@ -404,20 +431,17 @@ export const ColourGuide: Story = {
   name: "Colour guide",
   parameters: {
     controls: { disable: true },
+    docs: {
+      description: {
+        story: `
+The \`color\` prop accepts palette intents (\`primary\`, \`secondary\`, \`success\`, \`error\`, \`warning\`, \`info\`) and semantic text roles (\`text.primary\`, \`text.secondary\`, \`text.disabled\`, etc).
+
+Prefer text roles for ordinary body and heading text, and reserve palette intents for content that communicates status or brand emphasis.`,
+      },
+    },
   },
   render: (_args) => (
     <Stack spacing={4}>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        sx={{ maxWidth: "66ch" }}
-      >
-        The `color` prop accepts palette intents (`primary`, `secondary`,
-        `success`, `error`, `warning`, `info`) and semantic text roles
-        (`text.primary`, `text.secondary`, `text.disabled`, etc). Prefer text
-        roles for ordinary body and heading text, and reserve palette intents
-        for content that communicates status or brand emphasis.
-      </Typography>
       {colourGuide.map(({ group, entries }) => (
         <Box key={group}>
           <Typography variant="overline" color="text.secondary">
@@ -456,13 +480,28 @@ export const ColourGuide: Story = {
                       {color}
                     </Typography>
                   </Box>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    component="div"
-                  >
-                    {note}
-                  </Typography>
+                  {Array.isArray(note) ? (
+                    <Stack component="ul" spacing={0.5} sx={{ m: 0, pl: 2.5 }}>
+                      {note.map((line) => (
+                        <Typography
+                          key={line}
+                          component="li"
+                          variant="caption"
+                          color="text.secondary"
+                        >
+                          {line}
+                        </Typography>
+                      ))}
+                    </Stack>
+                  ) : (
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      component="div"
+                    >
+                      {note}
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             ))}
@@ -480,7 +519,7 @@ export const Alignment: Story = {
         Left aligned
       </Typography>
       <Typography {...args} align="center">
-        Center aligned
+        Centre aligned
       </Typography>
       <Typography {...args} align="right">
         Right aligned
@@ -493,16 +532,17 @@ export const SemanticLevelVsVisualSize: Story = {
   name: "Semantic level vs. visual size",
   parameters: {
     controls: { disable: true },
+    docs: {
+      description: {
+        story: `
+\`variant\` sets the visual size and weight; \`component\` sets the semantic HTML element that gets rendered. They don't have to match.
+
+Use this when the document outline calls for an \`h1\` but the design calls for a smaller (or larger) visual treatment.`,
+      },
+    },
   },
   render: (_args) => (
     <Stack spacing={3} sx={{ maxWidth: 720 }}>
-      <Typography variant="body2" color="text.secondary">
-        `variant` sets the visual size and weight; `component` sets the semantic
-        HTML element that gets rendered. They don&apos;t have to match. Use this
-        when the document outline calls for an `h1` but the design calls for a
-        smaller (or larger) visual treatment.
-      </Typography>
-
       <Box>
         <Typography variant="h5" component="h1">
           Semantic h1, sized like h5
