@@ -1,5 +1,29 @@
 # SciReactUI Changelog
 
+## [v0.6.3] - 2026-08-??
+
+### Added
+
+- New _SidebarNav_ component, with `afterNavSlot` and `footerSlot` to inject content after the nav items or pinned to the bottom of the drawer.
+- Added typography fonts and tokens for default, display, mono typography into the theme (Inter, Outfit, IBM Plex Mono).
+- Added `DiamondDSIntegrations` for global Material React Table (MRT) theme overrides.
+- Added Typography and Icons pages to the documentation's Foundation section.
+
+### Changed
+
+- Widened the `--ds-elevation-*` token scale to a 25-step gradient and switched Paper's tonal elevation to use it consistently in light and dark modes; `--Paper-shadow` is now off by default and reinstated only on Dialog, Popover-based dropdowns (Menu/Select), Autocomplete's listbox, temporary Drawers and SnackbarContent.
+- Reworked Navbar surface options: default surface remains `brand`, with `brand-fixed`/`brand-fixedDim` documented as alternatives for a persistent Diamond identity colour; neutral surfaces now get a bottom border to separate them from the content below.
+- Increased contrast of the danger, warning and success intent colours in light mode.
+- Updated the tertiary and highlight (secondary brand) colour tokens for light and dark modes.
+- Corrected mislabeled MUI palette roles and reorganised the colour documentation, splitting functional intent colours from core brand colours (brand, tertiary, highlight) and adding contrastText rows.
+- Bumped pnpm override versions to address vulnerabilities flagged by the OSV scanner.
+
+### Fixed
+
+- Fixed Navbar logo tone matching: the light-on-dark logo is now only forced for surfaces that stay saturated in both modes, instead of being hardcoded for every non-brand surface.
+- Fixed the permanent _SidebarNav_ drawer not reliably filling the full viewport height.
+- Fixed _MuiCard_ `raised` and _MuiAutocomplete_'s listbox not matching their documented elevation band.
+
 ## [v0.6.2] - 2026-07-21
 
 ### Added
@@ -28,18 +52,18 @@
 
 - Diamond DS Theme: a new design system theme based on semantic roles and tokens.
 - Design system documentation, including overview, component standards, and usage guidance.
-- Component guidance for *Button*, *TextField*, and *MaterialReactTable*.
+- Component guidance for _Button_, _TextField_, and _MaterialReactTable_.
 - Inter, Outfit and IBM Plex Mono fonts.
-- New *Image* and *ImageWithZoom* components with loading indicators and zoom support.
+- New _Image_ and _ImageWithZoom_ components with loading indicators and zoom support.
 
 ### Changed
 
 - **Breaking** MUI v7 is now required.
 - **Breaking** Replaced previous theming approach with Diamond DS Theme.
 - **Breaking** Updated all components to use the new Diamond DS Theme and support light and dark modes.
-- Updated *Logo* and *ImageColourSchemeSwitch* to use tone (default/inverse) and fixedTone to adapt to surface colour. Deprecated use of interchange prop.
+- Updated _Logo_ and _ImageColourSchemeSwitch_ to use tone (default/inverse) and fixedTone to adapt to surface colour. Deprecated use of interchange prop.
 - Improved accessibility and colour contrast.
-- *Navbar* uses short logo (if available) on small screen sizes.
+- _Navbar_ uses short logo (if available) on small screen sizes.
 
 ### Removed
 
@@ -48,13 +72,13 @@
 
 ### Fixed
 
-- Fixed *DataCell* and *DataBox* in JsonForms to prevent dash appearing when zero should be displayed.
+- Fixed _DataCell_ and _DataBox_ in JsonForms to prevent dash appearing when zero should be displayed.
 
 ## [v0.5.0] - 2026-06-03
 
 ### Added
 
-- New *NumberInput* component which validates various number types, high limits, and low limits.
+- New _NumberInput_ component which validates various number types, high limits, and low limits.
 
 ### Changed
 
@@ -65,51 +89,52 @@
 
 - Icon imports were causing issues downstream when components are unit tested.
 
-
 ## [v0.4.1] - 2026-02-24
 
 ### Fixed
-- *Progress* and *ProgressDelayed* were not exported
-- Fix *User* login button having wrong colour
+
+- _Progress_ and _ProgressDelayed_ were not exported
+- Fix _User_ login button having wrong colour
 
 ### Changed
-- The *NavMenu* will now close if something is selected.
-- Updated styles of *User* (style now similar to *NavMenu*)
+
+- The _NavMenu_ will now close if something is selected.
+- Updated styles of _User_ (style now similar to _NavMenu_)
 
 ## [v0.4.0] - 2026-02-10
 
 ### Added
 
-- New *Progress* component based on Diamond Light added.
-- New *ProgressDelayed* component so that the progress isn't shown at all when it's a small wait.
-- *NavMenu* component added for creating dropdown menus in the Navbar
-  - *NavMenuLink* component extends NavLink to work in the NavMenu
-- *AuthProvider* added for authentication to Keycloak.
-  - An *auth* parameter was added to *User* to simplify when *AuthProvider* is used.
-- *ScrollableImages* can now display in a wide view, with multiple images.
+- New _Progress_ component based on Diamond Light added.
+- New _ProgressDelayed_ component so that the progress isn't shown at all when it's a small wait.
+- _NavMenu_ component added for creating dropdown menus in the Navbar
+  - _NavMenuLink_ component extends NavLink to work in the NavMenu
+- _AuthProvider_ added for authentication to Keycloak.
+  - An _auth_ parameter was added to _User_ to simplify when _AuthProvider_ is used.
+- _ScrollableImages_ can now display in a wide view, with multiple images.
 
 ### Fixed
 
 - Hovering over a slot caused a popup with the slot title in. This has been removed.
 - Stopped Bar-based components (e.g. Navbar, Footer) from expanding when a parent component has a set height
-- The base *Bar* component was not being exported.
+- The base _Bar_ component was not being exported.
 - Various fixes to improve accessibility
-- *ScrollableImages* could attempt accessing images outside of array.
+- _ScrollableImages_ could attempt accessing images outside of array.
 
 ### Changed
 
-- *BaseTheme*/*DiamondTheme* secondary colour of dark theme has been much darkened. (You can select *DiamondOldTheme* if you prefer the older one!)
+- _BaseTheme_/_DiamondTheme_ secondary colour of dark theme has been much darkened. (You can select _DiamondOldTheme_ if you prefer the older one!)
 - Remove first-child css selector as it causes problems with server-side rendering.
 
 ## [v0.3.0] - 2025-09-04
 
 ### Added
 
-- *Logo* component, to easily add the theme logo to anywhere
-- *ImageColourSchemeSwitch* takes a parameter *interchange* to swap image based on the opposite
+- _Logo_ component, to easily add the theme logo to anywhere
+- _ImageColourSchemeSwitch_ takes a parameter _interchange_ to swap image based on the opposite
   of the colour scheme switch - for use with alternative background colours.
-- *BaseBar* component is the base for all the bars used in SciReactUI. Can also be used itself.
-- *AppBar* is a bar to show the main title of your App.
+- _BaseBar_ component is the base for all the bars used in SciReactUI. Can also be used itself.
+- _AppBar_ is a bar to show the main title of your App.
 - JsonForms renderers have been added for use with readonly mode in JsonForms.
 - Support for TIFFs in ScrollableImages component
 
@@ -123,11 +148,11 @@
 
 ### Changed
 
-- Breaking change: The use of *color* has been replaced with *colour* throughout.
-  - *ImageColorSchemeSwitch*, *ImageColorSchemeSwitchType* and *ImageColorSchemeSwitchProps*
-    renamed to *ImageColourSchemeSwitch*, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps respectively
-  - *User* component color prop renamed to colour.
-- RootProps on *Breadcrumbs* has been removed. There props can be passed in directly.
+- Breaking change: The use of _color_ has been replaced with _colour_ throughout.
+  - _ImageColorSchemeSwitch_, _ImageColorSchemeSwitchType_ and _ImageColorSchemeSwitchProps_
+    renamed to _ImageColourSchemeSwitch_, ImageColourSchemeSwitchType and ImageColourSchemeSwitchProps respectively
+  - _User_ component color prop renamed to colour.
+- RootProps on _Breadcrumbs_ has been removed. There props can be passed in directly.
   e.g. `<Breadcrumbs sx={{color:"red"}} />` instead of `<Breadcrumbs rootProps={{sx: { color: "red" } }}/>`
 
 ## [v0.2.0] - 2025-06-11
@@ -215,4 +240,5 @@
 -
 
 ### Changed
+
 -
