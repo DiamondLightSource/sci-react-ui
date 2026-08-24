@@ -1124,8 +1124,20 @@ describe("DiamondDS component overrides", () => {
       expect.objectContaining({
         backgroundColor: "var(--ds-surface)",
         boxShadow: "none",
+        border: "1px solid var(--ds-border-subtle)",
+        borderRadius: 8,
       }),
     );
+  });
+
+  it("drops the last table row's own divider so it doesn't double up with the container border", () => {
+    const tableContainerRoot = DiamondDSTheme.components?.MuiTableContainer
+      ?.styleOverrides?.root as Record<string, unknown>;
+
+    const lastRowRule =
+      tableContainerRoot["& tbody tr:last-child td, & tbody tr:last-child th"];
+
+    expect(lastRowRule).toEqual({ borderBottom: "none" });
   });
 });
 

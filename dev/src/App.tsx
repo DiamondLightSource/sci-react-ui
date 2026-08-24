@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   Box,
+  Checkbox,
   Chip,
   Container,
   Paper,
@@ -20,7 +21,17 @@ import {
   Routes,
 } from "react-router-dom";
 
-import { ThemeProvider, DiamondDSTheme } from "../../src/index";
+import {
+  MaterialReactTable,
+  useMaterialReactTable,
+} from "material-react-table";
+import type { MRT_ColumnDef } from "material-react-table";
+
+import {
+  ThemeProvider,
+  DiamondDSTheme,
+  DiamondDSIntegrations,
+} from "../../src/index";
 import type { Theme } from "@mui/material/styles";
 
 import {
@@ -34,40 +45,122 @@ import { Bar } from "../../src/components/controls/Bar";
 
 /* TABLE */
 
-export const SimpleMuiTableExample = () => (
-  <TableContainer component={Paper} elevation={0}>
-    <Table size="small" aria-label="Simple MUI table">
-      <TableHead>
-        <TableRow>
-          <TableCell>Experiment ID</TableCell>
-          <TableCell>Scientist</TableCell>
-          <TableCell>Beamline</TableCell>
-          <TableCell>Status</TableCell>
-          <TableCell align="right">Energy</TableCell>
-        </TableRow>
-      </TableHead>
+export const SimpleMuiTableExample = () => {
+  const [selected, setSelected] = React.useState<string[]>(["EXP-1003"]);
 
-      <TableBody>
-        {data.map((row) => (
-          <TableRow key={row.id} hover>
-            <TableCell>{row.id}</TableCell>
-            <TableCell>{row.scientist}</TableCell>
-            <TableCell>{row.beamline}</TableCell>
-            <TableCell>
-              <Chip
-                size="small"
-                label={row.status}
-                color={statusColour[row.status]}
-                variant="outlined"
+  const isSelected = (id: string) => selected.includes(id);
+
+  const handleToggle = (id: string) => {
+    setSelected((prev) =>
+      prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id],
+    );
+  };
+
+  const handleToggleAll = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelected(event.target.checked ? data.map((row) => row.id) : []);
+  };
+
+  const allSelected = selected.length === data.length;
+  const someSelected = selected.length > 0 && !allSelected;
+
+  return (
+    <TableContainer component={Paper} elevation={0}>
+      <Table size="small" aria-label="Simple MUI table">
+        <TableHead>
+          <TableRow>
+            <TableCell padding="checkbox">
+              <Checkbox
+                indeterminate={someSelected}
+                checked={allSelected}
+                onChange={handleToggleAll}
+                inputProps={{ "aria-label": "select all rows" }}
               />
             </TableCell>
-            <TableCell align="right">{row.energy.toFixed(1)} keV</TableCell>
+            <TableCell>Experiment ID</TableCell>
+            <TableCell>Scientist</TableCell>
+            <TableCell>Beamline</TableCell>
+            <TableCell>Status</TableCell>
+            <TableCell align="right">Energy</TableCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
-);
+        </TableHead>
+
+        <TableBody>
+          {data.map((row) => (
+            <TableRow key={row.id} hover selected={isSelected(row.id)}>
+              <TableCell padding="checkbox">
+                <Checkbox
+                  checked={isSelected(row.id)}
+                  onChange={() => handleToggle(row.id)}
+                  inputProps={{ "aria-label": `select row ${row.id}` }}
+                />
+              </TableCell>
+              <TableCell>{row.id}</TableCell>
+              <TableCell>{row.scientist}</TableCell>
+              <TableCell>{row.beamline}</TableCell>
+              <TableCell>
+                <Chip
+                  size="small"
+                  label={row.status}
+                  color={statusColour[row.status]}
+                  variant="outlined"
+                />
+              </TableCell>
+              <TableCell align="right">{row.energy.toFixed(1)} keV</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+
+/* MATERIAL REACT TABLE - mid-level (per-table) overrides */
+
+export const MidLevelMrtExample = () => {
+  const table = useMaterialReactTable({
+    columns: mrtColumns,
+    data,
+    enableColumnActions: false,
+    enableColumnFilters: false,
+    enablePagination: false,
+    enableSorting: false,
+    enableBottomToolbar: false,
+    enableTopToolbar: false,
+    enableRowSelection: true,
+    getRowId: (row) => row.id,
+    initialState: { rowSelection: { "EXP-1003": true } },
+    mrtTheme: DiamondDSIntegrations.mrtTheme,
+    ...DiamondDSIntegrations.mrtOptions(),
+  });
+
+  return <MaterialReactTable table={table} />;
+};
+
+const mrtColumns: MRT_ColumnDef<Experiment>[] = [
+  { accessorKey: "id", header: "Experiment ID" },
+  { accessorKey: "scientist", header: "Scientist" },
+  { accessorKey: "beamline", header: "Beamline" },
+  {
+    accessorKey: "status",
+    header: "Status",
+    Cell: ({ cell }) => {
+      const status = cell.getValue() as ExperimentStatus;
+      return (
+        <Chip
+          size="small"
+          label={status}
+          color={statusColour[status]}
+          variant="outlined"
+        />
+      );
+    },
+  },
+  {
+    accessorKey: "energy",
+    header: "Energy",
+    Cell: ({ cell }) => `${cell.getValue<number>().toFixed(1)} keV`,
+  },
+];
 
 type Experiment = {
   id: string;
@@ -234,6 +327,17 @@ const ComponentsPage = () => {
           Table - Simple Table
         </Typography>
         <SimpleMuiTableExample />
+      </Box>
+
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          Table - Material React Table (mid-level overrides)
+        </Typography>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          Uses <code>DiamondDSIntegrations.mrtTheme</code> and{" "}
+          <code>mrtOptions()</code> for per-table DS styling.
+        </Typography>
+        <MidLevelMrtExample />
       </Box>
     </Stack>
   );
