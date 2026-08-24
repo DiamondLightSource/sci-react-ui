@@ -20,7 +20,7 @@ import {
   type ReactNode,
 } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { ChevronDown } from "lucide-react";
 import type { NavItem, NavItemWithChildren } from "./types";
 
 type SubNavGroup = {
@@ -32,13 +32,17 @@ type SubNavGroup = {
 type SubNavContentProps = {
   title?: string;
 
-  /** Rendered in the header, above the item list; typically a search field. */
-  searchSlot?: ReactNode;
-
   groups: SubNavGroup[];
 
+  /** Rendered before the item list, inside the scrollable area - typically a search field. */
+  beforeNavSlot?: ReactNode;
+  /** Rendered after the item list, inside the scrollable area. */
+  afterNavSlot?: ReactNode;
+  /** Rendered pinned to the bottom of the panel, outside the scrollable area. */
+  footerSlot?: ReactNode;
+
   /**
-   * Renders a back affordance above the title/search when provided.
+   * Renders a back affordance above the title when provided.
    * SidebarNav supplies this on mobile only; omit for standalone use.
    */
   onBack?: () => void;
@@ -48,9 +52,9 @@ type SubNavContentProps = {
 };
 
 /**
- * Just the contextual nav's content - a header (title/search/back) plus a
- * grouped, optionally-expandable list. Presentation (Drawer vs. side-by-side
- * panel, responsive switching) is SidebarNav's job, not this component's.
+ * Just the contextual nav's content - a header (title/back) plus a grouped,
+ * optionally-expandable list. Presentation (Drawer vs. side-by-side panel,
+ * responsive switching) is SidebarNav's job, not this component's.
  */
 function SubNavContent(props: SubNavContentProps) {
   const dense = props.dense ?? true;
@@ -58,7 +62,8 @@ function SubNavContent(props: SubNavContentProps) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <SubNavHeader {...props} />
-      <Box sx={{ overflow: "auto", flex: 1 }}>
+      <Box sx={{ overflow: "auto", flex: 1, minHeight: 0 }}>
+        {props.beforeNavSlot}
         <List dense={dense} sx={{ p: 1, flexDirection: "column" }}>
           {props.groups.map((group, groupIndex) => (
             <Fragment key={groupIndex}>
@@ -71,6 +76,7 @@ function SubNavContent(props: SubNavContentProps) {
                     color: "text.secondary",
                     bgcolor: "transparent",
                     lineHeight: 2.5,
+                    pl: 5,
                   }}
                 >
                   {group.subheader}
@@ -82,48 +88,42 @@ function SubNavContent(props: SubNavContentProps) {
             </Fragment>
           ))}
         </List>
+        {props.afterNavSlot}
       </Box>
+      {props.footerSlot && (
+        <Box sx={{ flexShrink: 0 }}>
+          <SectionDivider />
+          <Box sx={{ pb: 1 }}>{props.footerSlot}</Box>
+        </Box>
+      )}
     </Box>
   );
 }
 
 function SubNavHeader(props: SubNavContentProps) {
-  const hasHeader = props.onBack || props.title || props.searchSlot;
-
-  if (!hasHeader) {
+  if (!props.onBack && !props.title) {
     return null;
   }
 
   return (
     <Box sx={{ px: 2, pt: 2, pb: 1 }}>
-      {(props.onBack || props.title) && (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            mb: props.title ? 1.5 : 0,
-          }}
-        >
-          {props.onBack && (
-            <IconButton
-              onClick={props.onBack}
-              aria-label="Back"
-              edge="start"
-              size="small"
-            >
-              <ArrowBackIcon fontSize="small" />
-            </IconButton>
-          )}
-          {props.title && (
-            <Typography variant="h6" component="h2" noWrap>
-              {props.title}
-            </Typography>
-          )}
-        </Box>
-      )}
-
-      {props.searchSlot}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        {props.onBack && (
+          <IconButton
+            onClick={props.onBack}
+            aria-label="Back"
+            edge="start"
+            size="small"
+          >
+            <ArrowBackIcon fontSize="small" />
+          </IconButton>
+        )}
+        {props.title && (
+          <Typography variant="h6" component="h2" noWrap>
+            {props.title}
+          </Typography>
+        )}
+      </Box>
     </Box>
   );
 }
@@ -138,7 +138,8 @@ function SectionDivider() {
 
 function getItemButtonSx(dense: boolean) {
   return {
-    p: dense ? 0.5 : 1,
+    px: 1,
+    py: dense ? 0.5 : 1,
     borderRadius: 2,
     gap: dense ? 1 : 1.5,
     "&.active, &.Mui-selected": {
@@ -207,7 +208,7 @@ function SubNavItem({
                   theme.transitions.create("transform"),
               }}
             >
-              <ExpandMoreIcon fontSize="small" />
+              <ChevronDown size={20} strokeWidth={1.75} />
             </IconButton>
           )
         }
@@ -217,7 +218,7 @@ function SubNavItem({
           onClick={onRowClick}
           selected={item.selected}
           dense={dense}
-          sx={{ ...buttonSx, pr: hasChildren ? 5 : buttonSx.p }}
+          sx={{ ...buttonSx, pr: hasChildren ? 5 : buttonSx.px }}
           aria-label={item.label}
         >
           {item.icon && (
@@ -241,7 +242,7 @@ function SubNavItem({
       </ListItem>
       {hasChildren && (
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding sx={{ pl: 4 }}>
+          <List component="div" disablePadding sx={{ pl: 4.5 }}>
             {item.children!.map((child, childIndex) => (
               <SubNavChildItem key={childIndex} item={child} dense={dense} />
             ))}

@@ -49,7 +49,21 @@ const meta: Meta<typeof SidebarNav> = {
     fullBleed: true,
     docs: {
       description: {
-        component: `Your app's primary navigation, with an optional contextual secondary panel alongside it. Without \`subNav\` this renders the collapsing/expanding primary drawer alone - a permanent drawer toggling between two widths (icon and text, or just icon) on normal screen sizes, and a temporary (overlaid) drawer on smaller screens. With \`subNav\`, SidebarNav also owns the responsive coordination between the two panels: on mobile only one drawer is visible at a time - opening the secondary panel drills in and hides the primary sidebar, and a back affordance drills back out. On desktop both panels are shown side by side. Which primary item a secondary panel belongs to (e.g. "Setup" having its own sub-navigation) is entirely up to the consumer - SidebarNav only owns the responsive mechanics, not when the panel opens.`,
+        component: `A collapsing/expanding sidebar for your app's primary navigation, with an optional contextual secondary panel alongside it.
+
+- **\`hasAppBar\`**: set this when your app renders a fixed AppBar above SidebarNav, so its drawers/panels reserve space for it. Omit it if there's no AppBar, or content is pushed down by an empty gap.
+- **Without \`subNav\`**: renders the primary drawer alone. For normal screen sizes, the implementation uses MUI's permanent drawer toggling between two widths, showing either icon and text or just icon. For smaller screens, we use the temporary variant instead.
+- **With \`subNav\`**: SidebarNav also owns the responsive coordination between the primary drawer and a secondary panel. On mobile only one drawer is visible at a time: opening the secondary panel drills in and hides the primary sidebar, with a back affordance to drill back out. On desktop both panels are shown side by side. Which primary item a secondary panel belongs to (e.g. "Setup" having its own sub-navigation) is entirely up to the consumer — SidebarNav only owns the responsive mechanics, not when the panel opens.
+
+**Using an AppBar**
+- Render your \`AppBar\` as a sibling of SidebarNav, with \`position="fixed"\` and a \`zIndex\` above \`theme.zIndex.drawer\` — MUI wants to draw a Drawer above everything else otherwise.
+- Set \`hasAppBar\` on SidebarNav so its drawers/panels line up below the AppBar, rather than starting at the very top of the screen.
+- Wire the AppBar's own menu button to toggle \`open\`, as shown in \`WithAppBar\`.
+
+**Using SubNav**
+- Only pass \`subNav\` for the primary items that actually have their own sub-navigation. Most items can have none.
+- Drive \`subNavOpen\`/\`setSubNavOpen\` from whichever primary item is currently selected (see \`WithAppBarAndSubNav\`), not from SidebarNav itself. It only owns the responsive mechanics, not when the panel opens.
+- Use \`SubNav\`'s own \`beforeNavSlot\`/\`afterNavSlot\`/\`footerSlot\` for content like search or quick actions inside the secondary panel, rather than reaching into its internals.`,
       },
       story: {
         height: "600px",
@@ -417,6 +431,7 @@ export const WithAppBar: Story = {
           navigation={reactRouterNavigation}
           open={open}
           setOpen={setOpen}
+          hasAppBar
         />
         <Box component="main" sx={{ flexGrow: 1, minWidth: 0 }}>
           <Toolbar /> {/* spacer equal to the AppBar's height */}
@@ -431,7 +446,7 @@ export const WithAppBar: Story = {
     docs: {
       description: {
         story:
-          "MUI wants to draw a Drawer above everything, so in this example the AppBar's zIndex is increased. Clicking the menu icon toggles the sidebar open and closed.",
+          "MUI wants to draw a Drawer above everything, so in this example the AppBar's zIndex is increased. Clicking the menu icon toggles the sidebar open and closed. hasAppBar reserves space at the top of the drawer for the AppBar - omit it when there's no AppBar.",
       },
     },
   },
@@ -631,6 +646,7 @@ export const WithAppBarAndSubNav: Story = {
           navigation={navigation}
           open={sidebarOpen}
           setOpen={setSidebarOpen}
+          hasAppBar
           subNav={{ title: "Setup", groups: setupGroupsWithChildLinks }}
           subNavOpen={subNavOpen}
           setSubNavOpen={setSubNavOpen}
