@@ -44,12 +44,21 @@ describe("SidebarNav", () => {
       },
     ];
 
-    function renderSidenav(open: boolean, setOpen = vi.fn()) {
+    function renderSidenav(
+      open: boolean,
+      setOpen = vi.fn(),
+      hasAppBar = false,
+    ) {
       const router = createMemoryRouter([
         {
           path: "/",
           element: (
-            <SidebarNav navigation={navigation} open={open} setOpen={setOpen} />
+            <SidebarNav
+              navigation={navigation}
+              open={open}
+              setOpen={setOpen}
+              hasAppBar={hasAppBar}
+            />
           ),
         },
       ]);
@@ -123,6 +132,18 @@ describe("SidebarNav", () => {
         renderSidenav(true);
         const divider = screen.queryByRole("separator");
         expect(divider).toBeInTheDocument();
+      });
+
+      it("does not reserve space for an AppBar when hasAppBar is not set", () => {
+        renderSidenav(true);
+        expect(
+          document.querySelector(".MuiToolbar-root"),
+        ).not.toBeInTheDocument();
+      });
+
+      it("reserves space for an AppBar when hasAppBar is set", () => {
+        renderSidenav(true, vi.fn(), true);
+        expect(document.querySelector(".MuiToolbar-root")).toBeInTheDocument();
       });
 
       it("renders afterNavSlot after the navigation items", () => {

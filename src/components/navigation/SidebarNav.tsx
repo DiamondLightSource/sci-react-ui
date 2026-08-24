@@ -48,6 +48,12 @@ type SidebarNavProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
 
+  /**
+   * Set when a fixed AppBar sits above this component, so its drawers and
+   * panels reserve space for it. Omit if there's no AppBar.
+   */
+  hasAppBar?: boolean;
+
   /** Rendered after the navigation items, inside the scrollable area. */
   afterNavSlot?: ReactNode;
   /** Rendered pinned to the bottom of the drawer, outside the scrollable area. */
@@ -122,12 +128,13 @@ function SidebarNav(props: SidebarNavProps) {
         navigation={props.navigation}
         open={effectiveOpen}
         setOpen={props.setOpen}
+        hasAppBar={props.hasAppBar}
         afterNavSlot={props.afterNavSlot}
         footerSlot={props.footerSlot}
       />
       {props.subNav &&
         (desktopLayout ? (
-          <SubNavPanel open={subNavOpen}>
+          <SubNavPanel open={subNavOpen} hasAppBar={props.hasAppBar}>
             <SubNavContent {...props.subNav} />
           </SubNavPanel>
         ) : (
@@ -149,7 +156,7 @@ function SidebarNav(props: SidebarNavProps) {
               },
             }}
           >
-            <Toolbar />
+            {props.hasAppBar && <Toolbar />}
             <SubNavContent
               {...props.subNav}
               onBack={() => props.setSubNavOpen?.(false)}
@@ -166,7 +173,11 @@ function SidebarNav(props: SidebarNavProps) {
  * render on top of each other. Transitions width between 0 and full, reusing
  * the primary drawer's width-transition mechanism.
  */
-function SubNavPanel(props: { open: boolean; children: ReactNode }) {
+function SubNavPanel(props: {
+  open: boolean;
+  hasAppBar?: boolean;
+  children: ReactNode;
+}) {
   const theme = useTheme();
   const width = props.open ? NAV_WIDTH + 1 : 0; // +1 pixel for the border
 
@@ -185,7 +196,8 @@ function SubNavPanel(props: { open: boolean; children: ReactNode }) {
         borderColor: "divider",
       }}
     >
-      <Toolbar /> {/* spacer equal to the AppBar's height */}
+      {props.hasAppBar && <Toolbar />}{" "}
+      {/* spacer equal to the AppBar's height */}
       {/* flex:1 (not a percentage height) so this fills the panel without
           depending on an ancestor having a "definite" height to resolve
           against - percentage heights chained through a flex row were the
@@ -201,6 +213,8 @@ type PrimaryNavProps = {
   navigation: Navigation;
   open: boolean;
   setOpen: (open: boolean) => void;
+  /** Set when a fixed AppBar sits above the drawer, reserving space for it. */
+  hasAppBar?: boolean;
   /** Rendered after the navigation items, inside the scrollable area. */
   afterNavSlot?: ReactNode;
   /** Rendered pinned to the bottom of the drawer, outside the scrollable area. */
@@ -238,7 +252,8 @@ function PermanentDrawer(props: PrimaryNavProps) {
         },
       })}
     >
-      <Toolbar /> {/* spacer equal to the AppBar's height*/}
+      {props.hasAppBar && <Toolbar />}{" "}
+      {/* spacer equal to the AppBar's height*/}
       <DrawerContent {...props} />
     </Drawer>
   );
@@ -264,7 +279,7 @@ function TemporaryDrawer(props: PrimaryNavProps) {
         },
       }}
     >
-      <Toolbar />
+      {props.hasAppBar && <Toolbar />}
       <DrawerContent {...props} />
     </Drawer>
   );
@@ -284,7 +299,7 @@ function DrawerContent(props: PrimaryNavProps) {
       {props.footerSlot && (
         <Box sx={{ flexShrink: 0 }}>
           <SectionDivider />
-          <Box sx={{ px: 1, pb: 1 }}>{props.footerSlot}</Box>
+          <Box sx={{ pb: 1 }}>{props.footerSlot}</Box>
         </Box>
       )}
     </Box>

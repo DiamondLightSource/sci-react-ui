@@ -95,12 +95,12 @@ describe("SubNavContent", () => {
     expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
   });
 
-  it("renders whatever is passed as searchSlot, with no search logic of its own", async () => {
+  it("renders whatever is passed as beforeNavSlot, with no search logic of its own", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
 
     renderSubNavContent({
-      searchSlot: (
+      beforeNavSlot: (
         <TextField
           size="small"
           onChange={(e) => onChange(e.target.value)}
@@ -116,6 +116,30 @@ describe("SubNavContent", () => {
     // groups are rendered unfiltered - filtering on the slot's value, if
     // any, is entirely up to the consumer.
     expect(screen.getByRole("link", { name: "Setup" })).toBeVisible();
+  });
+
+  it("renders beforeNavSlot before the item list", () => {
+    renderSubNavContent({
+      beforeNavSlot: <div data-testid="before-content">Quick actions</div>,
+    });
+
+    expect(screen.getByTestId("before-content")).toBeVisible();
+  });
+
+  it("renders afterNavSlot after the item list", () => {
+    renderSubNavContent({
+      afterNavSlot: <div data-testid="after-content">Extra links</div>,
+    });
+
+    expect(screen.getByTestId("after-content")).toBeVisible();
+  });
+
+  it("renders footerSlot", () => {
+    renderSubNavContent({
+      footerSlot: <div data-testid="footer">User menu</div>,
+    });
+
+    expect(screen.getByTestId("footer")).toBeVisible();
   });
 
   it("renders a back button when onBack is provided", async () => {
