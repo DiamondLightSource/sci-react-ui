@@ -1,12 +1,14 @@
 import { Abc, ArrowForward, GraphicEq } from "@mui/icons-material";
-import { SecondaryNavContent } from "./SecondaryNav";
+import SearchIcon from "@mui/icons-material/Search";
+import { InputAdornment, TextField } from "@mui/material";
+import { SubNavContent } from "./SubNav";
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { NavLink, MemoryRouter } from "react-router-dom";
 
-const meta: Meta<typeof SecondaryNavContent> = {
-  title: "Components/Navigation/SecondaryNav",
-  component: SecondaryNavContent,
+const meta: Meta<typeof SubNavContent> = {
+  title: "Components/Navigation/SubNav",
+  component: SubNavContent,
   decorators: [
     (Story) => (
       <MemoryRouter>
@@ -18,7 +20,7 @@ const meta: Meta<typeof SecondaryNavContent> = {
   parameters: {
     docs: {
       description: {
-        component: `The content of an optional contextual navigation panel that sits next to SidebarNav: a header (title/search/back) plus a grouped, optionally-expandable list. Use NavigationLayout to get the responsive mobile drill-down / desktop side-by-side drawer-or-panel behaviour around it.`,
+        component: `The content of a contextual secondary navigation panel: a header (title/search slot/back) plus a grouped, optionally-expandable list. Presentation-agnostic - it renders no Drawer or panel of its own. Use SidebarNav's \`subNav\` prop to get the responsive mobile drill-down / desktop side-by-side behaviour around it.`,
       },
     },
   },
@@ -31,18 +33,14 @@ const basicGroups = [
   {
     items: [
       {
-        id: "setup",
         label: "Setup",
         linkProps: { to: "/1", component: NavLink },
       },
       {
-        id: "acquisition",
         label: "Acquisition",
         linkProps: { to: "/2", component: NavLink },
-        selected: true,
       },
       {
-        id: "analysis",
         label: "Analysis",
         linkProps: { to: "/3", component: NavLink },
       },
@@ -81,12 +79,37 @@ export const WithTitleAndSearch: Story = {
   render: () => {
     const [value, setValue] = React.useState("");
     return (
-      <SecondaryNavContent
+      <SubNavContent
         title="Experiments"
         groups={basicGroups}
-        search={{ value, onChange: setValue, placeholder: "Search items" }}
+        searchSlot={
+          <TextField
+            fullWidth
+            size="small"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="Search items"
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        }
       />
     );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "searchSlot takes any ReactNode - SubNavContent has no search logic of its own, so filtering `groups` in response to the value is entirely up to the consumer.",
+      },
+    },
   },
 };
 
@@ -95,13 +118,11 @@ const groupedGroups = [
     subheader: "Recent",
     items: [
       {
-        id: "setup",
         label: "Setup",
         icon: <Abc />,
         linkProps: { to: "/1", component: NavLink },
       },
       {
-        id: "acquisition",
         label: "Acquisition",
         icon: <ArrowForward />,
         linkProps: { to: "/2", component: NavLink },
@@ -112,7 +133,6 @@ const groupedGroups = [
     subheader: "All experiments",
     items: [
       {
-        id: "analysis",
         label: "Analysis",
         icon: <GraphicEq />,
         linkProps: { to: "/3", component: NavLink },
@@ -131,21 +151,16 @@ const expandableGroups = [
   {
     items: [
       {
-        id: "analysis",
         label: "Analysis",
         icon: <GraphicEq />,
         defaultExpanded: true,
-        children: [
-          { id: "analysis-a", label: "Run A" },
-          { id: "analysis-b", label: "Run B" },
-        ],
+        children: [{ label: "Run A" }, { label: "Run B" }],
       },
       {
-        id: "acquisition",
         label: "Acquisition",
         icon: <ArrowForward />,
         linkProps: { to: "/2", component: NavLink },
-        children: [{ id: "acquisition-a", label: "Session 1" }],
+        children: [{ label: "Session 1" }],
       },
     ],
   },
@@ -175,7 +190,7 @@ export const WithBackButton: Story = {
     docs: {
       description: {
         story:
-          "onBack is normally supplied by NavigationLayout on mobile to drill back to the primary sidebar, shown here in isolation.",
+          "onBack is normally supplied by SidebarNav on mobile to drill back to the primary sidebar, shown here in isolation.",
       },
     },
   },
