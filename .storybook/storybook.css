@@ -112,6 +112,22 @@ pre .language-shell:not(.MuiTypography-root) {
   max-width: 58ch;
 }
 
+/* Typeface samples (Foundations/Typography) */
+.ds-docs h3.ds-type-sample-inter {
+  font-family: var(--ds-font-family-default) !important;
+}
+.ds-docs h3.ds-type-sample-outfit {
+  font-family: var(--ds-font-family-display) !important;
+}
+.ds-docs h3.ds-type-sample-mono {
+  font-family: var(--ds-font-family-mono) !important;
+}
+.ds-docs h3.ds-type-sample-inter,
+.ds-docs h3.ds-type-sample-outfit,
+.ds-docs h3.ds-type-sample-mono {
+  font-size: var(--ds-font-size-900) !important;
+}
+
 /* MDX Components */
 
 .ds-docs code {
