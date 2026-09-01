@@ -2,12 +2,7 @@ import type { Theme } from "@mui/material";
 
 /** Represents intent or severity */
 export type DataColour =
-  | "none"
-  | "neutral"
-  | "info"
-  | "danger"
-  | "warning"
-  | "success";
+  "none" | "neutral" | "info" | "danger" | "warning" | "success";
 
 export type DataColours = {
   /** background colour */

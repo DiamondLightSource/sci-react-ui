@@ -33,7 +33,7 @@ export const DataItem = (props: DataItemProps) => {
             fontSize,
           }}
         >
-          {props.label}
+          {props.label}:
         </Typography>
       )}
       <Typography

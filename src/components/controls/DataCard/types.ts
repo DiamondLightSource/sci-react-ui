@@ -22,9 +22,9 @@ export type PairProps = {
   value1: DecoratedValue;
   value2: DecoratedValue;
   subvalue?: DecoratedValue;
-
   /** `true` by default, but ignored if `subvalue` is provided */
   stacked?: boolean;
+
   value?: never;
   icon?: never;
 };
