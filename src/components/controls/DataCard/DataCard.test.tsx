@@ -1,22 +1,14 @@
 import { DataCard } from "./DataCard";
-import type { ReactNode } from "react";
-import { ThemeProvider } from "@mui/material";
-import { DiamondDSTheme } from "@diamondlightsource/sci-react-ui";
 import type { DataColour } from "./palette";
 import { type LucideIcon } from "lucide-react";
-import { render, RenderResult, screen } from "@testing-library/react";
-
-const renderWithTheme = (children: ReactNode): RenderResult => {
-  return render(
-    <ThemeProvider theme={DiamondDSTheme}>{children}</ThemeProvider>,
-  );
-};
+import { renderWithProviders } from "../../../__test-utils__/helpers";
+import { screen } from "@testing-library/react";
 
 describe("DataCard", () => {
   const otherProps = { title: "", colour: "none" as DataColour };
   it("always renders title", () => {
     const title = "Status";
-    renderWithTheme(
+    renderWithProviders(
       <DataCard colour="none" title={title} value={{ value: "4" }} />,
     );
     expect(screen.getByText(title)).toBeVisible();
@@ -25,7 +17,7 @@ describe("DataCard", () => {
     const otherProps = { title: "", colour: "none" as DataColour };
     it("shows the value", () => {
       const text = "Ready";
-      renderWithTheme(<DataCard value={{ value: text }} {...otherProps} />);
+      renderWithProviders(<DataCard value={{ value: text }} {...otherProps} />);
       const value = screen.getByText(text);
       expect(value).toBeInTheDocument();
     });
@@ -33,7 +25,9 @@ describe("DataCard", () => {
     it("renders label (with colon) if supplied", () => {
       const label = "Energy";
       const value = "481";
-      renderWithTheme(<DataCard value={{ label, value }} {...otherProps} />);
+      renderWithProviders(
+        <DataCard value={{ label, value }} {...otherProps} />,
+      );
 
       expect(screen.getByText(label + ":")).toBeInTheDocument();
       expect(screen.getByText(value)).toBeInTheDocument();
@@ -43,7 +37,7 @@ describe("DataCard", () => {
       const label = "Energy";
       const value = "481";
       const suffix = "eV";
-      renderWithTheme(
+      renderWithProviders(
         <DataCard value={{ label, value, suffix }} {...otherProps} />,
       );
 
@@ -57,7 +51,7 @@ describe("DataCard", () => {
         value: "0",
         suffix: "mA",
       };
-      renderWithTheme(
+      renderWithProviders(
         <DataCard value={{ value }} subvalue={sub} {...otherProps} />,
       );
       expect(screen.getByText(sub.label + ":")).toBeVisible();
@@ -69,7 +63,7 @@ describe("DataCard", () => {
       const Icon: LucideIcon = vi.fn((props) => (
         <svg data-testid="myicon" {...props} />
       )) as unknown as LucideIcon;
-      renderWithTheme(
+      renderWithProviders(
         <DataCard value={{ value: "" }} icon={Icon} {...otherProps} />,
       );
       expect(screen.getByTestId("myicon")).toBeVisible();
@@ -93,7 +87,7 @@ describe("DataCard", () => {
     };
 
     it("renders both values stacked by default", () => {
-      renderWithTheme(
+      renderWithProviders(
         <DataCard value1={value1} value2={value2} {...otherProps} />,
       );
       expect(screen.getByText(value1.value)).toBeVisible();
@@ -104,7 +98,7 @@ describe("DataCard", () => {
     });
 
     it("can combine both values into one line", () => {
-      renderWithTheme(
+      renderWithProviders(
         <DataCard
           value1={value1}
           value2={value2}
@@ -120,7 +114,7 @@ describe("DataCard", () => {
     });
 
     it("can render a subvalue, combining both values into one line", () => {
-      renderWithTheme(
+      renderWithProviders(
         <DataCard
           value1={value1}
           value2={value2}
@@ -138,7 +132,7 @@ describe("DataCard", () => {
 
     it("ignores stacked=true if subvalue is passed", () => {
       // because combining values is the only way to show subvalue too
-      renderWithTheme(
+      renderWithProviders(
         <DataCard
           value1={value1}
           value2={value2}

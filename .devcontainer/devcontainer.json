@@ -1,25 +1,31 @@
 {
-  "name": "sci-react-ui-devcontainer",
+  "name": "sci-react-ui Dev Container",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "Dockerfile",
+    "target": "developer",
+    "context": ".."
   },
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:2.4.2": {
-      "username": "none",
-      "upgradePackages": false
-    },
-    "ghcr.io/devcontainers-extra/features/pnpm:2": {}
+    // add in eternal history and other bash features
+    "ghcr.io/diamondlightsource/devcontainer-features/bash-config:1": {}
   },
   "customizations": {
     "vscode": {
       "extensions": [
-        "tamasfe.even-better-toml",
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint"
       ]
-    }
+    },
+    "settings": {
+        "ts.preferences.preferTypeOnlyAutoImports": true,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "always"
+        }
+      }
   },
-  "runArgs": ["--security-opt=label=type:container_runtime_t"],
-  "workspaceMount": "source=.,target=/workspace,type=bind",
-  "workspaceFolder": "/workspace"
+  "runArgs": ["--net=host", "--security-opt=label=disable"],
+  "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces,type=bind",
+  "postCreateCommand": "pnpm install"
 }
