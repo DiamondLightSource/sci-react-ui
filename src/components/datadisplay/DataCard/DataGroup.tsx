@@ -10,6 +10,8 @@ export const DataGroup = ({ items }: { items: DataObjectProps[] }) => {
       sx={{
         background: palette.container,
         display: "flex",
+        border: "1px solid",
+        borderColor: "divider"
       }}
     >
       {items.map((dataObject, index) => (

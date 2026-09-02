@@ -16,6 +16,8 @@ export const DataCard = (props: DataCardProps) => {
         padding: 2,
         flexGrow: 1,
         background: palette.container,
+        border: "1px solid",
+        borderColor: "divider"
       }}
     >
       <DataObject {...props} palette={palette} />
