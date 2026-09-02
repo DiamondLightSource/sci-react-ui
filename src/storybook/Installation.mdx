@@ -46,19 +46,16 @@ Use this page to install SciReactUI, configure the Diamond Design System theme, 
         Use the provided `DiamondDSTheme` with the ThemeProvider or create your own (see below). The theme controls colour via semantic surface tokens.
 
         ```tsx filename="main.tsx"
-        import {
-            ThemeProvider,
-            DiamondDSTheme
-        } from "@diamondlightsource/sci-react-ui";
+        import { ThemeProvider } from "@diamondlightsource/sci-react-ui";
 
         root.render(
-          <ThemeProvider theme={DiamondDSTheme}>
+          <ThemeProvider>
             <App />
           </ThemeProvider>
         )
         ```
 
-        The design sytem theme consists of two parts:
+        The design system theme consists of two parts:
             - Theme configuration (DiamondDSTheme.ts)
             - Semantic role tokens (diamond-ds-roles.css)
 
