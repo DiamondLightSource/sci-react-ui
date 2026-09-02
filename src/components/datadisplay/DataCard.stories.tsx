@@ -4,7 +4,7 @@ import { Box, Stack, Typography } from "../MUI/MuiWrapped";
 import { LucideStar } from "lucide-react";
 
 const meta = {
-  title: "Components/Controls/DataCard",
+  title: "Components/Data Display/DataCard",
   component: DataCard,
   tags: ["autodocs"],
   parameters: {
