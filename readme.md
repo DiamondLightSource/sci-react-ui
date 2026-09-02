@@ -22,19 +22,17 @@ Install as usual.
 
 ### Usage
 
-First use the ThemeProvider and supply a theme.
+First use the ThemeProvider and wrap your App.
 
 ```js
-import { ThemeProvider, DiamondTheme } from "@diamondlightsource/sci-react-ui";
+import { ThemeProvider } from "@diamondlightsource/sci-react-ui";
 
 root.render(
-  <ThemeProvider theme={DiamondTheme}>
+  <ThemeProvider>
     <App />
   </ThemeProvider>,
 );
 ```
-
-There are currently two themes, `GenericTheme` or `DiamondTheme`, but you can also create/adapt your own.
 
 Navigation components support either static links (with href) or the use of a routing library (with linkComponent and to).
 For NavLink and FooterLink, if both linkComponent and to are provided, it will use linkComponent. If not, it falls back to using href.
@@ -49,7 +47,7 @@ An example with static links
 </Navbar>
 ```
 
-An example using react-router:
+and an example using react-router:
 
 ```js
 import { NavLink } from "react-router-dom";
@@ -84,13 +82,10 @@ Next, use the BrowserRouter which can be used at the top level:
 
 ```js
 import { BrowserRouter } from "react-router-dom";
-import {
-	ThemeProvider,
-	DiamondTheme
-} from "@diamondlightsource/sci-react-ui";
+import { ThemeProvider } from "@diamondlightsource/sci-react-ui";
 
 root.render(
-	<ThemeProvider theme={DiamondTheme}>
+	<ThemeProvider>
 		<BrowserRouter>
 			<App />
 		</BrowserRouter>
