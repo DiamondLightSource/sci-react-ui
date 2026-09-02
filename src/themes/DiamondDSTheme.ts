@@ -15,10 +15,6 @@
  * Components should consume semantic roles from the theme or semantic CSS
  * variables rather than raw colour values.
  */
-import "@fontsource-variable/inter";
-import "@fontsource-variable/outfit";
-import "@fontsource/ibm-plex-mono";
-import "@fontsource/ibm-plex-mono/600.css";
 import "../styles/diamondDS/DiamondDSTokens.css";
 import "../styles/diamondDS/DiamondDSTypography.css";
 
