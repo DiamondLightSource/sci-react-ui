@@ -27,21 +27,21 @@ import {
 } from "material-react-table";
 import type { MRT_ColumnDef } from "material-react-table";
 
+import type { Theme } from "@mui/material/styles";
+
 import {
   ThemeProvider,
   DiamondDSTheme,
   DiamondDSIntegrations,
-} from "../../src/index";
-import type { Theme } from "@mui/material/styles";
-
-import {
+  
   Navbar,
   NavLinks,
   NavLink,
-} from "../../src/components/navigation/Navbar";
-import { ColourSchemeButton } from "../../src/components/controls/ColourSchemeButton";
-import { Breadcrumbs } from "../../src/components/navigation/Breadcrumbs";
-import { Bar } from "../../src/components/controls/Bar";
+  
+  ColourSchemeButton,
+  Breadcrumbs,
+  Bar
+} from "../../../src";
 
 /* TABLE */
 

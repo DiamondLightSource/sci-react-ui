@@ -1,0 +1,17 @@
+{
+  "name": "try-react-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "material-react-table": "^3.2.1",
+    "try-react-ui": "link:"
+  },
+  "devDependencies": {
+    "vite": "^8.0.0"
+  }
+}
