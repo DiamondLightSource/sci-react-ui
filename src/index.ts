@@ -1,3 +1,9 @@
+// Fonts
+import "@fontsource-variable/inter";
+import "@fontsource-variable/outfit";
+import "@fontsource/ibm-plex-mono";
+import "@fontsource/ibm-plex-mono/600.css";
+
 // components/navigation
 export * from "./components/navigation/Breadcrumbs";
 export * from "./components/navigation/Footer";
