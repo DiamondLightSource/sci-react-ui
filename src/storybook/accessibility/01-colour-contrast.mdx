@@ -1,0 +1,782 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Colour contrast and vision" />
+
+<style>{`
+  .ds-a11y-demo, .ds-a11y-demo * {
+    box-sizing: border-box;
+  }
+
+  .ds-a11y-demo p,
+  .ds-a11y-demo span,
+  .ds-a11y-demo strong,
+  .ds-a11y-demo li {
+    margin: 0;
+    color: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  /*
+   * Storybook's own docs heading styles win the specificity fight against a
+   * scoped class here, so headings inside this demo need !important to stay
+   * mode-aware. Paragraphs/spans deliberately don't get !important: several
+   * examples below set an inline text colour on purpose (e.g. showing a
+   * status colour applied to real text) and inline style must still win.
+   */
+  .ds-a11y-demo h3,
+  .ds-a11y-demo h4 {
+    margin: 0;
+    color: inherit !important;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .ds-a11y-demo p {
+    margin-bottom: 8px;
+  }
+
+  .ds-a11y-demo ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .ds-a11y-grid {
+    display: grid;
+    gap: 16px;
+    max-width: 920px;
+    margin-top: 12px;
+  }
+
+  .ds-a11y-panels {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ds-a11y-panel-title {
+    margin-top: 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--ds-border-subtle);
+    color: var(--ds-on-surface) !important;
+  }
+
+  .ds-a11y-row {
+    display: grid;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .ds-a11y-row h4 {
+    font-weight: 700;
+  }
+
+  .ds-chipRow {
+    display: grid;
+    gap: 10px;
+  }
+
+  .ds-chipLabel {
+    font-size: 13px;
+    opacity: 0.9;
+  }
+
+  .ds-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    line-height: 1.2;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .ds-chipText {
+    font-size: 14px;
+    font-weight: 650;
+  }
+
+  .ds-tokensList {
+    gap: 8px;
+    display: flex;
+  }
+
+  .ds-token {
+    display: inline-block;
+    font-weight: 500;
+    font-family: var(--ds-font-family-mono, monospace);
+    border: 1px solid var(--ds-border-subtle);
+    background: var(--ds-surface-container);
+    color: var(--ds-on-surface-variant);
+    padding: 2px 5px;
+    border-radius: 6px;
+    white-space: nowrap;
+    margin-right: 6px;
+  }
+
+  p code, li code {
+    font-weight: 500;
+    border: 1px solid var(--sb-ds-border-subtle);
+    background: var(--sb-ds-surface);
+    padding: 2px 5px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+`}</style>
+
+<div className="ds-docs">
+
+# Colour contrast and vision
+
+Colour contrast directly affects readability, speed, and error rate. In dense,
+data-heavy scientific interfaces, poor contrast increases cognitive load and
+slows decision-making. Colour vision deficiency adds a second, related
+failure mode: a colour choice can be readable and still fail if the hues
+involved aren't reliably distinguishable in the first place.
+
+We prioritise perceptual contrast using APCA when defining colour choices,
+while maintaining WCAG 2.2 as the compliance baseline. We also check those
+same colour choices under colour vision deficiency simulation, since a
+pairing can clear both APCA and WCAG 2.2 and still rely on a hue distinction
+some users can't actually perceive.
+
+## Why contrast needs a modern approach
+
+Traditional WCAG 2.x contrast ratios are useful, but they are based on
+luminance ratios rather than perceived readability. In practice, some
+combinations can technically pass while still feel strained or unstable in
+real UI.
+
+This becomes more visible across different font sizes, weights, and light or
+dark environments.
+
+This leads to common issues:
+
+<ul>
+  <li>Combinations that pass but still feel hard to read.</li>
+  <li>Overly strong contrast that causes glare or eye strain in dark mode.</li>
+  <li>
+    Poor readability with saturated colours such as success, warning, and
+    danger.
+  </li>
+</ul>
+
+APCA helps address these limitations by modelling perceived readability rather
+than relying only on raw luminance difference.
+
+## APCA contrast (primary)
+
+APCA reflects how contrast is actually experienced by users more closely than
+older ratio-based methods.
+
+<ul>
+  <li>Accounts for font size, weight, and polarity.</li>
+  <li>Handles light-on-dark and dark-on-light differently.</li>
+  <li>Produces more reliable results for real UI text.</li>
+  <li>Helps reduce strain in long-running workflows.</li>
+</ul>
+
+We use APCA to tune token values, component defaults, and interaction states.
+
+## WCAG 2.2 contrast (baseline)
+
+WCAG 2.2 remains the current compliance baseline for text contrast.
+
+<ul>
+  <li>Defines minimum acceptable contrast thresholds.</li>
+  <li>Used as a strict floor we do not go below.</li>
+  <li>Required for accessibility reviews and audits.</li>
+</ul>
+
+WCAG 2.2 is necessary, but on its own it is not enough to judge readability
+quality.
+
+## How we use them together
+
+Contrast decisions follow a clear order:
+
+<ul>
+  <li>
+    <strong>1. Design using APCA</strong> for perceptual readability.
+  </li>
+  <li>
+    <strong>2. Validate against WCAG 2.2</strong> for compliance.
+  </li>
+  <li>
+    <strong>3. Adjust only if required</strong>, without degrading usability.
+  </li>
+</ul>
+
+This helps keep interfaces both compliant and genuinely usable.
+
+## Colour-specific considerations
+
+Some hues behave less predictably for perceived contrast, even when WCAG 2.x
+ratios look acceptable.
+
+In DiamondDS this matters most for status colours: `--ds-success`,
+`--ds-warning`, and `--ds-danger`.
+
+A common issue in real interfaces is that black text on a saturated colour may
+look mathematically strong, but visually feel unstable, vibrating, or tiring,
+especially for smaller or denser text.
+
+APCA is better at exposing these perception problems.
+
+<ul>
+  <li>
+    <strong>Success</strong>: can feel muddy or uneven with dark text,
+    especially in small labels.
+  </li>
+  <li>
+    <strong>Warning</strong>: often looks shallower than expected, reducing
+    clarity on both light and dark surfaces.
+  </li>
+  <li>
+    <strong>Danger</strong>: more prone to vibration and reduced legibility,
+    particularly in error messaging.
+  </li>
+</ul>
+
+When using these colours:
+
+<ul>
+  <li>Use APCA to judge readability, not just WCAG 2.2 ratios.</li>
+  <li>Test across sizes, weights, and both themes.</li>
+  <li>Always pair colour with text, icons, or labels.</li>
+</ul>
+
+## Colour blindness
+
+Colour vision deficiency (CVD) is not one condition:
+
+<ul>
+  <li>
+    <strong>Protanopia / protanomaly</strong>: reduced or absent red-cone
+    sensitivity.
+  </li>
+  <li>
+    <strong>Deuteranopia / deuteranomaly</strong>: reduced or absent
+    green-cone sensitivity. The most common form, affecting roughly 1 in 12
+    men and 1 in 200 women.
+  </li>
+  <li>
+    <strong>Tritanopia / tritanomaly</strong>: reduced or absent blue-cone
+    sensitivity. Rare.
+  </li>
+  <li>
+    <strong>Achromatopsia</strong>: little or no colour perception at all.
+    Very rare.
+  </li>
+</ul>
+
+Together, the red-green deficiencies (protan and deutan) are by far the most
+common, which matters directly here: `--ds-success`, `--ds-warning`, and
+`--ds-danger` sit in exactly the green, amber, and red range those
+deficiencies compress together.
+
+### Checked, not assumed
+
+WCAG 2.2's success criterion 1.4.1 (Use of Colour) already requires that
+colour is never the only way information is conveyed. Confirming that means
+actually checking what these tokens look like under a colour vision
+deficiency, not assuming different hues are automatically distinguishable.
+Running DiamondDS's status colours through a standard CVD simulation
+(Machado, Oliveira and Fernandes, 2009) shows a real gap, not a hypothetical
+one:
+
+  <div className="ds-a11y-demo ds-a11y-grid ds-wide">
+    <div className="ds-a11y-panels">
+      <section className="ds-mode-panel" data-mode="light">
+        <h3 className="ds-a11y-panel-title">Light: under CVD simulation</h3>
+        {[
+          [
+            "Main",
+            "text",
+            [
+              ["As designed", "#137329", "#a95703", "#ae1e13"],
+              ["Simulated: protanopia", "#756821", "#706100", "#4e450f"],
+              ["Simulated: deuteranopia", "#6a602f", "#837401", "#716406"],
+            ],
+          ],
+          [
+            "Solid",
+            "chip",
+            [
+              ["As designed", "#1b8834", "#e97b12", "#d63c41"],
+              ["Simulated: protanopia", "#8a7b2b", "#9c8900", "#686040"],
+              ["Simulated: deuteranopia", "#7e733b", "#b6a20f", "#8f813c"],
+            ],
+          ],
+          [
+            "Container",
+            "chip",
+            [
+              ["As designed", "#d4f3df", "#fef0df", "#fde7e5"],
+              ["Simulated: protanopia", "#f3eede", "#f5f0de", "#ebe9e5"],
+              ["Simulated: deuteranopia", "#edeae0", "#f9f3df", "#f0ede5"],
+            ],
+          ],
+        ].map(([roleName, variant, rows]) => (
+          <div key={roleName} style={{ marginTop: 18 }}>
+            <p className="ds-chipLabel" style={{ fontSize: 14 }}>
+              <strong>{roleName}</strong>
+            </p>
+            {rows.map(([label, success, warning, danger]) => (
+              <div className="ds-a11y-row" key={label} style={{ marginTop: 8 }}>
+                <p className="ds-chipLabel">{label}</p>
+                {variant === "text" ? (
+                  <div className="ds-chipRow" style={{ gridAutoFlow: "column", gridAutoColumns: "1fr" }}>
+                    <span style={{ color: success, fontWeight: 650 }}>Success</span>
+                    <span style={{ color: warning, fontWeight: 650 }}>Warning</span>
+                    <span style={{ color: danger, fontWeight: 650 }}>Danger</span>
+                  </div>
+                ) : (
+                  <div className="ds-chipRow" style={{ gridAutoFlow: "column", gridAutoColumns: "1fr" }}>
+                    <div className="ds-chip" style={{ background: success, color: roleName === "Container" ? "#1a1c23" : "#ffffff" }}>
+                      <span className="ds-chipText">Success</span>
+                    </div>
+                    <div className="ds-chip" style={{ background: warning, color: roleName === "Container" ? "#1a1c23" : "#ffffff" }}>
+                      <span className="ds-chipText">Warning</span>
+                    </div>
+                    <div className="ds-chip" style={{ background: danger, color: roleName === "Container" ? "#1a1c23" : "#ffffff" }}>
+                      <span className="ds-chipText">Danger</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+      </section>
+      <section className="ds-mode-panel" data-mode="dark">
+        <h3 className="ds-a11y-panel-title">Dark: under CVD simulation</h3>
+        {[
+          [
+            "Main",
+            "text",
+            [
+              ["As designed", "#6fd88a", "#ffb067", "#ff9088"],
+              ["Simulated: protanopia", "#d9c985", "#c9b660", "#a9a187"],
+              ["Simulated: deuteranopia", "#cabf8f", "#dbc868", "#c4b886"],
+            ],
+          ],
+          [
+            "Solid",
+            "chip",
+            [
+              ["As designed", "#23913c", "#f07a13", "#d63c41"],
+              ["Simulated: protanopia", "#938434", "#9d8a00", "#686040"],
+              ["Simulated: deuteranopia", "#867b43", "#b9a50e", "#8f813c"],
+            ],
+          ],
+          [
+            "Container",
+            "chip",
+            [
+              ["As designed", "#10341a", "#382006", "#3a1613"],
+              ["Simulated: protanopia", "#342f18", "#282204", "#1f1c13"],
+              ["Simulated: deuteranopia", "#302c1c", "#2d2806", "#282412"],
+            ],
+          ],
+        ].map(([roleName, variant, rows]) => (
+          <div key={roleName} style={{ marginTop: 18 }}>
+            <p className="ds-chipLabel" style={{ fontSize: 14 }}>
+              <strong>{roleName}</strong>
+            </p>
+            {rows.map(([label, success, warning, danger]) => (
+              <div className="ds-a11y-row" key={label} style={{ marginTop: 8 }}>
+                <p className="ds-chipLabel">{label}</p>
+                {variant === "text" ? (
+                  <div className="ds-chipRow" style={{ gridAutoFlow: "column", gridAutoColumns: "1fr" }}>
+                    <span style={{ color: success, fontWeight: 650 }}>Success</span>
+                    <span style={{ color: warning, fontWeight: 650 }}>Warning</span>
+                    <span style={{ color: danger, fontWeight: 650 }}>Danger</span>
+                  </div>
+                ) : (
+                  <div className="ds-chipRow" style={{ gridAutoFlow: "column", gridAutoColumns: "1fr" }}>
+                    <div className="ds-chip" style={{ background: success, color: roleName === "Container" ? "#e8eaf0" : "#ffffff" }}>
+                      <span className="ds-chipText">Success</span>
+                    </div>
+                    <div className="ds-chip" style={{ background: warning, color: roleName === "Container" ? "#e8eaf0" : "#ffffff" }}>
+                      <span className="ds-chipText">Warning</span>
+                    </div>
+                    <div className="ds-chip" style={{ background: danger, color: roleName === "Container" ? "#e8eaf0" : "#ffffff" }}>
+                      <span className="ds-chipText">Danger</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+      </section>
+    </div>
+    <div className="ds-note">
+      <p style={{ marginBottom: 6 }}><strong>What the simulation shows</strong></p>
+      <ul>
+        <li>
+          Under protanopia, main-role success and warning both land on a
+          similar dark olive: about 34 points apart in simulated colour,
+          closer than most people would reliably tell apart at a glance.
+        </li>
+        <li>
+          Under deuteranopia, the solid role gets even closer: success and
+          danger sit only about 22 points apart, both a similar muddy
+          olive-brown.
+        </li>
+        <li>
+          Container is the worst case. It's already the palest role, so CVD
+          simulation collapses all three towards the same washed-out beige:
+          as close as 3-15 points apart depending on the pair and the
+          deficiency. An outlined button or alert using container colour
+          alone is close to unreadable as a status signal under CVD.
+        </li>
+        <li>
+          Dark mode isn't a safer version of this. Main-role success and
+          warning already have almost the same luminance to begin with
+          (0.543 vs 0.533), so lightness, usually the fallback that survives
+          CVD, doesn't help separate them there either. Solid role is worse
+          in dark mode than light: under deuteranopia, success and danger
+          land only about 13 points apart, tighter than any pairing in light
+          mode.
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+### What this means in practice
+
+<ul>
+  <li>
+    Never rely on hue alone between status colours, even where they look
+    obviously distinct to typical vision. Pair colour with an icon, label, or
+    position, the same rule this doc already gives for colour generally.
+  </li>
+  <li>
+    Icons should differ in shape, not just colour. A filled circle versus a
+    filled triangle survives CVD; a green circle versus a red circle does
+    not.
+  </li>
+  <li>
+    If a design puts success, warning, and danger states next to each other
+    (a status legend, a results table), check it against a CVD simulator, not
+    just by eye.
+  </li>
+  <li>
+    Where lightness is being relied on as a fallback, confirm it actually
+    differs enough to matter. Sitting close in lightness, as{" "}
+    <code>--ds-success</code> and <code>--ds-warning</code> currently do in
+    dark mode, removes that fallback along with the hue.
+  </li>
+</ul>
+
+This is a current gap in the token values, not something already handled,
+worth raising with whoever owns the palette rather than assumed solved.
+
+### Why APCA, not WCAG ratio alone
+
+The clearest case of this in DiamondDS is the Warning button. Judged purely by
+WCAG 2.2's contrast ratio, black text scores _higher_ on the warning surface
+than white text does: it's the pairing the ratio math would point you
+towards. In practice it's the one that vibrates and strains against the
+saturated orange. APCA's polarity-aware model agrees with what the eye
+actually sees, which is why the token ships white text instead:
+
+  <div className="ds-a11y-demo ds-a11y-grid ds-wide">
+    <div className="ds-a11y-panels">
+      <section className="ds-mode-panel" data-mode="light">
+        <h3 className="ds-a11y-panel-title">Light: Warning button</h3>
+        <div className="ds-a11y-row">
+          <div className="ds-tokensList">
+            <span className="ds-token">--ds-warning-solid: #e97b12</span>
+          </div>
+          <div className="ds-chipRow">
+            <div>
+              <p className="ds-chipLabel">
+                <strong>WCAG 2.2 would favour this</strong>: 5.9:1, clears AA
+              </p>
+              <div className="ds-chip" style={{ background: "#e97b12", color: "#1a1c23" }}>
+                <span className="ds-chipText">Beamline temperature near limit</span>
+              </div>
+              <p className="ds-chipLabel">APCA Lc ≈ 48, reads as strained</p>
+            </div>
+            <div>
+              <p className="ds-chipLabel">
+                <strong>What we ship</strong>: 2.9:1, fails AA on the ratio alone
+              </p>
+              <div className="ds-chip" style={{ background: "#e97b12", color: "#ffffff" }}>
+                <span className="ds-chipText">Beamline temperature near limit</span>
+              </div>
+              <p className="ds-chipLabel">APCA Lc ≈ 60, reads as legible</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="ds-mode-panel" data-mode="dark">
+        <h3 className="ds-a11y-panel-title">Dark: Warning button</h3>
+        <div className="ds-a11y-row">
+          <div className="ds-tokensList">
+            <span className="ds-token">--ds-warning-solid: #f07a13</span>
+          </div>
+          <div className="ds-chipRow">
+            <div>
+              <p className="ds-chipLabel">
+                <strong>WCAG 2.2 would favour this</strong>: 6.1:1, clears AA
+              </p>
+              <div className="ds-chip" style={{ background: "#f07a13", color: "#1a1c23" }}>
+                <span className="ds-chipText">Beamline temperature near limit</span>
+              </div>
+              <p className="ds-chipLabel">APCA Lc ≈ 49, reads as strained</p>
+            </div>
+            <div>
+              <p className="ds-chipLabel">
+                <strong>What we ship</strong>: 2.8:1, fails AA on the ratio alone
+              </p>
+              <div className="ds-chip" style={{ background: "#f07a13", color: "#ffffff" }}>
+                <span className="ds-chipText">Beamline temperature near limit</span>
+              </div>
+              <p className="ds-chipLabel">APCA Lc ≈ 59, reads as legible</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div className="ds-note">
+      <p style={{ marginBottom: 6 }}><strong>How to read this</strong></p>
+      <ul>
+        <li>
+          WCAG 2.2's ratio is polarity-blind: it rates black-on-orange higher
+          than white-on-orange here, even though white is the better choice.
+        </li>
+        <li>
+          APCA accounts for polarity and light/dark differently, and lines up
+          with what actually reads well.
+        </li>
+        <li>
+          This is why we design with APCA first, then check WCAG 2.2 as the
+          compliance floor, not the other way round.
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+### An open trade-off: obvious, readable, compliant
+
+Choosing a status colour means balancing three things that don't always pull
+the same direction:
+
+<ul>
+  <li>
+    <strong>Obvious</strong>: the colour still reads as its meaning. A danger
+    red has to look like danger, not a pale accent.
+  </li>
+  <li>
+    <strong>Readable</strong>: the text is actually comfortable to read, which
+    is what APCA is measuring.
+  </li>
+  <li>
+    <strong>Compliant</strong>: it clears the WCAG 2.2 floor.
+  </li>
+</ul>
+
+Pushing hard on readability and compliance can quietly erode "obvious": the
+more you lighten a saturated colour to raise its contrast, the closer it gets
+to just being pale, and at some point it stops reading as that colour at all.
+This isn't hypothetical: it's an open question in DiamondDS today, not a
+solved one:
+
+  <div className="ds-a11y-demo ds-a11y-grid ds-wide">
+    <div className="ds-a11y-panels">
+      <section className="ds-mode-panel" data-mode="light">
+        <h3 className="ds-a11y-panel-title">Light: Danger text on surface</h3>
+        <div className="ds-a11y-row">
+          <div className="ds-tokensList">
+            <span className="ds-token">--ds-danger: #ae1e13</span>
+          </div>
+          <div className="ds-chipRow">
+            <div>
+              <p className="ds-chipLabel">
+                <strong>Shipped today</strong>: 7.0:1, clears WCAG
+              </p>
+              <span style={{ color: "#ae1e13", fontFamily: "var(--ds-font-family-mono) !important" }}>Connection to detector lost: retry required</span>
+              <p className="ds-chipLabel">
+                APCA Lc ≈ 83, still just under where APCA would like
+                body-sized text
+              </p>
+            </div>
+            <div>
+              <p className="ds-chipLabel">
+                <strong>Pushed further for compliance</strong>: 9.9:1
+              </p>
+              <span style={{ color: "#8a0000", fontFamily: "var(--ds-font-family-mono) !important" }}>Connection to detector lost: retry required</span>
+              <p className="ds-chipLabel">
+                APCA Lc ≈ 91, and <code>#8a0000</code> still reads plainly as
+                danger red: a deep brick red, not a different colour.
+                Darkening barely costs "obvious" anything here.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="ds-mode-panel" data-mode="dark">
+        <h3 className="ds-a11y-panel-title">Dark: Danger text on surface</h3>
+        <div className="ds-a11y-row">
+          <div className="ds-tokensList">
+            <span className="ds-token">--ds-danger: #ff9088</span>
+          </div>
+          <div className="ds-chipRow">
+            <div>
+              <p className="ds-chipLabel">
+                <strong>Shipped today</strong>: 8.1:1, comfortably clears WCAG
+              </p>
+              <span style={{ color: "#ff9088", fontFamily: "var(--ds-font-family-mono) !important" }}>Connection to detector lost: retry required</span>
+              <p className="ds-chipLabel">
+                APCA Lc ≈ 58, below where APCA would like body-sized text, but
+                still unmistakably read as danger red
+              </p>
+            </div>
+            <div>
+              <p className="ds-chipLabel">
+                <strong>Pushed further for compliance</strong>: 14.5:1
+              </p>
+              <span style={{ color: "#ffe2e0", fontFamily: "var(--ds-font-family-mono) !important" }}>Connection to detector lost: retry required</span>
+              <p className="ds-chipLabel">
+                APCA Lc ≈ 92, but <code>#ffe2e0</code> is only a few RGB points
+                off white (255, 226, 224). Say it plainly: this no longer
+                reads as red at all, let alone danger. Obvious has been
+                traded away to get there.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div className="ds-note">
+      <p style={{ marginBottom: 6 }}><strong>Where this stands</strong></p>
+      <ul>
+        <li>WCAG alone would call both of today's colours done. Neither fully is: APCA still flags them for regular-sized text.</li>
+        <li>
+          The trade-off isn't symmetric. In light mode, closing the gap means
+          darkening towards a deeper red, which barely touches "obvious." In
+          dark mode, closing the same gap means lightening towards white,
+          which erases it.
+        </li>
+        <li>
+          We're weighing a smaller, more careful adjustment, most likely in
+          dark mode where the gap actually costs something, against
+          documenting this as a known limitation for now. Either way, this is
+          a live example of the balance, not a finished answer.
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+## Practical guidance
+
+<ul>
+  <li>
+    <strong>Body text</strong>: optimise for perceptual readability first, then
+    confirm WCAG 2.2 compliance.
+  </li>
+  <li>
+    <strong>UI chrome</strong>: maintain clear separation and predictable
+    hierarchy through surface and border roles.
+  </li>
+  <li>
+    <strong>Subtle text</strong>: only use for non-essential information.
+  </li>
+  <li>
+    <strong>Disabled states</strong>: must remain distinguishable without
+    becoming unreadable.
+  </li>
+</ul>
+
+## Common pitfalls
+
+<ul>
+  <li>Relying on WCAG ratios alone to judge readability.</li>
+  <li>
+    Reducing contrast for visual subtlety where meaning is still required.
+  </li>
+  <li>Using saturated colours without perceptual validation.</li>
+  <li>Ignoring polarity differences between light and dark mode.</li>
+</ul>
+
+## When WCAG and APCA disagree
+
+<ul>
+  <li>If WCAG 2.2 fails, the colour must change.</li>
+  <li>
+    If WCAG 2.2 passes but APCA still indicates poor readability, improve the
+    colour choice rather than treating compliance as enough.
+  </li>
+  <li>
+    In critical workflows, readability and accuracy take precedence over visual
+    subtlety.
+  </li>
+</ul>
+
+## Future: WCAG 3 and APCA
+
+WCAG 3 is still evolving, but perceptual contrast models such as APCA are
+influencing the direction of accessibility guidance.
+
+Our approach reflects that direction while staying grounded in current
+compliance requirements:
+
+<ul>
+  <li>Use perceptual contrast thinking to design and tune colour choices.</li>
+  <li>Validate text contrast against WCAG 2.2 today.</li>
+  <li>
+    Reduce future rework by avoiding colour decisions that are only
+    mathematically compliant.
+  </li>
+</ul>
+
+Learn more:
+
+<ul>
+  <li>
+    <a
+      href="https://git.apcacontrast.com/documentation/APCAeasyIntro"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      APCA (Advanced Perceptual Contrast Algorithm)
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://www.w3.org/TR/WCAG22/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WCAG 2.2
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://www.color-blindness.com/coblis-color-blindness-simulator/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Coblis (colour blindness simulator)
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://www.w3.org/TR/wcag-3.0/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WCAG 3 (W3C Working Draft)
+    </a>
+  </li>
+</ul>
+
+</div>
