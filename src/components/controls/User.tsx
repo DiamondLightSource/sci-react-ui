@@ -10,9 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import { ReactElement, ReactNode, useState } from "react";
-import { MdLogin } from "react-icons/md";
 
 import { Auth } from "../systems/auth";
+import { LogIn } from "lucide-react";
 
 interface AuthState {
   fedid?: string;
@@ -131,7 +131,7 @@ const User = ({
       ) : (
         <Button
           onClick={handleLogin}
-          startIcon={<MdLogin />}
+          startIcon={<LogIn />}
           variant="contained"
           color="primary"
         >

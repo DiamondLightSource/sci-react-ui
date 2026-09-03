@@ -8,12 +8,8 @@ import {
   useTheme,
 } from "@mui/material";
 
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-
 import { extractFramesFromTiff, isTiff } from "../../utils/TiffUtils";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ScrollableImagesProps {
   images: ImageInfo | ImageInfo[];
@@ -131,7 +127,7 @@ const ScrollableImages = ({
             zIndex: 2,
           }}
         >
-          <ArrowBackIosNewIcon data-testid="scroll-left-button" />
+          <ChevronLeft data-testid="scroll-left-button" />
         </IconButton>
 
         <Box
@@ -184,7 +180,7 @@ const ScrollableImages = ({
             zIndex: 2,
           }}
         >
-          <ArrowForwardIosIcon data-testid="scroll-right-button" />
+          <ChevronRight data-testid="scroll-right-button" />
         </IconButton>
       </Box>
     );
@@ -201,7 +197,7 @@ const ScrollableImages = ({
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}
           >
-            <ArrowBackIcon data-testid="prev-button" />
+            <ArrowLeft data-testid="prev-button" />
           </Button>
         )}
 
@@ -252,7 +248,7 @@ const ScrollableImages = ({
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}
           >
-            <ArrowForwardIcon data-testid="next-button" />
+            <ArrowRight data-testid="next-button" />
           </Button>
         )}
       </Box>

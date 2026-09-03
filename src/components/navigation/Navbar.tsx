@@ -1,6 +1,5 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
 import { Box, Drawer, Link, LinkProps, IconButton, Stack } from "@mui/material";
-import { MdMenu, MdClose } from "react-icons/md";
 import React, { forwardRef, useState } from "react";
 
 import {
@@ -9,6 +8,7 @@ import {
 } from "../controls/ImageColourSchemeSwitch";
 import { Logo } from "../controls/Logo";
 import { Bar, BarSlotsProps } from "../controls/Bar";
+import { Menu, X } from "lucide-react";
 
 interface NavLinkProps extends LinkProps {
   children: React.ReactNode;
@@ -71,7 +71,7 @@ const NavLinks = ({ children }: NavLinksProps) => {
         onClick={isOpen ? onClose : onOpen}
         sx={{ display: { md: "none" }, order: -1, color: "inherit" }}
       >
-        {isOpen ? <MdClose /> : <MdMenu />}
+        {isOpen ? <X /> : <Menu />}
       </IconButton>
 
       <Stack
