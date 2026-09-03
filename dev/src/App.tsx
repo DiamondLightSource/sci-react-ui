@@ -209,11 +209,7 @@ const data: Experiment[] = [
 ];
 
 type ExperimentStatus =
-  | "Running"
-  | "Queued"
-  | "Completed"
-  | "Failed"
-  | "Paused";
+  "Running" | "Queued" | "Completed" | "Failed" | "Paused";
 
 const statusColour: Record<
   ExperimentStatus,

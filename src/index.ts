@@ -17,6 +17,9 @@ export * from "./components/controls/ScrollableImages";
 export * from "./components/controls/VisitInput";
 export * from "./components/controls/NumberInput";
 
+// components/datadisplay
+export * from "./components/datadisplay/DataCard";
+
 // components/systems
 export * from "./components/systems/auth";
 
