@@ -25,9 +25,7 @@ export default [
       },
     ],
     plugins: [
-      peerDepsExternal({
-        includeDependencies: true,
-      }),
+      peerDepsExternal(),
       image(),
       resolve(),
       commonjs(),
