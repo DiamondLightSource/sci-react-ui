@@ -35,17 +35,15 @@ export default [
       typescript({
         tsconfig: "./tsconfig.rollup.json",
       }),
-      // Fonts have real font-file assets, so extract to a real .css file
-      // consumers import themselves, instead of injecting via JS.
+      // Fonts reference file assets, so extract them to a real .css file.
       postcss({
         extensions: [".css"],
         include: /fontsource/,
-        extract: "style.css",
-        to: path.resolve("dist/style.css"),
+        extract: "font-styles.css",
+        to: path.resolve("dist/font-styles.css"),
         plugins: [postcssUrl({ url: "copy", useHash: false })],
       }),
-      // Everything else (tokens, typography) has no file assets, so it's
-      // safe to keep auto-injecting via JS.
+      // Everything else has no file assets, so it's fine to auto-inject via JS.
       postcss({
         extensions: [".css"],
         exclude: /fontsource/,

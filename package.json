@@ -38,7 +38,7 @@
       "require": "./dist/controls.cjs.js",
       "import": "./dist/controls.esm.js"
     },
-    "./style.css": "./dist/style.css"
+    "./font-styles.css": "./dist/font-styles.css"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && rollup --config rollup.config.mjs",
