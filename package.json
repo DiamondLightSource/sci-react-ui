@@ -37,7 +37,8 @@
       "types": "./dist/controls.d.ts",
       "require": "./dist/controls.cjs.js",
       "import": "./dist/controls.esm.js"
-    }
+    },
+    "./font-styles.css": "./dist/font-styles.css"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && rollup --config rollup.config.mjs",
@@ -59,8 +60,6 @@
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/outfit": "^5.3.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
-    "@mui/icons-material": "^7.0.0",
-    "react-icons": "^5.3.0",
     "utif": "^3.1.0"
   },
   "peerDependencies": {
@@ -69,9 +68,11 @@
     "@jsonforms/core": "^3.7.0",
     "@jsonforms/material-renderers": "^3.7.0",
     "@jsonforms/react": "^3.7.0",
+    "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
     "keycloak-js": "^26.2.1",
-    "react": "^18.3.1"
+    "react": "^18.3.1",
+    "react-icons": "^5.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
@@ -89,6 +90,7 @@
     "@jsonforms/core": "^3.7.0",
     "@jsonforms/material-renderers": "^3.7.0",
     "@jsonforms/react": "^3.7.0",
+    "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-image": "^3.0.3",
@@ -126,8 +128,10 @@
     "jsdom": "^29.1.1",
     "keycloak-js": "^26.2.1",
     "lucide-react": "^1.26.0",
+    "postcss-url": "^10.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.3.0",
     "react-router-dom": "^7.12.0",
     "rollup": "^4.27.3",
     "rollup-plugin-dts": "^6.1.1",

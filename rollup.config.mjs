@@ -4,7 +4,9 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import postcss from "rollup-plugin-postcss";
+import postcssUrl from "postcss-url";
 import image from "@rollup/plugin-image";
+import path from "path";
 
 import packageJson from "./package.json" with { type: "json" };
 
@@ -25,9 +27,7 @@ export default [
       },
     ],
     plugins: [
-      peerDepsExternal({
-        includeDependencies: true,
-      }),
+      peerDepsExternal(),
       image(),
       resolve(),
       commonjs(),
@@ -35,8 +35,18 @@ export default [
       typescript({
         tsconfig: "./tsconfig.rollup.json",
       }),
+      // Fonts reference file assets, so extract them to a real .css file.
       postcss({
         extensions: [".css"],
+        include: /fontsource/,
+        extract: "font-styles.css",
+        to: path.resolve("dist/font-styles.css"),
+        plugins: [postcssUrl({ url: "copy", useHash: false })],
+      }),
+      // Everything else has no file assets, so it's fine to auto-inject via JS.
+      postcss({
+        extensions: [".css"],
+        exclude: /fontsource/,
       }),
     ],
   },
