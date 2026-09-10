@@ -1,4 +1,5 @@
 // import {ThemeOptions} from "@mui/material/styles";
+import { shouldSkipGeneratingVar as defaultShouldSkipGeneratingVar } from "@mui/material/styles";
 import { ImageColourSchemeSwitchType } from "../components/controls/ImageColourSchemeSwitch";
 
 // Make additions to theme, so that anything can be available throughout the app
@@ -20,6 +21,9 @@ declare module "@mui/material/styles" {
 const BaseThemeOptions /* : ThemeOptions */ = {
   cssVariables: {
     colorSchemeSelector: "class",
+    // `logos` holds raw image sources (e.g. SVG data URIs), not CSS values, so skip var generation for it.
+    shouldSkipGeneratingVar: (keys: string[]) =>
+      keys[0] === "logos" || defaultShouldSkipGeneratingVar(keys),
   },
   typography: {
     fontSize: 14,
