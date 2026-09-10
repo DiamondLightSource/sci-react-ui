@@ -20,6 +20,21 @@ Install as usual.
 - yarn add @diamondlightsource/sci-react-ui
 ```
 
+Import the library's font styles once, e.g. in your app's entry point:
+
+```js
+import "@diamondlightsource/sci-react-ui/font-styles.css";
+```
+
+`@mui/icons-material` and `react-icons` are peer dependencies, so install them too if you use icon-based components:
+
+```sh
+"One of:"
+- pnpm add @mui/icons-material react-icons
+- npm i @mui/icons-material react-icons
+- yarn add @mui/icons-material react-icons
+```
+
 ### Usage
 
 First use the ThemeProvider and wrap your App.

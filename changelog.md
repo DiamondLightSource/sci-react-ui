@@ -1,5 +1,19 @@
 # SciReactUI Changelog
 
+## [unreleased] - 2026-09-??
+
+### Added
+
+- _SidebarNav_ and its types (`Navigation`, `NavItemGroup`, `NavItemDefinition`) are now exported from the package.
+
+### Changed
+
+- **Breaking** `@mui/icons-material` and `react-icons` are now peer dependencies instead of bundled dependencies; install them alongside `@diamondlightsource/sci-react-ui` if you use icon-based components.
+
+### Fixed
+
+- Fixed font loading under SSR by extracting font styles into a real `dist/font-styles.css` file instead of injecting them via JavaScript. Import it explicitly via `@diamondlightsource/sci-react-ui/font-styles.css`.
+
 ## [v0.7.0] - 2026-09-02
 
 ### Added
