@@ -14,7 +14,7 @@ import { useTheme, Theme } from "@mui/material/styles";
 import { Fragment, type ElementType, type ReactNode } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-export type Navigation = NavItemGroup[];
+type Navigation = NavItemGroup[];
 
 type NavItemGroup = {
   name?: string;
@@ -65,7 +65,7 @@ type NavProps = {
   footerSlot?: ReactNode;
 };
 
-export function SidebarNav(props: NavProps) {
+function SidebarNav(props: NavProps) {
   const theme = useTheme();
   const desktopLayout = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -249,3 +249,6 @@ function NavItem(props: NavItemProps) {
     </ListItem>
   );
 }
+
+export type { NavProps, Navigation, NavItemGroup, NavItemDefinition };
+export { SidebarNav };

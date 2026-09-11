@@ -41,6 +41,24 @@ Use this page to install SciReactUI, configure the Diamond Design System theme, 
         pnpm add @diamondlightsource/sci-react-ui
         ```
 
+        Import the library's font styles once, e.g. in your app's entry point:
+
+        ```tsx filename="main.tsx"
+        import "@diamondlightsource/sci-react-ui/font-styles.css";
+        ```
+
+        `@mui/icons-material` and `react-icons` are peer dependencies, so install them too if you use icon-based components:
+
+        ```shell
+        pnpm add @mui/icons-material react-icons
+        ```
+
+        For icons in your own application code (not required by SciReactUI itself), we recommend [Lucide](https://lucide.dev/) - see the Icons foundation page for guidance:
+
+        ```shell
+        pnpm add lucide-react
+        ```
+
         ### Next, Add a ThemeProvider
 
         Use the provided `DiamondDSTheme` with the ThemeProvider or create your own (see below). The theme controls colour via semantic surface tokens.
@@ -123,6 +141,24 @@ Use this page to install SciReactUI, configure the Diamond Design System theme, 
             </>
         }
         ```
+
+        ### Using Material React Table (optional)
+
+        Material React Table (MRT) is not a native MUI component, so it does not pick up `DiamondDSTheme` automatically. Pass `DiamondDSIntegrations`' values into each table:
+
+        ```tsx filename="App.tsx"
+        import { useMaterialReactTable } from "material-react-table";
+        import { DiamondDSIntegrations } from "@diamondlightsource/sci-react-ui";
+
+        const table = useMaterialReactTable({
+          columns,
+          data,
+          mrtTheme: DiamondDSIntegrations.mrtTheme,
+          ...DiamondDSIntegrations.mrtOptions(),
+        });
+        ```
+
+        This must be applied per table - see the "Material React Table guidance" page (under MUI &gt; Data Display &gt; Table) for full details, including options for full-width tables.
     </div>
 
 </div>
@@ -161,11 +197,11 @@ Use this page to install SciReactUI, configure the Diamond Design System theme, 
 <div className="sb-container">
   <div className="sb-section-title">
 
-    ### Avoiding Dark Mode Flicker
+    ## Avoiding Dark Mode Flicker
 
     Applications that support dark mode may briefly render the default colour scheme before the user's preferred mode is applied.
 
-    #### SSR Applications
+    ### SSR Applications
 
     To prevent a flash of incorrect theme in SSR applications, use MUI's `InitColorSchemeScript` and place it before your application content so the correct colour scheme is applied before hydration.
     For example, for Next.js App Router:
@@ -186,7 +222,7 @@ Use this page to install SciReactUI, configure the Diamond Design System theme, 
     If your app renders into `index.html`, place the script at the top of the body so the mode is set before React mounts.
     For more info see MUI's documentation on [InitColorSchemeScript](https://v7.mui.com/material-ui/react-init-color-scheme-script/).
 
-    #### Client-Side Applications (Vite etc.)
+    ### Client-Side Applications (Vite etc.)
 
     For client-side applications, initialise the mode before React mounts:
     ```
