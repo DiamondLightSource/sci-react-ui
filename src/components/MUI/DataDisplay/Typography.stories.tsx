@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Box, Stack, Typography } from "../MuiWrapped";
+import { Box, Stack, Tooltip, Typography } from "../MuiWrapped";
 import { colourSet } from "../../../utils/diamond";
 import { TypographyProps } from "@mui/material/Typography";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
@@ -48,6 +48,32 @@ const sizeRamp: {
   { px: 14, variants: ["body2", "subtitle2", "mono2", "button"] },
   { px: 12, variants: ["overline", "caption", "meta", "mono3"] },
   { px: 11, variants: ["overlineSmall"] },
+];
+
+const fontWeightScale: { token: string; label: string; value: string }[] = [
+  { token: "--ds-font-weight-light", label: "Light", value: "300" },
+  { token: "--ds-font-weight-regular", label: "Regular", value: "400" },
+  { token: "--ds-font-weight-medium", label: "Medium", value: "500" },
+  { token: "--ds-font-weight-semibold", label: "Semibold", value: "600" },
+  { token: "--ds-font-weight-bold", label: "Bold", value: "700" },
+];
+
+const lineHeightScale: { token: string; label: string; value: string }[] = [
+  { token: "--ds-line-height-tight", label: "Tight", value: "1.1" },
+  { token: "--ds-line-height-condensed", label: "Condensed", value: "1.2" },
+  { token: "--ds-line-height-normal", label: "Normal", value: "1.4" },
+  { token: "--ds-line-height-relaxed", label: "Relaxed", value: "1.5" },
+];
+
+const letterSpacingScale: { token: string; label: string; value: string }[] = [
+  { token: "--ds-letter-spacing-tight", label: "Tight", value: "-0.03em" },
+  {
+    token: "--ds-letter-spacing-condensed",
+    label: "Condensed",
+    value: "-0.01em",
+  },
+  { token: "--ds-letter-spacing-normal", label: "Normal", value: "0" },
+  { token: "--ds-letter-spacing-wide", label: "Wide", value: "0.08em" },
 ];
 
 type VariantGuideEntry = {
@@ -349,36 +375,6 @@ export const Basic: Story = {
   render: (args) => <Typography {...args} />,
 };
 
-export const SizeRamp: Story = {
-  name: "Size ramp",
-  render: (args) => (
-    <Stack spacing={2}>
-      {sizeRamp.map(({ px, variants }) => (
-        <Box key={px} sx={{ display: "flex", alignItems: "baseline", gap: 2 }}>
-          <Typography
-            variant="mono2"
-            color="text.secondary"
-            sx={{ width: 40, flexShrink: 0 }}
-          >
-            {px}px
-          </Typography>
-          <Stack
-            direction="row"
-            spacing={3}
-            sx={{ flexWrap: "wrap", rowGap: 1 }}
-          >
-            {variants.map((variant) => (
-              <Typography key={variant} {...args} variant={variant}>
-                {variant}
-              </Typography>
-            ))}
-          </Stack>
-        </Box>
-      ))}
-    </Stack>
-  ),
-};
-
 export const VariantGuide: Story = {
   name: "Variant guide",
   parameters: {
@@ -423,6 +419,116 @@ export const VariantGuide: Story = {
           </Stack>
         </Box>
       ))}
+    </Stack>
+  ),
+};
+
+export const SizeRamp: Story = {
+  name: "Size ramp",
+  render: (args) => (
+    <Stack spacing={2}>
+      {sizeRamp.map(({ px, variants }) => (
+        <Box key={px} sx={{ display: "flex", alignItems: "baseline", gap: 2 }}>
+          <Typography
+            variant="mono2"
+            color="text.secondary"
+            sx={{ width: 40, flexShrink: 0 }}
+          >
+            {px}px
+          </Typography>
+          <Stack
+            direction="row"
+            spacing={3}
+            sx={{ flexWrap: "wrap", rowGap: 1 }}
+          >
+            {variants.map((variant) => (
+              <Typography key={variant} {...args} variant={variant}>
+                {variant}
+              </Typography>
+            ))}
+          </Stack>
+        </Box>
+      ))}
+    </Stack>
+  ),
+};
+
+export const ScaleTokens: Story = {
+  name: "Weight, line height & letter spacing",
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Weight, line height and letter spacing tokens underpin the typography variants above. Prefer the variants directly — these tokens are for building new variants or components.",
+      },
+    },
+  },
+  render: (_args) => (
+    <Stack spacing={4} sx={{ maxWidth: 720 }}>
+      <Box>
+        <Typography variant="overline" color="text.secondary">
+          Font weight
+        </Typography>
+        <Stack spacing={2} sx={{ mt: 1 }}>
+          {fontWeightScale.map(({ token, label, value }) => (
+            <Box key={token}>
+              <Typography variant="mono2" color="text.secondary">
+                {label} · {value} · {token}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ fontWeight: `var(${token})`, mt: 0.5 }}
+              >
+                The quick brown fox jumps over the lazy dog.
+              </Typography>
+            </Box>
+          ))}
+        </Stack>
+      </Box>
+
+      <Box>
+        <Typography variant="overline" color="text.secondary">
+          Line height
+        </Typography>
+        <Stack spacing={2} sx={{ mt: 1 }}>
+          {lineHeightScale.map(({ token, label, value }) => (
+            <Box key={token}>
+              <Typography variant="mono2" color="text.secondary">
+                {label} · {value} · {token}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{ lineHeight: `var(${token})`, maxWidth: 320, mt: 0.5 }}
+              >
+                The quick brown fox jumps over the lazy dog and again, the quick
+                brown fox jumps over the lazy dog.
+              </Typography>
+            </Box>
+          ))}
+        </Stack>
+      </Box>
+
+      <Box>
+        <Typography variant="overline" color="text.secondary">
+          Letter spacing
+        </Typography>
+        <Stack spacing={2} sx={{ mt: 1 }}>
+          {letterSpacingScale.map(({ token, label, value }) => (
+            <Box key={token}>
+              <Typography variant="mono2" color="text.secondary">
+                {label} · {value} · {token}
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ letterSpacing: `var(${token})`, mt: 0.5 }}
+              >
+                Diamond
+              </Typography>
+            </Box>
+          ))}
+        </Stack>
+      </Box>
     </Stack>
   ),
 };
@@ -559,6 +665,52 @@ Use this when the document outline calls for an \`h1\` but the design calls for 
         <Typography variant="mono2" color="text.secondary">
           {'<Typography variant="h1" component="h2">'}
         </Typography>
+      </Box>
+    </Stack>
+  ),
+};
+
+const longValue =
+  "/dls/i15-1/data/2026/cm12345-1/processed/sample_0042_scan_00187.nxs";
+
+export const TruncationAndOverflow: Story = {
+  name: "Truncation & overflow",
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Use `noWrap` inside a width-constrained container to truncate long technical values with an ellipsis. Pair it with a `Tooltip` so the full value is still available on hover or focus.",
+      },
+    },
+  },
+  render: (_args) => (
+    <Stack spacing={3} sx={{ maxWidth: 320 }}>
+      <Box>
+        <Typography variant="caption" color="text.secondary" component="div">
+          Without noWrap — wraps and can push the layout
+        </Typography>
+        <Typography variant="mono2">{longValue}</Typography>
+      </Box>
+
+      <Box>
+        <Typography variant="caption" color="text.secondary" component="div">
+          With noWrap — truncates to an ellipsis
+        </Typography>
+        <Typography variant="mono2" noWrap>
+          {longValue}
+        </Typography>
+      </Box>
+
+      <Box>
+        <Typography variant="caption" color="text.secondary" component="div">
+          With noWrap + Tooltip — full value on hover/focus
+        </Typography>
+        <Tooltip title={longValue}>
+          <Typography variant="mono2" noWrap tabIndex={0}>
+            {longValue}
+          </Typography>
+        </Tooltip>
       </Box>
     </Stack>
   ),
