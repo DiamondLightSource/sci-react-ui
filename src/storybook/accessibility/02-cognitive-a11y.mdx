@@ -1,0 +1,119 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Accessibility/Cognitive accessibility" />
+
+<div className="ds-docs">
+
+# Cognitive accessibility and usability
+
+Accessibility is not only about vision, hearing, or motor input. People also
+differ in how they process information, maintain focus, recover from errors,
+and work under pressure or fatigue.
+
+In scientific environments, these differences matter. Users may work for long
+periods, switch between multiple tools and data sources, or operate systems
+during live experiments where mistakes can be costly.
+
+This page focuses on cognitive accessibility and practical usability within
+complex scientific software.
+
+## Designing for cognitive accessibility
+
+Good accessibility and usability often come from the same decisions:
+interfaces that are clear, predictable, consistent, and forgiving.
+
+The goal is not to simplify scientific work itself, but to reduce unnecessary
+cognitive load created by the interface.
+
+## Design objectives
+
+### Help users understand what things are
+
+<ul>
+  <li>Use familiar patterns, terminology, and behaviours.</li>
+  <li>Avoid inventing new interaction models without strong justification.</li>
+  <li>Make purpose and state visible at a glance.</li>
+  <li>Ensure actions and outcomes feel predictable.</li>
+</ul>
+
+### Reduce memory burden
+
+<ul>
+  <li>Do not rely on users remembering hidden rules or previous states.</li>
+  <li>Keep important information visible where possible.</li>
+  <li>Use clear labels, grouping, and hierarchy.</li>
+  <li>Support recognition over recall.</li>
+</ul>
+
+### Help users maintain focus
+
+<ul>
+  <li>Avoid unnecessary distractions or competing emphasis.</li>
+  <li>Use layout and spacing to separate concerns clearly.</li>
+  <li>Keep navigation and interaction patterns consistent.</li>
+  <li>Help users re-orient when context is lost.</li>
+</ul>
+
+### Help users avoid and recover from errors
+
+<ul>
+  <li>Prevent errors where possible rather than reacting to them later.</li>
+  <li>Make system status and consequences visible before actions occur.</li>
+  <li>Provide clear, actionable error messages.</li>
+  <li>Make recovery paths obvious and forgiving.</li>
+</ul>
+
+### Design for long-running workflows
+
+<ul>
+  <li>Assume users may be tired, interrupted, or multitasking.</li>
+  <li>Reduce ambiguity in high-pressure or operational situations.</li>
+  <li>Keep interfaces calm, stable, and predictable.</li>
+  <li>Design interactions that still make sense at the end of a long day.</li>
+</ul>
+
+## Applying this in Storybook
+
+When reviewing components and patterns, ask:
+
+<ul>
+  <li>Is the interface understandable without prior knowledge?</li>
+  <li>Does it rely on memory or hidden behaviour?</li>
+  <li>Is important state clearly visible?</li>
+  <li>Is error recovery understandable and forgiving?</li>
+  <li>Would this remain clear during a long experiment session?</li>
+</ul>
+
+## Further reading
+
+<ul>
+  <li>
+    <a
+      href="https://www.w3.org/TR/coga-usable/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Making Content Usable for People with Cognitive and Learning Disabilities
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://www.w3.org/WAI/fundamentals/accessibility-usability-inclusion/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      W3C: Accessibility, Usability, and Inclusion
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://uxplanet.org/how-human-memory-works-tips-for-ux-designers-12b14071bdf9"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      How Human Memory Works: Tips for UX Designers
+    </a>
+  </li>
+</ul>
+
+</div>
