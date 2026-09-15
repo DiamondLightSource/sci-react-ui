@@ -1,5 +1,11 @@
 # SciReactUI Changelog
 
+## [Unreleased] - TBD
+
+### Fixed
+
+- Fixed a Vitest syntax error on import, caused by UTIF's code being bundled into the same chunk as VisitInput.
+
 ## [v0.7.1] - 2026-09-15
 
 ### Changed
