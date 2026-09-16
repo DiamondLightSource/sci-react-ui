@@ -37,3 +37,8 @@ jobs:
         pnpm run lint
         pnpm run test
         pnpm build
+
+    - name: Verify the built package loads under Vitest
+      run: |
+        pnpm run test:dist
+        pnpm run test:consumer-smoke
