@@ -13,6 +13,8 @@ import packageJson from "./package.json" with { type: "json" };
 export default [
   {
     input: ["src/index.ts", "src/navigation.ts", "src/themes.ts", "src/controls.ts"],
+    // Bundling utif's zlib inflate breaks Vitest (label/import name collision after mangling).
+    external: ["utif"],
     output: [
       {
         format: "cjs",
