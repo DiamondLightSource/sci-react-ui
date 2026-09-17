@@ -25,14 +25,14 @@ jobs:
 
       - name: Run OSV Scanner (human-readable)
         continue-on-error: true
-        uses: google/osv-scanner-action/osv-scanner-action@v2.3.2
+        uses: google/osv-scanner-action/osv-scanner-action@v2.6.0
         with:
           scan-args: |
             --lockfile=pnpm-lock.yaml
 
       - name: Run OSV Scanner (JSON)
         continue-on-error: true
-        uses: google/osv-scanner-action/osv-scanner-action@v2.3.2
+        uses: google/osv-scanner-action/osv-scanner-action@v2.6.0
         with:
           scan-args: |
             --format=json
