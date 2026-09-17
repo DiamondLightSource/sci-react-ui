@@ -99,7 +99,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.1",
     "@storybook/addon-actions": "^8.6.15",
-    "@storybook/addon-controls": "^8.6.15",
+    "@storybook/addon-controls": "^9.0.8",
     "@storybook/addon-essentials": "^8.6.15",
     "@storybook/addon-interactions": "^8.6.15",
     "@storybook/addon-links": "^8.6.15",
