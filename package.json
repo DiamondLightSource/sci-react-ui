@@ -104,7 +104,7 @@
     "@storybook/addon-interactions": "^8.6.15",
     "@storybook/addon-links": "^8.6.15",
     "@storybook/addon-toolbars": "^8.6.15",
-    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
+    "@storybook/addon-webpack5-compiler-swc": "^3.0.0",
     "@storybook/blocks": "^8.6.15",
     "@storybook/react": "^8.6.15",
     "@storybook/react-webpack5": "^8.6.15",
