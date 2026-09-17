@@ -36,7 +36,7 @@ jobs:
         with:
           scan-args: |
             --format=json
-            --output=results.json
+            --output-file=results.json
             --lockfile=pnpm-lock.yaml
 
       - name: Fail on CRITICAL vulnerabilities only
