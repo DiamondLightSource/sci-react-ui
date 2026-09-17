@@ -1,11 +1,15 @@
 import * as React from "react";
 import {
+  AppBar,
   Box,
   Checkbox,
   Chip,
   Container,
+  IconButton,
+  Link,
   Paper,
   Stack,
+  Toolbar,
   Typography,
   Table,
   TableBody,
@@ -15,8 +19,17 @@ import {
   TableRow,
 } from "@mui/material";
 import {
+  Blocks as ComponentsIcon,
+  Home as HomeIcon,
+  Layers as LayersIcon,
+  Menu as MenuIcon,
+  Palette as PaletteIcon,
+  Type as TypeIcon,
+} from "lucide-react";
+import {
   BrowserRouter,
   Link as RouterLink,
+  NavLink,
   Route,
   Routes,
 } from "react-router-dom";
@@ -33,15 +46,16 @@ import {
   DiamondDSIntegrations,
 } from "../../src/index";
 import type { Theme } from "@mui/material/styles";
+import type { TypographyProps } from "@mui/material/Typography";
 
 import {
-  Navbar,
-  NavLinks,
-  NavLink,
-} from "../../src/components/navigation/Navbar";
+  SidebarNav,
+  type Navigation,
+} from "../../src/components/navigation/SidebarNav";
 import { ColourSchemeButton } from "../../src/components/controls/ColourSchemeButton";
 import { Breadcrumbs } from "../../src/components/navigation/Breadcrumbs";
 import { Bar } from "../../src/components/controls/Bar";
+import { Logo } from "../../src/components/controls/Logo";
 
 /* TABLE */
 
@@ -236,40 +250,98 @@ const App = () => {
   );
 };
 
+const navigation: Navigation = [
+  {
+    navItems: [
+      {
+        label: "Home",
+        icon: <HomeIcon />,
+        linkProps: { to: "/", component: NavLink },
+      },
+      {
+        label: "Components",
+        icon: <ComponentsIcon />,
+        linkProps: { to: "/components", component: NavLink },
+      },
+      {
+        label: "Colours",
+        icon: <PaletteIcon />,
+        linkProps: { to: "/colours", component: NavLink },
+      },
+      {
+        label: "Typography",
+        icon: <TypeIcon />,
+        linkProps: { to: "/typography", component: NavLink },
+      },
+      {
+        label: "Elevation",
+        icon: <LayersIcon />,
+        linkProps: { to: "/elevation", component: NavLink },
+      },
+    ],
+  },
+];
+
 const AppLayout = () => {
+  const [sidebarOpen, setSidebarOpen] = React.useState(true);
+
   return (
     <>
-      <Navbar
-        surface="brand"
-        logo="theme"
-        linkComponent={RouterLink}
-        rightSlot={<ColourSchemeButton />}
+      <AppBar
+        position="fixed"
+        color="inherit"
+        elevation={0}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          borderBottom: "1px solid",
+          borderColor: "divider",
+        }}
       >
-        <NavLinks>
-          <NavLink linkComponent={RouterLink} to="/">
-            Home
-          </NavLink>
-          <NavLink linkComponent={RouterLink} to="/components">
-            Components
-          </NavLink>
-          <NavLink linkComponent={RouterLink} to="/theme">
-            Theme
-          </NavLink>
-          <NavLink linkComponent={RouterLink} to="/elevation">
-            Elevation
-          </NavLink>
-        </NavLinks>
-      </Navbar>
-      <Container sx={{ py: 4 }}>
-        <Stack spacing={3}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/components" element={<ComponentsPage />} />
-            <Route path="/theme" element={<ThemePage />} />
-            <Route path="/elevation" element={<ElevationPage />} />
-          </Routes>
-        </Stack>
-      </Container>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            aria-label={
+              sidebarOpen ? "Collapse navigation" : "Expand navigation"
+            }
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Link
+            component={RouterLink}
+            to="/"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Logo />
+          </Link>
+          <Box sx={{ ml: "auto" }}>
+            <ColourSchemeButton />
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <Box sx={{ display: "flex" }}>
+        <SidebarNav
+          navigation={navigation}
+          open={sidebarOpen}
+          setOpen={setSidebarOpen}
+        />
+        <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+          <Toolbar />
+          <Container sx={{ py: 4 }}>
+            <Stack spacing={3}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/components" element={<ComponentsPage />} />
+                <Route path="/colours" element={<ColoursPage />} />
+                <Route path="/elevation" element={<ElevationPage />} />
+                <Route path="/typography" element={<TypographyPage />} />
+              </Routes>
+            </Stack>
+          </Container>
+        </Box>
+      </Box>
     </>
   );
 };
@@ -351,50 +423,105 @@ type IntentGroup = {
   key: string;
   label: string;
   getPalette: (theme: Theme) => Record<string, string> | undefined;
+  /** `theme.palette` path for this group, e.g. "primary". Omit when the group isn't a real MUI role. */
+  muiPath?: string;
+  /** Raw `--ds-*` variable name per row key, for groups with no MUI path — shows the actual token instead of an MUI-shaped label that doesn't exist yet. */
+  cssVarNames?: Record<string, string>;
 };
 
+// Order matches Foundations/Theme Colours: primary, secondary, info, danger, warning, success.
 const intentGroups: IntentGroup[] = [
   {
     key: "primary",
     label: "Primary",
+    muiPath: "primary",
     getPalette: (theme) => theme.vars?.palette.primary ?? theme.palette.primary,
   },
   {
     key: "secondary",
     label: "Secondary",
+    muiPath: "secondary",
     getPalette: (theme) =>
       theme.vars?.palette.secondary ?? theme.palette.secondary,
   },
   {
-    key: "tertiary",
-    label: "Tertiary",
-    getPalette: (theme) =>
-      theme.vars?.palette.tertiary ?? theme.palette.tertiary,
-  },
-  {
-    key: "brand",
-    label: "Brand",
-    getPalette: (theme) => theme.vars?.palette.brand ?? theme.palette.brand,
+    key: "info",
+    label: "Info",
+    muiPath: "info",
+    getPalette: (theme) => theme.vars?.palette.info ?? theme.palette.info,
   },
   {
     key: "error",
     label: "Danger",
+    muiPath: "error",
     getPalette: (theme) => theme.vars?.palette.error ?? theme.palette.error,
   },
   {
     key: "warning",
     label: "Warning",
+    muiPath: "warning",
     getPalette: (theme) => theme.vars?.palette.warning ?? theme.palette.warning,
   },
   {
     key: "success",
     label: "Success",
+    muiPath: "success",
     getPalette: (theme) => theme.vars?.palette.success ?? theme.palette.success,
   },
+];
+
+/**
+ * Builds the row -> `--ds-*` variable name map for a CSS-var-only token
+ * family (no MUI palette role exists for it yet).
+ */
+const cssVarTokenNames = (prefix: string): Record<string, string> => ({
+  main: `--ds-${prefix}`,
+  contrastText: `--ds-on-${prefix}`,
+  dark: `--ds-${prefix}-emphasis`,
+  light: `--ds-${prefix}-accent`,
+  container: `--ds-${prefix}-container`,
+  onContainer: `--ds-on-${prefix}-container`,
+  solid: `--ds-${prefix}-solid`,
+  onSolid: `--ds-on-${prefix}-solid`,
+});
+
+/**
+ * Brand is a full MUI palette role. Tertiary and Highlight are token
+ * families available as CSS variables only (not exposed as MUI intents),
+ * so their swatches read straight from `var(--ds-*)` instead of `theme.palette`,
+ * and their captions show the raw variable name rather than an MUI-shaped
+ * path that doesn't exist yet.
+ */
+const coreBrandGroups: IntentGroup[] = [
   {
-    key: "info",
-    label: "Info",
-    getPalette: (theme) => theme.vars?.palette.info ?? theme.palette.info,
+    key: "brand",
+    label: "Brand",
+    muiPath: "brand",
+    getPalette: (theme) => theme.vars?.palette.brand ?? theme.palette.brand,
+  },
+  {
+    key: "tertiary",
+    label: "Tertiary",
+    cssVarNames: cssVarTokenNames("tertiary"),
+    getPalette: () =>
+      Object.fromEntries(
+        Object.entries(cssVarTokenNames("tertiary")).map(([token, name]) => [
+          token,
+          `var(${name})`,
+        ]),
+      ),
+  },
+  {
+    key: "highlight",
+    label: "Highlight",
+    cssVarNames: cssVarTokenNames("highlight"),
+    getPalette: () =>
+      Object.fromEntries(
+        Object.entries(cssVarTokenNames("highlight")).map(([token, name]) => [
+          token,
+          `var(${name})`,
+        ]),
+      ),
   },
 ];
 
@@ -449,10 +576,58 @@ const ColourRow = ({ label, background, foreground }: ColourRowProps) => (
   </Box>
 );
 
-const ThemePage = () => {
+const IntentGroupGrid = ({ groups }: { groups: IntentGroup[] }) => (
+  <Box
+    sx={{
+      display: "grid",
+      gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+      gap: 2,
+    }}
+  >
+    {groups.map((group) => (
+      <Stack key={group.key}>
+        {intentRows.map((row) => (
+          <Box
+            key={`${group.key}-${row.bg}`}
+            sx={(theme) => {
+              const palette = group.getPalette(theme);
+
+              if (!palette?.[row.bg] || !palette?.[row.fg]) {
+                return { display: "none" };
+              }
+
+              return {
+                px: 1.25,
+                py: 1,
+                minHeight: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 2,
+                backgroundColor: palette[row.bg],
+                color: palette[row.fg],
+              };
+            }}
+          >
+            <Typography variant="body2">
+              {row.label ? `${group.label} ${row.label}` : group.label}
+            </Typography>
+
+            <Typography variant="caption" sx={{ fontFamily: "monospace" }}>
+              {group.cssVarNames?.[row.bg] ??
+                (group.muiPath ? `${group.muiPath}.${row.bg}` : row.bg)}
+            </Typography>
+          </Box>
+        ))}
+      </Stack>
+    ))}
+  </Box>
+);
+
+const ColoursPage = () => {
   return (
     <Stack spacing={3}>
-      <Typography variant="h5">Theme</Typography>
+      <Typography variant="h5">Colours</Typography>
 
       <Box
         sx={(theme) => ({
@@ -461,87 +636,132 @@ const ThemePage = () => {
         })}
       >
         <Stack spacing={3}>
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr",
-                md: "repeat(2, 1fr)",
-                lg: "repeat(4, 1fr)",
-              },
-              gap: 2,
-            }}
-          >
-            {intentGroups.map((group) => (
-              <Stack key={group.key}>
-                {intentRows.map((row) => (
-                  <Box
-                    key={`${group.key}-${row.bg}`}
-                    sx={(theme) => {
-                      const palette = group.getPalette(theme);
-
-                      if (!palette?.[row.bg] || !palette?.[row.fg]) {
-                        return { display: "none" };
-                      }
-
-                      return {
-                        px: 1.25,
-                        py: 1,
-                        minHeight: 40,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: 2,
-                        backgroundColor: palette[row.bg],
-                        color: palette[row.fg],
-                      };
-                    }}
-                  >
-                    <Typography variant="body2">
-                      {row.label ? `${group.label} ${row.label}` : group.label}
-                    </Typography>
-
-                    <Typography
-                      variant="caption"
-                      sx={{ fontFamily: "monospace" }}
-                    >
-                      {row.bg}
-                    </Typography>
-                  </Box>
-                ))}
-              </Stack>
-            ))}
-          </Box>
           <Box>
-            <Typography variant="h6">Neutral colours</Typography>
-
-            <Stack spacing={1}>
-              <ColourRow
-                label="Background"
-                background="background.default"
-                foreground="text.primary"
-              />
-
-              <ColourRow
-                label="Surface"
-                background="background.paper"
-                foreground="text.primary"
-              />
-
-              <ColourRow
-                label="Surface Subtle"
-                background="surface.subtle"
-                foreground="text.primary"
-              />
-
-              <ColourRow
-                label="Surface Strong"
-                background="surface.strong"
-                foreground="text.primary"
-              />
-            </Stack>
+            <Typography variant="h6" gutterBottom>
+              Intent colours
+            </Typography>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              Exposed as MUI palette roles (e.g.{" "}
+              <code>theme.palette.primary.main</code>).
+            </Typography>
+            <IntentGroupGrid groups={intentGroups} />
           </Box>
-          {/* rest of surface / border sections can stay as before */}
+
+          <Box>
+            <Typography variant="h6" gutterBottom>
+              Core brand colours
+            </Typography>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              <code>Brand</code> is exposed as a MUI palette role.{" "}
+              <code>Tertiary</code> and <code>Highlight</code> are token
+              families available as CSS variables, but are not currently exposed
+              as MUI palette roles.
+            </Typography>
+            <IntentGroupGrid groups={coreBrandGroups} />
+          </Box>
+
+          <Box>
+            <Typography variant="h6" gutterBottom>
+              Neutral colours
+            </Typography>
+
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
+                gap: 2,
+              }}
+            >
+              <Stack spacing={1}>
+                <ColourRow
+                  label="Background"
+                  background="background.default"
+                  foreground="text.primary"
+                />
+                <ColourRow
+                  label="Surface"
+                  background="background.paper"
+                  foreground="text.primary"
+                />
+                <ColourRow
+                  label="Surface Container"
+                  background="surface.subtle"
+                  foreground="text.primary"
+                />
+                <ColourRow
+                  label="Surface Container High"
+                  background="surface.strong"
+                  foreground="text.primary"
+                />
+                <ColourRow
+                  label="Surface Disabled"
+                  background="action.disabledBackground"
+                  foreground="text.disabled"
+                />
+              </Stack>
+
+              <Stack spacing={1}>
+                <ColourRow
+                  label="On Surface"
+                  background="text.primary"
+                  foreground="background.paper"
+                />
+                <ColourRow
+                  label="On Surface Variant"
+                  background="text.secondary"
+                  foreground="background.paper"
+                />
+                <ColourRow
+                  label="On Surface Subtle"
+                  background="text.tertiary"
+                  foreground="background.paper"
+                />
+                <ColourRow
+                  label="On Surface Muted"
+                  background="text.muted"
+                  foreground="background.paper"
+                />
+                <ColourRow
+                  label="On Surface Disabled"
+                  background="text.disabled"
+                  foreground="background.paper"
+                />
+              </Stack>
+
+              <Stack spacing={1}>
+                <ColourRow
+                  label="Placeholder"
+                  background="text.placeholder"
+                  foreground="background.paper"
+                />
+                <ColourRow
+                  label="Placeholder Focus"
+                  background="text.placeholderFocus"
+                  foreground="background.paper"
+                />
+                <ColourRow
+                  label="On Solid"
+                  background="text.onSolid"
+                  foreground="text.primary"
+                />
+                <ColourRow
+                  label="Border Subtle"
+                  background="border.subtle"
+                  foreground="text.primary"
+                />
+                <ColourRow
+                  label="Border Emphasis"
+                  background="border.emphasis"
+                  foreground="text.primary"
+                />
+                <ColourRow
+                  label="Border Strong"
+                  background="border.strong"
+                  foreground="background.paper"
+                />
+              </Stack>
+            </Box>
+          </Box>
         </Stack>
       </Box>
     </Stack>
@@ -760,6 +980,125 @@ const ElevationPage = () => {
           ))}
         </Box>
       </Box>
+    </Stack>
+  );
+};
+
+type TypographySample = {
+  variant: NonNullable<TypographyProps["variant"]>;
+  sample: string;
+};
+
+type TypographySection = {
+  title: string;
+  variants: TypographySample[];
+};
+
+const typographySections: TypographySection[] = [
+  {
+    title: "Display",
+    variants: [
+      { variant: "h1Display", sample: "Display H1" },
+      { variant: "h2Display", sample: "Display H2" },
+      { variant: "h3Display", sample: "Display H3" },
+      { variant: "h4Display", sample: "Display H4" },
+    ],
+  },
+  {
+    title: "Headings",
+    variants: [
+      { variant: "h1", sample: "Heading H1" },
+      { variant: "h2", sample: "Heading H2" },
+      { variant: "h3", sample: "Heading H3" },
+      { variant: "h4", sample: "Heading H4" },
+      { variant: "h5", sample: "Heading H5" },
+      { variant: "h6", sample: "Heading H6" },
+    ],
+  },
+  {
+    title: "Body",
+    variants: [
+      { variant: "lead", sample: "Lead paragraph text" },
+      { variant: "body1", sample: "Body 1 paragraph text" },
+      { variant: "body2", sample: "Body 2 paragraph text" },
+    ],
+  },
+  {
+    title: "Subtitle",
+    variants: [
+      { variant: "subtitle1", sample: "Subtitle 1" },
+      { variant: "subtitle2", sample: "Subtitle 2" },
+    ],
+  },
+  {
+    title: "Overline & caption",
+    variants: [
+      { variant: "overline", sample: "Overline" },
+      { variant: "overlineSmall", sample: "Overline small" },
+      { variant: "caption", sample: "Caption text" },
+      { variant: "meta", sample: "Meta text" },
+    ],
+  },
+  {
+    title: "Monospace",
+    variants: [
+      { variant: "mono1", sample: "Mono 1: const x = 1;" },
+      { variant: "mono2", sample: "Mono 2: const x = 1;" },
+      { variant: "mono3", sample: "Mono 3: const x = 1;" },
+    ],
+  },
+  {
+    title: "Other",
+    variants: [{ variant: "button", sample: "Button label" }],
+  },
+];
+
+const TypographyRow = ({ variant, sample }: TypographySample) => (
+  <Box
+    sx={{
+      display: "flex",
+      alignItems: "baseline",
+      justifyContent: "space-between",
+      gap: 2,
+      py: 1,
+      borderBottom: "1px solid",
+      borderColor: "divider",
+    }}
+  >
+    <Typography variant={variant}>{sample}</Typography>
+    <Typography
+      variant="caption"
+      color="text.secondary"
+      sx={{ fontFamily: "monospace", flexShrink: 0 }}
+    >
+      {variant}
+    </Typography>
+  </Box>
+);
+
+const TypographyPage = () => {
+  return (
+    <Stack spacing={3}>
+      <Typography variant="h5">Typography</Typography>
+      <Typography variant="body2" color="text.secondary">
+        DiamondDS&apos;s type scale, driven by <code>--ds-type-*</code> and{" "}
+        <code>--ds-font-*</code> tokens.
+      </Typography>
+
+      <Stack spacing={4}>
+        {typographySections.map((section) => (
+          <Box key={section.title}>
+            <Typography variant="overline" color="text.secondary" gutterBottom>
+              {section.title}
+            </Typography>
+            <Stack>
+              {section.variants.map((item) => (
+                <TypographyRow key={item.variant} {...item} />
+              ))}
+            </Stack>
+          </Box>
+        ))}
+      </Stack>
     </Stack>
   );
 };
