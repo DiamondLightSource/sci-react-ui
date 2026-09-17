@@ -831,6 +831,47 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
+  it("paints tonal elevation as background-color, not background-image", () => {
+    const root = DiamondDSTheme.components?.MuiPaper?.styleOverrides?.root;
+
+    const elevated = getStyleOverride(root, {
+      ownerState: { variant: "elevation", elevation: 4 },
+      theme: DiamondDSTheme,
+    });
+
+    expect(elevated.backgroundImage).toBe("none");
+    expect(elevated.backgroundColor).toBe("var(--ds-elevation-4)");
+
+    // Alert renders Paper at elevation 0 and supplies its own semantic
+    // background — this must stay a no-op or every Alert loses it.
+    const flat = getStyleOverride(root, {
+      ownerState: { variant: "elevation", elevation: 0 },
+      theme: DiamondDSTheme,
+    });
+
+    expect(flat.backgroundColor).toBeUndefined();
+
+    // variant="outlined" is Paper's own opt-out of tonal elevation.
+    const outlined = getStyleOverride(root, {
+      ownerState: { variant: "outlined", elevation: 4 },
+      theme: DiamondDSTheme,
+    });
+
+    expect(outlined.backgroundColor).toBeUndefined();
+  });
+
+  it("matches Autocomplete's listbox elevation to a background-color, not an overlay image", () => {
+    const paper = DiamondDSTheme.components?.MuiAutocomplete?.styleOverrides
+      ?.paper as (args: {
+      theme: typeof DiamondDSTheme;
+    }) => Record<string, unknown>;
+
+    const styles = paper({ theme: DiamondDSTheme });
+
+    expect(styles.backgroundColor).toBe("var(--ds-elevation-8)");
+    expect(styles.backgroundImage).toBeUndefined();
+  });
+
   it("uses semantic roles for tabs", () => {
     const tabsRoot = DiamondDSTheme.components?.MuiTabs?.styleOverrides?.root;
     const tabRoot = DiamondDSTheme.components?.MuiTab?.styleOverrides?.root;

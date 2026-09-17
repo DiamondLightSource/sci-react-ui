@@ -65,6 +65,17 @@ describe("NavMenu", () => {
     const menuId = screen.getByRole("presentation").getAttribute("id");
     expect(buttonControlsId).toEqual(menuId);
   });
+
+  it("keeps its brand background over the tonal elevation tint", async () => {
+    renderWithProviders(<NavMenu label="Navmenu" />);
+
+    await user.click(screen.getByRole("button"));
+    const paper = document.querySelector(".MuiMenu-paper");
+    expect(paper).not.toBeNull();
+    expect(window.getComputedStyle(paper as Element).backgroundColor).toBe(
+      "var(--ds-brand-solid)",
+    );
+  });
 });
 
 describe("NavMenuLink", () => {

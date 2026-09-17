@@ -47,6 +47,7 @@ import type { CircularProgressProps } from "@mui/material/CircularProgress";
 import type { DrawerProps } from "@mui/material/Drawer";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
+import type { PaperProps } from "@mui/material/Paper";
 import type { RadioProps } from "@mui/material/Radio";
 
 import logoImageLightSurface from "../public/diamond/logo-light-surface.svg";
@@ -676,7 +677,7 @@ const createDiamondPalette = (mode: DSMode) => {
       subtle: "var(--ds-surface-container)",
       strong: "var(--ds-surface-container-high)",
       elevated: (level: number) =>
-        `var(--ds-elevation-${Math.max(0, Math.min(24, level))})`,
+        `var(--ds-elevation-${Math.max(0, Math.min(24, Math.round(level)))})`,
     },
 
     ...intentPalette,
@@ -702,23 +703,16 @@ const createDiamondPalette = (mode: DSMode) => {
   };
 };
 
-/**
- * Paper's automatic elevation tint (`--Paper-overlay`, applied as a
- * `backgroundImage`) is dark-mode-only by default in MUI: a generic white
- * overlay barely reads against a light background, so MUI ships an empty
- * overlay set for light schemes.
- *
- * DiamondDS replaces that generic overlay with its own tonal elevation
- * tokens (`--ds-elevation-*`, the same tokens `palette.surface.elevated`
- * uses), which are authored per colour scheme, so the same token-driven
- * overlay works in both light and dark.
- */
+/** Populates `theme.vars.overlays`, public MUI theme shape. */
 const createDiamondOverlays = (): Overlays =>
   [...Array(25)].map((_, level) =>
     level === 0
       ? "none"
       : `linear-gradient(var(--ds-elevation-${level}), var(--ds-elevation-${level}))`,
   ) as Overlays;
+
+/** Floating-surface tier for Autocomplete's listbox — see below. */
+const autocompleteFloatingElevation = 8;
 
 /**
  * Resolved DiamondDS MUI theme.
@@ -777,9 +771,8 @@ const DiamondDSTheme = extendTheme({
      *   MuiButtonBase       → ripple and focus behaviour
      *
      * Surfaces and overlays:
-     *   MuiPaper            → no shadow by default; DiamondDS uses tonal
-     *                          elevation (surface.elevated) instead of
-     *                          --Paper-shadow for non-overlay hierarchy
+     *   MuiPaper            → tonal elevation as background-color;
+     *                         Entries below rely on this for background
      *   MuiDialog           → restores shadow (modal)
      *   MuiPopover          → restores shadow (menu, select, autocomplete)
      *   MuiAutocomplete     → restores shadow (listbox popup)
@@ -833,10 +826,15 @@ const DiamondDSTheme = extendTheme({
 
     /**
      * DiamondDS communicates non-overlay surface hierarchy through tonal
-     * elevation (`palette.surface.elevated` / the `--ds-elevation-*`-driven
-     * `--Paper-overlay` tint set up above), not drop shadows. Shadow is
-     * reserved for true overlays that float above page content, so it is
-     * suppressed by default here and reinstated per-component below.
+     * elevation (`palette.surface.elevated` / the `--ds-elevation-*`
+     * tokens), not drop shadows. Shadow is reserved for true overlays that
+     * float above page content, so it is suppressed by default here and
+     * reinstated per-component below.
+     *
+     * Painted as `background-color`, so a consumer's own `sx` background
+     * composes normally through the cascade. `elevation > 0` excludes
+     * `Alert`, which renders Paper at `elevation={0}` and needs this to
+     * stay a no-op for its own severity-driven background.
      *
      * No default border either: `variant="outlined"` is Paper's existing
      * built-in opt-in (`1px solid var(--ds-border-subtle)`, the same token
@@ -846,8 +844,18 @@ const DiamondDSTheme = extendTheme({
      */
     MuiPaper: {
       styleOverrides: {
-        root: {
-          boxShadow: "none",
+        root: ({ theme, ownerState }: OverrideArgs<PaperProps>): CSSObject => {
+          const elevation = ownerState.elevation ?? 0;
+          const paintsTonalElevation =
+            ownerState.variant === "elevation" && elevation > 0;
+
+          return {
+            boxShadow: "none",
+            backgroundImage: "none",
+            ...(paintsTonalElevation && {
+              backgroundColor: theme.palette.surface.elevated(elevation),
+            }),
+          };
         },
       },
     },
@@ -882,8 +890,12 @@ const DiamondDSTheme = extendTheme({
        */
       styleOverrides: {
         paper: ({ theme }: OverrideArgs): CSSObject => ({
-          boxShadow: (theme.vars || theme).shadows[8],
-          backgroundImage: (theme.vars || theme).overlays?.[8],
+          boxShadow: (theme.vars || theme).shadows[
+            autocompleteFloatingElevation
+          ],
+          backgroundColor: theme.palette.surface.elevated(
+            autocompleteFloatingElevation,
+          ),
         }),
       },
     },
