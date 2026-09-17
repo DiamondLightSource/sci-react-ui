@@ -15,6 +15,13 @@ import { Meta } from "@storybook/blocks";
 ## Typefaces
 
 <table className="ds-table">
+  <colgroup>
+    <col style={{ width: "12%" }} />
+    <col style={{ width: "24%" }} />
+    <col style={{ width: "20%" }} />
+    <col style={{ width: "20%" }} />
+    <col style={{ width: "24%" }} />
+  </colgroup>
   <thead>
     <tr>
       <th>Typeface</th>
@@ -90,6 +97,11 @@ Use heading levels in order where possible. Avoid jumping directly from h1 to h4
 ## Typography variants
 
 <table className="ds-table">
+  <colgroup>
+    <col style={{ width: "15%" }} />
+    <col style={{ width: "35%" }} />
+    <col style={{ width: "50%" }} />
+  </colgroup>
   <thead>
     <tr>
       <th>Group</th>
@@ -153,6 +165,10 @@ Diamond DS provides a shared typography scale that underpins all typography
 variants.
 
 <table className="ds-table">
+  <colgroup>
+    <col style={{ width: "30%" }} />
+    <col style={{ width: "70%" }} />
+  </colgroup>
   <thead>
     <tr>
       <th>Token</th>
@@ -238,6 +254,174 @@ design system.
 Avoid applying arbitrary font sizes when an existing typography variant already
 communicates the correct hierarchy and meaning.
 
+## Font weight scale
+
+<table className="ds-table">
+  <colgroup>
+    <col style={{ width: "30%" }} />
+    <col style={{ width: "12%" }} />
+    <col style={{ width: "58%" }} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Weight</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-font-weight-light</code>
+      </td>
+      <td>300</td>
+      <td>
+        Not used by any variant. Reserve for deliberate light treatments in
+        large display type.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-weight-regular</code>
+      </td>
+      <td>400</td>
+      <td>Body copy, captions, meta text and mono values</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-weight-medium</code>
+      </td>
+      <td>500</td>
+      <td>
+        <code>h1</code>/<code>h2</code> and <code>h1Display</code>/
+        <code>h2Display</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-weight-semibold</code>
+      </td>
+      <td>600</td>
+      <td>
+        <code>h3</code>–<code>h6</code>, <code>h3Display</code>/
+        <code>h4Display</code>, subtitles, overlines and buttons
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-font-weight-bold</code>
+      </td>
+      <td>700</td>
+      <td>
+        Not used by any variant. Reserve for inline emphasis within body text
+        rather than a whole heading.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Line height scale
+
+<table className="ds-table">
+  <colgroup>
+    <col style={{ width: "30%" }} />
+    <col style={{ width: "12%" }} />
+    <col style={{ width: "58%" }} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-line-height-tight</code>
+      </td>
+      <td>1.1</td>
+      <td>Large display headings</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-line-height-condensed</code>
+      </td>
+      <td>1.2</td>
+      <td>Headings and utility text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-line-height-normal</code>
+      </td>
+      <td>1.4</td>
+      <td>Captions and dense text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-line-height-relaxed</code>
+      </td>
+      <td>1.5</td>
+      <td>Body copy and long-form reading</td>
+    </tr>
+  </tbody>
+</table>
+
+## Letter spacing scale
+
+<table className="ds-table">
+  <colgroup>
+    <col style={{ width: "30%" }} />
+    <col style={{ width: "12%" }} />
+    <col style={{ width: "58%" }} />
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Value</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>--ds-letter-spacing-tight</code>
+      </td>
+      <td>-0.03em</td>
+      <td>Large display headings</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-letter-spacing-condensed</code>
+      </td>
+      <td>-0.01em</td>
+      <td>Headings</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-letter-spacing-normal</code>
+      </td>
+      <td>0</td>
+      <td>Body and most UI text</td>
+    </tr>
+    <tr>
+      <td>
+        <code>--ds-letter-spacing-wide</code>
+      </td>
+      <td>0.08em</td>
+      <td>Overlines and uppercase labels</td>
+    </tr>
+  </tbody>
+</table>
+
+Weight, line height and letter spacing tokens are primarily intended for
+creating reusable components, defining typography variants, and establishing
+consistent scale across the design system.
+
+Avoid applying arbitrary weights, line heights or letter spacing when an
+existing typography variant already communicates the correct hierarchy and
+meaning.
+
 ## Display and heading variants
 
 Use display variants for large, high-level moments such as landing pages,
@@ -264,44 +448,30 @@ standard heading hierarchy within operational interfaces.
 
 ## Choosing a typeface
 
-<h3
-  style={{
-    fontFamily: "var(--ds-font-family-default)",
-    fontSize: "var(--ds-font-size-900)",
-  }}
->
-  Inter
-</h3>
+<h3 className="ds-type-sample-inter">Inter</h3>
 
-Inter is the default interface typeface.
+**Inter** is the default interface typeface.
 
-Use Inter for:
+Use for:
 
 - Navigation
+- Body text
 - Buttons
 - Forms
 - Tables
 - Dialogues
 - Cards
-- Body text
 - Labels
 - Status messages
 
 Inter should be the default choice unless there is a specific reason to use
 Outfit or IBM Plex Mono.
 
-<h3
-  style={{
-    fontFamily: "var(--ds-font-family-display)",
-    fontSize: "var(--ds-font-size-900)",
-  }}
->
-  Outfit
-</h3>
+<h3 className="ds-type-sample-outfit">Outfit</h3>
 
-Outfit is used for display and high-level headings.
+**Outfit** is used for display and high-level headings.
 
-Use Outfit sparingly for:
+Use sparingly for:
 
 - Product names
 - Major page titles
@@ -310,34 +480,24 @@ Use Outfit sparingly for:
 
 Do not use Outfit for dense application UI, tables, forms, or technical values.
 
-<h3
-  style={{
-    fontFamily: "var(--ds-font-family-mono)",
-    fontSize: "var(--ds-font-size-900)",
-  }}
->
-  IBM Plex Mono
-</h3>
+<h3 className="ds-type-sample-mono">IBM Plex Mono</h3>
 
-IBM Plex Mono is used for technical and aligned information.
+**IBM Plex Mono** is used for technical and aligned information.
 
-Use IBM Plex Mono for:
+Use for:
 
-- Beamline IDs
-- Sample IDs
-- Proposal IDs
-- Timestamps
 - Code
 - Logs
 - Console output
+- Timestamps
+- Numeric values where alignment helps comparison
+- IDs (proposals, samples, beamlines)
 - Numeric columns
 - Technical table values
-- Numeric values where alignment helps comparison
 - File paths
 - API-like values
 
-Do not use mono type for general UI text. It reduces readability when used too
-widely.
+Do not use mono type for general UI text.
 
 ## Technical values
 
@@ -353,6 +513,28 @@ Use mono type where users need to inspect precise values:
 
 For tables with mixed content, use mono only for the technical cells rather than
 the whole table.
+
+## Truncation and overflow
+
+Long technical values (paths, IDs, timestamps) can overflow a constrained
+layout such as a table cell or a narrow panel.
+
+Use `noWrap` inside a width-constrained container to truncate the value to a
+single line with an ellipsis, and pair it with a tooltip so the full value is
+still available on hover or focus.
+
+```tsx
+<Box sx={{ maxWidth: 240 }}>
+  <Tooltip title="/dls/i15-1/data/2026/cm12345-1/processed/sample_0042.nxs">
+    <Typography variant="mono2" noWrap tabIndex={0}>
+      /dls/i15-1/data/2026/cm12345-1/processed/sample_0042.nxs
+    </Typography>
+  </Tooltip>
+</Box>
+```
+
+Don't truncate a value without also giving users a way to read it in full.
+Prefer a tooltip, or reflow the layout so the value has room to wrap.
 
 ## Numbers and units
 
@@ -464,8 +646,11 @@ Logs and console output should use mono type.
 
 ```tsx
 <Typography component="pre" variant="mono1">
-  [14:30:15] Starting data acquisition pipeline [14:30:18] Detector initialised
-  successfully [14:30:22] Scan started — energy 12.4 keV, exposure 0.5 s
+  [14:30:15] Starting data acquisition pipeline
+  <br />
+  [14:30:18] Detector initialised successfully
+  <br />
+  [14:30:22] Scan started — energy 12.4 keV, exposure 0.5 s
 </Typography>
 ```
 
