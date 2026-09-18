@@ -44,7 +44,7 @@ export const Basic: Story = {
 export const Variants: Story = {
   render: (_args) => (
     <Stack direction="row" spacing={2}>
-      <Paper variant="elevation" elevation={2} sx={{ p: 2 }}>
+      <Paper variant="elevation" elevation={5} sx={{ p: 2 }}>
         <Typography>Elevation</Typography>
       </Paper>
       <Paper variant="outlined" sx={{ p: 2 }}>
@@ -66,13 +66,33 @@ export const Elevations: Story = {
   ),
 };
 
+export const CustomBackground: Story = {
+  render: (_args) => (
+    <Stack direction="row" spacing={2}>
+      {[1, 8, 24].map((level) => (
+        <Paper
+          key={level}
+          elevation={level}
+          sx={(theme) => ({
+            p: 2,
+            backgroundColor: theme.palette.error.container,
+            color: theme.palette.error.onContainer,
+          })}
+        >
+          <Typography>elevation {level}</Typography>
+        </Paper>
+      ))}
+    </Stack>
+  ),
+};
+
 export const Corners: Story = {
   render: (_args) => (
     <Stack direction="row" spacing={2}>
-      <Paper sx={{ p: 2, width: 200 }}>
+      <Paper elevation={5} sx={{ p: 2, width: 200 }}>
         <Typography>Rounded (default)</Typography>
       </Paper>
-      <Paper square sx={{ p: 2, width: 200 }}>
+      <Paper elevation={5} square sx={{ p: 2, width: 200 }}>
         <Typography>Square</Typography>
       </Paper>
     </Stack>
