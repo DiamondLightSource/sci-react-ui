@@ -24,7 +24,10 @@ import "../styles/diamondDS/DiamondDSTypography.css";
 
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import { extendTheme } from "@mui/material/styles";
+import {
+  extendTheme,
+  shouldSkipGeneratingVar as defaultShouldSkipGeneratingVar,
+} from "@mui/material/styles";
 import type {
   CSSObject,
   Overlays,
@@ -733,6 +736,10 @@ const DiamondDSTheme = extendTheme({
    * <html data-mode="light"> or <html data-mode="dark">
    */
   colorSchemeSelector: '[data-mode="%s"]',
+
+  // `logos` holds raw image sources (e.g. SVG data URIs), not CSS values, so skip var generation for it.
+  shouldSkipGeneratingVar: (keys) =>
+    keys[0] === "logos" || defaultShouldSkipGeneratingVar(keys),
 
   colorSchemes: {
     light: {
