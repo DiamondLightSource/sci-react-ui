@@ -36,6 +36,12 @@ describe("SidebarNav", () => {
           icon: <div data-testid="navicon4" />,
           linkProps: { href: "https://www.example.com" },
         },
+        {
+          label: "Documentation",
+          icon: <div data-testid="navicon5" />,
+          linkProps: { href: "https://docs.example.com" },
+          external: true,
+        },
       ],
     },
   ];
@@ -169,6 +175,62 @@ describe("SidebarNav", () => {
 
       const internalLink = screen.getByRole("link", { name: "Setup" });
       expect(internalLink).toHaveAttribute("href", "/setup");
+    });
+
+    it("opens external items in a new tab", () => {
+      renderSidenav(true);
+
+      const externalLink = screen.getByRole("link", {
+        name: "Documentation (opens in new tab)",
+      });
+      expect(externalLink).toHaveAttribute("target", "_blank");
+      expect(externalLink).toHaveAttribute("rel", "noopener noreferrer");
+
+      const nonExternalLink = screen.getByRole("link", {
+        name: "Organisation",
+      });
+      expect(nonExternalLink).not.toHaveAttribute("target");
+      expect(nonExternalLink).not.toHaveAttribute("rel");
+    });
+
+    it("includes the new-tab cue in the accessible name of external items", () => {
+      renderSidenav(true);
+
+      expect(
+        screen.getByRole("link", { name: "Documentation (opens in new tab)" }),
+      ).toBeVisible();
+      expect(
+        screen.queryByRole("link", { name: "Documentation" }),
+      ).not.toBeInTheDocument();
+    });
+
+    it("shows a trailing icon on external items when open", () => {
+      renderSidenav(true);
+
+      const externalLink = screen.getByRole("link", {
+        name: "Documentation (opens in new tab)",
+      });
+      expect(externalLink.querySelector("svg")).toBeInTheDocument();
+
+      const nonExternalLink = screen.getByRole("link", {
+        name: "Organisation",
+      });
+      expect(nonExternalLink.querySelector("svg")).not.toBeInTheDocument();
+    });
+
+    it("shows a badge on the icon and mentions the new tab in the tooltip when collapsed", async () => {
+      renderSidenav(false);
+
+      const icon = screen.getByTestId("navicon5");
+      expect(icon.parentElement?.querySelector("svg")).toBeInTheDocument();
+
+      const user = userEvent.setup();
+      await user.hover(icon);
+
+      const tooltip = await screen.findByRole("tooltip", {
+        name: "Documentation (opens in new tab)",
+      });
+      expect(tooltip).toBeVisible();
     });
   });
 

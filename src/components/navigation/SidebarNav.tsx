@@ -10,7 +10,9 @@ import {
   Toolbar,
   Tooltip,
 } from "@mui/material";
+import { Badge } from "../MUI/MuiWrapped";
 import { useTheme, Theme } from "@mui/material/styles";
+import { ExternalLink as ExternalLinkIcon } from "lucide-react";
 import { Fragment, type ElementType, type ReactNode } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -21,14 +23,24 @@ type NavItemGroup = {
   navItems: NavItemDefinition[];
 };
 
-type NavItemDefinition = {
+type NavItemDefinition = InternalNavItemDefinition | ExternalNavItemDefinition;
+
+type BaseNavItemDefinition = {
   label: string;
   icon: ReactNode;
-  linkProps: LinkProps;
   selected?: boolean;
 };
 
-type LinkProps = ExternalLinkProps | InternalLinkProps;
+type InternalNavItemDefinition = BaseNavItemDefinition & {
+  linkProps: InternalLinkProps;
+  external?: never;
+};
+
+type ExternalNavItemDefinition = BaseNavItemDefinition & {
+  linkProps: ExternalLinkProps;
+  /** Marks the item as leaving the app: shows a trailing icon and opens the link in a new tab. */
+  external?: boolean;
+};
 
 /** For native anchor tags */
 type ExternalLinkProps = {
@@ -195,6 +207,42 @@ interface NavItemProps {
 function NavItem(props: NavItemProps) {
   const item = props.definition;
   const open = props.sidebarOpen;
+
+  // Every external-link affordance (badge, target/rel, accessible name,
+  // trailing icon) derives from this single flag so they can't drift apart.
+  const isExternal = Boolean(item.external);
+  const accessibleLabel = isExternal
+    ? `${item.label} (opens in new tab)`
+    : item.label;
+  const externalLinkProps = isExternal
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : undefined;
+
+  const itemIcon =
+    isExternal && !open ? (
+      <Badge
+        overlap="rectangular"
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        badgeContent={<ExternalLinkIcon size={12} strokeWidth={2.5} />}
+        sx={{
+          "& .MuiBadge-badge": {
+            p: 0,
+            minWidth: 0,
+            height: "auto",
+            top: -4,
+            right: -4,
+            borderRadius: "50%",
+            bgcolor: "background.paper",
+            color: "var(--ds-tertiary)",
+          },
+        }}
+      >
+        {item.icon}
+      </Badge>
+    ) : (
+      item.icon
+    );
+
   const icon = (
     <ListItemIcon
       sx={{
@@ -206,7 +254,7 @@ function NavItem(props: NavItemProps) {
         color: open ? "text.secondary" : "text.primary",
       }}
     >
-      {item.icon}
+      {itemIcon}
     </ListItemIcon>
   );
 
@@ -214,6 +262,7 @@ function NavItem(props: NavItemProps) {
     <ListItem disablePadding sx={{ mb: 0.5 }}>
       <ListItemButton
         {...item.linkProps}
+        {...externalLinkProps}
         selected={props.definition.selected}
         sx={{
           p: 1,
@@ -224,12 +273,12 @@ function NavItem(props: NavItemProps) {
           },
           gap: 1.5,
         }}
-        aria-label={item.label}
+        aria-label={accessibleLabel}
       >
         {open ? (
           icon
         ) : (
-          <Tooltip title={item.label} placement="right">
+          <Tooltip title={accessibleLabel} placement="right">
             {icon}
           </Tooltip>
         )}
@@ -245,6 +294,11 @@ function NavItem(props: NavItemProps) {
               }),
           }}
         />
+        {isExternal && open && (
+          <ListItemIcon sx={{ minWidth: 0, color: "text.secondary" }}>
+            <ExternalLinkIcon size={16} />
+          </ListItemIcon>
+        )}
       </ListItemButton>
     </ListItem>
   );

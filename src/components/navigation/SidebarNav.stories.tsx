@@ -7,6 +7,7 @@ import {
   Menu,
   Schedule,
 } from "@mui/icons-material";
+import { BookOpenText } from "lucide-react";
 import { SidebarNav } from "./SidebarNav";
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
@@ -221,6 +222,61 @@ export const GroupedNavigation: Story = {
             <Menu />
           </IconButton>
           <Typography>Sections are grouped with dividers.</Typography>
+        </Box>
+      </Box>
+    );
+  },
+};
+
+const externalLinkNavigation = [
+  {
+    navItems: [
+      {
+        label: "Setup",
+        icon: <Abc />,
+        linkProps: { to: "/1", component: NavLink },
+      },
+      {
+        label: "Acquisition",
+        icon: <ArrowForward />,
+        linkProps: { to: "/2", component: NavLink },
+      },
+    ],
+  },
+  {
+    navItems: [
+      {
+        label: "Documentation",
+        icon: <BookOpenText size={20} />,
+        linkProps: {
+          href: "https://diamondlightsource.github.io/sci-react-ui/",
+        },
+        external: true,
+      },
+    ],
+  },
+];
+
+export const ExternalLink: Story = {
+  render: (_args) => {
+    const [open, setOpen] = React.useState(true);
+    return (
+      <Box sx={{ display: "flex" }}>
+        <SidebarNav
+          navigation={externalLinkNavigation}
+          open={open}
+          setOpen={setOpen}
+        />
+        <Box sx={{ p: 2 }}>
+          <IconButton onClick={() => setOpen(!open)}>
+            <Menu />
+          </IconButton>
+          <Typography>
+            Setting <em>external</em> on a nav item shows a trailing &quot;opens
+            in new tab&quot; icon and adds{" "}
+            <code>target=&quot;_blank&quot;</code> to the link. The icon is
+            hidden when the sidebar is collapsed.
+          </Typography>
         </Box>
       </Box>
     );
