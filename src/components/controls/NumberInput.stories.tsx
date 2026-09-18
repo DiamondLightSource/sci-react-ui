@@ -13,6 +13,21 @@ const meta: Meta<typeof NumberInput> = {
       },
     },
   },
+  argTypes: {
+    spinnerButtons: {
+      control: "select",
+      options: ["always", "onHover", "never"],
+      description:
+        "Controls visibility of the increment/decrement buttons. Defaults to 'onHover', except for numberMode='scientific' which defaults to 'never'.",
+      table: { category: "Behaviour" },
+    },
+    step: {
+      control: "number",
+      description:
+        "Amount the increment/decrement buttons change the value by.",
+      table: { category: "Behaviour" },
+    },
+  },
 };
 
 export default meta;

@@ -158,4 +158,18 @@ describe("NumberInput", () => {
     fireEvent.change(numberInput, { target: { value: "5e5" } });
     expect(screen.queryByText("Invalid input")).not.toBeInTheDocument();
   });
+
+  it("does not accumulate floating point error when stepping", async () => {
+    render(
+      <NumberInput
+        label="numberbox"
+        numberMode="floating"
+        defaultValue={4.1}
+      />,
+    );
+    const numberInput = screen.getByLabelText("numberbox") as HTMLInputElement;
+    const decreaseButton = screen.getByLabelText("Decrease value");
+    fireEvent.click(decreaseButton);
+    expect(numberInput.value).toBe("3.1");
+  });
 });
