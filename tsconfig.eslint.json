@@ -4,6 +4,7 @@
     "src",
     "src/types",
     "dev",
+    "test",
     ".storybook/**/*.tsx",
     ".storybook/**/*.ts",
     ".storybook/**/*.js",
