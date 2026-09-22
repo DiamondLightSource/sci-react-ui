@@ -89,34 +89,34 @@
    */
 
   /* Primary (Indigo-Blue) */
-  --ds-primary: #2a4db8;
+  --ds-primary: #1a318c;
   --ds-on-primary: #ffffff;
-  --ds-primary-emphasis: #1f3d96;
-  --ds-primary-accent: #6a86e4;
-  --ds-primary-container: #e5ebff;
-  --ds-on-primary-container: #1a2f6b;
-  --ds-primary-solid: #3f63c9;
+  --ds-primary-emphasis: #152872;
+  --ds-primary-accent: #6088ff;
+  --ds-primary-container: #d9e5ff;
+  --ds-on-primary-container: #000000;
+  --ds-primary-solid: #426af3;
   --ds-on-primary-solid: #ffffff;
 
   --ds-on-primary-channel: 255 255 255;
-  --ds-primary-channel: 42 77 184;
-  --ds-primary-accent-channel: 106 134 228;
-  --ds-primary-emphasis-channel: 31 61 150;
+  --ds-primary-channel: 26 49 140;
+  --ds-primary-accent-channel: 96 136 255;
+  --ds-primary-emphasis-channel: 21 40 114;
 
   /* Secondary (Teal) */
-  --ds-secondary: #007b84;
+  --ds-secondary: #005b61;
   --ds-on-secondary: #ffffff;
-  --ds-secondary-emphasis: #005f67;
-  --ds-secondary-accent: #27adb7;
-  --ds-secondary-container: #ddf3f5;
-  --ds-on-secondary-container: #00474d;
-  --ds-secondary-solid: #0a858e;
+  --ds-secondary-emphasis: #00474c;
+  --ds-secondary-accent: #0a9ea9;
+  --ds-secondary-container: #d1e9eb;
+  --ds-on-secondary-container: #000000;
+  --ds-secondary-solid: #00828b;
   --ds-on-secondary-solid: #ffffff;
 
   --ds-on-secondary-channel: 255 255 255;
-  --ds-secondary-channel: 0 123 132;
-  --ds-secondary-accent-channel: 39 173 183;
-  --ds-secondary-emphasis-channel: 0 95 103;
+  --ds-secondary-channel: 0 91 97;
+  --ds-secondary-accent-channel: 10 158 169;
+  --ds-secondary-emphasis-channel: 0 71 76;
 
   /* Tertiary (Violet)
    *
@@ -161,64 +161,64 @@
   --ds-brand-emphasis-channel: 23 31 53;
 
   /* Danger (Red) */
-  --ds-danger: #ae1e13;
+  --ds-danger: #850100;
   --ds-on-danger: #ffffff;
-  --ds-danger-emphasis: #912018;
-  --ds-danger-accent: #d94f45;
-  --ds-danger-container: #fde7e5;
-  --ds-on-danger-container: #6a1b15;
-  --ds-danger-solid: #d63c41;
+  --ds-danger-emphasis: #6a0100;
+  --ds-danger-accent: #ff503f;
+  --ds-danger-container: #ffddd7;
+  --ds-on-danger-container: #000000;
+  --ds-danger-solid: #e20500;
   --ds-on-danger-solid: #ffffff;
 
   --ds-on-danger-channel: 255 255 255;
-  --ds-danger-channel: 174 30 19;
-  --ds-danger-accent-channel: 217 79 69;
-  --ds-danger-emphasis-channel: 145 32 24;
+  --ds-danger-channel: 133 1 0;
+  --ds-danger-accent-channel: 255 80 63;
+  --ds-danger-emphasis-channel: 106 1 0;
 
   /* Warning (Orange) */
-  --ds-warning: #a95703;
+  --ds-warning: #7e4800;
   --ds-on-warning: #ffffff;
-  --ds-warning-emphasis: #944b00;
-  --ds-warning-accent: #e98a15;
-  --ds-warning-container: #fef0df;
-  --ds-on-warning-container: #6f3200;
-  --ds-warning-solid: #e97b12;
+  --ds-warning-emphasis: #643800;
+  --ds-warning-accent: #cf7b00;
+  --ds-warning-container: #f7e1cd;
+  --ds-on-warning-container: #000000;
+  --ds-warning-solid: #bb6e00;
   --ds-on-warning-solid: #ffffff;
 
   --ds-on-warning-channel: 255 255 255;
-  --ds-warning-channel: 169 87 3;
-  --ds-warning-accent-channel: 233 138 21;
-  --ds-warning-emphasis-channel: 148 75 0;
+  --ds-warning-channel: 126 72 0;
+  --ds-warning-accent-channel: 207 123 0;
+  --ds-warning-emphasis-channel: 100 56 0;
 
   /* Success (Green) */
-  --ds-success: #137329;
+  --ds-success: #005107;
   --ds-on-success: #ffffff;
-  --ds-success-emphasis: #146125;
-  --ds-success-accent: #2fb344;
-  --ds-success-container: #d4f3df;
-  --ds-on-success-container: #0d491d;
-  --ds-success-solid: #1b8834;
+  --ds-success-emphasis: #003904;
+  --ds-success-accent: #30a434;
+  --ds-success-container: #d2ebd1;
+  --ds-on-success-container: #000000;
+  --ds-success-solid: #008814;
   --ds-on-success-solid: #ffffff;
 
   --ds-on-success-channel: 255 255 255;
-  --ds-success-channel: 19 115 41;
-  --ds-success-accent-channel: 47 179 68;
-  --ds-success-emphasis-channel: 20 97 37;
+  --ds-success-channel: 0 81 7;
+  --ds-success-accent-channel: 48 164 52;
+  --ds-success-emphasis-channel: 0 57 4;
 
   /* Info (Blue) */
-  --ds-info: #355ec9;
+  --ds-info: #005887;
   --ds-on-info: #ffffff;
-  --ds-info-emphasis: #2a4ea7;
-  --ds-info-accent: #6f8fe8;
-  --ds-info-container: #e9efff;
-  --ds-on-info-container: #1f3b85;
-  --ds-info-solid: #4d72dd;
+  --ds-info-emphasis: #00456b;
+  --ds-info-accent: #0096e1;
+  --ds-info-container: #cfe8fb;
+  --ds-on-info-container: #000000;
+  --ds-info-solid: #0087ca;
   --ds-on-info-solid: #ffffff;
 
   --ds-on-info-channel: 255 255 255;
-  --ds-info-channel: 53 94 201;
-  --ds-info-accent-channel: 111 143 232;
-  --ds-info-emphasis-channel: 42 78 167;
+  --ds-info-channel: 0 88 135;
+  --ds-info-accent-channel: 0 150 225;
+  --ds-info-emphasis-channel: 0 69 107;
 
   /* Highlight
    *
@@ -319,34 +319,34 @@
   --ds-overlay-focus: rgba(232, 234, 240, 0.16);
 
   /* Primary */
-  --ds-primary: #8aa7ff;
-  --ds-on-primary: #0b1638;
-  --ds-primary-emphasis: #c4d4ff;
-  --ds-primary-accent: #a5bcff;
-  --ds-primary-container: #1b2c5f;
-  --ds-on-primary-container: #e8eeff;
-  --ds-primary-solid: #3f63c9;
+  --ds-primary: #9cb9ff;
+  --ds-on-primary: #000000;
+  --ds-primary-emphasis: #aac3ff;
+  --ds-primary-accent: #81a4ff;
+  --ds-primary-container: #273c78;
+  --ds-on-primary-container: #ffffff;
+  --ds-primary-solid: #4973ff;
   --ds-on-primary-solid: #ffffff;
 
-  --ds-on-primary-channel: 11 22 56;
-  --ds-primary-channel: 138 167 255;
-  --ds-primary-accent-channel: 165 188 255;
-  --ds-primary-emphasis-channel: 196 212 255;
+  --ds-on-primary-channel: 0 0 0;
+  --ds-primary-channel: 156 185 255;
+  --ds-primary-accent-channel: 129 164 255;
+  --ds-primary-emphasis-channel: 170 195 255;
 
   /* Secondary */
-  --ds-secondary: #58d6de;
-  --ds-on-secondary: #002529;
-  --ds-secondary-emphasis: #9af0f3;
-  --ds-secondary-accent: #7be4ea;
-  --ds-secondary-container: #0d3338;
-  --ds-on-secondary-container: #ccf7f9;
-  --ds-secondary-solid: #0a858e;
+  --ds-secondary: #aaf0f6;
+  --ds-on-secondary: #000000;
+  --ds-secondary-emphasis: #baf5fa;
+  --ds-secondary-accent: #79d8e1;
+  --ds-secondary-container: #06464b;
+  --ds-on-secondary-container: #ffffff;
+  --ds-secondary-solid: #00a0aa;
   --ds-on-secondary-solid: #ffffff;
 
-  --ds-on-secondary-channel: 0 37 41;
-  --ds-secondary-channel: 88 214 222;
-  --ds-secondary-accent-channel: 123 228 234;
-  --ds-secondary-emphasis-channel: 154 240 243;
+  --ds-on-secondary-channel: 0 0 0;
+  --ds-secondary-channel: 170 240 246;
+  --ds-secondary-accent-channel: 121 216 225;
+  --ds-secondary-emphasis-channel: 186 245 250;
 
   /* Tertiary */
   --ds-tertiary: #e080cc;
@@ -383,64 +383,64 @@
   --ds-brand-emphasis-channel: 215 225 255;
 
   /* Danger */
-  --ds-danger: #ff9088;
-  --ds-on-danger: #2f0907;
-  --ds-danger-emphasis: #ffc7c2;
-  --ds-danger-accent: #ffb0aa;
-  --ds-danger-container: #3a1613;
-  --ds-on-danger-container: #ffd9d6;
-  --ds-danger-solid: #d63c41;
+  --ds-danger: #ff9686;
+  --ds-on-danger: #000000;
+  --ds-danger-emphasis: #ffa597;
+  --ds-danger-accent: #ff7866;
+  --ds-danger-container: #761911;
+  --ds-on-danger-container: #ffffff;
+  --ds-danger-solid: #f30700;
   --ds-on-danger-solid: #ffffff;
 
-  --ds-on-danger-channel: 47 9 7;
-  --ds-danger-channel: 255 144 136;
-  --ds-danger-accent-channel: 255 176 170;
-  --ds-danger-emphasis-channel: 255 199 194;
+  --ds-on-danger-channel: 0 0 0;
+  --ds-danger-channel: 255 150 134;
+  --ds-danger-accent-channel: 255 120 102;
+  --ds-danger-emphasis-channel: 255 165 151;
 
   /* Warning */
-  --ds-warning: #ffb067;
-  --ds-on-warning: #311700;
-  --ds-warning-emphasis: #ffd9b0;
-  --ds-warning-accent: #ffc68a;
-  --ds-warning-container: #382006;
-  --ds-on-warning-container: #ffe4c8;
-  --ds-warning-solid: #f07a13;
+  --ds-warning: #ffcd9e;
+  --ds-on-warning: #000000;
+  --ds-warning-emphasis: #ffd4ac;
+  --ds-warning-accent: #ffbc7c;
+  --ds-warning-container: #5e3501;
+  --ds-on-warning-container: #ffffff;
+  --ds-warning-solid: #d78000;
   --ds-on-warning-solid: #ffffff;
 
-  --ds-on-warning-channel: 49 23 0;
-  --ds-warning-channel: 255 176 103;
-  --ds-warning-accent-channel: 255 198 138;
-  --ds-warning-emphasis-channel: 255 217 176;
+  --ds-on-warning-channel: 0 0 0;
+  --ds-warning-channel: 255 205 158;
+  --ds-warning-accent-channel: 255 188 124;
+  --ds-warning-emphasis-channel: 255 212 172;
 
   /* Success */
-  --ds-success: #6fd88a;
-  --ds-on-success: #08210f;
-  --ds-success-emphasis: #b3f0c0;
-  --ds-success-accent: #8ae5a2;
-  --ds-success-container: #10341a;
-  --ds-on-success-container: #d2f7da;
-  --ds-success-solid: #23913c;
+  --ds-success: #b0f5ad;
+  --ds-on-success: #000000;
+  --ds-success-emphasis: #bff9bc;
+  --ds-success-accent: #83de81;
+  --ds-success-container: #124914;
+  --ds-on-success-container: #ffffff;
+  --ds-success-solid: #009216;
   --ds-on-success-solid: #ffffff;
 
-  --ds-on-success-channel: 8 33 15;
-  --ds-success-channel: 111 216 138;
-  --ds-success-accent-channel: 138 229 162;
-  --ds-success-emphasis-channel: 179 240 192;
+  --ds-on-success-channel: 0 0 0;
+  --ds-success-channel: 176 245 173;
+  --ds-success-accent-channel: 131 222 129;
+  --ds-success-emphasis-channel: 191 249 188;
 
   /* Info */
-  --ds-info: #9fb7ff;
-  --ds-on-info: #101936;
-  --ds-info-emphasis: #d5e0ff;
-  --ds-info-accent: #bccdff;
-  --ds-info-container: #1b2b57;
-  --ds-on-info-container: #dce4ff;
-  --ds-info-solid: #4d72dd;
+  --ds-info: #9bd4ff;
+  --ds-on-info: #000000;
+  --ds-info-emphasis: #aadaff;
+  --ds-info-accent: #7ac7ff;
+  --ds-info-container: #024266;
+  --ds-on-info-container: #ffffff;
+  --ds-info-solid: #009ce9;
   --ds-on-info-solid: #ffffff;
 
-  --ds-on-info-channel: 16 25 54;
-  --ds-info-channel: 159 183 255;
-  --ds-info-accent-channel: 188 205 255;
-  --ds-info-emphasis-channel: 213 224 255;
+  --ds-on-info-channel: 0 0 0;
+  --ds-info-channel: 155 212 255;
+  --ds-info-accent-channel: 122 199 255;
+  --ds-info-emphasis-channel: 170 218 255;
 
   /* Highlight */
   --ds-highlight: #fddc60;
