@@ -30,6 +30,8 @@ const meta: Meta<SelectArgs> = {
     },
     size: { control: "select", options: ["small", "medium"] },
     displayEmpty: { control: "boolean" },
+    readOnly: { control: "boolean" },
+    disabled: { control: "boolean" },
     label: { control: "text" },
     items: { control: { type: "object" } },
   },
@@ -38,6 +40,8 @@ const meta: Meta<SelectArgs> = {
     color: "primary",
     size: "medium",
     displayEmpty: false,
+    readOnly: false,
+    disabled: false,
     label: "element",
     items: elementOptions,
     defaultValue: elementOptions[0],
@@ -81,6 +85,24 @@ export const FilledAndStandard: Story = {
     <Box>
       {renderSelectWithLabel({ ...args, variant: "filled" })}
       {renderSelectWithLabel({ ...args, variant: "standard" })}
+    </Box>
+  ),
+};
+
+export const States: Story = {
+  render: (args: SelectArgs) => (
+    <Box style={{ display: "grid", gap: 12 }}>
+      {renderSelectWithLabel({ ...args, label: "Default" })}
+      {renderSelectWithLabel({
+        ...args,
+        label: "Read-only",
+        readOnly: true,
+      })}
+      {renderSelectWithLabel({
+        ...args,
+        label: "Disabled",
+        disabled: true,
+      })}
     </Box>
   ),
 };

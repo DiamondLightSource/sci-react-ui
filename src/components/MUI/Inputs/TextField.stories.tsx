@@ -2,7 +2,19 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Box, TextField } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
-type TFArgs = React.ComponentProps<typeof TextField>;
+type ExtraArgs = {
+  readOnly?: boolean;
+};
+type TFArgs = React.ComponentProps<typeof TextField> & ExtraArgs;
+
+/**
+ * TextField has no top-level `readOnly` prop (it must go through
+ * `slotProps.input`), so this wrapper threads the story control through to
+ * where MUI actually reads it.
+ */
+const StoryTextField = ({ readOnly, ...props }: TFArgs) => (
+  <TextField {...props} slotProps={{ input: { readOnly } }} />
+);
 
 const meta: Meta<TFArgs> = {
   title: "MUI/Inputs/TextField",
@@ -29,6 +41,7 @@ const meta: Meta<TFArgs> = {
     helperText: { control: "text" },
     error: { control: "boolean" },
     required: { control: "boolean" },
+    readOnly: { control: "boolean" },
     disabled: { control: "boolean" },
     fullWidth: { control: "boolean" },
     multiline: { control: "boolean" },
@@ -45,6 +58,7 @@ const meta: Meta<TFArgs> = {
     helperText: "",
     error: false,
     required: false,
+    readOnly: false,
     disabled: false,
     fullWidth: false,
     multiline: false,
@@ -56,7 +70,7 @@ export default meta;
 type Story = StoryObj<TFArgs>;
 
 export const Basic: Story = {
-  render: (args) => <TextField {...args} />,
+  render: (args) => <StoryTextField {...args} />,
 };
 
 export const Variants: Story = {
