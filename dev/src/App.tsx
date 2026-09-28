@@ -255,6 +255,9 @@ const AppLayout = () => {
           <NavLink linkComponent={RouterLink} to="/theme">
             Theme
           </NavLink>
+          <NavLink linkComponent={RouterLink} to="/elevation">
+            Elevation
+          </NavLink>
         </NavLinks>
       </Navbar>
       <Container sx={{ py: 4 }}>
@@ -263,6 +266,7 @@ const AppLayout = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/components" element={<ComponentsPage />} />
             <Route path="/theme" element={<ThemePage />} />
+            <Route path="/elevation" element={<ElevationPage />} />
           </Routes>
         </Stack>
       </Container>
@@ -539,6 +543,222 @@ const ThemePage = () => {
           </Box>
           {/* rest of surface / border sections can stay as before */}
         </Stack>
+      </Box>
+    </Stack>
+  );
+};
+
+const elevationLevels = Array.from({ length: 25 }, (_, level) => level);
+
+const shadowExamples = [
+  { label: "Dropdown / Menu / Select", level: 8 },
+  { label: "Autocomplete listbox", level: 8 },
+  { label: "Card (raised)", level: 8 },
+  { label: "Temporary Drawer", level: 16 },
+  { label: "Modal / Dialog", level: 24 },
+];
+
+type ColourLayer = {
+  label: string;
+  /** A `theme.palette` dot-path, or a resolver for tokens that aren't plain strings (e.g. `surface.elevated`). */
+  bg: string | ((theme: Theme) => string);
+  /** Mono caption text. Defaults to `bg` when it's a path string. */
+  tokenLabel?: string;
+  fg: string;
+};
+
+const baseColourLayers: ColourLayer[] = [
+  { label: "Background", bg: "background.default", fg: "text.primary" },
+  { label: "Surface", bg: "background.paper", fg: "text.primary" },
+  { label: "Surface subtle", bg: "surface.subtle", fg: "text.primary" },
+  {
+    label: "Elevated surface",
+    bg: (theme) => theme.palette.surface.elevated(4),
+    tokenLabel: "surface.elevated(4)",
+    fg: "text.primary",
+  },
+];
+
+const buildIntentLayers = (
+  title: string,
+  intent: "primary" | "error",
+): ColourLayer[] => [
+  ...baseColourLayers,
+  {
+    label: `${title} container`,
+    bg: `${intent}.container`,
+    fg: `${intent}.onContainer`,
+  },
+  { label: `${title} solid`, bg: `${intent}.solid`, fg: `${intent}.onSolid` },
+];
+
+const layeringChains = [
+  {
+    key: "primary",
+    title: "Primary",
+    layers: buildIntentLayers("Primary", "primary"),
+  },
+  {
+    key: "error",
+    title: "Danger",
+    layers: buildIntentLayers("Danger", "error"),
+  },
+];
+
+const resolveLayerBg = (theme: Theme, bg: ColourLayer["bg"]) =>
+  typeof bg === "function" ? bg(theme) : getPaletteValue(theme, bg);
+
+/** Nests each colour token inside the previous one, to show how surfaces stack in real layouts. */
+const ColourLayers = ({ layers }: { layers: ColourLayer[] }) => {
+  const [layer, ...rest] = layers;
+  if (!layer) return null;
+
+  return (
+    <Box
+      sx={(theme) => ({
+        p: 3,
+        borderRadius: 2,
+        backgroundColor: resolveLayerBg(theme, layer.bg),
+        color: getPaletteValue(theme, layer.fg),
+      })}
+    >
+      <Stack spacing={1}>
+        <Typography variant="body2">{layer.label}</Typography>
+        <Typography variant="caption" sx={{ fontFamily: "monospace" }}>
+          {layer.tokenLabel ?? (typeof layer.bg === "string" ? layer.bg : "")}
+        </Typography>
+        {rest.length > 0 && <ColourLayers layers={rest} />}
+      </Stack>
+    </Box>
+  );
+};
+
+const ElevationPage = () => {
+  return (
+    <Stack spacing={3}>
+      <Typography variant="h5">Elevation</Typography>
+      <Typography variant="body2" color="text.secondary">
+        MUI&apos;s <code>Paper</code> <code>elevation</code> prop (0-24) picks
+        up DiamondDS&apos;s tonal surface tint plus box-shadow. Toggle
+        light/dark mode to see the tokens respond.
+      </Typography>
+
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))",
+          gap: 2,
+        }}
+      >
+        {elevationLevels.map((level) => (
+          <Paper
+            key={level}
+            elevation={level}
+            sx={{
+              height: 96,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 2,
+            }}
+          >
+            <Typography variant="body2">{level}</Typography>
+          </Paper>
+        ))}
+      </Box>
+
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          Layering
+        </Typography>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          Surfaces are meant to nest: each token sits on top of the one before
+          it, from the page background up to a solid, high-emphasis surface. The
+          elevated step reuses the same <code>surface.elevated()</code> token as
+          the swatches above.
+        </Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
+            gap: 3,
+          }}
+        >
+          {layeringChains.map((chain) => (
+            <Box key={chain.key}>
+              <Typography variant="subtitle2" gutterBottom>
+                {chain.title}
+              </Typography>
+              <ColourLayers layers={chain.layers} />
+            </Box>
+          ))}
+        </Box>
+
+        <Typography variant="subtitle2" sx={{ mt: 3 }} gutterBottom>
+          Composed: elevated + Danger container
+        </Typography>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          A <code>Paper</code> with both <code>elevation</code> and a custom{" "}
+          <code>backgroundColor</code>.
+        </Typography>
+        <Paper
+          elevation={8}
+          sx={(theme) => ({
+            p: 2,
+            borderRadius: 2,
+            maxWidth: 220,
+            backgroundColor: theme.palette.error.container,
+            color: theme.palette.error.onContainer,
+          })}
+        >
+          <Stack spacing={1}>
+            <Typography variant="body2">Danger container</Typography>
+            <Typography variant="caption" sx={{ fontFamily: "monospace" }}>
+              elevation=8 · error.container
+            </Typography>
+          </Stack>
+        </Paper>
+      </Box>
+
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          Shadow-restoring components
+        </Typography>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          A handful of components explicitly restore{" "}
+          <code>var(--Paper-shadow)</code> on top of the tonal default, since
+          they need to visually float above the page.
+        </Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
+            gap: 2,
+          }}
+        >
+          {shadowExamples.map((example) => (
+            <Paper
+              key={example.label}
+              elevation={example.level}
+              sx={{
+                p: 2,
+                borderRadius: 2,
+                boxShadow: "var(--Paper-shadow)",
+              }}
+            >
+              <Stack spacing={1}>
+                <Typography variant="body2">{example.label}</Typography>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ fontFamily: "monospace" }}
+                >
+                  elevation={example.level}
+                </Typography>
+              </Stack>
+            </Paper>
+          ))}
+        </Box>
       </Box>
     </Stack>
   );
