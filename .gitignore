@@ -1,6 +1,13 @@
 /dist/
 /node_modules/
 /dev/node_modules/
+/e2e/consumer-smoke/node_modules/
+/e2e/consumer-smoke/sci-react-ui.tgz
+/e2e/consumer-smoke-legacy-vitest/node_modules/
+/e2e/consumer-smoke-legacy-vitest/sci-react-ui.tgz
+# pnpm auto-generates this stub for the esbuild build-approval prompt
+/e2e/consumer-smoke/pnpm-workspace.yaml
+/e2e/consumer-smoke-legacy-vitest/pnpm-workspace.yaml
 /coverage
 
 *storybook.log

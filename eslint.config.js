@@ -11,6 +11,7 @@ export default [
   {ignores: [
     "**/storybook-static/**",
     "docs/**",
+    "e2e/**",
     "**/*.css",
     "**/*.json",
     "**/*.d.ts",
