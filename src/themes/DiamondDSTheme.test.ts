@@ -174,6 +174,9 @@ describe("DiamondDSTheme", () => {
         MuiChip: expect.any(Object),
         MuiInputBase: expect.any(Object),
         MuiOutlinedInput: expect.any(Object),
+        MuiFilledInput: expect.any(Object),
+        MuiInput: expect.any(Object),
+        MuiSelect: expect.any(Object),
         MuiInputLabel: expect.any(Object),
         MuiAvatar: expect.any(Object),
         MuiTabs: expect.any(Object),
@@ -728,6 +731,20 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
+  it("uses the secondary text role for read-only value text, distinct from disabled or placeholder", () => {
+    const root = DiamondDSTheme.components?.MuiInputBase?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      theme: DiamondDSTheme,
+    });
+
+    expect(styles["&.MuiInputBase-readOnly:not(.Mui-disabled)"]).toEqual(
+      expect.objectContaining({
+        color: "var(--ds-on-surface-variant)",
+      }),
+    );
+  });
+
   it("uses outlined input border roles for default, hover, focus, error and disabled states", () => {
     const root =
       DiamondDSTheme.components?.MuiOutlinedInput?.styleOverrides?.root;
@@ -747,7 +764,7 @@ describe("DiamondDS component overrides", () => {
 
     expect(
       styles[
-        "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline"
+        "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused):not(.MuiInputBase-readOnly) .MuiOutlinedInput-notchedOutline"
       ],
     ).toEqual(
       expect.objectContaining({
@@ -775,12 +792,315 @@ describe("DiamondDS component overrides", () => {
       }),
     );
 
+    expect(styles["&.MuiInputBase-readOnly:not(.Mui-disabled)"]).toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-surface-readonly)",
+      }),
+    );
+
     expect(
-      styles["&:has(input[readonly]) .MuiOutlinedInput-notchedOutline"],
+      styles[
+        "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline"
+      ],
     ).toEqual(
       expect.objectContaining({
         borderColor: "var(--ds-border-subtle)",
       }),
+    );
+  });
+
+  it("excludes read-only from the outlined hover-darken rule, so a hovered read-only field can't out-specificity its own quiet border back to border-strong", () => {
+    const root =
+      DiamondDSTheme.components?.MuiOutlinedInput?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(Object.keys(styles)).toContain(
+      "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused):not(.MuiInputBase-readOnly) .MuiOutlinedInput-notchedOutline",
+    );
+  });
+
+  it("keeps disabled dominant over read-only when both are set, matching the documented state priority", () => {
+    const inputBaseRoot =
+      DiamondDSTheme.components?.MuiInputBase?.styleOverrides?.root;
+    const inputBaseStyles = getStyleOverride(inputBaseRoot, {
+      theme: DiamondDSTheme,
+    });
+
+    expect(
+      Object.keys(inputBaseStyles).some(
+        (key) => key === "&.MuiInputBase-readOnly",
+      ),
+    ).toBe(false);
+
+    const outlinedRoot =
+      DiamondDSTheme.components?.MuiOutlinedInput?.styleOverrides?.root;
+    const outlinedStyles = getStyleOverride(outlinedRoot, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(
+      Object.keys(outlinedStyles).every(
+        (key) => key !== "&.MuiInputBase-readOnly",
+      ),
+    ).toBe(true);
+  });
+
+  it("keeps error dominant over read-only on the border/underline, matching the documented state priority", () => {
+    const outlinedRoot =
+      DiamondDSTheme.components?.MuiOutlinedInput?.styleOverrides?.root;
+    const outlinedStyles = getStyleOverride(outlinedRoot, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(Object.keys(outlinedStyles)).toContain(
+      "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline",
+    );
+
+    const filledRoot =
+      DiamondDSTheme.components?.MuiFilledInput?.styleOverrides?.root;
+    const filledStyles = getStyleOverride(filledRoot, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(Object.keys(filledStyles)).toContain(
+      "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error)::before",
+    );
+
+    const inputRoot = DiamondDSTheme.components?.MuiInput?.styleOverrides?.root;
+    const inputStyles = getStyleOverride(inputRoot, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(Object.keys(inputStyles)).toContain(
+      "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error)::before",
+    );
+  });
+
+  it("marks read-only inputs with the MuiInputBase-readOnly class rather than relying on input[readonly], so Select and Autocomplete (which render a div-based combobox, not a native input) get the same treatment as TextField", () => {
+    const root =
+      DiamondDSTheme.components?.MuiOutlinedInput?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      ownerState: {
+        color: "primary",
+      },
+      theme: DiamondDSTheme,
+    });
+
+    expect(Object.keys(styles)).not.toContain(
+      "&:has(input[readonly]) .MuiOutlinedInput-notchedOutline",
+    );
+  });
+
+  it("uses DS border tokens for the filled underline across rest, hover, focus, error, read-only and disabled states", () => {
+    const root =
+      DiamondDSTheme.components?.MuiFilledInput?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(styles["&::before"]).toEqual(
+      expect.objectContaining({
+        borderBottomColor: "var(--ds-border-emphasis)",
+      }),
+    );
+
+    expect(
+      styles[
+        "&:hover:not(.Mui-disabled):not(.Mui-error):not(.MuiInputBase-readOnly)::before"
+      ],
+    ).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-border-strong)" }),
+    );
+
+    const focusedStyles = styles[
+      "&.Mui-focused:not(.Mui-disabled):not(.Mui-error)::after"
+    ] as Record<string, unknown>;
+
+    expectTokenFallback(focusedStyles.borderBottomColor, "--ds-primary-accent");
+
+    expect(styles["&.Mui-error::before, &.Mui-error::after"]).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-danger-accent)" }),
+    );
+
+    expect(
+      styles[
+        "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error)::before"
+      ],
+    ).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-border-subtle)" }),
+    );
+
+    expect(styles["&.Mui-disabled::before"]).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-border-subtle)" }),
+    );
+  });
+
+  it("gives filled read-only its own fainter fill instead of leaving it identical to filled-editable, using the same token as outlined read-only", () => {
+    const root =
+      DiamondDSTheme.components?.MuiFilledInput?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(styles["&.MuiInputBase-readOnly:not(.Mui-disabled)"]).toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-surface-readonly)",
+      }),
+    );
+
+    expect(styles["&.MuiInputBase-readOnly:not(.Mui-disabled)"]).not.toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-surface-container)",
+      }),
+    );
+  });
+
+  it("renders the identical read-only tone on outlined and filled, so the two variants don't diverge in saturation", () => {
+    const outlinedRoot =
+      DiamondDSTheme.components?.MuiOutlinedInput?.styleOverrides?.root;
+    const outlinedStyles = getStyleOverride(outlinedRoot, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    const filledRoot =
+      DiamondDSTheme.components?.MuiFilledInput?.styleOverrides?.root;
+    const filledStyles = getStyleOverride(filledRoot, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    const outlinedReadOnlyBg = (
+      outlinedStyles["&.MuiInputBase-readOnly:not(.Mui-disabled)"] as Record<
+        string,
+        unknown
+      >
+    ).backgroundColor;
+    const filledReadOnlyBg = (
+      filledStyles["&.MuiInputBase-readOnly:not(.Mui-disabled)"] as Record<
+        string,
+        unknown
+      >
+    ).backgroundColor;
+
+    expect(outlinedReadOnlyBg).toBe(filledReadOnlyBg);
+    expect(outlinedReadOnlyBg).toBe("var(--ds-surface-readonly)");
+  });
+
+  it("gives outlined disabled the same tinted background as filled disabled, so disabled reads as more muted than read-only rather than invisible", () => {
+    const outlinedRoot =
+      DiamondDSTheme.components?.MuiOutlinedInput?.styleOverrides?.root;
+    const outlinedStyles = getStyleOverride(outlinedRoot, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(outlinedStyles["&.Mui-disabled"]).toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-surface-disabled)",
+        color: "var(--ds-on-surface-disabled)",
+        opacity: 1,
+      }),
+    );
+  });
+
+  it("uses the DS tinted disabled surface for filled inputs rather than MUI's flat black-alpha default", () => {
+    const root =
+      DiamondDSTheme.components?.MuiFilledInput?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(styles.backgroundColor).toBe("var(--ds-surface-container)");
+
+    expect(styles["&.Mui-disabled"]).toEqual(
+      expect.objectContaining({
+        backgroundColor: "var(--ds-surface-disabled)",
+        color: "var(--ds-on-surface-disabled)",
+        opacity: 1,
+      }),
+    );
+  });
+
+  it("uses DS border tokens for the standard-variant underline across rest, hover, focus, error, read-only and disabled states", () => {
+    const root = DiamondDSTheme.components?.MuiInput?.styleOverrides?.root;
+
+    const styles = getStyleOverride(root, {
+      ownerState: { color: "primary" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(styles["&::before"]).toEqual(
+      expect.objectContaining({
+        borderBottomColor: "var(--ds-border-emphasis)",
+      }),
+    );
+
+    expect(
+      styles[
+        "&:hover:not(.Mui-disabled):not(.Mui-error):not(.MuiInputBase-readOnly)::before"
+      ],
+    ).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-border-strong)" }),
+    );
+
+    const focusedStyles = styles[
+      "&.Mui-focused:not(.Mui-disabled):not(.Mui-error)::after"
+    ] as Record<string, unknown>;
+
+    expectTokenFallback(focusedStyles.borderBottomColor, "--ds-primary-accent");
+
+    expect(styles["&.Mui-error::before, &.Mui-error::after"]).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-danger-accent)" }),
+    );
+
+    expect(
+      styles[
+        "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error)::before"
+      ],
+    ).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-border-subtle)" }),
+    );
+
+    expect(styles["&.Mui-disabled::before"]).toEqual(
+      expect.objectContaining({ borderBottomColor: "var(--ds-border-subtle)" }),
+    );
+  });
+
+  it("mutes the Select dropdown icon to the disabled token when read-only, since it can never open", () => {
+    const icon = DiamondDSTheme.components?.MuiSelect?.styleOverrides?.icon;
+
+    const readOnlyStyles = getStyleOverride(icon, {
+      ownerState: { readOnly: true },
+      theme: DiamondDSTheme,
+    });
+
+    expect(readOnlyStyles).toEqual(
+      expect.objectContaining({ color: "var(--ds-on-surface-disabled)" }),
+    );
+
+    const defaultStyles = getStyleOverride(icon, {
+      ownerState: { readOnly: false },
+      theme: DiamondDSTheme,
+    });
+
+    expect(defaultStyles).not.toEqual(
+      expect.objectContaining({ color: "var(--ds-on-surface-disabled)" }),
     );
   });
 
@@ -1187,6 +1507,7 @@ describe("DiamondDS tokens", () => {
     expect(tokensCss).toContain("--ds-surface-container:");
     expect(tokensCss).toContain("--ds-surface-container-high:");
     expect(tokensCss).toContain("--ds-surface-disabled:");
+    expect(tokensCss).toContain("--ds-surface-readonly:");
   });
 
   it("defines required foreground and disabled variables", () => {
