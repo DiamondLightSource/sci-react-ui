@@ -1,7 +1,7 @@
 Scientific React UI
 ===================
 
-Scientific React UI components, based on MUI. A theme and component library to make websites at scientific institutions simple to create. 
+Scientific React UI components, based on MUI. SciReactUI is the React implementation of the Diamond Design System, a theme and component library to make websites at scientific institutions simple to create.
 Our [StoryBook](https://diamondlightsource.github.io/sci-react-ui/) website has indepth information about the library and each component, but this Readme is a good place to start.
 
 If you would like to contribute, please see our [Contributing](./contributing.md) document.
@@ -35,6 +35,15 @@ import "@diamondlightsource/sci-react-ui/font-styles.css";
 - yarn add @mui/icons-material react-icons
 ```
 
+For icons in your own application code (not required by sci-react-ui itself), we recommend [Lucide](https://lucide.dev/) - see the Icons foundation page in Storybook for guidance:
+
+```sh
+"One of:"
+- pnpm add lucide-react
+- npm i lucide-react
+- yarn add lucide-react
+```
+
 ### Usage
 
 First use the ThemeProvider and wrap your App.
@@ -48,6 +57,10 @@ root.render(
   </ThemeProvider>,
 );
 ```
+
+Use the provided `DiamondDSTheme` with the ThemeProvider, or create your own. The theme controls colour via semantic surface tokens and consists of two parts:
+- Theme configuration (`DiamondDSTheme.ts`)
+- Semantic role tokens (`diamond-ds-roles.css`)
 
 Navigation components support either static links (with href) or the use of a routing library (with linkComponent and to).
 For NavLink and FooterLink, if both linkComponent and to are provided, it will use linkComponent. If not, it falls back to using href.
@@ -158,6 +171,8 @@ If a logo is defined (either via the logo prop or from the theme), the layout wi
 The centreSlot is absolutely positioned at 50% horizontally, which means it stays centered regardless of the content on the left or right. However, if the content in the left or right slots is too wide, it may overlap with the centre slot.
 
 Any children passed to the Footer will be placed in a horizontal Stack after the leftSlot.
+
+See Storybook for guidance on adapting the Diamond DS theme to your own palette, using Material React Table with the theme, and avoiding dark mode flicker in SSR/client-side apps.
 
 ### Documentation
 
