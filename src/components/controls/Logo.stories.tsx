@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Logo } from "./Logo";
 
 const meta: Meta<typeof Logo> = {

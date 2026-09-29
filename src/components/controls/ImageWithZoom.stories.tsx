@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { ImageWithZoom } from "./ImageWithZoom";
 
 import diamond from "../../public/images/diamond.jpg";

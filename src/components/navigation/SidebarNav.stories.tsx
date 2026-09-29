@@ -8,7 +8,7 @@ import {
   Schedule,
 } from "@mui/icons-material";
 import { SidebarNav } from "./SidebarNav";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import React from "react";
 import {
   AppBar,
