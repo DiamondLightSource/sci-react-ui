@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import { AddIcon, DeleteIcon, Icon, SendIcon } from "../MuiWrapped";
 import { colourSet } from "../../../utils/diamond";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";

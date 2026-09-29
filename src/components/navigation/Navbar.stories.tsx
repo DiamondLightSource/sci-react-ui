@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
 import logoImageDark from "../../public/generic/logo-dark-surface.svg";
