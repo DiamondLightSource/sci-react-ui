@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fixed a Vitest syntax error on import, caused by UTIF's code being bundled into the same chunk as VisitInput.
+- Fixed elevation tint painting over consumer `sx` backgrounds on `Card`, `Accordion` and other elevated `Paper`-derived components, by switching the tonal tint from an opaque `background-image` to `background-color`.
 
 ## [v0.7.1] - 2026-09-15
 
