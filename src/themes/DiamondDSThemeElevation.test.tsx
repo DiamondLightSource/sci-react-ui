@@ -8,6 +8,19 @@ import { renderWithProviders } from "../__test-utils__/helpers";
  * override-function checks, so a cascade-order regression actually fails.
  */
 describe("DiamondDSTheme elevation rendering", () => {
+  it("sets tonal tint as background colour on elevation", () => {
+    renderWithProviders(
+      <Paper data-testid="paper" elevation={4}>
+        content
+      </Paper>,
+    );
+
+    const paper = screen.getByTestId("paper");
+    expect(window.getComputedStyle(paper).backgroundColor).toBe(
+      "var(--ds-elevation-4)",
+    );
+  });
+
   it("lets a consumer sx background win over the tonal elevation tint", () => {
     renderWithProviders(
       <Paper

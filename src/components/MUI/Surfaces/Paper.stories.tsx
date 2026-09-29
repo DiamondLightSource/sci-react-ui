@@ -67,6 +67,14 @@ export const Elevations: Story = {
 };
 
 export const CustomBackground: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Note: A custom background colour overrides the visual effect of elevation.",
+      },
+    },
+  },
   render: (_args) => (
     <Stack direction="row" spacing={2}>
       {[1, 8, 24].map((level) => (

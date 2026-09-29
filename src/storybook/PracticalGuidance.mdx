@@ -652,6 +652,12 @@ Component-specific notes:
     When using <code>AppBar</code> as a top nav bar, add a border-bottom via{" "}
     <code>sx</code>.
   </li>
+  <li>
+    A custom <code>backgroundColor</code> on <code>Paper</code> (via{" "}
+    <code>sx</code>) overrides the tonal elevation tint. Useful for semantic
+    surfaces like an error panel, but it means <code>elevation</code> then
+    only affects shadow, not colour.
+  </li>
 </ul>
 
 <div className="ds-dos">
