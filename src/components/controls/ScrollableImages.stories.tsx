@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { useEffect, useState } from "react";
 
 import { ImageInfo, ScrollableImages } from "./ScrollableImages";

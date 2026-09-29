@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { ImageColourSchemeSwitch } from "./ImageColourSchemeSwitch";
 
 import imageDark from "../../public/generic/logo-dark-surface.svg";

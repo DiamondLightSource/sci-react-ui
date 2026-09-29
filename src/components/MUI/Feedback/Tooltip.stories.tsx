@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Tooltip, IconButton } from "../MuiWrapped";
 import InfoIcon from "@mui/icons-material/Info";
 

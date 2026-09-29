@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Box, Stack, Typography } from "../MuiWrapped";
 import { colourSet } from "../../../utils/diamond";
 import { TypographyProps } from "@mui/material/Typography";

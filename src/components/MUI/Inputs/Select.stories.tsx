@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
@@ -19,7 +19,6 @@ type SelectArgs = React.ComponentProps<typeof Select> & ExtraArgs;
 
 const meta: Meta<SelectArgs> = {
   title: "MUI/Inputs/Select",
-  component: Select,
   tags: ["autodocs"],
   parameters: muiDocsParameters,
   argTypes: {
