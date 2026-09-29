@@ -110,8 +110,8 @@ importers:
         specifier: ^12.1.1
         version: 12.3.0(rollup@4.61.1)(tslib@2.8.1)(typescript@5.9.3)
       '@storybook/addon-actions':
-        specifier: ^8.6.15
-        version: 8.6.18(storybook@8.6.18(prettier@3.8.4))
+        specifier: ^9.0.8
+        version: 9.0.8
       '@storybook/addon-controls':
         specifier: ^8.6.15
         version: 8.6.18(storybook@8.6.18(prettier@3.8.4))
@@ -1778,6 +1778,9 @@ packages:
     resolution: {integrity: sha512-GcYhtE91GjIQTuZlwpTJ8jfMp6NC79nkpe1DGe0eetTpyQqLq1WUt+ACkk0Z5lqq2u8HBc09zCCGw+D8iCLpYQ==}
     peerDependencies:
       storybook: ^8.6.18
+
+  '@storybook/addon-actions@9.0.8':
+    resolution: {integrity: sha512-LFePu7PPnWN0Il/uoUpmA5T0J0C7d6haJIbg0pXrjxW2MQVSYXE4S4LSUz8fOImltBDV3xAl6tLPYHFj6VcrOA==}
 
   '@storybook/addon-backgrounds@8.6.18':
     resolution: {integrity: sha512-froND3WwvSCYzjEBO8QODStaWNL+aGXqxBEbrMnGYejDFST4qEFkvM2IYWMnLBkRgrgJ0yIqTeDQoyH9b9/8uQ==}
@@ -6745,6 +6748,8 @@ snapshots:
       polished: 4.3.1
       storybook: 8.6.18(prettier@3.8.4)
       uuid: 11.1.1
+
+  '@storybook/addon-actions@9.0.8': {}
 
   '@storybook/addon-backgrounds@8.6.18(storybook@8.6.18(prettier@3.8.4))':
     dependencies:
