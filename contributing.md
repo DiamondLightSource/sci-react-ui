@@ -154,19 +154,15 @@ Each component should include:
   - Added / Changed / Deprecated / Removed / Fixed / Security
 - Releases promote **Unreleased** to a dated version section.
 
-### Alpha & Beta Releases
+### Pre-releases
 
-We may publish **pre‑release versions** to gather feedback before a stable release:
+We publish **pre‑release versions** as `x.y.z-rc.n` for testing and to gather feedback before a stable release:
 
-- **Alpha (`x.y.z-alpha.n`)**
+- **Release candidate (`x.y.z-rc.n`)**
   - Early, incomplete, or experimental features
   - APIs and behaviour may change without notice
-  - Not recommended for production use
-
-- **Beta (`x.y.z-beta.n`)**
-  - Features may still be under validation
-  - APIs should be mostly stable, but changes are still possible
   - Intended for early adopters and testing
+  - Not recommended for production use
 
 Pre‑release versions do not require the same stability guarantees as stable releases, and changes between pre‑releases may be breaking.
 
