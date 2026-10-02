@@ -65,6 +65,29 @@ describe("ImageColourSchemeSwitch", () => {
     expect(img).toHaveAttribute("src", testVals.srcDark);
   });
 
+  it("should use dark src in system mode when the OS prefers dark", () => {
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn((query: string) => ({
+        matches: query === "(prefers-color-scheme: dark)",
+        media: query,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+      })),
+    );
+    try {
+      renderWithProviders(<ImageColourSchemeSwitch image={{ ...testVals }} />, {
+        defaultMode: "system",
+      });
+      const img = screen.getByTestId("image-dark");
+      expect(img).toHaveAttribute("src", testVals.srcDark);
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
   it("should have src when no srcDark set but dark mode selected", () => {
     renderWithProviders(
       <ImageColourSchemeSwitch image={{ ...testVals, srcDark: undefined }} />,
