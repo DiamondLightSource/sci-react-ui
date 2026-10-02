@@ -62,7 +62,6 @@ const User = ({
 
   return (
     <>
-      <Box flexGrow={1} />
       {user ? (
         <>
           <Button

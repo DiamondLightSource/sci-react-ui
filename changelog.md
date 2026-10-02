@@ -2,6 +2,10 @@
 
 ## [Unreleased] - TBD
 
+### Changed
+
+- **Breaking** _User_ no longer renders a `flexGrow` spacer before itself, which added an extra gap next to sibling controls in a `Navbar` slot. If you placed `User` directly in a flex container and relied on it pushing itself to the right, add your own spacer.
+
 ### Fixed
 
 - Fixed a Vitest syntax error on import, caused by UTIF's code being bundled into the same chunk as VisitInput.
