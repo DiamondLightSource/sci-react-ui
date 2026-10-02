@@ -8,6 +8,8 @@
 
 ### Changed
 
+- **Breaking** _User_ no longer renders a `flexGrow` spacer before itself, which added an extra gap next to sibling controls in a `Navbar` slot. If you placed `User` directly in a flex container and relied on it pushing itself to the right, add your own spacer.
+
 ### Fixed
 
 ## [v0.8.0] - 2026-11-02
