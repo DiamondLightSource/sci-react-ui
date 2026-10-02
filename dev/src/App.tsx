@@ -551,11 +551,11 @@ const ThemePage = () => {
 const elevationLevels = Array.from({ length: 25 }, (_, level) => level);
 
 const shadowExamples = [
+  { label: "Temporary Drawer", level: 4 },
   { label: "Dropdown / Menu / Select", level: 8 },
   { label: "Autocomplete listbox", level: 8 },
   { label: "Card (raised)", level: 8 },
-  { label: "Temporary Drawer", level: 16 },
-  { label: "Modal / Dialog", level: 24 },
+  { label: "Modal / Dialog", level: 16 },
 ];
 
 type ColourLayer = {

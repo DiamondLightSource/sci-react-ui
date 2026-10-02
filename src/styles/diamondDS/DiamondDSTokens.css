@@ -5,7 +5,9 @@
 [data-mode="light"] {
   color-scheme: light;
 
-  /* Elevation */
+  /* Elevation bands (see PracticalGuidance.mdx):
+   * 0-4 cards, 4 temporary drawers, 5-7 feedback, 8 menus/popovers/
+   * autocomplete/raised cards, 16 dialogs. 17-24 is unused by default. */
 
   --ds-elevation-0: #ffffff;
   --ds-elevation-1: #fdfefe;
@@ -248,6 +250,8 @@
  */
 [data-mode="dark"] {
   color-scheme: dark;
+
+  /* Elevation: same bands as light mode above. */
 
   --ds-elevation-0: #161820;
   --ds-elevation-1: #181a22;
