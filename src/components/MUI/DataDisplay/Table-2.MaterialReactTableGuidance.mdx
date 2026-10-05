@@ -312,6 +312,10 @@ enableHiding: true`}
         Disable sorting while reorder mode is active if sorting would confuse
         the sequence.
       </li>
+      <li>
+        Offer <strong>Move up</strong> / <strong>Move down</strong> as a
+        non-drag alternative.
+      </li>
     </ul>
   </div>
   <div className="ds-card">
@@ -324,6 +328,61 @@ enableHiding: true`}
     </ul>
   </div>
 </div>
+
+### Implementation
+
+<p>
+  Pass <strong>onRowReorder</strong> to{" "}
+  <strong>DiamondDSIntegrations.mrtOptions()</strong> while reorder mode is
+  active. It adds drag handles, a drop line between rows, and{" "}
+  <strong>Move up</strong> / <strong>Move down</strong> in the row menu. Sorting
+  is turned off while it is set.
+</p>
+
+<p>
+  <strong>onRowReorder</strong> receives positions in the source data, so it
+  stays correct across pages and filters.
+</p>
+
+<pre className="ds-code-block">
+  {`const [reorderMode, setReorderMode] = useState(false);
+
+const moveRow = (fromIndex: number, toIndex: number) =>
+  setRows((prev) => {
+    const next = [...prev];
+    next.splice(toIndex, 0, next.splice(fromIndex, 1)[0]);
+    return next;
+  });
+
+const table = useMaterialReactTable({
+  columns,
+  data: rows,
+  enableRowSelection: !reorderMode,
+  mrtTheme: DiamondDSIntegrations.mrtTheme,
+  ...DiamondDSIntegrations.mrtOptions({
+    onRowReorder: reorderMode ? moveRow : undefined,
+  }),
+});`}
+</pre>
+
+<p>
+  <strong>onRowReorder</strong> also sets the row action menu and{" "}
+  <strong>muiTableBodyCellProps</strong>. If the table has its own row actions,
+  combine them rather than replacing the reorder items:
+</p>
+
+<pre className="ds-code-block">
+  {`const dsOptions = DiamondDSIntegrations.mrtOptions({ onRowReorder });
+
+const table = useMaterialReactTable({
+  ...dsOptions,
+  enableRowActions: true,
+  renderRowActionMenuItems: (props) => [
+    ...myRowActions(props),
+    ...(dsOptions.renderRowActionMenuItems?.(props) ?? []),
+  ],
+});`}
+</pre>
 
 ## Full-width tables
 
