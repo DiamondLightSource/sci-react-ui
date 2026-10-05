@@ -8,6 +8,8 @@
 
 ### Changed
 
+- `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move up/down in the row menu.
+
 ### Fixed
 
 ## [v0.8.0] - 2026-11-02
