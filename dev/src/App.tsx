@@ -39,7 +39,7 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import type { MRT_ColumnDef, MRT_Row } from "material-react-table";
+import type { MRT_ColumnDef } from "material-react-table";
 
 import {
   ThemeProvider,
@@ -157,6 +157,13 @@ export const AdvancedMrtExample = () => {
   const [rows, setRows] = React.useState(data);
   const [reorderMode, setReorderMode] = React.useState(false);
 
+  const moveRow = (fromIndex: number, toIndex: number) =>
+    setRows((prev) => {
+      const next = [...prev];
+      next.splice(toIndex, 0, next.splice(fromIndex, 1)[0]);
+      return next;
+    });
+
   const table = useMaterialReactTable({
     columns: mrtColumns,
     data: rows,
@@ -177,21 +184,6 @@ export const AdvancedMrtExample = () => {
         ...mrtColumns.map((column) => column.accessorKey as string),
       ],
     },
-    muiRowDragHandleProps: ({ table }) => ({
-      onDragEnd: () => {
-        const { draggingRow, hoveredRow } = table.getState();
-        if (!draggingRow || !hoveredRow) return;
-        setRows((prev) => {
-          const next = [...prev];
-          next.splice(
-            (hoveredRow as MRT_Row<Experiment>).index,
-            0,
-            next.splice(draggingRow.index, 1)[0],
-          );
-          return next;
-        });
-      },
-    }),
     renderTopToolbarCustomActions: ({ table }) => (
       <Button
         size="small"
@@ -208,7 +200,9 @@ export const AdvancedMrtExample = () => {
       </Button>
     ),
     mrtTheme: DiamondDSIntegrations.mrtTheme,
-    ...DiamondDSIntegrations.mrtOptions(),
+    ...DiamondDSIntegrations.mrtOptions({
+      onRowReorder: reorderMode ? moveRow : undefined,
+    }),
   });
 
   return <MaterialReactTable table={table} />;
