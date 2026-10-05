@@ -11,7 +11,6 @@ import { SidebarNav } from "./SidebarNav";
 import { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import {
-  AppBar,
   Box,
   Divider,
   IconButton,
@@ -28,6 +27,8 @@ import {
 import { Theme } from "@mui/material/styles";
 import { Logo } from "../controls/Logo";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
+import { User } from "../controls/User";
+import { Navbar } from "./Navbar";
 import { NavLink, MemoryRouter } from "react-router-dom";
 
 const meta: Meta<typeof SidebarNav> = {
@@ -333,52 +334,49 @@ export const WithAppBar: Story = {
     const [open, setOpen] = React.useState(true);
     return (
       <Box sx={{ display: "flex" }}>
-        <AppBar
-          position="fixed"
-          color="inherit"
-          sx={{
-            zIndex: (theme: Theme) => theme.zIndex.drawer + 1,
-            borderBottom: "1px solid",
-            borderColor: "divider",
-          }}
-          elevation={0}
-        >
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={() => setOpen(!open)}
-            >
-              <Menu />
-            </IconButton>
-
-            <Box sx={{ mr: 2, mt: 1.5 }}>
-              <Logo sx={{ display: "block" }} />
+        <Navbar
+          surface="surface"
+          variant="base"
+          containerWidth={false}
+          leftSlot={
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+              <IconButton
+                aria-label="menu"
+                sx={{ color: "inherit" }}
+                onClick={() => setOpen(!open)}
+              >
+                <Menu />
+              </IconButton>
+              <Logo />
+              <Divider orientation="vertical" flexItem sx={{ my: 1 }} />
+              <Typography
+                variant="h2Display"
+                noWrap
+                component="div"
+                sx={{ fontSize: "var(--ds-type-h5-size)" }}
+              >
+                My App
+              </Typography>
             </Box>
-
-            <Divider orientation="vertical" variant="middle" flexItem />
-
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{
-                ml: 1.5,
-                mt: 1.25,
-                mr: 1.25,
-              }}
-            >
-              My app
-            </Typography>
-
-            <Box sx={{ ml: "auto" }}>
+          }
+          rightSlot={
+            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               <ColourSchemeButton />
+              <User
+                onLogin={() => {}}
+                onLogout={() => {}}
+                user={{ name: "Name", fedid: "FedID" }}
+              />
             </Box>
-          </Toolbar>
-        </AppBar>
+          }
+          sx={(theme: Theme) => ({
+            ...theme.mixins.toolbar,
+            position: "fixed",
+            top: 0,
+            left: 0,
+            zIndex: theme.zIndex.drawer + 1,
+          })}
+        />
 
         <SidebarNav
           navigation={reactRouterNavigation}
@@ -389,7 +387,7 @@ export const WithAppBar: Story = {
           <Toolbar />
           <Typography>
             MUI wants to draw a Drawer above everything, so in this example the
-            AppBar&apos;s zIndex is increased.
+            Navbar&apos;s zIndex is increased.
           </Typography>
         </Box>
       </Box>

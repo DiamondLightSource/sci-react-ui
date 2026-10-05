@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Menu } from "lucide-react";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
 import logoImageDark from "../../public/generic/logo-dark-surface.svg";
@@ -8,8 +9,12 @@ import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
 import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
-import { Chip, Typography } from "../../components/MUI/MuiWrapped";
-import { TextLight, TextDark } from "../../../.storybook/ThemeSwapper";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Typography,
+} from "../../components/MUI/MuiWrapped";
 
 const meta: Meta<typeof Navbar> = {
   title: "Components/Navigation/Navbar",
@@ -38,17 +43,70 @@ Fully saturated colour ( \`brand-fixed\`/\`brand-fixedDim\`, or \`solid\` on \`b
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const AppTopBar: Story = {
+  name: "App Top Bar",
+  args: {
+    surface: "surface",
+    variant: "base",
+    containerWidth: false,
+    leftSlot: (
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+        <IconButton
+          aria-label="menu"
+          sx={{ color: "inherit" }}
+          onClick={() => {}}
+        >
+          <Menu />
+        </IconButton>
+        <Logo />
+        <Divider orientation="vertical" flexItem sx={{ my: 1 }} />
+        <Typography
+          variant="h2Display"
+          noWrap
+          component="div"
+          sx={{ fontSize: "var(--ds-type-h5-size)" }}
+        >
+          My App
+        </Typography>
+      </Box>
+    ),
+    rightSlot: (
+      <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+        <ColourSchemeButton />
+        <User
+          onLogin={() => {}}
+          onLogout={() => {}}
+          user={{ name: "Name", fedid: "FedID" }}
+        />
+      </Box>
+    ),
+    sx: {
+      minHeight: 48,
+      height: 48,
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A typical app header: menu toggle, logo, app name in the display face (`h2Display` at h5 size), with the colour scheme switch and user on the right, on a neutral `surface`/`base` bar spanning the full width.",
+      },
+    },
+  },
+};
+
 export const All: Story = {
+  name: "All Features",
   args: {
     rightSlot: (
       <>
+        <ColourSchemeButton key="colourScheme" />
         <User
           key="user"
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
         />
-        <ColourSchemeButton key="colourScheme" />
       </>
     ),
     children: (
@@ -61,7 +119,7 @@ export const All: Story = {
             Venus
           </NavLink>
         </NavLinks>
-        <NavMenu key="links" label={"Planets"}>
+        <NavMenu key="planets" label={"Planets"}>
           <NavMenuLink href="#Earth" key="earth">
             Earth
           </NavMenuLink>
@@ -154,62 +212,8 @@ export const RouterLinks: Story = {
   },
 };
 
-export const LinksAndUser: Story = {
-  args: {
-    rightSlot: (
-      <User
-        key="user"
-        onLogin={() => {}}
-        onLogout={() => {}}
-        user={{ name: "Name", fedid: "FedID" }}
-      />
-    ),
-    children: (
-      <>
-        <NavLinks key="links">
-          <NavLink href="#" key="first">
-            First
-          </NavLink>
-          <NavLink href="#" key="second">
-            Second
-          </NavLink>
-        </NavLinks>
-      </>
-    ),
-  },
-};
-
-export const WithLinksInMenu: Story = {
-  args: {
-    leftSlot: (
-      <NavMenu label="Menu">
-        <NavMenuLink href="#Link1">First Link</NavMenuLink>
-        <NavMenuLink href="#Link2">Second Link</NavMenuLink>
-        <NavMenuLink href="#Link3">Third Link</NavMenuLink>
-      </NavMenu>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "The `NavMenu` component is used to contain multiple links.",
-      },
-    },
-  },
-};
-
 export const WithThemeLogo: Story = {
   args: {
-    children: (
-      <NavLinks key="links">
-        <NavLink href="#" key="first">
-          First
-        </NavLink>
-        <NavLink href="#" key="second">
-          Second
-        </NavLink>
-      </NavLinks>
-    ),
     logo: "theme",
   },
   parameters: {
@@ -224,16 +228,6 @@ export const WithThemeLogo: Story = {
 
 export const WithNonThemeLogo: Story = {
   args: {
-    children: (
-      <NavLinks key="links">
-        <NavLink href="#" key="first">
-          First
-        </NavLink>
-        <NavLink href="#" key="second">
-          Second
-        </NavLink>
-      </NavLinks>
-    ),
     logo: {
       src: logoImageLight,
       srcDark: logoImageDark,
@@ -250,82 +244,6 @@ export const WithNonThemeLogo: Story = {
   },
 };
 
-export const WithThemeLogoAsChild: Story = {
-  args: {
-    children: (
-      <>
-        <Logo
-          tone={"inverse"}
-          style={{
-            marginRight: "100px",
-            transform: "scale(2.2) translateY(-1px)",
-          }}
-        />
-        <NavLinks key="links">
-          <NavLink href="#" key="first">
-            First
-          </NavLink>
-          <NavLink href="#" key="second">
-            Second
-          </NavLink>
-        </NavLinks>
-      </>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "You can pass the logo in as a child instead of using the Navbar logo setting for advanced control.",
-      },
-    },
-  },
-};
-
-export const CustomChildElement: Story = {
-  args: {
-    children: <Chip label="Hello, World" sx={{ backgroundColor: "#aaaaaa" }} />,
-  },
-};
-
-export const LinksInSlot: Story = {
-  args: {
-    rightSlot: (
-      <>
-        <User
-          key="user"
-          onLogin={() => {}}
-          onLogout={() => {}}
-          user={{ name: "Name", fedid: "FedID" }}
-        />
-        <ColourSchemeButton key="colourScheme" />
-      </>
-    ),
-    leftSlot: (
-      <>
-        <NavLinks key="links">
-          <NavLink href="#Mercury" key="mercury">
-            Mercury
-          </NavLink>
-          <NavLink href="#Venus" key="venus">
-            Venus
-          </NavLink>
-          <NavLink href="#Earth" key="earth">
-            Earth
-          </NavLink>
-          <NavLink href="#Mars" key="mars">
-            Mars
-          </NavLink>
-        </NavLinks>
-      </>
-    ),
-    logo: "theme",
-  },
-  parameters: {
-    disableThemeSwapper: true,
-  },
-};
-
 export const LinksAndMenus: Story = {
   args: {
     leftSlot: (
@@ -334,7 +252,7 @@ export const LinksAndMenus: Story = {
           <NavLink href="#Mercury">Mercury</NavLink>
           <NavLink href="#Venus">Venus</NavLink>
         </NavLinks>
-        <NavMenu key="links" label={"Planets"}>
+        <NavMenu key="planets" label={"Planets"}>
           <NavMenuLink href="#Earth" key="earth">
             Earth
           </NavMenuLink>
@@ -343,7 +261,7 @@ export const LinksAndMenus: Story = {
           </NavMenuLink>
         </NavMenu>
 
-        <NavMenu key="links" label={"Stars"}>
+        <NavMenu key="stars" label={"Stars"}>
           <NavMenuLink href="#Sun" key="sun">
             Sun
           </NavMenuLink>
@@ -397,30 +315,4 @@ export const WithLogin: Story = {
 
 export const Empty: Story = {
   args: {},
-};
-
-export const AllFixedLight: Story = {
-  ...All,
-  name: "All (Fixed Light)",
-  parameters: {
-    docs: {
-      disable: true,
-    },
-  },
-  globals: {
-    themeMode: TextLight,
-  },
-};
-
-export const AllFixedDark: Story = {
-  ...All,
-  name: "All (Fixed Dark)",
-  parameters: {
-    docs: {
-      disable: true,
-    },
-  },
-  globals: {
-    themeMode: TextDark,
-  },
 };
