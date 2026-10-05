@@ -54,7 +54,6 @@ export const AppTopBar: Story = {
     leftSlot: (
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
         <IconButton
-          size="small"
           aria-label="menu"
           sx={{ color: "inherit" }}
           onClick={() => {}}
@@ -86,7 +85,6 @@ export const AppTopBar: Story = {
     sx: {
       minHeight: 48,
       height: 48,
-      "& > .MuiContainer-root": { px: 1 },
     },
   },
   parameters: {
