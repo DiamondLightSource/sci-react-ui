@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { Menu } from "lucide-react";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 
 import logoImageDark from "../../public/generic/logo-dark-surface.svg";
@@ -8,7 +9,13 @@ import { User } from "../controls/User";
 import { MockLink } from "../../utils/MockLink";
 import { Logo } from "../controls/Logo";
 import { NavMenu, NavMenuLink } from "../navigation/NavMenu";
-import { Chip, Typography } from "../../components/MUI/MuiWrapped";
+import {
+  Box,
+  Chip,
+  Divider,
+  IconButton,
+  Typography,
+} from "../../components/MUI/MuiWrapped";
 import { TextLight, TextDark } from "../../../.storybook/ThemeSwapper";
 
 const meta: Meta<typeof Navbar> = {
@@ -38,17 +45,72 @@ Fully saturated colour ( \`brand-fixed\`/\`brand-fixedDim\`, or \`solid\` on \`b
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const AppTopBar: Story = {
+  name: "App Top Bar",
+  args: {
+    surface: "surface",
+    variant: "base",
+    containerWidth: false,
+    leftSlot: (
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+        <IconButton
+          size="small"
+          aria-label="menu"
+          sx={{ color: "inherit" }}
+          onClick={() => {}}
+        >
+          <Menu />
+        </IconButton>
+        <Logo />
+        <Divider orientation="vertical" flexItem sx={{ my: 1 }} />
+        <Typography
+          variant="h2Display"
+          noWrap
+          component="div"
+          sx={{ fontSize: "var(--ds-type-h5-size)" }}
+        >
+          My App
+        </Typography>
+      </Box>
+    ),
+    rightSlot: (
+      <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+        <ColourSchemeButton />
+        <User
+          onLogin={() => {}}
+          onLogout={() => {}}
+          user={{ name: "Name", fedid: "FedID" }}
+        />
+      </Box>
+    ),
+    sx: {
+      minHeight: 48,
+      height: 48,
+      "& > .MuiContainer-root": { px: 1 },
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "A typical app header: menu toggle, logo, app name in the display face (`h2Display` at h5 size), with the colour scheme switch and user on the right, on a neutral `surface`/`base` bar spanning the full width.",
+      },
+    },
+  },
+};
+
 export const All: Story = {
+  name: "All Features",
   args: {
     rightSlot: (
       <>
+        <ColourSchemeButton key="colourScheme" />
         <User
           key="user"
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
         />
-        <ColourSchemeButton key="colourScheme" />
       </>
     ),
     children: (
@@ -292,13 +354,13 @@ export const LinksInSlot: Story = {
   args: {
     rightSlot: (
       <>
+        <ColourSchemeButton key="colourScheme" />
         <User
           key="user"
           onLogin={() => {}}
           onLogout={() => {}}
           user={{ name: "Name", fedid: "FedID" }}
         />
-        <ColourSchemeButton key="colourScheme" />
       </>
     ),
     leftSlot: (
@@ -401,7 +463,7 @@ export const Empty: Story = {
 
 export const AllFixedLight: Story = {
   ...All,
-  name: "All (Fixed Light)",
+  name: "All Features (Fixed Light)",
   parameters: {
     docs: {
       disable: true,
@@ -414,7 +476,7 @@ export const AllFixedLight: Story = {
 
 export const AllFixedDark: Story = {
   ...All,
-  name: "All (Fixed Dark)",
+  name: "All Features (Fixed Dark)",
   parameters: {
     docs: {
       disable: true,

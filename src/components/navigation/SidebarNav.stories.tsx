@@ -362,10 +362,11 @@ export const WithAppBar: Story = {
             <Divider orientation="vertical" variant="middle" flexItem />
 
             <Typography
-              variant="h6"
+              variant="h2Display"
               noWrap
               component="div"
               sx={{
+                fontSize: "var(--ds-type-h5-size)",
                 ml: 1.5,
                 mt: 1.25,
                 mr: 1.25,
