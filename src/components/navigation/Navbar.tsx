@@ -123,6 +123,9 @@ type NavbarProps = BarSlotsProps & {
  *
  * `brand-fixed`/`brand-fixedDim` and `solid` on `brand`/`primary`/`secondary` are fully saturated
  * and need no extra separation from the page; everything else picks up a bottom border.
+ *
+ * Full-width bars (`containerWidth={false}`) use a 12px side gutter, so a default-size menu
+ * `IconButton` at the left edge lines up with `SidebarNav`'s item icons.
  */
 const Navbar = ({
   surface = "brand",
@@ -132,6 +135,7 @@ const Navbar = ({
   linkComponent,
   leftSlot,
   children,
+  containerWidth,
   sx,
   ...props
 }: NavbarProps) => {
@@ -151,10 +155,14 @@ const Navbar = ({
       surface={surface}
       variant={variant}
       elevation={elevation}
+      containerWidth={containerWidth}
       data-testid="navbar"
       sx={[
         hasNeutralSurface && {
           borderBottom: "1px solid var(--ds-border-subtle)",
+        },
+        containerWidth === false && {
+          "& > .MuiContainer-root": { px: 1.5 },
         },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}

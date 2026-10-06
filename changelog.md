@@ -2,6 +2,11 @@
 
 ## [Unreleased] - TBD
 
+### Changed
+
+- **Breaking** Full-width _Navbar_ (`containerWidth={false}`) now uses a 12px side gutter instead of 24px (16px on small screens), so a default-size menu `IconButton` at its left edge lines up with _SidebarNav_'s item icons. Centred Navbars keep the 24px gutter.
+- **Breaking** _User_ no longer renders a `flexGrow` spacer before itself, which added an extra gap next to sibling controls in a `Navbar` slot. If you placed `User` directly in a flex container and relied on it pushing itself to the right, add your own spacer.
+
 ### Fixed
 
 - Fixed a Vitest syntax error on import, caused by UTIF's code being bundled into the same chunk as VisitInput.
