@@ -4,13 +4,14 @@ import {
   Button,
   Box,
   Link,
+  ListItemIcon,
   Menu,
   MenuItem,
   Stack,
   Typography,
 } from "@mui/material";
 import { ReactElement, ReactNode, useState } from "react";
-import { MdLogin } from "react-icons/md";
+import { LoginIcon, LogoutIcon, UserIcon } from "../DataDisplay/Icons";
 
 import { Auth } from "../systems/auth";
 
@@ -74,10 +75,12 @@ const User = ({
             <Stack direction="row" alignItems="center" spacing={1}>
               {avatar || (
                 <Avatar
-                  alt={user.name + " avatar"}
+                  alt={`${user.name} avatar`}
                   variant="rounded"
                   sx={{ width: 32, height: 32 }}
-                />
+                >
+                  <UserIcon size="md" />
+                </Avatar>
               )}
 
               <Box>
@@ -110,6 +113,9 @@ const User = ({
 
               {auth && (
                 <MenuItem>
+                  <ListItemIcon>
+                    <UserIcon size="sm" />
+                  </ListItemIcon>
                   <Link
                     href={auth.getProfileUrl()}
                     underline="none"
@@ -121,6 +127,9 @@ const User = ({
               )}
 
               <MenuItem onClick={handleLogout} aria-label="Logout">
+                <ListItemIcon>
+                  <LogoutIcon size="sm" />
+                </ListItemIcon>
                 <Link underline="none" color="inherit">
                   Logout
                 </Link>
@@ -131,7 +140,7 @@ const User = ({
       ) : (
         <Button
           onClick={handleLogin}
-          startIcon={<MdLogin />}
+          startIcon={<LoginIcon />}
           variant="contained"
           color="primary"
         >

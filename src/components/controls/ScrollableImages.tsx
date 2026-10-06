@@ -8,10 +8,12 @@ import {
   useTheme,
 } from "@mui/material";
 
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "../DataDisplay/Icons";
 
 import { extractFramesFromTiff, isTiff } from "../../utils/TiffUtils";
 
@@ -131,7 +133,7 @@ const ScrollableImages = ({
             zIndex: 2,
           }}
         >
-          <ArrowBackIosNewIcon data-testid="scroll-left-button" />
+          <ChevronLeftIcon data-testid="scroll-left-button" size="md" />
         </IconButton>
 
         <Box
@@ -184,7 +186,7 @@ const ScrollableImages = ({
             zIndex: 2,
           }}
         >
-          <ArrowForwardIosIcon data-testid="scroll-right-button" />
+          <ChevronRightIcon data-testid="scroll-right-button" size="md" />
         </IconButton>
       </Box>
     );
@@ -201,7 +203,7 @@ const ScrollableImages = ({
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}
           >
-            <ArrowBackIcon data-testid="prev-button" />
+            <ArrowLeftIcon data-testid="prev-button" size="md" />
           </Button>
         )}
 
@@ -252,7 +254,7 @@ const ScrollableImages = ({
             size="small"
             sx={{ minWidth: 36, width: 36, height: 36 }}
           >
-            <ArrowForwardIcon data-testid="next-button" />
+            <ArrowRightIcon data-testid="next-button" size="md" />
           </Button>
         )}
       </Box>

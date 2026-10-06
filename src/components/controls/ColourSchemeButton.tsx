@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps } from "@mui/material";
 import { useColorScheme } from "@mui/material/styles";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import BedtimeIcon from "@mui/icons-material/Bedtime";
+
+import { SunIcon, MoonIcon } from "../DataDisplay/Icons";
 
 export const ColourSchemeButton = (props: IconButtonProps) => {
   const { mode, systemMode, setMode } = useColorScheme();
@@ -36,7 +36,11 @@ export const ColourSchemeButton = (props: IconButtonProps) => {
         },
       })}
     >
-      {isDark ? <LightModeIcon /> : <BedtimeIcon />}
+      {isDark ? (
+        <SunIcon data-testid="SunIcon" />
+      ) : (
+        <MoonIcon data-testid="MoonIcon" />
+      )}
     </IconButton>
   );
 };

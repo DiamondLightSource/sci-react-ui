@@ -5,8 +5,13 @@
 ### Added
 
 - `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+- Exported Lucide-based icons (`HomeIcon`, `SettingsIcon` and others), `LucideIcon` and the `iconSizes` scale. Icons remain tree-shakeable.
 
 ### Changed
+
+- **Breaking** Library icons now use Lucide. `lucide-react` is a new peer dependency (`^1.35.0`). `@mui/icons-material` and `react-icons` are no longer required unless used elsewhere in your app. JsonForms users still need `@mui/icons-material` for `@jsonforms/material-renderers`.
+- `Alert`, `Select`, `NativeSelect`, `Autocomplete` and `Chip` now use Lucide icons by default through `DiamondDSTheme`.
+- `ColourSchemeButton` test ids are now `SunIcon` and `MoonIcon` instead of `LightModeIcon` and `BedtimeIcon`.
 
 ### Fixed
 

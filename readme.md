@@ -26,16 +26,7 @@ Import the library's font styles once, e.g. in your app's entry point:
 import "@diamondlightsource/sci-react-ui/font-styles.css";
 ```
 
-`@mui/icons-material` and `react-icons` are peer dependencies, so install them too if you use icon-based components:
-
-```sh
-"One of:"
-- pnpm add @mui/icons-material react-icons
-- npm i @mui/icons-material react-icons
-- yarn add @mui/icons-material react-icons
-```
-
-For icons in your own application code (not required by sci-react-ui itself), we recommend [Lucide](https://lucide.dev/) - see the Icons foundation page in Storybook for guidance:
+`lucide-react` is a peer dependency used for the library's icons, so install it too. We also recommend [Lucide](https://lucide.dev/) for icons in your own application code - see the Icons foundation page in Storybook for guidance:
 
 ```sh
 "One of:"
@@ -43,6 +34,8 @@ For icons in your own application code (not required by sci-react-ui itself), we
 - npm i lucide-react
 - yarn add lucide-react
 ```
+
+Upgrading from 0.7.x? `@mui/icons-material` and `react-icons` are no longer required unless used elsewhere in your app. JsonForms users still need `@mui/icons-material` for `@jsonforms/material-renderers`. See the [changelog](changelog.md).
 
 ### Usage
 
