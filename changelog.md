@@ -1,6 +1,6 @@
 # SciReactUI Changelog
 
-## [Unreleased] - TBD
+## [v0.7.2-rc.1] - 2026-10-06
 
 ### Fixed
 
