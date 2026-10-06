@@ -49,9 +49,12 @@ import type { ChipProps } from "@mui/material/Chip";
 import type { CircularProgressProps } from "@mui/material/CircularProgress";
 import type { DrawerProps } from "@mui/material/Drawer";
 import type { LinearProgressProps } from "@mui/material/LinearProgress";
+import type { FilledInputProps } from "@mui/material/FilledInput";
+import type { InputProps } from "@mui/material/Input";
 import type { OutlinedInputProps } from "@mui/material/OutlinedInput";
 import type { PaperProps } from "@mui/material/Paper";
 import type { RadioProps } from "@mui/material/Radio";
+import type { SelectProps } from "@mui/material/Select";
 
 import logoImageLightSurface from "../public/diamond/logo-light-surface.svg";
 import logoImageDarkSurface from "../public/diamond/logo-dark-surface.svg";
@@ -793,8 +796,11 @@ const DiamondDSTheme = extendTheme({
      *   MuiButtonGroup      → selection, border and hover states
      *
      * Inputs and forms:
-     *   MuiInputBase        → placeholder behaviour
-     *   MuiOutlinedInput    → border priority and validation states
+     *   MuiInputBase        → placeholder behaviour, read-only text colour
+     *   MuiOutlinedInput    → border priority, validation, read-only and disabled states
+     *   MuiFilledInput      → read-only underline
+     *   MuiInput            → read-only underline (standard variant)
+     *   MuiSelect           → read-only dropdown icon
      *   MuiInputLabel       → label response to focus and validation
      *
      * Navigation and display:
@@ -1405,6 +1411,11 @@ const DiamondDSTheme = extendTheme({
               color: "var(--ds-on-surface-disabled)",
               opacity: 1,
             },
+
+          /** Read-only value text stays legible (secondary role), not dimmed like disabled. */
+          "&.MuiInputBase-readOnly:not(.Mui-disabled)": {
+            color: "var(--ds-on-surface-variant)",
+          },
         }),
       },
     },
@@ -1414,7 +1425,7 @@ const DiamondDSTheme = extendTheme({
         /**
          * Outlined inputs prioritise state clarity:
          *
-         * disabled > error > focused > hover > default
+         * disabled > error > focused > read-only > hover > default
          *
          * This order avoids a focused or hover style masking validation state.
          */
@@ -1428,7 +1439,7 @@ const DiamondDSTheme = extendTheme({
               borderColor: "var(--ds-border-emphasis)",
             },
 
-            "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
+            "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused):not(.MuiInputBase-readOnly) .MuiOutlinedInput-notchedOutline":
               {
                 borderColor: "var(--ds-border-strong)",
               },
@@ -1464,19 +1475,148 @@ const DiamondDSTheme = extendTheme({
               outlineOffset: "var(--ds-focus-ring-offset)",
             },
 
+            /**
+             * `.MuiInputBase-readOnly` (not `input[readonly]`) so Select/Autocomplete,
+             * which render a div not a native input, get this too. `--ds-surface-readonly`
+             * is dedicated rather than reused so Filled can share the exact same tone.
+             */
+            "&.MuiInputBase-readOnly:not(.Mui-disabled)": {
+              backgroundColor: "var(--ds-surface-readonly)",
+            },
+
+            "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "var(--ds-border-subtle)",
+              },
+
+            /** Same disabled treatment as Filled, so disabled reads as more muted than read-only. */
+            "&.Mui-disabled": getDisabledControlStyles(
+              "var(--ds-surface-disabled)",
+            ),
+
             "&.Mui-disabled .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--ds-border-subtle)",
-            },
-
-            "&:has(input[readonly]) .MuiOutlinedInput-notchedOutline": {
-              borderColor: "var(--ds-border-subtle)",
-            },
-
-            "&:has(input[readonly]):hover .MuiOutlinedInput-notchedOutline": {
               borderColor: "var(--ds-border-subtle)",
             },
           };
         },
+      },
+    },
+
+    MuiFilledInput: {
+      styleOverrides: {
+        /**
+         * Mirrors Outlined's border-state ladder, replacing MUI's raw un-tokenized
+         * fill/underline colours.
+         *
+         * disabled > error > focused > read-only > hover > default
+         */
+        root: ({ ownerState }: OverrideArgs<FilledInputProps>): CSSObject => {
+          const colour = getIntentFromColourProp(ownerState.color);
+          const tokenName = colour === "error" ? "danger" : colour;
+          const accent = `var(--ds-${tokenName}-accent)`;
+
+          return {
+            backgroundColor: "var(--ds-surface-container)",
+
+            "&::before": {
+              borderBottomColor: "var(--ds-border-emphasis)",
+            },
+
+            "&:hover:not(.Mui-disabled):not(.Mui-error):not(.MuiInputBase-readOnly)":
+              {
+                backgroundColor: "var(--ds-surface-container-high)",
+              },
+
+            "&:hover:not(.Mui-disabled):not(.Mui-error):not(.MuiInputBase-readOnly)::before":
+              {
+                borderBottomColor: "var(--ds-border-strong)",
+              },
+
+            "&.Mui-focused": {
+              backgroundColor: "var(--ds-surface-container)",
+            },
+
+            "&.Mui-focused:not(.Mui-disabled):not(.Mui-error)::after": {
+              borderBottomColor: accent,
+            },
+
+            "&.Mui-error::before, &.Mui-error::after": {
+              borderBottomColor: "var(--ds-danger-accent)",
+            },
+
+            /** Same token as Outlined's read-only wash; fainter than the resting fill. */
+            "&.MuiInputBase-readOnly:not(.Mui-disabled)": {
+              backgroundColor: "var(--ds-surface-readonly)",
+            },
+
+            "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error)::before":
+              {
+                borderBottomColor: "var(--ds-border-subtle)",
+              },
+
+            "&.Mui-disabled": getDisabledControlStyles(
+              "var(--ds-surface-disabled)",
+            ),
+
+            "&.Mui-disabled::before": {
+              borderBottomColor: "var(--ds-border-subtle)",
+            },
+          };
+        },
+      },
+    },
+
+    MuiInput: {
+      styleOverrides: {
+        /**
+         * Standard inputs are borderless by design outside their underline, so
+         * only the underline gets the same DS border-state ladder as Filled.
+         *
+         * disabled > error > focused > read-only > hover > default
+         */
+        root: ({ ownerState }: OverrideArgs<InputProps>): CSSObject => {
+          const colour = getIntentFromColourProp(ownerState.color);
+          const tokenName = colour === "error" ? "danger" : colour;
+          const accent = `var(--ds-${tokenName}-accent)`;
+
+          return {
+            "&::before": {
+              borderBottomColor: "var(--ds-border-emphasis)",
+            },
+
+            "&:hover:not(.Mui-disabled):not(.Mui-error):not(.MuiInputBase-readOnly)::before":
+              {
+                borderBottomColor: "var(--ds-border-strong)",
+              },
+
+            "&.Mui-focused:not(.Mui-disabled):not(.Mui-error)::after": {
+              borderBottomColor: accent,
+            },
+
+            "&.Mui-error::before, &.Mui-error::after": {
+              borderBottomColor: "var(--ds-danger-accent)",
+            },
+
+            /** Width pinned so MUI's 2px hover underline doesn't show on read-only. */
+            "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error)::before":
+              {
+                borderBottomColor: "var(--ds-border-subtle)",
+                borderBottomWidth: 1,
+              },
+
+            "&.Mui-disabled::before": {
+              borderBottomColor: "var(--ds-border-subtle)",
+            },
+          };
+        },
+      },
+    },
+
+    MuiSelect: {
+      styleOverrides: {
+        /** Read-only Select never opens, so the chevron is muted like a disabled one. */
+        icon: ({ ownerState }: OverrideArgs<SelectProps>): CSSObject =>
+          ownerState.readOnly ? { color: "var(--ds-on-surface-disabled)" } : {},
       },
     },
 
