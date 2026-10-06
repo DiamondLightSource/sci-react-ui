@@ -2,8 +2,15 @@
 
 ## [Unreleased] - TBD
 
+### Added
+
+- Exported Lucide-based icons (`HomeIcon`, `SettingsIcon` and others), `LucideIcon` and the `iconSizes` scale. Icons remain tree-shakeable.
+
 ### Changed
 
+- **Breaking** Library icons now use Lucide. `lucide-react` is a new peer dependency (`^1.35.0`). `@mui/icons-material` and `react-icons` are no longer required unless used elsewhere in your app. JsonForms users still need `@mui/icons-material` for `@jsonforms/material-renderers`.
+- `Alert`, `Select`, `NativeSelect`, `Autocomplete` and `Chip` now use Lucide icons by default through `DiamondDSTheme`.
+- `ColourSchemeButton` test ids are now `SunIcon` and `MoonIcon` instead of `LightModeIcon` and `BedtimeIcon`.
 - _Dialog_ now defaults to elevation 16 (`surface.strong`'s tone) instead of MUI's 24, and temporary _Drawer_ to elevation 4 instead of 16, so floating surfaces order Drawer < Menu < Dialog and dialog text keeps more contrast.
 - **Breaking** _Dialog_'s deprecated `PaperProps` is now ignored. Move it to `slotProps.paper`, e.g. with `npx @mui/codemod@latest deprecations/dialog-props <path>`. If you use MRT, also check `muiEditRowDialogProps` and `muiCreateRowModalProps` by hand, as the codemod won't reach them.
 

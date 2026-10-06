@@ -1186,6 +1186,24 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
+  it("defaults MUI's built-in icons to Lucide", () => {
+    const components = DiamondDSTheme.components;
+
+    expect(components?.MuiAlert?.defaultProps?.iconMapping).toEqual({
+      success: expect.anything(),
+      info: expect.anything(),
+      warning: expect.anything(),
+      error: expect.anything(),
+    });
+    expect(components?.MuiAlert?.defaultProps?.slots?.closeIcon).toBeDefined();
+    expect(components?.MuiSelect?.defaultProps?.IconComponent).toBeDefined();
+    expect(
+      components?.MuiNativeSelect?.defaultProps?.IconComponent,
+    ).toBeDefined();
+    expect(components?.MuiAutocomplete?.defaultProps?.popupIcon).toBeDefined();
+    expect(components?.MuiChip?.defaultProps?.deleteIcon).toBeDefined();
+  });
+
   it("maps filled alerts to solid status roles", () => {
     const root = DiamondDSTheme.components?.MuiAlert?.styleOverrides?.root;
 

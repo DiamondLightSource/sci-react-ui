@@ -7,8 +7,8 @@ import {
   type MenuItemProps,
 } from "@mui/material";
 import React, { useState, forwardRef, useId } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { NavLink, NavLinkProps } from "./Navbar";
+import { ChevronDownIcon } from "../DataDisplay/Icons";
 
 type NavMenuLinkProps = MenuItemProps & NavLinkProps;
 
@@ -96,7 +96,7 @@ const NavMenu = ({ label, children }: NavMenuProps) => {
         }}
       >
         <Typography>{label}</Typography>
-        <ExpandMoreIcon
+        <ChevronDownIcon
           sx={{
             ml: 0.5,
             transition: "transform .25s",
