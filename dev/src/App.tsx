@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import {
   Blocks as ComponentsIcon,
+  ClipboardList as FormsIcon,
   Home as HomeIcon,
   Layers as LayersIcon,
   Menu as MenuIcon,
@@ -56,6 +57,8 @@ import { ColourSchemeButton } from "../../src/components/controls/ColourSchemeBu
 import { Breadcrumbs } from "../../src/components/navigation/Breadcrumbs";
 import { Bar } from "../../src/components/controls/Bar";
 import { Logo } from "../../src/components/controls/Logo";
+
+import { FormsPage } from "./FormsPage";
 
 /* TABLE */
 
@@ -264,6 +267,11 @@ const navigation: Navigation = [
         linkProps: { to: "/components", component: NavLink },
       },
       {
+        label: "Forms",
+        icon: <FormsIcon />,
+        linkProps: { to: "/forms", component: NavLink },
+      },
+      {
         label: "Colours",
         icon: <PaletteIcon />,
         linkProps: { to: "/colours", component: NavLink },
@@ -334,6 +342,7 @@ const AppLayout = () => {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/components" element={<ComponentsPage />} />
+                <Route path="/forms" element={<FormsPage />} />
                 <Route path="/colours" element={<ColoursPage />} />
                 <Route path="/elevation" element={<ElevationPage />} />
                 <Route path="/typography" element={<TypographyPage />} />
