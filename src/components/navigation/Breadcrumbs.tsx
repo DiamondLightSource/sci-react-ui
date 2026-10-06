@@ -5,9 +5,8 @@ import {
   Link as MuiLink,
   Typography,
 } from "@mui/material";
-import HomeIcon from "@mui/icons-material/Home";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { CustomLink } from "types/links";
+import { HomeIcon, ChevronRightIcon } from "../DataDisplay/Icons";
 
 import { Bar, BarProps } from "../controls/Bar";
 
@@ -67,7 +66,7 @@ const Breadcrumbs = ({
     <Bar {...props} surface={surface} variant={variant} elevation={elevation}>
       <MuiBreadcrumbs
         aria-label="breadcrumb"
-        separator={<NavigateNextIcon fontSize="small" />}
+        separator={<ChevronRightIcon fontSize="small" />}
         sx={{
           color: "inherit",
           "&, & *": {

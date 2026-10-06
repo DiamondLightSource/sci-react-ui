@@ -10,8 +10,8 @@ import { colourSet } from "../../../utils/diamond";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
 const childMap = {
-  mail: <MailIcon />,
   notifications: <NotificationsIcon />,
+  mail: <MailIcon />,
   work: <WorkIcon />,
 } as const;
 
@@ -46,8 +46,8 @@ const meta: Meta<typeof Badge> = {
     max: 99,
     invisible: false,
     showZero: false,
-    overlap: "circular",
-    children: "mail",
+    overlap: "rectangular",
+    children: "notifications",
   },
 };
 export default meta;
@@ -68,14 +68,14 @@ export const InvisibleNumber: Story = {
 export const Colours: Story = {
   args: { badgeContent: 7 },
   render: (args) => (
-    <>
+    <Stack direction="row" spacing={2}>
       <Badge {...args} color="primary" />
       <Badge {...args} color="secondary" />
       <Badge {...args} color="error" />
       <Badge {...args} color="success" />
       <Badge {...args} color="info" />
       <Badge {...args} color="warning" />
-    </>
+    </Stack>
   ),
 };
 

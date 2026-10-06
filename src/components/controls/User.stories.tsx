@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react-webpack5";
 
 import { User } from "./User";
-import { Avatar, Link, MenuItem } from "@mui/material";
+import { Avatar, Link, ListItemIcon, MenuItem } from "@mui/material";
+import { SettingsIcon, UserIcon } from "../DataDisplay/Icons";
 
 const meta: Meta<typeof User> = {
   title: "Components/Controls/User",
@@ -89,10 +90,20 @@ export const AdditionalMenuItems: Story = {
     },
     menuItems: [
       <MenuItem key="profile" aria-label="Profile">
-        <Link sx={{ textDecoration: "none" }}>Profile</Link>
+        <ListItemIcon>
+          <UserIcon size="sm" />
+        </ListItemIcon>
+        <Link underline="none" color="inherit">
+          Profile
+        </Link>
       </MenuItem>,
       <MenuItem key="settings" aria-label="Settings">
-        <Link sx={{ textDecoration: "none" }}>Settings</Link>
+        <ListItemIcon>
+          <SettingsIcon size="sm" />
+        </ListItemIcon>
+        <Link underline="none" color="inherit">
+          Settings
+        </Link>
       </MenuItem>,
     ],
     onLogout: () => {},
