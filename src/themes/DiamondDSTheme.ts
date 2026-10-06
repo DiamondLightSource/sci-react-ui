@@ -874,6 +874,19 @@ const DiamondDSTheme = extendTheme({
     },
 
     MuiDialog: {
+      /**
+       * 16 matches `--ds-surface-container-high`, light enough to keep
+       * text contrast; scrim and shadow carry the lift. MUI merges theme `slotProps` key by key with a consumer's
+       * `slotProps.paper`, so their other paper props keep this default.
+       * Dialog's legacy `PaperProps` is replaced by it entirely.
+       */
+      defaultProps: {
+        slotProps: {
+          paper: {
+            elevation: 16,
+          },
+        },
+      },
       styleOverrides: {
         paper: {
           boxShadow: "var(--Paper-shadow)",
@@ -916,9 +929,10 @@ const DiamondDSTheme = extendTheme({
     MuiCard: {
       /**
        * `raised` is MUI's own built-in escape hatch for an interactive card
-       * (elevation 8) — the same tone tier as Menus/popovers/drawers. Give
-       * it real shadow too, since a raised card is meant to visually float
-       * the same way those do; a plain (non-raised) Card stays flat.
+       * (elevation 8), the same tone tier as Menu/Select/Popover/
+       * Autocomplete. Give it real shadow too, since a raised card is
+       * meant to visually float the same way those do; a plain
+       * (non-raised) Card stays flat.
        */
       styleOverrides: {
         root: ({ ownerState }: OverrideArgs<CardProps>): CSSObject =>
@@ -928,10 +942,14 @@ const DiamondDSTheme = extendTheme({
 
     MuiDrawer: {
       /**
-       * Only the temporary variant floats above content with a backdrop;
-       * permanent and persistent drawers sit inline in the layout and stay
-       * flat.
+       * 4 keeps the temporary variant the lowest floating surface, below
+       * Menu/Select (8); its scrim and shadow carry the lift. Permanent
+       * and persistent variants ignore this; MUI forces their
+       * elevation to 0.
        */
+      defaultProps: {
+        elevation: 4,
+      },
       styleOverrides: {
         paper: ({ ownerState }: OverrideArgs<DrawerProps>): CSSObject =>
           ownerState.variant === "temporary"

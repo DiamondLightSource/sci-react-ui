@@ -401,6 +401,22 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
+  it("defaults Dialog's Paper to elevation 16, not MUI's built-in 24", () => {
+    expect(DiamondDSTheme.components?.MuiDialog?.defaultProps).toEqual(
+      expect.objectContaining({
+        slotProps: expect.objectContaining({
+          paper: expect.objectContaining({ elevation: 16 }),
+        }),
+      }),
+    );
+  });
+
+  it("defaults Drawer to elevation 4, below Menu/Select/Popover's 8", () => {
+    expect(DiamondDSTheme.components?.MuiDrawer?.defaultProps).toEqual(
+      expect.objectContaining({ elevation: 4 }),
+    );
+  });
+
   it("uses contained button solid roles and disabled token roles", () => {
     const root = DiamondDSTheme.components?.MuiButton?.styleOverrides?.root;
 
