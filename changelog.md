@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Read-only inputs (TextField, Select, Autocomplete) are now visually distinct from editable and disabled ones, across outlined, filled and standard variants. Dark-mode `--ds-border-subtle` and disabled tokens are retuned.
 - Fixed a Vitest syntax error on import, caused by UTIF's code being bundled into the same chunk as VisitInput.
 
 ## [v0.7.1] - 2026-09-15

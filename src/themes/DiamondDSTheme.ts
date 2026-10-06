@@ -1406,7 +1406,7 @@ const DiamondDSTheme = extendTheme({
         /**
          * Outlined inputs prioritise state clarity:
          *
-         * disabled > error > focused > hover > default
+         * disabled > error > focused > read-only > hover > default
          *
          * This order avoids a focused or hover style masking validation state.
          */
@@ -1465,7 +1465,7 @@ const DiamondDSTheme = extendTheme({
               backgroundColor: "var(--ds-surface-readonly)",
             },
 
-            "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error) .MuiOutlinedInput-notchedOutline":
+            "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused) .MuiOutlinedInput-notchedOutline":
               {
                 borderColor: "var(--ds-border-subtle)",
               },
@@ -1578,9 +1578,11 @@ const DiamondDSTheme = extendTheme({
               borderBottomColor: "var(--ds-danger-accent)",
             },
 
+            /** Width pinned so MUI's 2px hover underline doesn't show on read-only. */
             "&.MuiInputBase-readOnly:not(.Mui-disabled):not(.Mui-error)::before":
               {
                 borderBottomColor: "var(--ds-border-subtle)",
+                borderBottomWidth: 1,
               },
 
             "&.Mui-disabled::before": {
