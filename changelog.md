@@ -2,6 +2,10 @@
 
 ## [Unreleased] - TBD
 
+### Changed
+
+- `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move up/down in the row menu.
+
 ### Fixed
 
 - Fixed a Vitest syntax error on import, caused by UTIF's code being bundled into the same chunk as VisitInput.

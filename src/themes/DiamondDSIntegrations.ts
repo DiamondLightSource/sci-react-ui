@@ -1,3 +1,5 @@
+import { mrtRowReorderOptions } from "./mrtRowReorder";
+
 export const DiamondDSIntegrations = {
   /* Material React Table (MRT) */
 
@@ -16,11 +18,16 @@ export const DiamondDSIntegrations = {
   },
 
   // fullWidth drops the border/radius for tables with no surrounding container.
-  mrtOptions(options?: { fullWidth?: boolean }) {
+  // `onRowReorder` receives source-data indices (MRT's `row.index`) on drop.
+  mrtOptions(options?: {
+    fullWidth?: boolean;
+    onRowReorder?: (fromIndex: number, toIndex: number) => void;
+  }) {
     const headCellBackgroundColor = "var(--ds-surface-container)";
-    const { fullWidth = false } = options ?? {};
+    const { fullWidth = false, onRowReorder } = options ?? {};
 
     return {
+      ...(onRowReorder && mrtRowReorderOptions(onRowReorder)),
       // muiTableContainerProps overrides MuiTableContainer's themed
       // border/radius per-instance; Paper's radius must still match it below
       // (Paper clips its content, so a mismatch cuts the container's corners
@@ -67,6 +74,23 @@ export const DiamondDSIntegrations = {
             top: 0,
             width: "100%",
             zIndex: -1,
+          },
+          // Row drag state, set by `onRowReorder`'s drag. Replaces MRT's own
+          // drag styling (faded target, dashed box) with a drop line.
+          "&[data-dragging]": { opacity: 0.5 },
+          "&[data-drop-edge]": { opacity: 1 },
+          "&[data-dragging] td, &[data-drop-edge] td": {
+            borderTop: "none !important",
+            borderLeft: "none !important",
+            borderRight: "none !important",
+            borderBottom:
+              "1px solid var(--mui-palette-TableCell-border) !important",
+          },
+          '&[data-drop-edge="top"] td': {
+            boxShadow: "inset 0 2px 0 var(--ds-primary-accent)",
+          },
+          '&[data-drop-edge="bottom"] td': {
+            boxShadow: "inset 0 -2px 0 var(--ds-primary-accent)",
           },
         },
       },
