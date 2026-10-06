@@ -242,6 +242,11 @@ const MuiSelectionControls = () => {
   );
 };
 
+const jsonFormsRenderers = [
+  ...materialRenderers,
+  ...JsonFormsControls.layoutRenderers,
+];
+
 const jsonFormsSchema: JsonSchema = {
   type: "object",
   properties: {
@@ -329,8 +334,8 @@ const JsonFormsExample = () => {
         data={data}
         renderers={
           readonly
-            ? [...materialRenderers, ...JsonFormsControls.rendererControls]
-            : materialRenderers
+            ? [...jsonFormsRenderers, ...JsonFormsControls.rendererControls]
+            : jsonFormsRenderers
         }
         cells={
           readonly
@@ -391,18 +396,18 @@ const comparisonColumns = [
     title: "sci-react-ui text controls",
     caption: "Form-wide readonly + JsonFormsControls.rendererControls",
     uischema: comparisonUiSchema(),
-    renderers: [...materialRenderers, ...JsonFormsControls.rendererControls],
+    renderers: [...jsonFormsRenderers, ...JsonFormsControls.rendererControls],
     cells: [...materialCells, ...JsonFormsControls.cellControls],
     readonly: true,
   },
   {
     title: "Disabled",
-    caption: "DISABLE rule, material renderers only",
+    caption: "DISABLE rule",
     uischema: comparisonUiSchema({
       // An empty schema always matches, so the rule always applies.
       rule: { effect: "DISABLE", condition: { scope: "#", schema: {} } },
     }),
-    renderers: materialRenderers,
+    renderers: jsonFormsRenderers,
     cells: materialCells,
   },
 ];

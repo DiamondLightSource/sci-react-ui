@@ -2,6 +2,10 @@
 
 ## [Unreleased] - TBD
 
+### Added
+
+- `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+
 ### Changed
 
 - _Dialog_ now defaults to elevation 16 (`surface.strong`'s tone) instead of MUI's 24, and temporary _Drawer_ to elevation 4 instead of 16, so floating surfaces order Drawer < Menu < Dialog and dialog text keeps more contrast.
