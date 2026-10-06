@@ -6,6 +6,7 @@
 
 - New _DataCard_ and _DataGroup_ components.
 - Typography docs now cover font weight, line height and letter spacing scales, with improved Storybook examples.
+- `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
 
 ### Changed
 
