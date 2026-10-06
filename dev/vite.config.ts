@@ -5,8 +5,14 @@ export default defineConfig({
     port: 3000,
   },
   resolve: {
-    // material-react-table otherwise pulls in its own nested React copy,
-    // causing "Invalid hook call" errors.
-    dedupe: ["react", "react-dom"],
+    // material-react-table otherwise pulls in its own nested copies.
+    dedupe: [
+      "react",
+      "react-dom",
+      "@mui/material",
+      "@mui/icons-material",
+      "@emotion/react",
+      "@emotion/styled",
+    ],
   },
 });
