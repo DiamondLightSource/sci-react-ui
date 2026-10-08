@@ -1,28 +1,5 @@
 import MuiWrapper from "./MuiWrapper";
 
-import MuiAddIcon from "@mui/icons-material/Add";
-import MuiAssignmentIcon from "@mui/icons-material/Assignment";
-import MuiDeleteIcon from "@mui/icons-material/Delete";
-import MuiExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MuiFavoriteIcon from "@mui/icons-material/Favorite";
-import MuiFileCopyIcon from "@mui/icons-material/FileCopy";
-import MuiFolderIcon from "@mui/icons-material/Folder";
-import MuiGrainIcon from "@mui/icons-material/Grain";
-import MuiHomeIcon from "@mui/icons-material/Home";
-import MuiInboxIcon from "@mui/icons-material/Inbox";
-import MuiLocationOnIcon from "@mui/icons-material/LocationOn";
-import MuiMailIcon from "@mui/icons-material/Mail";
-import MuiMenuIcon from "@mui/icons-material/Menu";
-import MuiNotificationsIcon from "@mui/icons-material/Notifications";
-import MuiPageviewIcon from "@mui/icons-material/Pageview";
-import MuiPrintIcon from "@mui/icons-material/Print";
-import MuiRestoreIcon from "@mui/icons-material/Restore";
-import MuiSaveIcon from "@mui/icons-material/Save";
-import MuiSendIcon from "@mui/icons-material/Send";
-import MuiShareIcon from "@mui/icons-material/Share";
-import MuiWhatshotIcon from "@mui/icons-material/Whatshot";
-import MuiWorkIcon from "@mui/icons-material/Work";
-
 import MuiAccordion, {
   AccordionProps as MuiAccordionProps,
 } from "@mui/material/Accordion";
@@ -151,7 +128,9 @@ import MuiSpeedDial, {
 import MuiSpeedDialAction, {
   SpeedDialActionProps as MuiSpeedDialActionProps,
 } from "@mui/material/SpeedDialAction";
-import MuiSpeedDialIcon from "@mui/material/SpeedDial";
+import MuiSpeedDialIcon, {
+  SpeedDialIconProps as MuiSpeedDialIconProps,
+} from "@mui/material/SpeedDialIcon";
 import MuiStack, { StackProps as MuiStackProps } from "@mui/material/Stack";
 import MuiStepper, {
   StepperProps as MuiStepperProps,
@@ -213,97 +192,35 @@ import MuiTypography, {
   TypographyProps as MuiTypographyProps,
 } from "@mui/material/Typography";
 
-export const AddIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiAddIcon,
-  "AddIcon",
-);
-export const AssignmentIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiAssignmentIcon,
-  "AssignmentIcon",
-);
-export const DeleteIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiDeleteIcon,
-  "DeleteIcon",
-);
-export const ExpandMoreIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiExpandMoreIcon,
-  "ExpandMoreIcon",
-);
-export const FavoriteIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiFavoriteIcon,
-  "FavoriteIcon",
-);
-export const FileCopyIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiFileCopyIcon,
-  "FileCopyIcon",
-);
-export const FolderIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiFolderIcon,
-  "FolderIcon",
-);
-export const GrainIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiGrainIcon,
-  "GrainIcon",
-);
-export const HomeIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiHomeIcon,
-  "HomeIcon",
-);
-export const InboxIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiInboxIcon,
-  "InboxIcon",
-);
-export const LocationOnIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiLocationOnIcon,
-  "LocationOnIcon",
-);
-export const MailIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiMailIcon,
-  "MailIcon",
-);
-export const MenuIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiMenuIcon,
-  "MenuIcon",
-);
-export const NotificationsIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiNotificationsIcon,
-  "NotificationIcon",
-);
-export const PageviewIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiPageviewIcon,
-  "PageviewIcon",
-);
-export const PrintIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiPrintIcon,
-  "PrintIcon",
-);
-export const RestoreIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiRestoreIcon,
-  "RestoreIcon",
-);
-export const SaveIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiSaveIcon,
-  "SaveIcon",
-);
-export const SendIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiSendIcon,
-  "SendIcon",
-);
-export const ShareIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiShareIcon,
-  "ShareIcon",
-);
-export const SpeedDialIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
+export {
+  PlusIcon as AddIcon,
+  ClipboardListIcon as AssignmentIcon,
+  TrashIcon as DeleteIcon,
+  ChevronDownIcon as ExpandMoreIcon,
+  HeartIcon as FavoriteIcon,
+  CopyIcon as FileCopyIcon,
+  FolderIcon,
+  GridIcon as GrainIcon,
+  HomeIcon,
+  InboxIcon,
+  MapPinIcon as LocationOnIcon,
+  MailIcon,
+  MenuIcon,
+  BellIcon as NotificationsIcon,
+  SearchIcon as PageviewIcon,
+  PrinterIcon as PrintIcon,
+  HistoryIcon as RestoreIcon,
+  SaveIcon,
+  SendIcon,
+  ShareIcon,
+  FlameIcon as WhatshotIcon,
+  BriefcaseIcon as WorkIcon,
+  InfoIcon,
+} from "../DataDisplay/Icons";
+
+export const SpeedDialIcon = MuiWrapper<MuiSpeedDialIconProps>(
   MuiSpeedDialIcon,
   "SpeedDialIcon",
-);
-export const WhatshotIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiWhatshotIcon,
-  "WhatshotIcon",
-);
-export const WorkIcon = MuiWrapper<MuiSvgIconProps, SVGSVGElement>(
-  MuiWorkIcon,
-  "WorkIcon",
 );
 
 export const Accordion = MuiWrapper<MuiAccordionProps>(
@@ -318,7 +235,9 @@ export const AccordionSummary = MuiWrapper<MuiAccordionSummaryProps>(
   MuiAccordionSummary,
   "AccordionSummary",
 );
+
 export const Alert = MuiWrapper<MuiAlertProps>(MuiAlert, "Alert");
+
 export const AppBar = MuiWrapper<MuiAppBarProps>(MuiAppBar, "AppBar");
 export const Avatar = MuiWrapper<MuiAvatarProps>(MuiAvatar, "Avatar");
 export const AvatarGroup = MuiWrapper<MuiAvatarGroupProps>(

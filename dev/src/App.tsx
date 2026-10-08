@@ -1,14 +1,19 @@
 import * as React from "react";
 import {
+  Alert,
   AppBar,
+  Autocomplete,
   Box,
   Checkbox,
   Chip,
   Container,
   IconButton,
   Link,
+  MenuItem,
   Paper,
+  Select,
   Stack,
+  TextField,
   Toolbar,
   Typography,
   Table,
@@ -24,6 +29,7 @@ import {
   Layers as LayersIcon,
   Menu as MenuIcon,
   Palette as PaletteIcon,
+  Shapes as ShapesIcon,
   Type as TypeIcon,
 } from "lucide-react";
 import {
@@ -56,6 +62,8 @@ import { ColourSchemeButton } from "../../src/components/controls/ColourSchemeBu
 import { Breadcrumbs } from "../../src/components/navigation/Breadcrumbs";
 import { Bar } from "../../src/components/controls/Bar";
 import { Logo } from "../../src/components/controls/Logo";
+import * as Icons from "../../src/components/DataDisplay/Icons";
+import { iconSizes } from "../../src/components/DataDisplay/Icons";
 
 /* TABLE */
 
@@ -274,6 +282,11 @@ const navigation: Navigation = [
         linkProps: { to: "/typography", component: NavLink },
       },
       {
+        label: "Icons",
+        icon: <ShapesIcon />,
+        linkProps: { to: "/icons", component: NavLink },
+      },
+      {
         label: "Elevation",
         icon: <LayersIcon />,
         linkProps: { to: "/elevation", component: NavLink },
@@ -335,6 +348,7 @@ const AppLayout = () => {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/components" element={<ComponentsPage />} />
                 <Route path="/colours" element={<ColoursPage />} />
+                <Route path="/icons" element={<IconsPage />} />
                 <Route path="/elevation" element={<ElevationPage />} />
                 <Route path="/typography" element={<TypographyPage />} />
               </Routes>
@@ -1099,6 +1113,127 @@ const TypographyPage = () => {
           </Box>
         ))}
       </Stack>
+    </Stack>
+  );
+};
+
+const libraryIcons = Object.entries(Icons).filter(
+  ([name]) => name.endsWith("Icon") && name !== "LucideIcon",
+) as [string, typeof Icons.HomeIcon][];
+
+const IconsPage = () => {
+  return (
+    <Stack spacing={4}>
+      <Stack spacing={1}>
+        <Typography variant="h5">Icons</Typography>
+        <Typography variant="body2" color="text.secondary">
+          Lucide icons wrapped in MUI&apos;s <code>SvgIcon</code>. Toggle
+          light/dark mode to check colour inheritance.
+        </Typography>
+      </Stack>
+
+      <Box>
+        <Typography variant="overline" color="text.secondary" gutterBottom>
+          Size scale
+        </Typography>
+        <Stack
+          direction="row"
+          spacing={3}
+          alignItems="flex-end"
+          flexWrap="wrap"
+        >
+          {(Object.keys(iconSizes) as (keyof typeof iconSizes)[]).map(
+            (size) => (
+              <Stack key={size} spacing={0.5} alignItems="center">
+                <Icons.SettingsIcon size={size} />
+                <Typography variant="caption">
+                  {size} ({iconSizes[size].size}px)
+                </Typography>
+              </Stack>
+            ),
+          )}
+        </Stack>
+      </Box>
+
+      <Box>
+        <Typography variant="overline" color="text.secondary" gutterBottom>
+          MUI fontSize
+        </Typography>
+        <Stack direction="row" spacing={3} alignItems="flex-end">
+          {(["small", "medium", "large"] as const).map((fontSize) => (
+            <Stack key={fontSize} spacing={0.5} alignItems="center">
+              <Icons.SettingsIcon fontSize={fontSize} />
+              <Typography variant="caption">{fontSize}</Typography>
+            </Stack>
+          ))}
+          <Stack spacing={0.5} alignItems="center">
+            <Typography sx={{ fontSize: 32, lineHeight: 1 }}>
+              <Icons.SettingsIcon fontSize="inherit" />
+            </Typography>
+            <Typography variant="caption">inherit (32px parent)</Typography>
+          </Stack>
+        </Stack>
+      </Box>
+
+      <Box>
+        <Typography variant="overline" color="text.secondary" gutterBottom>
+          Library icons
+        </Typography>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+            gap: 1,
+          }}
+        >
+          {libraryIcons.map(([name, Icon]) => (
+            <Paper
+              key={name}
+              variant="outlined"
+              sx={{
+                p: 1.5,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <Icon />
+              <Typography variant="caption">{name}</Typography>
+            </Paper>
+          ))}
+        </Box>
+      </Box>
+
+      <Box>
+        <Typography variant="overline" color="text.secondary" gutterBottom>
+          Theme-driven icons
+        </Typography>
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            {(["success", "info", "warning", "error"] as const).map(
+              (severity) => (
+                <Alert key={severity} severity={severity} onClose={() => {}}>
+                  {severity}
+                </Alert>
+              ),
+            )}
+          </Stack>
+          <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
+            <Select size="small" value="one" sx={{ width: 160 }}>
+              <MenuItem value="one">Select</MenuItem>
+            </Select>
+            <Autocomplete
+              size="small"
+              options={["Autocomplete", "Another"]}
+              defaultValue="Autocomplete"
+              sx={{ width: 200 }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <Chip label="Deletable" onDelete={() => {}} />
+          </Stack>
+        </Stack>
+      </Box>
     </Stack>
   );
 };

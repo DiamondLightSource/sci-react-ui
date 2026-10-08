@@ -22,6 +22,16 @@ import "@fontsource/ibm-plex-mono/latin-600.css";
 import "../styles/diamondDS/DiamondDSTokens.css";
 import "../styles/diamondDS/DiamondDSTypography.css";
 
+import { createElement } from "react";
+import {
+  AlertTriangleIcon,
+  CheckCircleIcon,
+  ChevronDownIcon,
+  CircleXIcon,
+  CloseIcon,
+  InfoIcon,
+} from "../components/DataDisplay/Icons";
+
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import {
@@ -907,6 +917,10 @@ const DiamondDSTheme = extendTheme({
     },
 
     MuiAutocomplete: {
+      defaultProps: {
+        popupIcon: createElement(ChevronDownIcon),
+        clearIcon: createElement(CloseIcon, { fontSize: "small" }),
+      },
       /**
        * Autocomplete renders its own Paper and defaults to elevation 1
        * internally, unlike Popover/Menu/Select's 8 — even though this is
@@ -1273,6 +1287,9 @@ const DiamondDSTheme = extendTheme({
        *
        * Interactive chips receive focus and overlay states; static chips remain calm.
        */
+      defaultProps: {
+        deleteIcon: createElement(CircleXIcon),
+      },
       styleOverrides: {
         root: ({ ownerState }: OverrideArgs<ChipProps>): CSSObject => {
           const base: CSSObject = {
@@ -1630,7 +1647,16 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiNativeSelect: {
+      defaultProps: {
+        IconComponent: ChevronDownIcon,
+      },
+    },
+
     MuiSelect: {
+      defaultProps: {
+        IconComponent: ChevronDownIcon,
+      },
       styleOverrides: {
         /** Read-only Select never opens, so the chevron is muted like a disabled one. */
         icon: ({ ownerState }: OverrideArgs<SelectProps>): CSSObject =>
@@ -1743,6 +1769,15 @@ const DiamondDSTheme = extendTheme({
        * Alerts use status intents only. Filled alerts use solid/onSolid; standard and
        * outlined alerts use container/onContainer.
        */
+      defaultProps: {
+        iconMapping: {
+          success: createElement(CheckCircleIcon, { size: "sm" }),
+          info: createElement(InfoIcon, { size: "sm" }),
+          warning: createElement(AlertTriangleIcon, { size: "sm" }),
+          error: createElement(CircleXIcon, { size: "sm" }),
+        },
+        slots: { closeIcon: CloseIcon },
+      },
       styleOverrides: {
         root: ({ ownerState }: OverrideArgs<AlertProps>): CSSObject => {
           const severity = getIntentFromColourProp(
