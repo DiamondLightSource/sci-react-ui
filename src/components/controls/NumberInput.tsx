@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { TextField } from "@mui/material";
+import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const Modes = {
   /** Natural numbers from 0 to inf */
@@ -14,6 +16,15 @@ const Modes = {
     /^[+\\-]?(([0-9]+)|([0-9]+[\\.])|([\\.][0-9]+)|([0-9]+[\\.][0-9]+))([eE][+\\-]?[0-9]+)?$/,
 };
 
+function decimalPlaces(value: number): number {
+  const text = value.toString();
+  if (text.includes("e") || text.includes("E")) {
+    return 0;
+  }
+  const pointIndex = text.indexOf(".");
+  return pointIndex === -1 ? 0 : text.length - pointIndex - 1;
+}
+
 interface NumberInputTextProps {
   label: string;
   numberMode: keyof typeof Modes;
@@ -27,6 +38,8 @@ interface NumberInputTextProps {
   helperText?: boolean;
   minValue: number;
   maxValue: number;
+  step: number;
+  spinnerButtons: "always" | "onHover" | "never";
 }
 
 const NumberInputText: React.FC<NumberInputTextProps> = ({
@@ -42,7 +55,10 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
   helperText,
   minValue,
   maxValue,
+  step,
+  spinnerButtons,
 }) => {
+  const showSpinner = spinnerButtons !== "never";
   const validHelperText = !helperText
     ? ""
     : `A ${numberMode} number. Limits: ${minValue} to ${maxValue}`;
@@ -78,6 +94,14 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
     }
   };
 
+  const handleStep = (direction: 1 | -1) => {
+    const current = isValid && numberText !== "" ? parseFloat(numberText) : 0;
+    const precision = Math.max(decimalPlaces(current), decimalPlaces(step));
+    const stepped = Number((current + direction * step).toFixed(precision));
+    const clamped = Math.min(maxValue, Math.max(minValue, stepped));
+    setNumberText(clamped.toString());
+  };
+
   return (
     <TextField
       label={label}
@@ -90,6 +114,61 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
       error={!isValid || !isInLimits}
       helperText={calculateHelperText()}
       variant="outlined"
+      sx={{
+        ...(showSpinner && {
+          "& .MuiOutlinedInput-root": { paddingRight: "6px" },
+        }),
+        ...(spinnerButtons === "onHover" && {
+          "& .NumberInput-spinner": { opacity: 0 },
+          "&:hover .NumberInput-spinner, &:focus-within .NumberInput-spinner": {
+            opacity: 1,
+          },
+        }),
+      }}
+      slotProps={{
+        input: {
+          endAdornment: showSpinner ? (
+            <InputAdornment
+              position="end"
+              className="NumberInput-spinner"
+              sx={{
+                marginLeft: "6px",
+                marginRight: 0,
+                marginTop: "6px",
+                marginBottom: "6px",
+                height: "auto",
+                maxHeight: "none",
+                alignSelf: "stretch",
+                alignItems: "stretch",
+              }}
+            >
+              <ButtonGroup
+                orientation="vertical"
+                size="small"
+                color="inherit"
+                sx={{ height: "100%" }}
+              >
+                <Button
+                  aria-label="Increase value"
+                  onClick={() => handleStep(1)}
+                  disabled={isInLimits && parseFloat(numberText) >= maxValue}
+                  sx={{ flex: 1, minWidth: 0, minHeight: 0, px: 0.5, py: 0 }}
+                >
+                  <KeyboardArrowUpIcon sx={{ fontSize: 12 }} />
+                </Button>
+                <Button
+                  aria-label="Decrease value"
+                  onClick={() => handleStep(-1)}
+                  disabled={isInLimits && parseFloat(numberText) <= minValue}
+                  sx={{ flex: 1, minWidth: 0, minHeight: 0, px: 0.5, py: 0 }}
+                >
+                  <KeyboardArrowDownIcon sx={{ fontSize: 12 }} />
+                </Button>
+              </ButtonGroup>
+            </InputAdornment>
+          ) : undefined,
+        },
+      }}
     />
   );
 };
@@ -106,6 +185,8 @@ interface NumberInputProps {
   helperText?: boolean;
   minValue?: number;
   maxValue?: number;
+  step?: number;
+  spinnerButtons?: "always" | "onHover" | "never";
 }
 
 const NumberInput: React.FC<NumberInputProps> = ({
@@ -118,6 +199,8 @@ const NumberInput: React.FC<NumberInputProps> = ({
   helperText = true,
   minValue = numberMode == "natural" ? 0 : -Infinity,
   maxValue = Infinity,
+  step = 1,
+  spinnerButtons = numberMode === "scientific" ? "never" : "onHover",
 }) => {
   const [numberText, setNumberText] = useState(
     !defaultValue ? "" : defaultValue.toString(),
@@ -153,6 +236,8 @@ const NumberInput: React.FC<NumberInputProps> = ({
       helperText={helperText}
       minValue={minValue}
       maxValue={maxValue}
+      step={step}
+      spinnerButtons={spinnerButtons}
     />
   );
 };
