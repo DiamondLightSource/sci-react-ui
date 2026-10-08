@@ -76,9 +76,6 @@ export const All: Story = {
     ),
     logo: "theme",
   },
-  parameters: {
-    disableThemeSwapper: true,
-  },
 };
 
 export const NavbarVariants: Story = {
@@ -320,9 +317,6 @@ export const LinksInSlot: Story = {
       </>
     ),
     logo: "theme",
-  },
-  parameters: {
-    disableThemeSwapper: true,
   },
 };
 
