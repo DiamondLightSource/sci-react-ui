@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { DataCard, type DataCardProps } from "./DataCard";
 import { Box, Stack, Typography } from "../MUI/MuiWrapped";
 import { LucideStar } from "lucide-react";
