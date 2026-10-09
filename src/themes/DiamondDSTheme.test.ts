@@ -84,7 +84,10 @@ const getCssVariableValue = (
     return undefined;
   }
 
-  return css.slice(valueStart, valueEnd).trim();
+  const value = css.slice(valueStart, valueEnd).trim();
+  const alias = value.match(/^var\((--ds-[^)]+)\)$/);
+
+  return alias ? getCssVariableValue(css, alias[1] as `--ds-${string}`) : value;
 };
 
 const hexToRgbChannel = (hex: string): string => {

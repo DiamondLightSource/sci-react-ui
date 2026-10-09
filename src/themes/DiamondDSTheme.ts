@@ -341,39 +341,39 @@ type PaletteAdapter = {
 const paletteAdapterValues: Record<DSMode, Record<string, PaletteAdapter>> = {
   light: {
     primary: {
-      light: "#6088ff", // --ds-primary-accent
-      main: "#1a318c", // --ds-primary
-      dark: "#152872", // --ds-primary-emphasis
+      light: "#658df8", // --ds-primary-accent
+      main: "#243e8b", // --ds-primary
+      dark: "#1f3573", // --ds-primary-emphasis
       contrastText: "#ffffff", // --ds-on-primary
     },
     secondary: {
-      light: "#0a9ea9", // --ds-secondary-accent
-      main: "#005b61", // --ds-secondary
-      dark: "#00474c", // --ds-secondary-emphasis
+      light: "#38a0a9", // --ds-secondary-accent
+      main: "#004b51", // --ds-secondary
+      dark: "#003f44", // --ds-secondary-emphasis
       contrastText: "#ffffff", // --ds-on-secondary
     },
     danger: {
-      light: "#ff503f", // --ds-danger-accent
-      main: "#850100", // --ds-danger
-      dark: "#6a0100", // --ds-danger-emphasis
+      light: "#f95d5d", // --ds-danger-accent
+      main: "#830617", // --ds-danger
+      dark: "#6d0b15", // --ds-danger-emphasis
       contrastText: "#ffffff", // --ds-on-danger
     },
     warning: {
-      light: "#cf7b00", // --ds-warning-accent
-      main: "#7e4800", // --ds-warning
-      dark: "#643800", // --ds-warning-emphasis
+      light: "#e17500", // --ds-warning-accent
+      main: "#864300", // --ds-warning
+      dark: "#5c2b00", // --ds-warning-emphasis
       contrastText: "#ffffff", // --ds-on-warning
     },
     success: {
-      light: "#30a434", // --ds-success-accent
-      main: "#005107", // --ds-success
-      dark: "#003904", // --ds-success-emphasis
+      light: "#41a551", // --ds-success-accent
+      main: "#004f16", // --ds-success
+      dark: "#004211", // --ds-success-emphasis
       contrastText: "#ffffff", // --ds-on-success
     },
     info: {
-      light: "#0096e1", // --ds-info-accent
-      main: "#005887", // --ds-info
-      dark: "#00456b", // --ds-info-emphasis
+      light: "#668dfb", // --ds-info-accent
+      main: "#253e8d", // --ds-info
+      dark: "#1f3475", // --ds-info-emphasis
       contrastText: "#ffffff", // --ds-on-info
     },
   },
@@ -381,39 +381,39 @@ const paletteAdapterValues: Record<DSMode, Record<string, PaletteAdapter>> = {
   dark: {
     // same as light mode, but with different values
     primary: {
-      light: "#81a4ff",
-      main: "#9cb9ff",
-      dark: "#aac3ff",
+      light: "#90b1ff",
+      main: "#a8c3ff",
+      dark: "#b5cbff",
       contrastText: "#000000",
     },
     secondary: {
-      light: "#79d8e1",
-      main: "#aaf0f6",
-      dark: "#baf5fa",
+      light: "#85d7de",
+      main: "#b2eef4",
+      dark: "#c1f3f8",
       contrastText: "#000000",
     },
     danger: {
-      light: "#ff7866",
-      main: "#ff9686",
-      dark: "#ffa597",
+      light: "#ff8e88",
+      main: "#ffa7a1",
+      dark: "#ffb3ae",
       contrastText: "#000000",
     },
     warning: {
-      light: "#ffbc7c",
-      main: "#ffcd9e",
-      dark: "#ffd4ac",
+      light: "#ffad74",
+      main: "#ffbf95",
+      dark: "#ffc9a5",
       contrastText: "#000000",
     },
     success: {
-      light: "#83de81",
-      main: "#b0f5ad",
-      dark: "#bff9bc",
+      light: "#8adc92",
+      main: "#b5f3b9",
+      dark: "#c3f7c6",
       contrastText: "#000000",
     },
     info: {
-      light: "#7ac7ff",
-      main: "#9bd4ff",
-      dark: "#aadaff",
+      light: "#8eafff",
+      main: "#a7c1ff",
+      dark: "#b3caff",
       contrastText: "#000000",
     },
   },
