@@ -1255,7 +1255,20 @@ describe("DiamondDS component overrides", () => {
     });
 
     expectTokenFallback(linearStyles.backgroundColor, "--ds-success");
+    expect(
+      DiamondDSTheme.components?.MuiLinearProgress?.defaultProps?.color,
+    ).toBe("info");
+    expectTokenFallback(
+      getStyleOverride(linearBar, {
+        ownerState: { color: "info" },
+        theme: DiamondDSTheme,
+      }).backgroundColor,
+      "--ds-info",
+    );
     expectTokenFallback(circularStyles.color, "--ds-warning");
+    expect(
+      DiamondDSTheme.components?.MuiCircularProgress?.defaultProps?.color,
+    ).toBe("info");
   });
 
   it("uses semantic loading surface roles for skeletons", () => {
