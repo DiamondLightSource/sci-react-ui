@@ -277,6 +277,73 @@ export const HoverRows: Story = {
   ),
 };
 
+export const WarningRow: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "The warning tint reinforces the status chip. It never replaces it.",
+      },
+    },
+  },
+  render: (args) => (
+    <TableContainer>
+      <Table {...args} aria-label="tasks with a warning row">
+        <TableHead>
+          <TableRow>
+            <TableCell>Task</TableCell>
+            <TableCell>Step</TableCell>
+            <TableCell align="right">Status</TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {tasks.map((task) => {
+            const paused = task.id === "TASK-3";
+
+            return (
+              <TableRow
+                hover
+                key={task.id}
+                sx={
+                  paused
+                    ? {
+                        "& td": {
+                          backgroundColor: (theme) =>
+                            (theme.vars || theme).palette.warning.container,
+                        },
+                        "&:hover td": {
+                          backgroundImage:
+                            "linear-gradient(var(--ds-overlay-hover), var(--ds-overlay-hover))",
+                        },
+                      }
+                    : undefined
+                }
+              >
+                <TableCell>{task.id}</TableCell>
+                <TableCell>{task.name}</TableCell>
+
+                <TableCell align="right">
+                  {paused ? (
+                    <Chip
+                      label="Paused"
+                      color="warning"
+                      size="small"
+                      variant="outlined"
+                    />
+                  ) : (
+                    renderStatusChip(task.status)
+                  )}
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  ),
+};
+
 export const SelectedRows: Story = {
   render: (args) => (
     <TableContainer>

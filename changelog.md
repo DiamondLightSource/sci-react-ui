@@ -2,6 +2,12 @@
 
 ## [Unreleased] - TBD
 
+### Added
+
+- `DiamondDSIntegrations.mrtLoadingState(loading, data)` returns MRT's `showSkeletons`/`showProgressBars` (skeletons on first load, progress bar on refetch).
+- `DiamondDSIntegrations.mrtRowIntent(intent)` returns row `sx` that tints an MRT row with the intent's subtle container colour.
+- `DiamondDSIntegrations.skipWhileSkeleton(callback)` wraps an MRT row/cell/checkbox props callback so it is skipped while skeleton rows show.
+
 ### Changed
 
 - _Dialog_ now defaults to elevation 16 (`surface.strong`'s tone) instead of MUI's 24, and temporary _Drawer_ to elevation 4 instead of 16, so floating surfaces order Drawer < Menu < Dialog and dialog text keeps more contrast.
