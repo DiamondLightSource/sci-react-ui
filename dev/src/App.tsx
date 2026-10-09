@@ -38,7 +38,11 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import type { MRT_ColumnDef } from "material-react-table";
+import type {
+  MRT_ColumnDef,
+  MRT_Row,
+  MRT_TableInstance,
+} from "material-react-table";
 
 import {
   ThemeProvider,
@@ -100,7 +104,33 @@ export const SimpleMuiTableExample = () => {
 
         <TableBody>
           {data.map((row) => (
-            <TableRow key={row.id} hover selected={isSelected(row.id)}>
+            <TableRow
+              key={row.id}
+              hover
+              selected={isSelected(row.id)}
+              sx={
+                row.status === "Paused"
+                  ? {
+                      "& td": {
+                        backgroundColor: (theme) =>
+                          (theme.vars || theme).palette.warning.container,
+                      },
+                      "&.Mui-selected td": {
+                        backgroundImage:
+                          "linear-gradient(rgb(var(--ds-primary-channel) / 0.08), rgb(var(--ds-primary-channel) / 0.08))",
+                      },
+                      "&:hover td": {
+                        backgroundImage:
+                          "linear-gradient(var(--ds-overlay-hover), var(--ds-overlay-hover))",
+                      },
+                      "&.Mui-selected:hover td": {
+                        backgroundImage:
+                          "linear-gradient(rgb(var(--ds-primary-channel) / 0.12), rgb(var(--ds-primary-channel) / 0.12))",
+                      },
+                    }
+                  : undefined
+              }
+            >
               <TableCell padding="checkbox">
                 <Checkbox
                   checked={isSelected(row.id)}
@@ -131,6 +161,7 @@ export const SimpleMuiTableExample = () => {
 /* MATERIAL REACT TABLE - mid-level (per-table) overrides */
 
 export const MidLevelMrtExample = () => {
+  const mrtOptions = DiamondDSIntegrations.mrtOptions();
   const table = useMaterialReactTable({
     columns: mrtColumns,
     data,
@@ -144,7 +175,23 @@ export const MidLevelMrtExample = () => {
     getRowId: (row) => row.id,
     initialState: { rowSelection: { "EXP-1003": true } },
     mrtTheme: DiamondDSIntegrations.mrtTheme,
-    ...DiamondDSIntegrations.mrtOptions(),
+    ...mrtOptions,
+    // Tinted rows use the subtle container role so they follow dark mode.
+    muiTableBodyRowProps: DiamondDSIntegrations.skipWhileSkeleton(
+      ({
+        row,
+      }: {
+        row: MRT_Row<Experiment>;
+        table: MRT_TableInstance<Experiment>;
+      }) => ({
+        ...mrtOptions.muiTableBodyRowProps,
+        sx: {
+          ...mrtOptions.muiTableBodyRowProps.sx,
+          ...(row.original.status === "Paused" &&
+            DiamondDSIntegrations.mrtRowIntent("warning")),
+        },
+      }),
+    ),
   });
 
   return <MaterialReactTable table={table} />;
@@ -196,7 +243,7 @@ const data: Experiment[] = [
     id: "EXP-1002",
     scientist: "Alan Turing",
     beamline: "I03",
-    status: "Queued",
+    status: "Paused",
     energy: 9.8,
   },
   {
@@ -217,7 +264,7 @@ const data: Experiment[] = [
     id: "EXP-1005",
     scientist: "Katherine Johnson",
     beamline: "DIAD",
-    status: "Paused",
+    status: "Queued",
     energy: 15.7,
   },
 ];
