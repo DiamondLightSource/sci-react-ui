@@ -54,6 +54,7 @@ const renderSelectWithLabel = (args: SelectArgs) => (
     variant={args.variant}
     color={args.color}
     size={args.size}
+    disabled={args.disabled}
     sx={{ minWidth: 200 }}
   >
     {args.label && <InputLabel id="demo-select-label">{args.label}</InputLabel>}
@@ -88,6 +89,11 @@ export const FilledAndStandard: Story = {
   ),
 };
 
+/**
+ * Set read-only with the top-level `readOnly` prop on `Select`, not through
+ * `inputProps` or `slotProps.input`. Only the top-level prop applies the
+ * read-only styling, so the other routes leave the field looking editable.
+ */
 export const States: Story = {
   render: (args: SelectArgs) => (
     <Box style={{ display: "grid", gap: 12 }}>
