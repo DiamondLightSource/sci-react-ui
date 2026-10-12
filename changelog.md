@@ -2,6 +2,11 @@
 
 ## [Unreleased] - TBD
 
+### Added
+
+- New _DataCard_ and _DataGroup_ components.
+- Typography docs now cover font weight, line height and letter spacing scales, with improved Storybook examples.
+
 ### Changed
 
 - _Dialog_ now defaults to elevation 16 (`surface.strong`'s tone) instead of MUI's 24, and temporary _Drawer_ to elevation 4 instead of 16, so floating surfaces order Drawer < Menu < Dialog and dialog text keeps more contrast.
@@ -9,6 +14,7 @@
 
 ### Fixed
 
+- Skipped `logos` in MUI CSS variable generation, removing a console error.
 - Read-only inputs (TextField, Select, Autocomplete) are now visually distinct from editable and disabled ones, across outlined, filled and standard variants. Dark-mode `--ds-border-subtle` and disabled tokens are retuned.
 - `DiamondDSIntegrations.mrtOptions()` now suppresses Material React Table's hardcoded bottom toolbar shadow, matching the shadow suppression already applied to the table's Paper.
 - Fixed _ImageColourSchemeSwitch_ (and so _Logo_) showing the light image when the OS is dark and no mode has been picked, by reading the resolved `colorScheme` instead of `mode`.
