@@ -9,7 +9,7 @@ export type DataColours = {
   container: string;
   /** values colour */
   primary: string;
-  /** labels/suffices colour */
+  /** labels/suffixes colour */
   secondary: string;
   icon: string;
 };

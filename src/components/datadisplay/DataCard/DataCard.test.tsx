@@ -137,7 +137,7 @@ describe("DataCard", () => {
           value1={value1}
           value2={value2}
           subvalue={subvalue}
-          stacked={false} // ignored because subvalue given
+          stacked={true} // ignored because subvalue given
           {...otherProps}
         />,
       );
