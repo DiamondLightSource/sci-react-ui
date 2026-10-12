@@ -40,12 +40,24 @@ describe("SidebarNav", () => {
     },
   ];
 
-  function renderSidenav(open: boolean, setOpen = vi.fn()) {
+  function renderSidenav(
+    open: boolean,
+    setOpen = vi.fn(),
+    spacing: {
+      topSpacing?: number | string;
+      bottomSpacing?: number | string;
+    } = {},
+  ) {
     const router = createMemoryRouter([
       {
         path: "/",
         element: (
-          <SidebarNav navigation={navigation} open={open} setOpen={setOpen} />
+          <SidebarNav
+            navigation={navigation}
+            open={open}
+            setOpen={setOpen}
+            {...spacing}
+          />
         ),
       },
     ]);
@@ -119,6 +131,49 @@ describe("SidebarNav", () => {
       renderSidenav(true);
       const divider = screen.queryByRole("separator");
       expect(divider).toBeInTheDocument();
+    });
+
+    it("keeps the default MUI Toolbar spacer when no spacing is supplied", () => {
+      renderSidenav(true);
+
+      const topSpacer = document.querySelector(
+        ".MuiDrawer-paper > .MuiToolbar-root",
+      );
+      expect(topSpacer).toBeInTheDocument();
+      expect(topSpacer).toHaveClass("MuiToolbar-regular");
+      expect(topSpacer).not.toHaveAttribute("style");
+    });
+
+    it("applies custom spacing while keeping the footer above the bottom spacer", () => {
+      const router = createMemoryRouter([
+        {
+          path: "/",
+          element: (
+            <SidebarNav
+              navigation={navigation}
+              open={true}
+              setOpen={vi.fn()}
+              topSpacing={72}
+              bottomSpacing="24px"
+              footerSlot={<div data-testid="footer">User menu</div>}
+            />
+          ),
+        },
+      ]);
+      render(<RouterProvider router={router} />);
+
+      const paper = document.querySelector(".MuiDrawer-paper");
+      const topSpacer = paper?.querySelector(".MuiToolbar-root");
+      const bottomSpacer = paper?.lastElementChild;
+      const footer = screen.getByTestId("footer");
+
+      expect(getComputedStyle(topSpacer!).height).toBe("72px");
+      expect(getComputedStyle(bottomSpacer!).height).toBe("24px");
+      expect(footer).toBeVisible();
+      expect(
+        footer.compareDocumentPosition(bottomSpacer!) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
     });
 
     it("renders afterNavSlot after the navigation items", () => {
@@ -201,6 +256,20 @@ describe("SidebarNav", () => {
 
       expect(screen.getByText("Setup")).toBeVisible();
       expect(screen.getByTestId("navicon1")).toBeVisible();
+    });
+
+    it("applies custom top and bottom spacing", () => {
+      renderSidenav(true, vi.fn(), {
+        topSpacing: "48px",
+        bottomSpacing: 32,
+      });
+
+      const paper = document.querySelector(".MuiDrawer-paper");
+      const topSpacer = paper?.querySelector(".MuiToolbar-root");
+      const bottomSpacer = paper?.lastElementChild;
+
+      expect(getComputedStyle(topSpacer!).height).toBe("48px");
+      expect(getComputedStyle(bottomSpacer!).height).toBe("32px");
     });
 
     it("clicking a nav item closes the drawer", async () => {

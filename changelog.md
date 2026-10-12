@@ -4,6 +4,7 @@
 
 ### Changed
 
+- _SidebarNav_ now supports configurable top and bottom spacing while retaining its default MUI Toolbar spacer.
 - _Dialog_ now defaults to elevation 16 (`surface.strong`'s tone) instead of MUI's 24, and temporary _Drawer_ to elevation 4 instead of 16, so floating surfaces order Drawer < Menu < Dialog and dialog text keeps more contrast.
 - **Breaking** _Dialog_'s deprecated `PaperProps` is now ignored. Move it to `slotProps.paper`, e.g. with `npx @mui/codemod@latest deprecations/dialog-props <path>`. If you use MRT, also check `muiEditRowDialogProps` and `muiCreateRowModalProps` by hand, as the codemod won't reach them.
 
