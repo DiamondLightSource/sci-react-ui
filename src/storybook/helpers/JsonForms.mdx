@@ -52,6 +52,11 @@ import {Box, TextField, Typography} from "@mui/material";
         You can also add your own renderers, make sure they have a higher rank than SciReactUI ones which are currently
         set at 10, and 15
 
+        For consistent spacing between stacked fields (material's vertical layout has none), add the layout renderer:
+        ```jsx
+        renderers={[...materialRenderers, ...JsonFormsControls.layoutRenderers]}
+        ```
+
         To style them, use these classes:
         ```css
         .data-box {}
