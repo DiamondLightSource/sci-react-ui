@@ -787,6 +787,7 @@ describe("DiamondDS component overrides", () => {
     });
 
     // Rest
+    expect(styles.backgroundColor).toBe("var(--ds-surface)");
     expect(styles["& .MuiOutlinedInput-notchedOutline"]).toEqual(
       expect.objectContaining({
         borderColor: "var(--ds-border-emphasis)",

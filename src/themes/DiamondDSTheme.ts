@@ -1453,6 +1453,9 @@ const DiamondDSTheme = extendTheme({
           const accent = `var(--ds-${tokenName}-accent)`;
 
           return {
+            /** Opaque fill so the field stays distinct on container or elevated surfaces. */
+            backgroundColor: "var(--ds-surface)",
+
             "& .MuiOutlinedInput-notchedOutline": {
               borderColor: "var(--ds-border-emphasis)",
             },
