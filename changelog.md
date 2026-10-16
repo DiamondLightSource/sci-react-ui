@@ -16,7 +16,7 @@
 ### Fixed
 
 - Skipped `logos` in MUI CSS variable generation, removing a console error.
-- Read-only inputs (TextField, Select, Autocomplete) are now visually distinct from editable and disabled ones, across outlined, filled and standard variants. Dark-mode `--ds-border-subtle` and disabled tokens are retuned.
+- Read-only inputs (TextField, Select, Autocomplete) are now visually distinct from editable and disabled ones, across outlined, filled and standard variants. Dark-mode `--ds-border-subtle` and disabled tokens are retuned, and disabled and read-only backgrounds are subtler. Per MUI, read-only is set with `slotProps.input` on TextField but the top-level `readOnly` on Select.
 - `DiamondDSIntegrations.mrtOptions()` now suppresses Material React Table's hardcoded bottom toolbar shadow, matching the shadow suppression already applied to the table's Paper.
 - Fixed _ImageColourSchemeSwitch_ (and so _Logo_) showing the light image when the OS is dark and no mode has been picked, by reading the resolved `colorScheme` instead of `mode`.
 
