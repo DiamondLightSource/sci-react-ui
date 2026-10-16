@@ -1453,8 +1453,51 @@ const DiamondDSTheme = extendTheme({
           const accent = `var(--ds-${tokenName}-accent)`;
 
           return {
+            /** Opaque fill so the field stays distinct on container or elevated surfaces. */
+            backgroundColor: "var(--ds-surface)",
+
             "& .MuiOutlinedInput-notchedOutline": {
               borderColor: "var(--ds-border-emphasis)",
+              top: -7,
+            },
+
+            /** Notch 2px higher and 4px taller than MUI's, so the border line stays put. */
+            "& .MuiOutlinedInput-notchedOutline legend": {
+              height: 15,
+            },
+
+            /**
+             * Fills the notch so the straddling label sits on one tone. Editable
+             * fields inherit the field background; `background-clip: text` keeps
+             * the fieldset and legend from painting it over the value.
+             */
+            "& .MuiOutlinedInput-notchedOutline legend > span": {
+              borderRadius: "4px 4px 0 0",
+              color: "transparent",
+              opacity: 1,
+            },
+
+            "&:not(.Mui-disabled):not(.MuiInputBase-readOnly) .MuiOutlinedInput-notchedOutline, &:not(.Mui-disabled):not(.MuiInputBase-readOnly) .MuiOutlinedInput-notchedOutline legend":
+              {
+                backgroundColor: "inherit",
+                backgroundClip: "text",
+              },
+
+            "&:not(.Mui-disabled):not(.MuiInputBase-readOnly) .MuiOutlinedInput-notchedOutline legend > span":
+              {
+                backgroundColor: "inherit",
+              },
+
+            /** Washes are translucent, so paint only above the field edge to avoid doubling. */
+            "&.MuiInputBase-readOnly:not(.Mui-disabled) .MuiOutlinedInput-notchedOutline legend > span":
+              {
+                backgroundColor: "var(--ds-surface-readonly)",
+                height: 7,
+              },
+
+            "&.Mui-disabled .MuiOutlinedInput-notchedOutline legend > span": {
+              backgroundColor: "var(--ds-surface-disabled)",
+              height: 7,
             },
 
             "&:hover:not(.Mui-disabled):not(.Mui-error):not(.Mui-focused):not(.MuiInputBase-readOnly) .MuiOutlinedInput-notchedOutline":
@@ -1647,6 +1690,11 @@ const DiamondDSTheme = extendTheme({
 
           "&.Mui-disabled:not(.MuiInputLabel-shrink)": {
             color: "var(--ds-on-surface-disabled)",
+          },
+
+          /** 1px below MUI's -9px, for room above the label in the filled notch. */
+          "&.MuiInputLabel-outlined.MuiInputLabel-shrink": {
+            transform: "translate(14px, -8px) scale(0.75)",
           },
 
           "&.Mui-focused": {
