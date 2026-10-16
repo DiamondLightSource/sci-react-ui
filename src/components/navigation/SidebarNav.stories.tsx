@@ -396,3 +396,37 @@ export const WithAppBar: Story = {
     );
   },
 };
+
+export const CustomSpacing: Story = {
+  render: (_args) => {
+    const [open, setOpen] = React.useState(true);
+    return (
+      <Box sx={{ display: "flex" }}>
+        <SidebarNav
+          navigation={reactRouterNavigation}
+          open={open}
+          setOpen={setOpen}
+          topSpacing={48}
+          bottomSpacing={32}
+          footerSlot={
+            <Typography variant="body2" sx={{ p: 1 }}>
+              Footer above reserved bottom space
+            </Typography>
+          }
+        />
+        <Box sx={{ p: 2 }}>
+          <IconButton onClick={() => setOpen(!open)}>
+            <Menu />
+          </IconButton>
+          <Typography>
+            Set topSpacing and bottomSpacing in pixels to match a custom header
+            and reserve space below the pinned footer.
+          </Typography>
+        </Box>
+      </Box>
+    );
+  },
+  args: {
+    navigation: reactRouterNavigation,
+  },
+};

@@ -59,6 +59,10 @@ type NavProps = {
   navigation: Navigation;
   open: boolean;
   setOpen: (open: boolean) => void;
+  /** Height above navigation; numeric values are pixels. Defaults to MUI Toolbar height. */
+  topSpacing?: number | string;
+  /** Height below drawer content and pinned footer; numeric values are pixels. */
+  bottomSpacing?: number | string;
   /** Rendered after the navigation items, inside the scrollable area. */
   afterNavSlot?: ReactNode;
   /** Rendered pinned to the bottom of the drawer, outside the scrollable area. */
@@ -96,8 +100,14 @@ function PermanentDrawer(props: NavProps) {
         },
       })}
     >
-      <Toolbar /> {/* spacer equal to the AppBar's height*/}
+      <Toolbar sx={{ height: props.topSpacing, minHeight: props.topSpacing }} />
       <DrawerContent {...props} />
+      {props.bottomSpacing !== undefined && (
+        <Box
+          aria-hidden="true"
+          sx={{ height: props.bottomSpacing, flexShrink: 0 }}
+        />
+      )}
     </Drawer>
   );
 }
@@ -127,8 +137,14 @@ function TemporaryDrawer(props: NavProps) {
         },
       }}
     >
-      <Toolbar />
+      <Toolbar sx={{ height: props.topSpacing, minHeight: props.topSpacing }} />
       <DrawerContent {...props} />
+      {props.bottomSpacing !== undefined && (
+        <Box
+          aria-hidden="true"
+          sx={{ height: props.bottomSpacing, flexShrink: 0 }}
+        />
+      )}
     </Drawer>
   );
 }
