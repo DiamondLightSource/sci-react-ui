@@ -28,7 +28,7 @@ const meta: Meta<typeof LinearProgress> = {
     valueBuffer: { control: { type: "number", min: 0, max: 100, step: 1 } },
   },
   args: {
-    color: "primary",
+    color: "info",
     variant: "indeterminate",
     value: 40,
     valueBuffer: 60,

@@ -1801,6 +1801,9 @@ const DiamondDSTheme = extendTheme({
      * surface. This keeps them visually lighter than buttons or alerts.
      */
     MuiLinearProgress: {
+      defaultProps: {
+        color: "info",
+      },
       styleOverrides: {
         root: {
           height: 6,
@@ -1821,6 +1824,9 @@ const DiamondDSTheme = extendTheme({
     },
 
     MuiCircularProgress: {
+      defaultProps: {
+        color: "info",
+      },
       styleOverrides: {
         root: ({
           ownerState,
