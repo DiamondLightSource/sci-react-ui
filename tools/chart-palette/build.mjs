@@ -1,10 +1,12 @@
-// Regenerates the chart tokens from palette.mjs.
+// Regenerates the chart tokens, JSON export and validation report from palette.mjs.
 // calc/ computes and validates the colours; present/ turns the results into files.
 // `--check` writes nothing and fails if the committed outputs are stale or a gated check fails.
 /* global process, console */
 import { readFileSync, writeFileSync } from "node:fs";
 import { validate } from "./calc/validate.mjs";
 import { buildCss } from "./present/css.mjs";
+import { buildJson } from "./present/json.mjs";
+import { buildMarkdown } from "./present/report.mjs";
 
 const out = (name) => new URL(name, import.meta.url);
 
@@ -12,6 +14,8 @@ const report = validate();
 const css = buildCss();
 const files = {
   "../../src/styles/diamondDS/DiamondDSChartTokens.css": css,
+  "chart-palette.json": buildJson(report),
+  "validation.md": buildMarkdown(report),
 };
 
 if (process.argv.includes("--check")) {
