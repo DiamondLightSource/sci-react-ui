@@ -72,6 +72,7 @@ const preview: Preview = {
           "Foundations/Colour",
           "Foundations/Typography",
           "Foundations/Icons",
+          "Foundations/Chart Colours",
           "Helpers",
           "Theme",
           "Theme/Logos",
