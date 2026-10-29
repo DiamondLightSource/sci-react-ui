@@ -1,4 +1,4 @@
-// Regenerates the chart tokens, JSON export and validation report from palette.mjs.
+// Regenerates the chart tokens, JSON export, validation report and preview from palette.mjs.
 // calc/ computes and validates the colours; present/ turns the results into files.
 // `--check` writes nothing and fails if the committed outputs are stale or a gated check fails.
 /* global process, console */
@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { validate } from "./calc/validate.mjs";
 import { buildCss } from "./present/css.mjs";
 import { buildJson } from "./present/json.mjs";
+import { renderPreview } from "./present/preview.mjs";
 import { buildMarkdown } from "./present/report.mjs";
 
 const out = (name) => new URL(name, import.meta.url);
@@ -33,7 +34,11 @@ if (process.argv.includes("--check")) {
   process.exit(stale.length || !report.ok ? 1 : 0);
 }
 
-Object.entries(files).forEach(([name, text]) => writeFileSync(out(name), text));
+Object.entries({
+  ...files,
+  // A local page for looking at the palette; it is not committed or checked.
+  "render-check.html": renderPreview(report),
+}).forEach(([name, text]) => writeFileSync(out(name), text));
 report.checks.forEach((c) =>
   console.log(`${c.gate ? (c.pass ? "pass" : "FAIL") : "note"}  ${c.label}`),
 );
