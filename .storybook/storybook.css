@@ -1106,16 +1106,26 @@ section.ds-mode-panel section {
 
 .ds-chart-swatch {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  flex-direction: column;
+  overflow: hidden;
   border: 1px solid var(--ds-border-subtle);
   border-radius: 8px;
   background: var(--ds-surface);
   color: var(--ds-on-surface);
 }
 
-.ds-chart-swatch svg {
+.ds-chart-swatch-box {
+  height: 72px;
+}
+
+.ds-chart-swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+
+.ds-chart-swatch-row svg {
   flex: none;
 }
 
