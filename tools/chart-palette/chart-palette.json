@@ -43,17 +43,17 @@
       "token": "--ds-chart-1",
       "marker": "plus",
       "light": {
-        "hex": "#7c5ee0",
+        "hex": "#8133d6",
         "rgb": [
-          124,
-          94,
-          224
+          129,
+          51,
+          214
         ],
-        "channel": "124 94 224",
+        "channel": "129 51 214",
         "simulated": {
-          "protan": "#0077e4",
-          "deutan": "#0172dd",
-          "tritan": "#5e7b96"
+          "protan": "#0060db",
+          "deutan": "#005fd3",
+          "tritan": "#6d5e83"
         }
       },
       "dark": {
@@ -145,17 +145,17 @@
       "token": "--ds-chart-4",
       "marker": "triangle",
       "light": {
-        "hex": "#9283b0",
+        "hex": "#8a8ab9",
         "rgb": [
-          146,
-          131,
-          176
+          138,
+          138,
+          185
         ],
-        "channel": "146 131 176",
+        "channel": "138 138 185",
         "simulated": {
-          "protan": "#7a8ab2",
-          "deutan": "#7c8aaf",
-          "tritan": "#8d8a93"
+          "protan": "#7d90bb",
+          "deutan": "#7c8db8",
+          "tritan": "#7f929a"
         }
       },
       "dark": {
@@ -179,17 +179,17 @@
       "token": "--ds-chart-5",
       "marker": "circle",
       "light": {
-        "hex": "#464892",
+        "hex": "#1e3f80",
         "rgb": [
-          70,
-          72,
-          146
+          30,
+          63,
+          128
         ],
-        "channel": "70 72 146",
+        "channel": "30 63 128",
         "simulated": {
-          "protan": "#255395",
-          "deutan": "#1e4d90",
-          "tritan": "#275866"
+          "protan": "#1a4682",
+          "deutan": "#003d7f",
+          "tritan": "#004e59"
         }
       },
       "dark": {
@@ -475,16 +475,6 @@
   "weakPairs": [
     {
       "slots": [
-        1,
-        9
-      ],
-      "names": [
-        "violet",
-        "blue"
-      ]
-    },
-    {
-      "slots": [
         2,
         10
       ],
@@ -501,26 +491,6 @@
       "names": [
         "vermilion",
         "fern"
-      ]
-    },
-    {
-      "slots": [
-        4,
-        12
-      ],
-      "names": [
-        "lavender",
-        "plum"
-      ]
-    },
-    {
-      "slots": [
-        5,
-        12
-      ],
-      "names": [
-        "indigo",
-        "plum"
       ]
     },
     {

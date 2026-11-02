@@ -10,7 +10,7 @@
 export const SLOTS = [
   {
     name: "violet",
-    light: "#7c5ee0",
+    light: "#8133d6",
     dark: "#9a7efb",
     marker: "plus",
   },
@@ -29,13 +29,13 @@ export const SLOTS = [
   },
   {
     name: "lavender",
-    light: "#9283b0",
+    light: "#8a8ab9",
     dark: "#7f6d99",
     marker: "triangle",
   },
   {
     name: "indigo",
-    light: "#464892",
+    light: "#1e3f80",
     dark: "#a7b9fe",
     marker: "circle",
   },

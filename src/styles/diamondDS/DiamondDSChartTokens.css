@@ -11,11 +11,11 @@
 /* Categorical chart palette, light mode */
 :root,
 [data-mode="light"] {
-  --ds-chart-1: #7c5ee0; /* violet */
+  --ds-chart-1: #8133d6; /* violet */
   --ds-chart-2: #ed604f; /* vermilion */
   --ds-chart-3: #3d3027; /* sepia */
-  --ds-chart-4: #9283b0; /* lavender */
-  --ds-chart-5: #464892; /* indigo */
+  --ds-chart-4: #8a8ab9; /* lavender */
+  --ds-chart-5: #1e3f80; /* indigo */
   --ds-chart-6: #316f5e; /* green */
   --ds-chart-7: #b67886; /* rose */
   --ds-chart-8: #a25500; /* amber */
@@ -24,11 +24,11 @@
   --ds-chart-11: #589704; /* fern */
   --ds-chart-12: #9c5894; /* plum */
 
-  --ds-chart-1-channel: 124 94 224;
+  --ds-chart-1-channel: 129 51 214;
   --ds-chart-2-channel: 237 96 79;
   --ds-chart-3-channel: 61 48 39;
-  --ds-chart-4-channel: 146 131 176;
-  --ds-chart-5-channel: 70 72 146;
+  --ds-chart-4-channel: 138 138 185;
+  --ds-chart-5-channel: 30 63 128;
   --ds-chart-6-channel: 49 111 94;
   --ds-chart-7-channel: 182 120 134;
   --ds-chart-8-channel: 162 85 0;
