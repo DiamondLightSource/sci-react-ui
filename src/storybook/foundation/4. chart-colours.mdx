@@ -100,25 +100,31 @@ Each slot has its own colour, name and marker shape. Each mode is tuned separate
       <div className="ds-chart-swatches">
         {palette.slots.map((s) => (
           <div className="ds-chart-swatch" key={s.slot}>
-            <svg
-              width="34"
-              height="18"
-              viewBox="0 0 34 18"
-              aria-hidden="true"
-              style={{ color: `var(--ds-chart-${s.slot})` }}
-            >
-              <line x1="0" x2="34" y1="9" y2="9" stroke="currentColor" strokeWidth="1.75" />
-              <g transform="translate(17 9)">
-                <Marker shape={s.marker} />
-              </g>
-            </svg>
-            <span className="ds-chart-swatch-text">
-              <span>
-                {s.slot} {s.name}
-                {s.slot > core ? " (additional)" : ""}
+            <div
+              className="ds-chart-swatch-box"
+              style={{ background: `var(--ds-chart-${s.slot})` }}
+            />
+            <div className="ds-chart-swatch-row">
+              <svg
+                width="34"
+                height="18"
+                viewBox="0 0 34 18"
+                aria-hidden="true"
+                style={{ color: `var(--ds-chart-${s.slot})` }}
+              >
+                <line x1="0" x2="34" y1="9" y2="9" stroke="currentColor" strokeWidth="1.75" />
+                <g transform="translate(17 9)">
+                  <Marker shape={s.marker} />
+                </g>
+              </svg>
+              <span className="ds-chart-swatch-text">
+                <span>
+                  {s.slot} {s.name}
+                  {s.slot > core ? " (additional)" : ""}
+                </span>
+                <code>{s[mode].hex}</code>
               </span>
-              <code>--ds-chart-{s.slot}</code>
-            </span>
+            </div>
           </div>
         ))}
       </div>
