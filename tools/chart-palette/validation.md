@@ -28,11 +28,11 @@ Contrast is WCAG, shown as chart (the lower of surface and background) / raised 
 
 | Slot | Name | Light | Dark | Light contrast | Dark contrast | L* light / dark | Min opacity light / dark |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | violet | `#7c5ee0` | `#9a7efb` | 4.29 / 4.05 / 3.81 | 5.69 / 4.78 / 4.17 | 49.1 / 60.6 | 0.79 / 0.63 |
+| 1 | violet | `#8133d6` | `#9a7efb` | 5.76 / 5.44 / 5.12 | 5.69 / 4.78 / 4.17 | 41 / 60.6 | 0.65 / 0.63 |
 | 2 | vermilion | `#ed604f` | `#dc5453` | 3.05 / 2.88 / 2.71 | 4.59 / 3.85 / 3.35 | 58.9 / 54.2 | 0.99 / 0.74 |
 | 3 | sepia | `#3d3027` | `#fff2ee` | 11.8 / 11.13 / 10.47 | 16.18 / 13.6 / 11.84 | 21 / 96.4 | 0.53 / 0.35 |
-| 4 | lavender | `#9283b0` | `#7f6d99` | 3.19 / 3.01 / 2.83 | 3.84 / 3.22 / 2.81 | 57.5 / 49.2 | 0.96 / 0.82 |
-| 5 | indigo | `#464892` | `#a7b9fe` | 7.48 / 7.06 / 6.64 | 9.29 / 7.8 / 6.8 | 34 / 76.1 | 0.62 / 0.47 |
+| 4 | lavender | `#8a8ab9` | `#7f6d99` | 3.03 / 2.86 / 2.69 | 3.84 / 3.22 / 2.81 | 59.1 / 49.2 | 1 / 0.82 |
+| 5 | indigo | `#1e3f80` | `#a7b9fe` | 9.37 / 8.84 / 8.32 | 9.29 / 7.8 / 6.8 | 27.8 / 76.1 | 0.57 / 0.47 |
 | 6 | green | `#316f5e` | `#5ab09a` | 5.46 / 5.15 / 4.85 | 6.84 / 5.75 / 5.01 | 42.5 / 66.2 | 0.71 / 0.56 |
 | 7 | rose | `#b67886` | `#9a5060` | 3.23 / 3.05 / 2.87 | 3.11 / 2.61 / 2.28 | 57.2 / 43.4 | 0.95 / 0.98 |
 | 8 | amber | `#a25500` | `#ffb045` | 5.08 / 4.79 / 4.5 | 9.74 / 8.18 / 7.13 | 44.5 / 77.7 | 0.71 / 0.46 |
@@ -45,16 +45,16 @@ Contrast is WCAG, shown as chart (the lower of surface and background) / raised 
 
 The chart surfaces (`--ds-surface` and `--ds-background`) hold 3:1 (WCAG 1.4.11) for line and scatter marks. Raised and dialog surfaces hold 2.25:1, so colours below 3:1 there need direct labels or a data table.
 
-- light: 2 vermilion (raised, dialog); 4 lavender (dialog); 7 rose (dialog); 9 blue (raised, dialog); 11 fern (dialog)
+- light: 2 vermilion (raised, dialog); 4 lavender (raised, dialog); 7 rose (dialog); 9 blue (raised, dialog); 11 fern (dialog)
 - dark: 4 lavender (dialog); 7 rose (raised, dialog); 9 blue (raised, dialog)
 
 ## Fills and separators
 
 - Data fills (bars, points, heatmap cells) use opacity 1, and every slot is at least 3:1 opaque. Any lower opacity needs the per-slot minimum above.
 - Area fills (0.16) composite to light 1.15-1.33:1, dark 1.12-1.54:1 on the surfaces. Decorative: the line carries the information.
-- Range bands (0.28) composite to light 1.30-1.68:1, dark 1.23-2.32:1. Decorative only when the band also has a series-coloured edge line; a band that encodes a range on its own does not meet 3:1.
+- Range bands (0.28) composite to light 1.28-1.68:1, dark 1.23-2.32:1. Decorative only when the band also has a series-coloured edge line; a band that encodes a range on its own does not meet 3:1.
 - Regions drawn on an image use a soft fill (0.14, hover 0.24, selected 0.34) with a solid series-coloured border, thicker when selected so the state is not carried by colour alone. Add a soft halo in `--ds-surface` (about 55% opacity, 1px each side) so the border reads over bright and dark pixels. The fills are decorative, and the border's contrast depends on the image behind it.
-- Labels next to a line use a tint of the series colour (0.22, hover 0.28, selected 0.34) with a series-coloured border, thicker when selected, and `--ds-on-surface` text. On `--ds-surface` and `--ds-background` the text reaches 5.0-11.2:1 across slots, modes and states (4.5:1 gated). Keep labels on those surfaces: on raised and dialog surfaces the minimum is 3.9:1.
+- Labels next to a line use a tint of the series colour (0.22, hover 0.28, selected 0.34) with a series-coloured border, thicker when selected, and `--ds-on-surface` text. On `--ds-surface` and `--ds-background` the text reaches 5.0-11.3:1 across slots, modes and states (4.5:1 gated). Keep labels on those surfaces: on raised and dialog surfaces the minimum is 3.9:1.
 - Adjacent filled segments (stacked bars and areas, pies) can fall below 3:1 against each other: separate them with a 1-2px `--ds-surface` gap.
 - Overlapping translucent fills blend into colours outside the palette. Prefer lines, or keep overlaps to two series.
 
@@ -64,14 +64,14 @@ Pairs closer than 5 L* are indistinguishable in greyscale, print and achromatops
 
 | Mode | Pairs under 5 L* | Of those, within slots 1-8 |
 | --- | --- | --- |
-| light | 19 of 66 | 1↔8, 2↔4, 2↔7, 4↔7, 6↔8 |
+| light | 19 of 66 | 1↔6, 1↔8, 2↔4, 2↔7, 4↔7, 6↔8 |
 | dark | 6 of 66 | 5↔8 |
 
 Lightness alone does not separate this palette. Where greyscale or print matters, markers are mandatory, not optional.
 
 ## Text use
 
-Series colours are for marks. Set labels, values and legend text in neutral text tokens and show the series colour as a swatch. Only these slots reach WCAG 4.5:1 and APCA |Lc| 60 on every supported surface, if you must colour text: light 3, 5, 6, 8; dark 3, 5, 8, 11.
+Series colours are for marks. Set labels, values and legend text in neutral text tokens and show the series colour as a swatch. Only these slots reach WCAG 4.5:1 and APCA |Lc| 60 on every supported surface, if you must colour text: light 1, 3, 5, 6, 8; dark 3, 5, 8, 11.
 
 ## Rendering the second channel
 
@@ -87,8 +87,8 @@ Bold is below target (normal 15, CVD 13). The CVD target applies to slots 1-8 on
 
 | Mode | Pairs | Normal | Protan | Deutan | Tritan |
 | --- | --- | --- | --- | --- | --- |
-| light | 1-8 | 15.7 (1↔5) | 13.3 (6↔7) | 14.8 (1↔5) | 13.5 (2↔7) |
-| light | 1-12 | 15.5 (4↔12) | 7.5 (2↔10) | 7.6 (2↔11) | 10.2 (7↔12) |
+| light | 1-8 | 18.2 (2↔7) | 13.0 (1↔5) | 14.3 (1↔5) | 13.5 (2↔7) |
+| light | 1-12 | 16.3 (7↔12) | 7.5 (2↔10) | 7.6 (2↔11) | 10.2 (7↔12) |
 | dark | 1-8 | 16.4 (1↔5) | 14.3 (1↔5) | 13.5 (1↔5) | 14.0 (5↔6) |
 | dark | 1-12 | 16.4 (1↔5) | 9.5 (8↔10) | 7.7 (6↔12) | 8.7 (10↔12) |
 
@@ -98,27 +98,24 @@ Each row is the worst pair among slots 1 to N. Later slots are never closer to t
 
 | First N | Light normal | Light CVD | Dark normal | Dark CVD |
 | --- | --- | --- | --- | --- |
-| 2 | 40.9 | 42.5 | 37.1 | 40.0 |
-| 3 | 40.3 | 28.2 | 37.1 | 29.5 |
-| 4 | 17.1 | 14.2 | 18.0 | 16.5 |
-| 5 | 15.7 | 14.2 | 16.4 | 13.5 |
-| 6 | 15.7 | 13.5 | 16.4 | 13.5 |
-| 7 | 15.7 | 13.3 | 16.4 | 13.5 |
-| 8 | 15.7 | 13.3 | 16.4 | 13.5 |
-| 9 | 15.7 | 7.8 | 16.4 | 10.9 |
-| 10 | 15.7 | 7.5 | 16.4 | 8.7 |
-| 11 | 15.7 | 7.5 | 16.4 | 8.7 |
-| 12 | 15.5 | 7.5 | 16.4 | 7.7 |
+| 2 | 43.2 | 33.5 | 37.1 | 40.0 |
+| 3 | 38.9 | 22.7 | 37.1 | 29.5 |
+| 4 | 25.6 | 19.3 | 18.0 | 16.5 |
+| 5 | 21.0 | 13.0 | 16.4 | 13.5 |
+| 6 | 21.0 | 13.0 | 16.4 | 13.5 |
+| 7 | 18.2 | 13.0 | 16.4 | 13.5 |
+| 8 | 18.2 | 13.0 | 16.4 | 13.5 |
+| 9 | 18.2 | 10.8 | 16.4 | 10.9 |
+| 10 | 18.0 | 7.5 | 16.4 | 8.7 |
+| 11 | 18.0 | 7.5 | 16.4 | 8.7 |
+| 12 | 16.3 | 7.5 | 16.4 | 7.7 |
 
 ## Weak pairs and their second channel
 
 Pairs below ΔE 10 under some CVD type in either mode. Every slot is a solid line with its own marker shape, so these pairs rely on the marker. See Rendering the second channel for the sizes this needs.
 
-- 1 violet / 9 blue: deutan 7.8 light, protan 11.2 (ok) dark. Told apart by marker shape.
 - 2 vermilion / 10 khaki: protan 7.5 light, deutan 8.7 dark. Told apart by marker shape.
 - 2 vermilion / 11 fern: deutan 7.6 light, deutan 22.3 (ok) dark. Told apart by marker shape.
-- 4 lavender / 12 plum: deutan 8.8 light, tritan 20.3 (ok) dark. Told apart by marker shape.
-- 5 indigo / 12 plum: protan 9.8 light, protan 15.3 (ok) dark. Told apart by marker shape.
 - 6 green / 12 plum: deutan 16.4 (ok) light, deutan 7.7 dark. Told apart by marker shape.
 - 8 amber / 10 khaki: protan 9.2 light, protan 9.5 dark. Told apart by marker shape.
 - 8 amber / 11 fern: deutan 8.3 light, deutan 11.1 (ok) dark. Told apart by marker shape.
@@ -130,11 +127,11 @@ Each slot keeps its hue family across modes, with lightness tuned per mode. Name
 
 | Slot | Name | Light | Dark | Hue gap | L* light / dark |
 | --- | --- | --- | --- | --- | --- |
-| 1 | violet | `#7c5ee0` | `#9a7efb` | 1° | 49.1 / 60.6 |
+| 1 | violet | `#8133d6` | `#9a7efb` | 9° | 41 / 60.6 |
 | 2 | vermilion | `#ed604f` | `#dc5453` | 6° | 58.9 / 54.2 |
 | 3 | sepia | `#3d3027` | `#fff2ee` | 19° | 21 / 96.4 |
-| 4 | lavender | `#9283b0` | `#7f6d99` | 3° | 57.5 / 49.2 |
-| 5 | indigo | `#464892` | `#a7b9fe` | 6° | 34 / 76.1 |
+| 4 | lavender | `#8a8ab9` | `#7f6d99` | 19° | 59.1 / 49.2 |
+| 5 | indigo | `#1e3f80` | `#a7b9fe` | 11° | 27.8 / 76.1 |
 | 6 | green | `#316f5e` | `#5ab09a` | 2° | 42.5 / 66.2 |
 | 7 | rose | `#b67886` | `#9a5060` | 3° | 57.2 / 43.4 |
 | 8 | amber | `#a25500` | `#ffb045` | 14° | 44.5 / 77.7 |
@@ -151,11 +148,11 @@ Recorded, not gated: a series resembling a status colour is accepted in charts. 
 
 | Slot | Name | Light nearest | Light ΔE | Light hue gap | Dark nearest | Dark ΔE | Dark hue gap |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | violet | `--ds-info-solid` | 11.5 | 20° | `--ds-primary` | 13.9 | 19° |
+| 1 | violet | `--ds-primary` | 15.4 | 30° | `--ds-primary` | 13.9 | 19° |
 | 2 | vermilion | `--ds-danger-accent` | 6.0 | 0° | `--ds-danger-solid` | 5.2 | 0° |
 | 3 | sepia | `--ds-brand-emphasis` | 19.0 | 360° | `--ds-warning-emphasis` | 14.3 | 360° |
-| 4 | lavender | `--ds-brand-accent` | 15.2 | 30° | `--ds-primary-solid` | 18.0 | 31° |
-| 5 | indigo | `--ds-primary-emphasis` | 6.1 | 9° | `--ds-brand` | 1.0 | 1° |
+| 4 | lavender | `--ds-brand-accent` | 10.9 | 14° | `--ds-primary-solid` | 18.0 | 31° |
+| 5 | indigo | `--ds-primary-emphasis` | 3.8 | 2° | `--ds-brand` | 1.0 | 1° |
 | 6 | green | `--ds-success-emphasis` | 14.1 | 26° | `--ds-success` | 16.1 | 23° |
 | 7 | rose | `--ds-danger-accent` | 17.7 | 19° | `--ds-danger-solid` | 15.7 | 16° |
 | 8 | amber | `--ds-warning` | 1.7 | 2° | `--ds-warning` | 6.0 | 2° |
