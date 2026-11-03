@@ -14,6 +14,11 @@ const template = readFileSync(
   "utf8",
 );
 
+const dsTokens = readFileSync(
+  new URL("../../../src/styles/diamondDS/DiamondDSTokens.css", import.meta.url),
+  "utf8",
+);
+
 const modeStats = (m) => {
   const min = (xs) => Math.min(...xs);
   const lstars = m.slots.map((s) => s.lstar);
@@ -77,5 +82,6 @@ export const renderPreview = (report) => {
   };
   return template
     .replace("/*DATA*/ null", () => JSON.stringify(data))
-    .replace("/*MARKERS*/", () => markerDefs());
+    .replace("/*MARKERS*/", () => markerDefs())
+    .replace("/*DS_TOKENS*/", () => dsTokens);
 };

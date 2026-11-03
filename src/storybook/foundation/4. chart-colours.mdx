@@ -1,7 +1,13 @@
+import { useState } from "react";
+import Slider from "@mui/material/Slider";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { DiamondDSTheme, ThemeProvider } from "../../index";
 import { Meta } from "@storybook/addon-docs/blocks";
 import palette from "../../../tools/chart-palette/chart-palette.json";
 import { markerSvg } from "../../../tools/chart-palette/markers.mjs";
-import { lineSeries, scatterSeries } from "../../../tools/chart-palette/sample.mjs";
+import { lineSeries } from "../../../tools/chart-palette/sample.mjs";
 
 <Meta title="Foundations/Chart Colours" />
 
@@ -23,30 +29,58 @@ export const Axes = ({ W, H, P }) =>
     );
   });
 
-export const ChartMarker = ({ slot, x, y }) => (
-  <g transform={`translate(${x} ${y})`} style={{ color: `var(--ds-chart-${slot.slot})` }}>
+export const seriesColor = (slot, mode, vision) => {
+  // The token, or its simulated value under a colour-vision deficiency.
+  return vision === "normal" ? `var(--ds-chart-${slot.slot})` : slot[mode].simulated[vision];
+};
+
+export const gapShade = (hex, bg) => {
+  // The colour half way to the surface, so the gap stays a shade of the line in both modes.
+  return "#" + [1, 3, 5].map((i) => Math.round((parseInt(hex.slice(i, i + 2), 16) + parseInt(bg.slice(i, i + 2), 16)) / 2).toString(16).padStart(2, "0")).join("");
+};
+
+export const LineStroke = ({ d, slot, mode, vision, width, dash, gap }) => {
+  // A broken line sits on a solid line in its gap shade, or on nothing.
+  const color = seriesColor(slot, mode, vision);
+  const hex = vision === "normal" ? slot[mode].hex : slot[mode].simulated[vision];
+  if (dash === "solid") return <path d={d} fill="none" stroke={color} strokeWidth={width} strokeLinejoin="round" />;
+  const space = Math.max(4, width * 3);
+  const pattern = dash === "dotted" ? `0.1 ${space}` : `${Math.max(6, width * 5)} ${space}`;
+  return (
+    <>
+      {gap === "auto" && <path d={d} fill="none" stroke={gapShade(hex, palette.surfaces[mode].surface)} strokeWidth={width} strokeLinejoin="round" />}
+      <path d={d} fill="none" stroke={color} strokeWidth={width} strokeLinejoin="round" strokeDasharray={pattern} strokeLinecap={dash === "dotted" ? "round" : "butt"} />
+    </>
+  );
+};
+
+export const ChartMarker = ({ slot, color, x, y }) => (
+  <g transform={`translate(${x} ${y})`} style={{ color }}>
     <Marker shape={slot.marker} />
   </g>
 );
 
-export const LineChart = ({ count }) => {
+export const LineChart = ({ count, cycle, mode, vision, width, width2, styles, gap, show }) => {
   const W = 720, H = 240, P = { l: 30, r: 10, t: 10, b: 14 }, pts = lineSeries[0].length;
   const X = (i) => P.l + ((W - P.l - P.r) * i) / (pts - 1);
   const Y = (v) => P.t + (H - P.t - P.b) * (1 - v / 100);
   return (
     <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Line chart with ${count} series`} style={{ width: "100%", minWidth: W, height: "auto", display: "block" }}>
       <Axes W={W} H={H} P={P} />
-      {palette.slots.slice(0, count).map((s, k) => {
-        const base = lineSeries[k];
+      {Array.from({ length: count }, (_, k) => {
+        const s = palette.slots[k % cycle];
+        const round = Math.floor(k / cycle);
+        const raw = lineSeries[k % lineSeries.length];
+        const base = raw.map((_, i) => raw[(i + round * 3) % pts]);
         const d = base.map((y, i) => `${i ? "L" : "M"}${X(i).toFixed(1)} ${Y(y).toFixed(1)}`).join("");
         return (
-          <g key={s.slot}>
-            <path d={d} fill="none" stroke={`var(--ds-chart-${s.slot})`} strokeWidth="1.75" strokeLinejoin="round" />
-            {[0, 1, 2, 3].map((q) => {
-              const t = (0.04 + (0.92 * (q + (k + 0.5) / count)) / 4) * (pts - 1);
+          <g key={k}>
+            {show !== "markers" && <LineStroke d={d} slot={s} mode={mode} vision={vision} width={round ? width2 : width} dash={styles[Math.min(round, styles.length - 1)]} gap={gap} />}
+            {show !== "lines" && Array.from({ length: show === "markers" ? 10 : 4 }, (_, q) => {
+              const t = (0.04 + (0.92 * (q + (k + 0.5) / count)) / (show === "markers" ? 10 : 4)) * (pts - 1);
               const i0 = Math.min(pts - 2, Math.floor(t));
               const yv = base[i0] + (base[i0 + 1] - base[i0]) * (t - i0);
-              return <ChartMarker key={q} slot={s} x={X(t)} y={Y(yv)} />;
+              return <ChartMarker key={q} slot={s} color={seriesColor(s, mode, vision)} x={X(t)} y={Y(yv)} />;
             })}
           </g>
         );
@@ -55,26 +89,60 @@ export const LineChart = ({ count }) => {
   );
 };
 
-export const ScatterChart = ({ count }) => {
-  const W = 360, H = 240, P = { l: 30, r: 10, t: 10, b: 14 };
+export const Range = ({ id, label, value, min, max, step, onChange, unit = "" }) => (
+  <div className="ds-chart-control">
+    <Typography variant="caption" id={id}>{label}: {value}{unit}</Typography>
+    <Slider size="small" aria-labelledby={id} min={min} max={max} step={step} value={value} onChange={(_, v) => onChange(v)} sx={{ width: 160 }} />
+  </div>
+);
+
+export const Choice = ({ label, value, onChange, options }) => (
+  <TextField select size="small" label={label} value={value} onChange={(e) => onChange(e.target.value)} sx={{ minWidth: 170 }}>
+    {options.map(([v, text]) => (
+      <MenuItem key={v} value={v}>{text}</MenuItem>
+    ))}
+  </TextField>
+);
+
+export const STYLE_OPTIONS = [["solid", "Solid"], ["dashed", "Dashed"], ["dotted", "Dotted"]];
+
+export const InUse = () => {
+  const [vision, setVision] = useState("normal");
+  const [show, setShow] = useState("lines");
+  const [cycle, setCycle] = useState(core);
+  const [count, setCount] = useState(core);
+  const [width, setWidth] = useState(1);
+  const [width2, setWidth2] = useState(1.5);
+  const [styles, setStyles] = useState(["solid", "dashed", "dotted"]);
+  const [gap, setGap] = useState("auto");
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Scatter chart with ${count} groups`} style={{ width: "100%", minWidth: W, height: "auto", display: "block" }}>
-      <Axes W={W} H={H} P={P} />
-      {palette.slots.slice(0, count).map((s, k) => {
-        return (
-          <g key={s.slot}>
-            {scatterSeries[k].map(([fx, fy], i) => (
-              <ChartMarker
-                key={i}
-                slot={s}
-                x={P.l + (W - P.l - P.r) * fx}
-                y={P.t + (H - P.t - P.b) * (1 - fy)}
-              />
-            ))}
-          </g>
-        );
-      })}
-    </svg>
+    <ThemeProvider theme={DiamondDSTheme}>
+      <div className="ds-chart-controls">
+        <Choice label="Vision" value={vision} onChange={setVision} options={[["normal", "Normal"], ["protan", "Protanopia"], ["deutan", "Deuteranopia"], ["tritan", "Tritanopia"]]} />
+        <Choice label="Show" value={show} onChange={setShow} options={[["lines", "Lines"], ["both", "Lines and markers"], ["markers", "Markers"]]} />
+        <Range id="chart-count" label="Series shown" value={count} min={2} max={cycle * 3} step={1} onChange={setCount} />
+        <Range id="chart-width" label="Line width" value={width} min={0.1} max={4} step={0.1} unit="px" onChange={setWidth} />
+        <Range id="chart-width2" label="Later cycles width" value={width2} min={0.1} max={4} step={0.1} unit="px" onChange={setWidth2} />
+        <div className="ds-chart-break" />
+        <Choice label="Cycle size" value={cycle} onChange={(v) => { setCycle(v); setCount(Math.min(count, v * 3)); }} options={[[core, `${core} colours`], [total, `${total} colours`]]} />
+        {[0, 1, 2].map((i) => (
+          <Choice key={i} label={`Cycle ${i + 1} line`} value={styles[i]} onChange={(v) => setStyles(styles.map((x, j) => (j === i ? v : x)))} options={STYLE_OPTIONS} />
+        ))}
+        <Choice label="Gaps in a broken line" value={gap} onChange={setGap} options={[["auto", "Shade of the colour"], ["none", "Empty"]]} />
+      </div>
+      <div className="ds-colour-page">
+        {["light", "dark"].map((mode) => (
+          <section className="ds-mode-panel" data-mode={mode} key={mode}>
+            <h3>{mode === "light" ? "Light mode" : "Dark mode"}</h3>
+            <div className="ds-chart-examples">
+              <div className="ds-chart-surface">
+                <LineChart count={count} cycle={cycle} mode={mode} vision={vision} width={width} width2={width2} styles={styles} gap={gap} show={show} />
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
+    </ThemeProvider>
   );
 };
 
@@ -197,23 +265,9 @@ The panels sit on `--ds-background` and each swatch on `--ds-surface`, the two s
 
 ## In use
 
-The first {core} series drawn with the tokens on `--ds-surface`. Each series keeps its own marker shape, and the markers sit at different positions along each line so they do not overlap.
+The first {core} series drawn with the tokens on `--ds-surface`. Each series has its own marker shape. Choose Lines and markers or Markers to draw them, at different positions along each line so they do not overlap. Use the controls to simulate a colour-vision deficiency, change what is shown, or change the line width. Raise the series count past one cycle to see the colours repeat with a different line style: cycle 2 dashed, cycle 3 dotted.
 
-<div className="ds-colour-page">
-  {["light", "dark"].map((mode) => (
-    <section className="ds-mode-panel" data-mode={mode} key={mode}>
-      <h3>{mode === "light" ? "Light mode" : "Dark mode"}</h3>
-      <div className="ds-chart-examples">
-        <div className="ds-chart-surface">
-          <LineChart count={core} />
-        </div>
-        <div className="ds-chart-surface ds-chart-half">
-          <ScatterChart count={core} />
-        </div>
-      </div>
-    </section>
-  ))}
-</div>
+<InUse />
 
 ## Colour-vision deficiency
 
@@ -255,6 +309,10 @@ How the palette looks to people with each type of colour-vision deficiency, simu
 ### Use series in order
 
 Start at `--ds-chart-1` and take the next slot for each new series. Slots 1 to {core} stay separable under colour-vision deficiency. Slots {core + 1} to {total} have weaker separation for some pairs, so use them only when you need more than {core} series. Skipping or reordering slots can put weaker pairs together.
+
+### Work in cycles for long sequences
+
+For more than {total} series, go round the slots again from `--ds-chart-1`, in cycles of {core} or {total}. Within a cycle every line stays solid. Give each new cycle a different second distinction, so a repeated colour is not mistaken for the first one: change the line thickness, or break the line (dashed, then dotted). Fill the gaps in a break with a lighter or darker shade of the same colour, not with empty space, so the line still reads as one series. The checks here cover a single cycle only. Thickness, line breaks and repeated colours are not validated, so check them on your own charts and label series directly where readers must tell the cycles apart.
 
 ### Draw charts on the surface or the background
 
