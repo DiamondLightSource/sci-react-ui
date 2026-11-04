@@ -20,6 +20,7 @@ import "@fontsource-variable/outfit";
 import "@fontsource/ibm-plex-mono/latin-400.css";
 import "@fontsource/ibm-plex-mono/latin-600.css";
 import "../styles/diamondDS/DiamondDSTokens.css";
+import "../styles/diamondDS/DiamondDSChartTokens.css";
 import "../styles/diamondDS/DiamondDSTypography.css";
 
 // Enables `theme.vars` typings for MUI CSS variable themes.

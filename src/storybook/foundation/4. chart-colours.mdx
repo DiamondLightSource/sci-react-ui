@@ -1,0 +1,421 @@
+import { useState } from "react";
+import Slider from "@mui/material/Slider";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { DiamondDSTheme, ThemeProvider } from "../../index";
+import { Meta } from "@storybook/addon-docs/blocks";
+import palette from "../../../tools/chart-palette/chart-palette.json";
+import { markerSvg } from "../../../tools/chart-palette/markers.mjs";
+import { lineSeries } from "../../../tools/chart-palette/sample.mjs";
+
+<Meta title="Foundations/Chart Colours" />
+
+export const Marker = ({ shape }) => (
+  <g dangerouslySetInnerHTML={{ __html: markerSvg(shape) }} />
+);
+
+export const core = palette.thresholds.coreSlots;
+export const total = palette.slots.length;
+
+export const Axes = ({ W, H, P }) =>
+  [0, 25, 50, 75, 100].map((v) => {
+    const y = P.t + ((H - P.t - P.b) * (100 - v)) / 100;
+    return (
+      <g key={v}>
+        <line x1={P.l} x2={W - P.r} y1={y} y2={y} stroke="var(--ds-border-subtle)" />
+        <text x={P.l - 6} y={y + 3} textAnchor="end" fontSize="10" fill="var(--ds-on-surface-variant)">{v}</text>
+      </g>
+    );
+  });
+
+export const seriesColor = (slot, mode, vision) => {
+  // The token, or its simulated value under a colour-vision deficiency.
+  return vision === "normal" ? `var(--ds-chart-${slot.slot})` : slot[mode].simulated[vision];
+};
+
+export const gapShade = (hex, bg) => {
+  // The colour half way to the surface, so the gap stays a shade of the line in both modes.
+  return "#" + [1, 3, 5].map((i) => Math.round((parseInt(hex.slice(i, i + 2), 16) + parseInt(bg.slice(i, i + 2), 16)) / 2).toString(16).padStart(2, "0")).join("");
+};
+
+export const LineStroke = ({ d, slot, mode, vision, width, dash, gap }) => {
+  // A broken line sits on a solid line in its gap shade, or on nothing.
+  const color = seriesColor(slot, mode, vision);
+  const hex = vision === "normal" ? slot[mode].hex : slot[mode].simulated[vision];
+  if (dash === "solid") return <path d={d} fill="none" stroke={color} strokeWidth={width} strokeLinejoin="round" />;
+  const space = Math.max(4, width * 3);
+  const pattern = dash === "dotted" ? `0.1 ${space}` : `${Math.max(6, width * 5)} ${space}`;
+  return (
+    <>
+      {gap === "auto" && <path d={d} fill="none" stroke={gapShade(hex, palette.surfaces[mode].surface)} strokeWidth={width} strokeLinejoin="round" />}
+      <path d={d} fill="none" stroke={color} strokeWidth={width} strokeLinejoin="round" strokeDasharray={pattern} strokeLinecap={dash === "dotted" ? "round" : "butt"} />
+    </>
+  );
+};
+
+export const ChartMarker = ({ slot, color, x, y }) => (
+  <g transform={`translate(${x} ${y})`} style={{ color }}>
+    <Marker shape={slot.marker} />
+  </g>
+);
+
+export const LineChart = ({ count, cycle, mode, vision, width, width2, styles, gap, show }) => {
+  const W = 720, H = 240, P = { l: 30, r: 10, t: 10, b: 14 }, pts = lineSeries[0].length;
+  const X = (i) => P.l + ((W - P.l - P.r) * i) / (pts - 1);
+  const Y = (v) => P.t + (H - P.t - P.b) * (1 - v / 100);
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Line chart with ${count} series`} style={{ width: "100%", minWidth: W, height: "auto", display: "block" }}>
+      <Axes W={W} H={H} P={P} />
+      {Array.from({ length: count }, (_, k) => {
+        const s = palette.slots[k % cycle];
+        const round = Math.floor(k / cycle);
+        const raw = lineSeries[k % lineSeries.length];
+        const base = raw.map((_, i) => raw[(i + round * 3) % pts]);
+        const d = base.map((y, i) => `${i ? "L" : "M"}${X(i).toFixed(1)} ${Y(y).toFixed(1)}`).join("");
+        return (
+          <g key={k}>
+            {show !== "markers" && <LineStroke d={d} slot={s} mode={mode} vision={vision} width={round ? width2 : width} dash={styles[Math.min(round, styles.length - 1)]} gap={gap} />}
+            {show !== "lines" && Array.from({ length: show === "markers" ? 10 : 4 }, (_, q) => {
+              const t = (0.04 + (0.92 * (q + (k + 0.5) / count)) / (show === "markers" ? 10 : 4)) * (pts - 1);
+              const i0 = Math.min(pts - 2, Math.floor(t));
+              const yv = base[i0] + (base[i0 + 1] - base[i0]) * (t - i0);
+              return <ChartMarker key={q} slot={s} color={seriesColor(s, mode, vision)} x={X(t)} y={Y(yv)} />;
+            })}
+          </g>
+        );
+      })}
+    </svg>
+  );
+};
+
+export const Range = ({ id, label, value, min, max, step, onChange, unit = "" }) => (
+  <div className="ds-chart-control">
+    <Typography variant="caption" id={id}>{label}: {value}{unit}</Typography>
+    <Slider size="small" aria-labelledby={id} min={min} max={max} step={step} value={value} onChange={(_, v) => onChange(v)} sx={{ width: 160 }} />
+  </div>
+);
+
+export const Choice = ({ label, value, onChange, options }) => (
+  <TextField select size="small" label={label} value={value} onChange={(e) => onChange(e.target.value)} sx={{ minWidth: 170 }}>
+    {options.map(([v, text]) => (
+      <MenuItem key={v} value={v}>{text}</MenuItem>
+    ))}
+  </TextField>
+);
+
+export const STYLE_OPTIONS = [["solid", "Solid"], ["dashed", "Dashed"], ["dotted", "Dotted"]];
+
+export const InUse = () => {
+  const [vision, setVision] = useState("normal");
+  const [show, setShow] = useState("lines");
+  const [cycle, setCycle] = useState(core);
+  const [count, setCount] = useState(core);
+  const [width, setWidth] = useState(1);
+  const [width2, setWidth2] = useState(1.5);
+  const [styles, setStyles] = useState(["solid", "dashed", "dotted"]);
+  const [gap, setGap] = useState("auto");
+  return (
+    <ThemeProvider theme={DiamondDSTheme}>
+      <div className="ds-chart-controls">
+        <Choice label="Vision" value={vision} onChange={setVision} options={[["normal", "Normal"], ["protan", "Protanopia"], ["deutan", "Deuteranopia"], ["tritan", "Tritanopia"]]} />
+        <Choice label="Show" value={show} onChange={setShow} options={[["lines", "Lines"], ["both", "Lines and markers"], ["markers", "Markers"]]} />
+        <Range id="chart-count" label="Series shown" value={count} min={2} max={cycle * 3} step={1} onChange={setCount} />
+        <Range id="chart-width" label="Line width" value={width} min={0.1} max={4} step={0.1} unit="px" onChange={setWidth} />
+        <Range id="chart-width2" label="Later cycles width" value={width2} min={0.1} max={4} step={0.1} unit="px" onChange={setWidth2} />
+        <div className="ds-chart-break" />
+        <Choice label="Cycle size" value={cycle} onChange={(v) => { setCycle(v); setCount(Math.min(count, v * 3)); }} options={[[core, `${core} colours`], [total, `${total} colours`]]} />
+        {[0, 1, 2].map((i) => (
+          <Choice key={i} label={`Cycle ${i + 1} line`} value={styles[i]} onChange={(v) => setStyles(styles.map((x, j) => (j === i ? v : x)))} options={STYLE_OPTIONS} />
+        ))}
+        <Choice label="Gaps in a broken line" value={gap} onChange={setGap} options={[["auto", "Shade of the colour"], ["none", "Empty"]]} />
+      </div>
+      <div className="ds-colour-page">
+        {["light", "dark"].map((mode) => (
+          <section className="ds-mode-panel" data-mode={mode} key={mode}>
+            <h3>{mode === "light" ? "Light mode" : "Dark mode"}</h3>
+            <div className="ds-chart-examples">
+              <div className="ds-chart-surface">
+                <LineChart count={count} cycle={cycle} mode={mode} vision={vision} width={width} width2={width2} styles={styles} gap={gap} show={show} />
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
+    </ThemeProvider>
+  );
+};
+
+<div className="ds-docs">
+
+# Chart colours
+
+<span class="lead">
+  A categorical palette for the series in line and scatter charts. It has 12
+  colours per mode, ordered so the first few are the easiest to tell apart.
+</span>
+
+Use these colours to tell data series apart. They are separate from the UI colours: do not use intent colours as a chart palette, and do not use chart colours to signal status. See **[Colour](/docs/foundations-colour--docs)** for UI colour and **[Theme Colours](/docs/foundations-theme-colours--docs)** for the semantic roles.
+
+## Colours
+
+Each slot has its own colour, name and marker shape. Each mode is tuned separately, so a slot does not look identical in both modes, and the slot names describe the family rather than an exact shade. Slots 1 to {core} are the core. Slots {core + 1} to {total} are additional.
+
+<div className="ds-colour-page">
+  {["light", "dark"].map((mode) => (
+    <section className="ds-mode-panel" data-mode={mode} key={mode}>
+      <h3>{mode === "light" ? "Light mode" : "Dark mode"}</h3>
+      <div className="ds-chart-swatches">
+        {palette.slots.map((s) => (
+          <div className="ds-chart-swatch" key={s.slot}>
+            <div
+              className="ds-chart-swatch-box"
+              style={{ background: `var(--ds-chart-${s.slot})` }}
+            />
+            <div className="ds-chart-swatch-row">
+              <svg
+                width="34"
+                height="18"
+                viewBox="0 0 34 18"
+                aria-hidden="true"
+                style={{ color: `var(--ds-chart-${s.slot})` }}
+              >
+                <line x1="0" x2="34" y1="9" y2="9" stroke="currentColor" strokeWidth="1.75" />
+                <g transform="translate(17 9)">
+                  <Marker shape={s.marker} />
+                </g>
+              </svg>
+              <span className="ds-chart-swatch-text">
+                <span>
+                  {s.slot} {s.name}
+                  {s.slot > core ? " (additional)" : ""}
+                </span>
+                <code>{s[mode].hex}</code>
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="ds-chart-demos">
+        <div>
+          <div className="ds-chart-image">
+            {[
+              ["region", 2],
+              ["region-hover", 2],
+              ["region-selected", 3],
+            ].map(([token, width], i) => (
+              <div
+                className="ds-chart-roi"
+                key={token}
+                style={{
+                  left: `${5 + i * 31.5}%`,
+                  borderWidth: width,
+                  borderColor: "var(--ds-chart-1)",
+                  background: `rgb(var(--ds-chart-1-channel) / var(--ds-chart-fill-${token}))`,
+                }}
+              />
+            ))}
+          </div>
+          <div className="ds-chart-roi-caps">
+            <span>Rest</span>
+            <span>Hover</span>
+            <span>Selected</span>
+          </div>
+        </div>
+        <div className="ds-chart-labels">
+          {palette.slots.slice(0, core).map((s) => (
+            <span
+              className="ds-chart-label"
+              key={s.slot}
+              style={{
+                borderColor: `var(--ds-chart-${s.slot})`,
+                background: `rgb(var(--ds-chart-${s.slot}-channel) / var(--ds-chart-fill-label))`,
+              }}
+            >
+              {s.name}
+            </span>
+          ))}
+          <div className="ds-chart-label-states">
+            {[
+              ["Rest", "label", 1],
+              ["Hover", "label-hover", 1],
+              ["Selected", "label-selected", 2],
+            ].map(([label, token, width]) => (
+              <span
+                className="ds-chart-label"
+                key={token}
+                style={{
+                  borderWidth: width,
+                  fontWeight: width > 1 ? 600 : 400,
+                  borderColor: "var(--ds-chart-1)",
+                  background: `rgb(var(--ds-chart-1-channel) / var(--ds-chart-fill-${token}))`,
+                }}
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+</div>
+
+The panels sit on `--ds-background` and each swatch on `--ds-surface`, the two surfaces charts are checked against.
+
+## In use
+
+The first {core} series drawn with the tokens on `--ds-surface`. Each series has its own marker shape. Choose Lines and markers or Markers to draw them, at different positions along each line so they do not overlap. Use the controls to simulate a colour-vision deficiency, change what is shown, or change the line width. Raise the series count past one cycle to see the colours repeat with a different line style: cycle 2 dashed, cycle 3 dotted.
+
+<InUse />
+
+## Colour-vision deficiency
+
+How the palette looks to people with each type of colour-vision deficiency, simulated at full severity. Slots 1 to {core} stay separable. Some of the additional slots can merge for certain types, which is why every slot also has its own marker.
+
+<div className="ds-colour-page">
+  {["light", "dark"].map((mode) => (
+    <section className="ds-mode-panel" data-mode={mode} key={mode}>
+      <h3>{mode === "light" ? "Light mode" : "Dark mode"}</h3>
+      {[
+        ["normal", "Normal vision"],
+        ["protan", "Protanopia"],
+        ["deutan", "Deuteranopia"],
+        ["tritan", "Tritanopia"],
+      ].map(([v, label]) => (
+        <div className="ds-chart-cvd-row" key={v}>
+          <span className="ds-chart-cvd-label">{label}</span>
+          <div className="ds-chart-cvd-strip" role="group" aria-label={`${label}, ${mode} mode`}>
+            {palette.slots.map((s) => (
+              <span
+                key={s.slot}
+                role="img"
+                aria-label={`${s.slot} ${s.name}, ${v === "normal" ? s[mode].hex : s[mode].simulated[v]}`}
+                title={`${s.slot} ${s.name}`}
+                style={{ background: v === "normal" ? s[mode].hex : s[mode].simulated[v] }}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  ))}
+</div>
+
+## Using the palette
+
+<div className="ds-note">
+
+### Use series in order
+
+Start at `--ds-chart-1` and take the next slot for each new series. Slots 1 to {core} stay separable under colour-vision deficiency. Slots {core + 1} to {total} have weaker separation for some pairs, so use them only when you need more than {core} series. Skipping or reordering slots can put weaker pairs together.
+
+### Work in cycles for long sequences
+
+For more than {total} series, go round the slots again from `--ds-chart-1`, in cycles of {core} or {total}. Within a cycle every line stays solid. Give each new cycle a different second distinction, so a repeated colour is not mistaken for the first one: change the line thickness, or break the line (dashed, then dotted). Fill the gaps in a break with a lighter or darker shade of the same colour, not with empty space, so the line still reads as one series. The checks here cover a single cycle only. Thickness, line breaks and repeated colours are not validated, so check them on your own charts and label series directly where readers must tell the cycles apart.
+
+### Draw charts on the surface or the background
+
+The colours are checked for {palette.thresholds.contrast}:1 contrast on `--ds-surface` and `--ds-background`. On raised surfaces, tooltips and dialogs they are only checked to {palette.thresholds.contrastFloor}:1, so label series directly or add a data table there.
+
+### Pair every colour with a marker
+
+Colour alone is not enough. Every slot has its own marker shape. Draw lines at least {palette.secondChannel.minLineWidth}px wide and markers at least {palette.secondChannel.minMarkerSize}px across, with a {palette.secondChannel.markerHalo}px `--ds-surface` halo on filled markers. Markers matter most in light mode, where several colours have similar lightness, and for greyscale, print and forced colours.
+
+### Keep series colours for marks
+
+Do not colour labels, values or legend text with a series colour. Set text with the text tokens and show the series colour as a swatch.
+
+### Regions on images
+
+Draw a region with a solid series-coloured border over a soft fill: `rgb(var(--ds-chart-1-channel) / var(--ds-chart-fill-region))`. Hover raises the fill to `--ds-chart-fill-region-hover`. Selected raises it again to `--ds-chart-fill-region-selected` and thickens the border from 2px to 3px, so selection does not depend on colour alone. Add a soft halo outside the border, `--ds-surface` at about 55% opacity and 1px wide, so the border reads over bright and dark pixels. Keyboard focus uses the shared focus ring, not a chart colour. The fills are decorative, and the border's contrast depends on the image behind it, so check it on your own images.
+
+### Labels next to a line
+
+Use a tint of the series colour for the label background, `rgb(var(--ds-chart-1-channel) / var(--ds-chart-fill-label))`, with a 1px border in the series colour and `--ds-on-surface` text. Hover uses `--ds-chart-fill-label-hover`. Selected uses `--ds-chart-fill-label-selected`, a 2px border and bolder text. Keep labels on `--ds-surface` or `--ds-background`, where the text keeps at least {palette.thresholds.textContrast}:1 on every tint in every state. Never use the series colour for the text itself.
+
+### Never use them for status
+
+{palette.nearStatus.length} of the {palette.slots.length} series colours ({[...palette.nearStatus].sort((a, b) => a.slot - b.slot).map((n) => `${n.slot} ${n.name}`).join(", ")}) sit close to a status or brand colour, {palette.nearStatus[0].name} most of all (<code>{palette.nearStatus[0].token}</code>). Use the intent colours for meaning, and the chart colours only to tell series apart.
+
+</div>
+
+## Tokens
+
+The tokens follow `data-mode`, so use them directly and never pick a value per mode.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>Token</th>
+      <th>Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--ds-chart-1</code> to <code>--ds-chart-12</code></td>
+      <td>Series colour for lines, markers, bars and points.</td>
+    </tr>
+    <tr>
+      <td><code>--ds-chart-1-channel</code> to <code>--ds-chart-12-channel</code></td>
+      <td>The same colour as space-separated RGB, for translucent fills.</td>
+    </tr>
+    <tr>
+      <td><code>--ds-chart-fill-area</code></td>
+      <td>
+        Opacity for the fill under a line ({palette.fillOpacity.area}).
+        Decorative, because the line carries the data.
+      </td>
+    </tr>
+    <tr>
+      <td><code>--ds-chart-fill-band</code></td>
+      <td>
+        Opacity for a range band around a line ({palette.fillOpacity.band}).
+        Decorative only when the band also has a series-coloured edge.
+      </td>
+    </tr>
+    <tr>
+      <td><code>--ds-chart-fill-region</code>, <code>-hover</code>, <code>-selected</code></td>
+      <td>
+        Opacity for a region drawn on an image at rest, on hover and when selected
+        ({palette.fillOpacity.region}, {palette.fillOpacity["region-hover"]}, {palette.fillOpacity["region-selected"]}),
+        with a solid series-coloured border.
+      </td>
+    </tr>
+    <tr>
+      <td><code>--ds-chart-fill-label</code>, <code>-hover</code>, <code>-selected</code></td>
+      <td>
+        Opacity for the background tint of a label next to a line at rest, on hover and when selected
+        ({palette.fillOpacity.label}, {palette.fillOpacity["label-hover"]}, {palette.fillOpacity["label-selected"]}),
+        with a series-coloured border and neutral text.
+      </td>
+    </tr>
+    <tr>
+      <td><code>--ds-chart-fill-data</code></td>
+      <td>
+        Opacity for bars, scatter points and heatmap cells ({palette.fillOpacity.data}).
+        Keep it opaque, because the fill is the data.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+```css
+.series-1 {
+  stroke: var(--ds-chart-1);
+  fill: rgb(var(--ds-chart-1-channel) / var(--ds-chart-fill-area));
+}
+```
+
+## Accessibility
+
+- Series colours are graphical objects, so they need {palette.thresholds.contrast}:1 contrast against the surface they sit on (WCAG 1.4.11). They are checked on `--ds-surface` and `--ds-background`.
+- Colour must not be the only way to tell series apart (WCAG 1.4.1). Add a legend, markers and direct labels or a data table.
+- Overlapping translucent fills blend into colours outside the palette. Prefer lines, or keep overlaps to two series. Separate adjacent filled segments, such as stacked bars, with a 1px to 2px `--ds-surface` gap.
+- In forced-colours mode all series can collapse to one system colour. Keep `forced-color-adjust: none` on series marks, or rely on markers.
+
+## Maintaining the palette
+
+The tokens are generated from `tools/chart-palette/palette.mjs`. Do not edit `src/styles/diamondDS/DiamondDSChartTokens.css` by hand. After changing the palette, run `node tools/chart-palette/build.mjs`, which rewrites the tokens and the generated report and preview in `tools/chart-palette/`. The report lists the current contrast and separation figures, and a test fails if the outputs are stale or a check fails.
+
+</div>

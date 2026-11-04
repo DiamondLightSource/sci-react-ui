@@ -17,6 +17,7 @@
 - New _DataCard_ and _DataGroup_ components.
 - Typography docs now cover font weight, line height and letter spacing scales, with improved Storybook examples.
 - `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+- Categorical chart palette: 12 series colours per mode (8 core, 4 additional) as `--ds-chart-*` tokens (with `-channel` variants and fill opacities, including rest, hover and selected states for regions on images and labels), a JSON export and a validation report, documented on a new Chart Colours page in Storybook. The tokens are in `src/styles/diamondDS/DiamondDSChartTokens.css`; the generator and checks are in `tools/chart-palette/`. They are loaded with the DiamondDS theme.
 
 ### Changed
 
