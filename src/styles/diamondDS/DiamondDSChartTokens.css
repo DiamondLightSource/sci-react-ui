@@ -13,7 +13,7 @@
 [data-mode="light"] {
   --ds-chart-1: #8133d6; /* violet */
   --ds-chart-2: #ed604f; /* vermilion */
-  --ds-chart-3: #3d3027; /* sepia */
+  --ds-chart-3: #610c12; /* wine */
   --ds-chart-4: #8a8ab9; /* lavender */
   --ds-chart-5: #1e3f80; /* indigo */
   --ds-chart-6: #316f5e; /* green */
@@ -26,7 +26,7 @@
 
   --ds-chart-1-channel: 129 51 214;
   --ds-chart-2-channel: 237 96 79;
-  --ds-chart-3-channel: 61 48 39;
+  --ds-chart-3-channel: 97 12 18;
   --ds-chart-4-channel: 138 138 185;
   --ds-chart-5-channel: 30 63 128;
   --ds-chart-6-channel: 49 111 94;
@@ -53,7 +53,7 @@
 [data-mode="dark"] {
   --ds-chart-1: #9a7efb; /* violet */
   --ds-chart-2: #dc5453; /* vermilion */
-  --ds-chart-3: #fff2ee; /* sepia */
+  --ds-chart-3: #ffebeb; /* wine */
   --ds-chart-4: #7f6d99; /* lavender */
   --ds-chart-5: #a7b9fe; /* indigo */
   --ds-chart-6: #5ab09a; /* green */
@@ -66,7 +66,7 @@
 
   --ds-chart-1-channel: 154 126 251;
   --ds-chart-2-channel: 220 84 83;
-  --ds-chart-3-channel: 255 242 238;
+  --ds-chart-3-channel: 255 235 235;
   --ds-chart-4-channel: 127 109 153;
   --ds-chart-5-channel: 167 185 254;
   --ds-chart-6-channel: 90 176 154;

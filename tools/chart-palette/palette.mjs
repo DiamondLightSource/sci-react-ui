@@ -3,7 +3,7 @@
 
 // Each slot has a light and a dark value in the same hue family, each tuned to pass the checks
 // in calc/validate.mjs on its own surfaces.
-// Slot 3 (sepia) is the neutral: a tan-tinted near-black in light and near-white in dark.
+// Slot 3 (wine) is the near-black in light and near-white in dark; it still has a hue.
 // Slots 1-8 are the core: colour alone separates them under colour-vision deficiency.
 // Slots 9-12 are additional; pairs below the CVD floor are listed in validation.md.
 // `marker` is the second channel; every line is solid.
@@ -21,10 +21,9 @@ export const SLOTS = [
     marker: "square",
   },
   {
-    name: "sepia",
-    light: "#3d3027",
-    dark: "#fff2ee",
-    neutral: true,
+    name: "wine",
+    light: "#610c12",
+    dark: "#ffebeb",
     marker: "diamond",
   },
   {
@@ -120,9 +119,9 @@ export const THRESHOLDS = {
   coreSlots: 8,
   // Max OKLCH hue drift for a chromatic slot between modes.
   hueDrift: 20,
-  // Chroma below which a slot counts as neutral.
+  // Chroma below which a colour counts as grey when comparing hues.
   neutralChroma: 0.04,
-  // A chromatic slot needs at least this much chroma in both modes for its hue to mean anything.
+  // A slot needs at least this much chroma in both modes for its hue to mean anything.
   minChroma: 0.02,
   // Recorded, not gated: a slot within this ΔE of a status or brand colour is called out.
   reservedClose: 7,

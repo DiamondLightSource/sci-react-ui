@@ -186,7 +186,7 @@ export const validate = () => {
     hueGap(modes.light.slots[i].oklch.h, modes.dark.slots[i].oklch.h),
   );
 
-  const chromatic = SLOTS.map((_, i) => i).filter((i) => !SLOTS[i].neutral);
+  const chromatic = SLOTS.map((_, i) => i);
   const isOwn = (i, from, to) => {
     const own = identityDistance(SLOTS[i][from], SLOTS[i][to]);
     return chromatic.every(
@@ -272,17 +272,12 @@ export const validate = () => {
       pass: MODES.every((m) => worstCvd("worstAll", m) >= T.cvdAll),
     },
     {
-      id: "neutral-slot",
+      id: "chroma-floor",
       gate: true,
-      label: `Exactly one slot is the neutral (chroma < ${T.neutralChroma}); every other slot has chroma ≥ ${T.minChroma} in both modes`,
-      pass:
-        SLOTS.filter((s) => s.neutral).length === 1 &&
-        SLOTS.every((s, i) => {
-          const chroma = MODES.map((m) => modes[m].slots[i].oklch.C);
-          return s.neutral
-            ? chroma.every((c) => c < T.neutralChroma)
-            : chroma.every((c) => c >= T.minChroma);
-        }),
+      label: `Every slot has chroma ≥ ${T.minChroma} in both modes`,
+      pass: SLOTS.every((_, i) =>
+        MODES.every((m) => modes[m].slots[i].oklch.C >= T.minChroma),
+      ),
     },
     {
       id: "hue-identity",

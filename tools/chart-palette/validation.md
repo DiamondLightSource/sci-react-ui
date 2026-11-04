@@ -16,7 +16,7 @@ CVD is simulated with Machado, Oliveira and Fernandes (2009) at severity 1.0. Co
 | pass | ΔE2000 ≥ 15 between any two of 12 slots, normal vision |
 | pass | ΔE2000 ≥ 13 between slots 1-8 under protan, deutan and tritan |
 | pass | ΔE2000 ≥ 7 between any two of 12 slots under protan, deutan and tritan (the marker carries pairs below 10) |
-| pass | Exactly one slot is the neutral (chroma < 0.04); every other slot has chroma ≥ 0.02 in both modes |
+| pass | Every slot has chroma ≥ 0.02 in both modes |
 | pass | Each chromatic slot keeps its hue within 20° across modes |
 | note | Each slot's dark value is nearest to its own light value (informational, not gated; see Light and dark identity) |
 | pass | Every slot has its own marker shape; all lines are solid |
@@ -30,7 +30,7 @@ Contrast is WCAG, shown as chart (the lower of surface and background) / raised 
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | violet | `#8133d6` | `#9a7efb` | 5.76 / 5.44 / 5.12 | 5.69 / 4.78 / 4.17 | 41 / 60.6 | 0.65 / 0.63 |
 | 2 | vermilion | `#ed604f` | `#dc5453` | 3.05 / 2.88 / 2.71 | 4.59 / 3.85 / 3.35 | 58.9 / 54.2 | 0.99 / 0.74 |
-| 3 | sepia | `#3d3027` | `#fff2ee` | 11.8 / 11.13 / 10.47 | 16.18 / 13.6 / 11.84 | 21 / 96.4 | 0.53 / 0.35 |
+| 3 | wine | `#610c12` | `#ffebeb` | 12.4 / 11.7 / 11.01 | 15.46 / 12.99 / 11.31 | 19.4 / 94.6 | 0.49 / 0.36 |
 | 4 | lavender | `#8a8ab9` | `#7f6d99` | 3.03 / 2.86 / 2.69 | 3.84 / 3.22 / 2.81 | 59.1 / 49.2 | 1 / 0.82 |
 | 5 | indigo | `#1e3f80` | `#a7b9fe` | 9.37 / 8.84 / 8.32 | 9.29 / 7.8 / 6.8 | 27.8 / 76.1 | 0.57 / 0.47 |
 | 6 | green | `#316f5e` | `#5ab09a` | 5.46 / 5.15 / 4.85 | 6.84 / 5.75 / 5.01 | 42.5 / 66.2 | 0.71 / 0.56 |
@@ -51,10 +51,10 @@ The chart surfaces (`--ds-surface` and `--ds-background`) hold 3:1 (WCAG 1.4.11)
 ## Fills and separators
 
 - Data fills (bars, points, heatmap cells) use opacity 1, and every slot is at least 3:1 opaque. Any lower opacity needs the per-slot minimum above.
-- Area fills (0.16) composite to light 1.15-1.33:1, dark 1.12-1.54:1 on the surfaces. Decorative: the line carries the information.
-- Range bands (0.28) composite to light 1.28-1.68:1, dark 1.23-2.32:1. Decorative only when the band also has a series-coloured edge line; a band that encodes a range on its own does not meet 3:1.
+- Area fills (0.16) composite to light 1.15-1.36:1, dark 1.12-1.52:1 on the surfaces. Decorative: the line carries the information.
+- Range bands (0.28) composite to light 1.28-1.77:1, dark 1.23-2.27:1. Decorative only when the band also has a series-coloured edge line; a band that encodes a range on its own does not meet 3:1.
 - Regions drawn on an image use a soft fill (0.14, hover 0.24, selected 0.34) with a solid series-coloured border, thicker when selected so the state is not carried by colour alone. Add a soft halo in `--ds-surface` (about 55% opacity, 1px each side) so the border reads over bright and dark pixels. The fills are decorative, and the border's contrast depends on the image behind it.
-- Labels next to a line use a tint of the series colour (0.22, hover 0.28, selected 0.34) with a series-coloured border, thicker when selected, and `--ds-on-surface` text. On `--ds-surface` and `--ds-background` the text reaches 5.0-11.3:1 across slots, modes and states (4.5:1 gated). Keep labels on those surfaces: on raised and dialog surfaces the minimum is 3.9:1.
+- Labels next to a line use a tint of the series colour (0.22, hover 0.28, selected 0.34) with a series-coloured border, thicker when selected, and `--ds-on-surface` text. On `--ds-surface` and `--ds-background` the text reaches 5.1-11.3:1 across slots, modes and states (4.5:1 gated). Keep labels on those surfaces: on raised and dialog surfaces the minimum is 4.0:1.
 - Adjacent filled segments (stacked bars and areas, pies) can fall below 3:1 against each other: separate them with a 1-2px `--ds-surface` gap.
 - Overlapping translucent fills blend into colours outside the palette. Prefer lines, or keep overlaps to two series.
 
@@ -99,7 +99,7 @@ Each row is the worst pair among slots 1 to N. Later slots are never closer to t
 | First N | Light normal | Light CVD | Dark normal | Dark CVD |
 | --- | --- | --- | --- | --- |
 | 2 | 43.2 | 33.5 | 37.1 | 40.0 |
-| 3 | 38.9 | 22.7 | 37.1 | 29.5 |
+| 3 | 35.1 | 30.9 | 36.6 | 30.0 |
 | 4 | 25.6 | 19.3 | 18.0 | 16.5 |
 | 5 | 21.0 | 13.0 | 16.4 | 13.5 |
 | 6 | 21.0 | 13.0 | 16.4 | 13.5 |
@@ -129,7 +129,7 @@ Each slot keeps its hue family across modes, with lightness tuned per mode. Name
 | --- | --- | --- | --- | --- | --- |
 | 1 | violet | `#8133d6` | `#9a7efb` | 9° | 41 / 60.6 |
 | 2 | vermilion | `#ed604f` | `#dc5453` | 6° | 58.9 / 54.2 |
-| 3 | sepia | `#3d3027` | `#fff2ee` | 19° | 21 / 96.4 |
+| 3 | wine | `#610c12` | `#ffebeb` | 6° | 19.4 / 94.6 |
 | 4 | lavender | `#8a8ab9` | `#7f6d99` | 19° | 59.1 / 49.2 |
 | 5 | indigo | `#1e3f80` | `#a7b9fe` | 11° | 27.8 / 76.1 |
 | 6 | green | `#316f5e` | `#5ab09a` | 2° | 42.5 / 66.2 |
@@ -140,7 +140,7 @@ Each slot keeps its hue family across modes, with lightness tuned per mode. Name
 | 11 | fern | `#589704` | `#bded9a` | 0° | 56.3 / 88.8 |
 | 12 | plum | `#9c5894` | `#beabba` | 2° | 47.2 / 72 |
 
-A slot's dark value is nearer to its own light value than to any other slot's, except for slots 5, 8, 12. Recorded, not gated.
+A slot's dark value is nearer to its own light value than to any other slot's, except for slots 3, 5, 8, 12. Recorded, not gated.
 
 ## Distance from status and primary/brand colours
 
@@ -150,7 +150,7 @@ Recorded, not gated: a series resembling a status colour is accepted in charts. 
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | violet | `--ds-primary` | 15.4 | 30° | `--ds-primary` | 13.9 | 19° |
 | 2 | vermilion | `--ds-danger-accent` | 6.0 | 0° | `--ds-danger-solid` | 5.2 | 0° |
-| 3 | sepia | `--ds-brand-emphasis` | 19.0 | 360° | `--ds-warning-emphasis` | 14.3 | 360° |
+| 3 | wine | `--ds-danger-emphasis` | 10.9 | 0° | `--ds-danger-emphasis` | 12.0 | 360° |
 | 4 | lavender | `--ds-brand-accent` | 10.9 | 14° | `--ds-primary-solid` | 18.0 | 31° |
 | 5 | indigo | `--ds-primary-emphasis` | 3.8 | 2° | `--ds-brand` | 1.0 | 1° |
 | 6 | green | `--ds-success-emphasis` | 14.1 | 26° | `--ds-success` | 16.1 | 23° |
