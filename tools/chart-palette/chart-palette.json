@@ -107,35 +107,35 @@
     },
     {
       "slot": 3,
-      "name": "sepia",
+      "name": "wine",
       "token": "--ds-chart-3",
       "marker": "diamond",
       "light": {
-        "hex": "#3d3027",
+        "hex": "#610c12",
         "rgb": [
-          61,
-          48,
-          39
+          97,
+          12,
+          18
         ],
-        "channel": "61 48 39",
+        "channel": "97 12 18",
         "simulated": {
-          "protan": "#343126",
-          "deutan": "#373427",
-          "tritan": "#412e2e"
+          "protan": "#282311",
+          "deutan": "#3c350f",
+          "tritan": "#6c000f"
         }
       },
       "dark": {
-        "hex": "#fff2ee",
+        "hex": "#ffebeb",
         "rgb": [
           255,
-          242,
-          238
+          235,
+          235
         ],
-        "channel": "255 242 238",
+        "channel": "255 235 235",
         "simulated": {
-          "protan": "#f5f3ee",
-          "deutan": "#f8f6ee",
-          "tritan": "#fff0f1"
+          "protan": "#eeedeb",
+          "deutan": "#f3f1eb",
+          "tritan": "#ffe9eb"
         }
       }
     },
