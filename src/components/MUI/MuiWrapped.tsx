@@ -216,7 +216,7 @@ export {
   FlameIcon as WhatshotIcon,
   BriefcaseIcon as WorkIcon,
   InfoIcon,
-} from "../DataDisplay/Icons";
+} from "../datadisplay/Icons";
 
 export const SpeedDialIcon = MuiWrapper<MuiSpeedDialIconProps>(
   MuiSpeedDialIcon,

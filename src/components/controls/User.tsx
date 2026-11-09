@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ReactElement, ReactNode, useState } from "react";
-import { LoginIcon, LogoutIcon, UserIcon } from "../DataDisplay/Icons";
+import { LoginIcon, LogoutIcon, UserIcon } from "../datadisplay/Icons";
 
 import { Auth } from "../systems/auth";
 

@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import { CustomLink } from "types/links";
-import { HomeIcon, ChevronRightIcon } from "../DataDisplay/Icons";
+import { HomeIcon, ChevronRightIcon } from "../datadisplay/Icons";
 
 import { Bar, BarProps } from "../controls/Bar";
 

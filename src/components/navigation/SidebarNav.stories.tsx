@@ -7,7 +7,7 @@ import {
   QrScanIcon,
   SettingsIcon,
   SlidersIcon,
-} from "../DataDisplay/Icons";
+} from "../datadisplay/Icons";
 import { SidebarNav } from "./SidebarNav";
 import { Meta, StoryObj } from "@storybook/react-webpack5";
 import React from "react";

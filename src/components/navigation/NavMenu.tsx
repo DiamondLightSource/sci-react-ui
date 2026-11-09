@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState, forwardRef, useId } from "react";
 import { NavLink, NavLinkProps } from "./Navbar";
-import { ChevronDownIcon } from "../DataDisplay/Icons";
+import { ChevronDownIcon } from "../datadisplay/Icons";
 
 type NavMenuLinkProps = MenuItemProps & NavLinkProps;
 

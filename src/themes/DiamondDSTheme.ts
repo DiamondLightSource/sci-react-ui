@@ -30,7 +30,7 @@ import {
   CircleXIcon,
   CloseIcon,
   InfoIcon,
-} from "../components/DataDisplay/Icons";
+} from "../components/datadisplay/Icons";
 
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";

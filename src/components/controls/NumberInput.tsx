@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
-import { ChevronUpIcon, ChevronDownIcon } from "../DataDisplay/Icons";
+import { ChevronUpIcon, ChevronDownIcon } from "../datadisplay/Icons";
 
 const Modes = {
   /** Natural numbers from 0 to inf */
