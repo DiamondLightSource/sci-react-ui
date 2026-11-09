@@ -4,12 +4,23 @@
 
 ### Added
 
+- `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+
+### Changed
+
+### Fixed
+
+## [v0.8.0] - 2026-11-02
+
+### Added
+
 - New _DataCard_ and _DataGroup_ components.
 - Typography docs now cover font weight, line height and letter spacing scales, with improved Storybook examples.
 - `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
 
 ### Changed
 
+- Outlined inputs (TextField, Select, Autocomplete) now have a `surface` background, so they stay distinct on container or elevated surfaces.
 - _Dialog_ now defaults to elevation 16 (`surface.strong`'s tone) instead of MUI's 24, and temporary _Drawer_ to elevation 4 instead of 16, so floating surfaces order Drawer < Menu < Dialog and dialog text keeps more contrast.
 - **Breaking** _Dialog_'s deprecated `PaperProps` is now ignored. Move it to `slotProps.paper`, e.g. with `npx @mui/codemod@latest deprecations/dialog-props <path>`. If you use MRT, also check `muiEditRowDialogProps` and `muiCreateRowModalProps` by hand, as the codemod won't reach them.
 

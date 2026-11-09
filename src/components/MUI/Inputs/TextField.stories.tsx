@@ -184,6 +184,30 @@ export const States: Story = {
   },
 };
 
+export const OnSurfaces: Story = {
+  name: "On surfaces",
+  render: (_args) => (
+    <Box style={{ display: "grid", gap: 12, maxWidth: 420 }}>
+      {[
+        ["Background", "var(--ds-background)"],
+        ["Surface", "var(--ds-surface)"],
+        ["Surface container", "var(--ds-surface-container)"],
+        ["Surface container high", "var(--ds-surface-container-high)"],
+      ].map(([name, background]) => (
+        <Box key={name} sx={{ p: 2, backgroundColor: background }}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            label={name}
+            placeholder="Enter a value"
+            helperText="Outlined fields keep their own surface background"
+          />
+        </Box>
+      ))}
+    </Box>
+  ),
+};
+
 export const Validation: Story = {
   render: (_args) => (
     <Box style={{ display: "grid", gap: 12, maxWidth: 420 }}>
