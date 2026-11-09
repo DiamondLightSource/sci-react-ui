@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, ButtonGroup, InputAdornment, TextField } from "@mui/material";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { ChevronUpIcon, ChevronDownIcon } from "../DataDisplay/Icons";
 
 const Modes = {
   /** Natural numbers from 0 to inf */
@@ -154,7 +153,7 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
                   disabled={isInLimits && parseFloat(numberText) >= maxValue}
                   sx={{ flex: 1, minWidth: 0, minHeight: 0, px: 0.5, py: 0 }}
                 >
-                  <KeyboardArrowUpIcon sx={{ fontSize: 12 }} />
+                  <ChevronUpIcon sx={{ fontSize: 12 }} />
                 </Button>
                 <Button
                   aria-label="Decrease value"
@@ -162,7 +161,7 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
                   disabled={isInLimits && parseFloat(numberText) <= minValue}
                   sx={{ flex: 1, minWidth: 0, minHeight: 0, px: 0.5, py: 0 }}
                 >
-                  <KeyboardArrowDownIcon sx={{ fontSize: 12 }} />
+                  <ChevronDownIcon sx={{ fontSize: 12 }} />
                 </Button>
               </ButtonGroup>
             </InputAdornment>
