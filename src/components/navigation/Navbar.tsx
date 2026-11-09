@@ -1,7 +1,7 @@
 // Adapted from https://github.com/DiamondLightSource/web-ui-components
 import { Box, Drawer, Link, LinkProps, IconButton, Stack } from "@mui/material";
 import React, { forwardRef, useState } from "react";
-import { MenuIcon, CloseIcon } from "../DataDisplay/Icons";
+import { MenuIcon, CloseIcon } from "../datadisplay/Icons";
 
 import {
   ImageColourSchemeSwitch,

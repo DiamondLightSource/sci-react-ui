@@ -13,7 +13,7 @@ import {
   ArrowRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-} from "../DataDisplay/Icons";
+} from "../datadisplay/Icons";
 
 import { extractFramesFromTiff, isTiff } from "../../utils/TiffUtils";
 

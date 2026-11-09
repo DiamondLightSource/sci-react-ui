@@ -1,7 +1,7 @@
 import { IconButton, IconButtonProps } from "@mui/material";
 import { useColorScheme } from "@mui/material/styles";
 
-import { SunIcon, MoonIcon } from "../DataDisplay/Icons";
+import { SunIcon, MoonIcon } from "../datadisplay/Icons";
 
 export const ColourSchemeButton = (props: IconButtonProps) => {
   const { mode, systemMode, setMode } = useColorScheme();

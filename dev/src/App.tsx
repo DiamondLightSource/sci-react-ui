@@ -63,8 +63,8 @@ import { ColourSchemeButton } from "../../src/components/controls/ColourSchemeBu
 import { Breadcrumbs } from "../../src/components/navigation/Breadcrumbs";
 import { Bar } from "../../src/components/controls/Bar";
 import { Logo } from "../../src/components/controls/Logo";
-import * as Icons from "../../src/components/DataDisplay/Icons";
-import { iconSizes } from "../../src/components/DataDisplay/Icons";
+import * as Icons from "../../src/components/datadisplay/Icons";
+import { iconSizes } from "../../src/components/datadisplay/Icons";
 
 import { FormsPage } from "./FormsPage";
 

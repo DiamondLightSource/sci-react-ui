@@ -2,7 +2,7 @@ import { Meta, StoryObj } from "@storybook/react-webpack5";
 
 import { User } from "./User";
 import { Avatar, Link, ListItemIcon, MenuItem } from "@mui/material";
-import { SettingsIcon, UserIcon } from "../DataDisplay/Icons";
+import { SettingsIcon, UserIcon } from "../datadisplay/Icons";
 
 const meta: Meta<typeof User> = {
   title: "Components/Controls/User",
