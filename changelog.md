@@ -21,7 +21,8 @@
 - _LinearProgress_ and _CircularProgress_ now default to `color="info"`. Set `color="primary"` to keep the previous look.
 - **Breaking** Library icons now use Lucide. `lucide-react` is a new peer dependency (`^1.35.0`). `@mui/icons-material` and `react-icons` are no longer required unless used elsewhere in your app. JsonForms users still need `@mui/icons-material` for `@jsonforms/material-renderers`.
 - `Alert`, `Select`, `NativeSelect`, `Autocomplete` and `Chip` now use Lucide icons by default through `DiamondDSTheme`.
-- `ColourSchemeButton` test ids are now `SunIcon` and `MoonIcon` instead of `LightModeIcon` and `BedtimeIcon`.
+- `ScrollableImages`, `Breadcrumbs`, `NavMenu`, `NumberInput` and `User` now use Lucide icons, so some glyphs look slightly different.
+- **Breaking** `ColourSchemeButton` test ids are now `SunIcon` and `MoonIcon` instead of `LightModeIcon` and `BedtimeIcon`.
 
 ### Fixed
 

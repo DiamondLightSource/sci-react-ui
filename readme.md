@@ -26,7 +26,7 @@ Import the library's font styles once, e.g. in your app's entry point:
 import "@diamondlightsource/sci-react-ui/font-styles.css";
 ```
 
-`lucide-react` is a peer dependency used for the library's icons, so install it too. We also recommend [Lucide](https://lucide.dev/) for icons in your own application code - see the Icons foundation page in Storybook for guidance:
+`lucide-react` is a peer dependency used for the library's icons, so install it too. Use the latest version (minimum 1.35): Lucide adds icons in minor releases, and this library may need newer ones. See the Icons foundation page in Storybook for icon guidance.
 
 ```sh
 "One of:"
