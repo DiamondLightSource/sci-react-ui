@@ -12,6 +12,7 @@ import {
   CellTextDateTimeControl,
   CellTextDateTimeControlTester,
 } from "./controls/CellTextDateTimeControl";
+import { VerticalLayout, VerticalLayoutTester } from "./layouts/VerticalLayout";
 
 const rendererControls = [
   { renderer: TextControl, tester: TextControlTester },
@@ -21,8 +22,12 @@ const cellControls = [
   { cell: CellTextControl, tester: CellTextControlTester },
   { cell: CellTextDateTimeControl, tester: CellTextDateTimeControlTester },
 ];
+const layoutRenderers = [
+  { renderer: VerticalLayout, tester: VerticalLayoutTester },
+];
 
 export const JsonFormsControls = {
   rendererControls,
   cellControls,
+  layoutRenderers,
 };

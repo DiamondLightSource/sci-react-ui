@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import {
   Blocks as ComponentsIcon,
+  ClipboardList as FormsIcon,
   Home as HomeIcon,
   Layers as LayersIcon,
   Menu as MenuIcon,
@@ -56,6 +57,8 @@ import { ColourSchemeButton } from "../../src/components/controls/ColourSchemeBu
 import { Breadcrumbs } from "../../src/components/navigation/Breadcrumbs";
 import { Bar } from "../../src/components/controls/Bar";
 import { Logo } from "../../src/components/controls/Logo";
+
+import { FormsPage } from "./FormsPage";
 
 /* TABLE */
 
@@ -223,11 +226,7 @@ const data: Experiment[] = [
 ];
 
 type ExperimentStatus =
-  | "Running"
-  | "Queued"
-  | "Completed"
-  | "Failed"
-  | "Paused";
+  "Running" | "Queued" | "Completed" | "Failed" | "Paused";
 
 const statusColour: Record<
   ExperimentStatus,
@@ -262,6 +261,11 @@ const navigation: Navigation = [
         label: "Components",
         icon: <ComponentsIcon />,
         linkProps: { to: "/components", component: NavLink },
+      },
+      {
+        label: "Forms",
+        icon: <FormsIcon />,
+        linkProps: { to: "/forms", component: NavLink },
       },
       {
         label: "Colours",
@@ -334,6 +338,7 @@ const AppLayout = () => {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/components" element={<ComponentsPage />} />
+                <Route path="/forms" element={<FormsPage />} />
                 <Route path="/colours" element={<ColoursPage />} />
                 <Route path="/elevation" element={<ElevationPage />} />
                 <Route path="/typography" element={<TypographyPage />} />
