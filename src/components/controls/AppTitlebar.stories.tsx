@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { AppTitle, AppTitlebar, AppTitlebarProps } from "./AppTitlebar";
 
 const meta: Meta<AppTitlebarProps> = {

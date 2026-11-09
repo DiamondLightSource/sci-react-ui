@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import { CircularProgress, Stack, Typography } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
@@ -81,7 +81,6 @@ export const Sizes: Story = {
 };
 
 export const Thickness: Story = {
-  parameters: {},
   render: (args) => (
     <Stack direction="row" spacing={4}>
       {[2, 3.6, 5, 7].map((thickness) => (

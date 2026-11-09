@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Autocomplete } from "./Autocomplete";
 import { TextField } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
@@ -52,7 +52,6 @@ type ExtraArgs = {
 
 const meta: Meta<StoryArgs> = {
   title: "MUI/Inputs/Autocomplete",
-  component: Autocomplete,
   tags: ["autodocs"],
   parameters: muiDocsParameters,
   argTypes: {

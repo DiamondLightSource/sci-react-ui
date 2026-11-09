@@ -75,6 +75,12 @@ export const DiamondDSIntegrations = {
           backgroundColor: headCellBackgroundColor,
         },
       },
+      // MRT hardcodes a non-token inset shadow on the bottom toolbar.
+      muiBottomToolbarProps: {
+        sx: {
+          boxShadow: "none",
+        },
+      },
       muiTablePaperProps: {
         elevation: 0,
         sx: {

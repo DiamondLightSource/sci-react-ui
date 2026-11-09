@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Visit } from "../../utils/diamond";
 import { VisitInput } from "./VisitInput";
 

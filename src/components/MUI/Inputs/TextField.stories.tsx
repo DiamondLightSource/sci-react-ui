@@ -1,8 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Box, TextField } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
-type TFArgs = React.ComponentProps<typeof TextField>;
+type ExtraArgs = {
+  readOnly?: boolean;
+};
+type TFArgs = React.ComponentProps<typeof TextField> & ExtraArgs;
+
+/**
+ * TextField has no top-level `readOnly` prop (it must go through
+ * `slotProps.input`), so this wrapper threads the story control through to
+ * where MUI actually reads it.
+ */
+const StoryTextField = ({ readOnly, ...props }: TFArgs) => (
+  <TextField {...props} slotProps={{ input: { readOnly } }} />
+);
 
 const meta: Meta<TFArgs> = {
   title: "MUI/Inputs/TextField",
@@ -29,6 +41,7 @@ const meta: Meta<TFArgs> = {
     helperText: { control: "text" },
     error: { control: "boolean" },
     required: { control: "boolean" },
+    readOnly: { control: "boolean" },
     disabled: { control: "boolean" },
     fullWidth: { control: "boolean" },
     multiline: { control: "boolean" },
@@ -45,6 +58,7 @@ const meta: Meta<TFArgs> = {
     helperText: "",
     error: false,
     required: false,
+    readOnly: false,
     disabled: false,
     fullWidth: false,
     multiline: false,
@@ -56,7 +70,7 @@ export default meta;
 type Story = StoryObj<TFArgs>;
 
 export const Basic: Story = {
-  render: (args) => <TextField {...args} />,
+  render: (args) => <StoryTextField {...args} />,
 };
 
 export const Variants: Story = {
@@ -168,6 +182,30 @@ export const States: Story = {
     variant: "outlined",
     color: "primary",
   },
+};
+
+export const OnSurfaces: Story = {
+  name: "On surfaces",
+  render: (_args) => (
+    <Box style={{ display: "grid", gap: 12, maxWidth: 420 }}>
+      {[
+        ["Background", "var(--ds-background)"],
+        ["Surface", "var(--ds-surface)"],
+        ["Surface container", "var(--ds-surface-container)"],
+        ["Surface container high", "var(--ds-surface-container-high)"],
+      ].map(([name, background]) => (
+        <Box key={name} sx={{ p: 2, backgroundColor: background }}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            label={name}
+            placeholder="Enter a value"
+            helperText="Outlined fields keep their own surface background"
+          />
+        </Box>
+      ))}
+    </Box>
+  ),
 };
 
 export const Validation: Story = {

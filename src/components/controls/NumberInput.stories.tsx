@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { NumberInput } from "./NumberInput";
 
 const meta: Meta<typeof NumberInput> = {
@@ -11,6 +11,21 @@ const meta: Meta<typeof NumberInput> = {
         component:
           "A number input field, which validates by number mode and limits.",
       },
+    },
+  },
+  argTypes: {
+    spinnerButtons: {
+      control: "select",
+      options: ["always", "onHover", "never"],
+      description:
+        "Controls visibility of the increment/decrement buttons. Defaults to 'onHover', except for numberMode='scientific' which defaults to 'never'.",
+      table: { category: "Behaviour" },
+    },
+    step: {
+      control: "number",
+      description:
+        "Amount the increment/decrement buttons change the value by.",
+      table: { category: "Behaviour" },
     },
   },
 };

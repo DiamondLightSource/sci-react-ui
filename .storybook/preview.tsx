@@ -1,6 +1,6 @@
 import React from "react";
 import { CssBaseline } from "@mui/material";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-webpack5";
 import "./storybook.css"; /* Storybook CSS override */
 import { ThemeProvider } from "../src";
 import { DiamondDSTheme } from "../src";
@@ -58,7 +58,7 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    backgrounds: { disable: true },
+    backgrounds: { disabled: true },
     layout: "fullscreen",
     options: {
       storySort: {

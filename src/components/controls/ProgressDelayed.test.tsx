@@ -3,7 +3,7 @@ import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "../../__test-utils__/helpers";
 import { ProgressDelayed } from "./ProgressDelayed";
-import { expect } from "@storybook/test";
+import { expect } from "vitest";
 import { LinearProgress } from "@mui/material";
 
 describe("ProgressDelayed", () => {

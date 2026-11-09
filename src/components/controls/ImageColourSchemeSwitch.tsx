@@ -37,8 +37,9 @@ const ImageColourSchemeSwitch = ({
   style,
   interchange,
 }: ImageColourSchemeSwitchProps) => {
-  const { mode } = useColorScheme();
-  const isDark = (mode ?? "light") === "dark";
+  // colorScheme is the resolved scheme; mode is "system" until the user picks one
+  const { colorScheme } = useColorScheme();
+  const isDark = colorScheme === "dark";
 
   // Keep backwards compatibility for interchange
   const effectiveTone = interchange ? "inverse" : tone;
@@ -56,7 +57,7 @@ const ImageColourSchemeSwitch = ({
 
   return (
     <img
-      data-testid={mode === "dark" ? "image-dark" : "image-light"}
+      data-testid={isDark ? "image-dark" : "image-light"}
       src={src}
       alt={image.alt}
       width={image.width}

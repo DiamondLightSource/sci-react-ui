@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 
 import { User } from "./User";
 import { Avatar, Link, MenuItem } from "@mui/material";
@@ -61,21 +61,6 @@ export const LoggedInLongName: Story = {
     docs: {
       description: {
         story: "Logged in with a long name.",
-      },
-    },
-  },
-};
-
-export const LoggedInChangeColour: Story = {
-  args: {
-    colour: "red",
-    user: { name: "Name Surname", fedid: "abc12345" },
-    onLogout: () => {},
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: "You can change the colour used to display it.",
       },
     },
   },

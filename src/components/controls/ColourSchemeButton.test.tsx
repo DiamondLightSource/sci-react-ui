@@ -28,6 +28,8 @@ describe("ColourSchemeButton", () => {
       setMode: mockSetColorScheme,
       colorScheme: "dark",
       allColorSchemes: ["light", "dark"],
+      lightColorScheme: "light",
+      darkColorScheme: "dark",
       setColorScheme: vi.fn(),
     });
   });
@@ -76,6 +78,8 @@ describe("ColourSchemeButton", () => {
       setMode: mockSetColorScheme,
       colorScheme: undefined,
       allColorSchemes: ["light", "dark"],
+      lightColorScheme: "light",
+      darkColorScheme: "dark",
       setColorScheme: vi.fn(),
     });
 

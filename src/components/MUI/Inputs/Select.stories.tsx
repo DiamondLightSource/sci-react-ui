@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
 
@@ -19,7 +19,6 @@ type SelectArgs = React.ComponentProps<typeof Select> & ExtraArgs;
 
 const meta: Meta<SelectArgs> = {
   title: "MUI/Inputs/Select",
-  component: Select,
   tags: ["autodocs"],
   parameters: muiDocsParameters,
   argTypes: {
@@ -30,6 +29,8 @@ const meta: Meta<SelectArgs> = {
     },
     size: { control: "select", options: ["small", "medium"] },
     displayEmpty: { control: "boolean" },
+    readOnly: { control: "boolean" },
+    disabled: { control: "boolean" },
     label: { control: "text" },
     items: { control: { type: "object" } },
   },
@@ -38,6 +39,8 @@ const meta: Meta<SelectArgs> = {
     color: "primary",
     size: "medium",
     displayEmpty: false,
+    readOnly: false,
+    disabled: false,
     label: "element",
     items: elementOptions,
     defaultValue: elementOptions[0],
@@ -81,6 +84,42 @@ export const FilledAndStandard: Story = {
     <Box>
       {renderSelectWithLabel({ ...args, variant: "filled" })}
       {renderSelectWithLabel({ ...args, variant: "standard" })}
+    </Box>
+  ),
+};
+
+export const OnSurfaces: Story = {
+  name: "On surfaces",
+  render: (args: SelectArgs) => (
+    <Box style={{ display: "grid", gap: 12, maxWidth: 420 }}>
+      {[
+        ["Background", "var(--ds-background)"],
+        ["Surface", "var(--ds-surface)"],
+        ["Surface container", "var(--ds-surface-container)"],
+        ["Surface container high", "var(--ds-surface-container-high)"],
+      ].map(([name, background]) => (
+        <Box key={name} sx={{ p: 2, backgroundColor: background }}>
+          {renderSelectWithLabel({ ...args, variant: "outlined", label: name })}
+        </Box>
+      ))}
+    </Box>
+  ),
+};
+
+export const States: Story = {
+  render: (args: SelectArgs) => (
+    <Box style={{ display: "grid", gap: 12 }}>
+      {renderSelectWithLabel({ ...args, label: "Default" })}
+      {renderSelectWithLabel({
+        ...args,
+        label: "Read-only",
+        readOnly: true,
+      })}
+      {renderSelectWithLabel({
+        ...args,
+        label: "Disabled",
+        disabled: true,
+      })}
     </Box>
   ),
 };

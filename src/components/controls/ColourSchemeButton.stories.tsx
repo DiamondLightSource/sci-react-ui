@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { ColourSchemeButton } from "./ColourSchemeButton";
 import { TextLight, TextDark } from "../../../.storybook/ThemeSwapper";
 

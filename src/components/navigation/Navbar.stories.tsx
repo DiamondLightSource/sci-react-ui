@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Menu } from "lucide-react";
 import { NavLink, NavLinks, Navbar } from "./Navbar";
 

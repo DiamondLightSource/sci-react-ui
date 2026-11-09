@@ -2,10 +2,39 @@
 
 ## [Unreleased] - TBD
 
+### Added
+
+- `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+
 ### Changed
 
 - **Breaking** Full-width _Navbar_ (`containerWidth={false}`) now uses a 12px side gutter instead of 24px (16px on small screens), so a default-size menu `IconButton` at its left edge lines up with _SidebarNav_'s item icons. Centred Navbars keep the 24px gutter.
 - **Breaking** _User_ no longer renders a `flexGrow` spacer before itself, which added an extra gap next to sibling controls in a `Navbar` slot. If you placed `User` directly in a flex container and relied on it pushing itself to the right, add your own spacer.
+
+### Fixed
+
+## [v0.8.0] - 2026-11-02
+
+### Added
+
+- New _DataCard_ and _DataGroup_ components.
+- Typography docs now cover font weight, line height and letter spacing scales, with improved Storybook examples.
+- `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+
+### Changed
+
+- Outlined inputs (TextField, Select, Autocomplete) now have a `surface` background, so they stay distinct on container or elevated surfaces.
+- _Dialog_ now defaults to elevation 16 (`surface.strong`'s tone) instead of MUI's 24, and temporary _Drawer_ to elevation 4 instead of 16, so floating surfaces order Drawer < Menu < Dialog and dialog text keeps more contrast.
+- **Breaking** _Dialog_'s deprecated `PaperProps` is now ignored. Move it to `slotProps.paper`, e.g. with `npx @mui/codemod@latest deprecations/dialog-props <path>`. If you use MRT, also check `muiEditRowDialogProps` and `muiCreateRowModalProps` by hand, as the codemod won't reach them.
+
+### Fixed
+
+- Skipped `logos` in MUI CSS variable generation, removing a console error.
+- Read-only inputs (TextField, Select, Autocomplete) are now visually distinct from editable and disabled ones, across outlined, filled and standard variants. Dark-mode `--ds-border-subtle` and disabled tokens are retuned.
+- `DiamondDSIntegrations.mrtOptions()` now suppresses Material React Table's hardcoded bottom toolbar shadow, matching the shadow suppression already applied to the table's Paper.
+- Fixed _ImageColourSchemeSwitch_ (and so _Logo_) showing the light image when the OS is dark and no mode has been picked, by reading the resolved `colorScheme` instead of `mode`.
+
+## [v0.7.2] - 2026-10-06
 
 ### Fixed
 

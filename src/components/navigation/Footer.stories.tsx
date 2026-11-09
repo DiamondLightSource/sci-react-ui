@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import { Footer, FooterLink, FooterLinks } from "./Footer";
 import { MockLink } from "../../utils/MockLink";
 import { Typography } from "../../components/MUI/MuiWrapped";

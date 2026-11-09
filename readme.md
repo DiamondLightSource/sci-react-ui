@@ -1,7 +1,7 @@
 Scientific React UI
 ===================
 
-Scientific React UI components, based on MUI. A theme and component library to make websites at scientific institutions simple to create. 
+Scientific React UI components, based on MUI. SciReactUI is the React implementation of the Diamond Design System, a theme and component library to make websites at scientific institutions simple to create.
 Our [StoryBook](https://diamondlightsource.github.io/sci-react-ui/) website has indepth information about the library and each component, but this Readme is a good place to start.
 
 If you would like to contribute, please see our [Contributing](./contributing.md) document.
@@ -35,6 +35,15 @@ import "@diamondlightsource/sci-react-ui/font-styles.css";
 - yarn add @mui/icons-material react-icons
 ```
 
+For icons in your own application code (not required by sci-react-ui itself), we recommend [Lucide](https://lucide.dev/) - see the Icons foundation page in Storybook for guidance:
+
+```sh
+"One of:"
+- pnpm add lucide-react
+- npm i lucide-react
+- yarn add lucide-react
+```
+
 ### Usage
 
 First use the ThemeProvider and wrap your App.
@@ -48,6 +57,10 @@ root.render(
   </ThemeProvider>,
 );
 ```
+
+Use the provided `DiamondDSTheme` with the ThemeProvider, or create your own. The theme controls colour via semantic surface tokens and consists of two parts:
+- Theme configuration (`DiamondDSTheme.ts`)
+- Semantic role tokens (`diamond-ds-roles.css`)
 
 Navigation components support either static links (with href) or the use of a routing library (with linkComponent and to).
 For NavLink and FooterLink, if both linkComponent and to are provided, it will use linkComponent. If not, it falls back to using href.
@@ -159,6 +172,8 @@ The centreSlot is absolutely positioned at 50% horizontally, which means it stay
 
 Any children passed to the Footer will be placed in a horizontal Stack after the leftSlot.
 
+See Storybook for guidance on adapting the Diamond DS theme to your own palette, using Material React Table with the theme, and avoiding dark mode flicker in SSR/client-side apps.
+
 ### Documentation
 
 Documentation is created with Storybook. Additional information about auth, colours and theming can be found there.
@@ -242,6 +257,7 @@ You can modify `dev/src/App.tsx` to test out the theme and components
 Publishing
 ----------
 
+Always publish a release candidate ("vx.y.z-rc.n") and leave at least 72 hours for testing before a normal release.
 Steps needed when publishing a new version.
 - Create a new branch
   - Update the version in [./package.json](package.json) (greater than the published one!)
@@ -249,7 +265,7 @@ Steps needed when publishing a new version.
   - Check this readme still makes sense with the new changes you are about to publish.
   - Check the introduction file [./src/storybook/Introduction.mdx](src/storybook/Introduction.mdx) in Storybook still makes sense.
 - Push the branch, get it reviewed and merge.
-- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3", or "v1.2.3-alpha.1") 
+- Now create a new tag in the format "v" followed by the version (e.g. "v1.2.3", or "v1.2.3-rc.1") 
   - Push it.
 - A new npm version should now have been published:
   - https://www.npmjs.com/package/@diamondlightsource/sci-react-ui?activeTab=versions
@@ -264,7 +280,7 @@ Steps needed when publishing a new version.
 
 
 ### Post Publish Changes
-It's useful to increase the version in [./package.json](package.json) with add "alpha", e.g `"version": "0.2.1alpha",`.
+It's useful to increase the version in [./package.json](package.json) and add "rc", e.g `"version": "0.2.1rc",`.
 and create a new section in  [./changelog.md](changelog.md) so subsequent changes can be append when needed/ e.g.:
 ```text
 [v#.#.#] - 2025-##-##

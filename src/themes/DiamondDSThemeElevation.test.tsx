@@ -1,5 +1,13 @@
 import { screen } from "@testing-library/react";
-import { Alert, Autocomplete, Paper, TextField } from "@mui/material";
+import {
+  Alert,
+  Autocomplete,
+  Dialog,
+  Drawer,
+  Menu,
+  Paper,
+  TextField,
+} from "@mui/material";
 
 import { renderWithProviders } from "../__test-utils__/helpers";
 
@@ -60,6 +68,71 @@ describe("DiamondDSTheme elevation rendering", () => {
     const listbox = document.querySelector(".MuiAutocomplete-paper");
     expect(listbox).not.toBeNull();
     expect(window.getComputedStyle(listbox as Element).backgroundColor).toBe(
+      "var(--ds-elevation-8)",
+    );
+  });
+
+  it("renders Dialog's Paper at elevation 16, overriding MUI's built-in 24", () => {
+    renderWithProviders(
+      <Dialog open>
+        <div>content</div>
+      </Dialog>,
+    );
+
+    const paper = document.querySelector(".MuiDialog-paper");
+    expect(paper).not.toBeNull();
+    expect(window.getComputedStyle(paper as Element).backgroundColor).toBe(
+      "var(--ds-elevation-16)",
+    );
+  });
+
+  it("keeps elevation 16 alongside a consumer's own slotProps.paper", () => {
+    renderWithProviders(
+      <Dialog open slotProps={{ paper: { className: "consumer-class" } }}>
+        <div>content</div>
+      </Dialog>,
+    );
+
+    const paper = document.querySelector(".MuiDialog-paper");
+    expect(paper?.className).toContain("consumer-class");
+    expect(paper?.className).toContain("MuiPaper-elevation16");
+  });
+
+  it("renders a temporary Drawer's Paper at elevation 4, below Dialog and Menu/Select/Popover", () => {
+    renderWithProviders(
+      <Drawer open variant="temporary">
+        <div>content</div>
+      </Drawer>,
+    );
+
+    const paper = document.querySelector(".MuiDrawer-paper");
+    expect(paper).not.toBeNull();
+    expect(window.getComputedStyle(paper as Element).backgroundColor).toBe(
+      "var(--ds-elevation-4)",
+    );
+  });
+
+  it("keeps a Menu opened over a Dialog at a distinct, lighter tone (8 vs 16)", () => {
+    const anchorEl = document.createElement("div");
+    document.body.appendChild(anchorEl);
+
+    renderWithProviders(
+      <>
+        <Dialog open>
+          <div>content</div>
+        </Dialog>
+        <Menu open anchorEl={anchorEl}>
+          <div>item</div>
+        </Menu>
+      </>,
+    );
+
+    const dialogPaper = document.querySelector(".MuiDialog-paper");
+    const menuPaper = document.querySelector(".MuiMenu-paper");
+    expect(
+      window.getComputedStyle(dialogPaper as Element).backgroundColor,
+    ).toBe("var(--ds-elevation-16)");
+    expect(window.getComputedStyle(menuPaper as Element).backgroundColor).toBe(
       "var(--ds-elevation-8)",
     );
   });
