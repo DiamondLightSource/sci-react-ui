@@ -55,4 +55,13 @@ describe("VerticalLayout", () => {
     expect(wrappers).toHaveLength(2);
     expect(wrappers[1]).toBeEmptyDOMElement();
   });
+
+  test("greys labels of disabled inputs", () => {
+    renderForm();
+    const css = Array.from(document.querySelectorAll("style"))
+      .map((style) => style.textContent)
+      .join("");
+    expect(css).toMatch(/:has\(> \.MuiInputBase-root\.Mui-disabled\)/);
+    expect(css).toMatch(/:has\(input:disabled\)/);
+  });
 });

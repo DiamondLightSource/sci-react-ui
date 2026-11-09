@@ -94,6 +94,24 @@ export const FilledAndStandard: Story = {
  * `inputProps` or `slotProps.input`. Only the top-level prop applies the
  * read-only styling, so the other routes leave the field looking editable.
  */
+export const OnSurfaces: Story = {
+  name: "On surfaces",
+  render: (args: SelectArgs) => (
+    <Box style={{ display: "grid", gap: 12, maxWidth: 420 }}>
+      {[
+        ["Background", "var(--ds-background)"],
+        ["Surface", "var(--ds-surface)"],
+        ["Surface container", "var(--ds-surface-container)"],
+        ["Surface container high", "var(--ds-surface-container-high)"],
+      ].map(([name, background]) => (
+        <Box key={name} sx={{ p: 2, backgroundColor: background }}>
+          {renderSelectWithLabel({ ...args, variant: "outlined", label: name })}
+        </Box>
+      ))}
+    </Box>
+  ),
+};
+
 export const States: Story = {
   render: (args: SelectArgs) => (
     <Box style={{ display: "grid", gap: 12 }}>

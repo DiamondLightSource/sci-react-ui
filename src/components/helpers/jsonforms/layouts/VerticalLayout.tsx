@@ -26,8 +26,13 @@ const VerticalLayoutComponent = ({
     <Stack
       spacing={2}
       useFlexGap
-      // Hidden fields render nothing; drop their wrappers so they add no gap.
-      sx={{ "& > :empty": { display: "none" } }}
+      sx={{
+        // Hidden fields render nothing; drop their wrappers so they add no gap.
+        "& > :empty": { display: "none" },
+        // Material renderers disable the input but not its label.
+        "& .MuiFormControl-root:has(> .MuiInputBase-root.Mui-disabled) > .MuiInputLabel-root, & .MuiFormControlLabel-root:has(input:disabled) > .MuiFormControlLabel-label":
+          { color: "text.disabled" },
+      }}
     >
       {elements.map((child, index) => (
         <div key={`${path}-${index}`}>
