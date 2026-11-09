@@ -1261,8 +1261,18 @@ describe("DiamondDS component overrides", () => {
     });
 
     expectTokenFallback(linearStyles.backgroundColor, "--ds-success");
+    expectTokenFallback(circularStyles.color, "--ds-warning");
+  });
+
+  it("defaults progress indicators to the info colour", () => {
+    const linearBar =
+      DiamondDSTheme.components?.MuiLinearProgress?.styleOverrides?.bar;
+
     expect(
       DiamondDSTheme.components?.MuiLinearProgress?.defaultProps?.color,
+    ).toBe("info");
+    expect(
+      DiamondDSTheme.components?.MuiCircularProgress?.defaultProps?.color,
     ).toBe("info");
     expectTokenFallback(
       getStyleOverride(linearBar, {
@@ -1271,10 +1281,6 @@ describe("DiamondDS component overrides", () => {
       }).backgroundColor,
       "--ds-info",
     );
-    expectTokenFallback(circularStyles.color, "--ds-warning");
-    expect(
-      DiamondDSTheme.components?.MuiCircularProgress?.defaultProps?.color,
-    ).toBe("info");
   });
 
   it("uses semantic loading surface roles for skeletons", () => {
