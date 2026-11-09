@@ -46,8 +46,7 @@ describe("ColourSchemeButton", () => {
     const button = getByRole("button");
     expect(button).toBeInTheDocument();
 
-    const icon = getByTestId("LightModeIcon");
-    expect(icon).toBeInTheDocument();
+    expect(getByTestId("SunIcon")).toBeInTheDocument();
   });
 
   it("should change colour scheme on click", () => {

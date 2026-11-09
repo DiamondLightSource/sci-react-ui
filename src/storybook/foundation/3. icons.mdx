@@ -30,6 +30,21 @@ export const iconLabelProps = {
   replace clear language. Diamond DS uses Lucide as its primary icon family.
 </span>
 
+## Contents
+
+<div className="ds-toc">
+  <ol>
+    <li>Overview</li>
+    <li>Choosing icons</li>
+    <li>Consistency</li>
+    <li>Icon sizes</li>
+    <li>Usage</li>
+    <li>Accessibility</li>
+    <li>Do and don't</li>
+    <li>Scientific and operational interfaces</li>
+  </ol>
+</div>
+
 ## Overview
 
 Diamond DS uses **Lucide** as its primary icon family.
@@ -53,7 +68,8 @@ Avoid mixing multiple icon families within the same application.
 
 <div className="ds-note">
   <p>
-    **Material Icons** may remain in existing screens during the transition. For new
+    **Material Icons** and **React Icons** may remain in existing screens during
+    the transition, but the library no longer requires either package. For new
     components, new patterns, and new application work, use Lucide or the
     exported Diamond DS icon aliases.
   </p>
@@ -195,34 +211,31 @@ Diamond DS defines five standard icon sizes.
 
 Use the smallest icon size that remains recognisable and readable.
 
-<div className="ds-note">
-  <p>
-    The `LucideIcon` wrapper is still in development. Until it ships, import
-    icons directly from `lucide-react` and size them by hand using the sizes and
-    stroke weights above.
-  </p>
-</div>
+## Usage
 
-{/*
-Hidden pending real icon component usage (LucideIcon, Button/IconButton icon
-props, menu icon patterns) landing in the DS. Re-enable once that work ships;
-the surrounding sections describe the intended shape of this guidance.
+How to use icons in components and interfaces.
 
-## Using icons
+### Using icons
 
-Diamond DS provides a `LucideIcon` component that wraps SVG icons and applies
-consistent sizing, accessibility, and styling behaviour.
+Diamond DS provides a `LucideIcon` component that wraps any Lucide icon and
+applies consistent sizing, stroke weight and theme colour.
 
-Prefer using `LucideIcon` rather than rendering icon libraries directly.
+Prefer `LucideIcon`, or the ready-made icons such as `SearchIcon` and
+`SettingsIcon`, rather than rendering `lucide-react` icons directly.
 
 ```tsx
-import { LucideIcon } from "@diamondlightsource/sci-react-ui;
-import { Search } from "lucide-react";
+import { LucideIcon, SearchIcon } from "@diamondlightsource/sci-react-ui";
+import { Atom } from "lucide-react";
 
-<LucideIcon icon={Search} />
+<SearchIcon />
+<LucideIcon icon={Atom} />
+<LucideIcon icon={Atom} size="lg" />
 ```
 
-### Why use LucideIcon?
+Without `size`, an icon follows the surrounding font size. Set `size` to one of
+the sizes above for an explicit size and matching stroke weight.
+
+#### Why use LucideIcon?
 
 <ul>
   <li>Consistent sizing.</li> <li>Consistent stroke weights.</li>
@@ -230,55 +243,16 @@ import { Search } from "lucide-react";
   <li>Future flexibility if the underlying implementation changes.</li>
 </ul>
 
-## Icons in buttons
+### Icons in buttons
 
-When using Diamond DS buttons, provide a Lucide icon and allow the button
-component to determine the appropriate icon size.
+Button components size their start and end icons from the button size, so do
+not size these icons by hand.
 
 ```tsx
-<Button startIcon={<LucideIcon icon={Search} />}>Search</Button>
+<Button startIcon={<SearchIcon />}>Search</Button>
 ```
 
-Do not manually size icons inside standard button components unless there is a
-specific reusable requirement.
-
-Button components automatically determine icon size.
-
-<table className="ds-table">
-  <thead>
-    <tr>
-      <th>Button size</th>
-      <th>Button height</th>
-      <th>Default icon size</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>xs</td>
-      <td>24px</td>
-      <td>XS (16px)</td>
-    </tr>
-    <tr>
-      <td>small</td>
-      <td>32px</td>
-      <td>SM (20px)</td>
-    </tr>
-    <tr>
-      <td>medium</td>
-      <td>36px</td>
-      <td>MD (24px)</td>
-    </tr>
-    <tr>
-      <td>large</td>
-      <td>40px</td>
-      <td>MD (24px)</td>
-    </tr>
-  </tbody>
-</table>
-
-Do not manually resize icons inside standard button components.
-
-### Leading icons
+#### Leading icons
 
 Use leading icons when the icon reinforces the primary action.
 
@@ -286,7 +260,7 @@ Use leading icons when the icon reinforces the primary action.
 <Button startIcon={<PlusIcon />}>Add</Button>
 ```
 
-### Trailing icons
+#### Trailing icons
 
 Use trailing icons when the icon indicates progression, navigation, or expansion.
 
@@ -294,7 +268,7 @@ Use trailing icons when the icon indicates progression, navigation, or expansion
 <Button endIcon={<ChevronRightIcon />}>Continue</Button>
 ```
 
-## Icon-only buttons
+### Icon-only buttons
 
 Use icon-only buttons when:
 
@@ -322,7 +296,7 @@ Common examples include:
   <li>Notifications</li>
 </ul>
 
-## Icons in menus
+### Icons in menus
 
 Icons can improve visual recognition within menus containing multiple actions.
 
@@ -339,9 +313,8 @@ Icons can improve visual recognition within menus containing multiple actions.
 Use icons consistently throughout a menu.
 
 Avoid mixing icon and non-icon menu items without a clear reason.
-*/}
 
-## Icons in navigation
+### Icons in navigation
 
 Icons may support navigation but should rarely replace labels in desktop scientific applications.
 
@@ -356,7 +329,7 @@ Icons are most useful for:
   <li>Toolbar actions</li>
 </ul>
 
-## Status and feedback
+### Status and feedback
 
 Icons can reinforce status messages but should not be the only indicator.
 
@@ -396,6 +369,16 @@ Icons can reinforce status messages but should not be the only indicator.
 </table>
 
 Always combine icons with text and colour.
+
+### Brand icons
+
+Lucide does not include brand or company logos. When you need one, such as
+GitHub or Slack, use [Simple Icons](https://simpleicons.org/).
+
+Brand logos remain subject to the brand owner's trademark guidelines.
+
+If you need a brand icon set deployed or added to SciReactUI itself, raise it
+with the team.
 
 ## Accessibility
 
