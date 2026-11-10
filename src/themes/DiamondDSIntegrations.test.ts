@@ -51,3 +51,62 @@ describe("DiamondDSIntegrations.mrtOptions", () => {
     );
   });
 });
+
+describe("DiamondDSIntegrations.mrtLoadingState", () => {
+  it("shows skeletons without data and a progress bar with data", () => {
+    const { mrtLoadingState } = DiamondDSIntegrations;
+
+    expect(mrtLoadingState(true, undefined)).toEqual({
+      showSkeletons: true,
+      showProgressBars: false,
+    });
+    expect(mrtLoadingState(true, [])).toEqual({
+      showSkeletons: true,
+      showProgressBars: false,
+    });
+    expect(mrtLoadingState(true, [1])).toEqual({
+      showSkeletons: false,
+      showProgressBars: true,
+    });
+    expect(mrtLoadingState(false, [])).toEqual({
+      showSkeletons: false,
+      showProgressBars: false,
+    });
+  });
+});
+
+describe("DiamondDSIntegrations.skipWhileSkeleton", () => {
+  it("returns no props while skeletons show", () => {
+    const wrapped = DiamondDSIntegrations.skipWhileSkeleton(() => ({ a: 1 }));
+    const table = (showSkeletons: boolean) => ({
+      getState: () => ({ showSkeletons }),
+    });
+
+    expect(wrapped({ table: table(true) })).toEqual({});
+    expect(wrapped({ table: table(false) })).toEqual({ a: 1 });
+    expect(
+      wrapped({ table: { getState: () => ({ isLoading: true }) } }),
+    ).toEqual({});
+  });
+});
+
+describe("DiamondDSIntegrations.mrtRowIntent", () => {
+  it("tints rows with the intent's container token, mapping error to danger", () => {
+    const { mrtRowIntent } = DiamondDSIntegrations;
+
+    expect(mrtRowIntent("warning")["& td"].backgroundColor).toBe(
+      "var(--ds-warning-container)",
+    );
+    expect(
+      mrtRowIntent("warning")["&.Mui-selected td"].backgroundImage,
+    ).toContain("--ds-primary-channel");
+    const merged = {
+      ...DiamondDSIntegrations.mrtOptions().muiTableBodyRowProps.sx,
+      ...mrtRowIntent("warning"),
+    };
+    expect(merged["&:hover td:after"]).toEqual({ display: "none" });
+    expect(mrtRowIntent("error")["& td"].backgroundColor).toBe(
+      "var(--ds-danger-container)",
+    );
+  });
+});

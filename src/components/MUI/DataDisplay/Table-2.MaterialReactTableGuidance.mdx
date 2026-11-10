@@ -348,6 +348,62 @@ enableHiding: true`}
 });`}
 </pre>
 
+## Loading
+
+<p>
+  Show one loading indicator at a time. Skeleton rows on first load, when there
+  is no data yet. A progress bar when refetching, so existing rows stay visible.
+  Do not show both, and do not use MRT's spinner overlay.
+</p>
+
+<pre className="ds-code-block">
+  {`const table = useMaterialReactTable({
+  columns,
+  data,
+  // Use these instead of isLoading, which adds a spinner overlay on top of the skeletons.
+  state: DiamondDSIntegrations.mrtLoadingState(loading, data),
+});`}
+</pre>
+
+<p>
+  Row and checkbox style callbacks run on skeleton placeholder data. Wrap them
+  in <strong>DiamondDSIntegrations.skipWhileSkeleton()</strong> so they are
+  skipped while skeletons show.
+</p>
+
+## Row emphasis
+
+<p>
+  To tint a row by intent (for example a warning), use{" "}
+  <strong>DiamondDSIntegrations.mrtRowIntent()</strong>. It applies the intent's
+  subtle container colour, never the solid one, so rows stay readable and follow
+  dark mode. Use it sparingly, for warning or error rows only, and always pair
+  it with a status chip or icon: a tint must never be the only signal. Spread it
+  after <strong>mrtOptions()</strong> row props, so it
+  replaces MRT's own hover and selected overlays. Wrap the callback in{" "}
+  <strong>skipWhileSkeleton()</strong> so skeleton rows are not tinted.
+</p>
+
+<pre className="ds-code-block">
+  {`const mrtOptions = DiamondDSIntegrations.mrtOptions();
+
+const table = useMaterialReactTable({
+  columns,
+  data,
+  mrtTheme: DiamondDSIntegrations.mrtTheme,
+  ...mrtOptions,
+  // Spread mrtOptions' row props so hover and selected styles are kept.
+  muiTableBodyRowProps: DiamondDSIntegrations.skipWhileSkeleton(({ row }) => ({
+    ...mrtOptions.muiTableBodyRowProps,
+    sx: {
+      ...mrtOptions.muiTableBodyRowProps.sx,
+      ...(row.original.status === "Paused" &&
+        DiamondDSIntegrations.mrtRowIntent("warning")),
+    },
+  })),
+});`}
+</pre>
+
 ## Example configuration
 
 <pre className="ds-code-block">
