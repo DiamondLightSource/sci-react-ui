@@ -1080,3 +1080,19 @@ section.ds-mode-panel section {
 .ds-border-strong {
   border: 1px solid var(--ds-border-strong);
 }
+
+/* ASCII layout diagrams: Plex Mono lacks box-drawing and geometric symbols, so use the system monospace to keep columns aligned */
+.sbdocs .ds-docs .ds-ascii pre,
+.sbdocs .ds-docs .ds-ascii pre * {
+  font-family: monospace !important;
+  line-height: 1.2;
+}
+.sbdocs .ds-docs .ds-ascii pre code {
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+.sbdocs .ds-docs .ds-ascii pre.prismjs {
+  white-space: pre !important;
+  overflow-x: auto;
+}

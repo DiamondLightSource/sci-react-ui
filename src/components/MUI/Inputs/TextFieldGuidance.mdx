@@ -227,6 +227,14 @@ import * as TextFieldStories from "./TextField.stories";
   unavailable.
 </p>
 
+<div className="ds-note">
+  <strong>Read-only is set differently on similar MUI fields.</strong> On{" "}
+  <strong>Select</strong>, use the top-level <code>readOnly</code> prop. On{" "}
+  <strong>TextField</strong>, which has no top-level <code>readOnly</code>, use{" "}
+  <code>slotProps={"{{ input: { readOnly: true } }}"}</code>. Don't use{" "}
+  <code>inputProps</code> on either: it doesn't apply the read-only styling.
+</div>
+
 <p>
   Disabled and error states should remain clearly visible and should not be
   overridden by hover or focus styling.
