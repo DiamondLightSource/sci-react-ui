@@ -1,1 +1,1 @@
-FROM node:26.13-bookworm
+FROM node:24.22-trixie-slim
