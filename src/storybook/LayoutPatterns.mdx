@@ -90,7 +90,7 @@ The simplest pattern: a global header (A), primary navigation (B) and the worksp
       <td>Field or button</td>
     </tr>
     <tr>
-      <td>║</td>
+      <td>║ ═</td>
       <td>Overlay edge: floats above the content</td>
     </tr>
   </tbody>
@@ -98,7 +98,7 @@ The simplest pattern: a global header (A), primary navigation (B) and the worksp
 
 ## Regions
 
-Every region has a letter. E is the whole workspace. Patterns 1 to 6 draw it as one block of content. Patterns 7 and 8 split it into E1 to E4. Use the SciReactUI component where there is one. Otherwise compose from MUI.
+Every region has a letter. E is the whole workspace. Patterns 1 to 6 and 9 draw it as one block of content. Patterns 7 and 8 split it into E1 to E4. Use the SciReactUI component where there is one. Otherwise compose from MUI.
 
 <table className="ds-table">
   <thead>
@@ -257,6 +257,22 @@ Every region has a letter. E is the whole workspace. Patterns 1 to 6 draw it as 
         <p>Size: 29 px high.</p>
       </td>
       <td>Not yet available. A new component is planned.</td>
+    </tr>
+    <tr>
+      <td>
+        <strong>H</strong> · Modal pane
+      </td>
+      <td>
+        <p>
+          A pane laid over existing content, for a form or other content. It
+          holds the user’s focus until closed. For a short confirmation or
+          warning, use an alert dialog instead.
+        </p>
+      </td>
+      <td>
+        MUI <code>Dialog</code>, sized for a form or content. Give it a title
+        and link it with <code>aria-labelledby</code>.
+      </td>
     </tr>
   </tbody>
 </table>
@@ -587,5 +603,43 @@ Components:
 - **E1** Workspace navigation: MUI `List`
 - **E2** Workspace content: Your own content
 - **G** Global status: New component, not yet available
+
+### 9. Modal pane
+
+Desktop shell with a modal pane for a form or other content, laid over the context panel and the workspace. A backdrop, not drawn here, dims and blocks the whole screen, including the header and navigation.
+
+<div className="ds-ascii">
+
+```text
+┌───────────────────────────────────────────────────────────────────────────────┐
+│ □ A · Global header ▬▬▬▬▬▬▬                           Global utilities  □ □ □ │
+├────────────────┬────────────────┬─────────────────────────────────────────────┤
+│ B · Primary    │ C · Context    │                                             │
+│ navigation     │ na╔═════════════════════════════════════╗                    │
+│                │   ║ H · Modal pane                  □ ✕ ║                    │
+│ □ ▬▬▬▬▬▬       │ Se║ ─────────────────────────────────── ║                    │
+│ □ ▬▬▬▬         │ na║ Form or content                     ║                    │
+│ ▶ ▬▬▬▬▬▬▬      │ ▶ ║ ▬▬▬▬▬▬                              ║                    │
+│ □ ▬▬▬▬▬        │ □ ║ [ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ]       ║                    │
+│ □ ▬▬▬▬▬▬       │ □ ║ ▬▬▬▬▬▬▬▬                            ║                    │
+│                │ □ ║ [ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ]       ║                    │
+│                │ □ ║ ─────────────────────────────────── ║                    │
+│                │ □ ║ Local actions         [ ▬▬ ] [ ▬▬ ] ║                    │
+│ ────────────── │   ╚═════════════════════════════════════╝                    │
+│ actions / text │                │                                             │
+│ [ ▬▬▬▬▬▬▬▬ ]   │                │            E · Primary workspace            │
+│ Some more text │                │               Content viewport              │
+└────────────────┴────────────────┴─────────────────────────────────────────────┘
+```
+
+</div>
+
+Components:
+
+- **A** Global header: `Navbar`, or MUI `AppBar`
+- **B** Primary navigation: `SidebarNav`
+- **C** Context panel: use a local component for now (`SubNav`, once available)
+- **E** Primary workspace: Your own content
+- **H** Modal pane: MUI `Dialog`
 
 </div>
