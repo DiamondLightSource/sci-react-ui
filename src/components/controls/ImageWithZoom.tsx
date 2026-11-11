@@ -202,7 +202,7 @@ export const ImageWithZoom = ({
             position: "absolute",
             zIndex: 3,
             right: zoomWidth,
-            border: "1px solid var(--ds-highlight-solid)",
+            border: "2px solid var(--ds-highlight-solid)",
             boxShadow: "0 0 1px 1px rgb(var(--ds-on-highlight-channel) / 0.6)",
             width: zoomWidth,
             height: zoomWidth,
@@ -239,7 +239,7 @@ export const ImageWithZoom = ({
               position: "absolute",
               width: lensWidth,
               height: lensWidth,
-              border: "2px solid var(--ds-highlight-solid)",
+              border: "1px solid var(--ds-highlight-solid)",
               boxShadow:
                 "0 0 1px 1px rgb(var(--ds-on-highlight-channel) / 0.6)",
               zIndex: 2,
