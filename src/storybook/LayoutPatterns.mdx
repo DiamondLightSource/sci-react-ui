@@ -143,18 +143,20 @@ Every region has a letter. E is the whole workspace. Patterns 1 to 6 draw it as 
     </tr>
     <tr>
       <td>
-        <strong>C</strong> · Context navigation
+        <strong>C</strong> · Context panel
       </td>
       <td>
         <p>
-          Navigation within the current app section or context, outside the
-          workspace.
+          Items that set what the workspace shows, outside the workspace.
+          Either links to other content, or a list of items of the same kind to
+          choose from.
         </p>
         <p>Size: max 320 px rail.</p>
       </td>
       <td>
-        To be decided. Use a local component for now. Search or filter field:
-        MUI <code>TextField</code>.
+        Links to other content: <code>SubNav</code> (once available). Choosing
+        items: <code>ContextPanel</code> (cards option, once available). Search
+        or filter field: MUI <code>TextField</code>.
       </td>
     </tr>
     <tr>
@@ -371,7 +373,7 @@ Components:
 
 - **A** Global header: `Navbar`, or MUI `AppBar`
 - **B** Primary navigation: `SidebarNav`
-- **C** Context navigation: To be decided (use a local component for now)
+- **C** Context panel: use a local component for now (`SubNav`, once available)
 - **E** Primary workspace: Your own content
 
 ### 4. Persistent side drawer
@@ -410,7 +412,7 @@ Components:
 
 - **A** Global header: `Navbar`, or MUI `AppBar`
 - **B** Primary navigation: `SidebarNav`
-- **C** Context navigation: To be decided (use a local component for now)
+- **C** Context panel: use a local component for now (`ContextPanel` with cards, once available)
 - **E** Primary workspace: Your own content
 - **F** Auxiliary pane: MUI `Drawer` (persistent, right)
 - **G** Global status: New component, not yet available
@@ -451,7 +453,7 @@ Components:
 
 - **A** Global header: `Navbar`, or MUI `AppBar`
 - **B** Primary navigation: `SidebarNav`
-- **C** Context navigation: To be decided (use a local component for now)
+- **C** Context panel: use a local component for now (`ContextPanel` with cards, once available)
 - **E** Primary workspace: Your own content
 - **F** Auxiliary pane: MUI `Drawer` (temporary, right)
 - **G** Global status: New component, not yet available
@@ -492,7 +494,7 @@ Components:
 
 - **A** Global header: `Navbar`, or MUI `AppBar`, plus a breadcrumb trail (component to be decided)
 - **B** Primary navigation: `SidebarNav`
-- **C** Context navigation: To be decided (use a local component for now)
+- **C** Context panel: use a local component for now (`ContextPanel` with cards, once available)
 - **E** Primary workspace: Your own content
 - **F** Auxiliary pane: MUI `Drawer` (persistent, bottom)
 - **G** Global status: New component, not yet available
@@ -537,7 +539,7 @@ Components:
 
 - **A** Global header: `Navbar`, or MUI `AppBar`, plus a breadcrumb trail (component to be decided)
 - **B** Primary navigation: `SidebarNav`
-- **C** Context navigation: To be decided (use a local component for now)
+- **C** Context panel: use a local component for now (`SubNav`, once available)
 - **D** Workspace selector: MUI `Tabs`
 - **E2** Workspace content: Your own content
 - **E3** Workspace toolbar: `Bar`, or MUI `Toolbar`
