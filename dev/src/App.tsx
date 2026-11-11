@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   AppBar,
   Box,
+  Button,
   Checkbox,
   Chip,
   Container,
@@ -39,7 +40,11 @@ import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
-import type { MRT_ColumnDef } from "material-react-table";
+import type {
+  MRT_ColumnDef,
+  MRT_Row,
+  MRT_TableInstance,
+} from "material-react-table";
 
 import {
   ThemeProvider,
@@ -103,7 +108,33 @@ export const SimpleMuiTableExample = () => {
 
         <TableBody>
           {data.map((row) => (
-            <TableRow key={row.id} hover selected={isSelected(row.id)}>
+            <TableRow
+              key={row.id}
+              hover
+              selected={isSelected(row.id)}
+              sx={
+                row.status === "Paused"
+                  ? {
+                      "& td": {
+                        backgroundColor: (theme) =>
+                          (theme.vars || theme).palette.warning.container,
+                      },
+                      "&.Mui-selected td": {
+                        backgroundImage:
+                          "linear-gradient(rgb(var(--ds-primary-channel) / 0.08), rgb(var(--ds-primary-channel) / 0.08))",
+                      },
+                      "&:hover td": {
+                        backgroundImage:
+                          "linear-gradient(var(--ds-overlay-hover), var(--ds-overlay-hover))",
+                      },
+                      "&.Mui-selected:hover td": {
+                        backgroundImage:
+                          "linear-gradient(rgb(var(--ds-primary-channel) / 0.12), rgb(var(--ds-primary-channel) / 0.12))",
+                      },
+                    }
+                  : undefined
+              }
+            >
               <TableCell padding="checkbox">
                 <Checkbox
                   checked={isSelected(row.id)}
@@ -134,6 +165,7 @@ export const SimpleMuiTableExample = () => {
 /* MATERIAL REACT TABLE - mid-level (per-table) overrides */
 
 export const MidLevelMrtExample = () => {
+  const mrtOptions = DiamondDSIntegrations.mrtOptions();
   const table = useMaterialReactTable({
     columns: mrtColumns,
     data,
@@ -147,7 +179,80 @@ export const MidLevelMrtExample = () => {
     getRowId: (row) => row.id,
     initialState: { rowSelection: { "EXP-1003": true } },
     mrtTheme: DiamondDSIntegrations.mrtTheme,
-    ...DiamondDSIntegrations.mrtOptions(),
+    ...mrtOptions,
+    // Tinted rows use the subtle container role so they follow dark mode.
+    muiTableBodyRowProps: DiamondDSIntegrations.skipWhileSkeleton(
+      ({
+        row,
+      }: {
+        row: MRT_Row<Experiment>;
+        table: MRT_TableInstance<Experiment>;
+      }) => ({
+        ...mrtOptions.muiTableBodyRowProps,
+        sx: {
+          ...mrtOptions.muiTableBodyRowProps.sx,
+          ...(row.original.status === "Paused" &&
+            DiamondDSIntegrations.mrtRowIntent("warning")),
+        },
+      }),
+    ),
+  });
+
+  return <MaterialReactTable table={table} />;
+};
+
+/* MATERIAL REACT TABLE - advanced (toolbar, selection, toggleable reorder) */
+
+export const AdvancedMrtExample = () => {
+  const [rows, setRows] = React.useState(data);
+  const [reorderMode, setReorderMode] = React.useState(false);
+
+  const moveRow = (fromIndex: number, toIndex: number) =>
+    setRows((prev) => {
+      const next = [...prev];
+      next.splice(toIndex, 0, next.splice(fromIndex, 1)[0]);
+      return next;
+    });
+
+  const table = useMaterialReactTable({
+    columns: mrtColumns,
+    data: rows,
+    enableColumnFilters: false,
+    enableDensityToggle: false,
+    enableFullScreenToggle: false,
+    enableHiding: true,
+    // Reorder mode swaps checkboxes for drag handles; sorting is off so it can't fight the manual order
+    enableRowSelection: !reorderMode,
+    enableRowOrdering: reorderMode,
+    enableSorting: !reorderMode,
+    getRowId: (row) => row.id,
+    initialState: { rowSelection: { "EXP-1003": true } },
+    // MRT only builds column order on mount, so pin the active display column to the left
+    state: {
+      columnOrder: [
+        reorderMode ? "mrt-row-drag" : "mrt-row-select",
+        ...mrtColumns.map((column) => column.accessorKey as string),
+      ],
+    },
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Button
+        size="small"
+        color="secondary"
+        variant={reorderMode ? "contained" : "outlined"}
+        aria-pressed={reorderMode}
+        onClick={() => {
+          // Drop any active sort so dragging works on the current visible order
+          table.resetSorting();
+          setReorderMode((prev) => !prev);
+        }}
+      >
+        {reorderMode ? "Done reordering" : "Reorder"}
+      </Button>
+    ),
+    mrtTheme: DiamondDSIntegrations.mrtTheme,
+    ...DiamondDSIntegrations.mrtOptions({
+      onRowReorder: reorderMode ? moveRow : undefined,
+    }),
   });
 
   return <MaterialReactTable table={table} />;
@@ -199,7 +304,7 @@ const data: Experiment[] = [
     id: "EXP-1002",
     scientist: "Alan Turing",
     beamline: "I03",
-    status: "Queued",
+    status: "Paused",
     energy: 9.8,
   },
   {
@@ -220,7 +325,7 @@ const data: Experiment[] = [
     id: "EXP-1005",
     scientist: "Katherine Johnson",
     beamline: "DIAD",
-    status: "Paused",
+    status: "Queued",
     energy: 15.7,
   },
 ];
@@ -419,6 +524,18 @@ const ComponentsPage = () => {
           <code>mrtOptions()</code> for per-table DS styling.
         </Typography>
         <MidLevelMrtExample />
+      </Box>
+
+      <Box>
+        <Typography variant="h6" gutterBottom>
+          Table - Material React Table (advanced)
+        </Typography>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          Top toolbar, row selection, sorting and pagination. The{" "}
+          <code>Reorder</code> toggle swaps the checkboxes for drag handles and
+          turns sorting off while active.
+        </Typography>
+        <AdvancedMrtExample />
       </Box>
     </Stack>
   );

@@ -66,6 +66,7 @@ const preview: Preview = {
           "Overview",
           "Installation",
           "Practical Guidance",
+          "Layout Patterns",
           "Working with Components",
           "Foundations",
           "Foundations/Theme Colours",
