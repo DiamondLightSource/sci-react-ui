@@ -5,6 +5,8 @@
 ### Added
 
 - `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+- `ImageWithZoom`: click or drag to move the lens. The lens and zoom view borders now use theme-based colours.
+
 
 ### Changed
 

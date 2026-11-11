@@ -202,9 +202,8 @@ export const ImageWithZoom = ({
             position: "absolute",
             zIndex: 3,
             right: zoomWidth,
-            borderWidth: "2px",
-            borderColor: "var(--ds-border-strong)",
-            borderStyle: "solid",
+            border: "2px solid var(--ds-highlight-solid)",
+            boxShadow: "0 0 1px 1px rgb(var(--ds-on-highlight-channel) / 0.6)",
             width: zoomWidth,
             height: zoomWidth,
           }}
@@ -240,8 +239,9 @@ export const ImageWithZoom = ({
               position: "absolute",
               width: lensWidth,
               height: lensWidth,
-              // This is a really strong blue, the colours in the theme palette weren't strong enough
-              border: "1px solid blue",
+              border: "2px solid var(--ds-highlight-solid)",
+              boxShadow:
+                "0 0 1px 1px rgb(var(--ds-on-highlight-channel) / 0.6)",
               zIndex: 2,
               // Let mouse events fall through to the container beneath the lens
               pointerEvents: "none",
