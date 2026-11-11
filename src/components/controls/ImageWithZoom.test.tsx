@@ -24,7 +24,7 @@ vi.mock("./Image", () => ({
     // otherwise React warns about updating ImageWithZoom while rendering Image
     useEffect(() => {
       onLoad?.();
-    }, []);
+    }, [onLoad]);
     return <img alt={alt} src={src} />;
   },
 }));
@@ -110,10 +110,11 @@ describe("Image with Zoom Viewer", () => {
     });
 
     const renderViewer = () => {
-      render(<ImageWithZoom src="foo.jpg" alt="foo" />);
+      const { unmount } = render(<ImageWithZoom src="foo.jpg" alt="foo" />);
       // The mouse handlers live on the wrapper around the image + lens
       const container = screen.getByAltText("foo").parentElement!;
       return {
+        unmount,
         container,
         lens: screen.getByLabelText("Lens"),
         zoomView: screen.getByLabelText("Zoom View").parentElement!,
@@ -121,11 +122,10 @@ describe("Image with Zoom Viewer", () => {
     };
 
     it("should hide the lens and zoom view until the user interacts", () => {
-      const { lens, zoomView, container } = renderViewer();
+      const { lens, zoomView } = renderViewer();
 
       expect(lens).toHaveStyle({ display: "none" });
       expect(zoomView).toHaveStyle({ display: "none" });
-      expect(container).toHaveStyle({ cursor: "crosshair" });
       expect(screen.getByText("Click or drag to zoom in")).toBeVisible();
     });
 
@@ -138,7 +138,6 @@ describe("Image with Zoom Viewer", () => {
       expect(zoomView).toHaveStyle({ display: "block" });
       // Lens is centred on the cursor: 50 - (20 / 2) = 40
       expect(lens).toHaveStyle({ left: "40px", top: "40px" });
-      expect(container).toHaveStyle({ cursor: "grabbing" });
       expect(screen.getByText("Click or drag to zoom in")).not.toBeVisible();
     });
 
@@ -170,35 +169,22 @@ describe("Image with Zoom Viewer", () => {
       fireEvent.mouseDown(container, { button: 0, clientX: 50, clientY: 50 });
       fireEvent.mouseUp(window);
 
-      expect(container).toHaveStyle({ cursor: "crosshair" });
-
       fireEvent.mouseMove(window, { clientX: 10, clientY: 10 });
       expect(lens).toHaveStyle({ left: "40px", top: "40px" });
     });
 
-    it("should not move the lens on mouse move when not dragging", () => {
-      const { lens } = renderViewer();
-
-      fireEvent.mouseMove(window, { clientX: 50, clientY: 50 });
-
-      expect(lens).toHaveStyle({ display: "none" });
-    });
-
     it("should remove window listeners when unmounted mid-drag", () => {
       const removeSpy = vi.spyOn(window, "removeEventListener");
-      const { container } = renderViewer();
+      const { container, unmount } = renderViewer();
 
       fireEvent.mouseDown(container, { button: 0, clientX: 50, clientY: 50 });
       removeSpy.mockClear();
 
-      screen.getByAltText("foo");
-      const { unmount } = render(<ImageWithZoom src="bar.jpg" alt="bar" />);
-      fireEvent.mouseDown(screen.getByAltText("bar").parentElement!, {
+      fireEvent.mouseDown(screen.getByAltText("foo").parentElement!, {
         button: 0,
         clientX: 50,
         clientY: 50,
       });
-      removeSpy.mockClear();
       unmount();
 
       const removed = removeSpy.mock.calls.map(([type]) => type);

@@ -202,7 +202,7 @@ export const ImageWithZoom = ({
             position: "absolute",
             zIndex: 3,
             right: zoomWidth,
-            border: "2px solid var(--ds-highlight-solid)",
+            border: "1px solid var(--ds-highlight-solid)",
             boxShadow: "0 0 1px 1px rgb(var(--ds-on-highlight-channel) / 0.6)",
             width: zoomWidth,
             height: zoomWidth,
@@ -225,7 +225,7 @@ export const ImageWithZoom = ({
         ref={imageContainerRef}
         style={{
           position: "relative",
-          cursor: isDragging ? "grabbing" : "crosshair",
+          cursor: "crosshair",
           userSelect: "none",
         }}
         onMouseDown={handleMouseDown}
