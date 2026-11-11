@@ -5,13 +5,18 @@
 ### Added
 
 - `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
+- `DiamondDSIntegrations.mrtLoadingState(loading, data)` returns MRT's `showSkeletons`/`showProgressBars` (skeletons on first load, progress bar on refetch).
+- `DiamondDSIntegrations.mrtRowIntent(intent)` returns row `sx` that tints an MRT row with the intent's subtle container colour.
+- `DiamondDSIntegrations.skipWhileSkeleton(callback)` wraps an MRT row/cell/checkbox props callback so it is skipped while skeleton rows show.
 
 ### Changed
 
 - `ImageWithZoom`: click or drag to move the lens. The lens and zoom view borders now use theme-based colours.
 
-
 ### Changed
+- **Breaking** Full-width _Navbar_ (`containerWidth={false}`) now uses a 12px side gutter instead of 24px (16px on small screens), so a default-size menu `IconButton` at its left edge lines up with _SidebarNav_'s item icons. Centred Navbars keep the 24px gutter.
+- **Breaking** _User_ no longer renders a `flexGrow` spacer before itself, which added an extra gap next to sibling controls in a `Navbar` slot. If you placed `User` directly in a flex container and relied on it pushing itself to the right, add your own spacer.
+- `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move up/down in the row menu.
 
 ### Fixed
 
@@ -32,7 +37,7 @@
 ### Fixed
 
 - Skipped `logos` in MUI CSS variable generation, removing a console error.
-- Read-only inputs (TextField, Select, Autocomplete) are now visually distinct from editable and disabled ones, across outlined, filled and standard variants. Dark-mode `--ds-border-subtle` and disabled tokens are retuned.
+- Read-only inputs (TextField, Select, Autocomplete) are now visually distinct from editable and disabled ones, across outlined, filled and standard variants. Dark-mode `--ds-border-subtle` and disabled tokens are retuned, and disabled and read-only backgrounds are subtler. Per MUI, read-only is set with `slotProps.input` on TextField but the top-level `readOnly` on Select.
 - `DiamondDSIntegrations.mrtOptions()` now suppresses Material React Table's hardcoded bottom toolbar shadow, matching the shadow suppression already applied to the table's Paper.
 - Fixed _ImageColourSchemeSwitch_ (and so _Logo_) showing the light image when the OS is dark and no mode has been picked, by reading the resolved `colorScheme` instead of `mode`.
 

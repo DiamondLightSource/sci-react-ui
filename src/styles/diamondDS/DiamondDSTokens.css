@@ -44,7 +44,7 @@
 
   --ds-surface-container: #eef1f5;
   --ds-surface-container-high: #e6e9f0;
-  --ds-surface-disabled: rgba(26, 28, 35, 0.08);
+  --ds-surface-disabled: rgba(26, 28, 35, 0.06);
   --ds-surface-readonly: rgba(26, 28, 35, 0.04);
 
   --ds-on-surface: #1a1c23;
@@ -289,14 +289,14 @@
 
   --ds-surface-container: #222632;
   --ds-surface-container-high: #2c3140;
-  --ds-surface-disabled: rgba(232, 234, 240, 0.12);
-  --ds-surface-readonly: rgba(232, 234, 240, 0.08);
+  --ds-surface-disabled: rgba(232, 234, 240, 0.08);
+  --ds-surface-readonly: rgba(232, 234, 240, 0.06);
 
   --ds-on-surface: #e8eaf0;
   --ds-on-surface-variant: #b6bcc9;
   --ds-on-surface-subtle: #979eae;
   --ds-on-surface-muted: #7c8394;
-  --ds-on-surface-disabled: rgba(232, 234, 240, 0.32);
+  --ds-on-surface-disabled: rgba(232, 234, 240, 0.34);
   --ds-control-disabled: rgba(232, 234, 240, 0.3);
   --ds-on-solid: #ffffff;
 
