@@ -332,7 +332,44 @@ Components:
 - **B** Primary navigation: `SidebarNav`
 - **E** Primary workspace: Your own content
 
-### 2. Tabs and status
+### 2. Context panel
+
+Streamlined desktop shell with persistent header, primary navigation, context panel, and a flexible workspace.
+
+<div className="ds-ascii">
+
+```text
+┌───────────────────────────────────────────────────────────────────────────────┐
+│ □ A · Global header ▬▬▬▬▬▬▬                           Global utilities  □ □ □ │
+├────────────────┬────────────────┬─────────────────────────────────────────────┤
+│ B · Primary    │ C · Context    │                                             │
+│ navigation     │ panel          │                                             │
+│                │                │                                             │
+│ □ ▬▬▬▬▬▬       │ Secondary      │                                             │
+│ □ ▬▬▬▬         │ navigation     │                                             │
+│ ▶ ▬▬▬▬▬▬▬      │ ▶ ▬▬▬▬▬▬▬      │                                             │
+│ □ ▬▬▬▬▬        │ □ ▬▬▬▬▬        │            E · Primary workspace            │
+│ □ ▬▬▬▬▬▬       │ □ ▬▬▬▬▬▬▬▬     │                                             │
+│                │ □ ▬▬▬          │               Content viewport              │
+│                │ □ ▬▬▬▬▬▬       │                                             │
+│                │ □ ▬▬▬▬▬        │                                             │
+│ ────────────── │                │                                             │
+│ actions / text │                │                                             │
+│ [ ▬▬▬▬▬▬▬▬ ]   │                │                                             │
+│ Some more text │                │                                             │
+└────────────────┴────────────────┴─────────────────────────────────────────────┘
+```
+
+</div>
+
+Components:
+
+- **A** Global header: `Navbar`, or MUI `AppBar`
+- **B** Primary navigation: `SidebarNav`
+- **C** Context panel: use a local component for now (`SubNav`, once available)
+- **E** Primary workspace: Your own content
+
+### 3. Tabs and status
 
 Desktop shell with a global header, a navigation rail, a tabbed workspace and a global status bar.
 
@@ -372,43 +409,6 @@ Components:
 - **E** Primary workspace: Your own content
 - **G** Global status: New component, not yet available
 
-### 3. Context navigation
-
-Streamlined desktop shell with persistent header, primary navigation, context navigation, and a flexible workspace.
-
-<div className="ds-ascii">
-
-```text
-┌───────────────────────────────────────────────────────────────────────────────┐
-│ □ A · Global header ▬▬▬▬▬▬▬                           Global utilities  □ □ □ │
-├────────────────┬────────────────┬─────────────────────────────────────────────┤
-│ B · Primary    │ C · Context    │                                             │
-│ navigation     │ navigation     │                                             │
-│                │                │                                             │
-│ □ ▬▬▬▬▬▬       │ Secondary      │                                             │
-│ □ ▬▬▬▬         │ navigation     │                                             │
-│ ▶ ▬▬▬▬▬▬▬      │ ▶ ▬▬▬▬▬▬▬      │                                             │
-│ □ ▬▬▬▬▬        │ □ ▬▬▬▬▬        │            E · Primary workspace            │
-│ □ ▬▬▬▬▬▬       │ □ ▬▬▬▬▬▬▬▬     │                                             │
-│                │ □ ▬▬▬          │               Content viewport              │
-│                │ □ ▬▬▬▬▬▬       │                                             │
-│                │ □ ▬▬▬▬▬        │                                             │
-│ ────────────── │                │                                             │
-│ actions / text │                │                                             │
-│ [ ▬▬▬▬▬▬▬▬ ]   │                │                                             │
-│ Some more text │                │                                             │
-└────────────────┴────────────────┴─────────────────────────────────────────────┘
-```
-
-</div>
-
-Components:
-
-- **A** Global header: `Navbar`, or MUI `AppBar`
-- **B** Primary navigation: `SidebarNav`
-- **C** Context panel: use a local component for now (`SubNav`, once available)
-- **E** Primary workspace: Your own content
-
 ### 4. Persistent side drawer
 
 Desktop shell with a docked side drawer beside the workspace and a global status footer.
@@ -420,7 +420,7 @@ Desktop shell with a docked side drawer beside the workspace and a global status
 │ □ A · Global header ▬▬▬▬▬▬▬                           Global utilities  □ □ □ │
 ├────────────────┬────────────────┬────────────────────────┬────────────────────┤
 │ B · Primary    │ C · Context    │                        │ F · Auxiliary  □ □ │
-│ navigation     │ navigation     │                        │                    │
+│ navigation     │ panel          │                        │                    │
 │                │ [Search/filter]│                        │ Secondary content  │
 │ □ ▬▬▬▬▬▬       │ [▬▬▬] [▬▬▬]    │                        │ ▬▬▬▬▬▬▬▬▬▬▬▬       │
 │ □ ▬▬▬▬         │                │                        │ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬     │
@@ -461,7 +461,7 @@ Desktop shell with persistent tabs, a split workspace, and a dedicated status fo
 │ □ A · Global header ▬▬▬▬▬ / ▬▬▬▬▬ / ▬▬▬▬▬             Global utilities  □ □ □ │
 ├────────────────┬────────────────┬─────────────────────────────────────────────┤
 │ B · Primary    │ C · Context    │                                             │
-│ navigation     │ navigation     │                                             │
+│ navigation     │ panel          │                                             │
 │                │ [Search/filter]│                                             │
 │ □ ▬▬▬▬▬▬       │ [▬▬▬] [▬▬▬]    │            E · Primary workspace            │
 │ □ ▬▬▬▬         │                │                                             │
@@ -540,7 +540,7 @@ Components:
 
 ### 7. Inner workspace options
 
-Desktop shell with context navigation, tabs, toolbar, content, inspector, and local status.
+Desktop shell with context panel, tabs, toolbar, content, inspector, and local status.
 
 <div className="ds-ascii">
 
@@ -549,7 +549,7 @@ Desktop shell with context navigation, tabs, toolbar, content, inspector, and lo
 │ □ A · Global header ▬▬▬▬▬ / ▬▬▬▬▬ / ▬▬▬▬▬             Global utilities  □ □ □ │
 ├────────────────┬────────────────┬─────────────────────────────────────────────┤
 │ B · Primary    │ C · Context    │ D · Workspace selector                      │
-│ navigation     │ navigation     │ □ ▬▬▬▬▬▬   □ ▬▬▬▬▬▬   □ ▬▬▬▬▬▬              │
+│ navigation     │ panel          │ □ ▬▬▬▬▬▬   □ ▬▬▬▬▬▬   □ ▬▬▬▬▬▬              │
 │                │ [Search/filter]├─────────────────────────────────────────────┤
 │ □ ▬▬▬▬▬▬       │ [▬▬▬] [▬▬▬]    │ E3 · Workspace toolbar  □ □ □               │
 │ □ ▬▬▬▬         │                ├──────────────────────┬──────────────────────┤
@@ -638,7 +638,7 @@ Desktop shell with a modal pane for a form or other content, laid over the conte
 │ □ A · Global header ▬▬▬▬▬▬▬                           Global utilities  □ □ □ │
 ├────────────────┬────────────────┬─────────────────────────────────────────────┤
 │ B · Primary    │ C · Context    │                                             │
-│ navigation     │ na╔═════════════════════════════════════╗                    │
+│ navigation     │ pa╔═════════════════════════════════════╗                    │
 │                │   ║ H · Modal pane                  □ ✕ ║                    │
 │ □ ▬▬▬▬▬▬       │ Se║ ─────────────────────────────────── ║                    │
 │ □ ▬▬▬▬         │ na║ Form or content                     ║                    │
