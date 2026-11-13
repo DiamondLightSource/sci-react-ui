@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chart palette preview</title>
+    <!-- Template for render-check.html. Filled in by build.mjs; do not open directly. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+    <script>
+      // DiamondDS colours switch on data-mode; follow the system setting.
+      (() => {
+        const dark = matchMedia("(prefers-color-scheme: dark)");
+        const apply = () =>
+          (document.documentElement.dataset.mode = dark.matches
+            ? "dark"
+            : "light");
+        apply();
+        dark.addEventListener("change", apply);
+      })();
+    </script>
+    <style>
+      /*DS_TOKENS*/
+    </style>
+    <style>
+      /* The page chrome takes its colours from the DiamondDS tokens above. */
+      :root {
+        --bg: var(--ds-background);
+        --fg: var(--ds-on-surface);
+        --muted: var(--ds-on-surface-variant);
+        --line: var(--ds-border-subtle);
+        --panel: var(--ds-surface);
+        --accent: var(--ds-primary-solid);
+        --on-accent: var(--ds-on-primary-solid);
+        --chip: var(--ds-elevation-8);
+        --warn: var(--ds-warning);
+        --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --f-head: "Outfit", "Inter", system-ui, sans-serif;
+        --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--f-body);
+        font-size: 14px;
+        line-height: 1.5;
+        padding-inline: max(16px, env(safe-area-inset-left, 0px))
+          max(16px, env(safe-area-inset-right, 0px));
+        padding-block: 28px 56px;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      h1 {
+        font-family: var(--f-head);
+        font-weight: 600;
+        font-size: 28px;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+      h2 {
+        font-family: var(--f-head);
+        font-weight: 500;
+        font-size: 17px;
+        margin: 0;
+      }
+      p {
+        margin: 0;
+      }
+      .sub {
+        color: var(--muted);
+        max-width: 72ch;
+        margin: 0;
+        padding-left: 1.25em;
+      }
+      .sub li + li {
+        margin-top: 4px;
+      }
+      .bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 24px;
+        align-items: flex-end;
+        padding: 14px 16px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      .brk {
+        flex-basis: 100%;
+        height: 0;
+      }
+      .ctl {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+      }
+      .lab {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .seg {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--chip);
+      }
+      .seg button {
+        font: inherit;
+        font-size: 13px;
+        color: var(--fg);
+        background: transparent;
+        border: 0;
+        padding: 7px 13px;
+        cursor: pointer;
+        border-right: 1px solid var(--line);
+      }
+      .seg button:last-child {
+        border-right: 0;
+      }
+      .seg button[aria-pressed="true"] {
+        background: var(--accent);
+        color: var(--on-accent);
+        font-weight: 600;
+      }
+      .seg button:focus-visible,
+      select:focus-visible,
+      input:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      select {
+        font: inherit;
+        font-size: 13px;
+        color: var(--fg);
+        background: transparent;
+        border: 1px solid var(--ds-border-strong);
+        border-radius: 8px;
+        padding: 8px 10px;
+      }
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        padding: 7px 0;
+      }
+      input[type="range"] {
+        accent-color: var(--accent);
+        width: 150px;
+      }
+      .stages {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .stages.both {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      @media (max-width: 980px) {
+        .stages.both {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      .stage {
+        --st-bg: #fff;
+        --st-fg: #1a1c23;
+        --st-mut: #5d6475;
+        --st-grid: #e6e9f0;
+        --st-line: #dde1e8;
+        border-radius: 12px;
+        border: 1px solid var(--st-line);
+        background: var(--st-bg);
+        color: var(--st-fg);
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        min-width: 0;
+      }
+      .stage[data-mode="dark"] {
+        --st-bg: #161820;
+        --st-fg: #e6e9f0;
+        --st-mut: #a0a7b8;
+        --st-grid: #2c3140;
+        --st-line: #2c3140;
+      }
+      .shead {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 16px;
+      }
+      .shead b {
+        font-family: var(--f-head);
+        font-weight: 500;
+        font-size: 16px;
+        text-transform: capitalize;
+      }
+      .shead span {
+        font-family: var(--f-mono);
+        font-size: 11.5px;
+        color: var(--st-mut);
+        font-variant-numeric: tabular-nums;
+      }
+      .shead .low {
+        color: var(--warn);
+      }
+      .legend {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+        gap: 8px;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 6px 8px;
+        border: 1px solid var(--st-line);
+        border-radius: 8px;
+        min-width: 0;
+      }
+      .chip.off {
+        opacity: 0.3;
+      }
+      .chip svg {
+        flex: none;
+      }
+      .chip .t {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        line-height: 1.25;
+      }
+      .chip .n {
+        font-size: 12.5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .chip .h {
+        font-family: var(--f-mono);
+        font-size: 11px;
+        color: var(--st-mut);
+      }
+      .tag {
+        font-size: 10px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--st-mut);
+        margin-left: auto;
+        flex: none;
+      }
+      .charts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .charts .wide {
+        grid-column: 1 / -1;
+      }
+      @media (max-width: 640px) {
+        .charts {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      .cap {
+        font-size: 12px;
+        color: var(--st-mut);
+        margin-bottom: 6px;
+      }
+      svg.ch {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      svg.ch text {
+        fill: var(--st-mut);
+        font-family: var(--f-mono);
+        font-size: 10px;
+      }
+      svg.ch .grid {
+        stroke: var(--st-grid);
+        stroke-width: 1;
+      }
+      .lrows {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 16px;
+        align-content: flex-start;
+      }
+      .lrow {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .lstates {
+        margin-top: 14px;
+      }
+      .lbl.sel {
+        border-width: 2px;
+        font-weight: 600;
+      }
+      .lbl {
+        display: inline-flex;
+        padding: 2px 10px;
+        border: 1px solid;
+        border-radius: 999px;
+        font-size: 12px;
+      }
+      .tbl {
+        overflow-x: auto;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        min-width: 640px;
+        font-variant-numeric: tabular-nums;
+      }
+      th,
+      td {
+        text-align: right;
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+      th:first-child,
+      td:first-child {
+        text-align: left;
+      }
+      thead th {
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 500;
+      }
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+      td.num {
+        font-family: var(--f-mono);
+        font-size: 13px;
+      }
+      td.bad {
+        color: var(--warn);
+      }
+      .note {
+        font-size: 12.5px;
+        color: var(--muted);
+        max-width: 84ch;
+      }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>/*MARKERS*/</defs>
+    </svg>
+    <div class="wrap">
+      <header style="display: flex; flex-direction: column; gap: 8px">
+        <h1>Chart palette preview</h1>
+        <ul class="sub">
+          <li>
+            Generated from <code>palette.mjs</code>. Slots 1 to
+            <span id="core-n"></span> are the core and the rest are additional,
+            so use series in order.
+          </li>
+          <li>
+            Draw charts on <code>--ds-surface</code> or
+            <code>--ds-background</code>, where the colours are checked for
+            <span data-t="contrast"></span>:1. On raised surfaces, tooltips and
+            dialogs they are checked to <span data-t="contrastFloor"></span>:1,
+            so use labels or a data table there.
+          </li>
+          <li>
+            These previews are drawn on <code>--ds-surface</code>. Switch mode,
+            simulate colour-vision deficiency and reorder by hue.
+          </li>
+        </ul>
+      </header>
+
+      <div class="bar">
+        <div class="ctl">
+          <span class="lab" id="l-mode">Mode</span>
+          <div
+            class="seg"
+            role="group"
+            aria-labelledby="l-mode"
+            id="seg-mode"
+          ></div>
+        </div>
+        <div class="ctl">
+          <span class="lab" id="l-ord">Order</span>
+          <div
+            class="seg"
+            role="group"
+            aria-labelledby="l-ord"
+            id="seg-ord"
+          ></div>
+        </div>
+        <div class="ctl">
+          <label class="lab" for="vision">Vision</label>
+          <select id="vision">
+            <option value="normal">Normal</option>
+            <option value="protan">Protanopia</option>
+            <option value="deutan">Deuteranopia</option>
+            <option value="tritan">Tritanopia</option>
+            <option value="grey">Greyscale</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label class="lab" for="show">Show</label>
+          <select id="show">
+            <option value="lines" selected>Lines</option>
+            <option value="both">Lines and markers</option>
+            <option value="markers">Markers</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label class="lab" for="count"
+            >Series shown: <span id="count-v"></span
+          ></label>
+          <input type="range" id="count" min="2" max="12" step="1" value="12" />
+        </div>
+        <div class="ctl">
+          <label class="lab" for="width"
+            >Line width: <span id="width-v"></span
+          ></label>
+          <input
+            type="range"
+            id="width"
+            min="0.1"
+            max="4"
+            step="0.1"
+            value="1"
+          />
+        </div>
+        <div class="ctl">
+          <label class="lab" for="width2"
+            >Later cycles width: <span id="width2-v"></span
+          ></label>
+          <input
+            type="range"
+            id="width2"
+            min="0.1"
+            max="4"
+            step="0.1"
+            value="1.5"
+          />
+        </div>
+        <div class="brk"></div>
+        <div class="ctl">
+          <label class="lab" for="cycle">Cycle size</label>
+          <select id="cycle">
+            <option value="8" selected>8 colours</option>
+            <option value="12">12 colours</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label class="lab" for="style0">Cycle 1 line</label>
+          <select id="style0">
+            <option value="solid" selected>Solid</option>
+            <option value="dashed">Dashed</option>
+            <option value="dotted">Dotted</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label class="lab" for="style1">Cycle 2 line</label>
+          <select id="style1">
+            <option value="solid">Solid</option>
+            <option value="dashed" selected>Dashed</option>
+            <option value="dotted">Dotted</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label class="lab" for="style2">Cycle 3 line</label>
+          <select id="style2">
+            <option value="solid">Solid</option>
+            <option value="dashed">Dashed</option>
+            <option value="dotted" selected>Dotted</option>
+          </select>
+        </div>
+        <div class="ctl">
+          <label class="lab" for="gap">Gaps in a broken line</label>
+          <select id="gap">
+            <option value="auto">Shade of the colour</option>
+            <option value="none">Empty</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="stages both" id="stages"></div>
+
+      <section style="display: flex; flex-direction: column; gap: 10px">
+        <h2>Checks by mode</h2>
+        <div class="tbl"><table id="tbl"></table></div>
+        <p class="note">
+          ΔE is CIEDE2000 under Machado et al. (2009) at full severity. The core
+          needs CVD ΔE <span data-t="cvd"></span> or more and every pair
+          <span data-t="cvdAll"></span>; additional slots only need
+          normal-vision ΔE <span data-t="normal"></span>, and weaker pairs are
+          listed in validation.md. Contrast is WCAG against the chart surface;
+          "under <span data-t="contrast"></span>:1" counts colours below that on
+          the chart, raised or dialog surface (<span
+            data-t="contrastFloor"
+          ></span>
+          is the accepted floor on the last two). Pairs under
+          <span data-t="greyClose"></span> L* look alike in greyscale or print
+          and rely on markers. Order by hue is per mode and starts at red;
+          colours with almost no chroma come last.
+        </p>
+      </section>
+    </div>
+
+    <script>
+      const DATA = /*DATA*/ null;
+      if (!DATA) {
+        document.body.textContent =
+          "This is the unfilled template. Open render-check.html, which build.mjs generates.";
+        throw new Error("Template has no data");
+      }
+      const $ = (id) => document.getElementById(id);
+      const MODES = ["light", "dark"];
+      const T = DATA.t;
+      const SLOTS = DATA.slots;
+      const st = {
+        mode: "light",
+        ord: "slot",
+        shuffle: DATA.slots.map((_, k) => k),
+        vision: "normal",
+        width: 1,
+        width2: 1.5,
+        cycle: 8,
+        styles: ["solid", "dashed", "dotted"],
+        gap: "auto",
+        show: "lines",
+        count: 8,
+      };
+      // Series go round the colours in cycles. Each cycle after the first takes its own
+      // line style and width, a second channel besides the marker.
+      const cycleOf = (pos) => Math.floor(pos / st.cycle);
+      const lineWidth = (pos) => (cycleOf(pos) ? st.width2 : st.width);
+      const dashOf = (pos) =>
+        st.styles[Math.min(cycleOf(pos), st.styles.length - 1)];
+      // A broken line fills its gaps with its colour half way to the surface, so the gap
+      // stays a shade of the line in both modes and the break reads against the surface.
+      const gapShade = (hex, bg) => {
+        const mixed = [1, 3, 5].map((i) =>
+          Math.round(
+            (parseInt(hex.slice(i, i + 2), 16) +
+              parseInt(bg.slice(i, i + 2), 16)) /
+              2,
+          )
+            .toString(16)
+            .padStart(2, "0"),
+        );
+        return "#" + mixed.join("");
+      };
+      // One line, solid or broken, in the series colour; a broken line sits on a
+      // solid line in its gap shade.
+      const lineMarkup = (tag, geom, color, pos, bg) => {
+        const w = lineWidth(pos),
+          dash = dashOf(pos);
+        const draw = (stroke, extra = "") =>
+          `<${tag} ${geom} fill="none" stroke="${stroke}" stroke-width="${w}" stroke-linejoin="round"${extra}/>`;
+        if (dash === "solid") return draw(color);
+        const gap = Math.max(4, w * 3);
+        const pattern =
+          dash === "dotted"
+            ? ` stroke-dasharray="0.1 ${gap}" stroke-linecap="round"`
+            : ` stroke-dasharray="${Math.max(6, w * 5)} ${gap}"`;
+        return (
+          (st.gap === "auto" ? draw(gapShade(color, bg)) : "") +
+          draw(color, pattern)
+        );
+      };
+      const surf = (m) => DATA.surf[m].surface;
+      const cols = (m) =>
+        SLOTS.map((s, k) =>
+          st.vision === "normal" ? s[m] : DATA.info[m][k].sim[st.vision],
+        );
+
+      function order(m) {
+        const info = DATA.info[m];
+        const o = SLOTS.map((_, k) => k);
+        if (st.ord === "hue") {
+          o.sort((a, b) => {
+            const na = info[a].C < T.neutralChroma,
+              nb = info[b].C < T.neutralChroma;
+            return na !== nb ? (na ? 1 : -1) : info[a].h - info[b].h;
+          });
+        }
+        if (st.ord === "light") o.sort((a, b) => info[a].L - info[b].L);
+        if (st.ord === "random") {
+          return { o: st.shuffle.slice(), info };
+        }
+        return { o, info };
+      }
+      // Series j takes the colour and marker of the j-th slot in the chosen order.
+      const shown = (m) => {
+        const o = order(m).o;
+        return Array.from({ length: st.count }, (_, p) => o[p % st.cycle]);
+      };
+      // Bars and scatter have no line to break, so they show the first cycle only.
+      const firstCycle = (m) => shown(m).slice(0, st.cycle);
+
+      const marker = (shape, x, y, color, halo) =>
+        `<use href="#marker-${shape}" transform="translate(${+x.toFixed(1)} ${+y.toFixed(1)})" style="color:${color};--chart-halo:${halo}"/>`;
+
+      function axes(W, H, P, ticks) {
+        let g = "";
+        for (let i = 0; i <= ticks; i++) {
+          const y = P.t + ((H - P.t - P.b) * i) / ticks;
+          g += `<line class="grid" x1="${P.l}" x2="${W - P.r}" y1="${y}" y2="${y}"/><text x="${P.l - 6}" y="${y + 3}" text-anchor="end">${Math.round(100 * (1 - i / ticks))}</text>`;
+        }
+        return g;
+      }
+      function lineChart(m) {
+        const c = cols(m),
+          W = 720,
+          H = 240,
+          P = { l: 32, r: 12, t: 10, b: 14 },
+          pts = DATA.sample.line[0].length,
+          bg = surf(m);
+        let out =
+          `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="Line chart, ${m} mode">` +
+          axes(W, H, P, 4);
+        const sh = shown(m);
+        sh.forEach((k, j) => {
+          const raw = DATA.sample.line[j % DATA.sample.line.length];
+          const base = raw.map((_, i) => raw[(i + cycleOf(j) * 3) % pts]);
+          const X = (i) => P.l + ((W - P.l - P.r) * i) / (pts - 1);
+          const Y = (y) => P.t + (H - P.t - P.b) * (1 - y / 100);
+          if (st.show !== "markers")
+            out += lineMarkup(
+              "path",
+              `d="${base.map((y, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(y).toFixed(1)).join("")}"`,
+              c[k],
+              j,
+              bg,
+            );
+          if (st.show === "lines") return;
+          // Spread each series' markers evenly along its own line, offset by rank,
+          // so markers from different series never share an x position.
+          const rank = j;
+          const n = st.show === "markers" ? 10 : 4;
+          for (let q = 0; q < n; q++) {
+            const t =
+              (0.04 + (0.92 * (q + (rank + 0.5) / sh.length)) / n) * (pts - 1);
+            const i0 = Math.min(pts - 2, Math.floor(t));
+            const yv = base[i0] + (base[i0 + 1] - base[i0]) * (t - i0);
+            out += marker(SLOTS[k].marker, X(t), Y(yv), c[k], bg);
+          }
+        });
+        return out + "</svg>";
+      }
+      function barChart(m) {
+        const c = cols(m),
+          sh = firstCycle(m),
+          W = 360,
+          H = 210,
+          P = { l: 28, r: 8, t: 10, b: 14 },
+          G = DATA.sample.bars.length;
+        let out =
+          `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="Grouped bar chart, ${m} mode">` +
+          axes(W, H, P, 4);
+        const gw = (W - P.l - P.r) / G,
+          bw = Math.max(2, (gw - 10) / sh.length);
+        for (let g = 0; g < G; g++) {
+          sh.forEach((k, j) => {
+            const h = ((H - P.t - P.b) * DATA.sample.bars[g][j]) / 100;
+            out += `<rect x="${(P.l + g * gw + 5 + j * bw).toFixed(1)}" y="${(H - P.b - h).toFixed(1)}" width="${(bw - 1).toFixed(1)}" height="${h.toFixed(1)}" fill="${c[k]}"/>`;
+          });
+        }
+        return out + "</svg>";
+      }
+      function scatter(m) {
+        const c = cols(m),
+          W = 360,
+          H = 210,
+          P = { l: 28, r: 8, t: 10, b: 14 },
+          bg = surf(m);
+        let out =
+          `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="Scatter chart, ${m} mode">` +
+          axes(W, H, P, 4);
+        firstCycle(m).forEach((k, j) => {
+          for (const [fx, fy] of DATA.sample.scatter[j]) {
+            const x = P.l + (W - P.l - P.r) * fx;
+            const y = P.t + (H - P.t - P.b) * (1 - fy);
+            out += marker(SLOTS[k].marker, x, y, c[k], bg);
+          }
+        });
+        return out + "</svg>";
+      }
+      function rgba(hex, a) {
+        const [r, g, b] = [1, 3, 5].map((i) =>
+          parseInt(hex.slice(i, i + 2), 16),
+        );
+        return `rgba(${r},${g},${b},${a})`;
+      }
+      function selection(m) {
+        const c = cols(m),
+          bg = surf(m),
+          k = shown(m)[0],
+          op = DATA.opacity,
+          W = 360,
+          H = 210;
+        const states = [
+          ["Rest", op.region, 2],
+          ["Hover", op["region-hover"], 2],
+          ["Selected", op["region-selected"], 3],
+        ];
+        let out = `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="Region states on an image, ${m} mode"><defs><linearGradient id="img-${m}" x1="0" x2="1"><stop offset="0" stop-color="#16181f"/><stop offset="0.5" stop-color="#868993"/><stop offset="1" stop-color="#eceef2"/></linearGradient></defs><rect width="${W}" height="${H - 24}" rx="6" fill="url(#img-${m})"/><circle cx="80" cy="60" r="30" fill="#2c3140" opacity="0.7"/><circle cx="190" cy="120" r="38" fill="#c9ccd4" opacity="0.7"/><circle cx="300" cy="50" r="26" fill="#4a4d57" opacity="0.7"/>`;
+        states.forEach(([label, fill, bw], i) => {
+          const x = 18 + i * 114,
+            y = 44;
+          out += `<rect x="${x}" y="${y}" width="96" height="70" fill="none" stroke="${bg}" stroke-opacity="0.55" stroke-width="${bw + 2}"/><rect x="${x}" y="${y}" width="96" height="70" fill="${rgba(c[k], fill)}" stroke="${c[k]}" stroke-width="${bw}"/><text x="${x}" y="${H - 6}">${label}</text>`;
+        });
+        return out + "</svg>";
+      }
+      function labels(m) {
+        const c = cols(m),
+          op = DATA.opacity,
+          sh = firstCycle(m),
+          k0 = sh[0];
+        const chip = (k, a, text, sel) =>
+          `<span class="lbl${sel ? " sel" : ""}" style="background:${rgba(c[k], a)};border-color:${c[k]};color:${DATA.onSurface[m]}">${text}</span>`;
+        const rows = sh
+          .map(
+            (k) =>
+              `<div class="lrow"><svg width="34" height="10" aria-hidden="true"><line x1="0" x2="34" y1="5" y2="5" stroke="${c[k]}" stroke-width="1.75"/></svg>${chip(k, op.label, SLOTS[k].name)}</div>`,
+          )
+          .join("");
+        const states = `<div class="lrow">${chip(k0, op.label, "Rest")}${chip(k0, op["label-hover"], "Hover")}${chip(k0, op["label-selected"], "Selected", true)}</div>`;
+        return `<div class="lrows">${rows}</div><div class="lrows lstates">${states}</div>`;
+      }
+      function legend(m) {
+        const c = cols(m),
+          bg = surf(m),
+          { info } = order(m);
+        return shown(m)
+          .map((k, p) => {
+            const s = SLOTS[k];
+            const hue =
+              st.ord === "hue"
+                ? ` · ${info[k].C < T.neutralChroma ? "grey" : Math.round(info[k].h) + "°"}`
+                : st.ord === "light"
+                  ? ` · L* ${Math.round(info[k].L)}`
+                  : "";
+            return `<div class="chip" title="${s.name} ${s[m]}"><svg width="22" height="18" viewBox="0 0 22 18" aria-hidden="true">${st.show === "markers" ? "" : lineMarkup("line", 'x1="0" x2="22" y1="9" y2="9"', c[k], p, bg)}${st.show !== "lines" ? marker(s.marker, 11, 9, c[k], bg) : ""}</svg><span class="t"><span class="n">${p + 1} ${s.name}</span><span class="h">${s[m]}${hue}</span></span>${k >= DATA.core ? '<span class="tag">+</span>' : ""}</div>`;
+          })
+          .join("");
+      }
+      function head(m) {
+        const s = DATA.stats[m];
+        const item = (label, v, bad) =>
+          `<span class="${bad ? "low" : ""}">${label} ${v}</span>`;
+        return `<div class="shead"><b>${m}</b>${item("ΔE", s.normal, s.normal < T.normal)}${item("CVD core", s.cvdCore, s.cvdCore < T.cvd)}${item("CVD all", s.cvdAll, s.cvdAll < T.cvdAll)}${item("min contrast", s.minContrast + ":1", s.minContrast < T.contrast)}</div>`;
+      }
+      function stage(m) {
+        return `<section class="stage" data-mode="${m}" aria-label="${m} mode">${head(m)}<div class="legend">${legend(m)}</div><div class="charts"><div class="wide"><div class="cap">${{ lines: "Lines", both: "Lines with markers", markers: "Markers" }[st.show]}, ${st.width}px, later cycles ${st.width2}px</div>${lineChart(m)}</div><div><div class="cap">Grouped bars</div>${barChart(m)}</div><div><div class="cap">Scatter groups</div>${scatter(m)}</div><div><div class="cap">Regions on an image</div>${selection(m)}</div><div><div class="cap">Labels next to a line</div>${labels(m)}</div></div></section>`;
+      }
+      function table() {
+        const rows = MODES.map((m) => {
+          const s = DATA.stats[m];
+          const cell = (v, bad) =>
+            `<td class="num ${bad ? "bad" : ""}">${v}</td>`;
+          return `<tr><td style="text-transform:capitalize">${m}</td>${cell(SLOTS.length, false)}${cell(s.normal, s.normal < T.normal)}${cell(s.cvdCore, s.cvdCore < T.cvd)}${cell(s.cvdAll, s.cvdAll < T.cvdAll)}${cell(s.minContrast, s.minContrast < T.contrast)}${cell(s.under3, s.under3 > 0)}${cell(s.grey + " of " + s.pairs, false)}${cell(s.lmin + "–" + s.lmax, false)}</tr>`;
+        });
+        $("tbl").innerHTML =
+          `<thead><tr><th>Mode</th><th>Slots</th><th>ΔE normal</th><th>CVD core</th><th>CVD all</th><th>Min contrast</th><th>Under ${T.contrast}:1</th><th>Grey pairs &lt;${T.greyClose} L*</th><th>L* range</th></tr></thead><tbody>${rows.join("")}</tbody>`;
+      }
+      function seg(el, items, key) {
+        if (!el.children.length) {
+          el.innerHTML = items
+            .map(
+              ([v, l]) => `<button type="button" data-v="${v}">${l}</button>`,
+            )
+            .join("");
+          el.onclick = (e) => {
+            const b = e.target.closest("button");
+            if (!b) return;
+            st[key] = b.dataset.v;
+            if (key === "ord" && st.ord === "random") {
+              st.shuffle = SLOTS.map((_, k) => k);
+              for (let i = st.shuffle.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [st.shuffle[i], st.shuffle[j]] = [st.shuffle[j], st.shuffle[i]];
+              }
+            }
+            render();
+          };
+        }
+        for (const b of el.children) {
+          b.setAttribute("aria-pressed", String(st[key] === b.dataset.v));
+        }
+      }
+      function render() {
+        const max = st.cycle * 3;
+        st.count = Math.min(st.count, max);
+        $("count").max = max;
+        $("count").value = st.count;
+        $("count-v").textContent = st.count + " of " + max;
+        $("width-v").textContent = st.width + "px";
+        $("width2-v").textContent = st.width2 + "px";
+        seg(
+          $("seg-mode"),
+          [
+            ["light", "Light"],
+            ["dark", "Dark"],
+            ["both", "Side by side"],
+          ],
+          "mode",
+        );
+        seg(
+          $("seg-ord"),
+          [
+            ["slot", "Slot"],
+            ["hue", "Hue"],
+            ["light", "Dark to light"],
+            ["random", "Shuffle"],
+          ],
+          "ord",
+        );
+        const modes = st.mode === "both" ? MODES : [st.mode];
+        $("stages").className = "stages" + (modes.length > 1 ? " both" : "");
+        $("stages").innerHTML = modes.map(stage).join("");
+        table();
+      }
+      $("core-n").textContent = DATA.core;
+      document.querySelectorAll("[data-t]").forEach((el) => {
+        el.textContent = T[el.dataset.t];
+      });
+      $("vision").onchange = (e) => {
+        st.vision = e.target.value;
+        render();
+      };
+      $("width").oninput = (e) => {
+        st.width = +e.target.value;
+        render();
+      };
+      $("width2").oninput = (e) => {
+        st.width2 = +e.target.value;
+        render();
+      };
+      $("cycle").onchange = (e) => {
+        st.cycle = +e.target.value;
+        render();
+      };
+      [0, 1, 2].forEach((i) => {
+        $("style" + i).onchange = (e) => {
+          st.styles[i] = e.target.value;
+          render();
+        };
+      });
+      $("gap").onchange = (e) => {
+        st.gap = e.target.value;
+        render();
+      };
+      $("show").onchange = (e) => {
+        st.show = e.target.value;
+        render();
+      };
+      $("count").oninput = (e) => {
+        st.count = +e.target.value;
+        render();
+      };
+      render();
+    </script>
+  </body>
+</html>
