@@ -13,7 +13,9 @@ usable across a wide range of abilities, environments, and levels of fatigue.
 
 We follow WCAG 2.2 as the compliance baseline, and use APCA (Advanced
 Perceptual Contrast Algorithm) to keep text readable and comfortable in
-real-world conditions. See Colour contrast and vision for details.
+real-world conditions. See [Colour contrast and
+vision](?path=/docs/accessibility-colour-contrast-and-vision--docs) for
+details.
 
 ## Core principles
 
@@ -76,12 +78,14 @@ real-world conditions. See Colour contrast and vision for details.
   </li>
 </ul>
 
-For composite components (e.g. menus, dialogs, tables), manage focus
-intentionally:
+For overlays such as menus and dialogs, manage focus intentionally:
 
 <ul>
   <li>Move focus into the component when it opens.</li>
-  <li>Keep focus within the component while it is active.</li>
+  <li>
+    Keep focus within modal dialogs while they are open. Non-modal menus and
+    popovers should close on Escape or when focus leaves.
+  </li>
   <li>Return focus to the triggering element when it closes.</li>
 </ul>
 
