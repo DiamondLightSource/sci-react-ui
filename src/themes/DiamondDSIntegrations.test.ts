@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type React from "react";
 import { DiamondDSIntegrations } from "./DiamondDSIntegrations";
 
@@ -52,78 +52,261 @@ describe("DiamondDSIntegrations.mrtOptions", () => {
     );
   });
 
+  beforeEach(() => vi.useFakeTimers());
+  afterEach(() => vi.useRealTimers());
+
+  const makeRows = () => [
+    { id: "a", index: 3, original: { locked: false } },
+    { id: "b", index: 5, original: { locked: true } },
+    { id: "c", index: 8, original: { locked: false } },
+  ];
+  const tableFor = (
+    rows: ReturnType<typeof makeRows>,
+    state: object = {},
+    pageSize = 10,
+  ) => ({
+    getCoreRowModel: () => ({ rows }),
+    getPrePaginationRowModel: () => ({ rows }),
+    getState: () => ({ pagination: { pageSize }, ...state }),
+    setPageIndex: vi.fn(),
+    options: {},
+    refs: { tableContainerRef: { current: null as HTMLElement | null } },
+  });
+  const dragEvent = (button: Element, dropEffect: string) =>
+    ({
+      dataTransfer: { dropEffect },
+      currentTarget: button,
+    }) as unknown as React.DragEvent<HTMLElement>;
+  const renderRows = (rows: ReturnType<typeof makeRows>) => {
+    document.body.innerHTML = `<table><tbody>${rows
+      .map(
+        (r) =>
+          `<tr><td data-row-id="${r.id}"${r.original.locked ? " data-immovable" : ""}><button></button></td></tr>`,
+      )
+      .join("")}</tbody></table>`;
+    return Array.from(document.querySelectorAll("tr"));
+  };
+
   it("drags a row, showing the drop edge and reporting source-data indices", () => {
     const onRowReorder = vi.fn();
     const { muiRowDragHandleProps } = DiamondDSIntegrations.mrtOptions({
       onRowReorder,
     });
-    const rows = [
-      { id: "a", index: 3 },
-      { id: "b", index: 5 },
-      { id: "c", index: 8 },
-    ];
-    document.body.innerHTML = `<table><tbody>${rows
-      .map((r) => `<tr><td data-row-id="${r.id}"><button></button></td></tr>`)
-      .join("")}</tbody></table>`;
-    const [trA, , trC] = Array.from(document.querySelectorAll("tr"));
-    // MRT tracks the dragged and hovered rows itself during a native drag
-    const table = {
-      getRowModel: () => ({ rows }),
-      getPrePaginationRowModel: () => ({ rows }),
-      getState: () => ({ draggingRow: rows[0], hoveredRow: rows[2] }),
-    };
-    const dragEvent = (dropEffect: string) =>
-      ({
-        dataTransfer: { dropEffect },
-        currentTarget: trA.querySelector("button")!,
-      }) as unknown as React.DragEvent<HTMLElement>;
+    const rows = makeRows();
+    const [trA, , trC] = renderRows(rows);
+    const table = tableFor(rows, { draggingRow: rows[0], hoveredRow: rows[2] });
+    const button = trA.querySelector("button")!;
+    const handle = () => muiRowDragHandleProps!({ row: rows[0], table });
 
-    muiRowDragHandleProps!({ table }).onDragStart(dragEvent("move"));
+    handle().onDragStart(dragEvent(button, "move"));
     trC.cells[0].dispatchEvent(new Event("dragover", { bubbles: true }));
 
     expect(trA.hasAttribute("data-dragging")).toBe(true);
     expect(trC.dataset.dropEdge).toBe("bottom");
 
     // MRT rebuilds the handle props mid-drag, so end on a fresh copy
-    muiRowDragHandleProps!({ table }).onDragEnd(dragEvent("move"));
+    handle().onDragEnd(dragEvent(button, "move"));
 
     expect(onRowReorder).toHaveBeenCalledWith(3, 8);
+    const status = document.querySelector("[data-ds-row-reorder-status]");
+    expect(status?.textContent).toBe("");
+    vi.advanceTimersByTime(250);
+    expect(status?.textContent).toBe("Row moved to position 3 of 3");
     expect(trA.hasAttribute("data-dragging")).toBe(false);
     expect(trC.hasAttribute("data-drop-edge")).toBe(false);
 
     // A cancelled drag cleans up without moving
     onRowReorder.mockClear();
-    muiRowDragHandleProps!({ table }).onDragStart(dragEvent("move"));
-    muiRowDragHandleProps!({ table }).onDragEnd(dragEvent("none"));
+    handle().onDragStart(dragEvent(button, "move"));
+    handle().onDragEnd(dragEvent(button, "none"));
 
     expect(onRowReorder).not.toHaveBeenCalled();
     expect(trA.hasAttribute("data-dragging")).toBe(false);
   });
 
-  it("offers Move up/down menu items that call onRowReorder", () => {
+  it("finds the dropped rows by id, so a data change mid-drag can't move the wrong row", () => {
     const onRowReorder = vi.fn();
-    const { renderRowActionMenuItems } = DiamondDSIntegrations.mrtOptions({
+    const { muiRowDragHandleProps } = DiamondDSIntegrations.mrtOptions({
       onRowReorder,
     });
-    // Page 2 shows `c` only; source-data indices differ from positions
-    const allRows = [
-      { id: "a", index: 4 },
-      { id: "b", index: 7 },
-      { id: "c", index: 2 },
-    ];
-    const table = {
-      getRowModel: () => ({ rows: allRows.slice(2) }),
-      getPrePaginationRowModel: () => ({ rows: allRows }),
-    };
-    const [up, down] = renderRowActionMenuItems!({
-      closeMenu: () => {},
-      row: allRows[2],
-      table,
+    const [a, , c] = makeRows();
+    const button = document.createElement("button");
+    const drop = (rows: ReturnType<typeof makeRows>) =>
+      muiRowDragHandleProps!({
+        row: a,
+        table: tableFor(rows, { draggingRow: a, hoveredRow: c }),
+      }).onDragEnd(dragEvent(button, "move"));
+
+    // The dragged row was removed
+    drop([c]);
+    expect(onRowReorder).not.toHaveBeenCalled();
+
+    // The target row moved: its current index is used, not the one it had
+    drop([a, { ...c, index: 1 }]);
+    expect(onRowReorder).toHaveBeenCalledWith(3, 1);
+  });
+
+  it("locks rows that aren't movable", () => {
+    const onRowReorder = vi.fn();
+    const options = DiamondDSIntegrations.mrtOptions<{ locked: boolean }>({
+      onRowReorder,
+      isRowMovable: (row) => !row.locked,
+    });
+    const rows = makeRows();
+    const [trA, trB] = renderRows(rows);
+    const table = tableFor(rows);
+
+    expect(
+      options.muiRowDragHandleProps!({ row: rows[1], table }),
+    ).toMatchObject({ draggable: false, sx: { display: "none" } });
+    expect(
+      options.muiTableBodyCellProps!({ column: { id: "x" }, row: rows[1] })[
+        "data-immovable"
+      ],
+    ).toBe("");
+    expect(
+      options.renderRowActionMenuItems!({
+        closeMenu: () => {},
+        row: rows[1],
+        table,
+      }),
+    ).toEqual([]);
+
+    // Dragging over a locked row refuses the drop and draws no line or MRT box
+    options.muiRowDragHandleProps!({ row: rows[0], table }).onDragStart(
+      dragEvent(trA.querySelector("button")!, "move"),
+    );
+    const dataTransfer = { dropEffect: "move" };
+    trB.cells[0].dispatchEvent(
+      Object.assign(new Event("dragover", { bubbles: true }), { dataTransfer }),
+    );
+    expect(dataTransfer.dropEffect).toBe("none");
+    expect(trB.dataset.dropEdge).toBe("none");
+  });
+
+  it("offers menu moves that skip locked rows and call onRowReorder", () => {
+    const onRowReorder = vi.fn();
+    const { renderRowActionMenuItems } = DiamondDSIntegrations.mrtOptions<{
+      locked: boolean;
+    }>({ onRowReorder, isRowMovable: (row) => !row.locked });
+    // Source-data indices differ from positions; `b` is locked
+    const rows = makeRows();
+    const table = tableFor(rows);
+    const itemsFor = (row: (typeof rows)[number]) =>
+      renderRowActionMenuItems!({ closeMenu: () => {}, row, table });
+
+    const [top, up, down, bottom] = itemsFor(rows[2]);
+    expect(top.props.disabled).toBe(false);
+    expect(down.props.disabled).toBe(true);
+    expect(bottom.props.disabled).toBe(true);
+    up.props.onClick();
+    expect(onRowReorder).toHaveBeenLastCalledWith(8, 3);
+
+    itemsFor(rows[0])[3].props.onClick();
+    expect(onRowReorder).toHaveBeenLastCalledWith(3, 8);
+    expect(itemsFor(rows[0])[0].props.disabled).toBe(true);
+  });
+
+  it("stops tracking when the dragged row is removed mid-drag", () => {
+    const { muiRowDragHandleProps } = DiamondDSIntegrations.mrtOptions({
+      onRowReorder: vi.fn(),
+    });
+    const rows = makeRows();
+    const [trA, , trC] = renderRows(rows);
+    muiRowDragHandleProps!({ row: rows[0], table: tableFor(rows) }).onDragStart(
+      dragEvent(trA.querySelector("button")!, "move"),
+    );
+
+    // MRT's dragend never arrives for a removed row
+    trA.remove();
+    trC.cells[0].dispatchEvent(new Event("dragover", { bubbles: true }));
+
+    expect(trC.hasAttribute("data-drop-edge")).toBe(false);
+
+    // A new drag also ends one that never got its dragend
+    const [trB] = renderRows(rows);
+    const handle = (i: number) =>
+      muiRowDragHandleProps!({ row: rows[i], table: tableFor(rows) });
+    handle(0).onDragStart(dragEvent(trB.querySelector("button")!, "move"));
+    const [, trB2] = Array.from(document.querySelectorAll("tr"));
+    handle(1).onDragStart(dragEvent(trB2.querySelector("button")!, "move"));
+    expect(trB.hasAttribute("data-dragging")).toBe(false);
+  });
+
+  it("follows a row moved to another page and focuses its actions button", () => {
+    const { renderRowActionMenuItems } = DiamondDSIntegrations.mrtOptions({
+      onRowReorder: vi.fn(),
+    });
+    // The consumer has applied the move: `a` now sits on page 2 (size 2)
+    const [a, b, c] = makeRows();
+    const table = tableFor([b, c, a], {}, 2);
+    // A second table shows a row with the same id; it must not count as ours
+    document.body.innerHTML = `<div id="other"><table><tr><td data-row-id="a"></td></tr></table></div><div id="mine"></div>`;
+    const mine = document.getElementById("mine")!;
+    table.refs.tableContainerRef.current = mine;
+    // Page 2 renders once the table asks for it
+    table.setPageIndex.mockImplementation(() => {
+      mine.innerHTML = `<table><tr><td data-row-id="a" data-column-id="mrt-row-actions"><button></button></td></tr></table>`;
     });
 
-    expect(down.props.disabled).toBe(true);
-    up.props.onClick();
-    expect(onRowReorder).toHaveBeenCalledWith(2, 7);
+    renderRowActionMenuItems!({
+      closeMenu: () => {},
+      row: a,
+      table,
+    })[0].props.onClick();
+    vi.runAllTimers();
+
+    expect(table.setPageIndex).toHaveBeenCalledWith(1);
+    expect(document.activeElement).toBe(mine.querySelector("button"));
+  });
+
+  it("doesn't change pages when pagination is off or server-side", () => {
+    const { renderRowActionMenuItems } = DiamondDSIntegrations.mrtOptions({
+      onRowReorder: vi.fn(),
+    });
+    const [a, b, c] = makeRows();
+    document.body.innerHTML = "";
+
+    for (const options of [
+      { enablePagination: false },
+      { manualPagination: true },
+    ]) {
+      const table = { ...tableFor([b, c, a], {}, 2), options };
+      renderRowActionMenuItems!({
+        closeMenu: () => {},
+        row: a,
+        table,
+      })[0].props.onClick();
+      vi.runAllTimers();
+      expect(table.setPageIndex).not.toHaveBeenCalled();
+    }
+  });
+
+  it("announces inside the table's dialog, which keeps the rest of the page hidden", () => {
+    const { renderRowActionMenuItems } = DiamondDSIntegrations.mrtOptions({
+      onRowReorder: vi.fn(),
+    });
+    const rows = makeRows();
+    const table = tableFor(rows);
+    document.body.innerHTML = `<div role="dialog"><div id="mine"></div></div>`;
+    table.refs.tableContainerRef.current = document.getElementById("mine");
+
+    renderRowActionMenuItems!({ closeMenu: () => {}, row: rows[0], table });
+
+    expect(
+      document.querySelector('[role="dialog"] > [data-ds-row-reorder-status]'),
+    ).not.toBeNull();
+  });
+
+  it("keeps the reorder columns out of the Show/Hide menu and off ranked search", () => {
+    const options = DiamondDSIntegrations.mrtOptions({ onRowReorder: vi.fn() });
+
+    expect(options.enableGlobalFilterRankedResults).toBe(false);
+    for (const id of ["mrt-row-drag", "mrt-row-actions"] as const)
+      expect(options.displayColumnDefOptions[id]).toEqual({
+        enableHiding: false,
+        visibleInShowHideMenu: false,
+      });
   });
 });
 

@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   AppBar,
   Box,
-  Button,
   Checkbox,
   Chip,
   Container,
@@ -50,6 +49,7 @@ import {
   ThemeProvider,
   DiamondDSTheme,
   DiamondDSIntegrations,
+  useRowReorder,
 } from "../../src/index";
 import type { Theme } from "@mui/material/styles";
 import type { TypographyProps } from "@mui/material/Typography";
@@ -205,14 +205,16 @@ export const MidLevelMrtExample = () => {
 
 export const AdvancedMrtExample = () => {
   const [rows, setRows] = React.useState(data);
-  const [reorderMode, setReorderMode] = React.useState(false);
 
-  const moveRow = (fromIndex: number, toIndex: number) =>
-    setRows((prev) => {
-      const next = [...prev];
-      next.splice(toIndex, 0, next.splice(fromIndex, 1)[0]);
-      return next;
-    });
+  const reorder = useRowReorder<Experiment>({
+    onReorder: (fromIndex, toIndex) =>
+      setRows((prev) => {
+        const next = [...prev];
+        next.splice(toIndex, 0, next.splice(fromIndex, 1)[0]);
+        return next;
+      }),
+    isRowMovable: (experiment) => experiment.status !== "Completed",
+  });
 
   const table = useMaterialReactTable({
     columns: mrtColumns,
@@ -221,38 +223,13 @@ export const AdvancedMrtExample = () => {
     enableDensityToggle: false,
     enableFullScreenToggle: false,
     enableHiding: true,
-    // Reorder mode swaps checkboxes for drag handles; sorting is off so it can't fight the manual order
-    enableRowSelection: !reorderMode,
-    enableRowOrdering: reorderMode,
-    enableSorting: !reorderMode,
+    enableRowSelection: true,
     getRowId: (row) => row.id,
     initialState: { rowSelection: { "EXP-1003": true } },
-    // MRT only builds column order on mount, so pin the active display column to the left
-    state: {
-      columnOrder: [
-        reorderMode ? "mrt-row-drag" : "mrt-row-select",
-        ...mrtColumns.map((column) => column.accessorKey as string),
-      ],
-    },
-    renderTopToolbarCustomActions: ({ table }) => (
-      <Button
-        size="small"
-        color="secondary"
-        variant={reorderMode ? "contained" : "outlined"}
-        aria-pressed={reorderMode}
-        onClick={() => {
-          // Drop any active sort so dragging works on the current visible order
-          table.resetSorting();
-          setReorderMode((prev) => !prev);
-        }}
-      >
-        {reorderMode ? "Done reordering" : "Reorder"}
-      </Button>
-    ),
+    renderTopToolbarCustomActions: reorder.renderToggleButton,
     mrtTheme: DiamondDSIntegrations.mrtTheme,
-    ...DiamondDSIntegrations.mrtOptions({
-      onRowReorder: reorderMode ? moveRow : undefined,
-    }),
+    ...DiamondDSIntegrations.mrtOptions({ fullWidth: true }),
+    ...reorder.tableOptions,
   });
 
   return <MaterialReactTable table={table} />;
@@ -532,8 +509,8 @@ const ComponentsPage = () => {
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
           Top toolbar, row selection, sorting and pagination. The{" "}
-          <code>Reorder</code> toggle swaps the checkboxes for drag handles and
-          turns sorting off while active.
+          <code>Reorder rows</code> toggle shows drag handles and a row menu,
+          and turns sorting off while active. Completed experiments are locked.
         </Typography>
         <AdvancedMrtExample />
       </Box>

@@ -69,16 +69,19 @@ export const DiamondDSIntegrations = {
   },
 
   // fullWidth drops the border/radius for tables with no surrounding container.
-  // `onRowReorder` receives source-data indices (MRT's `row.index`) on drop.
-  mrtOptions(options?: {
+  // `onRowReorder` receives source-data indices (MRT's `row.index`) on drop;
+  // `isRowMovable` locks rows out of it. Use `useRowReorder` for a toggleable mode.
+  mrtOptions<TData = unknown>(options?: {
     fullWidth?: boolean;
     onRowReorder?: (fromIndex: number, toIndex: number) => void;
+    isRowMovable?: (row: TData) => boolean;
   }) {
     const headCellBackgroundColor = "var(--ds-surface-container)";
-    const { fullWidth = false, onRowReorder } = options ?? {};
+    const { fullWidth = false, onRowReorder, isRowMovable } = options ?? {};
 
     return {
-      ...(onRowReorder && mrtRowReorderOptions(onRowReorder)),
+      ...(onRowReorder &&
+        mrtRowReorderOptions<TData>(onRowReorder, { isRowMovable })),
       // muiTableContainerProps overrides MuiTableContainer's themed
       // border/radius per-instance; Paper's radius must still match it below
       // (Paper clips its content, so a mismatch cuts the container's corners
@@ -89,6 +92,14 @@ export const DiamondDSIntegrations = {
       // Recentres the auto-generated selection checkbox; its header cell
       // otherwise gets vertical-align: top with 0 bottom padding.
       displayColumnDefOptions: {
+        // Reorder columns are switched by `useRowReorder`, not picked by the
+        // user. Here, not in the reorder options, so a spread of those can't
+        // replace this whole object. `enableHiding` keeps "Hide all" off them.
+        "mrt-row-drag": { enableHiding: false, visibleInShowHideMenu: false },
+        "mrt-row-actions": {
+          enableHiding: false,
+          visibleInShowHideMenu: false,
+        },
         "mrt-row-select": {
           muiTableHeadCellProps: {
             sx: {
