@@ -26,7 +26,7 @@ const meta: Meta<typeof CircularProgress> = {
     thickness: { control: { type: "number", min: 1, max: 10, step: 0.5 } },
   },
   args: {
-    color: "primary",
+    color: "info",
     variant: "indeterminate",
     value: 75,
     size: 40,
