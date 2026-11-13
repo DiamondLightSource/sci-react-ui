@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { act, renderHook, render, screen } from "@testing-library/react";
+import { renderHook, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useRowReorder } from "./useRowReorder";
 
@@ -18,9 +18,23 @@ describe("useRowReorder", () => {
       true,
     );
 
-    const view = () =>
-      render(result.current.renderToggleButton({ table: { resetSorting } }));
-    view();
+    render(
+      <>
+        {result.current.renderToggleButton({ table: { resetSorting } })}
+        <button
+          onClick={() =>
+            result.current.tableOptions.onColumnVisibilityChange((old) => ({
+              ...old,
+              scientist: false,
+              "mrt-row-drag": false,
+            }))
+          }
+        >
+          Hide columns
+        </button>
+      </>,
+    );
+
     await userEvent.click(screen.getByRole("button", { name: "Reorder rows" }));
 
     expect(visibility()).toMatchObject({
@@ -35,13 +49,8 @@ describe("useRowReorder", () => {
     expect(result.current.isReordering).toBe(true);
 
     // Other columns' visibility is kept, but not these two
-    act(() =>
-      result.current.tableOptions.onColumnVisibilityChange((old) => ({
-        ...old,
-        scientist: false,
-        "mrt-row-drag": false,
-      })),
-    );
+    await userEvent.click(screen.getByRole("button", { name: "Hide columns" }));
+
     expect(visibility()).toMatchObject({
       scientist: false,
       "mrt-row-drag": true,
