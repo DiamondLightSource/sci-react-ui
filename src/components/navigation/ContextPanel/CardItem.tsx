@@ -1,15 +1,30 @@
-import { Box, Checkbox, Chip, Stack, Tooltip, Typography } from "@mui/material";
-import { CardItem, StatusChip } from "./types";
+import {
+  Box,
+  Checkbox,
+  Chip,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { CardItem } from "./types";
+import { MoreVertical } from "lucide-react";
+import { useState } from "react";
 
 const FIRST_LINE = 28;
 const SELECTED_SHADOW =
   "inset 3px 0 0 var(--ds-primary), inset 0 0 0 9999px var(--ds-overlay-selected)";
 
+export const ICON_XS = { size: 16, strokeWidth: 1.5 };
+export const ICON_SM = { size: 20, strokeWidth: 1.75 };
+export const ICON_MD = { size: 24, strokeWidth: 2 };
+
 type CardItemComponentProps = {
   cardItem: CardItem;
   isSelected: boolean;
   isShown: boolean;
-  status?: StatusChip;
   checkbox: boolean;
   onCardClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onCheckboxClick: (v: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -19,11 +34,14 @@ export const CardItemComponent = ({
   cardItem,
   isSelected,
   isShown,
-  status,
   checkbox,
   onCardClick,
   onCheckboxClick,
 }: CardItemComponentProps) => {
+  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+
+  const tags = cardItem?.tags?.join(" · ");
+
   return (
     <Box
       data-plot-id={cardItem.title}
@@ -73,6 +91,7 @@ export const CardItemComponent = ({
       )}
       <Box sx={{ flex: 1, minWidth: 0 }}>
         <Stack
+          spacing={0.5}
           direction="row"
           alignItems="center"
           sx={{ minHeight: FIRST_LINE }}
@@ -86,14 +105,52 @@ export const CardItemComponent = ({
             {cardItem.title}
           </Typography>
 
-          {status && (
+          {cardItem.status && (
             <Chip
               size="small"
               variant="outlined"
-              label={status.label}
-              icon={status.icon}
-              color={status.intent}
+              label={cardItem.status.label}
+              icon={cardItem.status.icon}
+              color={cardItem.status.intent}
             />
+          )}
+
+          {cardItem.actions && (
+            <>
+              <IconButton
+                size="small"
+                aria-label={`More actions for ${cardItem.title}`}
+                aria-haspopup="menu"
+                aria-expanded={menuAnchor ?? false}
+                // data-row-menu={plot.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuAnchor(e.currentTarget);
+                }}
+              >
+                <MoreVertical {...ICON_XS} />
+              </IconButton>
+
+              <Menu
+                id="card-action-menu"
+                anchorEl={menuAnchor}
+                open={Boolean(menuAnchor)}
+                onClose={(e) => setMenuAnchor(null)}
+              >
+                {cardItem.actions.map((x) => (
+                  <MenuItem
+                    key={x.key}
+                    onClick={(e) => {
+                      x.onClick();
+                      e.stopPropagation();
+                      setMenuAnchor(null);
+                    }}
+                  >
+                    {x.label}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
           )}
         </Stack>
 
@@ -108,14 +165,25 @@ export const CardItemComponent = ({
           </Typography>
         )}
 
-        {cardItem.metadata &&
-          cardItem.metadata.map((x) => {
-            return (
-              <Tooltip key={x.key} title={x.label}>
-                {x.value}
-              </Tooltip>
-            );
-          })}
+        {cardItem.metadata && (
+          <Stack direction="row" spacing={0.5}>
+            {cardItem.metadata
+              .sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0)) // Sort by priority
+              .map((x) => (
+                <Tooltip key={x.key} title={x.label}>
+                  {x.value}
+                </Tooltip>
+              ))}
+          </Stack>
+        )}
+
+        {tags && (
+          <Tooltip title={tags}>
+            <Typography variant="mono3" noWrap>
+              {tags}
+            </Typography>
+          </Tooltip>
+        )}
       </Box>
     </Box>
   );

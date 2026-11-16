@@ -34,7 +34,7 @@ export type CardItem = {
   actions?: { key: string; label: string; onClick: () => void }[];
 };
 
-export type ContextPanelVariant = "cards" | "tree";
+export type ContextPanelVariant = "cards";
 export type ContextPanelDensity = "comfortable" | "compact";
 
 export type ContextPanelProps = {

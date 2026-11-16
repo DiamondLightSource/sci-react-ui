@@ -71,7 +71,7 @@ export const ContextPanel = ({
 
   const prevCardClick = useRef<CardClick | null>(null);
 
-  if (totalCount === 0) {
+  if (items.length === 0) {
     if (loading) {
       return (
         <Stack
@@ -85,9 +85,23 @@ export const ContextPanel = ({
           <Progress />
         </Stack>
       );
+    } else if (totalCount > 0) {
+      return (
+        <Stack
+          flex={1}
+          spacing={1}
+          justifyContent="center"
+          alignContent="center"
+          alignItems="center"
+          sx={{ p: 4, color: "text.secondary" }}
+        >
+          <Typography variant="body2">{noResultsMessage}</Typography>
+        </Stack>
+      );
     } else {
       return (
         <Stack
+          flex={1}
           spacing={1}
           justifyContent="center"
           alignContent="center"
@@ -95,7 +109,6 @@ export const ContextPanel = ({
           sx={{ p: 4, color: "text.secondary" }}
         >
           <Typography variant="body2">{emptyMessage}</Typography>
-          <Progress />
         </Stack>
       );
     }
@@ -113,28 +126,30 @@ export const ContextPanel = ({
   return (
     <>
       {controls}
-      <Stack
-        direction="row"
-        alignItems="center"
-        spacing={0.5}
-        sx={{
-          px: 2,
-          py: 0.5,
-          flexShrink: 0,
-          border: 1,
-          borderColor: "divider",
-        }}
-      >
-        <Typography
-          variant="meta"
-          role="status"
-          tabIndex={-1}
-          // ref={summaryRef}
-          sx={{ flex: 1, minWidth: 0, color: "text.secondary" }}
+      {items.length > 0 && (
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={0.5}
+          sx={{
+            px: 2,
+            py: 0.5,
+            flexShrink: 0,
+            border: 1,
+            borderColor: "divider",
+          }}
         >
-          {`${selectedIds?.length} of ${totalCount ?? "-"}`} selected
-        </Typography>
-      </Stack>
+          <Typography
+            variant="meta"
+            role="status"
+            tabIndex={-1}
+            // ref={summaryRef}
+            sx={{ flex: 1, minWidth: 0, color: "text.secondary" }}
+          >
+            {`${selectedIds?.length} of ${totalCount ?? "-"}`} selected
+          </Typography>
+        </Stack>
+      )}
       <TableContainer component={Paper} sx={{ borderRadius: 0 }}>
         <Table>
           <TableBody>
@@ -151,7 +166,6 @@ export const ContextPanel = ({
                     checkbox={
                       interaction !== "view" ? (checkboxes ?? true) : false
                     }
-                    status={x.status}
                     onCheckboxClick={(e) => {
                       const newCard = { id: x.id, idx: idx };
                       onSelectedChange(
