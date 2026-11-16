@@ -1264,6 +1264,25 @@ describe("DiamondDS component overrides", () => {
     expectTokenFallback(circularStyles.color, "--ds-warning");
   });
 
+  it("defaults progress indicators to the info colour", () => {
+    const linearBar =
+      DiamondDSTheme.components?.MuiLinearProgress?.styleOverrides?.bar;
+
+    expect(
+      DiamondDSTheme.components?.MuiLinearProgress?.defaultProps?.color,
+    ).toBe("info");
+    expect(
+      DiamondDSTheme.components?.MuiCircularProgress?.defaultProps?.color,
+    ).toBe("info");
+    expectTokenFallback(
+      getStyleOverride(linearBar, {
+        ownerState: { color: "info" },
+        theme: DiamondDSTheme,
+      }).backgroundColor,
+      "--ds-info",
+    );
+  });
+
   it("uses semantic loading surface roles for skeletons", () => {
     const root = DiamondDSTheme.components?.MuiSkeleton?.styleOverrides?.root;
     const wave = DiamondDSTheme.components?.MuiSkeleton?.styleOverrides?.wave;

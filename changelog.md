@@ -14,6 +14,7 @@
 - **Breaking** Full-width _Navbar_ (`containerWidth={false}`) now uses a 12px side gutter instead of 24px (16px on small screens), so a default-size menu `IconButton` at its left edge lines up with _SidebarNav_'s item icons. Centred Navbars keep the 24px gutter.
 - **Breaking** _User_ no longer renders a `flexGrow` spacer before itself, which added an extra gap next to sibling controls in a `Navbar` slot. If you placed `User` directly in a flex container and relied on it pushing itself to the right, add your own spacer.
 - `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move up/down in the row menu.
+- _LinearProgress_ and _CircularProgress_ now default to `color="info"`. Set `color="primary"` to keep the previous look.
 
 ### Fixed
 
