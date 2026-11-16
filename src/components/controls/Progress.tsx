@@ -31,10 +31,10 @@ const Progress = (props: ProgressProps) => (
     {/* Outer */}
     <CircularProgress
       variant="determinate"
-      sx={(theme) => ({
-        color: theme.palette.primary.main,
+      sx={{
+        color: "primary.main",
         opacity: 0.2,
-      })}
+      }}
       size={40}
       thickness={9}
       value={100}
@@ -43,13 +43,13 @@ const Progress = (props: ProgressProps) => (
     {/* Inner */}
     <CircularProgress
       variant="determinate"
-      sx={(theme) => ({
-        color: theme.palette.primary.main,
+      sx={{
+        color: "primary.main",
         opacity: 0.5,
         position: "absolute",
         left: 2,
         top: 2,
-      })}
+      }}
       size={36}
       thickness={4}
       value={100}
@@ -59,8 +59,8 @@ const Progress = (props: ProgressProps) => (
     <CircularProgress
       variant="indeterminate"
       disableShrink
-      sx={(theme) => ({
-        color: theme.palette.primary.main,
+      sx={{
+        color: "primary.main",
         animationDuration: speed[props.speed ?? "medium"],
         position: "absolute",
         left: 2.4,
@@ -72,7 +72,7 @@ const Progress = (props: ProgressProps) => (
         ["@media (prefers-reduced-motion: reduce)"]: {
           animationDuration: speed["verySlow"],
         },
-      })}
+      }}
       size={35}
       thickness={2}
     />
