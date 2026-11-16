@@ -8,7 +8,7 @@ import { dirname, resolve } from "node:path";
 const tokensCss = readFileSync(
   resolve(
     dirname(fileURLToPath(import.meta.url)),
-    "../styles/diamondDS/DiamondDSTokens.css",
+    "../styles/DiamondDSTokens.css",
   ),
   "utf8",
 );
@@ -16,7 +16,7 @@ const tokensCss = readFileSync(
 const typographyCss = readFileSync(
   resolve(
     dirname(fileURLToPath(import.meta.url)),
-    "../styles/diamondDS/DiamondDSTypography.css",
+    "../styles/DiamondDSTypography.css",
   ),
   "utf8",
 );
