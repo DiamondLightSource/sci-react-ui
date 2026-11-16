@@ -90,6 +90,10 @@ export const Default: Story = {
                 },
               ],
               tags: ["tag1", "tag2", "tag3", "tag4"],
+              footer: {
+                start: <Typography variant="meta">Footer start</Typography>,
+                end: <Typography variant="meta">Footer end</Typography>,
+              },
             },
           ]}
           totalCount={3}
