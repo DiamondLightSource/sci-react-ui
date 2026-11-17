@@ -4,6 +4,7 @@ import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 
 import { renderWithProviders } from "../../__test-utils__/helpers";
+import { DiamondDSTheme } from "../../themes/DiamondDSTheme";
 import { Progress } from "./Progress";
 
 describe("Progress", () => {
@@ -35,5 +36,16 @@ describe("Progress", () => {
 
     expect(progressbar.parentElement).toBeInTheDocument();
     expect(progressbar.parentElement).toHaveStyle("position:relative");
+  });
+
+  it("should not hardcode the light-mode primary colour", () => {
+    renderWithProviders(<Progress />);
+
+    const css = Array.from(document.querySelectorAll("style"))
+      .map((style) => style.textContent)
+      .join("\n");
+    expect(css).not.toMatch(
+      new RegExp(`color:\\s*${DiamondDSTheme.palette.primary.main}`, "i"),
+    );
   });
 });

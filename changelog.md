@@ -21,6 +21,9 @@
 
 ### Fixed
 
+- _Progress_ now follows the colour mode: its primary colour was fixed to the light value in dark mode.
+- Practical guidance and theme colours docs read intent colours from `theme.vars.palette`.
+
 ## [v0.8.0] - 2026-11-02
 
 ### Added
