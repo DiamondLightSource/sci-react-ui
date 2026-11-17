@@ -243,7 +243,11 @@ export const Grid: Story = {
           icon={LucideStar}
           setColourCallback={(v) => (v > 90 ? "success" : "error")}
         />
-        <DataTag label="Flux" value={1.2e12} />
+        <DataTag
+          label="Flux"
+          value={1.2e12}
+          setColourCallback={(v) => (v > 1 ? "error" : "success")}
+        />
         <DataTag
           label="Proposal"
           value="cm12345"
