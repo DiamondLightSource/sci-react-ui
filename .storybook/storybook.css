@@ -1096,3 +1096,176 @@ section.ds-mode-panel section {
   white-space: pre !important;
   overflow-x: auto;
 }
+
+/* Chart colours page */
+.ds-chart-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 8px;
+}
+
+.ds-chart-swatch {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: 8px;
+  background: var(--ds-surface);
+  color: var(--ds-on-surface);
+}
+
+.ds-chart-swatch-box {
+  height: 72px;
+}
+
+.ds-chart-swatch-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+
+.ds-chart-swatch-row svg {
+  flex: none;
+}
+
+.ds-chart-swatch-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.ds-chart-swatch-text code {
+  align-self: flex-start;
+}
+
+.ds-chart-demos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  padding-top: 12px;
+}
+
+/* Stand-in for a greyscale image, so literal greys are intended here. */
+.ds-chart-image {
+  position: relative;
+  height: 140px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #16181f, #868993 50%, #eceef2);
+}
+
+.ds-chart-roi {
+  position: absolute;
+  top: 18%;
+  width: 27%;
+  height: 46%;
+  border: 2px solid;
+  /* Soft halo in the surface colour, outside and inside the border. */
+  box-shadow:
+    0 0 0 1px rgb(var(--ds-surface-channel) / 0.55),
+    inset 0 0 0 1px rgb(var(--ds-surface-channel) / 0.55);
+}
+
+.ds-chart-roi-caps {
+  display: flex;
+  padding-left: 5%;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ds-on-surface-variant);
+}
+
+.ds-chart-roi-caps span {
+  width: 31.5%;
+}
+
+.ds-chart-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: center;
+}
+
+.ds-chart-label-states {
+  display: flex;
+  flex-basis: 100%;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.ds-chart-label {
+  display: inline-flex;
+  padding: 2px 10px;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--ds-on-surface);
+}
+
+.ds-chart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin: 16px 0;
+  padding-bottom: 16px;
+}
+
+.ds-chart-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.ds-chart-control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.ds-chart-examples {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.ds-chart-surface {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 12px;
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: 8px;
+  background: var(--ds-surface);
+  color: var(--ds-on-surface);
+}
+
+.ds-chart-cvd-row {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.ds-chart-cvd-label {
+  font-size: 13px;
+  color: var(--ds-on-surface-variant);
+}
+
+.ds-chart-cvd-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ds-chart-cvd-strip span {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 6px;
+}
+
+.ds-chart-cvd-strip span:nth-child(9) {
+  margin-left: 10px;
+}
