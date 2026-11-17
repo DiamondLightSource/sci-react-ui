@@ -24,11 +24,13 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Tooltip,
 } from "@mui/material";
 import { Theme, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Logo } from "../controls/Logo";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { NavLink, MemoryRouter, type NavLinkProps } from "react-router-dom";
 
 const meta: Meta<typeof SidebarNav> = {
@@ -712,12 +714,93 @@ export const DesktopSideBySide: Story = {
           setSubNavOpen={setSubNavOpen}
         />
         <Box component="main" sx={{ flexGrow: 1, minWidth: 0 }}>
-          <Toolbar /> {/* spacer equal to the AppBar's height */}
           <Box sx={{ p: 3 }}>
             <Typography variant="h5">Main content here</Typography>
           </Box>
         </Box>
       </Box>
     );
+  },
+};
+
+export const DesktopCollapsible: Story = {
+  render: () => {
+    const theme = useTheme();
+    const desktopLayout = useMediaQuery(theme.breakpoints.up("sm"));
+
+    const [sidebarOpen, setSidebarOpen] = React.useState(true);
+    const [subNavOpen, setSubNavOpen] = React.useState(true);
+
+    // Pressing either button hides it, which would drop focus to the top of
+    // the document, so carry it to the button that takes its place. Not on
+    // first load, nor when the change comes from resizing the window.
+    const moveFocus = React.useRef(false);
+    const toggle = (open: boolean) => {
+      moveFocus.current = true;
+      setSubNavOpen(open);
+    };
+    React.useEffect(() => {
+      if (!moveFocus.current) return;
+      moveFocus.current = false;
+      const target = subNavOpen
+        ? document.querySelector<HTMLElement>("#hide-sub-nav")
+        : document.getElementById("show-sub-nav");
+      target?.focus({ preventScroll: true });
+    }, [subNavOpen]);
+
+    return (
+      <Box sx={{ display: "flex", minHeight: "100%" }}>
+        <SidebarNav
+          navigation={desktopSideBySideNavigation}
+          open={sidebarOpen}
+          setOpen={setSidebarOpen}
+          subNav={{
+            title: "Setup",
+            groups: setupGroups,
+            // On mobile the back arrow already closes the panel
+            titleEndSlot: desktopLayout ? (
+              <Tooltip title="Collapse sidebar">
+                <IconButton
+                  size="small"
+                  id="hide-sub-nav"
+                  aria-label="Collapse sidebar"
+                  edge="end"
+                  onClick={() => toggle(false)}
+                >
+                  <PanelLeftClose size={20} strokeWidth={1.75} aria-hidden />
+                </IconButton>
+              </Tooltip>
+            ) : undefined,
+          }}
+          subNavOpen={subNavOpen}
+          setSubNavOpen={setSubNavOpen}
+        />
+        <Box component="main" sx={{ flexGrow: 1, minWidth: 0, p: 2 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {desktopLayout && !subNavOpen && (
+              <Tooltip title="Expand sidebar">
+                <IconButton
+                  id="show-sub-nav"
+                  size="small"
+                  aria-label="Expand sidebar"
+                  onClick={() => toggle(true)}
+                >
+                  <PanelLeftOpen size={20} strokeWidth={1.75} aria-hidden />
+                </IconButton>
+              </Tooltip>
+            )}
+            <Typography variant="h5">Main content here</Typography>
+          </Box>
+        </Box>
+      </Box>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "On desktop, `titleEndSlot` carries a collapse button and the page title has the matching expand button beside it. Each press hides the button that was pressed, so the story moves focus to its counterpart rather than letting it fall to the top of the page. The collapse button is left out on mobile, where the back arrow already closes the panel.",
+      },
+    },
   },
 };

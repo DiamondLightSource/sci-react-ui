@@ -155,6 +155,14 @@ describe("SubNavContent", () => {
     expect(onBack).toHaveBeenCalled();
   });
 
+  it("renders titleEndSlot in the header, even with no title", () => {
+    renderSubNavContent({
+      titleEndSlot: <button type="button">Collapse</button>,
+    });
+
+    expect(screen.getByRole("button", { name: "Collapse" })).toBeVisible();
+  });
+
   it("does not render a back button when onBack is not provided", () => {
     renderSubNavContent({ title: "Secondary" });
 
@@ -218,6 +226,25 @@ describe("SubNavContent", () => {
       screen.getByRole("button", { name: "Expand Expandable link" }),
     );
     expect(screen.getByText("Child")).toBeVisible();
+  });
+
+  it("expands a selected item on first render even when defaultExpanded is false", () => {
+    renderSubNavContent({
+      groups: [
+        {
+          items: [
+            {
+              label: "Analysis",
+              selected: true,
+              defaultExpanded: false,
+              children: [{ label: "Analysis A" }],
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(screen.getByText("Analysis A")).toBeVisible();
   });
 
   it("auto-expands an item that is selected or has a selected child", () => {

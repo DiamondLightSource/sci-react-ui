@@ -336,6 +336,14 @@ describe("SidebarNav", () => {
         expect(screen.getByRole("link", { name: "Detail" })).toBeVisible();
       });
 
+      it("labels the secondary panel as a navigation landmark", () => {
+        renderHarness({ initialSubNavOpen: true });
+
+        expect(
+          screen.getByRole("navigation", { name: "Secondary navigation" }),
+        ).toBeVisible();
+      });
+
       it("hides only the secondary panel when subNavOpen is false", () => {
         renderHarness({
           initialOpen: true,
@@ -380,6 +388,9 @@ describe("SidebarNav", () => {
         expect(screen.queryByText("Setup")).not.toBeInTheDocument();
         expect(screen.getByText("Secondary")).toBeVisible();
         expect(screen.getByRole("link", { name: "Detail" })).toBeVisible();
+        expect(
+          screen.getByRole("navigation", { name: "Secondary navigation" }),
+        ).toBeVisible();
         // Only one drawer mounted at a time on mobile - the sidebar's is
         // closed (and unmounted), the secondary content's is open.
         expect(document.querySelectorAll(".MuiDrawer-root")).toHaveLength(1);

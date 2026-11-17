@@ -8,6 +8,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
+  IconButton,
   InputAdornment,
   List,
   ListItem,
@@ -15,10 +16,12 @@ import {
   ListItemIcon,
   ListItemText,
   TextField,
+  Tooltip,
   Typography,
 } from "@mui/material";
+import { PanelLeftClose } from "lucide-react";
 import { SubNavContent } from "./SubNav";
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-webpack5";
 import React from "react";
 import { NavLink, MemoryRouter } from "react-router-dom";
 
@@ -38,8 +41,11 @@ const meta: Meta<typeof SubNavContent> = {
       description: {
         component: `The content of a contextual secondary navigation panel: a header (\`title\`/back) plus a grouped, optionally-expandable list. Presentation-agnostic — it renders no Drawer or panel of its own. Use SidebarNav's \`subNav\` prop to get the responsive mobile drill-down / desktop side-by-side behaviour around it.
 
+**Accessibility**: SidebarNav wraps this in a labelled \`<nav>\` landmark. When using it standalone, wrap it in a \`<nav>\` with an \`aria-label\` yourself, unless it already sits inside a navigation landmark.
+
 - **\`beforeNavSlot\` / \`afterNavSlot\`**: rendered inside the scrollable area, before/after the item list.
 - **\`footerSlot\`**: pinned to the bottom of the panel, outside the scrollable area.
+- **\`titleEndSlot\`**: rendered at the end of the header row, beside the title.
 
 **Using slots**
 - There's no dedicated search prop. Put a search field in \`beforeNavSlot\` (see \`WithSlots\`) and filter \`groups\` yourself in response to its value.
@@ -159,6 +165,21 @@ export const WithSlots: Story = {
       <SubNavContent
         title="Experiments"
         groups={basicGroups}
+        titleEndSlot={
+          <Typography
+            variant="overline"
+            color="text.secondary"
+            sx={{
+              px: 1,
+              border: "1px dashed",
+              borderColor: "divider",
+              borderRadius: 1,
+              bgcolor: "action.hover",
+            }}
+          >
+            titleEndSlot
+          </Typography>
+        }
         beforeNavSlot={
           <SlotOutline label="beforeNavSlot">
             <TextField
@@ -205,7 +226,7 @@ export const WithSlots: Story = {
     docs: {
       description: {
         story:
-          "The dashed boxes are only there to highlight what each slot renders - they aren't part of the component. `beforeNavSlot` (here, a search field) and `afterNavSlot` render inside the scrollable area, right before and after the item list; `SubNavContent` has no search logic of its own, so filtering `groups` in response to the value is entirely up to the consumer. `footerSlot` is pinned to the bottom of the panel, outside the scroll area.",
+          "The dashed boxes are only there to highlight what each slot renders - they aren't part of the component. `titleEndSlot` renders at the end of the header row. `beforeNavSlot` (here, a search field) and `afterNavSlot` render inside the scrollable area, right before and after the item list; `SubNavContent` has no search logic of its own, so filtering `groups` in response to the value is entirely up to the consumer. `footerSlot` is pinned to the bottom of the panel, outside the scroll area.",
       },
     },
   },
@@ -297,6 +318,28 @@ export const WithBackButton: Story = {
       description: {
         story:
           "`onBack` is normally supplied by SidebarNav on mobile to drill back to the primary sidebar, shown here in isolation.",
+      },
+    },
+  },
+};
+
+export const WithTitleButton: Story = {
+  args: {
+    title: "Experiments",
+    groups: basicGroups,
+    titleEndSlot: (
+      <Tooltip title="Collapse sidebar">
+        <IconButton size="small" aria-label="Collapse sidebar" edge="end">
+          <PanelLeftClose size={20} strokeWidth={1.75} aria-hidden />
+        </IconButton>
+      </Tooltip>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "`titleEndSlot` sits at the end of the header row, typically holding the button that collapses the panel. See SidebarNav's `DesktopCollapsible` story for the whole open/close loop, including where focus goes.",
       },
     },
   },

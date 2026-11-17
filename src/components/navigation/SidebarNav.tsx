@@ -87,6 +87,9 @@ function SidebarNav(props: SidebarNavProps) {
   const desktopLayout = useMediaQuery(theme.breakpoints.up("sm"));
 
   const subNavOpen = props.subNavOpen ?? false;
+  const subNavLabel = props.subNav?.title
+    ? `${props.subNav.title} navigation`
+    : "Secondary navigation";
 
   const effectiveOpen = desktopLayout ? props.open : props.open && !subNavOpen;
 
@@ -134,7 +137,11 @@ function SidebarNav(props: SidebarNavProps) {
       />
       {props.subNav &&
         (desktopLayout ? (
-          <SubNavPanel open={subNavOpen} hasAppBar={props.hasAppBar}>
+          <SubNavPanel
+            open={subNavOpen}
+            hasAppBar={props.hasAppBar}
+            label={subNavLabel}
+          >
             <SubNavContent {...props.subNav} />
           </SubNavPanel>
         ) : (
@@ -157,10 +164,21 @@ function SidebarNav(props: SidebarNavProps) {
             }}
           >
             {props.hasAppBar && <Toolbar />}
-            <SubNavContent
-              {...props.subNav}
-              onBack={() => props.setSubNavOpen?.(false)}
-            />
+            <Box
+              component="nav"
+              aria-label={subNavLabel}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+                minHeight: 0,
+              }}
+            >
+              <SubNavContent
+                {...props.subNav}
+                onBack={() => props.setSubNavOpen?.(false)}
+              />
+            </Box>
           </Drawer>
         ))}
     </>
@@ -176,6 +194,7 @@ function SidebarNav(props: SidebarNavProps) {
 function SubNavPanel(props: {
   open: boolean;
   hasAppBar?: boolean;
+  label: string;
   children: ReactNode;
 }) {
   const theme = useTheme();
@@ -183,6 +202,8 @@ function SubNavPanel(props: {
 
   return (
     <Box
+      component="nav"
+      aria-label={props.label}
       sx={{
         width,
         display: "flex",
@@ -406,10 +427,5 @@ function PrimaryNavItem(props: PrimaryNavItemProps) {
   );
 }
 
-export type {
-  SidebarNavProps,
-  Navigation,
-  NavItemGroup,
-  NavItemDefinition,
-};
+export type { SidebarNavProps, Navigation, NavItemGroup, NavItemDefinition };
 export { SidebarNav };

@@ -12,15 +12,8 @@ import {
   Typography,
 } from "@mui/material";
 import { Theme } from "@mui/material/styles";
-import {
-  Fragment,
-  useEffect,
-  useState,
-  type MouseEvent,
-  type ReactNode,
-} from "react";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { ChevronDown } from "lucide-react";
+import { Fragment, useState, type MouseEvent, type ReactNode } from "react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import type { NavItem, NavItemWithChildren } from "./types";
 
 type SubNavGroup = {
@@ -47,6 +40,12 @@ type SubNavContentProps = {
    */
   onBack?: () => void;
 
+  /**
+   * Rendered at the end of the header row, beside the title - typically an
+   * icon button that collapses the panel.
+   */
+  titleEndSlot?: ReactNode;
+
   /** Compact row height/spacing, suited to longer lists. Defaults to true. */
   dense?: boolean;
 };
@@ -67,7 +66,7 @@ function SubNavContent(props: SubNavContentProps) {
         <List dense={dense} sx={{ p: 1, flexDirection: "column" }}>
           {props.groups.map((group, groupIndex) => (
             <Fragment key={groupIndex}>
-              {groupIndex > 0 && <SectionDivider />}
+              {groupIndex > 0 && <SectionDivider spaced />}
               {group.subheader && (
                 <ListSubheader
                   disableSticky
@@ -101,7 +100,7 @@ function SubNavContent(props: SubNavContentProps) {
 }
 
 function SubNavHeader(props: SubNavContentProps) {
-  if (!props.onBack && !props.title) {
+  if (!props.onBack && !props.title && !props.titleEndSlot) {
     return null;
   }
 
@@ -115,7 +114,7 @@ function SubNavHeader(props: SubNavContentProps) {
             edge="start"
             size="small"
           >
-            <ArrowBackIcon fontSize="small" />
+            <ArrowLeft size={20} strokeWidth={1.75} aria-hidden />
           </IconButton>
         )}
         {props.title && (
@@ -123,14 +122,19 @@ function SubNavHeader(props: SubNavContentProps) {
             {props.title}
           </Typography>
         )}
+        {props.titleEndSlot && (
+          <Box sx={{ ml: "auto", display: "flex", flexShrink: 0 }}>
+            {props.titleEndSlot}
+          </Box>
+        )}
       </Box>
     </Box>
   );
 }
 
-function SectionDivider() {
+function SectionDivider({ spaced }: { spaced?: boolean }) {
   return (
-    <Box sx={{ mb: 0.5 }}>
+    <Box sx={{ mt: spaced ? 1.5 : 0, mb: 0.5 }}>
       <Divider />
     </Box>
   );
@@ -159,15 +163,18 @@ function SubNavItem({
   const hasChildren = !!item.children?.length;
   const isActive =
     !!item.selected || !!item.children?.some((child) => child.selected);
-  const [expanded, setExpanded] = useState(item.defaultExpanded ?? isActive);
-  // A selected item (or one with a selected child) should reveal its
-  // children even if it wasn't expanded to begin with - e.g. the consumer
-  // marks an item selected once its route becomes active.
-  useEffect(() => {
+  const [expanded, setExpanded] = useState(!!item.defaultExpanded || isActive);
+  // An item that becomes selected (or gains a selected child) should reveal
+  // its children even if it wasn't expanded to begin with - e.g. the consumer
+  // marks an item selected once its route becomes active. Adjusted during
+  // render rather than in an effect, so there is no frame with it still closed.
+  const [wasActive, setWasActive] = useState(isActive);
+  if (isActive !== wasActive) {
+    setWasActive(isActive);
     if (isActive) {
       setExpanded(true);
     }
-  }, [isActive]);
+  }
   const toggle = () => setExpanded((value) => !value);
   const toggleFromEvent = (e: MouseEvent) => {
     e.stopPropagation();
