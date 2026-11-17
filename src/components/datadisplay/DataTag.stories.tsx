@@ -228,12 +228,28 @@ export const Grid: Story = {
     <Stack direction="column" spacing={2}>
       <Typography>Default spacing:</Typography>
       <DataTagGrid>
-        <DataTag label="Beamline" value="i03" />
-        <DataTag label="Energy" value={12.658} toFixed={2} suffix="keV" />
-        <DataTag label="Transmission" value={100} suffix="%" />
+        <DataTag label="Beamline" value="i03" icon={LucideStar} />
+        <DataTag
+          label="Energy"
+          value={12.658}
+          toFixed={2}
+          suffix="keV"
+          icon={LucideStar}
+        />
+        <DataTag
+          label="Transmission"
+          value={100}
+          suffix="%"
+          icon={LucideStar}
+          setColourCallback={(v) => (v > 90 ? "success" : "error")}
+        />
         <DataTag label="Flux" value={1.2e12} />
-        <DataTag label="Proposal" value="cm12345" />
-        <DataTag label="Pin" value={6} />
+        <DataTag
+          label="Proposal"
+          value="cm12345"
+          setColourCallback={() => "primary"}
+        />
+        <DataTag label="Pin" value={6} setColourCallback={() => "info"} />
       </DataTagGrid>
 
       <Typography>Custom spacing (1rem):</Typography>
