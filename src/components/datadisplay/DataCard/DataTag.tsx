@@ -149,7 +149,7 @@ export const DataTag = <T extends string | number>({
             sx={{
               textTransform: "capitalize",
               height: 16,
-              fontSize: "0.625rem",
+              fontSize: "0.75rem",
               "& .MuiChip-label": {
                 px: 0.75,
               },
