@@ -40,6 +40,7 @@ export type DataTagProps<T extends string | number> = DataDisplayProps<T> &
 export const DataTag = <T extends string | number>({
   label,
   value,
+  icon: Icon,
   hideIf = "nullOrUndefined",
   shrinkWidth = false,
   size = 1,
@@ -96,7 +97,6 @@ export const DataTag = <T extends string | number>({
       }
     : {};
 
-  const Icon = props.icon;
   return (
     <Grid
       display={hideField() ? "none" : "grid"}
