@@ -11,7 +11,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "An extremely compact component to display data in high-density scientific views. Clicking a tag copies its formatted value to the clipboard.",
+          "An extremely compact component to display data in high-density scientific views",
       },
     },
   },
@@ -88,12 +88,12 @@ export const NumberFormatting: Story = {
   name: "Number formatting (suffix and toFixed)",
   args: { label: "Label" },
   render: () => (
-    <Stack direction="column" spacing={1} width={300}>
+    <DataTagGrid>
       <DataTag label="Raw" value={299.97123} />
       <DataTag label="toFixed={2}" value={299.97123} toFixed={2} />
       <DataTag label="suffix" value={492} suffix="s" />
       <DataTag label="Ring current" value={299.97123} toFixed={2} suffix="mA" />
-    </Stack>
+    </DataTagGrid>
   ),
   parameters: {
     docs: {
@@ -116,7 +116,7 @@ export const ColourCallback: Story = {
       value === "Open" ? "success" : "error";
 
     return (
-      <Stack direction="column" spacing={1} width={300}>
+      <DataTagGrid>
         <DataTag
           label="Load"
           value={42}
@@ -145,7 +145,7 @@ export const ColourCallback: Story = {
           value="Closed"
           setColourCallback={statusColour}
         />
-      </Stack>
+      </DataTagGrid>
     );
   },
   parameters: {
@@ -162,14 +162,14 @@ export const MissingValues: Story = {
   name: "Missing and falsy values",
   args: { label: "Label" },
   render: () => (
-    <Stack direction="column" spacing={1} width={300}>
+    <DataTagGrid>
       <Typography>Undefined value:</Typography>
       <DataTag label="Label" value={undefined} />
       <Typography>Zero:</Typography>
       <DataTag label="Label" value={0} />
       <Typography>Empty string:</Typography>
       <DataTag label="Label" value="" />
-    </Stack>
+    </DataTagGrid>
   ),
   parameters: {
     docs: {

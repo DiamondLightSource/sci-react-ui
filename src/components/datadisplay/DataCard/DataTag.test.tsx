@@ -32,7 +32,7 @@ describe("DataTag Component", () => {
 
   it("renders an icon if provided", () => {
     render(<DataTag label="Icon Test" value="Test" icon={LucideStar} />);
-    expect(screen.getByTitle("datafield-icon")).toBeInTheDocument();
+    expect(screen.getByLabelText("datatag-icon")).toBeInTheDocument();
   });
 
   it("applies the default aria-details if no indicatorFn is provided", () => {

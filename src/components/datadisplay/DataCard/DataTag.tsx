@@ -1,7 +1,10 @@
 "use client";
 
 import {
+  alpha,
   Box,
+  Chip,
+  ChipProps,
   Divider,
   Grid,
   GridProps,
@@ -13,6 +16,9 @@ import { ReactElement } from "react";
 import type { LucideIcon } from "lucide-react";
 
 const defaultTextColour: TypographyProps["color"] = "inherit";
+type ChipColour = NonNullable<ChipProps["color"]>;
+
+const chipColours: ChipColour[] = ["success", "error", "info", "warning"];
 
 interface DataDisplayProps<T extends string | number> {
   label: string;
@@ -37,14 +43,18 @@ export const DataTag = <T extends string | number>({
   hideIf = "nullOrUndefined",
   shrinkWidth = false,
   size = 1,
-  setColourCallback = () => defaultTextColour,
+  setColourCallback,
   ...props
 }: DataTagProps<T>) => {
   const colVal: TypographyProps["color"] = value
-    ? setColourCallback(value)
+    ? setColourCallback
+      ? setColourCallback(value)
+      : defaultTextColour
     : "textDisabled";
 
   let formattedValue: string | undefined;
+
+  const chipColour = chipColours.find((colour) => colour === colVal);
 
   if (typeof value === "number") {
     const numericProps = props as DataTagProps<number>;
@@ -110,13 +120,18 @@ export const DataTag = <T extends string | number>({
         gap={1}
         padding={"xs"}
         pr={1}
-        bgcolor="surface.subtle"
+        sx={(theme) => ({
+          bgcolor:
+            chipColour && chipColour !== "default"
+              ? alpha(theme.palette[chipColour].main, 0.08)
+              : "surface.subtle",
+        })}
         color="text.tertiary"
         minHeight={"1.5rem"}
         minWidth="fit-content"
         height="100%"
       >
-        {Icon && <Icon size="12px" />}
+        {Icon && <Icon aria-label="datatag-icon" size="16px" />}
         <Typography variant={"body2"}>{label}</Typography>
         <Divider orientation={"vertical"} flexItem />
         <Typography
@@ -127,6 +142,22 @@ export const DataTag = <T extends string | number>({
         >
           {formattedValue ?? "?"}
         </Typography>
+        {chipColour && (
+          <Chip
+            size="small"
+            variant="outlined"
+            sx={{
+              textTransform: "capitalize",
+              height: 16,
+              fontSize: "0.625rem",
+              "& .MuiChip-label": {
+                px: 0.75,
+              },
+            }}
+            color={chipColour}
+            label={chipColour}
+          />
+        )}
       </Stack>
     </Grid>
   );

@@ -8,6 +8,7 @@
 - `DiamondDSIntegrations.mrtLoadingState(loading, data)` returns MRT's `showSkeletons`/`showProgressBars` (skeletons on first load, progress bar on refetch).
 - `DiamondDSIntegrations.mrtRowIntent(intent)` returns row `sx` that tints an MRT row with the intent's subtle container colour.
 - `DiamondDSIntegrations.skipWhileSkeleton(callback)` wraps an MRT row/cell/checkbox props callback so it is skipped while skeleton rows show.
+- `DataTag`: an extremely compact component to display data in high-density scientific views.
 
 ### Changed
 
