@@ -640,6 +640,17 @@ const disabledIconStyles: CSSObject = {
 };
 
 /**
+ * MUI already fades these components when disabled, so their icons must not
+ * fade again. The icon keeps the colour of its parent.
+ */
+const parentFadedIconStyles: CSSObject = {
+  "&.Mui-disabled .MuiSvgIcon-root": {
+    color: "inherit",
+    opacity: 1,
+  },
+};
+
+/**
  * Creates the resolved DiamondDS MUI theme.
  *
  * This factory:
@@ -858,6 +869,8 @@ const DiamondDSTheme = extendTheme({
      *   MuiTab              → navigation hierarchy and selected state
      *   MuiAlert            → semantic feedback variants
      *   MuiChip             → metadata, status and interactive chips
+     *   MuiMenuItem, MuiListItemButton, MuiPaginationItem, MuiAccordionSummary
+     *                       → disabled icons are not faded twice
      *
      * Progress and loading:
      *   MuiLinearProgress   → semantic activity indicators
@@ -1845,7 +1858,20 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiMenuItem: {
+      styleOverrides: { root: parentFadedIconStyles },
+    },
+
+    MuiListItemButton: {
+      styleOverrides: { root: parentFadedIconStyles },
+    },
+
+    MuiAccordionSummary: {
+      styleOverrides: { root: parentFadedIconStyles },
+    },
+
     MuiPaginationItem: {
+      styleOverrides: { root: parentFadedIconStyles },
       defaultProps: {
         slots: {
           first: ChevronsLeftSlotIcon,

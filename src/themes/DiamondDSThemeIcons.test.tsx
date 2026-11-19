@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  AccordionSummary,
   Breadcrumbs,
   Link,
+  ListItemButton,
+  MenuItem,
   Pagination,
+  PaginationItem,
   Table,
   TableCell,
   TableHead,
@@ -11,7 +15,10 @@ import {
   TableSortLabel,
 } from "@mui/material";
 
+import { Star } from "lucide-react";
+
 import { renderWithProviders } from "../__test-utils__/helpers";
+import { LucideIcon } from "../components/datadisplay/Icons/LucideIcon";
 
 // MUI's own default icons carry a data-testid such as "FirstPageIcon".
 const materialIcons = (container: HTMLElement) =>
@@ -77,5 +84,63 @@ describe("DiamondDSTheme icon defaults, rendered", () => {
 
     expect(materialIcons(container)).toHaveLength(0);
     expect(container.querySelectorAll("svg.lucide").length).toBeGreaterThan(1);
+  });
+
+  // MUI fades these parents itself, so the icon must not fade a second time.
+  it.each([
+    [
+      "MenuItem",
+      () => (
+        <MenuItem disabled>
+          <LucideIcon icon={Star} />
+        </MenuItem>
+      ),
+    ],
+    [
+      "ListItemButton",
+      () => (
+        <ListItemButton disabled>
+          <LucideIcon icon={Star} />
+        </ListItemButton>
+      ),
+    ],
+    [
+      "PaginationItem",
+      () => (
+        <PaginationItem
+          type="next"
+          disabled
+          slots={{ next: () => <LucideIcon icon={Star} /> }}
+        />
+      ),
+    ],
+    [
+      "AccordionSummary",
+      () => (
+        <AccordionSummary disabled>
+          <LucideIcon icon={Star} />
+        </AccordionSummary>
+      ),
+    ],
+  ])("does not fade a disabled %s icon twice", (_name, render) => {
+    const { container } = renderWithProviders(render());
+
+    const icon = container.querySelector("svg.lucide") as SVGElement;
+    expect(getComputedStyle(icon).opacity).toBe("1");
+  });
+
+  it("still fades a disabled icon in a parent MUI does not fade", () => {
+    const { container } = renderWithProviders(
+      <MenuItem>
+        <span className="Mui-disabled">
+          <LucideIcon icon={Star} />
+        </span>
+      </MenuItem>,
+    );
+
+    const icon = container.querySelector("svg.lucide") as SVGElement;
+    expect(getComputedStyle(icon).opacity).toBe(
+      "var(--ds-on-surface-disabled-opacity)",
+    );
   });
 });
