@@ -4,6 +4,7 @@ import {
   Breadcrumbs,
   Link,
   ListItemButton,
+  ListItemIcon,
   MenuItem,
   Pagination,
   PaginationItem,
@@ -127,6 +128,20 @@ describe("DiamondDSTheme icon defaults, rendered", () => {
 
     const icon = container.querySelector("svg.lucide") as SVGElement;
     expect(getComputedStyle(icon).opacity).toBe("1");
+  });
+
+  it("keeps the gap after a MenuItem icon small", () => {
+    const { container } = renderWithProviders(
+      <MenuItem>
+        <ListItemIcon>
+          <LucideIcon icon={Star} size="sm" />
+        </ListItemIcon>
+        Label
+      </MenuItem>,
+    );
+
+    const wrapper = container.querySelector(".MuiListItemIcon-root") as Element;
+    expect(getComputedStyle(wrapper).minWidth).toBe("28px");
   });
 
   it("still fades a disabled icon in a parent MUI does not fade", () => {

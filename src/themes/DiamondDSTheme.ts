@@ -1859,7 +1859,13 @@ const DiamondDSTheme = extendTheme({
     },
 
     MuiMenuItem: {
-      styleOverrides: { root: parentFadedIconStyles },
+      styleOverrides: {
+        root: {
+          ...parentFadedIconStyles,
+          // MUI's 36px leaves a 16px gap after a 20px icon.
+          "& .MuiListItemIcon-root": { minWidth: 28 },
+        },
+      },
     },
 
     MuiListItemButton: {

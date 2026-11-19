@@ -80,13 +80,13 @@ export const WithIcons: Story = {
         >
           <MenuItem onClick={() => setAnchorEl(null)}>
             <ListItemIcon>
-              <LucideIcon icon={Save} />
+              <LucideIcon icon={Save} size="sm" />
             </ListItemIcon>
             Save
           </MenuItem>
           <MenuItem onClick={() => setAnchorEl(null)}>
             <ListItemIcon>
-              <LucideIcon icon={Send} />
+              <LucideIcon icon={Send} size="sm" />
             </ListItemIcon>
             Send
           </MenuItem>

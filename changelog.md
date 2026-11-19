@@ -20,6 +20,7 @@
 - `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move up/down in the row menu.
 - _LinearProgress_ and _CircularProgress_ now default to `color="info"`. Set `color="primary"` to keep the previous look.
 - New `--ds-on-surface-disabled-opacity` token. Disabled Lucide icons and the read-only `Select` icon use it instead of a translucent colour, so strokes no longer darken where they overlap.
+- `MenuItem`: the icon box is 28px wide instead of 36px, so the gap after a 20px icon is 8px.
 - **Breaking** Library icons now use Lucide. `lucide-react` is a new peer dependency (`^1.35.0`). `@mui/icons-material` and `react-icons` are no longer required unless used elsewhere in your app. JsonForms users still need `@mui/icons-material` for `@jsonforms/material-renderers`.
 - `Alert`, `Select`, `NativeSelect`, `Autocomplete`, `Chip`, `Breadcrumbs`, `Pagination`, `TablePagination`, `TableSortLabel` and `Tabs` now use Lucide icons by default through `DiamondDSTheme`.
 - `Chip`: icons are smaller (18px, 16px on small chips) and disabled chips use disabled tokens instead of MUI's fade.
