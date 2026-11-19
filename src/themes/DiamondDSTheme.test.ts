@@ -4,6 +4,8 @@ import {
   AlertTriangleIcon,
   CheckCircleIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   CircleXIcon,
   CloseIcon,
   InfoIcon,
@@ -1248,6 +1250,10 @@ describe("DiamondDS component overrides", () => {
     });
     expect(components?.MuiChip?.defaultProps?.deleteIcon).toMatchObject({
       type: CloseIcon,
+    });
+    expect(components?.MuiTabs?.defaultProps?.slots).toEqual({
+      StartScrollButtonIcon: ChevronLeftIcon,
+      EndScrollButtonIcon: ChevronRightIcon,
     });
   });
 

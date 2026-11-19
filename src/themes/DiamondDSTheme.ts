@@ -22,14 +22,25 @@ import "@fontsource/ibm-plex-mono/latin-600.css";
 import "../styles/diamondDS/DiamondDSTokens.css";
 import "../styles/diamondDS/DiamondDSTypography.css";
 
-import { createElement } from "react";
+import { createElement, forwardRef } from "react";
+import {
+  ArrowDown,
+  ChevronsLeft,
+  ChevronsRight,
+  Ellipsis,
+  type LucideIcon as LucideIconType,
+} from "lucide-react";
 import {
   AlertTriangleIcon,
   CheckCircleIcon,
   ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   CircleXIcon,
   CloseIcon,
   InfoIcon,
+  LucideIcon,
+  type LucideIconProps,
 } from "../components/datadisplay/Icons";
 
 // Enables `theme.vars` typings for MUI CSS variable themes.
@@ -599,6 +610,26 @@ const getDisabledControlStyles = (backgroundColor = "transparent"): CSSObject =>
     boxShadow: "none",
   }) satisfies CSSObject;
 
+/** MUI slots take a component type, so these are not exported as library icons. */
+const createSlotIcon = (icon: LucideIconType, displayName: string) => {
+  const SlotIcon = forwardRef<SVGSVGElement, Omit<LucideIconProps, "icon">>(
+    (props, ref) => createElement(LucideIcon, { ref, icon, ...props }),
+  );
+  SlotIcon.displayName = displayName;
+  return SlotIcon;
+};
+
+const ArrowDownSlotIcon = createSlotIcon(ArrowDown, "ArrowDownSlotIcon");
+const ChevronsLeftSlotIcon = createSlotIcon(
+  ChevronsLeft,
+  "ChevronsLeftSlotIcon",
+);
+const ChevronsRightSlotIcon = createSlotIcon(
+  ChevronsRight,
+  "ChevronsRightSlotIcon",
+);
+const EllipsisSlotIcon = createSlotIcon(Ellipsis, "EllipsisSlotIcon");
+
 /**
  * Fades an icon with opacity on an opaque colour. A translucent colour would
  * darken where the strokes of an outline icon overlap.
@@ -978,6 +1009,12 @@ const DiamondDSTheme = extendTheme({
           ownerState.variant === "temporary"
             ? { boxShadow: "var(--Paper-shadow)" }
             : {},
+      },
+    },
+
+    MuiBreadcrumbs: {
+      defaultProps: {
+        slots: { CollapsedIcon: EllipsisSlotIcon },
       },
     },
 
@@ -1808,7 +1845,43 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiPaginationItem: {
+      defaultProps: {
+        slots: {
+          first: ChevronsLeftSlotIcon,
+          previous: ChevronLeftIcon,
+          next: ChevronRightIcon,
+          last: ChevronsRightSlotIcon,
+        },
+      },
+    },
+
+    MuiTablePagination: {
+      defaultProps: {
+        slots: {
+          actions: {
+            firstButtonIcon: ChevronsLeftSlotIcon,
+            previousButtonIcon: ChevronLeftIcon,
+            nextButtonIcon: ChevronRightIcon,
+            lastButtonIcon: ChevronsRightSlotIcon,
+          },
+        },
+      },
+    },
+
+    MuiTableSortLabel: {
+      defaultProps: {
+        IconComponent: ArrowDownSlotIcon,
+      },
+    },
+
     MuiTabs: {
+      defaultProps: {
+        slots: {
+          StartScrollButtonIcon: ChevronLeftIcon,
+          EndScrollButtonIcon: ChevronRightIcon,
+        },
+      },
       styleOverrides: {
         root: {
           minHeight: 44,

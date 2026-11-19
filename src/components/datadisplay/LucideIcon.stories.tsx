@@ -3,15 +3,26 @@ import {
   Alert,
   Autocomplete,
   Box,
+  Breadcrumbs,
   Button,
   Chip,
   FormControl,
   IconButton,
   InputAdornment,
   InputLabel,
+  Link,
   MenuItem,
+  Pagination,
   Select,
   Stack,
+  Tab,
+  Table,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Tabs,
   TextField,
   Typography,
 } from "@mui/material";
@@ -269,6 +280,52 @@ export const InComponents: Story = {
           />
         ))}
       </Stack>
+
+      <Pagination count={10} defaultPage={5} showFirstButton showLastButton />
+
+      <Table sx={{ width: 480 }}>
+        <TableHead>
+          <TableRow>
+            <TableCell>
+              <TableSortLabel active direction="asc">
+                Sort label
+              </TableSortLabel>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <tbody>
+          <TableRow>
+            <TablePagination
+              count={100}
+              page={2}
+              rowsPerPage={10}
+              rowsPerPageOptions={[10]}
+              onPageChange={() => undefined}
+              showFirstButton
+              showLastButton
+            />
+          </TableRow>
+        </tbody>
+      </Table>
+
+      <Breadcrumbs maxItems={2}>
+        <Link href="#">One</Link>
+        <Link href="#">Two</Link>
+        <Link href="#">Three</Link>
+        <Link href="#">Four</Link>
+      </Breadcrumbs>
+
+      <Tabs
+        value={0}
+        variant="scrollable"
+        scrollButtons
+        allowScrollButtonsMobile
+        sx={{ width: 240 }}
+      >
+        {["One", "Two", "Three", "Four", "Five", "Six"].map((label) => (
+          <Tab key={label} label={label} />
+        ))}
+      </Tabs>
 
       <Stack direction="row" spacing={2}>
         {[false, true].map((disabled) => (
