@@ -1,23 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import type { ComponentProps } from "react";
 
-import {
-  AddIcon,
-  Box,
-  Button,
-  DeleteIcon,
-  SaveIcon,
-  SendIcon,
-  Stack,
-} from "../MuiWrapped";
+import { Box, Button, Stack } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Plus, Save, Send, Trash2 } from "lucide-react";
 
 const icons = {
   none: null,
-  save: <SaveIcon />,
-  add: <AddIcon />,
-  send: <SendIcon />,
-  delete: <DeleteIcon />,
+  save: <LucideIcon icon={Save} />,
+  add: <LucideIcon icon={Plus} />,
+  send: <LucideIcon icon={Send} />,
+  delete: <LucideIcon icon={Trash2} />,
 };
 
 type IconName = keyof typeof icons;
@@ -156,10 +150,14 @@ export const Colours: Story = {
 export const WithStartIcon: Story = {
   render: (_args) => (
     <Stack direction="row" spacing={1}>
-      <Button startIcon={<SaveIcon />} variant="contained">
+      <Button startIcon={<LucideIcon icon={Save} />} variant="contained">
         Save
       </Button>
-      <Button startIcon={<AddIcon />} color="success" variant="contained">
+      <Button
+        startIcon={<LucideIcon icon={Plus} />}
+        color="success"
+        variant="contained"
+      >
         Add
       </Button>
     </Stack>
@@ -169,10 +167,14 @@ export const WithStartIcon: Story = {
 export const WithEndIcon: Story = {
   render: (_args) => (
     <Stack direction="row" spacing={1}>
-      <Button endIcon={<SendIcon />} variant="contained">
+      <Button endIcon={<LucideIcon icon={Send} />} variant="contained">
         Send
       </Button>
-      <Button endIcon={<DeleteIcon />} color="error" variant="contained">
+      <Button
+        endIcon={<LucideIcon icon={Trash2} />}
+        color="error"
+        variant="contained"
+      >
         Delete
       </Button>
     </Stack>
@@ -294,7 +296,11 @@ export const DestructiveAction: Story = {
       <Button variant="contained" color="primary">
         Save
       </Button>
-      <Button variant="outlined" color="error" startIcon={<DeleteIcon />}>
+      <Button
+        variant="outlined"
+        color="error"
+        startIcon={<LucideIcon icon={Trash2} />}
+      >
         Delete
       </Button>
     </Stack>
@@ -308,7 +314,11 @@ export const ConfirmedDestructiveAction: Story = {
       <Button variant="text" color="inherit">
         Cancel
       </Button>
-      <Button variant="contained" color="error" startIcon={<DeleteIcon />}>
+      <Button
+        variant="contained"
+        color="error"
+        startIcon={<LucideIcon icon={Trash2} />}
+      >
         Delete permanently
       </Button>
     </Stack>

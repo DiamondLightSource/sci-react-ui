@@ -1,13 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import * as React from "react";
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  FavoriteIcon,
-  LocationOnIcon,
-  RestoreIcon,
-} from "../MuiWrapped";
+import { BottomNavigation, BottomNavigationAction } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Heart, History, MapPin } from "lucide-react";
 
 const meta: Meta<typeof BottomNavigation> = {
   title: "MUI/Navigation/BottomNavigation",
@@ -31,9 +27,18 @@ export const Basic: Story = {
         value={value}
         onChange={(_, v) => setValue(v)}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favourites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction
+          label="Recents"
+          icon={<LucideIcon icon={History} />}
+        />
+        <BottomNavigationAction
+          label="Favourites"
+          icon={<LucideIcon icon={Heart} />}
+        />
+        <BottomNavigationAction
+          label="Nearby"
+          icon={<LucideIcon icon={MapPin} />}
+        />
       </BottomNavigation>
     );
   },

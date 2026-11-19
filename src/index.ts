@@ -20,6 +20,7 @@ export * from "./components/controls/NumberInput";
 
 // components/datadisplay
 export * from "./components/datadisplay/DataCard";
+export * from "./components/datadisplay/Icons";
 
 // components/systems
 export * from "./components/systems/auth";

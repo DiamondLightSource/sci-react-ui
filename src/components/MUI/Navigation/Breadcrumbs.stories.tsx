@@ -1,17 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import {
-  Breadcrumbs,
-  GrainIcon,
-  HomeIcon,
-  Link,
-  Typography,
-  WhatshotIcon,
-  WorkIcon,
-} from "../MuiWrapped";
+import { Breadcrumbs, Link, Typography } from "../MuiWrapped";
+import { HomeIcon } from "../../datadisplay/Icons";
 import {
   muiDocsParameters,
   muiDocsText,
 } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Briefcase, Flame, Grid3x3 } from "lucide-react";
 
 const meta: Meta<typeof Breadcrumbs> = {
   title: "MUI/Navigation/Breadcrumbs",
@@ -81,21 +76,21 @@ export const WithIcons: Story = {
         Home
       </Link>
       <Link>
-        <WhatshotIcon fontSize="inherit" />
+        <LucideIcon icon={Flame} fontSize="inherit" />
         Instrument Session
       </Link>
       <Typography
         color="text.primary"
         sx={{ display: "inline-flex", alignItems: "center", gap: 0.5 }}
       >
-        <GrainIcon fontSize="inherit" />
+        <LucideIcon icon={Grid3x3} fontSize="inherit" />
         Data Collection
       </Typography>
       <Typography
         color="text.primary"
         sx={{ display: "inline-flex", alignItems: "center", gap: 0.5 }}
       >
-        <WorkIcon fontSize="inherit" />
+        <LucideIcon icon={Briefcase} fontSize="inherit" />
         Data Collection
       </Typography>
     </Breadcrumbs>

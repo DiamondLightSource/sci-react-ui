@@ -1,12 +1,4 @@
-import {
-  Abc,
-  ArrowForward,
-  CorporateFare,
-  GraphicEq,
-  Insights,
-  Menu,
-  Schedule,
-} from "@mui/icons-material";
+import { MenuIcon, SettingsIcon } from "../datadisplay/Icons";
 import { SidebarNav } from "./SidebarNav";
 import { Meta, StoryObj } from "@storybook/react-webpack5";
 import React from "react";
@@ -29,6 +21,15 @@ import { Theme } from "@mui/material/styles";
 import { Logo } from "../controls/Logo";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { NavLink, MemoryRouter } from "react-router-dom";
+import { LucideIcon } from "../datadisplay/Icons";
+import {
+  Briefcase,
+  ChartLine,
+  Folder,
+  History,
+  ScanQrCode,
+  SlidersHorizontal,
+} from "lucide-react";
 
 const meta: Meta<typeof SidebarNav> = {
   title: "Components/Navigation/SidebarNav",
@@ -67,18 +68,18 @@ const standardLinks = [
     navItems: [
       {
         label: "Setup",
-        icon: <Abc />,
+        icon: <LucideIcon icon={SlidersHorizontal} />,
         linkProps: { href: "" },
       },
       {
         label: "Acquisition",
-        icon: <ArrowForward />,
+        icon: <LucideIcon icon={ScanQrCode} />,
         linkProps: { href: "" },
         selected: true,
       },
       {
         label: "Analysis",
-        icon: <GraphicEq />,
+        icon: <LucideIcon icon={ChartLine} />,
         linkProps: { href: "" },
       },
     ],
@@ -93,7 +94,7 @@ export const NormalLinks: Story = {
         <SidebarNav navigation={standardLinks} open={open} setOpen={setOpen} />
         <Box sx={{ p: 2 }}>
           <IconButton onClick={() => setOpen(!open)}>
-            <Menu />
+            <MenuIcon />
           </IconButton>
           <Typography>
             When using standard links, the caller must handle the selected state
@@ -113,17 +114,17 @@ const reactRouterNavigation = [
     navItems: [
       {
         label: "Setup",
-        icon: <Abc />,
+        icon: <LucideIcon icon={SlidersHorizontal} />,
         linkProps: { to: "/1", component: NavLink },
       },
       {
         label: "Acquisition",
-        icon: <ArrowForward />,
+        icon: <LucideIcon icon={ScanQrCode} />,
         linkProps: { to: "/2", component: NavLink },
       },
       {
         label: "Analysis",
-        icon: <GraphicEq />,
+        icon: <LucideIcon icon={ChartLine} />,
         linkProps: { to: "/3", component: NavLink },
       },
     ],
@@ -132,7 +133,7 @@ const reactRouterNavigation = [
     navItems: [
       {
         label: "Organisation",
-        icon: <CorporateFare />,
+        icon: <LucideIcon icon={Briefcase} />,
         linkProps: { to: "/4", component: NavLink },
       },
     ],
@@ -151,7 +152,7 @@ export const RouterLinks: Story = {
         />
         <Box sx={{ p: 2 }}>
           <IconButton onClick={() => setOpen(!open)}>
-            <Menu />
+            <MenuIcon />
           </IconButton>
           <Typography>
             React Router <em>NavLinks</em> will handle selected state
@@ -171,12 +172,12 @@ const groupedNavigation = [
     navItems: [
       {
         label: "Setup",
-        icon: <Abc />,
+        icon: <LucideIcon icon={SlidersHorizontal} />,
         linkProps: { to: "/1", component: NavLink },
       },
       {
         label: "Acquisition",
-        icon: <ArrowForward />,
+        icon: <LucideIcon icon={ScanQrCode} />,
         linkProps: { to: "/2", component: NavLink },
       },
     ],
@@ -185,12 +186,12 @@ const groupedNavigation = [
     navItems: [
       {
         label: "Analysis",
-        icon: <GraphicEq />,
+        icon: <LucideIcon icon={ChartLine} />,
         linkProps: { to: "/3", component: NavLink },
       },
       {
         label: "Data Browse",
-        icon: <Insights />,
+        icon: <LucideIcon icon={Folder} />,
         linkProps: { to: "/4", component: NavLink },
       },
     ],
@@ -199,7 +200,7 @@ const groupedNavigation = [
     navItems: [
       {
         label: "Log",
-        icon: <Schedule />,
+        icon: <LucideIcon icon={History} />,
         linkProps: { to: "/5", component: NavLink },
       },
     ],
@@ -218,7 +219,7 @@ export const GroupedNavigation: Story = {
         />
         <Box sx={{ p: 2 }}>
           <IconButton onClick={() => setOpen(!open)}>
-            <Menu />
+            <MenuIcon />
           </IconButton>
           <Typography>Sections are grouped with dividers.</Typography>
         </Box>
@@ -279,7 +280,7 @@ export const WithSlots: Story = {
                     sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
                   >
                     <ListItemIcon sx={{ minWidth: 32 }}>
-                      <Insights />
+                      <LucideIcon icon={Folder} />
                     </ListItemIcon>
                     <ListItemText
                       primary="Documentation"
@@ -299,7 +300,7 @@ export const WithSlots: Story = {
                     sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
                   >
                     <ListItemIcon sx={{ minWidth: 32 }}>
-                      <CorporateFare />
+                      <SettingsIcon />
                     </ListItemIcon>
                     <ListItemText
                       primary="Settings"
@@ -313,7 +314,7 @@ export const WithSlots: Story = {
         />
         <Box sx={{ p: 2 }}>
           <IconButton onClick={() => setOpen(!open)}>
-            <Menu />
+            <MenuIcon />
           </IconButton>
           <Typography>
             Adds slots to the navbar, boxes are only there to highlight what
@@ -352,7 +353,7 @@ export const WithAppBar: Story = {
               sx={{ mr: 2 }}
               onClick={() => setOpen(!open)}
             >
-              <Menu />
+              <MenuIcon />
             </IconButton>
 
             <Box sx={{ mr: 2, mt: 1.5 }}>
