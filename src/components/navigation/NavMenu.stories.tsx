@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import { NavMenu, NavMenuLink } from "./NavMenu";
 import { Button, Divider, Typography } from "@mui/material";
-import { RefreshIcon } from "../datadisplay/Icons";
 
 import { MockLink } from "../../utils/MockLink";
+import { LucideIcon } from "../datadisplay/Icons";
+import { RefreshCw } from "lucide-react";
 
 const meta: Meta<typeof NavMenu> = {
   title: "Components/Navigation/NavMenu",
@@ -81,7 +82,10 @@ export const CustomChildren: Story = {
           Section Header
         </Typography>
         <Divider />
-        <Button sx={{ color: "white" }} startIcon={<RefreshIcon size="sm" />}>
+        <Button
+          sx={{ color: "white" }}
+          startIcon={<LucideIcon icon={RefreshCw} size="sm" />}
+        >
           Button
         </Button>
       </>

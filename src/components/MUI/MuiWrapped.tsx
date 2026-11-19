@@ -192,32 +192,6 @@ import MuiTypography, {
   TypographyProps as MuiTypographyProps,
 } from "@mui/material/Typography";
 
-export {
-  PlusIcon as AddIcon,
-  ClipboardListIcon as AssignmentIcon,
-  TrashIcon as DeleteIcon,
-  ChevronDownIcon as ExpandMoreIcon,
-  HeartIcon as FavoriteIcon,
-  CopyIcon as FileCopyIcon,
-  FolderIcon,
-  GridIcon as GrainIcon,
-  HomeIcon,
-  InboxIcon,
-  MapPinIcon as LocationOnIcon,
-  MailIcon,
-  MenuIcon,
-  BellIcon as NotificationsIcon,
-  SearchIcon as PageviewIcon,
-  PrinterIcon as PrintIcon,
-  HistoryIcon as RestoreIcon,
-  SaveIcon,
-  SendIcon,
-  ShareIcon,
-  FlameIcon as WhatshotIcon,
-  BriefcaseIcon as WorkIcon,
-  InfoIcon,
-} from "../datadisplay/Icons";
-
 export const SpeedDialIcon = MuiWrapper<MuiSpeedDialIconProps>(
   MuiSpeedDialIcon,
   "SpeedDialIcon",

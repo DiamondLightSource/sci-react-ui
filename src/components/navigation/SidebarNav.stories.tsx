@@ -1,13 +1,4 @@
-import {
-  BriefcaseIcon,
-  ChartIcon,
-  FolderIcon,
-  HistoryIcon,
-  MenuIcon,
-  QrScanIcon,
-  SettingsIcon,
-  SlidersIcon,
-} from "../datadisplay/Icons";
+import { MenuIcon, SettingsIcon } from "../datadisplay/Icons";
 import { SidebarNav } from "./SidebarNav";
 import { Meta, StoryObj } from "@storybook/react-webpack5";
 import React from "react";
@@ -30,6 +21,15 @@ import { Theme } from "@mui/material/styles";
 import { Logo } from "../controls/Logo";
 import { ColourSchemeButton } from "../controls/ColourSchemeButton";
 import { NavLink, MemoryRouter } from "react-router-dom";
+import { LucideIcon } from "../datadisplay/Icons";
+import {
+  Briefcase,
+  ChartLine,
+  Folder,
+  History,
+  ScanQrCode,
+  SlidersHorizontal,
+} from "lucide-react";
 
 const meta: Meta<typeof SidebarNav> = {
   title: "Components/Navigation/SidebarNav",
@@ -68,18 +68,18 @@ const standardLinks = [
     navItems: [
       {
         label: "Setup",
-        icon: <SlidersIcon />,
+        icon: <LucideIcon icon={SlidersHorizontal} />,
         linkProps: { href: "" },
       },
       {
         label: "Acquisition",
-        icon: <QrScanIcon />,
+        icon: <LucideIcon icon={ScanQrCode} />,
         linkProps: { href: "" },
         selected: true,
       },
       {
         label: "Analysis",
-        icon: <ChartIcon />,
+        icon: <LucideIcon icon={ChartLine} />,
         linkProps: { href: "" },
       },
     ],
@@ -114,17 +114,17 @@ const reactRouterNavigation = [
     navItems: [
       {
         label: "Setup",
-        icon: <SlidersIcon />,
+        icon: <LucideIcon icon={SlidersHorizontal} />,
         linkProps: { to: "/1", component: NavLink },
       },
       {
         label: "Acquisition",
-        icon: <QrScanIcon />,
+        icon: <LucideIcon icon={ScanQrCode} />,
         linkProps: { to: "/2", component: NavLink },
       },
       {
         label: "Analysis",
-        icon: <ChartIcon />,
+        icon: <LucideIcon icon={ChartLine} />,
         linkProps: { to: "/3", component: NavLink },
       },
     ],
@@ -133,7 +133,7 @@ const reactRouterNavigation = [
     navItems: [
       {
         label: "Organisation",
-        icon: <BriefcaseIcon />,
+        icon: <LucideIcon icon={Briefcase} />,
         linkProps: { to: "/4", component: NavLink },
       },
     ],
@@ -172,12 +172,12 @@ const groupedNavigation = [
     navItems: [
       {
         label: "Setup",
-        icon: <SlidersIcon />,
+        icon: <LucideIcon icon={SlidersHorizontal} />,
         linkProps: { to: "/1", component: NavLink },
       },
       {
         label: "Acquisition",
-        icon: <QrScanIcon />,
+        icon: <LucideIcon icon={ScanQrCode} />,
         linkProps: { to: "/2", component: NavLink },
       },
     ],
@@ -186,12 +186,12 @@ const groupedNavigation = [
     navItems: [
       {
         label: "Analysis",
-        icon: <ChartIcon />,
+        icon: <LucideIcon icon={ChartLine} />,
         linkProps: { to: "/3", component: NavLink },
       },
       {
         label: "Data Browse",
-        icon: <FolderIcon />,
+        icon: <LucideIcon icon={Folder} />,
         linkProps: { to: "/4", component: NavLink },
       },
     ],
@@ -200,7 +200,7 @@ const groupedNavigation = [
     navItems: [
       {
         label: "Log",
-        icon: <HistoryIcon />,
+        icon: <LucideIcon icon={History} />,
         linkProps: { to: "/5", component: NavLink },
       },
     ],
@@ -280,7 +280,7 @@ export const WithSlots: Story = {
                     sx={{ p: 1, borderRadius: 2, gap: 1.5 }}
                   >
                     <ListItemIcon sx={{ minWidth: 32 }}>
-                      <FolderIcon />
+                      <LucideIcon icon={Folder} />
                     </ListItemIcon>
                     <ListItemText
                       primary="Documentation"

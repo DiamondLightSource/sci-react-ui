@@ -1,18 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import {
-  Badge,
-  MailIcon,
-  NotificationsIcon,
-  Stack,
-  WorkIcon,
-} from "../MuiWrapped";
+import { Badge, Stack } from "../MuiWrapped";
 import { colourSet } from "../../../utils/diamond";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Bell, Briefcase, Mail } from "lucide-react";
 
 const childMap = {
-  notifications: <NotificationsIcon />,
-  mail: <MailIcon />,
-  work: <WorkIcon />,
+  notifications: <LucideIcon icon={Bell} />,
+  mail: <LucideIcon icon={Mail} />,
+  work: <LucideIcon icon={Briefcase} />,
 } as const;
 
 const meta: Meta<typeof Badge> = {

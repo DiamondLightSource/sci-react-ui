@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import {
   Avatar,
   Divider,
-  InboxIcon,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  MailIcon,
 } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Inbox, Mail } from "lucide-react";
 
 const meta: Meta<typeof List> = {
   title: "MUI/Data Display/List",
@@ -49,13 +49,13 @@ export const WithListItemIcons: Story = {
     <List {...args}>
       <ListItem>
         <ListItemIcon>
-          <InboxIcon />
+          <LucideIcon icon={Inbox} />
         </ListItemIcon>
         <ListItemText primary="Inbox" secondary="All messages" />
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <MailIcon />
+          <LucideIcon icon={Mail} />
         </ListItemIcon>
         <ListItemText primary="Sent mail" />
       </ListItem>

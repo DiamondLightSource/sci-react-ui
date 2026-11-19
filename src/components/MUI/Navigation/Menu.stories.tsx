@@ -1,15 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import React from "react";
-import {
-  Box,
-  Button,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  SaveIcon,
-  SendIcon,
-} from "../MuiWrapped";
+import { Box, Button, ListItemIcon, Menu, MenuItem } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Save, Send } from "lucide-react";
 
 const originMap = {
   tl: { vertical: "top", horizontal: "left" },
@@ -86,13 +80,13 @@ export const WithIcons: Story = {
         >
           <MenuItem onClick={() => setAnchorEl(null)}>
             <ListItemIcon>
-              <SaveIcon />
+              <LucideIcon icon={Save} />
             </ListItemIcon>
             Save
           </MenuItem>
           <MenuItem onClick={() => setAnchorEl(null)}>
             <ListItemIcon>
-              <SendIcon />
+              <LucideIcon icon={Send} />
             </ListItemIcon>
             Send
           </MenuItem>
