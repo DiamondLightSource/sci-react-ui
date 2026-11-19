@@ -15,6 +15,19 @@ describe("LucideIcon", () => {
     expect(getByTestId("icon")).toHaveStyle({ width: "40px", height: "40px" });
   });
 
+  it("fades with opacity inside a disabled parent, not a translucent colour", () => {
+    const { getByTestId } = renderWithProviders(
+      <div className="Mui-disabled">
+        <LucideIcon icon={Settings} data-testid="icon" />
+      </div>,
+    );
+
+    expect(getByTestId("icon")).toHaveStyle({
+      color: "var(--ds-on-surface)",
+      opacity: "var(--ds-on-surface-disabled-opacity)",
+    });
+  });
+
   it("forwards refs and merges function sx", () => {
     const ref = createRef<SVGSVGElement>();
     const { getByTestId } = renderWithProviders(

@@ -600,6 +600,15 @@ const getDisabledControlStyles = (backgroundColor = "transparent"): CSSObject =>
   }) satisfies CSSObject;
 
 /**
+ * Fades an icon with opacity on an opaque colour. A translucent colour would
+ * darken where the strokes of an outline icon overlap.
+ */
+const disabledIconStyles: CSSObject = {
+  color: "var(--ds-on-surface)",
+  opacity: "var(--ds-on-surface-disabled-opacity)",
+};
+
+/**
  * Creates the resolved DiamondDS MUI theme.
  *
  * This factory:
@@ -1296,6 +1305,27 @@ const DiamondDSTheme = extendTheme({
             "& .MuiChip-icon": {
               color: "currentColor",
             },
+
+            /** Opacity, not a translucent colour: MUI's default would darken where the strokes cross. */
+            "& .MuiChip-deleteIcon": {
+              color: "currentColor",
+              opacity: 0.7,
+
+              "&:hover": {
+                color: "currentColor",
+                opacity: 1,
+              },
+            },
+
+            "&.Mui-disabled": {
+              ...getDisabledControlStyles("var(--ds-surface-disabled)"),
+              borderColor: "var(--ds-border-subtle)",
+
+              "& .MuiChip-icon, & .MuiChip-deleteIcon": disabledIconStyles,
+              "& .MuiChip-avatar": {
+                opacity: "var(--ds-on-surface-disabled-opacity)",
+              },
+            },
           };
 
           const rawColour = ownerState.color ?? "default";
@@ -1694,6 +1724,9 @@ const DiamondDSTheme = extendTheme({
       defaultProps: {
         IconComponent: ChevronDownIcon,
       },
+      styleOverrides: {
+        icon: { "&.Mui-disabled": disabledIconStyles },
+      },
     },
 
     MuiSelect: {
@@ -1702,8 +1735,10 @@ const DiamondDSTheme = extendTheme({
       },
       styleOverrides: {
         /** Read-only Select never opens, so the chevron is muted like a disabled one. */
-        icon: ({ ownerState }: OverrideArgs<SelectProps>): CSSObject =>
-          ownerState.readOnly ? { color: "var(--ds-on-surface-disabled)" } : {},
+        icon: ({ ownerState }: OverrideArgs<SelectProps>): CSSObject => ({
+          "&.Mui-disabled": disabledIconStyles,
+          ...(ownerState.readOnly ? disabledIconStyles : {}),
+        }),
       },
     },
 

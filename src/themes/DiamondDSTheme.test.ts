@@ -1044,7 +1044,7 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
-  it("mutes the Select dropdown icon to the disabled token when read-only, since it can never open", () => {
+  it("fades the Select dropdown icon with the disabled opacity when read-only, since it can never open", () => {
     const icon = DiamondDSTheme.components?.MuiSelect?.styleOverrides?.icon;
 
     const readOnlyStyles = getStyleOverride(icon, {
@@ -1053,7 +1053,10 @@ describe("DiamondDS component overrides", () => {
     });
 
     expect(readOnlyStyles).toEqual(
-      expect.objectContaining({ color: "var(--ds-on-surface-disabled)" }),
+      expect.objectContaining({
+        color: "var(--ds-on-surface)",
+        opacity: "var(--ds-on-surface-disabled-opacity)",
+      }),
     );
 
     const defaultStyles = getStyleOverride(icon, {
@@ -1061,8 +1064,28 @@ describe("DiamondDS component overrides", () => {
       theme: DiamondDSTheme,
     });
 
-    expect(defaultStyles).not.toEqual(
-      expect.objectContaining({ color: "var(--ds-on-surface-disabled)" }),
+    expect(defaultStyles).not.toHaveProperty("opacity");
+    expect(defaultStyles["&.Mui-disabled"]).toEqual({
+      color: "var(--ds-on-surface)",
+      opacity: "var(--ds-on-surface-disabled-opacity)",
+    });
+  });
+
+  it("fades the NativeSelect icon with the disabled opacity when disabled", () => {
+    const icon =
+      DiamondDSTheme.components?.MuiNativeSelect?.styleOverrides?.icon;
+
+    expect(icon).toEqual({
+      "&.Mui-disabled": {
+        color: "var(--ds-on-surface)",
+        opacity: "var(--ds-on-surface-disabled-opacity)",
+      },
+    });
+  });
+
+  it("defines the disabled opacity token in both colour modes", () => {
+    expect(tokensCss.match(/--ds-on-surface-disabled-opacity:/g)).toHaveLength(
+      2,
     );
   });
 
@@ -1208,6 +1231,32 @@ describe("DiamondDS component overrides", () => {
     ).toBeDefined();
     expect(components?.MuiAutocomplete?.defaultProps?.popupIcon).toBeDefined();
     expect(components?.MuiChip?.defaultProps?.deleteIcon).toBeDefined();
+  });
+
+  it("fades Chip icons with opacity so crossing strokes don't darken", () => {
+    const root = DiamondDSTheme.components?.MuiChip?.styleOverrides?.root;
+    const iconFade = {
+      color: "var(--ds-on-surface)",
+      opacity: "var(--ds-on-surface-disabled-opacity)",
+    };
+
+    const medium = getStyleOverride(root, {
+      ownerState: {},
+      theme: DiamondDSTheme,
+    });
+
+    expect(medium["& .MuiChip-deleteIcon"]).toEqual(
+      expect.objectContaining({ color: "currentColor", opacity: 0.7 }),
+    );
+
+    expect(medium["&.Mui-disabled"]).toEqual(
+      expect.objectContaining({
+        "& .MuiChip-icon, & .MuiChip-deleteIcon": iconFade,
+        "& .MuiChip-avatar": {
+          opacity: "var(--ds-on-surface-disabled-opacity)",
+        },
+      }),
+    );
   });
 
   it("maps filled alerts to solid status roles", () => {

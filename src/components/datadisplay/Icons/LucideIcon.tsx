@@ -37,6 +37,13 @@ export const LucideIcon = forwardRef<SVGSVGElement, LucideIconProps>(
             stroke: "currentColor",
           },
           size !== undefined && { width: config.size, height: config.size },
+          {
+            // Fade with opacity, not a translucent colour: overlapping strokes would darken.
+            ".Mui-disabled &, &.Mui-disabled, &.MuiSvgIcon-colorDisabled": {
+              color: "var(--ds-on-surface)",
+              opacity: "var(--ds-on-surface-disabled-opacity)",
+            },
+          },
           ...(Array.isArray(sx) ? sx : [sx]),
         ]}
         {...props}
