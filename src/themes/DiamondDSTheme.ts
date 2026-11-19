@@ -1297,18 +1297,22 @@ const DiamondDSTheme = extendTheme({
        * Interactive chips receive focus and overlay states; static chips remain calm.
        */
       defaultProps: {
-        deleteIcon: createElement(CircleXIcon),
+        deleteIcon: createElement(CloseIcon),
       },
       styleOverrides: {
         root: ({ ownerState }: OverrideArgs<ChipProps>): CSSObject => {
+          const iconSize = ownerState.size === "small" ? 16 : 18;
+
           const base: CSSObject = {
             "& .MuiChip-icon": {
               color: "currentColor",
+              fontSize: iconSize,
             },
 
             /** Opacity, not a translucent colour: MUI's default would darken where the strokes cross. */
             "& .MuiChip-deleteIcon": {
               color: "currentColor",
+              fontSize: iconSize,
               opacity: 0.7,
 
               "&:hover": {

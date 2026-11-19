@@ -1,5 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import { Box, Stack, Typography } from "@mui/material";
+import {
+  Alert,
+  Autocomplete,
+  Box,
+  Button,
+  Chip,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Plus, Save, Search, Send, Settings, Star, Trash2 } from "lucide-react";
 import { LucideIcon } from "./Icons/LucideIcon";
 
@@ -14,7 +29,7 @@ const icons = {
 };
 
 const meta: Meta<typeof LucideIcon> = {
-  title: "Components/DataDisplay/LucideIcon",
+  title: "Components/Data Display/LucideIcon",
   component: LucideIcon,
   tags: ["autodocs"],
   argTypes: {
@@ -109,6 +124,162 @@ export const WithLabels: Story = {
           <Typography variant="body2">{name}</Typography>
         </Box>
       ))}
+    </Stack>
+  ),
+};
+
+const selectOptions = ["Beamline", "Sample", "Visit"];
+
+const searchAdornment = {
+  input: {
+    startAdornment: (
+      <InputAdornment position="start">
+        <LucideIcon icon={Search} />
+      </InputAdornment>
+    ),
+  },
+};
+
+export const InComponents: Story = {
+  render: () => (
+    <Stack spacing={3}>
+      {[false, true].map((disabled) => (
+        <Stack key={String(disabled)} direction="row" spacing={2}>
+          <Button
+            variant="contained"
+            disabled={disabled}
+            startIcon={<LucideIcon icon={Send} />}
+          >
+            Send
+          </Button>
+          <Button
+            variant="outlined"
+            disabled={disabled}
+            startIcon={<LucideIcon icon={Save} />}
+          >
+            Save
+          </Button>
+          <Button
+            variant="text"
+            disabled={disabled}
+            startIcon={<LucideIcon icon={Settings} />}
+          >
+            Settings
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            disabled={disabled}
+            startIcon={<LucideIcon icon={Star} />}
+          >
+            Inherit
+          </Button>
+          <IconButton aria-label="Delete" disabled={disabled}>
+            <LucideIcon icon={Trash2} />
+          </IconButton>
+        </Stack>
+      ))}
+
+      {(["medium", "small"] as const).flatMap((size) =>
+        [false, true].map((disabled) => (
+          <Stack
+            key={`${size}-${disabled}`}
+            direction="row"
+            spacing={2}
+            alignItems="center"
+          >
+            <Chip
+              label="Delete"
+              size={size}
+              disabled={disabled}
+              onDelete={() => undefined}
+            />
+            <Chip
+              label="Icon"
+              size={size}
+              disabled={disabled}
+              icon={<LucideIcon icon={Star} />}
+            />
+            <Chip
+              label="Icon and delete"
+              size={size}
+              disabled={disabled}
+              icon={<LucideIcon icon={Star} />}
+              onDelete={() => undefined}
+            />
+            <Chip
+              label="Primary"
+              color="primary"
+              size={size}
+              disabled={disabled}
+              icon={<LucideIcon icon={Star} />}
+              onDelete={() => undefined}
+            />
+            <Chip
+              label="Outlined"
+              color="primary"
+              variant="outlined"
+              size={size}
+              disabled={disabled}
+              icon={<LucideIcon icon={Star} />}
+              onDelete={() => undefined}
+            />
+          </Stack>
+        )),
+      )}
+
+      <Stack spacing={1}>
+        {(["success", "info", "warning", "error"] as const).map((severity) => (
+          <Alert key={severity} severity={severity} onClose={() => undefined}>
+            {severity}
+          </Alert>
+        ))}
+      </Stack>
+
+      <Stack direction="row" spacing={2}>
+        {[
+          { label: "Select" },
+          { label: "Read-only", readOnly: true },
+          { label: "Disabled", disabled: true },
+        ].map(({ label, readOnly, disabled }) => (
+          <FormControl key={label} disabled={disabled} sx={{ width: 200 }}>
+            <InputLabel>{label}</InputLabel>
+            <Select label={label} defaultValue="Sample" readOnly={readOnly}>
+              {selectOptions.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ))}
+      </Stack>
+
+      <Stack direction="row" spacing={2}>
+        {[false, true].map((disabled) => (
+          <Autocomplete
+            key={String(disabled)}
+            disabled={disabled}
+            options={selectOptions}
+            defaultValue="Sample"
+            renderInput={(params) => (
+              <TextField {...params} label="Autocomplete" />
+            )}
+            sx={{ width: 200 }}
+          />
+        ))}
+      </Stack>
+
+      <Stack direction="row" spacing={2}>
+        {[false, true].map((disabled) => (
+          <TextField
+            key={String(disabled)}
+            label="Search"
+            disabled={disabled}
+            slotProps={searchAdornment}
+          />
+        ))}
+      </Stack>
     </Stack>
   ),
 };

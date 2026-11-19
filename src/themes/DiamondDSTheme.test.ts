@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { DiamondDSTheme, createDiamondTheme } from "./DiamondDSTheme";
+import {
+  AlertTriangleIcon,
+  CheckCircleIcon,
+  ChevronDownIcon,
+  CircleXIcon,
+  CloseIcon,
+  InfoIcon,
+} from "../components/datadisplay/Icons";
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -1217,20 +1225,30 @@ describe("DiamondDS component overrides", () => {
 
   it("defaults MUI's built-in icons to Lucide", () => {
     const components = DiamondDSTheme.components;
+    const iconMapping = components?.MuiAlert?.defaultProps?.iconMapping;
 
-    expect(components?.MuiAlert?.defaultProps?.iconMapping).toEqual({
-      success: expect.anything(),
-      info: expect.anything(),
-      warning: expect.anything(),
-      error: expect.anything(),
+    expect(iconMapping?.success).toMatchObject({ type: CheckCircleIcon });
+    expect(iconMapping?.info).toMatchObject({ type: InfoIcon });
+    expect(iconMapping?.warning).toMatchObject({ type: AlertTriangleIcon });
+    expect(iconMapping?.error).toMatchObject({ type: CircleXIcon });
+    expect(components?.MuiAlert?.defaultProps?.slots?.closeIcon).toBe(
+      CloseIcon,
+    );
+    expect(components?.MuiSelect?.defaultProps?.IconComponent).toBe(
+      ChevronDownIcon,
+    );
+    expect(components?.MuiNativeSelect?.defaultProps?.IconComponent).toBe(
+      ChevronDownIcon,
+    );
+    expect(components?.MuiAutocomplete?.defaultProps?.popupIcon).toMatchObject({
+      type: ChevronDownIcon,
     });
-    expect(components?.MuiAlert?.defaultProps?.slots?.closeIcon).toBeDefined();
-    expect(components?.MuiSelect?.defaultProps?.IconComponent).toBeDefined();
-    expect(
-      components?.MuiNativeSelect?.defaultProps?.IconComponent,
-    ).toBeDefined();
-    expect(components?.MuiAutocomplete?.defaultProps?.popupIcon).toBeDefined();
-    expect(components?.MuiChip?.defaultProps?.deleteIcon).toBeDefined();
+    expect(components?.MuiAutocomplete?.defaultProps?.clearIcon).toMatchObject({
+      type: CloseIcon,
+    });
+    expect(components?.MuiChip?.defaultProps?.deleteIcon).toMatchObject({
+      type: CloseIcon,
+    });
   });
 
   it("fades Chip icons with opacity so crossing strokes don't darken", () => {
@@ -1244,9 +1262,19 @@ describe("DiamondDS component overrides", () => {
       ownerState: {},
       theme: DiamondDSTheme,
     });
+    const small = getStyleOverride(root, {
+      ownerState: { size: "small" },
+      theme: DiamondDSTheme,
+    });
 
     expect(medium["& .MuiChip-deleteIcon"]).toEqual(
       expect.objectContaining({ color: "currentColor", opacity: 0.7 }),
+    );
+    expect(medium["& .MuiChip-icon"]).toEqual(
+      expect.objectContaining({ fontSize: 18 }),
+    );
+    expect(small["& .MuiChip-icon"]).toEqual(
+      expect.objectContaining({ fontSize: 16 }),
     );
 
     expect(medium["&.Mui-disabled"]).toEqual(

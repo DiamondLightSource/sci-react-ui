@@ -153,7 +153,7 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
                   disabled={isInLimits && parseFloat(numberText) >= maxValue}
                   sx={{ flex: 1, minWidth: 0, minHeight: 0, px: 0.5, py: 0 }}
                 >
-                  <ChevronUpIcon sx={{ fontSize: 12 }} />
+                  <ChevronUpIcon size="xs" />
                 </Button>
                 <Button
                   aria-label="Decrease value"
@@ -161,7 +161,7 @@ const NumberInputText: React.FC<NumberInputTextProps> = ({
                   disabled={isInLimits && parseFloat(numberText) <= minValue}
                   sx={{ flex: 1, minWidth: 0, minHeight: 0, px: 0.5, py: 0 }}
                 >
-                  <ChevronDownIcon sx={{ fontSize: 12 }} />
+                  <ChevronDownIcon size="xs" />
                 </Button>
               </ButtonGroup>
             </InputAdornment>
