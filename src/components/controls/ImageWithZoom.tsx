@@ -43,9 +43,13 @@ export const ImageWithZoom = ({
   const [isLoading, setIsLoading] = useState(true);
   // Whether or not user has already zoomed in at least once
   const [userZoomedIn, setUserZoomedIn] = useState(false);
+  // Whether the mouse button is currently held down on the image
+  const [isDragging, setIsDragging] = useState(false);
 
   const [windowWidth, windowHeight] = useWindowSize();
 
+  // Wrapper around the image + lens. Its bounding box is used as the image's bounds
+  const imageContainerRef = useRef<HTMLDivElement>(null);
   const lensRef = useRef<HTMLDivElement>(null);
   const zoomRef = useRef<HTMLDivElement>(null);
   // The zoom view wrapper is a separate ref because that way it's unaffected by image filters
@@ -89,18 +93,24 @@ export const ImageWithZoom = ({
     return () => {
       setIsLoading(false);
       setUserZoomedIn(false);
+      setIsDragging(false);
     };
   }, []);
 
   const updateMagPosition = useCallback(
-    (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-      if (lensRef.current && zoomRef.current && zoomViewRef.current) {
+    (clientX: number, clientY: number) => {
+      if (
+        imageContainerRef.current &&
+        lensRef.current &&
+        zoomRef.current &&
+        zoomViewRef.current
+      ) {
         // The zoom window starts off hidden
         zoomViewRef.current.style.display = "block";
         lensRef.current.style.display = "block";
         setUserZoomedIn(true);
 
-        const target = e.currentTarget.getBoundingClientRect();
+        const target = imageContainerRef.current.getBoundingClientRect();
         const ratioX =
           zoomRef.current.offsetWidth / lensRef.current.offsetWidth;
         const ratioY =
@@ -115,11 +125,11 @@ export const ImageWithZoom = ({
          * This is to keep the lens true to what is actually displayed on the zoomed in view.
          */
         const posX = clampNumber(
-          e.clientX - target.left - halfWidth,
+          clientX - target.left - halfWidth,
           target.width - halfWidth * 2,
         );
         const posY = clampNumber(
-          e.clientY - target.top - halfHeight,
+          clientY - target.top - halfHeight,
           target.height - halfHeight * 2,
         );
 
@@ -138,8 +148,38 @@ export const ImageWithZoom = ({
         );
       }
     },
-    [lensRef, zoomRef, zoomViewRef, moveZoomWindow],
+    [imageContainerRef, lensRef, zoomRef, zoomViewRef, moveZoomWindow],
   );
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      // Only react to the primary button
+      if (e.button !== 0) return;
+      // Stops the browser's native image drag / text selection from interfering
+      e.preventDefault();
+      setIsDragging(true);
+      updateMagPosition(e.clientX, e.clientY);
+    },
+    [updateMagPosition],
+  );
+
+  // While dragging, listen on the window so the lens keeps following the cursor
+  // (clamped to the image) even if the mouse leaves the image, and so releasing
+  // the button anywhere ends the drag.
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const onMouseMove = (e: MouseEvent) =>
+      updateMagPosition(e.clientX, e.clientY);
+    const onMouseUp = () => setIsDragging(false);
+
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, [isDragging, updateMagPosition]);
 
   return (
     <Box
@@ -162,7 +202,8 @@ export const ImageWithZoom = ({
             position: "absolute",
             zIndex: 3,
             right: zoomWidth,
-            border: "3px solid red",
+            border: "2px solid var(--ds-highlight-solid)",
+            boxShadow: "0 0 1px 1px rgb(var(--ds-on-highlight-channel) / 0.6)",
             width: zoomWidth,
             height: zoomWidth,
           }}
@@ -180,7 +221,15 @@ export const ImageWithZoom = ({
           />
         </div>
       )}
-      <div style={{ position: "relative" }}>
+      <div
+        ref={imageContainerRef}
+        style={{
+          position: "relative",
+          cursor: "crosshair",
+          userSelect: "none",
+        }}
+        onMouseDown={handleMouseDown}
+      >
         {!isLoading && (
           <div
             ref={lensRef}
@@ -190,8 +239,12 @@ export const ImageWithZoom = ({
               position: "absolute",
               width: lensWidth,
               height: lensWidth,
-              border: "1px red solid",
+              border: "1px solid var(--ds-highlight-solid)",
+              boxShadow:
+                "0 0 1px 1px rgb(var(--ds-on-highlight-channel) / 0.6)",
               zIndex: 2,
+              // Let mouse events fall through to the container beneath the lens
+              pointerEvents: "none",
             }}
           />
         )}
@@ -200,7 +253,6 @@ export const ImageWithZoom = ({
           style={{ filter: imageFilter }}
           alt={alt}
           onLoad={() => setIsLoading(false)}
-          onClick={updateMagPosition}
         />
       </div>
       {!isLoading && (
@@ -211,7 +263,7 @@ export const ImageWithZoom = ({
           width="100%"
           visibility={userZoomedIn ? "hidden" : "visible"}
         >
-          Click to zoom in
+          Click or drag to zoom in
         </Typography>
       )}
     </Box>
