@@ -577,6 +577,27 @@ const getInteractiveSurfaceStateStyles = (
 });
 
 /**
+ * Selected rows in lists and menus: a primary tint, with matching text and icon.
+ */
+const selectedItemStyles: CSSObject = {
+  "&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible": {
+    backgroundColor: "var(--ds-primary-selected)",
+  },
+
+  "&.Mui-selected": {
+    color: "var(--ds-on-primary-container)",
+
+    "& .MuiListItemIcon-root": {
+      color: "var(--ds-primary)",
+    },
+  },
+
+  "&.Mui-selected:hover": {
+    boxShadow: getOverlayInset(),
+  },
+};
+
+/**
  * Disabled state intentionally removes interactive affordances.
  *
  * Disabled styles should visually override hover, focus and active states.
@@ -1751,6 +1772,18 @@ const DiamondDSTheme = extendTheme({
         indicator: {
           backgroundColor: "var(--ds-primary-accent)",
         },
+      },
+    },
+
+    MuiListItemButton: {
+      styleOverrides: {
+        root: selectedItemStyles,
+      },
+    },
+
+    MuiMenuItem: {
+      styleOverrides: {
+        root: selectedItemStyles,
       },
     },
 

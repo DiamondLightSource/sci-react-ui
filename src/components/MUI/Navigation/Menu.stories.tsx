@@ -84,7 +84,7 @@ export const WithIcons: Story = {
           open={open}
           onClose={() => setAnchorEl(null)}
         >
-          <MenuItem onClick={() => setAnchorEl(null)}>
+          <MenuItem selected onClick={() => setAnchorEl(null)}>
             <ListItemIcon>
               <SaveIcon />
             </ListItemIcon>

@@ -219,8 +219,9 @@ function NavItem(props: NavItemProps) {
           p: 1,
           borderRadius: 2,
           "&.active, &.Mui-selected": {
-            bgcolor: "action.selected",
+            bgcolor: "var(--ds-primary-selected)",
             color: "primary.onContainer",
+            "& .MuiListItemIcon-root": { color: "primary.main" },
           },
           gap: 1.5,
         }}

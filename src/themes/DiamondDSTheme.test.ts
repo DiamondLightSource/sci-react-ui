@@ -612,6 +612,28 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
+  it.each(["MuiListItemButton", "MuiMenuItem"] as const)(
+    "tints %s with the primary selected role",
+    (name) => {
+      const styles = getStyleOverride(
+        DiamondDSTheme.components?.[name]?.styleOverrides?.root,
+        { ownerState: {}, theme: DiamondDSTheme },
+      );
+
+      expect(
+        styles[
+          "&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible"
+        ],
+      ).toEqual({ backgroundColor: "var(--ds-primary-selected)" });
+      expect(styles["&.Mui-selected"]).toEqual(
+        expect.objectContaining({
+          color: "var(--ds-on-primary-container)",
+          "& .MuiListItemIcon-root": { color: "var(--ds-primary)" },
+        }),
+      );
+    },
+  );
+
   it("uses primary semantic roles for selected toggle button states", () => {
     const root =
       DiamondDSTheme.components?.MuiToggleButton?.styleOverrides?.root;

@@ -8,6 +8,7 @@
 - `DiamondDSIntegrations.mrtLoadingState(loading, data)` returns MRT's `showSkeletons`/`showProgressBars` (skeletons on first load, progress bar on refetch).
 - `DiamondDSIntegrations.mrtRowIntent(intent)` returns row `sx` that tints an MRT row with the intent's subtle container colour.
 - `DiamondDSIntegrations.skipWhileSkeleton(callback)` wraps an MRT row/cell/checkbox props callback so it is skipped while skeleton rows show.
+- `--ds-<intent>-selected` tokens for all nine intents (the intent colour at a set alpha, different in light and dark), and a primary selected state for _ListItemButton_, _MenuItem_ and the _SidebarNav_ selected item (tinted row, primary container text, primary icon).
 
 ### Changed
 
