@@ -203,7 +203,7 @@ const NumberInput: React.FC<NumberInputProps> = ({
   spinnerButtons = numberMode === "scientific" ? "never" : "onHover",
 }) => {
   const [numberText, setNumberText] = useState(
-    defaultValue == null ? "" : defaultValue.toString(),
+    defaultValue === undefined ? "" : defaultValue.toString(),
   );
 
   const isValid =
