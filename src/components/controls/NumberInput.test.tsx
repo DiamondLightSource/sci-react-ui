@@ -172,4 +172,12 @@ describe("NumberInput", () => {
     fireEvent.click(decreaseButton);
     expect(numberInput.value).toBe("3.1");
   });
+
+  it("shows default value of zero", async () => {
+    render(
+      <NumberInput label="numberbox" numberMode="floating" defaultValue={0} />,
+    );
+    const numberInput = screen.getByLabelText("numberbox") as HTMLInputElement;
+    expect(numberInput.value).toBe("0");
+  });
 });
