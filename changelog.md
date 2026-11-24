@@ -4,6 +4,7 @@
 
 ### Added
 
+- The package now ships a `docs/` folder of Markdown guidance covering setup, foundations, accessibility, layout patterns, components and helpers. Start at `docs/index.md`.
 - `JsonFormsControls.layoutRenderers`: a JsonForms vertical layout with consistent spacing between fields.
 - `DiamondDSIntegrations.mrtLoadingState(loading, data)` returns MRT's `showSkeletons`/`showProgressBars` (skeletons on first load, progress bar on refetch).
 - `DiamondDSIntegrations.mrtRowIntent(intent)` returns row `sx` that tints an MRT row with the intent's subtle container colour.
