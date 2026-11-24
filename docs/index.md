@@ -110,7 +110,7 @@ See [Working with components](working-with-components.md) for the standards, how
 - Name components by what they are, not where they first appear: `ScanStatus`, not `I18StatusBox`.
 - Cover loading, empty, error, disabled and focus states in every new component, and check it in both modes.
 
-What the package adds on top of MUI:
+What the package adds on top of MUI (each has a props table and an example in [Components](components.md)):
 
 | Area                   | Components and helpers                                                                      |
 | ---------------------- | ------------------------------------------------------------------------------------------- |
@@ -124,7 +124,7 @@ What the package adds on top of MUI:
 
 Icons and logos: use [Lucide icons in new work](foundation/icons.md), and see [Logos](theme/logos.md) for setting a logo in the theme.
 
-Component guidance: [Buttons](components/buttons.md), [Text fields](components/text-field.md), [Tables](components/table.md) and [Material React Table](components/material-react-table.md). See also [Working with components](working-with-components.md) for the rules on extending or adding components.
+Standard MUI components: [what the theme changes](components/mui.md). Component guidance: [Buttons](components/buttons.md), [Text fields](components/text-field.md), [Tables](components/table.md) and [Material React Table](components/material-react-table.md). See also [Working with components](working-with-components.md) for the rules on extending or adding components.
 
 ## Layout
 
@@ -186,7 +186,8 @@ These suggestions apply to data-heavy and instrument-facing tools. Use the ones 
 - [Layout patterns](layout-patterns.md): regions and nine page patterns.
 - Foundation: [Colour](foundation/colour.md), [Theme colours](foundation/theme-colours.md), [Typography](foundation/typography.md), [Icons](foundation/icons.md).
 - Accessibility: [Overview](accessibility/overview.md), [Colour contrast and vision](accessibility/colour-contrast.md), [Cognitive accessibility](accessibility/cognitive.md).
-- Components: [Buttons](components/buttons.md), [Text fields](components/text-field.md), [Tables](components/table.md), [Material React Table](components/material-react-table.md).
+- [Components](components.md): every SciReactUI component with props, an example and notes from the stories, in three pages: [page shell and identity](components/page-shell.md), [navigation](components/navigation.md) and [inputs, progress and data](components/inputs-and-data.md).
+- Components: [MUI components](components/mui.md), [Buttons](components/buttons.md), [Text fields](components/text-field.md), [Tables](components/table.md), [Material React Table](components/material-react-table.md).
 - Helpers: [Authentication](helpers/auth.md), [JsonForms](helpers/jsonforms.md).
 - Theme: [Logos](theme/logos.md).
 
