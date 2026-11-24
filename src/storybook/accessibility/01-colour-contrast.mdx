@@ -1,0 +1,108 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Accessibility/Colour contrast and vision" />
+
+<div className="ds-docs">
+
+# Colour contrast and vision
+
+Poor contrast slows decisions and raises error rates, especially in dense,
+data-heavy interfaces. Colour choices also need to work for people with colour
+vision deficiency (CVD).
+
+## How we judge contrast
+
+<ul>
+  <li>
+    <strong>APCA</strong> is the primary tool for tuning colours. It accounts
+    for font size, weight, and light or dark polarity.
+  </li>
+  <li>
+    <strong>WCAG 2.2</strong> is the compliance floor. If it fails, the colour
+    must change.
+  </li>
+  <li>
+    If WCAG 2.2 passes but APCA still shows poor readability, improve the
+    colour rather than treating compliance as enough.
+  </li>
+</ul>
+
+## Do
+
+<ul>
+  <li>
+    Use the theme tokens and roles (<code>--ds-*</code>) rather than picking
+    colours by hand.
+  </li>
+  <li>Test text across sizes, weights, and both light and dark modes.</li>
+  <li>
+    Pair colour with text, an icon, or a label. Icons should differ in shape,
+    not just colour.
+  </li>
+  <li>
+    Keep disabled states distinguishable without making them unreadable. WCAG
+    2.2 exempts disabled controls from contrast minimums, but we still aim for
+    legible text.
+  </li>
+  <li>Use subtle text only for non-essential information.</li>
+</ul>
+
+## Watch out for
+
+<ul>
+  <li>
+    Status colours (<code>--ds-success</code>, <code>--ds-warning</code>,{" "}
+    <code>--ds-danger</code>). Saturated colours can pass WCAG and still vibrate
+    or feel muddy, and they fall in the red-green range that the most common
+    types of CVD compress together.
+  </li>
+  <li>
+    Status colours placed side by side, such as a legend or results table.
+    Check them in a CVD simulator, not just by eye.
+  </li>
+  <li>Reducing contrast for visual subtlety where meaning is still needed.</li>
+  <li>Assuming light and dark mode need the same values.</li>
+</ul>
+
+Learn more:
+
+<ul>
+  <li>
+    <a
+      href="https://git.apcacontrast.com/documentation/APCAeasyIntro"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      APCA (Advanced Perceptual Contrast Algorithm)
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://www.w3.org/TR/WCAG22/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WCAG 2.2
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://www.color-blindness.com/coblis-color-blindness-simulator/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Coblis (colour blindness simulator)
+    </a>
+  </li>
+  <li>
+    <a
+      href="https://www.w3.org/TR/wcag-3.0/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      WCAG 3 (W3C Working Draft)
+    </a>
+  </li>
+</ul>
+
+</div>

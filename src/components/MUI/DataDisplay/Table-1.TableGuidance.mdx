@@ -146,6 +146,47 @@ import * as TableStories from "./Table.stories";
 
 <Canvas of={TableStories.HoverSelectedRows} />
 
+## Row emphasis
+
+<p>
+  To tint a row by intent (for example a warning), use the intent's subtle{" "}
+  <strong>container</strong> colour, never the solid one, so the row stays
+  readable and follows dark mode. Do not hardcode amber or red values.
+  Use it sparingly, for warning or error rows only, and always pair it with a
+  status chip or icon: a tint must never be the only signal.
+</p>
+
+<pre className="ds-code-block">
+  {`<TableRow
+  sx={{
+    "& td, & th": {
+      backgroundColor: (theme) =>
+        (theme.vars || theme).palette.warning.container,
+    },
+    // Cell backgrounds hide the row's hover and selected states: layer them back.
+    "&.Mui-selected td, &.Mui-selected th": {
+      backgroundImage:
+        "linear-gradient(rgb(var(--ds-primary-channel) / 0.08), rgb(var(--ds-primary-channel) / 0.08))",
+    },
+    "&:hover td, &:hover th": {
+      backgroundImage:
+        "linear-gradient(var(--ds-overlay-hover), var(--ds-overlay-hover))",
+    },
+    "&.Mui-selected:hover td, &.Mui-selected:hover th": {
+      backgroundImage:
+        "linear-gradient(rgb(var(--ds-primary-channel) / 0.12), rgb(var(--ds-primary-channel) / 0.12))",
+    },
+  }}
+/>`}
+</pre>
+
+<Canvas of={TableStories.WarningRow} />
+
+<p>
+  In Material React Table, use <strong>mrtRowIntent()</strong> instead; see the
+  Material React Table guidance.
+</p>
+
 ## Selection guidance
 
 <p>

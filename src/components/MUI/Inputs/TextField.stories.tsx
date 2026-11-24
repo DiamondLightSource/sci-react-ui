@@ -139,6 +139,11 @@ export const LiveInstrumentInput: Story = {
   ),
 };
 
+/**
+ * TextField has no top-level `readOnly` prop. Set it with
+ * `slotProps={{ input: { readOnly: true } }}`, not `inputProps`, which does not
+ * apply the read-only styling.
+ */
 export const States: Story = {
   render: (args) => (
     <Box style={{ display: "grid", gap: 12 }}>
@@ -149,7 +154,7 @@ export const States: Story = {
         label="Read-only"
         value="Current value"
         helperText="Value can be viewed and copied but not edited"
-        InputProps={{ readOnly: true }}
+        slotProps={{ input: { readOnly: true } }}
       />
 
       <TextField
