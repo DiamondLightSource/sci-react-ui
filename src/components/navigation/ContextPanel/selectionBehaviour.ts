@@ -43,16 +43,11 @@ export function getNewSelection({
         currentSelection,
       );
     }
-  } else if (event.ctrlKey) {
+  } else {
     prevCard.current = newCard;
     return {
       ...currentSelection,
       [newCard.id]: !currentSelection[newCard.id], // Enable multi-select if ctrl key is held down
-    };
-  } else {
-    prevCard.current = newCard;
-    return {
-      [newCard.id]: !currentSelection[newCard.id],
     };
   }
 }

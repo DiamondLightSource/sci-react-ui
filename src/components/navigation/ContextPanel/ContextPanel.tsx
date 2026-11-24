@@ -1,14 +1,14 @@
-import { forwardRef, ReactNode, useRef } from "react";
+import { useRef } from "react";
 import {
   Paper,
   Table,
   TableContainer,
-  TableHead,
   TableBody,
-  TableCell,
   TableRow,
   Stack,
   Typography,
+  Checkbox,
+  Box,
 } from "@mui/material";
 import {
   CardClick,
@@ -16,7 +16,9 @@ import {
   ClickHandlerProps,
   ContextPanelProps,
   ContextPanelSelection,
-  Interaction,
+  isSelectContextPanel,
+  isViewAndSelectContextPanel,
+  isViewContextPanel,
 } from "./types";
 import { CardItemComponent } from "./CardItem";
 import { Progress } from "../../controls/Progress";
@@ -46,33 +48,22 @@ import { getNewSelection } from "./selectionBehaviour";
 //   )),
 // };
 
-export const ContextPanel = ({
-  title = "Plots",
-  variant = "cards",
-  items,
-  totalCount,
-  density,
-  interaction,
-  shownId,
-  onShownChange,
-  selectedIds,
-  onSelectedChange,
-  checkboxes,
-  selectedAll,
-  controls,
-  footer,
-  loading,
-  emptyMessage = "No scans yet",
-  noResultsMessage = "No scans match",
-  noResultsAction,
-}: ContextPanelProps) => {
-  console.log("checkboxes", checkboxes);
-  console.log("shown id", shownId);
+function selectAll(
+  selected: boolean,
+  items: CardItem[],
+): ContextPanelSelection {
+  const selection: ContextPanelSelection = {};
+  items.map((x) => {
+    selection[x.id] = selected;
+  });
+  return selection;
+}
 
+export const ContextPanel = (props: ContextPanelProps) => {
   const prevCardClick = useRef<CardClick | null>(null);
 
-  if (items.length === 0) {
-    if (loading) {
+  if (props.items.length === 0) {
+    if (props.loading) {
       return (
         <Stack
           spacing={1}
@@ -85,7 +76,7 @@ export const ContextPanel = ({
           <Progress />
         </Stack>
       );
-    } else if (totalCount > 0) {
+    } else if (props.totalCount > 0) {
       return (
         <Stack
           flex={1}
@@ -95,7 +86,7 @@ export const ContextPanel = ({
           alignItems="center"
           sx={{ p: 4, color: "text.secondary" }}
         >
-          <Typography variant="body2">{noResultsMessage}</Typography>
+          <Typography variant="body2">{props.noResultsMessage}</Typography>
         </Stack>
       );
     } else {
@@ -108,93 +99,168 @@ export const ContextPanel = ({
           alignItems="center"
           sx={{ p: 4, color: "text.secondary" }}
         >
-          <Typography variant="body2">{emptyMessage}</Typography>
+          <Typography variant="body2">{props.emptyMessage}</Typography>
         </Stack>
       );
     }
   }
 
+  console.log(
+    "selectedIds",
+    !isViewContextPanel(props) ? props.selectedIds : "view",
+  );
+
   // Card click behaviour changes depending on interaction mode
   const cardClickHandler = (v: ClickHandlerProps): void => {
-    if (interaction === "select") {
-      onSelectedChange(getNewSelection(v));
+    if (isSelectContextPanel(props)) {
+      props.onSelectedChange(getNewSelection(v));
     } else {
-      onShownChange(v.newCard.id);
+      props.onShownChange(v.newCard.id);
     }
   };
 
+  let selected = 0;
+  if (!isViewContextPanel(props)) {
+    selected = Object.entries(
+      !isViewContextPanel(props) ? props.selectedIds : {},
+    ).filter(([_, value]) => value === true).length;
+  } else {
+    selected = props.shownId ? 1 : 0;
+  }
+
   return (
     <>
-      {controls}
-      {items.length > 0 && (
+      {props.controls}
+      {props.items.length > 0 && (
         <Stack
           direction="row"
           alignItems="center"
-          spacing={0.5}
+          justifyContent="flex-start"
+          spacing={1}
           sx={{
-            px: 2,
+            px: 1,
             py: 0.5,
             flexShrink: 0,
-            border: 1,
+            borderBottom: 1,
             borderColor: "divider",
           }}
         >
+          {!isViewContextPanel(props) && props.selectAll ? (
+            <Checkbox
+              size="small"
+              sx={{ p: 0.5 }}
+              checked={selected === props.items.length}
+              indeterminate={selected > 0 && selected !== props.items.length}
+              onClick={(_) => {
+                if (!isViewContextPanel(props)) {
+                  const isSelectAll = selected === props.items.length;
+                  props.onSelectedChange(selectAll(!isSelectAll, props.items));
+                }
+              }}
+            />
+          ) : (
+            <Box py={1.5} />
+          )}
           <Typography
             variant="meta"
             role="status"
             tabIndex={-1}
             // ref={summaryRef}
-            sx={{ flex: 1, minWidth: 0, color: "text.secondary" }}
+            sx={{ color: "text.secondary" }}
           >
-            {`${selectedIds?.length} of ${totalCount ?? "-"}`} selected
+            {`${props.items.length} of ${props.totalCount ?? "-"} loaded`}
           </Typography>
+
+          {!isViewContextPanel(props) && (
+            <>
+              <Typography
+                variant="meta"
+                role="status"
+                tabIndex={-1}
+                sx={{ color: "text.secondary" }}
+              >
+                ·
+              </Typography>
+              <Typography
+                variant="meta"
+                role="status"
+                tabIndex={-1}
+                sx={{ color: "text.secondary" }}
+              >
+                {`${selected} selected`}
+              </Typography>
+            </>
+          )}
         </Stack>
       )}
-      <TableContainer component={Paper} sx={{ borderRadius: 0 }}>
-        <Table>
-          <TableBody>
-            {items.map((x, idx) => {
-              const isSelected = selectedIds?.[x.id] ?? false;
-              const isShown =
-                interaction !== "select" ? shownId === x.id : isSelected;
-              return (
-                <TableRow key={x.title}>
-                  <CardItemComponent
-                    cardItem={x}
-                    isSelected={isSelected}
-                    isShown={isShown}
-                    checkbox={
-                      interaction !== "view" ? (checkboxes ?? true) : false
-                    }
-                    onCheckboxClick={(e) => {
-                      const newCard = { id: x.id, idx: idx };
-                      onSelectedChange(
-                        getNewSelection({
-                          data: items,
-                          newCard: newCard,
+
+      <Box
+        sx={{
+          flex: 1,
+          minHeight: 170,
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <TableContainer component={Paper} sx={{ borderRadius: 0, border: 0 }}>
+          <Table>
+            <TableBody>
+              {props.items.map((x, idx) => {
+                const isSelected = !isViewContextPanel(props)
+                  ? (props.selectedIds?.[x.id] ?? false)
+                  : false;
+                const isShown = !isSelectContextPanel(props)
+                  ? props.shownId === x.id
+                  : isSelected;
+                return (
+                  <TableRow key={x.title}>
+                    <CardItemComponent
+                      cardItem={x}
+                      isSelected={isSelected}
+                      isShown={isShown}
+                      showBorder={idx !== 0}
+                      checkbox={
+                        // Use user-preference for view-and-select
+                        // Otherwise, force ON for select
+                        // force OFF for view
+                        isViewAndSelectContextPanel(props)
+                          ? (props?.checkboxes ?? true)
+                          : isSelectContextPanel(props)
+                      }
+                      onCheckboxClick={(e) => {
+                        const newCard = { id: x.id, idx: idx };
+                        if (!isViewContextPanel(props)) {
+                          props.onSelectedChange(
+                            getNewSelection({
+                              data: props.items,
+                              newCard: newCard,
+                              event: e,
+                              currentSelection: props.selectedIds,
+                              prevCard: prevCardClick,
+                            }),
+                          );
+                        }
+                      }}
+                      onCardClick={(e) => {
+                        cardClickHandler({
+                          data: props.items,
+                          newCard: { id: x.id, idx: idx },
                           event: e,
-                          currentSelection: selectedIds,
+                          currentSelection: !isViewContextPanel(props)
+                            ? props.selectedIds
+                            : {},
                           prevCard: prevCardClick,
-                        }),
-                      );
-                    }}
-                    onCardClick={(e) => {
-                      cardClickHandler({
-                        data: items,
-                        newCard: { id: x.id, idx: idx },
-                        event: e,
-                        currentSelection: selectedIds,
-                        prevCard: prevCardClick,
-                      });
-                    }}
-                  />
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {footer}
+                        });
+                      }}
+                    />
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+      {props.footer}
     </>
   );
 };

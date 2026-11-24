@@ -27,6 +27,7 @@ type CardItemComponentProps = {
   isSelected: boolean;
   isShown: boolean;
   checkbox: boolean;
+  showBorder: boolean;
   onCardClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onCheckboxClick: (v: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
@@ -36,6 +37,7 @@ export const CardItemComponent = ({
   isSelected,
   isShown,
   checkbox,
+  showBorder,
   onCardClick,
   onCheckboxClick,
 }: CardItemComponentProps) => {
@@ -61,7 +63,7 @@ export const CardItemComponent = ({
         px: 1,
         pt: 0.5,
         pb: 0.5,
-        borderBottom: 1,
+        borderTop: showBorder ? 1 : 0,
         borderColor: "border.subtle",
         backgroundColor: "background.paper",
         boxShadow: isShown ? SELECTED_SHADOW : "none",
@@ -143,7 +145,7 @@ export const CardItemComponent = ({
                   id="card-action-menu"
                   anchorEl={menuAnchor}
                   open={Boolean(menuAnchor)}
-                  onClose={(e) => setMenuAnchor(null)}
+                  onClose={(_) => setMenuAnchor(null)}
                 >
                   {cardItem.actions.map((x) => (
                     <MenuItem
@@ -172,7 +174,6 @@ export const CardItemComponent = ({
               {cardItem.subtitle}
             </Typography>
           )}
-
           {cardItem.metadata && (
             <Stack direction="row" spacing={0.5}>
               {cardItem.metadata
