@@ -333,42 +333,59 @@ enableHiding: true`}
 
 <p>
   Pass <strong>onRowReorder</strong> to{" "}
-  <strong>DiamondDSIntegrations.mrtOptions()</strong> while reorder mode is
-  active. It adds drag handles, a drop line between rows, and{" "}
-  <strong>Move up</strong> / <strong>Move down</strong> in the row menu. Sorting
-  is turned off while it is set.
+  <strong>DiamondDSIntegrations.mrtOptions()</strong>. It adds drag handles, a
+  drop line between rows, and a row menu with <strong>Move to top</strong>,{" "}
+  <strong>Move up</strong>, <strong>Move down</strong> and{" "}
+  <strong>Move to bottom</strong>. Moves are announced to screen readers. Sorting
+  and ranked search results are turned off while it is set.
 </p>
 
 <p>
   <strong>onRowReorder</strong> receives positions in the source data, so it
-  stays correct across pages and filters.
+  stays correct across pages and filters. Set <strong>getRowId</strong>: it
+  keeps rows, and keyboard focus after a menu move, with the right record when
+  the data changes. With a typed lambda, give the type:{" "}
+  <strong>mrtOptions&lt;Task&gt;(...)</strong>. Pass{" "}
+  <strong>isRowMovable</strong> to lock rows: they get no handle or menu and
+  can't be dropped on, though they shift when rows move across them.
+</p>
+
+<p>
+  For a reorder mode that users switch on and off, use{" "}
+  <strong>useRowReorder</strong>. The drag and menu columns show only while it
+  is on.
 </p>
 
 <pre className="ds-code-block">
-  {`const [reorderMode, setReorderMode] = useState(false);
+  {`const [rows, setRows] = useState(data);
 
-const moveRow = (fromIndex: number, toIndex: number) =>
-  setRows((prev) => {
-    const next = [...prev];
-    next.splice(toIndex, 0, next.splice(fromIndex, 1)[0]);
-    return next;
-  });
+const reorder = useRowReorder<Task>({
+  onReorder: (fromIndex, toIndex) =>
+    setRows((prev) => {
+      const next = [...prev];
+      next.splice(toIndex, 0, next.splice(fromIndex, 1)[0]);
+      return next;
+    }),
+  isRowMovable: (task) => task.status === "Queued",
+});
 
 const table = useMaterialReactTable({
   columns,
   data: rows,
-  enableRowSelection: !reorderMode,
+  getRowId: (row) => row.id,
+  renderTopToolbarCustomActions: reorder.renderToggleButton,
   mrtTheme: DiamondDSIntegrations.mrtTheme,
-  ...DiamondDSIntegrations.mrtOptions({
-    onRowReorder: reorderMode ? moveRow : undefined,
-  }),
+  ...DiamondDSIntegrations.mrtOptions(),
+  ...reorder.tableOptions,
 });`}
 </pre>
 
 <p>
-  <strong>onRowReorder</strong> also sets the row action menu and{" "}
-  <strong>muiTableBodyCellProps</strong>. If the table has its own row actions,
-  combine them rather than replacing the reorder items:
+  <strong>tableOptions</strong> sets <strong>state.columnVisibility</strong>,
+  the row action menu and <strong>muiTableBodyCellProps</strong>. If the table
+  has its own, combine them rather than replacing the reorder ones. A table with
+  its own row actions should use{" "}
+  <strong>mrtOptions({"{ onRowReorder }"})</strong> and merge the menu items:
 </p>
 
 <pre className="ds-code-block">
@@ -376,7 +393,6 @@ const table = useMaterialReactTable({
 
 const table = useMaterialReactTable({
   ...dsOptions,
-  enableRowActions: true,
   renderRowActionMenuItems: (props) => [
     ...myRowActions(props),
     ...(dsOptions.renderRowActionMenuItems?.(props) ?? []),
