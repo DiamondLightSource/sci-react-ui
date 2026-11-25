@@ -60,7 +60,7 @@ root.render(
 
 Use the provided `DiamondDSTheme` with the ThemeProvider, or create your own. The theme controls colour via semantic surface tokens and consists of two parts:
 - Theme configuration (`DiamondDSTheme.ts`)
-- Semantic role tokens (`diamond-ds-roles.css`)
+- Semantic tokens (`DiamondDSTokens.css`)
 
 Navigation components support either static links (with href) or the use of a routing library (with linkComponent and to).
 For NavLink and FooterLink, if both linkComponent and to are provided, it will use linkComponent. If not, it falls back to using href.
