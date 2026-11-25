@@ -5,7 +5,8 @@
     "access": "public"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "docs/"
   ],
   "description": "A theme and component library to make websites at scientific institutions simple to create.",
   "author": "Diamond Light Source",
@@ -42,7 +43,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json && rollup --config rollup.config.mjs",
-    "docs:build": "typedoc src",
+    "docs:build": "typedoc src --out typedoc",
     "test": "vitest",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",

@@ -8,7 +8,7 @@
 # pnpm pack outputs
 /diamondlightsource-sci-react-ui-*.tgz
 /storybook-static/
-/docs
+/typedoc
 .pnpm-store/
 
 tsconfig.tsbuildinfo
