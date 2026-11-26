@@ -1,12 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import {
-  AppBar,
-  Button,
-  IconButton,
-  MenuIcon,
-  Toolbar,
-  Typography,
-} from "../MuiWrapped";
+import { AppBar, Button, IconButton, Toolbar, Typography } from "../MuiWrapped";
+import { MenuIcon } from "../../datadisplay/Icons";
 import {
   muiDocsParameters,
   muiDocsText,

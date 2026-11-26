@@ -33,7 +33,7 @@ export default [
       image(),
       resolve(),
       commonjs(),
-      terser(),
+      terser({ format: { preserve_annotations: true } }),
       typescript({
         tsconfig: "./tsconfig.rollup.json",
       }),

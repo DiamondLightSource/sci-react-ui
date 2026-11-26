@@ -8,14 +8,23 @@
 - `DiamondDSIntegrations.mrtLoadingState(loading, data)` returns MRT's `showSkeletons`/`showProgressBars` (skeletons on first load, progress bar on refetch).
 - `DiamondDSIntegrations.mrtRowIntent(intent)` returns row `sx` that tints an MRT row with the intent's subtle container colour.
 - `DiamondDSIntegrations.skipWhileSkeleton(callback)` wraps an MRT row/cell/checkbox props callback so it is skipped while skeleton rows show.
+- Exported Lucide-based icons (`HomeIcon`, `SettingsIcon` and others), `LucideIcon` and the `iconSizes` scale. Icons remain tree-shakeable.
 
 ### Changed
 
 - **Breaking** Full-width _Navbar_ (`containerWidth={false}`) now uses a 12px side gutter instead of 24px (16px on small screens), so a default-size menu `IconButton` at its left edge lines up with _SidebarNav_'s item icons. Centred Navbars keep the 24px gutter.
 - **Breaking** _User_ no longer renders a `flexGrow` spacer before itself, which added an extra gap next to sibling controls in a `Navbar` slot. If you placed `User` directly in a flex container and relied on it pushing itself to the right, add your own spacer.
 - `ImageWithZoom`: click or drag to move the lens. The lens and zoom view borders now use theme-based colours.
-- `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move up/down in the row menu.
+- `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move to top/up/down/bottom in the row menu, announced to screen readers. `isRowMovable` locks rows.
+- `useRowReorder` adds a toggleable reorder mode to MRT tables.
 - _LinearProgress_ and _CircularProgress_ now default to `color="info"`. Set `color="primary"` to keep the previous look.
+- New `--ds-on-surface-disabled-opacity` token. Disabled Lucide icons and the read-only `Select` icon use it instead of a translucent colour, so strokes no longer darken where they overlap.
+- `MenuItem`: the icon box is 28px wide instead of 36px, so the gap after a 20px icon is 8px.
+- **Breaking** Library icons now use Lucide. `lucide-react` is a new peer dependency (`^1.35.0`). `@mui/icons-material` and `react-icons` are no longer required unless used elsewhere in your app. JsonForms users still need `@mui/icons-material` for `@jsonforms/material-renderers`.
+- `Alert`, `Select`, `NativeSelect`, `Autocomplete`, `Chip`, `Breadcrumbs`, `Pagination`, `TablePagination`, `TableSortLabel` and `Tabs` now use Lucide icons by default through `DiamondDSTheme`.
+- `Chip`: icons are smaller (18px, 16px on small chips) and disabled chips use disabled tokens instead of MUI's fade.
+- `ScrollableImages`, `Breadcrumbs`, `NavMenu`, `NumberInput` and `User` now use Lucide icons, so some glyphs look slightly different.
+- **Breaking** `ColourSchemeButton` test ids are now `SunIcon` and `MoonIcon` instead of `LightModeIcon` and `BedtimeIcon`.
 
 ### Fixed
 

@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { DiamondDSTheme, createDiamondTheme } from "./DiamondDSTheme";
+import {
+  AlertTriangleIcon,
+  CheckCircleIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CircleXIcon,
+  CloseIcon,
+  InfoIcon,
+} from "../components/datadisplay/Icons";
 
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -1044,7 +1054,7 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
-  it("mutes the Select dropdown icon to the disabled token when read-only, since it can never open", () => {
+  it("fades the Select dropdown icon with the disabled opacity when read-only, since it can never open", () => {
     const icon = DiamondDSTheme.components?.MuiSelect?.styleOverrides?.icon;
 
     const readOnlyStyles = getStyleOverride(icon, {
@@ -1053,7 +1063,10 @@ describe("DiamondDS component overrides", () => {
     });
 
     expect(readOnlyStyles).toEqual(
-      expect.objectContaining({ color: "var(--ds-on-surface-disabled)" }),
+      expect.objectContaining({
+        color: "var(--ds-on-surface)",
+        opacity: "var(--ds-on-surface-disabled-opacity)",
+      }),
     );
 
     const defaultStyles = getStyleOverride(icon, {
@@ -1061,8 +1074,28 @@ describe("DiamondDS component overrides", () => {
       theme: DiamondDSTheme,
     });
 
-    expect(defaultStyles).not.toEqual(
-      expect.objectContaining({ color: "var(--ds-on-surface-disabled)" }),
+    expect(defaultStyles).not.toHaveProperty("opacity");
+    expect(defaultStyles["&.Mui-disabled"]).toEqual({
+      color: "var(--ds-on-surface)",
+      opacity: "var(--ds-on-surface-disabled-opacity)",
+    });
+  });
+
+  it("fades the NativeSelect icon with the disabled opacity when disabled", () => {
+    const icon =
+      DiamondDSTheme.components?.MuiNativeSelect?.styleOverrides?.icon;
+
+    expect(icon).toEqual({
+      "&.Mui-disabled": {
+        color: "var(--ds-on-surface)",
+        opacity: "var(--ds-on-surface-disabled-opacity)",
+      },
+    });
+  });
+
+  it("defines the disabled opacity token in both colour modes", () => {
+    expect(tokensCss.match(/--ds-on-surface-disabled-opacity:/g)).toHaveLength(
+      2,
     );
   });
 
@@ -1188,6 +1221,74 @@ describe("DiamondDS component overrides", () => {
     expect(styles["&.Mui-disabled"]).toEqual(
       expect.objectContaining({
         color: "var(--ds-on-surface-disabled)",
+      }),
+    );
+  });
+
+  it("defaults MUI's built-in icons to Lucide", () => {
+    const components = DiamondDSTheme.components;
+    const iconMapping = components?.MuiAlert?.defaultProps?.iconMapping;
+
+    expect(iconMapping?.success).toMatchObject({ type: CheckCircleIcon });
+    expect(iconMapping?.info).toMatchObject({ type: InfoIcon });
+    expect(iconMapping?.warning).toMatchObject({ type: AlertTriangleIcon });
+    expect(iconMapping?.error).toMatchObject({ type: CircleXIcon });
+    expect(components?.MuiAlert?.defaultProps?.slots?.closeIcon).toBe(
+      CloseIcon,
+    );
+    expect(components?.MuiSelect?.defaultProps?.IconComponent).toBe(
+      ChevronDownIcon,
+    );
+    expect(components?.MuiNativeSelect?.defaultProps?.IconComponent).toBe(
+      ChevronDownIcon,
+    );
+    expect(components?.MuiAutocomplete?.defaultProps?.popupIcon).toMatchObject({
+      type: ChevronDownIcon,
+    });
+    expect(components?.MuiAutocomplete?.defaultProps?.clearIcon).toMatchObject({
+      type: CloseIcon,
+    });
+    expect(components?.MuiChip?.defaultProps?.deleteIcon).toMatchObject({
+      type: CloseIcon,
+    });
+    expect(components?.MuiTabs?.defaultProps?.slots).toEqual({
+      StartScrollButtonIcon: ChevronLeftIcon,
+      EndScrollButtonIcon: ChevronRightIcon,
+    });
+  });
+
+  it("fades Chip icons with opacity so crossing strokes don't darken", () => {
+    const root = DiamondDSTheme.components?.MuiChip?.styleOverrides?.root;
+    const iconFade = {
+      color: "var(--ds-on-surface)",
+      opacity: "var(--ds-on-surface-disabled-opacity)",
+    };
+
+    const medium = getStyleOverride(root, {
+      ownerState: {},
+      theme: DiamondDSTheme,
+    });
+    const small = getStyleOverride(root, {
+      ownerState: { size: "small" },
+      theme: DiamondDSTheme,
+    });
+
+    expect(medium["& .MuiChip-deleteIcon"]).toEqual(
+      expect.objectContaining({ color: "currentColor", opacity: 0.7 }),
+    );
+    expect(medium["& .MuiChip-icon"]).toEqual(
+      expect.objectContaining({ fontSize: 18 }),
+    );
+    expect(small["& .MuiChip-icon"]).toEqual(
+      expect.objectContaining({ fontSize: 16 }),
+    );
+
+    expect(medium["&.Mui-disabled"]).toEqual(
+      expect.objectContaining({
+        "& .MuiChip-icon, & .MuiChip-deleteIcon": iconFade,
+        "& .MuiChip-avatar": {
+          opacity: "var(--ds-on-surface-disabled-opacity)",
+        },
       }),
     );
   });

@@ -51,7 +51,10 @@
   --ds-on-surface-variant: #505563;
   --ds-on-surface-subtle: #6c7484;
   --ds-on-surface-muted: #8a90a0;
-  --ds-on-surface-disabled: rgba(26, 28, 35, 0.36);
+  --ds-on-surface-disabled-opacity: 0.36;
+  --ds-on-surface-disabled: rgb(
+    var(--ds-on-surface-channel) / var(--ds-on-surface-disabled-opacity)
+  );
   --ds-control-disabled: rgba(26, 28, 35, 0.3);
   --ds-on-solid: #ffffff;
 
@@ -296,7 +299,10 @@
   --ds-on-surface-variant: #b6bcc9;
   --ds-on-surface-subtle: #979eae;
   --ds-on-surface-muted: #7c8394;
-  --ds-on-surface-disabled: rgba(232, 234, 240, 0.34);
+  --ds-on-surface-disabled-opacity: 0.34;
+  --ds-on-surface-disabled: rgb(
+    var(--ds-on-surface-channel) / var(--ds-on-surface-disabled-opacity)
+  );
   --ds-control-disabled: rgba(232, 234, 240, 0.3);
   --ds-on-solid: #ffffff;
 

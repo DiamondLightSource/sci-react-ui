@@ -1,13 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import {
-  AssignmentIcon,
-  Avatar,
-  AvatarGroup,
-  FolderIcon,
-  PageviewIcon,
-  Stack,
-} from "../MuiWrapped";
+import { Avatar, AvatarGroup, Stack } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { ClipboardList, Folder, Search } from "lucide-react";
 
 const meta: Meta<typeof Avatar> = {
   title: "MUI/Data Display/Avatar",
@@ -61,13 +56,13 @@ export const WithIcon: Story = {
   render: (_args) => (
     <Stack direction="row" spacing={2}>
       <Avatar sx={{ bgcolor: "primary.main" }}>
-        <FolderIcon />
+        <LucideIcon icon={Folder} />
       </Avatar>
       <Avatar sx={{ bgcolor: "secondary.main" }}>
-        <PageviewIcon />
+        <LucideIcon icon={Search} />
       </Avatar>
       <Avatar sx={{ bgcolor: "success.main" }}>
-        <AssignmentIcon />
+        <LucideIcon icon={ClipboardList} />
       </Avatar>
     </Stack>
   ),
