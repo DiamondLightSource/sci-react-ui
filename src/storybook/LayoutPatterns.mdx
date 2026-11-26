@@ -98,7 +98,7 @@ The simplest pattern: a global header (A), primary navigation (B) and the worksp
 
 ## Regions
 
-Every region has a letter. E is the whole workspace. Patterns 1 to 6 and 9 draw it as one block of content. Patterns 7 and 8 split it into example parts, E1 to E4, listed after this table. Use the SciReactUI component where there is one. Otherwise compose from MUI.
+Every region has a letter. E is the whole workspace. Patterns 1 to 5 and 9 draw it as one block of content. Pattern 6 adds a toolbar (E3). Patterns 7 and 8 split it into example parts, E1 to E4, listed after this table. Use the SciReactUI component where there is one. Otherwise compose from MUI.
 
 <table className="ds-table">
   <thead>
@@ -115,7 +115,7 @@ Every region has a letter. E is the whole workspace. Patterns 1 to 6 and 9 draw 
       </td>
       <td>
         <p>
-          App identity, breadcrumb (patterns 5, 7 and 8), global actions, search and
+          App identity, breadcrumb (patterns 5 to 9), global actions, search and
           account controls.
         </p>
         <p>Size: 48 px high.</p>
@@ -149,14 +149,14 @@ Every region has a letter. E is the whole workspace. Patterns 1 to 6 and 9 draw 
         <p>
           Items that set what the workspace shows, outside the workspace.
           Either links to other content, or a list of items of the same kind to
-          choose from.
+          choose from, as cards or a tree.
         </p>
         <p>Size: max 320 px rail.</p>
       </td>
       <td>
         Links to other content: <code>SubNav</code> (once available). Choosing
-        items: <code>ContextPanel</code> (cards option, once available). Search
-        or filter field: MUI <code>TextField</code>.
+        items: <code>ContextPanel</code> (cards or tree option, once available).
+        Search or filter field: MUI <code>TextField</code>.
       </td>
     </tr>
     <tr>
@@ -234,7 +234,7 @@ Every region has a letter. E is the whole workspace. Patterns 1 to 6 and 9 draw 
 
 ### Example workspace parts
 
-Patterns 7 and 8 split E into parts. E1 to E4 are examples of how to do that, not fixed regions. Use the ones the task needs.
+Patterns 7 and 8 split E into parts, and pattern 6 adds the toolbar (E3). E1 to E4 are examples of how to do that, not fixed regions. Use the ones the task needs.
 
 <table className="ds-table">
   <thead>
@@ -411,7 +411,7 @@ Components:
 
 ### 4. Persistent side drawer
 
-Desktop shell with a docked side drawer beside the workspace and a global status footer.
+Desktop shell with a context panel, a docked side drawer beside the workspace and a global status footer.
 
 <div className="ds-ascii">
 
@@ -452,7 +452,7 @@ Components:
 
 ### 5. Persistent bottom drawer
 
-Desktop shell with persistent tabs, a split workspace, and a dedicated status footer.
+Desktop shell with a breadcrumb, a context panel, a persistent bottom drawer below the workspace, and a global status footer.
 
 <div className="ds-ascii">
 
@@ -493,7 +493,7 @@ Components:
 
 ### 6. Temporary side drawer
 
-Desktop shell with an on-demand side drawer over the workspace and a global status footer. Selecting a row in a table view can open the drawer with that row’s details. The drawer can hold different kinds of content, such as a form or tabbed views. Make it wider for larger content, up to about 75% of the width.
+Desktop shell with a breadcrumb, a workspace toolbar, an on-demand side drawer over the workspace and a global status footer. Selecting a row in a table view can open the drawer with that row’s details. The drawer can hold different kinds of content, such as a form or tabbed views. Make it wider for larger content, up to about 75% of the width.
 
 The workspace behind the drawer can behave in two ways:
 
@@ -502,28 +502,32 @@ The workspace behind the drawer can behave in two ways:
 
 Review the requirements before choosing “still usable”. A `temporary` `Drawer` is a modal, so it can still hide the rest of the page from screen readers and close on Escape. Test keyboard and screen-reader access to the workspace. If it cannot be reached that way, keep the workspace blocked.
 
+With the default backdrop the whole screen is dimmed and blocked. With `hideBackdrop` nothing is dimmed, and the workspace stays usable. The diagram does not draw the backdrop.
+
+The drawer sits between the global header and the global status bar, so the header stays visible. MUI’s backdrop still covers the whole screen. By default a `temporary` `Drawer` is full height and covers the header. To get this layout, set `top` and `height` on the drawer’s paper.
+
 <div className="ds-ascii">
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────┐
-│ □ A · Global header ▬▬▬▬▬▬▬                           Global utilities  □ □ □ │
-├────────────────┬───────────────╥──────────────────────────────────────────────┤
-│ B · Primary    │ E · Primary   ║ F · Auxiliary pane                     □ □ ✕ │
-│ navigation     │ workspace     ║ ▬▬▬▬▬▬▬▬▬▬                                   │
-│                │               ║ □ ▬▬▬▬▬▬    □ ▬▬▬▬▬▬    □ ▬▬▬▬▬▬             │
-│ □ ▬▬▬▬▬▬       │   ▬▬ ▬▬▬ ▬▬   ║ ──────────────────────────────────────────── │
-│ □ ▬▬▬▬         │ ────────────  ║ ▬▬▬▬▬▬       ▬▬▬▬▬▬▬▬▬▬▬▬                    │
-│ ▶ ▬▬▬▬▬▬▬      │   ▬▬ ▬▬▬ ▬▬   ║ ▬▬▬▬▬▬▬▬     ▬▬▬▬▬▬▬▬                        │
-│ □ ▬▬▬▬▬        │   ▬▬ ▬▬▬ ▬▬   ║ ▬▬▬▬▬        ▬▬▬▬▬▬▬▬▬▬▬▬▬▬                  │
-│ □ ▬▬▬▬▬▬       │ ▶ ▬▬ ▬▬▬ ▬▬   ║ ▬▬▬▬▬▬▬      ▬▬▬▬▬▬▬▬▬▬                      │
-│                │   ▬▬ ▬▬▬ ▬▬   ║ ▬▬▬▬         ▬▬▬▬▬▬▬▬▬▬▬▬                    │
-│                │   ▬▬ ▬▬▬ ▬▬   ║                                              │
-│                │               ║ ──────────────────────────────────────────── │
-│ ────────────── │               ║ Local status                                 │
-│ actions / text │               ║ ──────────────────────────────────────────── │
-│ [ ▬▬▬▬▬▬▬▬ ]   │               ║ Local actions                                │
-│ Some more text │               ║   [ ▬▬ ] [ ▬▬ ]                              │
-├────────────────┴───────────────╨──────────────────────────────────────────────┤
+│ □ A · Global header ▬▬▬▬▬ / ▬▬▬▬▬ / ▬▬▬▬▬             Global utilities  □ □ □ │
+├────────────────┬────────────────────────╥─────────────────────────────────────┤
+│ B · Primary    │ E3 · Workspace toolbar ║ F · Auxiliary pane       □ □ ✕      │
+│ navigation     ├────────────────────────╢ ▬▬▬▬▬▬▬▬▬▬                          │
+│                │ E · Primary workspace  ║ □ ▬▬▬▬▬▬   □ ▬▬▬▬▬▬   □ ▬▬▬▬        │
+│ □ ▬▬▬▬▬▬       │                        ╟─────────────────────────────────────┤
+│ □ ▬▬▬▬         │ □  ▬▬▬  ▬▬▬  ▬▬▬  ▬▬   ║ ▬▬▬▬▬▬       ▬▬▬▬▬▬▬▬▬▬▬            │
+│ ▶ ▬▬▬▬▬▬▬      ├────────────────────────╢ ▬▬▬▬▬▬▬▬     ▬▬▬▬▬▬▬▬               │
+│ □ ▬▬▬▬▬        │ ▶  ▬▬   ▬▬▬  ▬▬   ▬▬▬  ║ ▬▬▬▬▬        ▬▬▬▬▬▬▬▬▬▬▬▬           │
+│ □ ▬▬▬▬▬▬       │ □  ▬▬▬  ▬▬   ▬▬▬  ▬▬   ║ ▬▬▬▬▬▬▬      ▬▬▬▬▬▬▬▬▬▬             │
+│                │ □  ▬▬   ▬▬▬  ▬▬▬  ▬▬   ║ ▬▬▬▬         ▬▬▬▬▬▬▬▬▬▬▬            │
+│                │ □  ▬▬▬  ▬▬   ▬▬   ▬▬▬  ║                                     │
+│                │ □  ▬▬   ▬▬▬  ▬▬▬  ▬▬   ║                                     │
+│ ────────────── │ □  ▬▬▬  ▬▬   ▬▬▬  ▬▬   ╟─────────────────────────────────────┤
+│ actions / text │                        ║ Local status                        │
+│ [ ▬▬▬▬▬▬▬▬ ]   ├────────────────────────╫─────────────────────────────────────┤
+│ Some more text │ 1–6 of 48          □ □ ║ Local actions  [ ▬▬ ] [ ▬▬ ]        │
+├────────────────┴────────────────────────╨─────────────────────────────────────┤
 │ G · Global status                                                 ▬▬▬▬▬▬  ▬▬▬ │
 └───────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -532,9 +536,10 @@ Review the requirements before choosing “still usable”. A `temporary` `Drawe
 
 Components:
 
-- **A** Global header: `Navbar`, or MUI `AppBar`
+- **A** Global header: `Navbar`, or MUI `AppBar`, plus a breadcrumb trail (component to be decided)
 - **B** Primary navigation: `SidebarNav`
 - **E** Primary workspace: Your own content, such as a table view
+- **E3** Workspace toolbar: `Bar`, or MUI `Toolbar`
 - **F** Auxiliary pane: MUI `Drawer` (temporary, right), with MUI `Tabs` for tabbed content
 - **G** Global status: New component, not yet available
 
@@ -550,16 +555,16 @@ Desktop shell with context panel, tabs, toolbar, content, inspector, and local s
 ├────────────────┬────────────────┬─────────────────────────────────────────────┤
 │ B · Primary    │ C · Context    │ D · Workspace selector                      │
 │ navigation     │ panel          │ □ ▬▬▬▬▬▬   □ ▬▬▬▬▬▬   □ ▬▬▬▬▬▬              │
-│                │ [Search/filter]├─────────────────────────────────────────────┤
-│ □ ▬▬▬▬▬▬       │ [▬▬▬] [▬▬▬]    │ E3 · Workspace toolbar  □ □ □               │
-│ □ ▬▬▬▬         │                ├──────────────────────┬──────────────────────┤
-│ ▶ ▬▬▬▬▬▬▬      │ □ ▬▬▬▬▬▬▬    ▴ │                      │ F · Auxiliary  □ □ ✕ │
-│ □ ▬▬▬▬▬        │   ▶ ▬▬▬▬▬      │                      │ Secondary content    │
-│ □ ▬▬▬▬▬▬       │   □ ▬▬▬▬▬      │                      │ ▬▬▬▬▬▬▬▬▬▬▬▬         │
-│                │ □ ▬▬▬▬▬▬▬    ▾ │                      │ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬       │
+│                │ [Search/filter]├──────────────────────┬──────────────────────┤
+│ □ ▬▬▬▬▬▬       │ [▬▬▬] [▬▬▬]    │E3 · Workspace toolbar│ F · Auxiliary  □ □ ✕ │
+│ □ ▬▬▬▬         │                ├──────────────────────┼──────────────────────┤
+│ ▶ ▬▬▬▬▬▬▬      │ □ ▬▬▬▬▬▬▬    ▴ │                      │ Secondary content    │
+│ □ ▬▬▬▬▬        │   ▶ ▬▬▬▬▬      │                      │ ▬▬▬▬▬▬▬▬▬▬▬▬         │
+│ □ ▬▬▬▬▬▬       │   □ ▬▬▬▬▬      │                      │ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬       │
 │                │ □ ▬▬▬▬▬▬▬    ▾ │                      │ ▬▬▬▬▬▬▬▬▬            │
-│                │ □ ▬▬▬▬▬▬▬    ▾ │E1 · Workspace content│ ▬▬▬▬▬▬▬▬▬▬▬▬▬        │
-│                │                │                      │ ▬▬▬▬▬▬▬▬▬▬           │
+│                │ □ ▬▬▬▬▬▬▬    ▾ │                      │ ▬▬▬▬▬▬▬▬▬▬▬▬▬        │
+│                │ □ ▬▬▬▬▬▬▬    ▾ │E1 · Workspace content│ ▬▬▬▬▬▬▬▬▬▬           │
+│                │                │                      │                      │
 │                │                │   Content viewport   │ ──────────────────── │
 │                │                │                      │ Local status         │
 │                │                │                      │ ──────────────────── │
@@ -578,7 +583,7 @@ Components:
 
 - **A** Global header: `Navbar`, or MUI `AppBar`, plus a breadcrumb trail (component to be decided)
 - **B** Primary navigation: `SidebarNav`
-- **C** Context panel: use a local component for now (`SubNav`, once available)
+- **C** Context panel: use a local component for now (`ContextPanel` with a tree, once available)
 - **D** Workspace selector: MUI `Tabs`
 - **E1** Workspace content: Your own content
 - **E3** Workspace toolbar: `Bar`, or MUI `Toolbar`
@@ -629,40 +634,39 @@ Components:
 
 ### 9. Modal pane
 
-Desktop shell with a modal pane for a form or other content, laid over the context panel and the workspace. A backdrop, not drawn here, dims and blocks the whole screen, including the header and navigation.
+Desktop shell with a modal pane for a form or other content, laid over the workspace. A backdrop, not drawn here, dims and blocks the whole screen, including the header and navigation.
 
 <div className="ds-ascii">
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────┐
-│ □ A · Global header ▬▬▬▬▬▬▬                           Global utilities  □ □ □ │
-├────────────────┬────────────────┬─────────────────────────────────────────────┤
-│ B · Primary    │ C · Context    │                                             │
-│ navigation     │ pa╔═════════════════════════════════════╗                    │
-│                │   ║ H · Modal pane                  □ ✕ ║                    │
-│ □ ▬▬▬▬▬▬       │ Se║ ─────────────────────────────────── ║                    │
-│ □ ▬▬▬▬         │ na║ Form or content                     ║                    │
-│ ▶ ▬▬▬▬▬▬▬      │ ▶ ║ ▬▬▬▬▬▬                              ║                    │
-│ □ ▬▬▬▬▬        │ □ ║ [ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ]       ║                    │
-│ □ ▬▬▬▬▬▬       │ □ ║ ▬▬▬▬▬▬▬▬                            ║                    │
-│                │ □ ║ [ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ]       ║                    │
-│                │ □ ║ ─────────────────────────────────── ║                    │
-│                │ □ ║ Local actions         [ ▬▬ ] [ ▬▬ ] ║                    │
-│ ────────────── │   ╚═════════════════════════════════════╝                    │
-│ actions / text │                │                                             │
-│ [ ▬▬▬▬▬▬▬▬ ]   │                │            E · Primary workspace            │
-│ Some more text │                │               Content viewport              │
-└────────────────┴────────────────┴─────────────────────────────────────────────┘
+│ □ A · Global header ▬▬▬▬▬ / ▬▬▬▬▬ / ▬▬▬▬▬             Global utilities  □ □ □ │
+├────────────────┬──────────────────────────────────────────────────────────────┤
+│ B · Primary    │ E · Primary workspace                                        │
+│ navigation     │          ╔═══════════════════════════════════════╗           │
+│                │ □  ▬▬▬▬▬▬║ H · Modal pane                    □ ✕ ║           │
+│ □ ▬▬▬▬▬▬       │──────────╢ ───────────────────────────────────── ╟───────────│
+│ □ ▬▬▬▬         │ ▶  ▬▬▬▬▬▬║ Form or content                       ║           │
+│ ▶ ▬▬▬▬▬▬▬      │ □  ▬▬▬▬▬▬║ ▬▬▬▬▬▬                                ║           │
+│ □ ▬▬▬▬▬        │ □  ▬▬▬▬▬ ║ [ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ]           ║           │
+│ □ ▬▬▬▬▬▬       │ □  ▬▬▬▬▬▬║ ▬▬▬▬▬▬▬▬                              ║           │
+│                │ □  ▬▬▬▬▬▬║ [ ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ ]           ║           │
+│                │ □  ▬▬▬▬▬▬║ ───────────────────────────────────── ║           │
+│                │ □  ▬▬▬▬▬▬║ Local actions           [ ▬▬ ] [ ▬▬ ] ║           │
+│ ────────────── │ □  ▬▬▬▬▬ ╚═══════════════════════════════════════╝           │
+│ actions / text │                                                              │
+│ [ ▬▬▬▬▬▬▬▬ ]   │──────────────────────────────────────────────────────────────│
+│ Some more text │ 1–10 of 48                                               □ □ │
+└────────────────┴──────────────────────────────────────────────────────────────┘
 ```
 
 </div>
 
 Components:
 
-- **A** Global header: `Navbar`, or MUI `AppBar`
+- **A** Global header: `Navbar`, or MUI `AppBar`, plus a breadcrumb trail (component to be decided)
 - **B** Primary navigation: `SidebarNav`
-- **C** Context panel: use a local component for now (`SubNav`, once available)
-- **E** Primary workspace: Your own content
+- **E** Primary workspace: Your own content, such as a table view
 - **H** Modal pane: MUI `Dialog`
 
 </div>
