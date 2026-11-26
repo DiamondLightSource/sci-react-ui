@@ -1,15 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import {
-  Box,
-  FileCopyIcon,
-  PrintIcon,
-  SaveIcon,
-  ShareIcon,
-  SpeedDialAction,
-  SpeedDial,
-  WorkIcon,
-} from "../MuiWrapped";
+import { Box, SpeedDialAction, SpeedDial } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Briefcase, Copy, Printer, Save, Share2 } from "lucide-react";
 import React from "react";
 
 const meta: Meta<typeof SpeedDial> = {
@@ -44,7 +37,7 @@ export const Basic: Story = {
           open={open}
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
-          icon={<WorkIcon aria-label="Open actions" />}
+          icon={<LucideIcon icon={Briefcase} aria-label="Open actions" />}
           sx={{
             position: "absolute",
             bottom: 16,
@@ -52,22 +45,22 @@ export const Basic: Story = {
           }}
         >
           <SpeedDialAction
-            icon={<FileCopyIcon />}
+            icon={<LucideIcon icon={Copy} />}
             slotProps={{ tooltip: { title: "Copy" } }}
             onClick={() => setOpen(false)}
           />
           <SpeedDialAction
-            icon={<SaveIcon />}
+            icon={<LucideIcon icon={Save} />}
             slotProps={{ tooltip: { title: "Save" } }}
             onClick={() => setOpen(false)}
           />
           <SpeedDialAction
-            icon={<PrintIcon />}
+            icon={<LucideIcon icon={Printer} />}
             slotProps={{ tooltip: { title: "Print" } }}
             onClick={() => setOpen(false)}
           />
           <SpeedDialAction
-            icon={<ShareIcon />}
+            icon={<LucideIcon icon={Share2} />}
             slotProps={{ tooltip: { title: "Share" } }}
             onClick={() => setOpen(false)}
           />
