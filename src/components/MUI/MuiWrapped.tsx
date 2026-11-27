@@ -10,6 +10,9 @@ import MuiAccordionSummary, {
   AccordionSummaryProps as MuiAccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
 import MuiAlert, { AlertProps as MuiAlertProps } from "@mui/material/Alert";
+import MuiAlertTitle, {
+  AlertTitleProps as MuiAlertTitleProps,
+} from "@mui/material/AlertTitle";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import MuiAvatar, { AvatarProps as MuiAvatarProps } from "@mui/material/Avatar";
 import MuiAvatarGroup, {
@@ -211,6 +214,10 @@ export const AccordionSummary = MuiWrapper<MuiAccordionSummaryProps>(
 );
 
 export const Alert = MuiWrapper<MuiAlertProps>(MuiAlert, "Alert");
+export const AlertTitle = MuiWrapper<MuiAlertTitleProps>(
+  MuiAlertTitle,
+  "AlertTitle",
+);
 
 export const AppBar = MuiWrapper<MuiAppBarProps>(MuiAppBar, "AppBar");
 export const Avatar = MuiWrapper<MuiAvatarProps>(MuiAvatar, "Avatar");

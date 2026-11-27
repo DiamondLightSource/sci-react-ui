@@ -1225,6 +1225,21 @@ describe("DiamondDS component overrides", () => {
     );
   });
 
+  it("sizes Alert icons from MUI's 22px icon box and spaces the title", () => {
+    const components = DiamondDSTheme.components;
+    const iconMapping = components?.MuiAlert?.defaultProps?.iconMapping;
+    const title = components?.MuiAlertTitle?.styleOverrides?.root;
+
+    expect(iconMapping?.success).toMatchObject({
+      props: { fontSize: "inherit" },
+    });
+    expect(title).toMatchObject({
+      marginTop: 0,
+      marginBottom: 4,
+      "&:last-child": { marginBottom: 0 },
+    });
+  });
+
   it("defaults MUI's built-in icons to Lucide", () => {
     const components = DiamondDSTheme.components;
     const iconMapping = components?.MuiAlert?.defaultProps?.iconMapping;

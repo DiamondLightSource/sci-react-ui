@@ -1963,10 +1963,10 @@ const DiamondDSTheme = extendTheme({
        */
       defaultProps: {
         iconMapping: {
-          success: createElement(CheckCircleIcon, { size: "sm" }),
-          info: createElement(InfoIcon, { size: "sm" }),
-          warning: createElement(AlertTriangleIcon, { size: "sm" }),
-          error: createElement(CircleXIcon, { size: "sm" }),
+          success: createElement(CheckCircleIcon, { fontSize: "inherit" }),
+          info: createElement(InfoIcon, { fontSize: "inherit" }),
+          warning: createElement(AlertTriangleIcon, { fontSize: "inherit" }),
+          error: createElement(CircleXIcon, { fontSize: "inherit" }),
         },
         slots: { closeIcon: CloseIcon },
       },
@@ -2019,6 +2019,21 @@ const DiamondDSTheme = extendTheme({
             color: `var(--ds-on-${tokenName}-container)`,
             border: "1px solid var(--ds-border-subtle)",
           };
+        },
+        message: {
+          padding: "6px 0",
+          // Centres a one-line message on the 22px icon, as the title does.
+          "&:not(:has(.MuiAlertTitle-root))": { padding: "7.5px 0" },
+        },
+      },
+    },
+
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          marginTop: 0,
+          marginBottom: 4,
+          "&:last-child": { marginBottom: 0 },
         },
       },
     },
