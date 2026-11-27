@@ -8,6 +8,7 @@ const muiFontSizeMap: Record<string, IconSize> = {
   small: "sm",
   medium: "md",
   large: "lg",
+  inherit: "md",
 };
 
 export interface LucideIconProps extends Omit<SvgIconProps, "component"> {

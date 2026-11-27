@@ -17,6 +17,7 @@
 - `ImageWithZoom`: click or drag to move the lens. The lens and zoom view borders now use theme-based colours.
 - `DiamondDSIntegrations.mrtOptions({ onRowReorder })` adds row reordering: drag with a drop line between rows, plus Move to top/up/down/bottom in the row menu, announced to screen readers. `isRowMovable` locks rows.
 - `useRowReorder` adds a toggleable reorder mode to MRT tables.
+- _Alert_ now matches the Figma spacing and icons: 4px between title and description, 22px icons with a heavier stroke, and a message centred on the icon.
 - _LinearProgress_ and _CircularProgress_ now default to `color="info"`. Set `color="primary"` to keep the previous look.
 - New `--ds-on-surface-disabled-opacity` token. Disabled Lucide icons and the read-only `Select` icon use it instead of a translucent colour, so strokes no longer darken where they overlap.
 - `MenuItem`: the icon box is 28px wide instead of 36px, so the gap after a 20px icon is 8px.

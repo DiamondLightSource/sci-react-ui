@@ -6,7 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
-  CircleCheck,
+  CircleCheckBig,
   CircleX,
   House,
   Info,
@@ -49,7 +49,7 @@ export const ArrowRightIcon = /*#__PURE__*/ createIcon(
   "ArrowRightIcon",
 );
 export const CheckCircleIcon = /*#__PURE__*/ createIcon(
-  CircleCheck,
+  CircleCheckBig,
   "CheckCircleIcon",
 );
 export const ChevronDownIcon = /*#__PURE__*/ createIcon(
