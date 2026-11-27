@@ -137,7 +137,7 @@ export const DataTag = <T extends string | number>({
         <Typography
           variant={"body1"}
           color={"inherit"}
-          fontWeight={"bold"}
+          fontWeight={"var(--ds-font-weight-semibold)"}
           flexGrow={1}
         >
           {formattedValue ?? "?"}
