@@ -22,6 +22,27 @@ import "@fontsource/ibm-plex-mono/latin-600.css";
 import "../styles/diamondDS/DiamondDSTokens.css";
 import "../styles/diamondDS/DiamondDSTypography.css";
 
+import { createElement, forwardRef } from "react";
+import {
+  ArrowDown,
+  ChevronsLeft,
+  ChevronsRight,
+  Ellipsis,
+  type LucideIcon as LucideIconType,
+} from "lucide-react";
+import {
+  AlertTriangleIcon,
+  CheckCircleIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CircleXIcon,
+  CloseIcon,
+  InfoIcon,
+  LucideIcon,
+  type LucideIconProps,
+} from "../components/datadisplay/Icons";
+
 // Enables `theme.vars` typings for MUI CSS variable themes.
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import {
@@ -589,6 +610,46 @@ const getDisabledControlStyles = (backgroundColor = "transparent"): CSSObject =>
     boxShadow: "none",
   }) satisfies CSSObject;
 
+/** MUI slots take a component type, so these are not exported as library icons. */
+const createSlotIcon = (icon: LucideIconType, displayName: string) => {
+  const SlotIcon = forwardRef<SVGSVGElement, Omit<LucideIconProps, "icon">>(
+    (props, ref) => createElement(LucideIcon, { ref, icon, ...props }),
+  );
+  SlotIcon.displayName = displayName;
+  return SlotIcon;
+};
+
+const ArrowDownSlotIcon = createSlotIcon(ArrowDown, "ArrowDownSlotIcon");
+const ChevronsLeftSlotIcon = createSlotIcon(
+  ChevronsLeft,
+  "ChevronsLeftSlotIcon",
+);
+const ChevronsRightSlotIcon = createSlotIcon(
+  ChevronsRight,
+  "ChevronsRightSlotIcon",
+);
+const EllipsisSlotIcon = createSlotIcon(Ellipsis, "EllipsisSlotIcon");
+
+/**
+ * Fades an icon with opacity on an opaque colour. A translucent colour would
+ * darken where the strokes of an outline icon overlap.
+ */
+const disabledIconStyles: CSSObject = {
+  color: "var(--ds-on-surface)",
+  opacity: "var(--ds-on-surface-disabled-opacity)",
+};
+
+/**
+ * MUI already fades these components when disabled, so their icons must not
+ * fade again. The icon keeps the colour of its parent.
+ */
+const parentFadedIconStyles: CSSObject = {
+  "&.Mui-disabled .MuiSvgIcon-root": {
+    color: "inherit",
+    opacity: 1,
+  },
+};
+
 /**
  * Creates the resolved DiamondDS MUI theme.
  *
@@ -808,6 +869,8 @@ const DiamondDSTheme = extendTheme({
      *   MuiTab              → navigation hierarchy and selected state
      *   MuiAlert            → semantic feedback variants
      *   MuiChip             → metadata, status and interactive chips
+     *   MuiMenuItem, MuiListItemButton, MuiPaginationItem, MuiAccordionSummary
+     *                       → disabled icons are not faded twice
      *
      * Progress and loading:
      *   MuiLinearProgress   → semantic activity indicators
@@ -907,6 +970,10 @@ const DiamondDSTheme = extendTheme({
     },
 
     MuiAutocomplete: {
+      defaultProps: {
+        popupIcon: createElement(ChevronDownIcon),
+        clearIcon: createElement(CloseIcon, { fontSize: "small" }),
+      },
       /**
        * Autocomplete renders its own Paper and defaults to elevation 1
        * internally, unlike Popover/Menu/Select's 8 — even though this is
@@ -955,6 +1022,12 @@ const DiamondDSTheme = extendTheme({
           ownerState.variant === "temporary"
             ? { boxShadow: "var(--Paper-shadow)" }
             : {},
+      },
+    },
+
+    MuiBreadcrumbs: {
+      defaultProps: {
+        slots: { CollapsedIcon: EllipsisSlotIcon },
       },
     },
 
@@ -1273,11 +1346,39 @@ const DiamondDSTheme = extendTheme({
        *
        * Interactive chips receive focus and overlay states; static chips remain calm.
        */
+      defaultProps: {
+        deleteIcon: createElement(CloseIcon),
+      },
       styleOverrides: {
         root: ({ ownerState }: OverrideArgs<ChipProps>): CSSObject => {
+          const iconSize = ownerState.size === "small" ? 16 : 18;
+
           const base: CSSObject = {
             "& .MuiChip-icon": {
               color: "currentColor",
+              fontSize: iconSize,
+            },
+
+            /** Opacity, not a translucent colour: MUI's default would darken where the strokes cross. */
+            "& .MuiChip-deleteIcon": {
+              color: "currentColor",
+              fontSize: iconSize,
+              opacity: 0.7,
+
+              "&:hover": {
+                color: "currentColor",
+                opacity: 1,
+              },
+            },
+
+            "&.Mui-disabled": {
+              ...getDisabledControlStyles("var(--ds-surface-disabled)"),
+              borderColor: "var(--ds-border-subtle)",
+
+              "& .MuiChip-icon, & .MuiChip-deleteIcon": disabledIconStyles,
+              "& .MuiChip-avatar": {
+                opacity: "var(--ds-on-surface-disabled-opacity)",
+              },
             },
           };
 
@@ -1673,11 +1774,25 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiNativeSelect: {
+      defaultProps: {
+        IconComponent: ChevronDownIcon,
+      },
+      styleOverrides: {
+        icon: { "&.Mui-disabled": disabledIconStyles },
+      },
+    },
+
     MuiSelect: {
+      defaultProps: {
+        IconComponent: ChevronDownIcon,
+      },
       styleOverrides: {
         /** Read-only Select never opens, so the chevron is muted like a disabled one. */
-        icon: ({ ownerState }: OverrideArgs<SelectProps>): CSSObject =>
-          ownerState.readOnly ? { color: "var(--ds-on-surface-disabled)" } : {},
+        icon: ({ ownerState }: OverrideArgs<SelectProps>): CSSObject => ({
+          "&.Mui-disabled": disabledIconStyles,
+          ...(ownerState.readOnly ? disabledIconStyles : {}),
+        }),
       },
     },
 
@@ -1743,7 +1858,62 @@ const DiamondDSTheme = extendTheme({
       },
     },
 
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          ...parentFadedIconStyles,
+          // MUI's 36px leaves a 16px gap after a 20px icon.
+          "& .MuiListItemIcon-root": { minWidth: 28 },
+        },
+      },
+    },
+
+    MuiListItemButton: {
+      styleOverrides: { root: parentFadedIconStyles },
+    },
+
+    MuiAccordionSummary: {
+      styleOverrides: { root: parentFadedIconStyles },
+    },
+
+    MuiPaginationItem: {
+      styleOverrides: { root: parentFadedIconStyles },
+      defaultProps: {
+        slots: {
+          first: ChevronsLeftSlotIcon,
+          previous: ChevronLeftIcon,
+          next: ChevronRightIcon,
+          last: ChevronsRightSlotIcon,
+        },
+      },
+    },
+
+    MuiTablePagination: {
+      defaultProps: {
+        slots: {
+          actions: {
+            firstButtonIcon: ChevronsLeftSlotIcon,
+            previousButtonIcon: ChevronLeftIcon,
+            nextButtonIcon: ChevronRightIcon,
+            lastButtonIcon: ChevronsRightSlotIcon,
+          },
+        },
+      },
+    },
+
+    MuiTableSortLabel: {
+      defaultProps: {
+        IconComponent: ArrowDownSlotIcon,
+      },
+    },
+
     MuiTabs: {
+      defaultProps: {
+        slots: {
+          StartScrollButtonIcon: ChevronLeftIcon,
+          EndScrollButtonIcon: ChevronRightIcon,
+        },
+      },
       styleOverrides: {
         root: {
           minHeight: 44,
@@ -1791,6 +1961,15 @@ const DiamondDSTheme = extendTheme({
        * Alerts use status intents only. Filled alerts use solid/onSolid; standard and
        * outlined alerts use container/onContainer.
        */
+      defaultProps: {
+        iconMapping: {
+          success: createElement(CheckCircleIcon, { size: "sm" }),
+          info: createElement(InfoIcon, { size: "sm" }),
+          warning: createElement(AlertTriangleIcon, { size: "sm" }),
+          error: createElement(CircleXIcon, { size: "sm" }),
+        },
+        slots: { closeIcon: CloseIcon },
+      },
       styleOverrides: {
         root: ({ ownerState }: OverrideArgs<AlertProps>): CSSObject => {
           const severity = getIntentFromColourProp(

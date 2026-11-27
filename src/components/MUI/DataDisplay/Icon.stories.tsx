@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import { AddIcon, DeleteIcon, Icon, SendIcon } from "../MuiWrapped";
+import { Icon } from "../MuiWrapped";
 import { colourSet } from "../../../utils/diamond";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Plus, Send, Trash2 } from "lucide-react";
 
 const iconChildrenMap = {
-  add: <AddIcon />,
-  send: <SendIcon />,
-  delete: <DeleteIcon />,
+  add: <LucideIcon icon={Plus} />,
+  send: <LucideIcon icon={Send} />,
+  delete: <LucideIcon icon={Trash2} />,
 } as const;
 
 const meta: Meta<typeof Icon> = {

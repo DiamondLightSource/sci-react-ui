@@ -1,23 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react-webpack5";
 import React from "react";
 import { colourSet } from "../../../utils/diamond";
-import {
-  Button,
-  Chip,
-  Stack,
-  SaveIcon,
-  SendIcon,
-  DeleteIcon,
-  AddIcon,
-} from "../MuiWrapped";
+import { Button, Chip, Stack } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { Plus, Save, Send, Trash2 } from "lucide-react";
 
 const iconMap = {
   none: undefined,
-  save: <SaveIcon />,
-  send: <SendIcon />,
-  delete: <DeleteIcon />,
-  add: <AddIcon />,
+  save: <LucideIcon icon={Save} />,
+  send: <LucideIcon icon={Send} />,
+  delete: <LucideIcon icon={Trash2} />,
+  add: <LucideIcon icon={Plus} />,
 } as const;
 
 const meta: Meta<typeof Chip> = {

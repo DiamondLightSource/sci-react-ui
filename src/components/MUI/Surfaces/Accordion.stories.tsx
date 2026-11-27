@@ -3,11 +3,12 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  ExpandMoreIcon,
   Stack,
   Typography,
 } from "../MuiWrapped";
 import { muiDocsParameters } from "../../../../.storybook/muiDocsParameters";
+import { LucideIcon } from "../../datadisplay/Icons";
+import { ChevronDown } from "lucide-react";
 
 const meta: Meta<typeof Accordion> = {
   title: "MUI/Surfaces/Accordion",
@@ -37,7 +38,7 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   render: (args) => (
     <Accordion {...args}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary expandIcon={<LucideIcon icon={ChevronDown} />}>
         <Typography>Summary</Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -51,7 +52,7 @@ export const Multiple: Story = {
   render: (args) => (
     <Stack spacing={1.5}>
       <Accordion {...args}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary expandIcon={<LucideIcon icon={ChevronDown} />}>
           <Typography>Item 1</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -59,7 +60,7 @@ export const Multiple: Story = {
         </AccordionDetails>
       </Accordion>
       <Accordion {...args}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary expandIcon={<LucideIcon icon={ChevronDown} />}>
           <Typography>Item 2</Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -74,7 +75,7 @@ export const Disabled: Story = {
   args: { disabled: true },
   render: (args) => (
     <Accordion {...args}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary expandIcon={<LucideIcon icon={ChevronDown} />}>
         <Typography>Disabled</Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -88,7 +89,7 @@ export const DefaultExpanded: Story = {
   args: { defaultExpanded: true },
   render: (args) => (
     <Accordion {...args}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary expandIcon={<LucideIcon icon={ChevronDown} />}>
         <Typography>Expanded by default</Typography>
       </AccordionSummary>
       <AccordionDetails>
