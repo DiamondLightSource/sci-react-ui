@@ -49,7 +49,7 @@ Components should consume semantic theme roles rather than hardcoded values. The
   <tbody>
     <tr>
       <td>
-        <code>theme.palette.primary.main</code>
+        <code>theme.vars.palette.primary.main</code>
       </td>
       <td>
         <code>#005bbb</code>
@@ -79,6 +79,39 @@ Components should consume semantic theme roles rather than hardcoded values. The
 Using semantic roles keeps interfaces consistent across products, supports light
 and dark themes, and allows the system to evolve without rewriting component
 styles.
+
+### Read intent colours from `theme.vars`
+
+The light, main, dark and contrast text slots of the intent colours (primary, secondary, error, warning, success, info) are fixed hex values on `theme.palette`. Read in code, they give the light theme's colour in both modes and do not change when the mode does. `theme.vars.palette` returns a CSS variable instead, so the colour follows the mode. It is there whenever the theme uses CSS variables, as the Diamond theme does.
+
+<table className="ds-table">
+  <thead>
+    <tr>
+      <th>✅ Prefer</th>
+      <th>❌ Avoid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>theme.vars.palette.primary.main</code>
+      </td>
+      <td>
+        <code>theme.palette.primary.main</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>rgb(var(--ds-primary-channel) / 0.12)</code>
+      </td>
+      <td>
+        <code>alpha(theme.palette.primary.main, 0.12)</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+Roles that are already CSS variables, such as text, background, border, surface and the container and solid roles, are safe to read from either. `alpha()`, `lighten()` and `darken()` throw on a `var()` colour, so use the channel tokens for transparency. The tokens for the error intent are named `danger`, so its channel token is `--ds-danger-channel`.
 
 ## Using components
 
@@ -217,7 +250,7 @@ Brand colour is intentionally separate. Brand communicates Diamond identity rath
     <ul>
       <li>Use neutral roles for structure.</li>
       <li>Use intent roles for meaning.</li>
-      <li>Use <code>theme.palette</code> or MUI component props so colours work across light and dark themes.</li>
+      <li>Use theme roles or MUI component props so colours work across light and dark themes.</li>
       <li>Ensure disabled and error states override hover, focus and selected styling.</li>
     </ul>
   </div>
@@ -253,7 +286,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-[token]</code>
       </td>
       <td>
-        <code>palette.[role].main</code>
+        <code>theme.vars.palette.[role].main</code>
       </td>
       <td>Main semantic colour</td>
       <td>Actions, status communication, emphasis, identity</td>
@@ -263,7 +296,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-on-[token]</code>
       </td>
       <td>
-        <code>palette.[role].contrastText</code>
+        <code>theme.vars.palette.[role].contrastText</code>
       </td>
       <td>Foreground colour paired with the role</td>
       <td>Text and icons shown on the role colour</td>
@@ -273,7 +306,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-[token]-emphasis</code>
       </td>
       <td>
-        <code>palette.[role].dark</code>
+        <code>theme.vars.palette.[role].dark</code>
       </td>
       <td>Stronger variation of the role</td>
       <td>Hover, active, or stronger emphasis states</td>
@@ -283,7 +316,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-[token]-accent</code>
       </td>
       <td>
-        <code>palette.[role].light</code>
+        <code>theme.vars.palette.[role].light</code>
       </td>
       <td>Lighter accent variation</td>
       <td>Focus rings, highlights, supporting accents</td>
@@ -293,7 +326,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-[token]-container</code>
       </td>
       <td>
-        <code>palette.[role].container</code>
+        <code>theme.vars.palette.[role].container</code>
       </td>
       <td>Lower-emphasis role surface</td>
       <td>Chips, alerts, selected regions, grouped states</td>
@@ -303,7 +336,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-on-[token]-container</code>
       </td>
       <td>
-        <code>palette.[role].onContainer</code>
+        <code>theme.vars.palette.[role].onContainer</code>
       </td>
       <td>Foreground colour paired with role containers</td>
       <td>Text and icons inside semantic containers</td>
@@ -313,7 +346,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-[token]-solid</code>
       </td>
       <td>
-        <code>palette.[role].solid</code>
+        <code>theme.vars.palette.[role].solid</code>
       </td>
       <td>High-emphasis interactive surface</td>
       <td>Contained buttons and strong interactive controls</td>
@@ -323,7 +356,7 @@ Each role includes related tokens for emphasis, contrast, containers, and intera
         <code>--ds-on-[token]-solid</code>
       </td>
       <td>
-        <code>palette.[role].onSolid</code>
+        <code>theme.vars.palette.[role].onSolid</code>
       </td>
       <td>Foreground colour paired with solid surfaces</td>
       <td>Text and icons inside solid controls</td>
